@@ -1,21 +1,12 @@
 ﻿using Microsoft.VisualBasic;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Korot;
-using AutoUpdaterDotNET;
-using Microsoft.WindowsAPICodePack.Taskbar;
-using System.Reflection;
-using Microsoft.WindowsAPICodePack.Shell;
 
 namespace Korot
 {
@@ -316,25 +307,37 @@ namespace Korot
             }
 
         }
+        public bool IsProcessOpen(string name)
+        {
+            //here we're going to get a list of all running processes on
+            //the computer
+            foreach (Process clsProcess in Process.GetProcesses())
+            {
+                //now we're going to see if any of the running processes
+                //match the currently running processes. Be sure to not
+                //add the .exe to the name you provide, i.e: NOTEPAD,
+                //not NOTEPAD.EXE or false is always returned even if
+                //notepad is running.
+                //Remember, if you have the process running more than once, 
+                //say IE open 4 times the loop thr way it is now will close all 4,
+                //if you want it to just close the first one it finds
+                //then add a return; after the Kill
+                if (clsProcess.ProcessName.Contains(name))
+                {
+                    //if the process is found to be running then we
+                    //return a true
+                    return true;
+                }
+            }
+            //otherwise we return a false
+            return false;
+        }
         public void Updater()
         {
-            if (Environment.Is64BitProcess)
+            string KorotInstaller = new DirectoryInfo(Application.StartupPath).Parent.FullName + "\\Korot-Installer.exe";
+            if (!IsProcessOpen(KorotInstaller))
             {
-                label1.Visible = true;
-                AutoUpdater.Start("https://onedrive.live.com/download?resid=3FD0899CA240B9B!2119&authkey=!AGchdwUM9Ot5SVg");
-                AutoUpdater.ShowSkipButton = false;
-                AutoUpdater.Mandatory = true;
-                AutoUpdater.ReportErrors = false;
-                AutoUpdater.DownloadPath = Application.StartupPath;
-            }
-            else
-            {
-                label1.Visible = false;
-                AutoUpdater.Start("https://onedrive.live.com/download?resid=3FD0899CA240B9B!2118&authkey=!ACSQDO0Z7rfIysk");
-                AutoUpdater.ShowSkipButton = false;
-                AutoUpdater.Mandatory = true;
-                AutoUpdater.ReportErrors = false;
-                AutoUpdater.DownloadPath = Application.StartupPath;
+ Process.Start(KorotInstaller);
             }
         }
         string profilePath;
