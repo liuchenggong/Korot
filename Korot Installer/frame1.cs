@@ -22,11 +22,14 @@ namespace Korot_Installer
             WebC.DownloadProgressChanged += WebC_StatusChanged;
             WebC.DownloadFileCompleted += WebC_DownloadFileCompleted;
         }
+        bool initMode = true;
         bool UpdateKorot = false;
         bool RepairMode = false;
         WebClient WebC = new WebClient();
         private void WebC_StatusChanged(object sender,DownloadProgressChangedEventArgs e)
         {
+            if (initMode) { label1.Text = "Initializing..."; } else { label1.Text = "Downloading..."; }
+            button1.Enabled = false;
             panel1.Visible = true;
             pictureBox1.Width = e.ProgressPercentage * 3;
             label2.Visible = true;
@@ -34,6 +37,9 @@ namespace Korot_Installer
         }
         private void WebC_DownloadStringCompleted(object sender,DownloadStringCompletedEventArgs e)
         {
+            panel1.Visible = false;
+            initMode = false;
+            button1.Enabled = true;
             label2.Visible = false;
             if ((!e.Cancelled) && (e.Error == null))
             {
@@ -58,6 +64,7 @@ namespace Korot_Installer
                 }
                 else
                 {
+                    label1.Text = "Your Korot is ready to be downloaded and installed.";
                     VersionDownloaded = e.Result;
                 }
             }
