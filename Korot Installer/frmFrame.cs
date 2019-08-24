@@ -89,6 +89,10 @@ namespace Korot_Installer
             {
                 label3.Enabled = false;
                 label3.Visible = false;
+            }else
+            {
+                label3.Enabled = true;
+                label3.Visible = true;
             }
         }
 

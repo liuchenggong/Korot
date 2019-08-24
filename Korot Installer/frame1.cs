@@ -19,6 +19,8 @@ namespace Korot_Installer
             InitializeComponent();
             FrameForm = frameform;
             WebC.DownloadStringCompleted += WebC_DownloadStringCompleted;
+            WebC.DownloadProgressChanged += WebC_StatusChanged;
+            WebC.DownloadFileCompleted += WebC_DownloadFileCompleted;
         }
         bool UpdateKorot = false;
         bool RepairMode = false;
@@ -182,14 +184,29 @@ namespace Korot_Installer
                 {
                     InstallFile("Korot Beta", Application.StartupPath + "\\install.hta", Application.StartupPath + "\\Korot\\");
                 }
+            }else
+            {
+                label1.Text = "Error while downloading files.";
+                if (e.Cancelled == true) { label2.Text = "Cancelled."; } else { label2.Text = e.Error.Message; }
+                button1.Enabled = true;
+                button2.Enabled = true;
+                label3.Visible = false;
+                if (UpdateKorot || RepairMode)
+                {
+                    button2.Visible = true;
+                }
+                FrameForm.Invoke(new Action(() => FrameForm.doNotClose = false));
+
             }
             }
         private void Button1_Click(object sender, EventArgs e)
         {
+            label3.Visible = true;
             FrameForm.Invoke(new Action(() => FrameForm.doNotClose = true)) ;
             button1.Enabled = false;
             button2.Visible = false;
             panel1.Visible = true;
+            label2.Visible = true;
             pictureBox1.Width = 0;
             if (UpdateKorot) //Update
             {
@@ -247,6 +264,11 @@ namespace Korot_Installer
                 writer.WriteLine("IconIndex=0");
                 writer.WriteLine("IconFile=" + AppExe.Replace('\\', '/'));
             }
+        }
+
+        private void Label3_Click(object sender, EventArgs e)
+        {
+            WebC.CancelAsync();
         }
     }
 }
