@@ -6,7 +6,10 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
+using static System.Console;
+using static System.Threading.Thread;
 
 namespace Korot
 {
@@ -209,6 +212,7 @@ namespace Korot
             Properties.Settings.Default.downloadOpen = SplittedFase[2].Replace(Environment.NewLine, "") == "1";
             Properties.Settings.Default.downloadClose = SplittedFase[3].Replace(Environment.NewLine, "") == "1";
             Properties.Settings.Default.ThemeFile = SplittedFase[4].Replace(Environment.NewLine, "");
+            if (Properties.Settings.Default.Homepage == "korot://newtab") { radioButton1.Enabled = true; }
             ReadFile.Close();
             if (Properties.Settings.Default.ThemeFile == null || !File.Exists(Properties.Settings.Default.ThemeFile))
             {
@@ -335,15 +339,81 @@ namespace Korot
         public void Updater()
         {
             string KorotInstaller = new DirectoryInfo(Application.StartupPath).Parent.FullName + "\\Korot-Installer.exe";
-            if (!IsProcessOpen(KorotInstaller))
+            try
             {
- Process.Start(KorotInstaller);
+                if (!IsProcessOpen(KorotInstaller))
+                {
+                    Process.Start(KorotInstaller);
+                }
+            }catch (Exception ex)
+            {
+                Console.WriteLine("[ERROR] Update error : " + ex.Message + " | Korot-Installer Path:" + KorotInstaller);
             }
+        }
+        private static void Grasshoper()
+        {
+            Thread.Sleep(2000);
+            Console.Beep(264, 125);
+            Thread.Sleep(250);
+            Console.Beep(264, 125);
+            Thread.Sleep(125);
+            Console.Beep(297, 500);
+            Thread.Sleep(125);
+            Console.Beep(264, 500);
+            Thread.Sleep(125);
+            Console.Beep(352, 500);
+            Thread.Sleep(125);
+            Console.Beep(330, 1000);
+            Thread.Sleep(250);
+            Console.Beep(264, 125);
+            Thread.Sleep(250);
+            Console.Beep(264, 125);
+            Thread.Sleep(125);
+            Console.Beep(297, 500);
+            Thread.Sleep(125);
+            Console.Beep(264, 500);
+            Thread.Sleep(125);
+            Console.Beep(396, 500);
+            Thread.Sleep(125);
+            Console.Beep(352, 1000);
+            Thread.Sleep(250);
+            Console.Beep(264, 125);
+            Thread.Sleep(250);
+            Console.Beep(264, 125);
+            Thread.Sleep(125);
+            Console.Beep(2642, 500);
+            Thread.Sleep(125);
+            Console.Beep(440, 500);
+            Thread.Sleep(125);
+            Console.Beep(352, 250);
+            Thread.Sleep(125);
+            Console.Beep(352, 125);
+            Thread.Sleep(125);
+            Console.Beep(330, 500);
+            Thread.Sleep(125);
+            Console.Beep(297, 1000);
+            Thread.Sleep(250);
+            Console.Beep(466, 125);
+            Thread.Sleep(250);
+            Console.Beep(466, 125);
+            Thread.Sleep(125);
+            Console.Beep(440, 500);
+            Thread.Sleep(125);
+            Console.Beep(352, 500);
+            Thread.Sleep(125);
+            Console.Beep(396, 500);
+            Thread.Sleep(125);
+            Console.Beep(352, 1000);
         }
         string profilePath;
         frmSettings frmS = new frmSettings();
         private void frmMain_Load(object sender, EventArgs e)
         {
+            if (DateTime.Now.ToString("MM") == "03" & DateTime.Now.ToString("dd") == "11" & DateTime.Now.ToString("HH") == "20")
+            {
+                Grasshoper();
+                Output.WriteLine("Happy " + (DateTime.Now.Year - 2001) + "th Birthday Dad!");
+           }
             tbKorot.Parent = null;           
             frmS.tabControl1.TabPages.Add(tbKorot);
             Updater();
@@ -446,7 +516,7 @@ namespace Korot
             if (tabControl1.SelectedTab == tabPage2)
             {
                 tabControl1.SelectedIndex -= 1;
-                NewTab(Properties.Settings.Default.Homepage);
+                NewTab("korot://newtab");
             }
            
             else
@@ -534,6 +604,7 @@ namespace Korot
         public string SearchOnPage = "Search: ";
         public string CaseSensitive = "Case Sensitive";
         public string ErrorHTML;
+        public string NewTabHTML;
     public string privatemode = "Incognito";
     public string updateTitle = "Korot - Update";
     public string updateMessage = "Update available.Do you want to update?";
@@ -619,8 +690,9 @@ namespace Korot
             try
             {
                 StreamReader ReadFile3 = new StreamReader(themeFile, Encoding.UTF8, false);
+                char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                 string Playlist3 = ReadFile3.ReadToEnd();
-                string[] SplittedFase3 = Playlist3.Split(';');
+                string[] SplittedFase3 = Playlist3.Split(token);
                 int backR = System.Convert.ToInt32(SplittedFase3[0].Replace(Environment.NewLine, ""));
 
                 int backG = System.Convert.ToInt32(SplittedFase3[1].Replace(Environment.NewLine, ""));
@@ -634,7 +706,7 @@ namespace Korot
                 int ovB = System.Convert.ToInt32(SplittedFase3[5].Replace(Environment.NewLine, ""));
                 Properties.Settings.Default.BackColor = Color.FromArgb(255, backR, backG, backB);
                 Properties.Settings.Default.OverlayColor = Color.FromArgb(255, ovR, ovG, ovB);
-
+                Properties.Settings.Default.BackStyle = SplittedFase3[6].Replace(Environment.NewLine, "").Replace("[THEMEFOLDER]","file://" + Application.StartupPath + "\\Themes\\");
                 pictureBox3.BackColor = Properties.Settings.Default.BackColor;
                 pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
                 Properties.Settings.Default.ThemeFile = themeFile;
@@ -669,7 +741,8 @@ namespace Korot
             System.IO.StreamWriter objWriter3;
             if (!Directory.Exists(Application.StartupPath + "\\Themes\\")) { Directory.CreateDirectory(Application.StartupPath + "\\Themes\\"); }
             objWriter3 = new System.IO.StreamWriter(Application.StartupPath + "\\Themes\\" + comboBox1.Text + ".ktf");
-            string lol = Properties.Settings.Default.BackColor.R + ";" + Properties.Settings.Default.BackColor.G + ";" + Properties.Settings.Default.BackColor.B + ";" + Properties.Settings.Default.OverlayColor.R + ";" + Properties.Settings.Default.OverlayColor.G + ";" + Properties.Settings.Default.OverlayColor.B + ";";
+            string x = Properties.Settings.Default.BackStyle;
+            string lol = Properties.Settings.Default.BackColor.R + Environment.NewLine + Properties.Settings.Default.BackColor.G + Environment.NewLine + Properties.Settings.Default.BackColor.B + Environment.NewLine + Properties.Settings.Default.OverlayColor.R + Environment.NewLine + Properties.Settings.Default.OverlayColor.G + Environment.NewLine + Properties.Settings.Default.OverlayColor.B + Environment.NewLine + x + Environment.NewLine;
             objWriter3.WriteLine(lol);
             objWriter3.Close();
             Properties.Settings.Default.ThemeFile = Application.StartupPath + "\\Themes\\" + comboBox1.Text + ".ktf";
@@ -707,7 +780,7 @@ namespace Korot
                          string themetxt,
                          string customtxt,
                          string rstxt,
-                         string rabstxt,
+                         string backstyle,
                          string cleartxt,
                          string ErrorHTMLtxt,
                          string AboutText,
@@ -752,8 +825,10 @@ namespace Korot
                          string openfile,
                          string openfolder,
                          string SearchOnCurrentPage,
-                         String CaseSensitivity)
+                         String CaseSensitivity,
+                         string NewTabName)
         {
+            NewTabHTML = File.ReadAllText(Application.StartupPath + "\\Lang\\NewTabPage\\" + NewTabName.Replace(Environment.NewLine, ""));
             ErrorHTML = File.ReadAllText(Application.StartupPath + "\\Lang\\ErrorPage\\" + ErrorHTMLtxt.Replace(Environment.NewLine, ""));
             privatemode = privatemodetxt.Replace(Environment.NewLine, "");
             updateTitle = updatetitletxt.Replace(Environment.NewLine, "");
@@ -762,6 +837,9 @@ namespace Korot
             newtabtitle = newtabtext.Replace(Environment.NewLine, "");
             customSearchNote = csnote.Replace(Environment.NewLine, "");
             customSearchMessage = cse.Replace(Environment.NewLine, "");
+            label10.Text = backstyle.Replace(Environment.NewLine, "");
+            textBox1.Location = new Point(label10.Location.X + label10.Width, label10.Location.Y);
+            textBox1.Width = tbTheme.Width - (label10.Width + label10.Location.X + 5);
             newWindowToolStripMenuItem.Text = nw.Replace(Environment.NewLine, "");
             newIncognitoWindowToolStripMenuItem.Text = niw.Replace(Environment.NewLine, "");
             newincwindow = niw.Replace(Environment.NewLine, "");
@@ -932,7 +1010,8 @@ namespace Korot
                     languagedummy.Items[58].ToString().Substring(1),
                     languagedummy.Items[59].ToString().Substring(1),
                     languagedummy.Items[60].ToString().Substring(1),
-                    languagedummy.Items[61].ToString().Substring(1));
+                    languagedummy.Items[61].ToString().Substring(1),
+                    languagedummy.Items[62].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -968,8 +1047,16 @@ namespace Korot
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Homepage = textBox2.Text;
-            Properties.Settings.Default.Save();
+            if (textBox2.Text.ToLower().StartsWith("korot://newtab")) {
+                radioButton1.Checked = true;
+                Properties.Settings.Default.Homepage = textBox2.Text;
+                Properties.Settings.Default.Save();
+            } else
+            {
+                radioButton1.Checked = false;
+                Properties.Settings.Default.Homepage = textBox2.Text;
+                Properties.Settings.Default.Save();
+            }
         }
         private void textBox3_Click(object sender, EventArgs e)
         {
@@ -1160,6 +1247,65 @@ namespace Korot
         private void TabControl1_DragDrop(object sender, DragEventArgs e)
         {
            
+        }
+
+        private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorpick = new ColorDialog();
+            colorpick.AnyColor = true;
+            colorpick.FullOpen = true;
+            if (colorpick.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.BackStyle = "background-color: rgb(" + colorpick.Color.R + "," + colorpick.Color.G + "," + colorpick.Color.B +")";
+                textBox1.Text = Properties.Settings.Default.BackStyle;
+            }
+        }
+
+        private void FromURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HaltroyFramework.HaltroyInputBox inputbox = new HaltroyFramework.HaltroyInputBox("Korot",
+                                                                                             "Enter a valid URL",
+                                                                                             this.Icon,
+                                                                                             "",
+                                                                                             Properties.Settings.Default.BackColor,
+                                                                                             Properties.Settings.Default.OverlayColor);
+                if (inputbox.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.BackStyle = "background-image: url(\"" + inputbox.textBox1.Text.Replace("\\", "/") + "\")";
+                textBox1.Text = Properties.Settings.Default.BackStyle;
+            }
+        }
+
+        private void FromLocalFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog filedlg = new OpenFileDialog();
+            filedlg.Filter = "Image Files|*.jpg;*.png;*.bmp;*.jpeg;*.jfif;*.gif;*.apng;*.ico;*.svg;*.webp|All Files|*.*";
+            filedlg.Title = "Select a Background Image";
+            filedlg.Multiselect = false;
+            if (filedlg.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.BackStyle = "background-image: url(\"file://" + filedlg.FileName.Replace("\\","/") + "\")";
+                textBox1.Text = Properties.Settings.Default.BackStyle;
+            }
+        }
+
+        private void TextBox1_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.Show(MousePosition);
+        }
+
+        private void RadioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked)
+            {
+                Properties.Settings.Default.Homepage = "korot://newtab";
+                textBox2.Text = Properties.Settings.Default.Homepage;
+            }
         }
     }
 

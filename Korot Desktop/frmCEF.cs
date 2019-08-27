@@ -43,7 +43,8 @@ namespace Korot
            if (resourceProxy == resource)
             {
                 defaultproxyaddress = null;
-                Output.WriteLine("[INFO] No proxy detected.");
+                Output.WriteLine("[INFO] No proxy detected.Disabling proxies.");
+                button6.Enabled = false;
             } else {
                 defaultproxyaddress = resourceProxy.AbsoluteUri.ToString();
             Output.WriteLine("[INFO] Listening on proxy : " + defaultproxyaddress);
@@ -111,9 +112,14 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
             settings.UserAgent = "Mozilla/5.0 ( Windows NT " + GetOsVer() + "; " + Environment.OSVersion.Platform + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + Cef.ChromiumVersion + " Safari/537.36 Korot/" + Application.ProductVersion.ToString();
             if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; }
             else { settings.CachePath = userCache; }
+            settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = "korot",
+                SchemeHandlerFactory = new SchemeHandlerFactory(anaform,this)
+            });
             // Initialize cef with the provided settings
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
-            chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri); 
+                chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri);
             panel1.Controls.Add(chromiumWebBrowser1);
             chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this,anaform);
             chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
@@ -241,98 +247,21 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.ToLower() == "korot.settings:searchpage")
-            {
-                chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL);
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings:homepage")
-            {
-                chromiumWebBrowser1.Load(Properties.Settings.Default.Homepage);
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings:savedFormResolutions")
-            {
-                chromiumWebBrowser1.LoadHtml("x: " + Properties.Settings.Default.WindowPosX + Environment.NewLine +
-                    "y: " + Properties.Settings.Default.WindowPosY + Environment.NewLine +
-                    "Width: " + Properties.Settings.Default.WindowSizeW + Environment.NewLine +
-                    "Height: " + Properties.Settings.Default.WindowSizeH);
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings:downloadSettings")
-            {
-                chromiumWebBrowser1.LoadHtml("openafterfinished: " + Properties.Settings.Default.downloadOpen + Environment.NewLine +
-                    "closeafterfinished: " + Properties.Settings.Default.downloadClose);
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings:languageFile")
-            {
-                chromiumWebBrowser1.LoadHtml(Properties.Settings.Default.LangFile);
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings:theme")
-            {
-                chromiumWebBrowser1.LoadHtml("themeFile: " + Properties.Settings.Default.ThemeFile + Environment.NewLine + 
-                    "BackColor: rgb(" + Properties.Settings.Default.BackColor.ToArgb().ToString() + ")" + Environment.NewLine +
-                    "OverlayColor: rgb(" + Properties.Settings.Default.OverlayColor.ToArgb().ToString() + ")");
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings:lastUser")
-            {
-                chromiumWebBrowser1.LoadHtml(Properties.Settings.Default.LastUser);
-            } //defaults
-            else if (textBox1.Text.ToLower() == "korot.settings.default:searchpage")
-            {
-                chromiumWebBrowser1.Load("");
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings.default:homepage")
-            {
-                chromiumWebBrowser1.Load("about:blank");
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings.default:savedFormResolutions")
-            {
-                chromiumWebBrowser1.LoadHtml("x: 0" + Environment.NewLine +
-                    "y: 25"  + Environment.NewLine +
-                    "Width: 0"  + Environment.NewLine +
-                    "Height: 0" );
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings.default:downloadSettings")
-            {
-                chromiumWebBrowser1.LoadHtml("openafterfinished: false"  + Environment.NewLine +
-                    "closeafterfinished: false");
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings.default:languageFile")
-            {
-                chromiumWebBrowser1.LoadHtml("English.lang");
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings.default:theme")
-            {
-                chromiumWebBrowser1.LoadHtml("themeFile: " +  Environment.NewLine +
-                    "BackColor: rgb(255, 255, 255, 255)"  + Environment.NewLine +
-                    "OverlayColor: rgb(255, 30, 144, 55)");
-            }
-            else if (textBox1.Text.ToLower() == "korot.settings.default:lastUser")
-            {
-                chromiumWebBrowser1.LoadHtml("user0");
-            }
-            else { 
+
             string urlLower = textBox1.Text.ToLower();
 
             Uri newUri = null;
             if (ValidHttpURL(urlLower, out newUri))
             {
-                Output.WriteLine("Valid URL");
-                if (urlLower.StartsWith("http://korot://error"))
-                {
-                    cef_onLoadError(null, null);
-                }
-                else
-                {
                     chromiumWebBrowser1.Load(urlLower);
-                }
             }
 
             else
             {
-                Output.WriteLine("Not Valid URL");
                 chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + urlLower);
                 button1.Enabled = true;
             }
-        }
+        
         }
                 
 
@@ -358,8 +287,7 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         private void cef_AddressChanged(object sender, AddressChangedEventArgs e)
         {
             this.InvokeOnUiThreadIfRequired(() => textBox1.Text = e.Address); 
-            if (e.Address == "http://korot://error") { cef_onLoadError(null, null); }
-            if (Properties.Settings.Default.Favorites.Contains(e.Address))
+                if (Properties.Settings.Default.Favorites.Contains(e.Address))
             {
                 isLoadedPageFavroited = true;
                 button7.Image = Properties.Resources.star_on;
@@ -370,25 +298,27 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
                 else { button7.Image = Properties.Resources.star_w; }
                 isLoadedPageFavroited = false;
             }
+            Uri newUri = null;
+                if(!ValidHttpURL(e.Address,out newUri))
+            {
+                chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + e.Address);
+            }
         }
         private void cef_onLoadError(object sender, LoadErrorEventArgs e)
         {
             if (e == null) //User Asked
             {
-                    chromiumWebBrowser1.LoadHtml(anaform.ErrorHTML
-                        + "<a style=\"font - family: Modern, Arial; \"> TEST_ERROR </a></body>", "http://korot://error");
+                chromiumWebBrowser1.Load("korot://error/?TEST");
             }
             else
             {
                 if (e.Frame.IsMain)
                 {
-                    chromiumWebBrowser1.LoadHtml(anaform.ErrorHTML +
-                    "<a style=\"font - family: Modern, Arial; \">" + e.ErrorText + "</a></body>", "http://korot://error");
+                    chromiumWebBrowser1.Load("korot://error/?" + e.ErrorText);
                 }
                 else
                 {
-                    e.Frame.LoadHtml(anaform.ErrorHTML +
-                        "<a style=\"font - family: Modern, Arial; \">" + e.ErrorText + "</a></body>");
+                    e.Frame.LoadUrl("korot://error/?" + e.ErrorText);
                 }
             }
         }

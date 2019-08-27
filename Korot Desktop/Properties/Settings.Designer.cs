@@ -25,7 +25,7 @@ namespace Korot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("about:blank")]
+        [global::System.Configuration.DefaultSettingValueAttribute("korot://newtab")]
         public string Homepage {
             get {
                 return ((string)(this["Homepage"]));
@@ -85,7 +85,7 @@ namespace Korot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("25")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int WindowPosY {
             get {
                 return ((int)(this["WindowPosY"]));
@@ -205,13 +205,25 @@ namespace Korot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("korot.ktf")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Korot Light.ktf")]
         public string ThemeFile {
             get {
                 return ((string)(this["ThemeFile"]));
             }
             set {
                 this["ThemeFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("background-color: #ffffff")]
+        public string BackStyle {
+            get {
+                return ((string)(this["BackStyle"]));
+            }
+            set {
+                this["BackStyle"] = value;
             }
         }
     }

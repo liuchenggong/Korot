@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Homepage" Type="System.String" Scope="User">
-      <Value Profile="(Default)">about:blank</Value>
+      <Value Profile="(Default)">korot://newtab</Value>
     </Setting>
     <Setting Name="History" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -18,7 +18,7 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="WindowPosY" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">25</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="Favorites" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -48,7 +48,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ThemeFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">korot.ktf</Value>
+      <Value Profile="(Default)">Korot Light.ktf</Value>
+    </Setting>
+    <Setting Name="BackStyle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">background-color: #ffffff</Value>
     </Setting>
   </Settings>
 </SettingsFile>

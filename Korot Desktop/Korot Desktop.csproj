@@ -140,8 +140,10 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Handlers\DisplayHandler.cs" />
+    <Compile Include="Handlers\GetOverallColor.cs" />
     <Compile Include="Handlers\JsHandler.cs" />
     <Compile Include="Handlers\MyDialogHandler.cs" />
+    <Compile Include="Handlers\SchemeHandlerFactory.cs" />
     <Compile Include="MyJumplist.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,6 +179,15 @@
     <EmbeddedResource Include="frmCEF.resx">
       <DependentUpon>frmCEF.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Lang\ErrorPage\Livvic-Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Lang\NewTabPage\Livvic-Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Lang\NewTabPage\PoiretOne.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Lang\English.lang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -273,6 +284,12 @@
     <Content Include="Extensions\Example\startup.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Fonts\Livvic-OFL.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fonts\PoiretOne-OFL.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Korot.ico" />
     <Content Include="Lang\ErrorPage\Turkish.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -282,6 +299,13 @@
     </Content>
     <None Include="Resources\prxy.png" />
     <None Include="Resources\prxy-w.png" />
+    <Content Include="Lang\NewTabPage\English.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Lang\NewTabPage\Turkish.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\korotlinks.html" />
     <Content Include="TODO.txt" />
     <None Include="Resources\theme-w.png" />
     <None Include="Resources\theme.png" />

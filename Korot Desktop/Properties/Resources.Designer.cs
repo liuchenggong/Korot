@@ -251,6 +251,27 @@ namespace Korot.Properties {
         }
         
         /// <summary>
+        ///   &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///&lt;title&gt;Korot Links&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///
+        ///&lt;h1&gt;List of Korot Links&lt;/h1&gt;
+        ///&lt;p&gt;&lt;a href=&quot;http://korot://links&quot;&gt;korot://links&lt;/a&gt; - this page&lt;/p&gt;
+        ///&lt;p&gt;&lt;a href=&quot;http://korot://newtab&quot;&gt;korot://newtab&lt;/a&gt; - the New Tab Page&lt;/p&gt;
+        ///&lt;p&gt;&lt;a href=&quot;http://korot://settings&quot;&gt;korot://settings&lt;/a&gt; - shows a list of settings applied to current user&lt;/p&gt;
+        ///&lt;p&gt;&lt;a href=&quot;http://korot://defaultsettings&quot;&gt;korot://defaultsettings&lt;/a&gt; - shows a list of defaults of each setting&lt;/p&gt;
+        ///&lt;p&gt;&lt;a href=&quot;http://ko [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string korotlinks {
+            get {
+                return ResourceManager.GetString("korotlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static System.Drawing.Bitmap language {

@@ -63,14 +63,22 @@
             this.tbKorot = new System.Windows.Forms.TabPage();
             this.tabControl2 = new HaltroyFramework.HaltroyTabControl();
             this.tbSetting = new System.Windows.Forms.TabPage();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label11 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.tbTheme = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ımageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fromLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.button10 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -121,6 +129,7 @@
             this.tabControl2.SuspendLayout();
             this.tbSetting.SuspendLayout();
             this.tbTheme.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.tbLang.SuspendLayout();
@@ -140,7 +149,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(615, 0);
+            this.button1.Location = new System.Drawing.Point(616, 0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(32, 20);
             this.button1.TabIndex = 1;
@@ -152,7 +161,7 @@
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(584, 0);
+            this.button2.Location = new System.Drawing.Point(585, 0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(32, 20);
             this.button2.TabIndex = 1;
@@ -164,7 +173,7 @@
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(553, 0);
+            this.button3.Location = new System.Drawing.Point(554, 0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(32, 20);
             this.button3.TabIndex = 1;
@@ -407,7 +416,7 @@
             this.tabControl1.SelectedTextColor = System.Drawing.Color.Black;
             this.tabControl1.ShowClosingButton = true;
             this.tabControl1.ShowClosingMessage = false;
-            this.tabControl1.Size = new System.Drawing.Size(647, 458);
+            this.tabControl1.Size = new System.Drawing.Size(657, 303);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.TextColor = System.Drawing.Color.Black;
             this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.TabControl1_DragDrop);
@@ -422,7 +431,7 @@
             this.tbKorot.ImageKey = "Korot.ico";
             this.tbKorot.Location = new System.Drawing.Point(4, 20);
             this.tbKorot.Name = "tbKorot";
-            this.tbKorot.Size = new System.Drawing.Size(639, 434);
+            this.tbKorot.Size = new System.Drawing.Size(649, 279);
             this.tbKorot.TabIndex = 2;
             this.tbKorot.Text = "Korot";
             // 
@@ -452,13 +461,14 @@
             this.tabControl2.SelectedTextColor = System.Drawing.Color.Black;
             this.tabControl2.ShowClosingButton = false;
             this.tabControl2.ShowClosingMessage = false;
-            this.tabControl2.Size = new System.Drawing.Size(639, 434);
+            this.tabControl2.Size = new System.Drawing.Size(649, 279);
             this.tabControl2.TabIndex = 31;
             this.tabControl2.TextColor = System.Drawing.Color.Black;
             // 
             // tbSetting
             // 
             this.tbSetting.BackColor = System.Drawing.Color.White;
+            this.tbSetting.Controls.Add(this.radioButton1);
             this.tbSetting.Controls.Add(this.label11);
             this.tbSetting.Controls.Add(this.label3);
             this.tbSetting.Controls.Add(this.textBox3);
@@ -466,9 +476,21 @@
             this.tbSetting.Location = new System.Drawing.Point(4, 20);
             this.tbSetting.Name = "tbSetting";
             this.tbSetting.Padding = new System.Windows.Forms.Padding(3);
-            this.tbSetting.Size = new System.Drawing.Size(631, 410);
+            this.tbSetting.Size = new System.Drawing.Size(641, 255);
             this.tbSetting.TabIndex = 0;
             this.tbSetting.Text = "Settings";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(127, 40);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(82, 21);
+            this.radioButton1.TabIndex = 24;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "New Tab";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
             // 
             // label11
             // 
@@ -484,7 +506,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(11, 43);
+            this.label3.Location = new System.Drawing.Point(11, 70);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 17);
             this.label3.TabIndex = 16;
@@ -495,10 +517,11 @@
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.textBox3.Location = new System.Drawing.Point(127, 40);
+            this.textBox3.ContextMenuStrip = this.cmsSearchEngine;
+            this.textBox3.Location = new System.Drawing.Point(127, 67);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(491, 23);
+            this.textBox3.Size = new System.Drawing.Size(501, 23);
             this.textBox3.TabIndex = 23;
             this.textBox3.Text = "gugıl";
             this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
@@ -509,16 +532,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Location = new System.Drawing.Point(127, 16);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(491, 23);
+            this.textBox2.Size = new System.Drawing.Size(501, 23);
             this.textBox2.TabIndex = 18;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // tbTheme
             // 
             this.tbTheme.BackColor = System.Drawing.Color.White;
+            this.tbTheme.Controls.Add(this.textBox1);
             this.tbTheme.Controls.Add(this.listBox2);
             this.tbTheme.Controls.Add(this.button10);
             this.tbTheme.Controls.Add(this.comboBox1);
+            this.tbTheme.Controls.Add(this.label10);
             this.tbTheme.Controls.Add(this.label15);
             this.tbTheme.Controls.Add(this.label13);
             this.tbTheme.Controls.Add(this.label7);
@@ -528,10 +553,67 @@
             this.tbTheme.Location = new System.Drawing.Point(4, 20);
             this.tbTheme.Name = "tbTheme";
             this.tbTheme.Padding = new System.Windows.Forms.Padding(3);
-            this.tbTheme.Size = new System.Drawing.Size(631, 410);
+            this.tbTheme.Size = new System.Drawing.Size(641, 255);
             this.tbTheme.TabIndex = 6;
             this.tbTheme.Text = "Theme";
             this.tbTheme.Enter += new System.EventHandler(this.TbTheme_Enter);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.textBox1.ContextMenuStrip = this.contextMenuStrip1;
+            this.textBox1.Location = new System.Drawing.Point(141, 81);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(486, 23);
+            this.textBox1.TabIndex = 32;
+            this.textBox1.Text = "background-color: rgb(255,255,255)";
+            this.textBox1.Click += new System.EventHandler(this.TextBox1_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.colorToolStripMenuItem,
+            this.ımageToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.contextMenuStrip1.ShowImageMargin = false;
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 70);
+            // 
+            // colorToolStripMenuItem
+            // 
+            this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.colorToolStripMenuItem.Text = "Color";
+            this.colorToolStripMenuItem.Click += new System.EventHandler(this.ColorToolStripMenuItem_Click);
+            // 
+            // ımageToolStripMenuItem
+            // 
+            this.ımageToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ımageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fromURLToolStripMenuItem,
+            this.fromLocalFileToolStripMenuItem});
+            this.ımageToolStripMenuItem.Name = "ımageToolStripMenuItem";
+            this.ımageToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.ımageToolStripMenuItem.Text = "Image";
+            // 
+            // fromURLToolStripMenuItem
+            // 
+            this.fromURLToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.fromURLToolStripMenuItem.Name = "fromURLToolStripMenuItem";
+            this.fromURLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fromURLToolStripMenuItem.Text = "From URL";
+            this.fromURLToolStripMenuItem.Click += new System.EventHandler(this.FromURLToolStripMenuItem_Click);
+            // 
+            // fromLocalFileToolStripMenuItem
+            // 
+            this.fromLocalFileToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.fromLocalFileToolStripMenuItem.Name = "fromLocalFileToolStripMenuItem";
+            this.fromLocalFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fromLocalFileToolStripMenuItem.Text = "From Local File";
+            this.fromLocalFileToolStripMenuItem.Click += new System.EventHandler(this.FromLocalFileToolStripMenuItem_Click);
             // 
             // listBox2
             // 
@@ -540,9 +622,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(14, 93);
+            this.listBox2.Location = new System.Drawing.Point(14, 125);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(603, 292);
+            this.listBox2.Size = new System.Drawing.Size(613, 100);
             this.listBox2.TabIndex = 31;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
@@ -551,7 +633,7 @@
             this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button10.FlatAppearance.BorderSize = 0;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Location = new System.Drawing.Point(550, 13);
+            this.button10.Location = new System.Drawing.Point(560, 13);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(64, 23);
             this.button10.TabIndex = 30;
@@ -565,18 +647,30 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.comboBox1.Location = new System.Drawing.Point(108, 13);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(436, 24);
+            this.comboBox1.Size = new System.Drawing.Size(446, 24);
             this.comboBox1.TabIndex = 1;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label10.Location = new System.Drawing.Point(10, 84);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(134, 17);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "Background Image :";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label15.Location = new System.Drawing.Point(11, 76);
+            this.label15.Location = new System.Drawing.Point(11, 105);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(71, 17);
             this.label15.TabIndex = 25;
@@ -642,7 +736,7 @@
             this.tbLang.Location = new System.Drawing.Point(4, 20);
             this.tbLang.Name = "tbLang";
             this.tbLang.Padding = new System.Windows.Forms.Padding(3);
-            this.tbLang.Size = new System.Drawing.Size(631, 410);
+            this.tbLang.Size = new System.Drawing.Size(641, 255);
             this.tbLang.TabIndex = 2;
             this.tbLang.Text = "Language";
             this.tbLang.Enter += new System.EventHandler(this.TbLang_Enter);
@@ -654,7 +748,7 @@
             this.lbLang.ItemHeight = 16;
             this.lbLang.Location = new System.Drawing.Point(3, 3);
             this.lbLang.Name = "lbLang";
-            this.lbLang.Size = new System.Drawing.Size(625, 404);
+            this.lbLang.Size = new System.Drawing.Size(635, 249);
             this.lbLang.TabIndex = 21;
             this.lbLang.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
@@ -666,7 +760,7 @@
             this.tbHistory.Location = new System.Drawing.Point(4, 20);
             this.tbHistory.Name = "tbHistory";
             this.tbHistory.Padding = new System.Windows.Forms.Padding(3);
-            this.tbHistory.Size = new System.Drawing.Size(631, 410);
+            this.tbHistory.Size = new System.Drawing.Size(641, 255);
             this.tbHistory.TabIndex = 3;
             this.tbHistory.Text = "History";
             this.tbHistory.Enter += new System.EventHandler(this.TbHistory_Enter);
@@ -684,7 +778,7 @@
             this.hlvHistory.HideSelection = false;
             this.hlvHistory.Location = new System.Drawing.Point(3, 3);
             this.hlvHistory.Name = "hlvHistory";
-            this.hlvHistory.Size = new System.Drawing.Size(625, 404);
+            this.hlvHistory.Size = new System.Drawing.Size(635, 249);
             this.hlvHistory.TabIndex = 0;
             this.hlvHistory.UseCompatibleStateImageBehavior = false;
             this.hlvHistory.View = System.Windows.Forms.View.Details;
@@ -714,7 +808,7 @@
             this.tbDownload.Location = new System.Drawing.Point(4, 20);
             this.tbDownload.Name = "tbDownload";
             this.tbDownload.Padding = new System.Windows.Forms.Padding(3);
-            this.tbDownload.Size = new System.Drawing.Size(631, 410);
+            this.tbDownload.Size = new System.Drawing.Size(641, 255);
             this.tbDownload.TabIndex = 4;
             this.tbDownload.Text = "Downloads";
             this.tbDownload.Enter += new System.EventHandler(this.TbDownload_Enter);
@@ -732,7 +826,7 @@
             this.hlvDownload.HideSelection = false;
             this.hlvDownload.Location = new System.Drawing.Point(3, 3);
             this.hlvDownload.Name = "hlvDownload";
-            this.hlvDownload.Size = new System.Drawing.Size(625, 404);
+            this.hlvDownload.Size = new System.Drawing.Size(635, 249);
             this.hlvDownload.TabIndex = 1;
             this.hlvDownload.UseCompatibleStateImageBehavior = false;
             this.hlvDownload.View = System.Windows.Forms.View.Details;
@@ -775,7 +869,7 @@
             this.tbAbout.Location = new System.Drawing.Point(4, 20);
             this.tbAbout.Name = "tbAbout";
             this.tbAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tbAbout.Size = new System.Drawing.Size(631, 410);
+            this.tbAbout.Size = new System.Drawing.Size(641, 255);
             this.tbAbout.TabIndex = 5;
             this.tbAbout.Text = "About";
             // 
@@ -1022,7 +1116,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 20);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(639, 434);
+            this.tabPage2.Size = new System.Drawing.Size(649, 279);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "+";
             // 
@@ -1074,7 +1168,7 @@
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.ImageIndex = 1;
             this.button4.ImageList = this.ımageList2;
-            this.button4.Location = new System.Drawing.Point(522, 0);
+            this.button4.Location = new System.Drawing.Point(523, 0);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(32, 20);
             this.button4.TabIndex = 1;
@@ -1086,7 +1180,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(646, 480);
+            this.ClientSize = new System.Drawing.Size(647, 300);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -1098,7 +1192,7 @@
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(640, 480);
+            this.MinimumSize = new System.Drawing.Size(663, 339);
             this.Name = "frmMain";
             this.Text = "Korot Beta";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
@@ -1118,6 +1212,7 @@
             this.tbSetting.PerformLayout();
             this.tbTheme.ResumeLayout(false);
             this.tbTheme.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.tbLang.ResumeLayout(false);
@@ -1215,5 +1310,13 @@
         private System.Windows.Forms.ColumnHeader chDate;
         private System.Windows.Forms.ColumnHeader chTo;
         private System.Windows.Forms.ColumnHeader chFrom;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ımageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fromURLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fromLocalFileToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
