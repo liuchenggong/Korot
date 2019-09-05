@@ -53,5 +53,8 @@
     <Setting Name="BackStyle" Type="System.String" Scope="User">
       <Value Profile="(Default)">background-color: #ffffff</Value>
     </Setting>
+    <Setting Name="LastSessionURIs" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://haltroy.com;http://korot.haltroy.com;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

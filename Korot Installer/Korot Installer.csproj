@@ -82,6 +82,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frame0.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frame0.Designer.cs">
+      <DependentUpon>frame0.cs</DependentUpon>
+    </Compile>
     <Compile Include="frame1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frame0.resx">
+      <DependentUpon>frame0.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frame1.resx">
       <DependentUpon>frame1.cs</DependentUpon>
     </EmbeddedResource>

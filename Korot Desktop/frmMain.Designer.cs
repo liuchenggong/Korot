@@ -120,6 +120,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
+            this.SessionLogger = new System.Windows.Forms.Timer(this.components);
             this.cmsHistory.SuspendLayout();
             this.cmsDownload.SuspendLayout();
             this.cmsPlusRightClick.SuspendLayout();
@@ -385,7 +386,7 @@
             // 
             this.ımageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList2.ImageStream")));
             this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.ımageList2.Images.SetKeyName(0, "Korot.ico");
+            this.ımageList2.Images.SetKeyName(0, "Korot.png");
             this.ımageList2.Images.SetKeyName(1, "Settings.png");
             this.ımageList2.Images.SetKeyName(2, "Settings-w.png");
             // 
@@ -428,7 +429,7 @@
             // 
             this.tbKorot.BackColor = System.Drawing.Color.White;
             this.tbKorot.Controls.Add(this.tabControl2);
-            this.tbKorot.ImageKey = "Korot.ico";
+            this.tbKorot.ImageKey = "Korot.png";
             this.tbKorot.Location = new System.Drawing.Point(4, 20);
             this.tbKorot.Name = "tbKorot";
             this.tbKorot.Size = new System.Drawing.Size(649, 279);
@@ -580,12 +581,12 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(83, 48);
             // 
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(82, 22);
             this.colorToolStripMenuItem.Text = "Color";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.ColorToolStripMenuItem_Click);
             // 
@@ -596,14 +597,14 @@
             this.fromURLToolStripMenuItem,
             this.fromLocalFileToolStripMenuItem});
             this.ımageToolStripMenuItem.Name = "ımageToolStripMenuItem";
-            this.ımageToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.ımageToolStripMenuItem.Size = new System.Drawing.Size(82, 22);
             this.ımageToolStripMenuItem.Text = "Image";
             // 
             // fromURLToolStripMenuItem
             // 
             this.fromURLToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.fromURLToolStripMenuItem.Name = "fromURLToolStripMenuItem";
-            this.fromURLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fromURLToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.fromURLToolStripMenuItem.Text = "From URL";
             this.fromURLToolStripMenuItem.Click += new System.EventHandler(this.FromURLToolStripMenuItem_Click);
             // 
@@ -611,7 +612,7 @@
             // 
             this.fromLocalFileToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.fromLocalFileToolStripMenuItem.Name = "fromLocalFileToolStripMenuItem";
-            this.fromLocalFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fromLocalFileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.fromLocalFileToolStripMenuItem.Text = "From Local File";
             this.fromLocalFileToolStripMenuItem.Click += new System.EventHandler(this.FromLocalFileToolStripMenuItem_Click);
             // 
@@ -1175,6 +1176,10 @@
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
+            // SessionLogger
+            // 
+            this.SessionLogger.Tick += new System.EventHandler(this.SessionLogger_Tick);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1318,5 +1323,6 @@
         private System.Windows.Forms.ToolStripMenuItem fromLocalFileToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Timer SessionLogger;
     }
 }

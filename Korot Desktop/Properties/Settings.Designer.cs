@@ -226,5 +226,17 @@ namespace Korot.Properties {
                 this["BackStyle"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://haltroy.com;http://korot.haltroy.com;")]
+        public string LastSessionURIs {
+            get {
+                return ((string)(this["LastSessionURIs"]));
+            }
+            set {
+                this["LastSessionURIs"] = value;
+            }
+        }
     }
 }

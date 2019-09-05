@@ -26,7 +26,7 @@ namespace Korot
         string userName;
         string userCache;
         frmMain anaform;
-        ChromiumWebBrowser chromiumWebBrowser1;
+       public ChromiumWebBrowser chromiumWebBrowser1;
         string defaultproxyaddress;
         public frmCEF(TabPage pranetPage, frmMain rmmain, bool isIncognito, string loadurl, string profileName)
         {
@@ -489,8 +489,12 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
             this.Parent.Text = this.Text;
             try
             {
-                if (((TabControl)parentTabPage.Parent).TabPages.Contains(parentTabPage)) { } else { this.Close(); }
-            }catch { this.Close(); }
+                if (((TabControl)parentTabPage.Parent).TabPages.Contains(parentTabPage)) { } else
+                {
+                    anaform.Invoke(new Action(() => anaform.RemoveMefromList(this)));
+                    this.Close();
+                }
+            }catch { anaform.Invoke(new Action(() => anaform.RemoveMefromList(this))); this.Close(); }
         }
 
         private void TestToolStripMenuItem_Click(object sender, EventArgs e)

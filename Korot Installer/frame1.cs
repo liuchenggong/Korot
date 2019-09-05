@@ -132,16 +132,33 @@ namespace Korot_Installer
         string VersionDownloaded;
         async void UpdateFile(string appName, string zipPath, string extractPath)
         {
-            Directory.Delete(extractPath, true);
-            //Unzip Files
-            label1.Text = "Installing...";
-            label2.Text = "Unzipping Files...";
-            ZipFile.ExtractToDirectory(zipPath, extractPath);
-            label1.Text = "Done!";
-            label2.Visible = false;
-            FrameForm.Invoke(new Action(() => FrameForm.doNotClose = false));
-            Process.Start(extractPath + appName + ".exe");
-            Application.Exit();
+            if(Directory.Exists(Application.StartupPath + "\\Temp\\Files\\")) { Directory.Delete(Application.StartupPath + "\\Temp\\Files\\",true); }
+            Directory.Move(extractPath, Application.StartupPath + "\\Temp\\Files\\");
+            try
+            {
+                //Unzip Files
+                label1.Text = "Installing...";
+                label2.Text = "Unzipping Files...";
+                ZipFile.ExtractToDirectory(zipPath, extractPath);
+                label1.Text = "Done!";
+                label2.Visible = false;
+                FrameForm.Invoke(new Action(() => FrameForm.doNotClose = false));
+                Process.Start(extractPath + appName + ".exe", "http://korot.haltroy.com/whats-new.html");
+                Application.Exit();
+            }
+            catch(Exception ex)
+            {
+                Directory.Move(Application.StartupPath + "\\Temp\\Files\\", extractPath);
+                label1.Text = "Error while updating Korot.";
+                label2.Text = ex.Message;
+                button1.Enabled = true;
+                button2.Enabled = true;
+                if (UpdateKorot || RepairMode)
+                {
+                    button2.Visible = true;
+                }
+                FrameForm.Invoke(new Action(() => FrameForm.doNotClose = false));
+            }
         }
         async void InstallFile(string appName,string zipPath,string extractPath)
         {
@@ -164,7 +181,7 @@ namespace Korot_Installer
             label1.Text = "Done!";
             label2.Visible = false;
             FrameForm.Invoke(new Action(() => FrameForm.doNotClose = false));
-            Process.Start(extractPath + appName + ".exe");
+            Process.Start(extractPath + appName + ".exe", "http://korot.haltroy.com/thankyou.html");
             Application.Exit();
         }
         void RegisterFileExt(string fext,string appUrl,string AppName)
@@ -187,9 +204,11 @@ namespace Korot_Installer
                 if(UpdateKorot)
                 {
                     UpdateFile("Korot Beta", Application.StartupPath + "\\update.hta", Application.StartupPath + "\\Korot\\");
-                }else
+                    label3.Visible = false;
+                } else
                 {
                     InstallFile("Korot Beta", Application.StartupPath + "\\install.hta", Application.StartupPath + "\\Korot\\");
+                    label3.Visible = false;
                 }
             }else
             {

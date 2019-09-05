@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -407,6 +408,7 @@ namespace Korot
         }
         string profilePath;
         frmSettings frmS = new frmSettings();
+        List<frmCEF> CefFormList = new List<frmCEF>();
         private void frmMain_Load(object sender, EventArgs e)
         {
             if (DateTime.Now.ToString("MM") == "03" & DateTime.Now.ToString("dd") == "11" & DateTime.Now.ToString("HH") == "20")
@@ -474,6 +476,21 @@ namespace Korot
             refreshThemeList();
             PrintImages();
             RefreshDownloadList();
+            if (Properties.Settings.Default.LastSessionURIs == null)
+            {
+                SessionLogger.Start();
+            }else
+            {
+                SessionLogger.Stop();
+                // ReadLatestCurrentSession();
+                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", "Do you want to restore the last session?", this.Icon, MessageBoxButtons.YesNo, Properties.Settings.Default.BackColor);
+                DialogResult diagres = mesaj.ShowDialog();
+                if (diagres == DialogResult.Yes)
+                {
+                    ReadLatestCurrentSession();
+                }
+                SessionLogger.Start();
+            }
         }
             void RefreshHistory()
             {
@@ -492,6 +509,37 @@ namespace Korot
                 
                 }
             }
+        public void ReadLatestCurrentSession()
+        {
+            string Playlist = Properties.Settings.Default.LastSessionURIs;
+            string[] SplittedFase = Playlist.Split(';');
+            int Count = SplittedFase.Length - 1; ; int i = 0;
+            while (!(i == Count))
+            {
+                NewTab(SplittedFase[i].Replace(Environment.NewLine, ""));
+                i += 1;
+            }
+        }
+        public void WriteCurrentSession()
+        {
+            string CurrentSessionURIs = null;
+            foreach(frmCEF tabform in CefFormList)
+            {
+               CurrentSessionURIs += ((frmCEF)tabform).chromiumWebBrowser1.Address + ";";
+            }
+            Properties.Settings.Default.LastSessionURIs = CurrentSessionURIs;
+            Properties.Settings.Default.Save();
+        }
+        public void RemoveMefromList(frmCEF myself)
+        {
+            if (CefFormList.Contains(myself))
+            {
+                CefFormList.Remove(myself);
+            }else
+            {
+                throw new InvalidOperationException("How tf did you get this error message?");
+            }
+        }
         public void TabText(int TabID, string TabText)
         {
             tabControl1.Invoke(new Action(() => tabControl1.TabPages[TabID].Text = TabText.ToString()));
@@ -507,6 +555,7 @@ namespace Korot
             tab.Text = "";
             form.Dock = DockStyle.Fill;
             form.ShowInTaskbar = true;
+            CefFormList.Add(form);
             tabControl1.Invoke(new Action(() => tabControl1.TabPages.Insert(tabControl1.TabPages.Count - 1, tab)));
             tab.Controls.Add(form);
             tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tab));
@@ -596,6 +645,7 @@ namespace Korot
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.LastSessionURIs = null;
             Korot.Properties.Settings.Default.Save();
             this.Close();
         }
@@ -1306,6 +1356,11 @@ namespace Korot
                 Properties.Settings.Default.Homepage = "korot://newtab";
                 textBox2.Text = Properties.Settings.Default.Homepage;
             }
+        }
+
+        private void SessionLogger_Tick(object sender, EventArgs e)
+        {
+            WriteCurrentSession();
         }
     }
 

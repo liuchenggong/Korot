@@ -69,7 +69,7 @@ namespace Korot_Installer
         public bool doNotClose = false;
         private void Form1_Load(object sender, EventArgs e)
         {
-            ShowFrame(new frame1(this));
+            ShowFrame(new frame0(this));
         }
         public void ShowFrame(Form newframe)
         {

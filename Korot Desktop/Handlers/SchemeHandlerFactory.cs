@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CefSharp;
 
@@ -16,6 +17,18 @@ namespace Korot
             anaform = _anaForm;
             CefForm = _CefForm;
         }
+        public static bool ValidHttpURL(string s, out Uri resultURI)
+        {
+            if (!Regex.IsMatch(s, @"^https?:\/\/", RegexOptions.IgnoreCase))
+            {
+                if (s.Contains(".") || s.Contains(":") || !(s.EndsWith(".")) || !(s.EndsWith(":")) || !(s.StartsWith(".")) || !(s.StartsWith(":"))) { s = "http://" + s; Output.WriteLine(s); } else { resultURI = null; return false; }
+            }
+
+            if (Uri.TryCreate(s, UriKind.Absolute, out resultURI))
+            { return (resultURI.Scheme == Uri.UriSchemeHttp || resultURI.Scheme == Uri.UriSchemeHttps); }
+
+            else { return false; }
+        }
         public IResourceHandler Create(IBrowser browser, IFrame frame, string schemeName, IRequest request)
         {
             if (schemeName == "korot")
@@ -23,11 +36,17 @@ namespace Korot
                 if (request.Url == "korot://newtab/")
                 {
                     return ResourceHandler.FromString(anaform.NewTabHTML.Replace("§BACKSTYLE§",Properties.Settings.Default.BackStyle));
-                }else if (request.Url.StartsWith("korot://search/?"))
+                }else if (request.Url.StartsWith("korot://search?="))
                 {
-                    string x = request.Url.Substring(request.Url.IndexOf("?") + 1);
-                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + Properties.Settings.Default.SearchURL + x +"\" />");
-                }
+                    string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
+                    Uri newUri = null;
+                    if (ValidHttpURL(x, out newUri))
+                    {
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" +  x + "\" />");
+                    } else {
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + Properties.Settings.Default.SearchURL + x + "\" />");
+                    }
+                    }
                 else if (request.Url == "korot://settings/")
                 {
                     string x = "<head><title>Korot Settings</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
