@@ -110,20 +110,17 @@ namespace Korot
         {
             if (e == null) //User Asked
             {
-                chromiumWebBrowser1.LoadHtml(anaform.ErrorHTML
-                    + "<a style=\"font - family: Modern, Arial; \"> TEST_ERROR </a></body>", "http://korot://error");
+                chromiumWebBrowser1.Load("http://korot://error?e=TEST");
             }
             else
             {
                 if (e.Frame.IsMain)
                 {
-                    chromiumWebBrowser1.LoadHtml(anaform.ErrorHTML +
-                    "<a style=\"font - family: Modern, Arial; \">" + e.ErrorText + "</a></body>", "http://korot://error");
+                    chromiumWebBrowser1.LoadHtml("http://korot://error?e=" + e.ErrorText);
                 }
                 else
                 {
-                    e.Frame.LoadHtml(anaform.ErrorHTML +
-                        "<a style=\"font - family: Modern, Arial; \">" + e.ErrorText + "</a></body>");
+                    e.Frame.LoadUrl("http://korot://error?e=" + e.ErrorText);
                 }
             }
         }

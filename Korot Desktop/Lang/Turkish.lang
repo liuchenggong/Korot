@@ -3,7 +3,7 @@ Korot - Güncelleme
 Güncelleme bulundu.Güncellemek ister misiniz?
 Güncellerken hata.
 Yeni Sekme
-(Not: Aranılan yazı bu adresin sonuna eklenir.)
+(Not: Aranan yazı bu adresin sonuna eklenir.)
 Kişisel Arama Motoru adresini yazın
 Yeni Pencere
 Yeni Gizli Pencere
@@ -16,7 +16,6 @@ Kişisel
 Seçileni Sil
 Arkaplan Düzeni:
 Temizle
-Turkish.html
 Hakkında
 Geriye Git
 İleriye git
@@ -60,4 +59,21 @@ Dosyayı Aç
 Dosyayı içeren klasörü aç
 Ara :
 Büyük/küçük duyarlı
-Turkish.html
+"Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"
+"Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"
+Web'te arayın veya URL girin
+Korot bu ekranı görünütüleyemiyor.
+Bu sebeplerden olabilir:
+1.  URL doğru olmayabilir.
+2.  Adresteki web sayfası çok meşgul veya yanıt vermiyor.
+3.  Makineniz Internet'e bağlı değil veya bağlantı çok yavaş.
+4.  Antivirüs programı bu siteyi veya bu tarayıcıyı virüs olarak algıladı.
+Önerimiz:
+1.  Adresteki yazım hatalarına dikkat ederek tekrar yazın. 
+2.  Makinenizi Internet'e bağlayın.
+3.  Bir süre sonra tekrar deneyin. 
+4.  Antivürüs programını geçici olarak kapatın veya bu tarayıcıyı güvenilir listesine alın.
+Ara
+Şuna Geç:
+Yeni Profil
+Bu profili sil

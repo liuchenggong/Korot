@@ -36,7 +36,7 @@ namespace Korot
             anaform = rmmain;
             _Incognito = isIncognito;
             userName = profileName;
-            userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + profileName + "\\cache\\";
+            userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profileName + "\\cache\\";
             WebProxy proxy = (WebProxy)WebProxy.GetDefaultProxy();
             Uri resource = new Uri("http://localhost");
             Uri resourceProxy = proxy.GetProxy(resource);
@@ -137,7 +137,7 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         }
         public void executeStartupExtensions()
         {
-            foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + userName + "\\Extensions\\", "*.*", SearchOption.AllDirectories))
+            foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Extensions\\", "*.*", SearchOption.AllDirectories))
             {
                 if (x.EndsWith("startup.js", StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -308,17 +308,17 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         {
             if (e == null) //User Asked
             {
-                chromiumWebBrowser1.Load("korot://error/?TEST");
+                chromiumWebBrowser1.Load("korot://error/?e=TEST");
             }
             else
             {
                 if (e.Frame.IsMain)
                 {
-                    chromiumWebBrowser1.Load("korot://error/?" + e.ErrorText);
+                    chromiumWebBrowser1.Load("korot://error/?e=" + e.ErrorText);
                 }
                 else
                 {
-                    e.Frame.LoadUrl("korot://error/?" + e.ErrorText);
+                    e.Frame.LoadUrl("korot://error/?e=" + e.ErrorText);
                 }
             }
         }
@@ -524,7 +524,7 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         void RefreshProfiles()
         {
             switchToToolStripMenuItem.DropDownItems.Clear();
-            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\"))
+            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\"))
             {
                 ToolStripMenuItem profileItem = new ToolStripMenuItem();
                 profileItem.Text = new DirectoryInfo(x).Name;
@@ -533,7 +533,14 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
             }
         }
 
-
+        public void RefreshTrnaslation()
+        {
+            emptyItem.Text = anaform.empty;
+            defaultproxyItem.Text = anaform.defaultproxytext;
+            switchToToolStripMenuItem.Text = anaform.switchTo;
+            newProfileToolStripMenuItem.Text = anaform.newprofile;
+            deleteThisProfileToolStripMenuItem.Text = anaform.deleteProfile;
+        }
         private void ProfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             anaform.Invoke(new Action(() => anaform.SwitchProfile(((ToolStripMenuItem)sender).Text)));
@@ -552,7 +559,6 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         private void Button9_Click(object sender, EventArgs e)
         {
             cmsProfiles.Show(MousePosition);
-            this.Text = "Test";
         }
 
         private void ExtensionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -563,9 +569,9 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         public void LoadExt()
         {
             contextMenuStrip1.Items.Clear();
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + userName + "\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + userName + "\\Extensions\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Extensions\\"); }
 
-            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + userName + "\\Extensions\\"))
+            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Extensions\\"))
             {
                 if (File.Exists(x + "\\ext.kem"))
                 {
@@ -590,22 +596,26 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
             if (contextMenuStrip1.Items.Count == 0)
             {
                 ToolStripMenuItem emptylol = new ToolStripMenuItem();
+                emptyItem = emptylol;
                 emptylol.Text = anaform.empty;
                 emptylol.Enabled = false;
                 contextMenuStrip1.Items.Add(emptylol);
             }
         }
+        ToolStripMenuItem emptyItem;
+        ToolStripMenuItem defaultproxyItem;
         public void LoadProxies()
         {
             contextMenuStrip2.Items.Clear();
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + userName + "\\Proxy\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + userName + "\\Proxy\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Proxy\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Proxy\\"); }
             // add default proxy
-            ToolStripMenuItem defaultProxyItem = new ToolStripMenuItem();
-            defaultProxyItem.Text = anaform.defaultproxytext;
-            defaultProxyItem.Click += ExampleProxyToolStripMenuItem_Click;
-            defaultProxyItem.Tag = defaultproxyaddress;
-            contextMenuStrip2.Items.Add(defaultProxyItem);
-            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + userName + "\\Proxy\\"))
+            ToolStripMenuItem defaultProxyMenuItem = new ToolStripMenuItem();
+            defaultproxyItem = defaultProxyMenuItem;
+            defaultProxyMenuItem.Text = anaform.defaultproxytext;
+            defaultProxyMenuItem.Click += ExampleProxyToolStripMenuItem_Click;
+            defaultProxyMenuItem.Tag = defaultproxyaddress;
+            contextMenuStrip2.Items.Add(defaultProxyMenuItem);
+            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Proxy\\"))
             {
                 if (File.Exists(x + "\\proxy.kem"))
                 {
@@ -672,6 +682,11 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         private void Button6_Click(object sender, EventArgs e)
         {
             contextMenuStrip2.Show(MousePosition);
+        }
+
+        private void CmsProfiles_Opening(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

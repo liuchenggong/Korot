@@ -147,16 +147,16 @@
     <Compile Include="MyJumplist.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="frmCEF.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmCEF.Designer.cs">
       <DependentUpon>frmCEF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="WindowsMessageHelper.cs" />
     <EmbeddedResource Include="frmDownloader.resx">
@@ -179,15 +179,6 @@
     <EmbeddedResource Include="frmCEF.resx">
       <DependentUpon>frmCEF.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Lang\ErrorPage\Livvic-Light.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Lang\NewTabPage\Livvic-Light.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Lang\NewTabPage\PoiretOne.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Lang\English.lang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -204,7 +195,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Proxy\Example\proxy.kem" />
+    <None Include="Examples\Proxy\Example\proxy.kem" />
     <None Include="Themes\Korot Light.ktf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -277,35 +268,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Extensions\Example\icon.PNG" />
-    <Content Include="Extensions\Example\popup.html">
+    <Content Include="Examples\Extensions\Example\icon.PNG" />
+    <Content Include="Examples\Extensions\Example\popup.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Extensions\Example\startup.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Fonts\Livvic-OFL.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Fonts\PoiretOne-OFL.txt">
+    <Content Include="Examples\Extensions\Example\startup.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Korot.ico" />
-    <Content Include="Lang\ErrorPage\Turkish.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Lang\ErrorPage\English.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\prxy.png" />
     <None Include="Resources\prxy-w.png" />
-    <Content Include="Lang\NewTabPage\English.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Lang\NewTabPage\Turkish.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Resources\errorpage.html" />
     <Content Include="Resources\korotlinks.html" />
+    <Content Include="Resources\newtab.html" />
     <Content Include="TODO.txt" />
     <None Include="Resources\theme-w.png" />
     <None Include="Resources\theme.png" />
@@ -322,7 +297,7 @@
     <None Include="Resources\star.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Extensions\Example\ext.kem">
+    <None Include="Examples\Extensions\Example\ext.kem">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

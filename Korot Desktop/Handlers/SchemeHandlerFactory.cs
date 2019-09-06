@@ -35,8 +35,8 @@ namespace Korot
             {
                 if (request.Url == "korot://newtab/")
                 {
-                    return ResourceHandler.FromString(anaform.NewTabHTML.Replace("§BACKSTYLE§",Properties.Settings.Default.BackStyle));
-                }else if (request.Url.StartsWith("korot://search?="))
+                    return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BACKSTYLE§", Properties.Settings.Default.BackStyle).Replace("§SEARCHHELP§", anaform.SearchHelpText).Replace("§SEARCH§", anaform.Search).Replace("§DAYS§", anaform.DayNames).Replace("§MONTHS§", anaform.MonthNames).Replace("§TITLE§", anaform.newtabtitle));
+                }else if (request.Url.StartsWith("korot://search/?q="))
                 {
                     string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
                     Uri newUri = null;
@@ -91,10 +91,10 @@ namespace Korot
     "<a> Empty Lists: History , Download History, Favorites</body>";
                     return ResourceHandler.FromString(x);
                 }
-                else if (request.Url.StartsWith("korot://error/?"))
+                else if (request.Url.StartsWith("korot://error/?e="))
                 {
-                    string x = request.Url.Substring(request.Url.IndexOf("?") + 1);
-                    return ResourceHandler.FromString(anaform.ErrorHTML + "<a style=\"font - family: Modern, Arial; \">" + x + " </a></body>");
+                    string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
+                    return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§TITLE§",anaform.ErrorPageTitle).Replace("§KT§",anaform.KT).Replace("§ET§", anaform.ET).Replace("§E1§", anaform.E1).Replace("§E2§", anaform.E2).Replace("§E3§", anaform.E3).Replace("§E4§", anaform.E4).Replace("§RT§", anaform.RT).Replace("§R1§", anaform.R1).Replace("§R2§", anaform.R2).Replace("§R3§", anaform.R3).Replace("§R4§", anaform.R4) + "<a>" + x + " </a></body>");
                 }else if (request.Url == "korot://100m/")
                 {
                     Output.WriteLine("yyyyyyyyyyyyyyyyyyssoo+++/////+++++oosyyyyyyyyyyyy");

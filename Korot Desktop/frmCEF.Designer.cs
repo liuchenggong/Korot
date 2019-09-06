@@ -224,14 +224,15 @@
             this.cmsProfiles.Name = "cmsProfiles";
             this.cmsProfiles.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsProfiles.ShowImageMargin = false;
-            this.cmsProfiles.Size = new System.Drawing.Size(122, 70);
+            this.cmsProfiles.Size = new System.Drawing.Size(156, 92);
+            this.cmsProfiles.Opening += new System.ComponentModel.CancelEventHandler(this.CmsProfiles_Opening);
             // 
             // profilenameToolStripMenuItem
             // 
             this.profilenameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteThisProfileToolStripMenuItem});
             this.profilenameToolStripMenuItem.Name = "profilenameToolStripMenuItem";
-            this.profilenameToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.profilenameToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.profilenameToolStripMenuItem.Text = "[profilename]";
             // 
             // deleteThisProfileToolStripMenuItem
@@ -244,13 +245,13 @@
             // switchToToolStripMenuItem
             // 
             this.switchToToolStripMenuItem.Name = "switchToToolStripMenuItem";
-            this.switchToToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.switchToToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.switchToToolStripMenuItem.Text = "Switch to:";
             // 
             // newProfileToolStripMenuItem
             // 
             this.newProfileToolStripMenuItem.Name = "newProfileToolStripMenuItem";
-            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.newProfileToolStripMenuItem.Text = "New Profile";
             this.newProfileToolStripMenuItem.Click += new System.EventHandler(this.NewProfileToolStripMenuItem_Click);
             // 

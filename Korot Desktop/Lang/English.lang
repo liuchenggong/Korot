@@ -16,7 +16,6 @@ Custom
 Remove Selected
 Background Style:
 Clear
-English.html
 About
 Go Back
 Go Forward
@@ -60,4 +59,21 @@ Open File
 Open Folder containing this file
 Search :
 Case Sensitive
-English.html
+"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"
+"January","February","March","April","May","June","July","August","September","October","November","December"
+Search on web or enter an URL
+Korot can't display this page.
+One possibility is because of one of these errors:
+1.  The URL is incorrect.
+2.  The website is not responding,too busy or too slow.
+3.  Machine disconnected from Internet or connection is too slow.
+4.  Antivirus program thinks this browser is a virus or the Website includes a virus.
+We recommend:
+1.  Checking the URL for errors(like grammar errors). 
+2.  Connect the machine to Internet. 
+3.  Wait a few minutes and try again. 
+4.  Disable Antivirus or add this browser to whitelist of Antivirus.
+Search
+Switch to:
+New Profile
+Delete this profile

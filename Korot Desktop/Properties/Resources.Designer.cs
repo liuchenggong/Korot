@@ -83,20 +83,35 @@ namespace Korot.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap download {
+        internal static System.Drawing.Bitmap download_w {
             get {
-                object obj = ResourceManager.GetObject("download", resourceCulture);
+                object obj = ResourceManager.GetObject("download-w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        ///   &lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;§TITLE§&lt;/title&gt;
+        ///    &lt;head&gt;
+        ///        &lt;body&gt;
+        ///            &lt;h1&gt;§KT§&lt;/h1&gt;
+        ///            &lt;h2&gt;§ET§&lt;/h2&gt;
+        ///            &lt;h3&gt;§E1§&lt;/h3&gt;
+        ///            &lt;h3&gt;§E2§&lt;/h3&gt;
+        ///            &lt;h3&gt;§E3§&lt;/h3&gt;
+        ///            &lt;h3&gt;§E4§&lt;/h3&gt;
+        ///            &lt;h2&gt;§RT§&lt;/h2&gt;
+        ///            &lt;h3&gt;§R1§&lt;/h3&gt;
+        ///            &lt;h3&gt;§R2§&lt;/h3&gt;
+        ///            &lt;h3&gt;§R3§&lt;/h3&gt;
+        ///            &lt;h3&gt;§R4§&lt;/h3&gt;
+        /// benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static System.Drawing.Bitmap download_w {
+        internal static string errorpage {
             get {
-                object obj = ResourceManager.GetObject("download-w", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("errorpage", resourceCulture);
             }
         }
         
@@ -163,16 +178,6 @@ namespace Korot.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap history {
-            get {
-                object obj = ResourceManager.GetObject("history", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
         internal static System.Drawing.Bitmap history_w {
             get {
                 object obj = ResourceManager.GetObject("history-w", resourceCulture);
@@ -223,16 +228,6 @@ namespace Korot.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap info {
-            get {
-                object obj = ResourceManager.GetObject("info", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
         internal static System.Drawing.Bitmap info_w {
             get {
                 object obj = ResourceManager.GetObject("info_w", resourceCulture);
@@ -268,16 +263,6 @@ namespace Korot.Properties {
         internal static string korotlinks {
             get {
                 return ResourceManager.GetString("korotlinks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap language {
-            get {
-                object obj = ResourceManager.GetObject("language", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -328,6 +313,41 @@ namespace Korot.Properties {
             get {
                 object obj = ResourceManager.GetObject("newincwindow_w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;§TITLE§&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            §BACKSTYLE§;
+        ///			background-size: cover;
+        ///			position: relative;
+        ///			 background-repeat:no-repeat;
+        ///			background-size:100% 100vh;
+        ///        }
+        ///
+        ///        .bw {
+        ///            background-color: rgba(0,0,0,0.5);
+        ///            color: white;
+        ///        }
+        ///
+        ///        @font-face {
+        ///            font-family: PoiretOne;
+        ///            src: url(&apos;PoiretOne.TTF&apos;);
+        ///        }
+        ///
+        ///        h1 {
+        ///            font-family: PoiretOne;
+        ///        }
+        ///
+        ///    [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string newtab {
+            get {
+                return ResourceManager.GetString("newtab", resourceCulture);
             }
         }
         
@@ -484,29 +504,9 @@ namespace Korot.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap theme {
-            get {
-                object obj = ResourceManager.GetObject("theme", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
         internal static System.Drawing.Bitmap theme_w {
             get {
                 object obj = ResourceManager.GetObject("theme-w", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap yerli {
-            get {
-                object obj = ResourceManager.GetObject("yerli", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

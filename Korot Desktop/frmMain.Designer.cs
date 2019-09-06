@@ -31,9 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.cmsHistory = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -116,11 +113,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
             this.SessionLogger = new System.Windows.Forms.Timer(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.button1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.button2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.button4 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsHistory.SuspendLayout();
             this.cmsDownload.SuspendLayout();
             this.cmsPlusRightClick.SuspendLayout();
@@ -138,49 +136,13 @@
             this.tbDownload.SuspendLayout();
             this.tbAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(616, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(32, 20);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "X";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(585, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(32, 20);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "□";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.frmMain_DoubleClick);
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(554, 0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(32, 20);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "-";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // cmsHistory
             // 
@@ -424,6 +386,7 @@
             this.tabControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.TabControl1_DragEnter);
             this.tabControl1.DragLeave += new System.EventHandler(this.TabControl1_DragLeave);
             this.tabControl1.DoubleClick += new System.EventHandler(this.frmMain_DoubleClick);
+            this.tabControl1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmMain_KeyDown);
             // 
             // tbKorot
             // 
@@ -1121,64 +1084,72 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "+";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::Korot.Properties.Resources.Korot;
-            this.pictureBox1.Location = new System.Drawing.Point(2, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseMove);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label5.Location = new System.Drawing.Point(24, -1);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 25);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Korot";
-            this.label5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseDown);
-            this.label5.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseMove);
-            this.label5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label9.Location = new System.Drawing.Point(86, 2);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(77, 17);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "Beta <ver>";
-            this.label9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseDown);
-            this.label9.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseMove);
-            this.label9.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.ImageIndex = 1;
-            this.button4.ImageList = this.ımageList2;
-            this.button4.Location = new System.Drawing.Point(523, 0);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(32, 20);
-            this.button4.TabIndex = 1;
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
-            // 
             // SessionLogger
             // 
             this.SessionLogger.Tick += new System.EventHandler(this.SessionLogger_Tick);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.button1,
+            this.button2,
+            this.toolStripMenuItem3,
+            this.button4});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.menuStrip1.Size = new System.Drawing.Size(647, 24);
+            this.menuStrip1.TabIndex = 5;
+            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmMain_KeyDown);
+            this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseDown);
+            this.menuStrip1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseMove);
+            this.menuStrip1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
+            // 
+            // button1
+            // 
+            this.button1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.button1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button1.Name = "button1";
+            this.button1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.button1.Size = new System.Drawing.Size(25, 20);
+            this.button1.Text = "x";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.button2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(26, 20);
+            this.button2.Text = "□";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button2.Click += new System.EventHandler(this.frmMain_DoubleClick);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripMenuItem3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripMenuItem3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(24, 20);
+            this.toolStripMenuItem3.Text = "-";
+            this.toolStripMenuItem3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.ToolStripMenuItem3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.button4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.button4.Image = global::Korot.Properties.Resources.Settings;
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(28, 20);
+            this.button4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // frmMain
             // 
@@ -1186,23 +1157,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(647, 300);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label9);
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(663, 339);
             this.Name = "frmMain";
             this.Text = "Korot Beta";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.DoubleClick += new System.EventHandler(this.frmMain_DoubleClick);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmMain_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
@@ -1226,7 +1193,8 @@
             this.tbAbout.ResumeLayout(false);
             this.tbAbout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1235,9 +1203,6 @@
         #endregion
         private System.Windows.Forms.Timer timer1;
         public HaltroyFramework.HaltroyTabControl tabControl1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         public System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tbKorot;
         private HaltroyFramework.HaltroyTabControl tabControl2;
@@ -1303,10 +1268,6 @@
         private System.Windows.Forms.LinkLabel linkLabel11;
         private System.Windows.Forms.LinkLabel llAUNET;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button4;
         private HaltroyFramework.HaltroyListView hlvHistory;
         private System.Windows.Forms.ColumnHeader chDateHistory;
         private System.Windows.Forms.ColumnHeader chTitle;
@@ -1324,5 +1285,10 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Timer SessionLogger;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem button1;
+        private System.Windows.Forms.ToolStripMenuItem button2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem button4;
     }
 }
