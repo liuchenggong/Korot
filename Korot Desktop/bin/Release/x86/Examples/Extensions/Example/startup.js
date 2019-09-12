@@ -1,0 +1,1 @@
+﻿console.log("Example Extension is working.");
