@@ -139,12 +139,12 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         {
             foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Extensions\\", "*.*", SearchOption.AllDirectories))
             {
-                if (x.EndsWith("startup.js", StringComparison.CurrentCultureIgnoreCase))
+                if (x.EndsWith("\\startup.js", StringComparison.CurrentCultureIgnoreCase))
                 {
                     try
                     {
                         Output.WriteLine("[Korot] Script Execute : " + x);
-                        chromiumWebBrowser1.ExecuteScriptAsync(File.ReadAllText(x));
+                        chromiumWebBrowser1.EvaluateScriptAsync(File.ReadAllText(x));
                         Output.WriteLine("[Korot] Script Execute Completed: " + x);
                     }
                     catch (Exception ex)
@@ -230,38 +230,31 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
             profilenameToolStripMenuItem.Text = userName;
             label3.Text = anaform.SearchOnPage;
             label6.Text = anaform.CaseSensitive;
+            chromiumWebBrowser1.Select();
         }
+        
 
-
-        public static bool ValidHttpURL(string s, out Uri resultURI)
+        public static bool ValidHttpURL(string s)
         {
-            if (!Regex.IsMatch(s, @"^https?:\/\/", RegexOptions.IgnoreCase))
-            {
-                if (s.Contains(".") || s.Contains(":") || !(s.EndsWith(".")) || !(s.EndsWith(":")) || !(s.StartsWith(".")) || !(s.StartsWith(":"))) { s = "http://" + s; Output.WriteLine(s); } else { resultURI = null; return false; }
+                string Pattern = @"^(?:file)|(?:korot)|(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
+                Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                return Rgx.IsMatch(s);
             }
-
-            if (Uri.TryCreate(s, UriKind.Absolute, out resultURI))
-            { return (resultURI.Scheme == Uri.UriSchemeHttp || resultURI.Scheme == Uri.UriSchemeHttps); }
-
-            else { return false; }
-        }
         private void button4_Click(object sender, EventArgs e)
         {
-
+            
             string urlLower = textBox1.Text.ToLower();
-
-            Uri newUri = null;
-            if (ValidHttpURL(urlLower, out newUri))
-            {
+                if (ValidHttpURL(urlLower))
+                {
                     chromiumWebBrowser1.Load(urlLower);
-            }
+                }
 
-            else
-            {
-                chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + urlLower);
-                button1.Enabled = true;
+                else
+                {
+                    chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + urlLower);
+                    button1.Enabled = true;
+                
             }
-        
         }
                 
 
@@ -299,7 +292,7 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
                 isLoadedPageFavroited = false;
             }
             Uri newUri = null;
-                if(!ValidHttpURL(e.Address,out newUri))
+                if(!ValidHttpURL(e.Address))
             {
                 chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + e.Address);
             }
@@ -684,9 +677,5 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
             contextMenuStrip2.Show(MousePosition);
         }
 
-        private void CmsProfiles_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
     }
 }

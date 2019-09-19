@@ -506,7 +506,7 @@ namespace Korot
             form.TopMost = false;
             form.TopLevel = false;
             form.Visible = true;
-            tab.Text = "";
+            tab.Text = newtabtitle;
             form.Dock = DockStyle.Fill;
             form.ShowInTaskbar = true;
             CefFormList.Add(form);
@@ -709,7 +709,9 @@ namespace Korot
             }
         }
 
-      #region "Translate"
+        #region "Translate"
+        public string goTotxt = "Go to \"[TEXT]\"";
+        public string SearchOnWeb = "Search \"[TEXT]\"";
         public string defaultproxytext = "Default Proxy";
         public string SearchOnPage = "Search: ";
         public string CaseSensitive = "Case Sensitive";
@@ -857,7 +859,9 @@ namespace Korot
                          string searchtxt,
                          string SwitchTo,
                          string newProfile,
-                         string delProfile)
+                         string delProfile,
+                         string goToURL,
+                         string searchURL)
         {
             privatemode = privatemodetxt.Replace(Environment.NewLine, "");
             updateTitle = updatetitletxt.Replace(Environment.NewLine, "");
@@ -928,6 +932,8 @@ namespace Korot
             label13.Text = themename.Replace(Environment.NewLine, "");
             button10.Text = save.Replace(Environment.NewLine, "");
             label15.Text = themes.Replace(Environment.NewLine, "");
+            SearchOnWeb = searchURL.Replace(Environment.NewLine, "");
+            goTotxt = goToURL.Replace(Environment.NewLine, "");
             //pages
             MonthNames = MonthName.Replace(Environment.NewLine, "");
             DayNames = DayName.Replace(Environment.NewLine, "");
@@ -1081,7 +1087,9 @@ namespace Korot
                     languagedummy.Items[75].ToString().Substring(1),
                     languagedummy.Items[76].ToString().Substring(1),
                     languagedummy.Items[77].ToString().Substring(1),
-                    languagedummy.Items[78].ToString().Substring(1));
+                    languagedummy.Items[78].ToString().Substring(1),
+                    languagedummy.Items[79].ToString().Substring(1),
+                    languagedummy.Items[80].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -1390,11 +1398,46 @@ namespace Korot
 
         private void FrmMain_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F1 & e.Control == true)
+            if (e.KeyCode == Keys.Escape & e.Shift == true)
             {
                 isMouseDown = false;
                 this.Top = 0;
                 this.Left = 0;
+            }
+        }
+        [System.Runtime.InteropServices.DllImport("User32.dll")]
+        private static extern short GetAsyncKeyState(int vKey);
+        private static readonly int VK_ESCAPE = 0x1B;
+        private static readonly int VK_SHIFT = 0x10;
+        private void TmrSlower_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                short keyState = GetAsyncKeyState(VK_ESCAPE);
+                short keyState2 = GetAsyncKeyState(VK_SHIFT);
+                //Check if the MSB is set. If so, then the key is pressed.
+                bool escIsPressed = ((keyState >> 15) & 0x0001) == 0x0001;
+
+                //Check if the LSB is set. If so, then the key was pressed since
+                //the last call to GetAsyncKeyState
+                bool unprocessedPress = ((keyState >> 0) & 0x0001) == 0x0001;
+
+                bool shiftIsPressed = ((keyState2 >> 15) & 0x0001) == 0x0001;
+
+                //Check if the LSB is set. If so, then the key was pressed since
+                //the last call to GetAsyncKeyState
+                bool unprocessedPress2 = ((keyState2 >> 0) & 0x0001) == 0x0001;
+
+                if ((escIsPressed & shiftIsPressed) | (escIsPressed & unprocessedPress2) | (unprocessedPress & shiftIsPressed) | (unprocessedPress & unprocessedPress2))
+                {
+                    isMouseDown = false;
+                    this.Top = 0;
+                    this.Left = 0;
+                }
+            }
+            catch
+            {
+                //Ignored
             }
         }
     }

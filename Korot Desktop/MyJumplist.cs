@@ -32,23 +32,26 @@ namespace Korot
         /// </summary>
         private void BuildList()
         {
-            JumpListCustomCategory userActionsCategory = new JumpListCustomCategory("Actions");
-           
+            try
+            {
+                JumpListCustomCategory userActionsCategory = new JumpListCustomCategory("Actions");
 
-            userActionsCategory.AddJumpListItems();
-            list.AddCustomCategories(userActionsCategory);
 
-            string incmodepath = Application.ExecutablePath +  " -incognito";
-            JumpListLink jlNotepad = new JumpListLink(incmodepath, anaform.newincwindow);
-            jlNotepad.IconReference = new IconReference(Application.ExecutablePath, 0);
+                userActionsCategory.AddJumpListItems();
+                list.AddCustomCategories(userActionsCategory);
 
-            string newwindow = Application.ExecutablePath;
-            JumpListLink jlCalculator = new JumpListLink(newwindow, anaform.newwindow);
-            jlCalculator.IconReference = new IconReference(Application.ExecutablePath, 0);
+                string incmodepath = Application.ExecutablePath + " -incognito";
+                JumpListLink jlNotepad = new JumpListLink(incmodepath, anaform.newincwindow);
+                jlNotepad.IconReference = new IconReference(Application.ExecutablePath, 0);
 
-            list.AddUserTasks(jlNotepad);
-            list.AddUserTasks(jlCalculator);
-            list.Refresh();
+                string newwindow = Application.ExecutablePath;
+                JumpListLink jlCalculator = new JumpListLink(newwindow, anaform.newwindow);
+                jlCalculator.IconReference = new IconReference(Application.ExecutablePath, 0);
+
+                list.AddUserTasks(jlNotepad);
+                list.AddUserTasks(jlCalculator);
+                list.Refresh();
+            }catch { } //Ignore
         }
     }
 }

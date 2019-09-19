@@ -17,17 +17,11 @@ namespace Korot
             anaform = _anaForm;
             CefForm = _CefForm;
         }
-        public static bool ValidHttpURL(string s, out Uri resultURI)
+        public static bool ValidHttpURL(string s)
         {
-            if (!Regex.IsMatch(s, @"^https?:\/\/", RegexOptions.IgnoreCase))
-            {
-                if (s.Contains(".") || s.Contains(":") || !(s.EndsWith(".")) || !(s.EndsWith(":")) || !(s.StartsWith(".")) || !(s.StartsWith(":"))) { s = "http://" + s; Output.WriteLine(s); } else { resultURI = null; return false; }
-            }
-
-            if (Uri.TryCreate(s, UriKind.Absolute, out resultURI))
-            { return (resultURI.Scheme == Uri.UriSchemeHttp || resultURI.Scheme == Uri.UriSchemeHttps); }
-
-            else { return false; }
+            string Pattern = @"^(?:file)|(?:korot)|(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
+            Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return Rgx.IsMatch(s);
         }
         public IResourceHandler Create(IBrowser browser, IFrame frame, string schemeName, IRequest request)
         {
@@ -39,8 +33,7 @@ namespace Korot
                 }else if (request.Url.StartsWith("korot://search/?q="))
                 {
                     string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
-                    Uri newUri = null;
-                    if (ValidHttpURL(x, out newUri))
+                    if (ValidHttpURL(x))
                     {
                         return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" +  x + "\" />");
                     } else {
@@ -49,13 +42,13 @@ namespace Korot
                     }
                 else if (request.Url == "korot://settings/")
                 {
-                    string x = "<head><title>Korot Settings</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
-                        "<a> Homepage: " + Properties.Settings.Default.Homepage + "</a>" +
-                        "<a> Window : ( Height:" + Properties.Settings.Default.WindowSizeH + " Width:" + Properties.Settings.Default.WindowSizeW + " X:" + Properties.Settings.Default.WindowPosX + " Y:" + Properties.Settings.Default.WindowPosY + ")</a>" +
-                        "<a> SearchUrl: " + Properties.Settings.Default.SearchURL + "</a>" +
-                        "<a> Download: ( OpenFile:" + Properties.Settings.Default.downloadOpen + " CloseForm:" + Properties.Settings.Default.downloadClose + ")</a>" +
-                        "<a> LangFile: " + Properties.Settings.Default.LangFile + "</a>" +
-                        "<a> Color: (BackColor:" + Properties.Settings.Default.BackColor.ToArgb().ToString() + " OverlayColor:" + Properties.Settings.Default.OverlayColor.ToArgb().ToString() + " BackStyle:" + Properties.Settings.Default.BackStyle + ")</a>" +
+                    string x = "<head><title>Korot Settings</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" + Environment.NewLine +
+                        "<a> Homepage: " + Properties.Settings.Default.Homepage + "</a>" + Environment.NewLine +
+                        "<a> Window : ( Height:" + Properties.Settings.Default.WindowSizeH + " Width:" + Properties.Settings.Default.WindowSizeW + " X:" + Properties.Settings.Default.WindowPosX + " Y:" + Properties.Settings.Default.WindowPosY + ")</a>" + Environment.NewLine +
+                        "<a> SearchUrl: " + Properties.Settings.Default.SearchURL + "</a>" + Environment.NewLine +
+                        "<a> Download: ( OpenFile:" + Properties.Settings.Default.downloadOpen + " CloseForm:" + Properties.Settings.Default.downloadClose + ")</a>" + Environment.NewLine +
+                        "<a> LangFile: " + Properties.Settings.Default.LangFile + "</a>" + Environment.NewLine +
+                        "<a> Color: (BackColor:" + Properties.Settings.Default.BackColor.ToArgb().ToString() + " OverlayColor:" + Properties.Settings.Default.OverlayColor.ToArgb().ToString() + " BackStyle:" + Properties.Settings.Default.BackStyle + ")</a>" + Environment.NewLine +
                         "<a> Theme: " + Properties.Settings.Default.ThemeFile + "</a></body>";
                     return ResourceHandler.FromString(x);
 
@@ -80,14 +73,14 @@ namespace Korot
                 }
                 else if (request.Url == "korot://defaultsettings/")
                 {
-                    string x = "<head><title>Korot Settings</title></head><body><h1>user0</h1>" +
-    "<a> Homepage: korot://newtab</a>" +
-    "<a> Window : ( Height:0 Width:0 X:0 Y:0)</a>" +
-    "<a> SearchUrl: https://www.google.com/search?q=</a>" +
-    "<a> Download: ( OpenFile:false CloseForm:false)</a>" +
-    "<a> LangFile: English.lang</a>" +
-    "<a> Color: (BackColor:White OverlayColor:DodgerBlue BackStyle:background-color: #ffffff)</a>" +
-    "<a> Theme: Korot Light.ktf</a>" +
+                    string x = "<head><title>Korot Settings</title></head><body><h1>user0</h1>" + Environment.NewLine +
+    "<a> Homepage: korot://newtab</a>" + Environment.NewLine +
+    "<a> Window : ( Height:0 Width:0 X:0 Y:0)</a>" + Environment.NewLine +
+    "<a> SearchUrl: https://www.google.com/search?q=</a>" + Environment.NewLine +
+    "<a> Download: ( OpenFile:false CloseForm:false)</a>" + Environment.NewLine +
+    "<a> LangFile: English.lang</a>" + Environment.NewLine +
+    "<a> Color: (BackColor:White OverlayColor:DodgerBlue BackStyle:background-color: #ffffff)</a>" + Environment.NewLine +
+    "<a> Theme: Korot Light.ktf</a>" + Environment.NewLine +
     "<a> Empty Lists: History , Download History, Favorites</body>";
                     return ResourceHandler.FromString(x);
                 }

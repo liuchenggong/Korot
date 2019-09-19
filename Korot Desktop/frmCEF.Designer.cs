@@ -82,8 +82,6 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.textBox1.Location = new System.Drawing.Point(129, 7);
@@ -224,15 +222,14 @@
             this.cmsProfiles.Name = "cmsProfiles";
             this.cmsProfiles.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsProfiles.ShowImageMargin = false;
-            this.cmsProfiles.Size = new System.Drawing.Size(156, 92);
-            this.cmsProfiles.Opening += new System.ComponentModel.CancelEventHandler(this.CmsProfiles_Opening);
+            this.cmsProfiles.Size = new System.Drawing.Size(122, 70);
             // 
             // profilenameToolStripMenuItem
             // 
             this.profilenameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteThisProfileToolStripMenuItem});
             this.profilenameToolStripMenuItem.Name = "profilenameToolStripMenuItem";
-            this.profilenameToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.profilenameToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.profilenameToolStripMenuItem.Text = "[profilename]";
             // 
             // deleteThisProfileToolStripMenuItem
@@ -245,13 +242,13 @@
             // switchToToolStripMenuItem
             // 
             this.switchToToolStripMenuItem.Name = "switchToToolStripMenuItem";
-            this.switchToToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.switchToToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.switchToToolStripMenuItem.Text = "Switch to:";
             // 
             // newProfileToolStripMenuItem
             // 
             this.newProfileToolStripMenuItem.Name = "newProfileToolStripMenuItem";
-            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.newProfileToolStripMenuItem.Text = "New Profile";
             this.newProfileToolStripMenuItem.Click += new System.EventHandler(this.NewProfileToolStripMenuItem_Click);
             // 
@@ -416,7 +413,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 59);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(400, 79);
-            this.panel1.TabIndex = 7;
+            this.panel1.TabIndex = 0;
             this.panel1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
             // 
             // tmrSlower
@@ -525,6 +522,7 @@
             this.Load += new System.EventHandler(this.tabform_Load);
             this.SizeChanged += new System.EventHandler(this.FrmCEF_SizeChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
+            this.Resize += new System.EventHandler(this.FrmCEF_SizeChanged);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).EndInit();

@@ -105,18 +105,26 @@ namespace Korot {
 				browser.GetHost().StartDownload(parameters.LinkUrl);
 			}
 			if (id == OpenLinkInNewTab) {
-                browserControl.ExecuteScriptAsync("window.open('" + parameters.LinkUrl + "')");
+                browserControl.EvaluateScriptAsync("window.open('" + parameters.LinkUrl + "')");
+               // ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(parameters.LinkUrl)));
+                // aNaFRM.Invoke(new Action(() => aNaFRM.NewTab(parameters.LinkUrl))); blank
+               // browserControl.ExecuteScriptAsync("window.open('" + parameters.LinkUrl + "')"); => CEFSHARP ONLY SUPPORT V8CONTEXT FOR NOW
 			}
 			if (id == CopyLinkAddress) {
 				Clipboard.SetText(parameters.LinkUrl);
+
 			}
 			if (id == OpenImageInNewTab)
             {
-                browserControl.ExecuteScriptAsync("window.open('" + parameters.SourceUrl + "')");
+                browserControl.EvaluateScriptAsync("window.open('" + parameters.SourceUrl + "')");
+                //ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(parameters.SourceUrl)));
+                //browserControl.ExecuteScriptAsync("window.open('" + parameters.SourceUrl + "')"); => CEFSHARP ONLY SUPPORT V8CONTEXT FOR NOW
             }
             if (id == SeacrhOrOpenSelectedInNewTab)
             {
-                browserControl.ExecuteScriptAsync("window.open('" + parameters.SelectionText + "')");
+               // ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(parameters.SelectionText)));
+                // browserControl.ExecuteScriptAsync("window.open('" + parameters.SelectionText + "')"); => CEFSHARP ONLY SUPPORT V8CONTEXT FOR NOW
+                browserControl.EvaluateScriptAsync("window.open('" + parameters.SelectionText + "')");
             }
 
 			return false;
