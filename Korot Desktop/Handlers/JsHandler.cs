@@ -27,7 +27,7 @@ namespace Korot
 
         public bool OnJSAlert(IWebBrowser browser, string url, string message)
         {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Alert","Alert on url : " + url + "\n Message:" + message, anaform.Icon,System.Windows.Forms.MessageBoxButtons.OKCancel,Properties.Settings.Default.BackColor);
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Alert","Alert on url : " + url + "\n Message:" + message, anaform.Icon,System.Windows.Forms.MessageBoxButtons.OKCancel,Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
            DialogResult diag = mesaj.ShowDialog();
             return true;
         }
@@ -39,7 +39,7 @@ namespace Korot
 
         public bool OnJSConfirm(IWebBrowser browser, string url, string message, out bool retval)
         {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Confirm", "Confirm on url : " + url + "\n Message:" + message,anaform.Icon, System.Windows.Forms.MessageBoxButtons.OKCancel,Properties.Settings.Default.BackColor);
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Confirm", "Confirm on url : " + url + "\n Message:" + message,anaform.Icon, System.Windows.Forms.MessageBoxButtons.OKCancel,Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
             DialogResult diag = mesaj.ShowDialog();
             if (diag == DialogResult.OK) { retval = true; } else { retval = false; }
             return true;
@@ -52,7 +52,7 @@ namespace Korot
 
         public bool OnJSPrompt(IWebBrowser browser, string url, string message, string defaultValue, out bool retval, out string result)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox(url, message,anaform.Icon, defaultValue,Properties.Settings.Default.BackColor);
+            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox(url, message,anaform.Icon, defaultValue,Properties.Settings.Default.BackColor,Properties.Settings.Default.OverlayColor,anaform.OK,anaform.Cancel,400,150);
             DialogResult diag = mesaj.ShowDialog();
             if (diag == DialogResult.OK) { retval = true; } else { retval = false; }
             result = mesaj.textBox1.Text;

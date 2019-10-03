@@ -229,13 +229,25 @@ namespace Korot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://haltroy.com;http://korot.haltroy.com;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string LastSessionURIs {
             get {
                 return ((string)(this["LastSessionURIs"]));
             }
             set {
                 this["LastSessionURIs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[DEFAULT]")]
+        public string UserAgent {
+            get {
+                return ((string)(this["UserAgent"]));
+            }
+            set {
+                this["UserAgent"] = value;
             }
         }
     }

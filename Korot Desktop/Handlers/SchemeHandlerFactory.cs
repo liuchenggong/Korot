@@ -19,7 +19,7 @@ namespace Korot
         }
         public static bool ValidHttpURL(string s)
         {
-            string Pattern = @"^(?:file)|(?:korot)|(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
+            string Pattern = @"^(?:about)|(?:about)|(?:file)|(?:korot)|(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
             Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return Rgx.IsMatch(s);
         }
@@ -40,6 +40,10 @@ namespace Korot
                         return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + Properties.Settings.Default.SearchURL + x + "\" />");
                     }
                     }
+                else if (request.Url == "korot://empty")
+                {
+                    return ResourceHandler.FromString("");
+                }
                 else if (request.Url == "korot://settings/")
                 {
                     string x = "<head><title>Korot Settings</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" + Environment.NewLine +

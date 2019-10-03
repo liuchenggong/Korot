@@ -9,7 +9,7 @@ namespace Korot
 {
     public class Output
     {
-        private readonly string LogDirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+        private readonly string LogDirPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\";
 
         private static Output _outputSingleton;
         private static Output OutputSingleton

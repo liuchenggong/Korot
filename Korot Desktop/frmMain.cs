@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using CefSharp;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,8 +7,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using static System.Console;
@@ -218,7 +221,7 @@ namespace Korot
             Properties.Settings.Default.downloadOpen = SplittedFase[2].Replace(Environment.NewLine, "") == "1";
             Properties.Settings.Default.downloadClose = SplittedFase[3].Replace(Environment.NewLine, "") == "1";
             Properties.Settings.Default.ThemeFile = SplittedFase[4].Replace(Environment.NewLine, "");
-            if (Properties.Settings.Default.Homepage == "korot://newtab") { radioButton1.Enabled = true; }
+            Properties.Settings.Default.UserAgent = SplittedFase[5].Replace(Environment.NewLine, "");
             ReadFile.Close();
             if (Properties.Settings.Default.ThemeFile == null || !File.Exists(Properties.Settings.Default.ThemeFile))
             {
@@ -255,6 +258,7 @@ namespace Korot
             if (Properties.Settings.Default.downloadOpen) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
             if (Properties.Settings.Default.downloadClose) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
             objWriter.WriteLine(Properties.Settings.Default.ThemeFile);
+            objWriter.WriteLine(Properties.Settings.Default.UserAgent);
             objWriter.Close();
             // History
             System.IO.StreamWriter objWriter1;
@@ -303,7 +307,7 @@ namespace Korot
         }
         public void NewProfile()
         {
-            HaltroyFramework.HaltroyInputBox newprof = new HaltroyFramework.HaltroyInputBox("Korot","Put a name to new profile.Must not use these : " + Environment.NewLine + "/ \\ : ? * |",this.Icon,"",Properties.Settings.Default.BackColor);
+            HaltroyFramework.HaltroyInputBox newprof = new HaltroyFramework.HaltroyInputBox("Korot",newProfileInfo + Environment.NewLine + "/ \\ : ? * |",this.Icon,"",Properties.Settings.Default.BackColor, Properties.Settings.Default.OverlayColor,OK, Cancel, 400, 150);
             DialogResult diagres = newprof.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -312,7 +316,7 @@ namespace Korot
                 else
                 {
                     Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + newprof.textBox1.Text);
-                    SwitchProfile(newprof.textBox1.Text);
+                    SwitchProfile(newprof.TextValue());
                 }
             }
 
@@ -375,6 +379,11 @@ namespace Korot
             frmS.tabControl1.TabPages.Add(tbKorot);
             Updater();
             if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\"); }
             if (IsDirectoryEmpty(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
             if (!(Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"))) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
             profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\";
@@ -422,6 +431,8 @@ namespace Korot
             label6.Text = "Beta " + Application.ProductVersion;
             textBox2.Text = Properties.Settings.Default.Homepage;
             textBox3.Text = Properties.Settings.Default.SearchURL;
+            textBox4.Text = Properties.Settings.Default.UserAgent;
+            if (Properties.Settings.Default.Homepage == "korot://newtab") { radioButton1.Enabled = true; }
             pictureBox3.BackColor = Properties.Settings.Default.BackColor;
             pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
             RefreshLangList();
@@ -430,21 +441,17 @@ namespace Korot
             refreshThemeList();
             PrintImages();
             RefreshDownloadList();
-            if (Properties.Settings.Default.LastSessionURIs == null)
+            if (Properties.Settings.Default.LastSessionURIs == "")
             {
-                SessionLogger.Start();
+                menuStrip1.Items.Remove(restorerStrip);
+                restorerStrip.Visible = false;
             }else
             {
-                SessionLogger.Stop();
-                // ReadLatestCurrentSession();
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", "Do you want to restore the last session?", this.Icon, MessageBoxButtons.YesNo, Properties.Settings.Default.BackColor);
-                DialogResult diagres = mesaj.ShowDialog();
-                if (diagres == DialogResult.Yes)
-                {
-                    ReadLatestCurrentSession();
-                }
-                SessionLogger.Start();
+                restorerStrip.Visible = true;
+                restorerStrip.Tag = Properties.Settings.Default.LastSessionURIs;
+                restorerStrip.ShowDropDown();
             }
+            SessionLogger.Start();
         }
             void RefreshHistory()
             {
@@ -463,16 +470,24 @@ namespace Korot
                 
                 }
             }
-        public void ReadLatestCurrentSession()
+        public void ReadSession(string Session)
         {
-            string Playlist = Properties.Settings.Default.LastSessionURIs;
-            string[] SplittedFase = Playlist.Split(';');
+            string[] SplittedFase = Session.Split(';');
             int Count = SplittedFase.Length - 1; ; int i = 0;
             while (!(i == Count))
             {
                 NewTab(SplittedFase[i].Replace(Environment.NewLine, ""));
                 i += 1;
             }
+        }
+        public void WriteSessions(string Session)
+        {
+            Properties.Settings.Default.LastSessionURIs = Session;
+            Properties.Settings.Default.Save();
+        }
+        public void ReadLatestCurrentSession()
+        {
+            ReadSession(Properties.Settings.Default.LastSessionURIs);
         }
         public void WriteCurrentSession()
         {
@@ -481,8 +496,7 @@ namespace Korot
             {
                CurrentSessionURIs += ((frmCEF)tabform).chromiumWebBrowser1.Address + ";";
             }
-            Properties.Settings.Default.LastSessionURIs = CurrentSessionURIs;
-            Properties.Settings.Default.Save();
+            WriteSessions(CurrentSessionURIs);
         }
         public void RemoveMefromList(frmCEF myself)
         {
@@ -491,7 +505,7 @@ namespace Korot
                 CefFormList.Remove(myself);
             }else
             {
-                throw new InvalidOperationException("How tf did you get this error message?");
+                throw new InvalidOperationException("How tf did you get this error message?Tell me niBBa!");
             }
         }
         public void TabText(int TabID, string TabText)
@@ -664,7 +678,12 @@ namespace Korot
             }
             catch (Exception ex)
             {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Error", "This theme file is corrupted or not suitable for this version.",this.Icon, MessageBoxButtons.OK,Properties.Settings.Default.BackColor);
+                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Error",
+                                                                                          "This theme file is corrupted or not suitable for this version.",
+                                                                                          this.Icon,
+                                                                                          MessageBoxButtons.OK,
+                                                                                          Properties.Settings.Default.BackColor,
+                                                                                          Yes,No,OK,Cancel,390,140);
 
                 DialogResult diyalog = mesaj.ShowDialog();
                 Output.WriteLine(ex.ToString());
@@ -700,7 +719,7 @@ namespace Korot
 
         private void ListBox2_DoubleClick(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Themes", "Do you want to change to this theme : \n" + listBox2.SelectedItem.ToString(), this.Icon, MessageBoxButtons.YesNoCancel,Properties.Settings.Default.BackColor);
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Themes", "Do you want to change to this theme : \n" + listBox2.SelectedItem.ToString(), this.Icon, MessageBoxButtons.YesNoCancel,Properties.Settings.Default.BackColor,Yes, No, OK, Cancel, 390, 140);
             if (mesaj.ShowDialog() == DialogResult.Yes)
             {
                 LoadTheme(Application.StartupPath + "\\Themes\\" + listBox2.SelectedItem.ToString());
@@ -710,6 +729,8 @@ namespace Korot
         }
 
         #region "Translate"
+                public string newProfileInfo = "Please enter a name for the new profile.It should not contain: ";
+        public string enterAValidUrl = "Enter a Valid URL";
         public string goTotxt = "Go to \"[TEXT]\"";
         public string SearchOnWeb = "Search \"[TEXT]\"";
         public string defaultproxytext = "Default Proxy";
@@ -777,6 +798,10 @@ namespace Korot
         public string switchTo = "Switch to:";
         public string deleteProfile = "Delete this profile";
         public string newprofile = "New Profile";
+        public string Yes = "Yes";
+        public string No = "No";
+        public string OK = "OK";
+        public string Cancel = "Cancel";
         #endregion
 
 
@@ -861,7 +886,14 @@ namespace Korot
                          string newProfile,
                          string delProfile,
                          string goToURL,
-                         string searchURL)
+                         string searchURL,
+                         string enterValidUrl,
+                         string newProfInfo,
+                         string restoreLastSession,
+                         string yes,
+                         string no,
+                         string ok,
+                         string cancel)
         {
             privatemode = privatemodetxt.Replace(Environment.NewLine, "");
             updateTitle = updatetitletxt.Replace(Environment.NewLine, "");
@@ -912,7 +944,9 @@ namespace Korot
             viewSource = viewsrc.Replace(Environment.NewLine, "");
             // lightToolStripMenuItem.Text = ltxt.Replace(Environment.NewLine, "");
             //darkToolStripMenuItem.Text = dtxt.Replace(Environment.NewLine, "");
+            restorerStrip.Text = restoreLastSession.Replace(Environment.NewLine, "");
             label7.Text = bcolor.Replace(Environment.NewLine, "");
+            enterAValidUrl = enterValidUrl.Replace(Environment.NewLine, "");
             label8.Text = ocolor.Replace(Environment.NewLine, "");
             chDate.Text = kaynak.Replace(Environment.NewLine, "");
             fromtwodot = kaynak2nokta.Replace(Environment.NewLine, "");
@@ -923,6 +957,8 @@ namespace Korot
             openfileafterdownload = otad.Replace(Environment.NewLine, "");
             closethisafterdownload = ctad.Replace(Environment.NewLine, "");
             open = _open.Replace(Environment.NewLine, "");
+            tsYes.Text = yes.Replace(Environment.NewLine, "");
+            tsNo.Text = no.Replace(Environment.NewLine, "");
             openLinkİnNewTabToolStripMenuItem.Text = openlinkinnt.Replace(Environment.NewLine, "");
             openFileToolStripMenuItem.Text = openfile.Replace(Environment.NewLine, "");
             openFileİnExplorerToolStripMenuItem.Text = openfolder.Replace(Environment.NewLine, "");
@@ -930,10 +966,15 @@ namespace Korot
             clearToolStripMenuItem2.Text = cleartxt.Replace(Environment.NewLine, "");
             defaultproxytext = defaultproxysetting.Replace(Environment.NewLine, "");
             label13.Text = themename.Replace(Environment.NewLine, "");
+            Yes = yes.Replace(Environment.NewLine, "");
+            No = no.Replace(Environment.NewLine, "");
+            OK = ok.Replace(Environment.NewLine, "");
+            Cancel = cancel.Replace(Environment.NewLine, "");
             button10.Text = save.Replace(Environment.NewLine, "");
             label15.Text = themes.Replace(Environment.NewLine, "");
             SearchOnWeb = searchURL.Replace(Environment.NewLine, "");
             goTotxt = goToURL.Replace(Environment.NewLine, "");
+            newProfileInfo = newProfInfo.Replace(Environment.NewLine, "");
             //pages
             MonthNames = MonthName.Replace(Environment.NewLine, "");
             DayNames = DayName.Replace(Environment.NewLine, "");
@@ -972,7 +1013,7 @@ namespace Korot
         private void listView1_DoubleClick(object sender, EventArgs e)
         {
             object p = "Do you want to set the language to '" + lbLang.SelectedItem.ToString();
-            HaltroyFramework.HaltroyMsgBox CustomMessageBox = new HaltroyFramework.HaltroyMsgBox("Korot", p + "' ?",this.Icon, MessageBoxButtons.YesNoCancel,Properties.Settings.Default.BackColor);
+            HaltroyFramework.HaltroyMsgBox CustomMessageBox = new HaltroyFramework.HaltroyMsgBox("Korot", p + "' ?",this.Icon, MessageBoxButtons.YesNoCancel,Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
             DialogResult result = CustomMessageBox.ShowDialog();
             if (result == DialogResult.Yes)
             {
@@ -1089,11 +1130,18 @@ namespace Korot
                     languagedummy.Items[77].ToString().Substring(1),
                     languagedummy.Items[78].ToString().Substring(1),
                     languagedummy.Items[79].ToString().Substring(1),
-                    languagedummy.Items[80].ToString().Substring(1));
+                    languagedummy.Items[80].ToString().Substring(1),
+                    languagedummy.Items[81].ToString().Substring(1),
+                    languagedummy.Items[82].ToString().Substring(1),
+                    languagedummy.Items[83].ToString().Substring(1),
+                    languagedummy.Items[84].ToString().Substring(1),
+                    languagedummy.Items[85].ToString().Substring(1),
+                    languagedummy.Items[86].ToString().Substring(1),
+                    languagedummy.Items[87].ToString().Substring(1));
             }
             catch (Exception ex)
             {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Error", "This file does not suitable for this version of Korot.Please ask the creator of this language to update or reinstall Korot." + Environment.NewLine + " Error : " + ex.Message,this.Icon, MessageBoxButtons.OK,Properties.Settings.Default.BackColor);
+                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Error", "This file does not suitable for this version of Korot.Please ask the creator of this language to update." + Environment.NewLine + " Error : " + ex.Message,this.Icon, MessageBoxButtons.OK,Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
                 DialogResult diyalog = mesaj.ShowDialog();
             }
 
@@ -1113,9 +1161,20 @@ namespace Korot
         }
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string CustomURL = Interaction.InputBox(customSearchNote, customSearchMessage, Properties.Settings.Default.SearchURL);
-            Properties.Settings.Default.SearchURL = CustomURL;
-            textBox3.Text = Properties.Settings.Default.SearchURL;
+            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox(customSearchNote, customSearchMessage, this.Icon, Properties.Settings.Default.SearchURL, Properties.Settings.Default.BackColor, Properties.Settings.Default.OverlayColor, OK, Cancel, 400, 150);
+            DialogResult diagres = inputb.ShowDialog();
+            if (diagres == DialogResult.OK)
+            {
+                if (ValidHttpURL(inputb.TextValue())  && !inputb.TextValue().StartsWith("korot://") && !inputb.TextValue().StartsWith("file://") && !inputb.TextValue().StartsWith("about"))
+                {
+                    Properties.Settings.Default.SearchURL = inputb.TextValue();
+                    textBox3.Text = Properties.Settings.Default.SearchURL;
+                }else
+                {
+                    customToolStripMenuItem_Click(null, null);
+                }
+            }
+           
         }
         private void SearchEngineSelection_Click(object sender, EventArgs e)
         {
@@ -1343,19 +1402,31 @@ namespace Korot
                 textBox1.Text = Properties.Settings.Default.BackStyle;
             }
         }
-
+        public static bool ValidHttpURL(string s)
+        {
+            string Pattern = @"^(?:about)|(?:about)|(?:file)|(?:korot)|(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
+            Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return Rgx.IsMatch(s);
+        }
         private void FromURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HaltroyFramework.HaltroyInputBox inputbox = new HaltroyFramework.HaltroyInputBox("Korot",
-                                                                                             "Enter a valid URL",
+                                                                                             enterAValidUrl,
                                                                                              this.Icon,
                                                                                              "",
                                                                                              Properties.Settings.Default.BackColor,
-                                                                                             Properties.Settings.Default.OverlayColor);
+                                                                                             Properties.Settings.Default.OverlayColor,
+                                                                                             OK,Cancel,400,150);
                 if (inputbox.ShowDialog() == DialogResult.OK)
             {
-                Properties.Settings.Default.BackStyle = "background-image: url(\"" + inputbox.textBox1.Text.Replace("\\", "/") + "\")";
-                textBox1.Text = Properties.Settings.Default.BackStyle;
+                if (ValidHttpURL(inputbox.TextValue()))
+                {
+                    Properties.Settings.Default.BackStyle = "background-image: url(\"" + inputbox.TextValue().Replace("\\", "/") + "\")";
+                    textBox1.Text = Properties.Settings.Default.BackStyle;
+                }else
+                {
+                    FromURLToolStripMenuItem_Click(null, null);
+                }
             }
         }
 
@@ -1439,6 +1510,79 @@ namespace Korot
             {
                 //Ignored
             }
+        }
+
+        private static ManagementObject GetMngObj(string className)
+        {
+            var wmi = new ManagementClass(className);
+
+            foreach (var o in wmi.GetInstances())
+            {
+                var mo = (ManagementObject)o;
+                if (mo != null) return mo;
+            }
+
+            return null;
+        }
+
+        public static string GetOsVer()
+        {
+            try
+            {
+                ManagementObject mo = GetMngObj("Win32_OperatingSystem");
+
+                if (null == mo)
+                    return string.Empty;
+
+                return mo["Version"] as string;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+        private void LatestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void TbSetting_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void TextBox4_Click(object sender, EventArgs e)
+        {
+            cmsUserAgent.Show(MousePosition);
+        }
+
+        private void CustomToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox("Korot", "Please enter a valid User Agent string.", this.Icon, "Mozilla/5.0 ( Windows NT " + GetOsVer() + "; " + Environment.OSVersion.Platform + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + Cef.ChromiumVersion + " Safari/537.36 Korot/" + Application.ProductVersion.ToString(), Properties.Settings.Default.BackColor, Properties.Settings.Default.OverlayColor, OK, Cancel, 400, 150);
+            DialogResult diagres = inputb.ShowDialog();
+            if (diagres == DialogResult.OK)
+            {
+                Properties.Settings.Default.UserAgent = inputb.TextValue();
+                textBox4.Text = Properties.Settings.Default.UserAgent;
+            }
+        }
+
+     
+        private void YesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(restorerStrip.Tag.ToString());
+            ReadSession(restorerStrip.Tag.ToString());
+            menuStrip1.Items.Remove(restorerStrip);
+        }
+
+        private void NoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menuStrip1.Items.Remove(restorerStrip);
+        }
+
+        private void UaDefault_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.UserAgent = "[DEFAULT]";
+            textBox4.Text = Properties.Settings.Default.UserAgent;
         }
     }
 

@@ -79,3 +79,10 @@ New Profile
 Delete this profile
 Go to "[TEXT]"
 Search "[TEXT]" on Web
+Please enter a valid URL.
+Please enter a name for the new profile.It should not contain: 
+Do you want to restore the last session?
+Yes
+No
+OK
+Cancel

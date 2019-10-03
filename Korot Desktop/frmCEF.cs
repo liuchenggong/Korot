@@ -45,6 +45,14 @@ namespace Korot
                 defaultproxyaddress = null;
                 Output.WriteLine("[INFO] No proxy detected.Disabling proxies.");
                 button6.Enabled = false;
+                ToolTip toolTip1 = new ToolTip();
+                // Set up the delays for the ToolTip.
+                toolTip1.AutoPopDelay = 5000;
+                toolTip1.InitialDelay = 1000;
+                toolTip1.ReshowDelay = 500;
+                // Force the ToolTip text to be displayed whether or not the form is active.
+                toolTip1.ShowAlways = true;
+                toolTip1.SetToolTip(button6, "Disabled.No default proxy detected.");
             } else {
                 defaultproxyaddress = resourceProxy.AbsoluteUri.ToString();
             Output.WriteLine("[INFO] Listening on proxy : " + defaultproxyaddress);
@@ -107,9 +115,11 @@ namespace Korot
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings();
-            string ProductName =
-Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ProductName", "").ToString();
-            settings.UserAgent = "Mozilla/5.0 ( Windows NT " + GetOsVer() + "; " + Environment.OSVersion.Platform + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + Cef.ChromiumVersion + " Safari/537.36 Korot/" + Application.ProductVersion.ToString();
+            if (Properties.Settings.Default.UserAgent == "[DEFAULT]") { settings.UserAgent = "Mozilla/5.0 ( Windows NT " + GetOsVer() + "; " + Environment.OSVersion.Platform + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + Cef.ChromiumVersion + " Safari/537.36 Korot/" + Application.ProductVersion.ToString(); }
+            else
+            {
+                settings.UserAgent = Properties.Settings.Default.UserAgent.Replace("[OS INFO]", "(Windows NT " + GetOsVer() + "; " + Environment.OSVersion.Platform + ")").Replace("[KOROTVERSION]",Application.ProductVersion.ToString());
+            }
             if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; }
             else { settings.CachePath = userCache; }
             settings.RegisterScheme(new CefCustomScheme
@@ -137,7 +147,7 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         }
         public void executeStartupExtensions()
         {
-            foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Extensions\\", "*.*", SearchOption.AllDirectories))
+            foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\", "*.*", SearchOption.AllDirectories))
             {
                 if (x.EndsWith("\\startup.js", StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -236,7 +246,7 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
 
         public static bool ValidHttpURL(string s)
         {
-                string Pattern = @"^(?:file)|(?:korot)|(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
+                string Pattern = @"^(?:about)|(?:about)|(?:file)|(?:korot)|(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
                 Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
                 return Rgx.IsMatch(s);
             }
@@ -562,11 +572,11 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         public void LoadExt()
         {
             contextMenuStrip1.Items.Clear();
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Extensions\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\"); }
 
-            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Extensions\\"))
+            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\"))
             {
-                if (File.Exists(x + "\\ext.kem"))
+                if (File.Exists(x + "\\extension.kem"))
                 {
                     ToolStripMenuItem extItem = new ToolStripMenuItem();
                     extItem.Text = new DirectoryInfo(x).Name;
@@ -581,7 +591,7 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
                     }
                     ToolStripMenuItem extRunItem = new ToolStripMenuItem();
                     extItem.Click += ExtensionToolStripMenuItem_Click;
-                    extItem.Tag = x + "\\ext.kem";
+                    extItem.Tag = x + "\\extension.kem";
                     contextMenuStrip1.Items.Add(extItem);
 
                 }
@@ -600,7 +610,7 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
         public void LoadProxies()
         {
             contextMenuStrip2.Items.Clear();
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Proxy\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Proxy\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\"); }
             // add default proxy
             ToolStripMenuItem defaultProxyMenuItem = new ToolStripMenuItem();
             defaultproxyItem = defaultProxyMenuItem;
@@ -608,7 +618,7 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
             defaultProxyMenuItem.Click += ExampleProxyToolStripMenuItem_Click;
             defaultProxyMenuItem.Tag = defaultproxyaddress;
             contextMenuStrip2.Items.Add(defaultProxyMenuItem);
-            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + userName + "\\Proxy\\"))
+            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\"))
             {
                 if (File.Exists(x + "\\proxy.kem"))
                 {
@@ -677,5 +687,13 @@ Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVers
             contextMenuStrip2.Show(MousePosition);
         }
 
+        private void Button6_MouseEnter(object sender, EventArgs e)
+        {
+        }
+
+        private void MFavorites_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

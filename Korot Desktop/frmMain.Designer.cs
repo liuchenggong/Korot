@@ -60,9 +60,14 @@
             this.tbKorot = new System.Windows.Forms.TabPage();
             this.tabControl2 = new HaltroyFramework.HaltroyTabControl();
             this.tbSetting = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label11 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.cmsUserAgent = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.uaDefault = new System.Windows.Forms.ToolStripMenuItem();
+            this.customToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.tbTheme = new System.Windows.Forms.TabPage();
@@ -119,6 +124,9 @@
             this.button2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.button4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.restorerStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsYes = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsNo = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsHistory.SuspendLayout();
             this.cmsDownload.SuspendLayout();
             this.cmsPlusRightClick.SuspendLayout();
@@ -127,6 +135,7 @@
             this.tbKorot.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tbSetting.SuspendLayout();
+            this.cmsUserAgent.SuspendLayout();
             this.tbTheme.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -380,7 +389,7 @@
             this.tabControl1.SelectedTextColor = System.Drawing.Color.Black;
             this.tabControl1.ShowClosingButton = true;
             this.tabControl1.ShowClosingMessage = false;
-            this.tabControl1.Size = new System.Drawing.Size(657, 303);
+            this.tabControl1.Size = new System.Drawing.Size(657, 371);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.TextColor = System.Drawing.Color.Black;
             this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.TabControl1_DragDrop);
@@ -396,7 +405,7 @@
             this.tbKorot.ImageKey = "Korot.png";
             this.tbKorot.Location = new System.Drawing.Point(4, 20);
             this.tbKorot.Name = "tbKorot";
-            this.tbKorot.Size = new System.Drawing.Size(649, 279);
+            this.tbKorot.Size = new System.Drawing.Size(649, 347);
             this.tbKorot.TabIndex = 2;
             this.tbKorot.Text = "Korot";
             // 
@@ -426,33 +435,48 @@
             this.tabControl2.SelectedTextColor = System.Drawing.Color.Black;
             this.tabControl2.ShowClosingButton = false;
             this.tabControl2.ShowClosingMessage = false;
-            this.tabControl2.Size = new System.Drawing.Size(649, 279);
+            this.tabControl2.Size = new System.Drawing.Size(649, 347);
             this.tabControl2.TabIndex = 31;
             this.tabControl2.TextColor = System.Drawing.Color.Black;
             // 
             // tbSetting
             // 
+            this.tbSetting.AutoScroll = true;
             this.tbSetting.BackColor = System.Drawing.Color.White;
+            this.tbSetting.Controls.Add(this.label5);
             this.tbSetting.Controls.Add(this.radioButton1);
             this.tbSetting.Controls.Add(this.label11);
             this.tbSetting.Controls.Add(this.label3);
+            this.tbSetting.Controls.Add(this.textBox4);
             this.tbSetting.Controls.Add(this.textBox3);
             this.tbSetting.Controls.Add(this.textBox2);
             this.tbSetting.Location = new System.Drawing.Point(4, 20);
             this.tbSetting.Name = "tbSetting";
             this.tbSetting.Padding = new System.Windows.Forms.Padding(3);
-            this.tbSetting.Size = new System.Drawing.Size(641, 255);
+            this.tbSetting.Size = new System.Drawing.Size(641, 323);
             this.tbSetting.TabIndex = 0;
             this.tbSetting.Text = "Settings";
+            this.tbSetting.Click += new System.EventHandler(this.TbSetting_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 96);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 17);
+            this.label5.TabIndex = 25;
+            this.label5.Tag = "";
+            this.label5.Text = "User Agent:";
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(127, 40);
+            this.radioButton1.Location = new System.Drawing.Point(126, 30);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(82, 21);
             this.radioButton1.TabIndex = 24;
             this.radioButton1.TabStop = true;
+            this.radioButton1.Tag = "";
             this.radioButton1.Text = "New Tab";
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
@@ -461,21 +485,62 @@
             // 
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Location = new System.Drawing.Point(11, 16);
+            this.label11.Location = new System.Drawing.Point(10, 6);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(90, 17);
             this.label11.TabIndex = 17;
+            this.label11.Tag = "";
             this.label11.Text = "Home Page :";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(11, 70);
+            this.label3.Location = new System.Drawing.Point(10, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 17);
             this.label3.TabIndex = 16;
+            this.label3.Tag = "";
             this.label3.Text = "Search Engine : ";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox4.ContextMenuStrip = this.cmsUserAgent;
+            this.textBox4.Location = new System.Drawing.Point(126, 93);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(500, 46);
+            this.textBox4.TabIndex = 23;
+            this.textBox4.Tag = "";
+            this.textBox4.Text = "[DEFAULT]";
+            this.textBox4.Click += new System.EventHandler(this.TextBox4_Click);
+            // 
+            // cmsUserAgent
+            // 
+            this.cmsUserAgent.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.uaDefault,
+            this.customToolStripMenuItem1});
+            this.cmsUserAgent.Name = "cmsUserAgent";
+            this.cmsUserAgent.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cmsUserAgent.ShowImageMargin = false;
+            this.cmsUserAgent.Size = new System.Drawing.Size(156, 70);
+            // 
+            // uaDefault
+            // 
+            this.uaDefault.Name = "uaDefault";
+            this.uaDefault.Size = new System.Drawing.Size(155, 22);
+            this.uaDefault.Text = "Default";
+            this.uaDefault.Click += new System.EventHandler(this.UaDefault_Click);
+            // 
+            // customToolStripMenuItem1
+            // 
+            this.customToolStripMenuItem1.Name = "customToolStripMenuItem1";
+            this.customToolStripMenuItem1.Size = new System.Drawing.Size(155, 22);
+            this.customToolStripMenuItem1.Text = "Custom";
+            this.customToolStripMenuItem1.Click += new System.EventHandler(this.CustomToolStripMenuItem1_Click);
             // 
             // textBox3
             // 
@@ -483,11 +548,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.textBox3.ContextMenuStrip = this.cmsSearchEngine;
-            this.textBox3.Location = new System.Drawing.Point(127, 67);
+            this.textBox3.Location = new System.Drawing.Point(126, 57);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(501, 23);
             this.textBox3.TabIndex = 23;
+            this.textBox3.Tag = "";
             this.textBox3.Text = "gugıl";
             this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
             // 
@@ -495,10 +561,11 @@
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(127, 16);
+            this.textBox2.Location = new System.Drawing.Point(126, 6);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(501, 23);
             this.textBox2.TabIndex = 18;
+            this.textBox2.Tag = "";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // tbTheme
@@ -518,7 +585,7 @@
             this.tbTheme.Location = new System.Drawing.Point(4, 20);
             this.tbTheme.Name = "tbTheme";
             this.tbTheme.Padding = new System.Windows.Forms.Padding(3);
-            this.tbTheme.Size = new System.Drawing.Size(641, 255);
+            this.tbTheme.Size = new System.Drawing.Size(641, 323);
             this.tbTheme.TabIndex = 6;
             this.tbTheme.Text = "Theme";
             this.tbTheme.Enter += new System.EventHandler(this.TbTheme_Enter);
@@ -587,9 +654,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(14, 125);
+            this.listBox2.Location = new System.Drawing.Point(11, 125);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(613, 100);
+            this.listBox2.Size = new System.Drawing.Size(613, 196);
             this.listBox2.TabIndex = 31;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
@@ -602,6 +669,7 @@
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(64, 23);
             this.button10.TabIndex = 30;
+            this.button10.Tag = "";
             this.button10.Text = "Save";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.Button10_Click);
@@ -618,6 +686,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(446, 24);
             this.comboBox1.TabIndex = 1;
+            this.comboBox1.Tag = "";
             // 
             // label10
             // 
@@ -628,6 +697,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(134, 17);
             this.label10.TabIndex = 25;
+            this.label10.Tag = "";
             this.label10.Text = "Background Image :";
             // 
             // label15
@@ -639,6 +709,7 @@
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(71, 17);
             this.label15.TabIndex = 25;
+            this.label15.Tag = "";
             this.label15.Text = "Themes : ";
             // 
             // label13
@@ -650,6 +721,7 @@
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(105, 17);
             this.label13.TabIndex = 25;
+            this.label13.Tag = "";
             this.label13.Text = "Theme Name : ";
             // 
             // label7
@@ -661,6 +733,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(133, 17);
             this.label7.TabIndex = 25;
+            this.label7.Tag = "";
             this.label7.Text = "Background Color : ";
             // 
             // label8
@@ -672,6 +745,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(99, 17);
             this.label8.TabIndex = 26;
+            this.label8.Tag = "Overall theme (Selected Tab background,Loading Bar Color etc.)";
             this.label8.Text = "Overal Color : ";
             // 
             // pictureBox4
@@ -682,6 +756,7 @@
             this.pictureBox4.Size = new System.Drawing.Size(20, 20);
             this.pictureBox4.TabIndex = 28;
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.Tag = "Default: DodgerBlue";
             this.pictureBox4.Click += new System.EventHandler(this.PictureBox4_Click);
             // 
             // pictureBox3
@@ -692,6 +767,7 @@
             this.pictureBox3.Size = new System.Drawing.Size(20, 20);
             this.pictureBox3.TabIndex = 27;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Tag = "";
             this.pictureBox3.Click += new System.EventHandler(this.PictureBox3_Click);
             // 
             // tbLang
@@ -701,7 +777,7 @@
             this.tbLang.Location = new System.Drawing.Point(4, 20);
             this.tbLang.Name = "tbLang";
             this.tbLang.Padding = new System.Windows.Forms.Padding(3);
-            this.tbLang.Size = new System.Drawing.Size(641, 255);
+            this.tbLang.Size = new System.Drawing.Size(641, 309);
             this.tbLang.TabIndex = 2;
             this.tbLang.Text = "Language";
             this.tbLang.Enter += new System.EventHandler(this.TbLang_Enter);
@@ -713,7 +789,7 @@
             this.lbLang.ItemHeight = 16;
             this.lbLang.Location = new System.Drawing.Point(3, 3);
             this.lbLang.Name = "lbLang";
-            this.lbLang.Size = new System.Drawing.Size(635, 249);
+            this.lbLang.Size = new System.Drawing.Size(635, 303);
             this.lbLang.TabIndex = 21;
             this.lbLang.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
@@ -725,7 +801,7 @@
             this.tbHistory.Location = new System.Drawing.Point(4, 20);
             this.tbHistory.Name = "tbHistory";
             this.tbHistory.Padding = new System.Windows.Forms.Padding(3);
-            this.tbHistory.Size = new System.Drawing.Size(641, 255);
+            this.tbHistory.Size = new System.Drawing.Size(641, 323);
             this.tbHistory.TabIndex = 3;
             this.tbHistory.Text = "History";
             this.tbHistory.Enter += new System.EventHandler(this.TbHistory_Enter);
@@ -743,7 +819,7 @@
             this.hlvHistory.HideSelection = false;
             this.hlvHistory.Location = new System.Drawing.Point(3, 3);
             this.hlvHistory.Name = "hlvHistory";
-            this.hlvHistory.Size = new System.Drawing.Size(635, 249);
+            this.hlvHistory.Size = new System.Drawing.Size(635, 317);
             this.hlvHistory.TabIndex = 0;
             this.hlvHistory.UseCompatibleStateImageBehavior = false;
             this.hlvHistory.View = System.Windows.Forms.View.Details;
@@ -773,7 +849,7 @@
             this.tbDownload.Location = new System.Drawing.Point(4, 20);
             this.tbDownload.Name = "tbDownload";
             this.tbDownload.Padding = new System.Windows.Forms.Padding(3);
-            this.tbDownload.Size = new System.Drawing.Size(641, 255);
+            this.tbDownload.Size = new System.Drawing.Size(641, 323);
             this.tbDownload.TabIndex = 4;
             this.tbDownload.Text = "Downloads";
             this.tbDownload.Enter += new System.EventHandler(this.TbDownload_Enter);
@@ -791,7 +867,7 @@
             this.hlvDownload.HideSelection = false;
             this.hlvDownload.Location = new System.Drawing.Point(3, 3);
             this.hlvDownload.Name = "hlvDownload";
-            this.hlvDownload.Size = new System.Drawing.Size(635, 249);
+            this.hlvDownload.Size = new System.Drawing.Size(635, 317);
             this.hlvDownload.TabIndex = 1;
             this.hlvDownload.UseCompatibleStateImageBehavior = false;
             this.hlvDownload.View = System.Windows.Forms.View.Details;
@@ -834,7 +910,7 @@
             this.tbAbout.Location = new System.Drawing.Point(4, 20);
             this.tbAbout.Name = "tbAbout";
             this.tbAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tbAbout.Size = new System.Drawing.Size(641, 255);
+            this.tbAbout.Size = new System.Drawing.Size(641, 309);
             this.tbAbout.TabIndex = 5;
             this.tbAbout.Text = "About";
             // 
@@ -1081,7 +1157,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 20);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(649, 279);
+            this.tabPage2.Size = new System.Drawing.Size(649, 421);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "+";
             // 
@@ -1095,10 +1171,11 @@
             this.button1,
             this.button2,
             this.toolStripMenuItem3,
-            this.button4});
+            this.button4,
+            this.restorerStrip});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.menuStrip1.Size = new System.Drawing.Size(647, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
@@ -1152,12 +1229,35 @@
             this.button4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
+            // restorerStrip
+            // 
+            this.restorerStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsYes,
+            this.tsNo});
+            this.restorerStrip.Name = "restorerStrip";
+            this.restorerStrip.Size = new System.Drawing.Size(226, 20);
+            this.restorerStrip.Text = "Do you want to restore the last session?";
+            // 
+            // tsYes
+            // 
+            this.tsYes.Name = "tsYes";
+            this.tsYes.Size = new System.Drawing.Size(180, 22);
+            this.tsYes.Text = "Yes";
+            this.tsYes.Click += new System.EventHandler(this.YesToolStripMenuItem_Click);
+            // 
+            // tsNo
+            // 
+            this.tsNo.Name = "tsNo";
+            this.tsNo.Size = new System.Drawing.Size(180, 22);
+            this.tsNo.Text = "No";
+            this.tsNo.Click += new System.EventHandler(this.NoToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(647, 300);
+            this.ClientSize = new System.Drawing.Size(647, 368);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.tabControl1);
             this.ForeColor = System.Drawing.Color.Black;
@@ -1183,6 +1283,7 @@
             this.tabControl2.ResumeLayout(false);
             this.tbSetting.ResumeLayout(false);
             this.tbSetting.PerformLayout();
+            this.cmsUserAgent.ResumeLayout(false);
             this.tbTheme.ResumeLayout(false);
             this.tbTheme.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -1291,5 +1392,13 @@
         private System.Windows.Forms.ToolStripMenuItem button2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem button4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.ContextMenuStrip cmsUserAgent;
+        private System.Windows.Forms.ToolStripMenuItem uaDefault;
+        private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem restorerStrip;
+        private System.Windows.Forms.ToolStripMenuItem tsYes;
+        private System.Windows.Forms.ToolStripMenuItem tsNo;
     }
 }

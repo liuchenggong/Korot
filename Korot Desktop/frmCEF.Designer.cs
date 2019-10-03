@@ -128,6 +128,7 @@
             this.mFavorites.Size = new System.Drawing.Size(400, 24);
             this.mFavorites.TabIndex = 0;
             this.mFavorites.Text = "menuStrip1";
+            this.mFavorites.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MFavorites_ItemClicked);
             // 
             // pictureBox1
             // 
@@ -292,9 +293,11 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(26, 26);
             this.button6.TabIndex = 0;
+            this.button6.Tag = "Proxy";
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.Button6_Click);
             this.button6.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
+            this.button6.MouseEnter += new System.EventHandler(this.Button6_MouseEnter);
             // 
             // button8
             // 
