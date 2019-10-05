@@ -212,70 +212,85 @@ namespace Korot
         void LoadSettings(string settingFile,string historyFile,string favoritesFile,string downloadHistory)
         {
             // Settings
-            StreamReader ReadFile = new StreamReader(settingFile, Encoding.UTF8, false);
-            string Playlist = ReadFile.ReadToEnd();
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SplittedFase = Playlist.Split(token);
-            Properties.Settings.Default.Homepage = SplittedFase[0].Replace(Environment.NewLine, "");
-            Properties.Settings.Default.SearchURL = SplittedFase[1].Replace(Environment.NewLine, "");
-            Properties.Settings.Default.downloadOpen = SplittedFase[2].Replace(Environment.NewLine, "") == "1";
-            Properties.Settings.Default.downloadClose = SplittedFase[3].Replace(Environment.NewLine, "") == "1";
-            Properties.Settings.Default.ThemeFile = SplittedFase[4].Replace(Environment.NewLine, "");
-            Properties.Settings.Default.UserAgent = SplittedFase[5].Replace(Environment.NewLine, "");
-            ReadFile.Close();
-            if (Properties.Settings.Default.ThemeFile == null || !File.Exists(Properties.Settings.Default.ThemeFile))
+            try
             {
-                Properties.Settings.Default.ThemeFile = Application.StartupPath + "\\Themes\\Korot Light.ktf";
-            }
-            if (!File.Exists(Application.StartupPath + "\\Themes\\Korot Light.ktf"))
-            {
-                StreamWriter newtheme = new StreamWriter(Application.StartupPath + "\\Themes\\Korot Light.ktf");
-                newtheme.WriteLine("255;255;255;30;144;255;");
-                newtheme.Close();
-            }
-            // History
-            StreamReader ReadFile1 = new StreamReader(historyFile, Encoding.UTF8, false);
+                StreamReader ReadFile = new StreamReader(settingFile, Encoding.UTF8, false);
+                string Playlist = ReadFile.ReadToEnd();
+                char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+                string[] SplittedFase = Playlist.Split(token);
+                Properties.Settings.Default.Homepage = SplittedFase[0].Replace(Environment.NewLine, "");
+                Properties.Settings.Default.SearchURL = SplittedFase[1].Replace(Environment.NewLine, "");
+                Properties.Settings.Default.downloadOpen = SplittedFase[2].Replace(Environment.NewLine, "") == "1";
+                Properties.Settings.Default.downloadClose = SplittedFase[3].Replace(Environment.NewLine, "") == "1";
+                Properties.Settings.Default.ThemeFile = SplittedFase[4].Replace(Environment.NewLine, "");
+                ReadFile.Close();
+                if (Properties.Settings.Default.ThemeFile == null || !File.Exists(Properties.Settings.Default.ThemeFile))
+                {
+                    Properties.Settings.Default.ThemeFile = Application.StartupPath + "\\Themes\\Korot Light.ktf";
+                }
+                if (!File.Exists(Application.StartupPath + "\\Themes\\Korot Light.ktf"))
+                {
+                    StreamWriter newtheme = new StreamWriter(Application.StartupPath + "\\Themes\\Korot Light.ktf");
+                    newtheme.WriteLine("255");
+                    newtheme.WriteLine("255");
+                    newtheme.WriteLine("255");
+                    newtheme.WriteLine("30");
+                    newtheme.WriteLine("144");
+                    newtheme.WriteLine("background-color: rgb(255,255,255)");
+                    newtheme.Close();
+                }
+                // History
+                StreamReader ReadFile1 = new StreamReader(historyFile, Encoding.UTF8, false);
                 Properties.Settings.Default.History = ReadFile1.ReadToEnd();
-            ReadFile1.Close();
-            // Favorites
-            StreamReader ReadFile2 = new StreamReader(favoritesFile, Encoding.UTF8, false);
-            Properties.Settings.Default.Favorites = ReadFile2.ReadToEnd();
-            ReadFile2.Close();
-            // Theme
-            
-            // Downloads
-            StreamReader ReadFile4 = new StreamReader(downloadHistory, Encoding.UTF8, false);
-            Properties.Settings.Default.DowloadHistory = ReadFile4.ReadToEnd();
-            ReadFile4.Close();
+                ReadFile1.Close();
+                // Favorites
+                StreamReader ReadFile2 = new StreamReader(favoritesFile, Encoding.UTF8, false);
+                Properties.Settings.Default.Favorites = ReadFile2.ReadToEnd();
+                ReadFile2.Close();
+                // Theme
+
+                // Downloads
+                StreamReader ReadFile4 = new StreamReader(downloadHistory, Encoding.UTF8, false);
+                Properties.Settings.Default.DowloadHistory = ReadFile4.ReadToEnd();
+                ReadFile4.Close();
+            }catch (Exception ex)
+            {
+                Console.WriteLine("Error at reading settings(" + settingFile + ") : " + ex.ToString());
+                SaveSettings(settingFile, historyFile, favoritesFile, downloadHistory);
+            }
         }
         void SaveSettings(string settingFile, string historyFile, string favoritesFile, string downloadHistory)
         {
-            // Settings
-            System.IO.StreamWriter objWriter;
-            objWriter = new System.IO.StreamWriter(settingFile);
-            objWriter.WriteLine(Properties.Settings.Default.Homepage);
-            objWriter.WriteLine(Properties.Settings.Default.SearchURL);
-            if (Properties.Settings.Default.downloadOpen) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
-            if (Properties.Settings.Default.downloadClose) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
-            objWriter.WriteLine(Properties.Settings.Default.ThemeFile);
-            objWriter.WriteLine(Properties.Settings.Default.UserAgent);
-            objWriter.Close();
-            // History
-            System.IO.StreamWriter objWriter1;
-            objWriter1 = new System.IO.StreamWriter(historyFile);
+            try
+            {
+                // Settings
+                System.IO.StreamWriter objWriter;
+                objWriter = new System.IO.StreamWriter(settingFile);
+                objWriter.WriteLine(Properties.Settings.Default.Homepage);
+                objWriter.WriteLine(Properties.Settings.Default.SearchURL);
+                if (Properties.Settings.Default.downloadOpen) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
+                if (Properties.Settings.Default.downloadClose) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
+                objWriter.WriteLine(Properties.Settings.Default.ThemeFile);
+                objWriter.Close();
+                // History
+                System.IO.StreamWriter objWriter1;
+                objWriter1 = new System.IO.StreamWriter(historyFile);
                 objWriter1.WriteLine(Properties.Settings.Default.History);
-            objWriter1.Close();
-            // Favorites
-            System.IO.StreamWriter objWriter2;
-            objWriter2 = new System.IO.StreamWriter(favoritesFile);
-            objWriter2.WriteLine(Properties.Settings.Default.Favorites);
-            objWriter2.Close();
-            // Download
-            System.IO.StreamWriter objWriter4;
-            objWriter4 = new System.IO.StreamWriter(downloadHistory);
-            objWriter4.WriteLine(Properties.Settings.Default.DowloadHistory);
-            objWriter4.Close();
-
+                objWriter1.Close();
+                // Favorites
+                System.IO.StreamWriter objWriter2;
+                objWriter2 = new System.IO.StreamWriter(favoritesFile);
+                objWriter2.WriteLine(Properties.Settings.Default.Favorites);
+                objWriter2.Close();
+                // Download
+                System.IO.StreamWriter objWriter4;
+                objWriter4 = new System.IO.StreamWriter(downloadHistory);
+                objWriter4.WriteLine(Properties.Settings.Default.DowloadHistory);
+                objWriter4.Close();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("Error at saving settings(" + settingFile + ") : " + ex.ToString());
+            }
         }
 
         public bool IsDirectoryEmpty(string path)
@@ -350,19 +365,65 @@ namespace Korot
         public void Updater()
         {
             UpdateWebC.DownloadStringCompleted += Updater_DownloadStringCompleted;
+            UpdateWebC.DownloadProgressChanged += updater_checking;
             UpdateWebC.DownloadStringAsync(new Uri("https://onedrive.live.com/download?resid=3FD0899CA240B9B!2123&authkey=!ADjFaqhHH3MjOAQ&ithint=file%2ctxt&e=5QH8I8"));
+            updateProgress = 0;
+        }
+        bool alreadyCheckedForUpdatesOnce = false;
+        private void updater_checking(object sender,DownloadProgressChangedEventArgs e)
+        {
+            lbUpdateStatus.Text = checking;
+            updateProgress = 0;
+            btUpdater.Visible = false;
         }
       private void Updater_DownloadStringCompleted(object sender,DownloadStringCompletedEventArgs e)
         {
-            if (e.Error != null) { }
-            else if (e.Cancelled) { }
+            if (e.Error != null || e.Cancelled) 
+            {
+                updateProgress = 3;
+                btUpdater.Location = btInstall.Location;
+                btInstall.Visible = false;
+                btUpdater.Visible = true;
+                lbUpdateStatus.Text = updateError;
+            }
             else
             {
                 Version newest = new Version(e.Result);
                 Version current = new Version(Application.ProductVersion);
                 if (newest > current)
                 {
-                    Process.Start(new DirectoryInfo(Application.StartupPath).Parent.FullName + "\\Korot-Installer.exe");
+                    if (alreadyCheckedForUpdatesOnce)
+                    {
+                        btUpdater.Location = new Point(btInstall.Location.X, btInstall.Location.Y + 5 + btInstall.Height);
+                        updateProgress = 2;
+                        lbUpdateStatus.Text = updateavailable;
+                        btUpdater.Visible = true;
+                        btInstall.Visible = true;
+                    }
+                    else
+                    {
+                        btUpdater.Location = new Point(btInstall.Location.X, btInstall.Location.Y + 5 + btInstall.Height);
+                        alreadyCheckedForUpdatesOnce = true;
+                        updateProgress = 2;
+                        lbUpdateStatus.Text = updateavailable;
+                        btInstall.Visible = true;
+                        btUpdater.Visible = true;
+                        HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(updateTitle, updateMessage, this.Icon, MessageBoxButtons.YesNo, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
+                        DialogResult diagres = mesaj.ShowDialog();
+                        if (diagres == DialogResult.Yes)
+                        {
+                            Form1 frmUpdate = new Form1(this);
+                            frmUpdate.Show();
+                        }
+                    }
+                }
+                else
+                {
+                    btUpdater.Visible = true;
+                    btInstall.Visible = false;
+                    btUpdater.Location = btInstall.Location;
+                    updateProgress = 1;
+                    lbUpdateStatus.Text = uptodate;
                 }
             }
         }
@@ -431,7 +492,6 @@ namespace Korot
             label6.Text = "Beta " + Application.ProductVersion;
             textBox2.Text = Properties.Settings.Default.Homepage;
             textBox3.Text = Properties.Settings.Default.SearchURL;
-            textBox4.Text = Properties.Settings.Default.UserAgent;
             if (Properties.Settings.Default.Homepage == "korot://newtab") { radioButton1.Enabled = true; }
             pictureBox3.BackColor = Properties.Settings.Default.BackColor;
             pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
@@ -605,7 +665,7 @@ namespace Korot
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.LastSessionURIs = null;
+            Properties.Settings.Default.LastSessionURIs = "";
             Korot.Properties.Settings.Default.Save();
             this.Close();
         }
@@ -727,8 +787,12 @@ namespace Korot
 
             }
         }
-
+        int updateProgress = 0;
+        //0 = Checking 1=UpToDate 2=UpdateAvailabe 3=Error
         #region "Translate"
+        public string UserAgentMessage = "Please enter an user agent.";
+        public string installStatus = "Downloading Update...";
+        public String StatusType = "[PERC]% | [CURRENT] KB downloaded out of [TOTAL] KB.";
                 public string newProfileInfo = "Please enter a name for the new profile.It should not contain: ";
         public string enterAValidUrl = "Enter a Valid URL";
         public string goTotxt = "Go to \"[TEXT]\"";
@@ -740,6 +804,9 @@ namespace Korot
     public string updateTitle = "Korot - Update";
     public string updateMessage = "Update available.Do you want to update?";
     public string updateError = "Error while checking for the updates.";
+        public string checking = "Checking for updates...";
+        public string uptodate = "Your Korot is up-to-date.";
+        public string updateavailable = "Update available.";
     public string newtabtitle = "New Tab";
     public string customSearchNote = "(Note: Searched text will be put after the url)";
     public string customSearchMessage = "Write Custom Search Url";
@@ -893,8 +960,39 @@ namespace Korot
                          string yes,
                          string no,
                          string ok,
-                         string cancel)
+                         string cancel,
+                         string updateava,
+                         string checkmessage,
+                         string upToDate,
+                         string checkbutton,
+                         string installbutton,
+                         string installstatus,
+                         string statustype)
         {
+            btUpdater.Text = checkbutton.Replace(Environment.NewLine, "");
+            btInstall.Text = installbutton.Replace(Environment.NewLine, "");
+            checking = checkmessage.Replace(Environment.NewLine, "");
+            uptodate = upToDate.Replace(Environment.NewLine, "");
+            installStatus = installstatus.Replace(Environment.NewLine, "");
+            StatusType = statustype.Replace(Environment.NewLine, "");
+            radioButton1.Text = newtabtext.Replace(Environment.NewLine, "");
+            if (updateProgress == 0)
+            {
+                lbUpdateStatus.Text = checkmessage.Replace(Environment.NewLine, "");
+            }
+            else if (updateProgress == 1)
+            {
+                lbUpdateStatus.Text = upToDate.Replace(Environment.NewLine, "");
+            }
+            else if (updateProgress == 2)
+            {
+                lbUpdateStatus.Text = updateava.Replace(Environment.NewLine, "");
+            }
+            else if (updateProgress == 3)
+            {
+                lbUpdateStatus.Text = updateerrortxt.Replace(Environment.NewLine, "");
+            }
+            updateavailable = updateava;
             privatemode = privatemodetxt.Replace(Environment.NewLine, "");
             updateTitle = updatetitletxt.Replace(Environment.NewLine, "");
             updateMessage = updatemessagetxt.Replace(Environment.NewLine, "");
@@ -1012,14 +1110,17 @@ namespace Korot
 
         private void listView1_DoubleClick(object sender, EventArgs e)
         {
-            object p = "Do you want to set the language to '" + lbLang.SelectedItem.ToString();
-            HaltroyFramework.HaltroyMsgBox CustomMessageBox = new HaltroyFramework.HaltroyMsgBox("Korot", p + "' ?",this.Icon, MessageBoxButtons.YesNoCancel,Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
-            DialogResult result = CustomMessageBox.ShowDialog();
-            if (result == DialogResult.Yes)
+            if (lbLang.SelectedItems.Count > 0)
             {
-                LoadLangFromFile(Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang");
-                Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
-                Properties.Settings.Default.Save();
+                object p = "Do you want to set the language to '" + lbLang.SelectedItem.ToString();
+                HaltroyFramework.HaltroyMsgBox CustomMessageBox = new HaltroyFramework.HaltroyMsgBox("Korot", p + "' ?", this.Icon, MessageBoxButtons.YesNoCancel, Properties.Settings.Default.BackColor, "Yes", "No", "OK", "Cancel", 390, 140);
+                DialogResult result = CustomMessageBox.ShowDialog();
+                if (result == DialogResult.Yes)
+                {
+                    LoadLangFromFile(Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang");
+                    Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
+                    Properties.Settings.Default.Save();
+                }
             }
         }
         public void LoadLangFromFile(string LangFile)
@@ -1137,7 +1238,14 @@ namespace Korot
                     languagedummy.Items[84].ToString().Substring(1),
                     languagedummy.Items[85].ToString().Substring(1),
                     languagedummy.Items[86].ToString().Substring(1),
-                    languagedummy.Items[87].ToString().Substring(1));
+                    languagedummy.Items[87].ToString().Substring(1),
+                    languagedummy.Items[88].ToString().Substring(1),
+                    languagedummy.Items[89].ToString().Substring(1),
+                    languagedummy.Items[90].ToString().Substring(1),
+                    languagedummy.Items[91].ToString().Substring(1),
+                    languagedummy.Items[92].ToString().Substring(1),
+                    languagedummy.Items[93].ToString().Substring(1),
+                    languagedummy.Items[94].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -1476,6 +1584,7 @@ namespace Korot
                 this.Left = 0;
             }
         }
+        bool isShiftKeyDown = false;
         [System.Runtime.InteropServices.DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(int vKey);
         private static readonly int VK_ESCAPE = 0x1B;
@@ -1499,6 +1608,7 @@ namespace Korot
                 //the last call to GetAsyncKeyState
                 bool unprocessedPress2 = ((keyState2 >> 0) & 0x0001) == 0x0001;
 
+                isShiftKeyDown = shiftIsPressed | unprocessedPress2;
                 if ((escIsPressed & shiftIsPressed) | (escIsPressed & unprocessedPress2) | (unprocessedPress & shiftIsPressed) | (unprocessedPress & unprocessedPress2))
                 {
                     isMouseDown = false;
@@ -1541,31 +1651,6 @@ namespace Korot
                 return string.Empty;
             }
         }
-        private void LatestToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void TbSetting_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void TextBox4_Click(object sender, EventArgs e)
-        {
-            cmsUserAgent.Show(MousePosition);
-        }
-
-        private void CustomToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox("Korot", "Please enter a valid User Agent string.", this.Icon, "Mozilla/5.0 ( Windows NT " + GetOsVer() + "; " + Environment.OSVersion.Platform + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + Cef.ChromiumVersion + " Safari/537.36 Korot/" + Application.ProductVersion.ToString(), Properties.Settings.Default.BackColor, Properties.Settings.Default.OverlayColor, OK, Cancel, 400, 150);
-            DialogResult diagres = inputb.ShowDialog();
-            if (diagres == DialogResult.OK)
-            {
-                Properties.Settings.Default.UserAgent = inputb.TextValue();
-                textBox4.Text = Properties.Settings.Default.UserAgent;
-            }
-        }
-
      
         private void YesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1579,10 +1664,25 @@ namespace Korot
             menuStrip1.Items.Remove(restorerStrip);
         }
 
-        private void UaDefault_Click(object sender, EventArgs e)
+
+        private void btInstall_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.UserAgent = "[DEFAULT]";
-            textBox4.Text = Properties.Settings.Default.UserAgent;
+            Form1 frmUpdate = new Form1(this);
+            frmUpdate.Show();
+        }
+
+        private void btUpdater_Click(object sender, EventArgs e)
+        {
+            UpdateWebC.DownloadStringAsync(new Uri("https://onedrive.live.com/download?resid=3FD0899CA240B9B!2123&authkey=!ADjFaqhHH3MjOAQ&ithint=file%2ctxt&e=5QH8I8"));
+            updateProgress = 0;
+        }
+
+        private void korotBeta453ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isShiftKeyDown)
+            {
+                NewTab("https://www.youtube.com/watch?v=BNj2BXW852g");
+            }
         }
     }
 

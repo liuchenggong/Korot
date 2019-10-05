@@ -115,11 +115,14 @@ namespace Korot
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings();
-            if (Properties.Settings.Default.UserAgent == "[DEFAULT]") { settings.UserAgent = "Mozilla/5.0 ( Windows NT " + GetOsVer() + "; " + Environment.OSVersion.Platform + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + Cef.ChromiumVersion + " Safari/537.36 Korot/" + Application.ProductVersion.ToString(); }
-            else
-            {
-                settings.UserAgent = Properties.Settings.Default.UserAgent.Replace("[OS INFO]", "(Windows NT " + GetOsVer() + "; " + Environment.OSVersion.Platform + ")").Replace("[KOROTVERSION]",Application.ProductVersion.ToString());
-            }
+                settings.UserAgent = "Mozilla/5.0 ( Windows NT "
+                    + GetOsVer()
+                    + "; "
+                    + Environment.OSVersion.Platform
+                    + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
+                    + Cef.ChromiumVersion
+                    + " Safari/537.36 Korot/"
+                    + Application.ProductVersion.ToString(); 
             if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; }
             else { settings.CachePath = userCache; }
             settings.RegisterScheme(new CefCustomScheme

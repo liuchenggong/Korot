@@ -60,14 +60,9 @@
             this.tbKorot = new System.Windows.Forms.TabPage();
             this.tabControl2 = new HaltroyFramework.HaltroyTabControl();
             this.tbSetting = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label11 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.cmsUserAgent = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.uaDefault = new System.Windows.Forms.ToolStripMenuItem();
-            this.customToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.tbTheme = new System.Windows.Forms.TabPage();
@@ -100,7 +95,8 @@
             this.chTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chFrom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tbAbout = new System.Windows.Forms.TabPage();
-            this.linkLabel11 = new System.Windows.Forms.LinkLabel();
+            this.btInstall = new System.Windows.Forms.Button();
+            this.btUpdater = new System.Windows.Forms.Button();
             this.linkLabel9 = new System.Windows.Forms.LinkLabel();
             this.linkLabel8 = new System.Windows.Forms.LinkLabel();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
@@ -108,10 +104,10 @@
             this.llCEFS = new System.Windows.Forms.LinkLabel();
             this.llMS = new System.Windows.Forms.LinkLabel();
             this.llGoogle = new System.Windows.Forms.LinkLabel();
-            this.llAUNET = new System.Windows.Forms.LinkLabel();
             this.llGNU = new System.Windows.Forms.LinkLabel();
             this.llVS = new System.Windows.Forms.LinkLabel();
             this.llCEF = new System.Windows.Forms.LinkLabel();
+            this.lbUpdateStatus = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.LinkLabel();
@@ -127,6 +123,7 @@
             this.restorerStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsYes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsNo = new System.Windows.Forms.ToolStripMenuItem();
+            this.korotBeta453ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsHistory.SuspendLayout();
             this.cmsDownload.SuspendLayout();
             this.cmsPlusRightClick.SuspendLayout();
@@ -135,7 +132,6 @@
             this.tbKorot.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tbSetting.SuspendLayout();
-            this.cmsUserAgent.SuspendLayout();
             this.tbTheme.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -383,13 +379,13 @@
             this.tabControl1.HorizontalLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.tabControl1.ImageList = this.ımageList2;
             this.tabControl1.ItemSize = new System.Drawing.Size(240, 16);
-            this.tabControl1.Location = new System.Drawing.Point(0, 22);
+            this.tabControl1.Location = new System.Drawing.Point(-1, 31);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.SelectedTextColor = System.Drawing.Color.Black;
             this.tabControl1.ShowClosingButton = true;
             this.tabControl1.ShowClosingMessage = false;
-            this.tabControl1.Size = new System.Drawing.Size(657, 371);
+            this.tabControl1.Size = new System.Drawing.Size(657, 360);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.TextColor = System.Drawing.Color.Black;
             this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.TabControl1_DragDrop);
@@ -405,7 +401,7 @@
             this.tbKorot.ImageKey = "Korot.png";
             this.tbKorot.Location = new System.Drawing.Point(4, 20);
             this.tbKorot.Name = "tbKorot";
-            this.tbKorot.Size = new System.Drawing.Size(649, 347);
+            this.tbKorot.Size = new System.Drawing.Size(649, 336);
             this.tbKorot.TabIndex = 2;
             this.tbKorot.Text = "Korot";
             // 
@@ -435,7 +431,7 @@
             this.tabControl2.SelectedTextColor = System.Drawing.Color.Black;
             this.tabControl2.ShowClosingButton = false;
             this.tabControl2.ShowClosingMessage = false;
-            this.tabControl2.Size = new System.Drawing.Size(649, 347);
+            this.tabControl2.Size = new System.Drawing.Size(649, 336);
             this.tabControl2.TabIndex = 31;
             this.tabControl2.TextColor = System.Drawing.Color.Black;
             // 
@@ -443,30 +439,17 @@
             // 
             this.tbSetting.AutoScroll = true;
             this.tbSetting.BackColor = System.Drawing.Color.White;
-            this.tbSetting.Controls.Add(this.label5);
             this.tbSetting.Controls.Add(this.radioButton1);
             this.tbSetting.Controls.Add(this.label11);
             this.tbSetting.Controls.Add(this.label3);
-            this.tbSetting.Controls.Add(this.textBox4);
             this.tbSetting.Controls.Add(this.textBox3);
             this.tbSetting.Controls.Add(this.textBox2);
             this.tbSetting.Location = new System.Drawing.Point(4, 20);
             this.tbSetting.Name = "tbSetting";
             this.tbSetting.Padding = new System.Windows.Forms.Padding(3);
-            this.tbSetting.Size = new System.Drawing.Size(641, 323);
+            this.tbSetting.Size = new System.Drawing.Size(641, 312);
             this.tbSetting.TabIndex = 0;
             this.tbSetting.Text = "Settings";
-            this.tbSetting.Click += new System.EventHandler(this.TbSetting_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 96);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(83, 17);
-            this.label5.TabIndex = 25;
-            this.label5.Tag = "";
-            this.label5.Text = "User Agent:";
             // 
             // radioButton1
             // 
@@ -483,64 +466,23 @@
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Location = new System.Drawing.Point(10, 6);
+            this.label11.Location = new System.Drawing.Point(0, 6);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(90, 17);
+            this.label11.Size = new System.Drawing.Size(120, 45);
             this.label11.TabIndex = 17;
             this.label11.Tag = "";
             this.label11.Text = "Home Page :";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(10, 60);
+            this.label3.Location = new System.Drawing.Point(0, 60);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 17);
+            this.label3.Size = new System.Drawing.Size(120, 17);
             this.label3.TabIndex = 16;
             this.label3.Tag = "";
             this.label3.Text = "Search Engine : ";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.ContextMenuStrip = this.cmsUserAgent;
-            this.textBox4.Location = new System.Drawing.Point(126, 93);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(500, 46);
-            this.textBox4.TabIndex = 23;
-            this.textBox4.Tag = "";
-            this.textBox4.Text = "[DEFAULT]";
-            this.textBox4.Click += new System.EventHandler(this.TextBox4_Click);
-            // 
-            // cmsUserAgent
-            // 
-            this.cmsUserAgent.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.uaDefault,
-            this.customToolStripMenuItem1});
-            this.cmsUserAgent.Name = "cmsUserAgent";
-            this.cmsUserAgent.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsUserAgent.ShowImageMargin = false;
-            this.cmsUserAgent.Size = new System.Drawing.Size(156, 70);
-            // 
-            // uaDefault
-            // 
-            this.uaDefault.Name = "uaDefault";
-            this.uaDefault.Size = new System.Drawing.Size(155, 22);
-            this.uaDefault.Text = "Default";
-            this.uaDefault.Click += new System.EventHandler(this.UaDefault_Click);
-            // 
-            // customToolStripMenuItem1
-            // 
-            this.customToolStripMenuItem1.Name = "customToolStripMenuItem1";
-            this.customToolStripMenuItem1.Size = new System.Drawing.Size(155, 22);
-            this.customToolStripMenuItem1.Text = "Custom";
-            this.customToolStripMenuItem1.Click += new System.EventHandler(this.CustomToolStripMenuItem1_Click);
             // 
             // textBox3
             // 
@@ -585,7 +527,7 @@
             this.tbTheme.Location = new System.Drawing.Point(4, 20);
             this.tbTheme.Name = "tbTheme";
             this.tbTheme.Padding = new System.Windows.Forms.Padding(3);
-            this.tbTheme.Size = new System.Drawing.Size(641, 323);
+            this.tbTheme.Size = new System.Drawing.Size(641, 312);
             this.tbTheme.TabIndex = 6;
             this.tbTheme.Text = "Theme";
             this.tbTheme.Enter += new System.EventHandler(this.TbTheme_Enter);
@@ -656,7 +598,7 @@
             this.listBox2.ItemHeight = 16;
             this.listBox2.Location = new System.Drawing.Point(11, 125);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(613, 196);
+            this.listBox2.Size = new System.Drawing.Size(613, 180);
             this.listBox2.TabIndex = 31;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
@@ -777,7 +719,7 @@
             this.tbLang.Location = new System.Drawing.Point(4, 20);
             this.tbLang.Name = "tbLang";
             this.tbLang.Padding = new System.Windows.Forms.Padding(3);
-            this.tbLang.Size = new System.Drawing.Size(641, 309);
+            this.tbLang.Size = new System.Drawing.Size(641, 312);
             this.tbLang.TabIndex = 2;
             this.tbLang.Text = "Language";
             this.tbLang.Enter += new System.EventHandler(this.TbLang_Enter);
@@ -789,7 +731,7 @@
             this.lbLang.ItemHeight = 16;
             this.lbLang.Location = new System.Drawing.Point(3, 3);
             this.lbLang.Name = "lbLang";
-            this.lbLang.Size = new System.Drawing.Size(635, 303);
+            this.lbLang.Size = new System.Drawing.Size(635, 306);
             this.lbLang.TabIndex = 21;
             this.lbLang.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
@@ -801,7 +743,7 @@
             this.tbHistory.Location = new System.Drawing.Point(4, 20);
             this.tbHistory.Name = "tbHistory";
             this.tbHistory.Padding = new System.Windows.Forms.Padding(3);
-            this.tbHistory.Size = new System.Drawing.Size(641, 323);
+            this.tbHistory.Size = new System.Drawing.Size(641, 312);
             this.tbHistory.TabIndex = 3;
             this.tbHistory.Text = "History";
             this.tbHistory.Enter += new System.EventHandler(this.TbHistory_Enter);
@@ -819,7 +761,7 @@
             this.hlvHistory.HideSelection = false;
             this.hlvHistory.Location = new System.Drawing.Point(3, 3);
             this.hlvHistory.Name = "hlvHistory";
-            this.hlvHistory.Size = new System.Drawing.Size(635, 317);
+            this.hlvHistory.Size = new System.Drawing.Size(635, 306);
             this.hlvHistory.TabIndex = 0;
             this.hlvHistory.UseCompatibleStateImageBehavior = false;
             this.hlvHistory.View = System.Windows.Forms.View.Details;
@@ -849,7 +791,7 @@
             this.tbDownload.Location = new System.Drawing.Point(4, 20);
             this.tbDownload.Name = "tbDownload";
             this.tbDownload.Padding = new System.Windows.Forms.Padding(3);
-            this.tbDownload.Size = new System.Drawing.Size(641, 323);
+            this.tbDownload.Size = new System.Drawing.Size(641, 312);
             this.tbDownload.TabIndex = 4;
             this.tbDownload.Text = "Downloads";
             this.tbDownload.Enter += new System.EventHandler(this.TbDownload_Enter);
@@ -867,7 +809,7 @@
             this.hlvDownload.HideSelection = false;
             this.hlvDownload.Location = new System.Drawing.Point(3, 3);
             this.hlvDownload.Name = "hlvDownload";
-            this.hlvDownload.Size = new System.Drawing.Size(635, 317);
+            this.hlvDownload.Size = new System.Drawing.Size(635, 306);
             this.hlvDownload.TabIndex = 1;
             this.hlvDownload.UseCompatibleStateImageBehavior = false;
             this.hlvDownload.View = System.Windows.Forms.View.Details;
@@ -889,8 +831,10 @@
             // 
             // tbAbout
             // 
+            this.tbAbout.AutoScroll = true;
             this.tbAbout.BackColor = System.Drawing.Color.White;
-            this.tbAbout.Controls.Add(this.linkLabel11);
+            this.tbAbout.Controls.Add(this.btInstall);
+            this.tbAbout.Controls.Add(this.btUpdater);
             this.tbAbout.Controls.Add(this.linkLabel9);
             this.tbAbout.Controls.Add(this.linkLabel8);
             this.tbAbout.Controls.Add(this.linkLabel4);
@@ -898,10 +842,10 @@
             this.tbAbout.Controls.Add(this.llCEFS);
             this.tbAbout.Controls.Add(this.llMS);
             this.tbAbout.Controls.Add(this.llGoogle);
-            this.tbAbout.Controls.Add(this.llAUNET);
             this.tbAbout.Controls.Add(this.llGNU);
             this.tbAbout.Controls.Add(this.llVS);
             this.tbAbout.Controls.Add(this.llCEF);
+            this.tbAbout.Controls.Add(this.lbUpdateStatus);
             this.tbAbout.Controls.Add(this.label1);
             this.tbAbout.Controls.Add(this.label6);
             this.tbAbout.Controls.Add(this.label4);
@@ -910,30 +854,43 @@
             this.tbAbout.Location = new System.Drawing.Point(4, 20);
             this.tbAbout.Name = "tbAbout";
             this.tbAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tbAbout.Size = new System.Drawing.Size(641, 309);
+            this.tbAbout.Size = new System.Drawing.Size(641, 312);
             this.tbAbout.TabIndex = 5;
             this.tbAbout.Text = "About";
             // 
-            // linkLabel11
+            // btInstall
             // 
-            this.linkLabel11.AutoSize = true;
-            this.linkLabel11.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel11.LinkArea = new System.Windows.Forms.LinkArea(0, 22);
-            this.linkLabel11.Location = new System.Drawing.Point(1, 212);
-            this.linkLabel11.Name = "linkLabel11";
-            this.linkLabel11.Size = new System.Drawing.Size(168, 17);
-            this.linkLabel11.TabIndex = 2;
-            this.linkLabel11.TabStop = true;
-            this.linkLabel11.Tag = "https://github.com/ravibpatel/AutoUpdater.NET/blob/master/LICENSE";
-            this.linkLabel11.Text = "AutoUpdate.NET License";
-            this.linkLabel11.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.openmytaginnewtab);
+            this.btInstall.AutoSize = true;
+            this.btInstall.FlatAppearance.BorderSize = 0;
+            this.btInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btInstall.Location = new System.Drawing.Point(9, 224);
+            this.btInstall.Name = "btInstall";
+            this.btInstall.Size = new System.Drawing.Size(137, 29);
+            this.btInstall.TabIndex = 3;
+            this.btInstall.Text = "Install the update";
+            this.btInstall.UseVisualStyleBackColor = true;
+            this.btInstall.Visible = false;
+            this.btInstall.Click += new System.EventHandler(this.btInstall_Click);
+            // 
+            // btUpdater
+            // 
+            this.btUpdater.AutoSize = true;
+            this.btUpdater.FlatAppearance.BorderSize = 0;
+            this.btUpdater.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btUpdater.Location = new System.Drawing.Point(8, 224);
+            this.btUpdater.Name = "btUpdater";
+            this.btUpdater.Size = new System.Drawing.Size(137, 29);
+            this.btUpdater.TabIndex = 3;
+            this.btUpdater.Text = "Check for Updates";
+            this.btUpdater.UseVisualStyleBackColor = true;
+            this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
             // 
             // linkLabel9
             // 
             this.linkLabel9.AutoSize = true;
             this.linkLabel9.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel9.LinkArea = new System.Windows.Forms.LinkArea(0, 21);
-            this.linkLabel9.Location = new System.Drawing.Point(1, 195);
+            this.linkLabel9.Location = new System.Drawing.Point(2, 173);
             this.linkLabel9.Name = "linkLabel9";
             this.linkLabel9.Size = new System.Drawing.Size(143, 17);
             this.linkLabel9.TabIndex = 2;
@@ -947,7 +904,7 @@
             this.linkLabel8.AutoSize = true;
             this.linkLabel8.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel8.LinkArea = new System.Windows.Forms.LinkArea(0, 16);
-            this.linkLabel8.Location = new System.Drawing.Point(1, 178);
+            this.linkLabel8.Location = new System.Drawing.Point(2, 156);
             this.linkLabel8.Name = "linkLabel8";
             this.linkLabel8.Size = new System.Drawing.Size(124, 17);
             this.linkLabel8.TabIndex = 2;
@@ -961,7 +918,7 @@
             this.linkLabel4.AutoSize = true;
             this.linkLabel4.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel4.LinkArea = new System.Windows.Forms.LinkArea(0, 16);
-            this.linkLabel4.Location = new System.Drawing.Point(1, 161);
+            this.linkLabel4.Location = new System.Drawing.Point(2, 139);
             this.linkLabel4.Name = "linkLabel4";
             this.linkLabel4.Size = new System.Drawing.Size(125, 17);
             this.linkLabel4.TabIndex = 2;
@@ -1030,21 +987,6 @@
             this.llGoogle.UseCompatibleTextRendering = true;
             this.llGoogle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.openmytaginnewtab);
             // 
-            // llAUNET
-            // 
-            this.llAUNET.AutoSize = true;
-            this.llAUNET.BackColor = System.Drawing.Color.Transparent;
-            this.llAUNET.LinkArea = new System.Windows.Forms.LinkArea(11, 14);
-            this.llAUNET.Location = new System.Drawing.Point(4, 139);
-            this.llAUNET.Name = "llAUNET";
-            this.llAUNET.Size = new System.Drawing.Size(274, 20);
-            this.llAUNET.TabIndex = 2;
-            this.llAUNET.TabStop = true;
-            this.llAUNET.Tag = "https://github.com/ravibpatel/AutoUpdater.NET";
-            this.llAUNET.Text = "Korot uses AutoUpdate.NET to update itself.";
-            this.llAUNET.UseCompatibleTextRendering = true;
-            this.llAUNET.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.openmytaginnewtab);
-            // 
             // llGNU
             // 
             this.llGNU.AutoSize = true;
@@ -1089,6 +1031,17 @@
             this.llCEF.Text = "Korot uses Chromium ";
             this.llCEF.UseCompatibleTextRendering = true;
             this.llCEF.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.openmytaginnewtab);
+            // 
+            // lbUpdateStatus
+            // 
+            this.lbUpdateStatus.AutoSize = true;
+            this.lbUpdateStatus.BackColor = System.Drawing.Color.Transparent;
+            this.lbUpdateStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbUpdateStatus.Location = new System.Drawing.Point(6, 204);
+            this.lbUpdateStatus.Name = "lbUpdateStatus";
+            this.lbUpdateStatus.Size = new System.Drawing.Size(156, 17);
+            this.lbUpdateStatus.TabIndex = 1;
+            this.lbUpdateStatus.Text = "Checking for Updates...";
             // 
             // label1
             // 
@@ -1157,7 +1110,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 20);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(649, 421);
+            this.tabPage2.Size = new System.Drawing.Size(649, 336);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "+";
             // 
@@ -1167,16 +1120,18 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.AutoSize = false;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.button1,
             this.button2,
             this.toolStripMenuItem3,
             this.button4,
+            this.korotBeta453ToolStripMenuItem,
             this.restorerStrip});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(647, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(647, 30);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmMain_KeyDown);
@@ -1191,7 +1146,7 @@
             this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button1.Name = "button1";
             this.button1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.button1.Size = new System.Drawing.Size(25, 20);
+            this.button1.Size = new System.Drawing.Size(25, 26);
             this.button1.Text = "x";
             this.button1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -1202,7 +1157,7 @@
             this.button2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(26, 20);
+            this.button2.Size = new System.Drawing.Size(26, 26);
             this.button2.Text = "□";
             this.button2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button2.Click += new System.EventHandler(this.frmMain_DoubleClick);
@@ -1213,7 +1168,7 @@
             this.toolStripMenuItem3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripMenuItem3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(24, 20);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(24, 26);
             this.toolStripMenuItem3.Text = "-";
             this.toolStripMenuItem3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.toolStripMenuItem3.Click += new System.EventHandler(this.ToolStripMenuItem3_Click);
@@ -1225,7 +1180,7 @@
             this.button4.Image = global::Korot.Properties.Resources.Settings;
             this.button4.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(28, 20);
+            this.button4.Size = new System.Drawing.Size(28, 26);
             this.button4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
@@ -1235,22 +1190,33 @@
             this.tsYes,
             this.tsNo});
             this.restorerStrip.Name = "restorerStrip";
-            this.restorerStrip.Size = new System.Drawing.Size(226, 20);
+            this.restorerStrip.Size = new System.Drawing.Size(226, 26);
             this.restorerStrip.Text = "Do you want to restore the last session?";
             // 
             // tsYes
             // 
             this.tsYes.Name = "tsYes";
-            this.tsYes.Size = new System.Drawing.Size(180, 22);
+            this.tsYes.Size = new System.Drawing.Size(91, 22);
             this.tsYes.Text = "Yes";
             this.tsYes.Click += new System.EventHandler(this.YesToolStripMenuItem_Click);
             // 
             // tsNo
             // 
             this.tsNo.Name = "tsNo";
-            this.tsNo.Size = new System.Drawing.Size(180, 22);
+            this.tsNo.Size = new System.Drawing.Size(91, 22);
             this.tsNo.Text = "No";
             this.tsNo.Click += new System.EventHandler(this.NoToolStripMenuItem_Click);
+            // 
+            // korotBeta453ToolStripMenuItem
+            // 
+            this.korotBeta453ToolStripMenuItem.Image = global::Korot.Properties.Resources.Korot;
+            this.korotBeta453ToolStripMenuItem.Name = "korotBeta453ToolStripMenuItem";
+            this.korotBeta453ToolStripMenuItem.Size = new System.Drawing.Size(117, 26);
+            this.korotBeta453ToolStripMenuItem.Text = "Korot Beta 4.5.3";
+            this.korotBeta453ToolStripMenuItem.Click += new System.EventHandler(this.korotBeta453ToolStripMenuItem_Click);
+            this.korotBeta453ToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseDown);
+            this.korotBeta453ToolStripMenuItem.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseMove);
+            this.korotBeta453ToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
             // 
             // frmMain
             // 
@@ -1283,7 +1249,6 @@
             this.tabControl2.ResumeLayout(false);
             this.tbSetting.ResumeLayout(false);
             this.tbSetting.PerformLayout();
-            this.cmsUserAgent.ResumeLayout(false);
             this.tbTheme.ResumeLayout(false);
             this.tbTheme.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -1298,7 +1263,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -1367,8 +1331,6 @@
         private System.Windows.Forms.ToolStripMenuItem askToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem;
         public System.Windows.Forms.ImageList ımageList2;
-        private System.Windows.Forms.LinkLabel linkLabel11;
-        private System.Windows.Forms.LinkLabel llAUNET;
         private System.Windows.Forms.Label label1;
         private HaltroyFramework.HaltroyListView hlvHistory;
         private System.Windows.Forms.ColumnHeader chDateHistory;
@@ -1392,13 +1354,12 @@
         private System.Windows.Forms.ToolStripMenuItem button2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem button4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.ContextMenuStrip cmsUserAgent;
-        private System.Windows.Forms.ToolStripMenuItem uaDefault;
-        private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem restorerStrip;
         private System.Windows.Forms.ToolStripMenuItem tsYes;
         private System.Windows.Forms.ToolStripMenuItem tsNo;
+        private System.Windows.Forms.Button btUpdater;
+        private System.Windows.Forms.Label lbUpdateStatus;
+        private System.Windows.Forms.Button btInstall;
+        private System.Windows.Forms.ToolStripMenuItem korotBeta453ToolStripMenuItem;
     }
 }
