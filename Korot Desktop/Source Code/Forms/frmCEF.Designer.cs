@@ -32,6 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCEF));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.cmsPrivacy = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.xToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.safeStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ınfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cookieInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showCertificateErrorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbProgress = new System.Windows.Forms.PictureBox();
             this.mFavorites = new System.Windows.Forms.MenuStrip();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -71,11 +78,18 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.pnlCert = new System.Windows.Forms.Panel();
+            this.button10 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.cmsPrivacy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.cmsProfiles.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.pnlCert.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -84,14 +98,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textBox1.Location = new System.Drawing.Point(129, 7);
+            this.textBox1.Location = new System.Drawing.Point(149, 7);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(156, 23);
+            this.textBox1.Size = new System.Drawing.Size(136, 23);
             this.textBox1.TabIndex = 1;
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.pictureBox2);
             this.panel2.Controls.Add(this.pbProgress);
             this.panel2.Controls.Add(this.mFavorites);
             this.panel2.Controls.Add(this.textBox1);
@@ -111,6 +126,73 @@
             this.panel2.Size = new System.Drawing.Size(400, 59);
             this.panel2.TabIndex = 6;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.ContextMenuStrip = this.cmsPrivacy;
+            this.pictureBox2.Image = global::Korot.Properties.Resources.lockg;
+            this.pictureBox2.Location = new System.Drawing.Point(133, 10);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(15, 15);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // cmsPrivacy
+            // 
+            this.cmsPrivacy.AllowMerge = false;
+            this.cmsPrivacy.BackColor = System.Drawing.Color.White;
+            this.cmsPrivacy.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xToolStripMenuItem,
+            this.safeStatusToolStripMenuItem,
+            this.ınfoToolStripMenuItem,
+            this.cookieInfoToolStripMenuItem,
+            this.showCertificateErrorsToolStripMenuItem});
+            this.cmsPrivacy.Name = "cmsPrivacy";
+            this.cmsPrivacy.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cmsPrivacy.ShowImageMargin = false;
+            this.cmsPrivacy.ShowItemToolTips = false;
+            this.cmsPrivacy.Size = new System.Drawing.Size(175, 134);
+            // 
+            // xToolStripMenuItem
+            // 
+            this.xToolStripMenuItem.Name = "xToolStripMenuItem";
+            this.xToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.xToolStripMenuItem.Text = "x";
+            this.xToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
+            // 
+            // safeStatusToolStripMenuItem
+            // 
+            this.safeStatusToolStripMenuItem.Enabled = false;
+            this.safeStatusToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.safeStatusToolStripMenuItem.Name = "safeStatusToolStripMenuItem";
+            this.safeStatusToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.safeStatusToolStripMenuItem.Text = "SafeStatus";
+            // 
+            // ınfoToolStripMenuItem
+            // 
+            this.ınfoToolStripMenuItem.Enabled = false;
+            this.ınfoToolStripMenuItem.Name = "ınfoToolStripMenuItem";
+            this.ınfoToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.ınfoToolStripMenuItem.Text = "Info";
+            // 
+            // cookieInfoToolStripMenuItem
+            // 
+            this.cookieInfoToolStripMenuItem.Enabled = false;
+            this.cookieInfoToolStripMenuItem.Name = "cookieInfoToolStripMenuItem";
+            this.cookieInfoToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.cookieInfoToolStripMenuItem.Text = "CookieInfo";
+            // 
+            // showCertificateErrorsToolStripMenuItem
+            // 
+            this.showCertificateErrorsToolStripMenuItem.Name = "showCertificateErrorsToolStripMenuItem";
+            this.showCertificateErrorsToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.showCertificateErrorsToolStripMenuItem.Text = "Show certificate error(s)";
+            this.showCertificateErrorsToolStripMenuItem.Click += new System.EventHandler(this.showCertificateErrorsToolStripMenuItem_Click);
+            // 
             // pbProgress
             // 
             this.pbProgress.BackColor = System.Drawing.Color.DodgerBlue;
@@ -128,12 +210,12 @@
             this.mFavorites.Size = new System.Drawing.Size(400, 24);
             this.mFavorites.TabIndex = 0;
             this.mFavorites.Text = "menuStrip1";
-            this.mFavorites.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MFavorites_ItemClicked);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Image = global::Korot.Properties.Resources.inctab;
             this.pictureBox1.Location = new System.Drawing.Point(282, 7);
             this.pictureBox1.Name = "pictureBox1";
@@ -297,7 +379,6 @@
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.Button6_Click);
             this.button6.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
-            this.button6.MouseEnter += new System.EventHandler(this.Button6_MouseEnter);
             // 
             // button8
             // 
@@ -415,7 +496,7 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Location = new System.Drawing.Point(0, 59);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(400, 79);
+            this.panel1.Size = new System.Drawing.Size(400, 261);
             this.panel1.TabIndex = 0;
             this.panel1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
             // 
@@ -428,7 +509,7 @@
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Location = new System.Drawing.Point(0, 137);
+            this.label2.Location = new System.Drawing.Point(0, 319);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(400, 13);
             this.label2.TabIndex = 8;
@@ -446,7 +527,6 @@
             this.panel3.Size = new System.Drawing.Size(400, 47);
             this.panel3.TabIndex = 0;
             this.panel3.Visible = false;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel3_Paint);
             // 
             // haltroySwitch1
             // 
@@ -504,12 +584,62 @@
             this.contextMenuStrip2.ShowImageMargin = false;
             this.contextMenuStrip2.Size = new System.Drawing.Size(36, 4);
             // 
+            // pnlCert
+            // 
+            this.pnlCert.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlCert.BackColor = System.Drawing.Color.Maroon;
+            this.pnlCert.Controls.Add(this.button10);
+            this.pnlCert.Controls.Add(this.label8);
+            this.pnlCert.Controls.Add(this.label7);
+            this.pnlCert.ForeColor = System.Drawing.Color.White;
+            this.pnlCert.Location = new System.Drawing.Point(0, 60);
+            this.pnlCert.Name = "pnlCert";
+            this.pnlCert.Size = new System.Drawing.Size(400, 273);
+            this.pnlCert.TabIndex = 8;
+            this.pnlCert.Visible = false;
+            // 
+            // button10
+            // 
+            this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button10.AutoSize = true;
+            this.button10.FlatAppearance.BorderSize = 0;
+            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button10.Location = new System.Drawing.Point(17, 237);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(75, 23);
+            this.button10.TabIndex = 2;
+            this.button10.Text = "Poop Funny";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(14, 49);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(37, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Poopy";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.label7.Location = new System.Drawing.Point(12, 16);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 25);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Stinky";
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(400, 150);
+            this.ClientSize = new System.Drawing.Size(400, 332);
+            this.Controls.Add(this.pnlCert);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label2);
@@ -528,11 +658,15 @@
             this.Resize += new System.EventHandler(this.FrmCEF_SizeChanged);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.cmsPrivacy.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.cmsProfiles.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.pnlCert.ResumeLayout(false);
+            this.pnlCert.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -579,5 +713,16 @@
         private System.Windows.Forms.Label label6;
         public System.Windows.Forms.Button button6;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem xToolStripMenuItem;
+        public System.Windows.Forms.PictureBox pictureBox2;
+        public System.Windows.Forms.ContextMenuStrip cmsPrivacy;
+        public System.Windows.Forms.ToolStripMenuItem safeStatusToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem ınfoToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem showCertificateErrorsToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem cookieInfoToolStripMenuItem;
+        public System.Windows.Forms.Panel pnlCert;
+        public System.Windows.Forms.Button button10;
+        public System.Windows.Forms.Label label8;
+        public System.Windows.Forms.Label label7;
     }
 }

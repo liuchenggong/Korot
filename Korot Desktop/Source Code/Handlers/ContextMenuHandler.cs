@@ -61,7 +61,7 @@ namespace Korot {
             {
                 model.AddItem(CefMenuCommand.Paste, aNaFRM.paste);
             }
-            if (parameters.SelectionText != null) {
+            if (parameters.SelectionText != "") {
 
                 // TEXT IS SELECTED
                 model.AddItem(CefMenuCommand.Copy, aNaFRM.copy);

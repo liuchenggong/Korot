@@ -60,7 +60,7 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Korot.ico</ApplicationIcon>
+    <ApplicationIcon>Source Code\Others\Korot.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Korot.Program</StartupObject>
@@ -100,6 +100,7 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -111,52 +112,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleOutputLog.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Source Code\Filters\StreamResponseFilter.cs" />
+    <Compile Include="Source Code\Handlers\CookieAccessFilter.cs" />
+    <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
+    <Compile Include="Source Code\Tools\ConsoleOutputLog.cs" />
+    <Compile Include="Source Code\Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="Source Code\Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmDownloader.cs">
+    <Compile Include="Source Code\Forms\frmDownloader.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDownloader.Designer.cs">
+    <Compile Include="Source Code\Forms\frmDownloader.Designer.cs">
       <DependentUpon>frmDownloader.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmExt.cs">
+    <Compile Include="Source Code\Forms\frmExt.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmExt.Designer.cs">
+    <Compile Include="Source Code\Forms\frmExt.Designer.cs">
       <DependentUpon>frmExt.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSettings.cs">
+    <Compile Include="Source Code\Forms\frmSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSettings.Designer.cs">
+    <Compile Include="Source Code\Forms\frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Handlers\BrowserLifeSpanHandler.cs" />
-    <Compile Include="Handlers\ContextMenuHandler.cs" />
-    <Compile Include="Handlers\DownloadHandler.cs" />
-    <Compile Include="frmMain.cs">
+    <Compile Include="Source Code\Handlers\BrowserLifeSpanHandler.cs" />
+    <Compile Include="Source Code\Handlers\ContextMenuHandler.cs" />
+    <Compile Include="Source Code\Handlers\DownloadHandler.cs" />
+    <Compile Include="Source Code\Forms\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
+    <Compile Include="Source Code\Forms\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Handlers\DisplayHandler.cs" />
-    <Compile Include="Handlers\GetOverallColor.cs" />
-    <Compile Include="Handlers\JsHandler.cs" />
-    <Compile Include="Handlers\MyDialogHandler.cs" />
-    <Compile Include="Handlers\SchemeHandlerFactory.cs" />
-    <Compile Include="MyJumplist.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Source Code\Handlers\DisplayHandler.cs" />
+    <Compile Include="Source Code\Handlers\GetOverallColor.cs" />
+    <Compile Include="Source Code\Handlers\JsHandler.cs" />
+    <Compile Include="Source Code\Handlers\MyDialogHandler.cs" />
+    <Compile Include="Source Code\Handlers\RequestHandlerKorot.cs" />
+    <Compile Include="Source Code\Handlers\SchemeHandlerFactory.cs" />
+    <Compile Include="Source Code\Handlers\ToolsHandler.cs" />
+    <Compile Include="Source Code\Others\MyJumplist.cs" />
+    <Compile Include="Source Code\Others\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="frmCEF.cs">
+    <Compile Include="Source Code\Forms\frmCEF.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmCEF.Designer.cs">
+    <Compile Include="Source Code\Forms\frmCEF.Designer.cs">
       <DependentUpon>frmCEF.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -164,21 +170,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
-    <Compile Include="WindowsMessageHelper.cs" />
-    <EmbeddedResource Include="Form1.resx">
+    <Compile Include="Source Code\Tools\WindowsMessageHelper.cs" />
+    <EmbeddedResource Include="Source Code\Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDownloader.resx">
+    <EmbeddedResource Include="Source Code\Forms\frmDownloader.resx">
       <DependentUpon>frmDownloader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmExt.resx">
+    <EmbeddedResource Include="Source Code\Forms\frmExt.resx">
       <DependentUpon>frmExt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
+    <EmbeddedResource Include="Source Code\Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSettings.resx">
+    <EmbeddedResource Include="Source Code\Forms\frmSettings.resx">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -186,7 +191,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmCEF.resx">
+    <EmbeddedResource Include="Source Code\Forms\frmCEF.resx">
       <DependentUpon>frmCEF.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Lang\English.lang">
@@ -195,7 +200,7 @@
     <None Include="Lang\Turkish.lang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
+    <None Include="Source Code\Others\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -206,12 +211,15 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Examples\Proxy\Example\proxy.kem" />
+    <None Include="Themes\Korot Dark.ktf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Themes\Korot Light.ktf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Source Code\Others\App.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Başlıksız-1.png" />
@@ -285,13 +293,17 @@
     <Content Include="Examples\Extensions\Example\startup.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Korot.ico" />
+    <Content Include="Source Code\Others\Korot.ico" />
     <None Include="Resources\prxy.png" />
     <None Include="Resources\prxy-w.png" />
     <Content Include="Resources\errorpage.html" />
     <Content Include="Resources\korotlinks.html" />
+    <None Include="Resources\korotsettings.html" />
+    <None Include="Resources\lockg.png" />
+    <None Include="Resources\locko.png" />
+    <None Include="Resources\lockr.png" />
     <Content Include="Resources\newtab.html" />
-    <Content Include="TODO.txt" />
+    <Content Include="Source Code\Others\TODO.txt" />
     <None Include="Resources\theme-w.png" />
     <None Include="Resources\theme.png" />
     <None Include="Resources\language-w.png" />

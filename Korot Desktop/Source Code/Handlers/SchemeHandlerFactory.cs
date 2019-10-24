@@ -47,12 +47,12 @@ namespace Korot
                 else if (request.Url == "korot://settings/")
                 {
                     string x = "<head><title>Korot Settings</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" + Environment.NewLine +
-                        "<a> Homepage: " + Properties.Settings.Default.Homepage + "</a>" + Environment.NewLine +
-                        "<a> Window : ( Height:" + Properties.Settings.Default.WindowSizeH + " Width:" + Properties.Settings.Default.WindowSizeW + " X:" + Properties.Settings.Default.WindowPosX + " Y:" + Properties.Settings.Default.WindowPosY + ")</a>" + Environment.NewLine +
+                        "<a> Homepage: " + Properties.Settings.Default.Homepage + "</a>" + Environment.NewLine +   
+                    "<a> Window : ( Height:" + Properties.Settings.Default.WindowSizeH + " Width:" + Properties.Settings.Default.WindowSizeW + " X:" + Properties.Settings.Default.WindowPosX + " Y:" + Properties.Settings.Default.WindowPosY + ")</a>" + Environment.NewLine +
                         "<a> SearchUrl: " + Properties.Settings.Default.SearchURL + "</a>" + Environment.NewLine +
                         "<a> Download: ( OpenFile:" + Properties.Settings.Default.downloadOpen + " CloseForm:" + Properties.Settings.Default.downloadClose + ")</a>" + Environment.NewLine +
-                        "<a> LangFile: " + Properties.Settings.Default.LangFile + "</a>" + Environment.NewLine +
-                        "<a> Color: (BackColor:" + Properties.Settings.Default.BackColor.ToArgb().ToString() + " OverlayColor:" + Properties.Settings.Default.OverlayColor.ToArgb().ToString() + " BackStyle:" + Properties.Settings.Default.BackStyle + ")</a>" + Environment.NewLine +
+                    "<a> LangFile: " + Properties.Settings.Default.LangFile + "</a>" + Environment.NewLine +
+                        "<a> Color: (BackColor:" + Properties.Settings.Default.BackColor.ToString() + " OverlayColor:" + Properties.Settings.Default.OverlayColor.ToString() + " BackStyle:" + Properties.Settings.Default.BackStyle + ")</a>" + Environment.NewLine +
                         "<a> Theme: " + Properties.Settings.Default.ThemeFile + "</a></body>";
                     return ResourceHandler.FromString(x);
 

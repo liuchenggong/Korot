@@ -267,6 +267,17 @@ namespace Korot.Properties {
         }
         
         /// <summary>
+        ///   &lt;body&gt;
+        ///&lt;p&gt;[HOMEPAGETXT] : &lt;input id=&quot;HomePage&quot; name=&quot;homepage&quot; type=&quot;text&quot; value=&quot;[HOMEPAGE]&quot; /&gt;&lt;/p&gt;
+        ///&lt;/body&gt; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string korotsettings {
+            get {
+                return ResourceManager.GetString("korotsettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static System.Drawing.Bitmap language_w {
@@ -292,6 +303,36 @@ namespace Korot.Properties {
         internal static System.Drawing.Bitmap leftarrow_w {
             get {
                 object obj = ResourceManager.GetObject("leftarrow_w", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap lockg {
+            get {
+                object obj = ResourceManager.GetObject("lockg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap locko {
+            get {
+                object obj = ResourceManager.GetObject("locko", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap lockr {
+            get {
+                object obj = ResourceManager.GetObject("lockr", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -334,16 +375,16 @@ namespace Korot.Properties {
         ///            color: white;
         ///        }
         ///
-        ///        @font-face {
-        ///            font-family: PoiretOne;
-        ///            src: url(&apos;PoiretOne.TTF&apos;);
-        ///        }
-        ///
-        ///        h1 {
-        ///            font-family: PoiretOne;
-        ///        }
-        ///
-        ///    [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        ///		.merkez {
+        ///			margin:0;
+        ///			padding:0;
+        ///			text-align: center;
+        ///			position: absolute;
+        ///			top: 50%;
+        ///			left: 50%;
+        ///			transform: translateX(-50%) translateY(-50%);
+        ///					}
+        ///   [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         internal static string newtab {
             get {

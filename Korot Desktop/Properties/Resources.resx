@@ -124,8 +124,11 @@
   <data name="home" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\home.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="newincwindow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\whiteimages\newincwindow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="newwindow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\whiteimages\newwindow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="theme-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\theme-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="leftarrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow2-left-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,17 +142,11 @@
   <data name="inctab_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\whiteimages\inctab-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="theme-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\theme-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\whiteimages\Settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="star" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\star.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="home_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\whiteimages\home-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="inctab" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\whiteimages\inctab.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -157,32 +154,47 @@
   <data name="cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cancel-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="newwindow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\whiteimages\newwindow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Settings_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\whiteimages\Settings-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="star-on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\star-on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="prxy-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\prxy-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="korotlinks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\korotlinks.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1254</value>
+  </data>
   <data name="profiles" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\profiles.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="download-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\download-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="newincwindow_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\whiteimages\newincwindow-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="errorpage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\errorpage.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="download-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\download-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="newincwindow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\whiteimages\newincwindow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Korot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Korot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="language-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\language-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="info_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\whiteimages\info-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="go_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\whiteimages\go-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="korotsettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\korotsettings.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1254</value>
+  </data>
+  <data name="home_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\whiteimages\home-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="go" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\go.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -205,17 +217,23 @@
   <data name="history-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\history-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="newtab" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\newtab.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="refresh_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\whiteimages\refresh-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ext" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ext.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="info_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\whiteimages\info-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="prxy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\prxy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="cancel_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\whiteimages\cancel-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Korot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Korot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="hamburger" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hamburger.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -223,19 +241,13 @@
   <data name="hamburger-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hamburger-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="prxy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\prxy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="lockg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lockg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="prxy-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\prxy-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="locko" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\locko.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="korotlinks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\korotlinks.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1254</value>
-  </data>
-  <data name="errorpage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\errorpage.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="newtab" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\newtab.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="lockr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lockr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

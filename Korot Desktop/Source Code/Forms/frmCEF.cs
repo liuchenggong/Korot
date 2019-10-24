@@ -1,18 +1,14 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using CefSharp.WinForms.Internals;
-using Microsoft.VisualBasic;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Management;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
@@ -26,7 +22,7 @@ namespace Korot
         string userName;
         string userCache;
         frmMain anaform;
-       public ChromiumWebBrowser chromiumWebBrowser1;
+        public ChromiumWebBrowser chromiumWebBrowser1;
         string defaultproxyaddress;
         public frmCEF(TabPage pranetPage, frmMain rmmain, bool isIncognito, string loadurl, string profileName)
         {
@@ -40,39 +36,35 @@ namespace Korot
             WebProxy proxy = (WebProxy)WebProxy.GetDefaultProxy();
             Uri resource = new Uri("http://localhost");
             Uri resourceProxy = proxy.GetProxy(resource);
-           if (resourceProxy == resource)
+            if (resourceProxy == resource)
             {
                 defaultproxyaddress = null;
                 Output.WriteLine("[INFO] No proxy detected.Disabling proxies.");
                 button6.Enabled = false;
-                ToolTip toolTip1 = new ToolTip();
-                // Set up the delays for the ToolTip.
-                toolTip1.AutoPopDelay = 5000;
-                toolTip1.InitialDelay = 1000;
-                toolTip1.ReshowDelay = 500;
-                // Force the ToolTip text to be displayed whether or not the form is active.
-                toolTip1.ShowAlways = true;
-                toolTip1.SetToolTip(button6, "Disabled.No default proxy detected.");
-            } else {
+            }
+            else
+            {
                 defaultproxyaddress = resourceProxy.AbsoluteUri.ToString();
-            Output.WriteLine("[INFO] Listening on proxy : " + defaultproxyaddress);
-            SetProxy(chromiumWebBrowser1, defaultproxyaddress);
+                Output.WriteLine("[INFO] Listening on proxy : " + defaultproxyaddress);
+                SetProxy(chromiumWebBrowser1, defaultproxyaddress);
             }
 
             InitializeChromium();
         }
         async private void SetProxy(ChromiumWebBrowser cwb, string Address)
         {
-            if (Address == null) { }else {
-            await Cef.UIThreadTaskFactory.StartNew(delegate
+            if (Address == null) { }
+            else
             {
-                var rc = cwb.GetBrowser().GetHost().RequestContext;
-                var v = new Dictionary<string, object>();
-                v["mode"] = "fixed_servers";
-                v["server"] = Address;
-                string error;
-                bool success = rc.SetPreference("proxy", v, out error);
-            });
+                await Cef.UIThreadTaskFactory.StartNew(delegate
+                {
+                    var rc = cwb.GetBrowser().GetHost().RequestContext;
+                    var v = new Dictionary<string, object>();
+                    v["mode"] = "fixed_servers";
+                    v["server"] = Address;
+                    string error;
+                    bool success = rc.SetPreference("proxy", v, out error);
+                });
             }
         }
         private static ManagementObject GetMngObj(string className)
@@ -115,26 +107,27 @@ namespace Korot
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings();
-                settings.UserAgent = "Mozilla/5.0 ( Windows NT "
-                    + GetOsVer()
-                    + "; "
-                    + Environment.OSVersion.Platform
-                    + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
-                    + Cef.ChromiumVersion
-                    + " Safari/537.36 Korot/"
-                    + Application.ProductVersion.ToString(); 
+            settings.UserAgent = "Mozilla/5.0 ( Windows NT "
+                + GetOsVer()
+                + "; "
+                + Environment.OSVersion.Platform
+                + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
+                + Cef.ChromiumVersion
+                + " Safari/537.36 Korot/"
+                + Application.ProductVersion.ToString();
             if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; }
             else { settings.CachePath = userCache; }
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = "korot",
-                SchemeHandlerFactory = new SchemeHandlerFactory(anaform,this)
+                SchemeHandlerFactory = new SchemeHandlerFactory(anaform, this)
             });
             // Initialize cef with the provided settings
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
-                chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri);
+            chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri);
             panel1.Controls.Add(chromiumWebBrowser1);
-            chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this,anaform);
+            chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(anaform, this);
+            chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this, anaform);
             chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
             chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
             chromiumWebBrowser1.AddressChanged += cef_AddressChanged;
@@ -168,14 +161,21 @@ namespace Korot
                 }
             }
         }
-        public void ChangeStatus(string status)
-        {
-            label2.Text = status;
-        }
+        public bool certError = false;
+        public bool cookieUsage = false;
+        public void ChangeStatus(string status) => label2.Text = status;
         public void loadingstatechanged(object sender, LoadingStateChangedEventArgs e)
         {
             if (e.IsLoading)
             {
+                certError = false;
+                cookieUsage = false;
+                pictureBox2.Invoke(new Action(() => pictureBox2.Image = Properties.Resources.lockg));
+                this.Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Tag = null));
+                this.Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Visible = false));
+                this.Invoke(new Action(() => safeStatusToolStripMenuItem.Text = anaform.CertificateOKTitle));
+                this.Invoke(new Action(() => ınfoToolStripMenuItem.Text = anaform.CertificateOK));
+                this.Invoke(new Action(() => cookieInfoToolStripMenuItem.Text = anaform.notUsesCookies));
                 if (Brightness(Properties.Settings.Default.BackColor) > 130)
                 {
                     button2.Image = Korot.Properties.Resources.cancel;
@@ -202,18 +202,19 @@ namespace Korot
             {
                 button1.Invoke(new Action(() => button1.Enabled = e.CanGoBack));
                 button3.Invoke(new Action(() => button3.Enabled = e.CanGoForward));
-            }catch
+            }
+            catch
             {
-                button1.Invoke(new Action(() => button1.Enabled = false));
-                button3.Invoke(new Action(() => button3.Enabled = false));
+                try
+                {
+                    button1.Invoke(new Action(() => button1.Enabled = false));
+                    button3.Invoke(new Action(() => button3.Enabled = false));
+                }catch { }
             }
             isLoading = e.IsLoading;
         }
 
-        public void NewTab(string url)
-        {
-            anaform.Invoke(new Action(() => anaform.NewTab(url)));
-        }
+        public void NewTab(string url) => anaform.Invoke(new Action(() => anaform.NewTab(url)));
         public void RefreshFavorites()
         {
             mFavorites.Items.Clear();
@@ -243,44 +244,38 @@ namespace Korot
             profilenameToolStripMenuItem.Text = userName;
             label3.Text = anaform.SearchOnPage;
             label6.Text = anaform.CaseSensitive;
+            showCertificateErrorsToolStripMenuItem.Text = anaform.showCertError;
             chromiumWebBrowser1.Select();
         }
-        
 
         public static bool ValidHttpURL(string s)
         {
-                string Pattern = @"^(?:about)|(?:about)|(?:file)|(?:korot)|(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
-                Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                return Rgx.IsMatch(s);
-            }
+            string Pattern = @"^(?:about)|(?:about)|(?:file)|(?:korot)|(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
+            Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return Rgx.IsMatch(s);
+        }
         private void button4_Click(object sender, EventArgs e)
         {
-            
-            string urlLower = textBox1.Text.ToLower();
-                if (ValidHttpURL(urlLower))
-                {
-                    chromiumWebBrowser1.Load(urlLower);
-                }
 
-                else
-                {
-                    chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + urlLower);
-                    button1.Enabled = true;
-                
+            string urlLower = textBox1.Text.ToLower();
+            if (ValidHttpURL(urlLower))
+            {
+                chromiumWebBrowser1.Load(urlLower);
+            }
+
+            else
+            {
+                chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + urlLower);
+                button1.Enabled = true;
+
             }
         }
-                
 
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            chromiumWebBrowser1.Back(); 
-        }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            chromiumWebBrowser1.Forward();
-        }
+        private void button1_Click(object sender, EventArgs e) => chromiumWebBrowser1.Back();
+
+        private void button3_Click(object sender, EventArgs e) => chromiumWebBrowser1.Forward();
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -292,8 +287,8 @@ namespace Korot
         }
         private void cef_AddressChanged(object sender, AddressChangedEventArgs e)
         {
-            this.InvokeOnUiThreadIfRequired(() => textBox1.Text = e.Address); 
-                if (Properties.Settings.Default.Favorites.Contains(e.Address))
+            this.InvokeOnUiThreadIfRequired(() => textBox1.Text = e.Address);
+            if (Properties.Settings.Default.Favorites.Contains(e.Address))
             {
                 isLoadedPageFavroited = true;
                 button7.Image = Properties.Resources.star_on;
@@ -305,7 +300,7 @@ namespace Korot
                 isLoadedPageFavroited = false;
             }
             Uri newUri = null;
-                if(!ValidHttpURL(e.Address))
+            if (!ValidHttpURL(e.Address))
             {
                 chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + e.Address);
             }
@@ -328,24 +323,22 @@ namespace Korot
                 }
             }
         }
-      
-        
+
+
         private void cef_TitleChanged(object sender, TitleChangedEventArgs e)
         {
             if (e.Title.Length < 101)
             {
                 this.InvokeOnUiThreadIfRequired(() => this.Text = e.Title);
-            }else
+            }
+            else
             {
-                this.InvokeOnUiThreadIfRequired(() => this.Text = e.Title.Substring(0,100));
+                this.InvokeOnUiThreadIfRequired(() => this.Text = e.Title.Substring(0, 100));
             }
             this.Parent.Invoke(new Action(() => this.Parent.Text = this.Text));
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            chromiumWebBrowser1.Load(Korot.Properties.Settings.Default.Homepage);
-        }
+        private void button5_Click(object sender, EventArgs e) => chromiumWebBrowser1.Load(Properties.Settings.Default.Homepage);
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -384,19 +377,8 @@ namespace Korot
                 chromiumWebBrowser1.StopFinding(true);
             }
         }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        private static int GerekiyorsaAzalt(int defaultint, int azaltma)
-        {
-            if (defaultint > azaltma) { return defaultint - 20; } else { return defaultint; }
-        }
-        private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır)
-        {
-            if (defaultint + arttırma > sınır) { return defaultint; } else { return defaultint + arttırma; }
-        }
+        private static int GerekiyorsaAzalt(int defaultint, int azaltma) => defaultint > azaltma ? defaultint - 20 : defaultint;
+        private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır) => defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
         void ChnageTheme()
         {
             if (Brightness(Properties.Settings.Default.BackColor) > 130) //Light
@@ -421,7 +403,8 @@ namespace Korot
                 this.ForeColor = Color.Black;
                 label2.BackColor = Properties.Settings.Default.BackColor;
                 label2.ForeColor = Color.Black;
-
+                cmsPrivacy.BackColor = Properties.Settings.Default.BackColor;
+                cmsPrivacy.ForeColor = Color.Black;
                 textBox1.BackColor = Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 textBox1.ForeColor = Color.Black;
                 button6.Image = Properties.Resources.prxy;
@@ -451,6 +434,8 @@ namespace Korot
                     x.BackColor = Properties.Settings.Default.BackColor;
                     x.ForeColor = Color.White;
                 }
+                cmsPrivacy.BackColor = Properties.Settings.Default.BackColor;
+                cmsPrivacy.ForeColor = Color.White;
                 button8.Image = Properties.Resources.ext_w;
                 button9.Image = Properties.Resources.profiles_w;
                 cmsProfiles.BackColor = Properties.Settings.Default.BackColor;
@@ -480,7 +465,7 @@ namespace Korot
                 if (isLoadedPageFavroited) { button7.Image = Properties.Resources.star_on; } else { button7.Image = Properties.Resources.star_w; }
                 mFavorites.BackColor = Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
                 mFavorites.ForeColor = Color.White;
-                
+
             }
         }
         int websiteprogress;
@@ -491,16 +476,21 @@ namespace Korot
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            ChnageTheme();
-            this.Parent.Text = this.Text;
             try
             {
-                if (((TabControl)parentTabPage.Parent).TabPages.Contains(parentTabPage)) { } else
+                ChnageTheme();
+                this.Parent.Text = this.Text;
+            }catch { } //ignored
+            try
+            {
+                if (((TabControl)parentTabPage.Parent).TabPages.Contains(parentTabPage)) { }
+                else
                 {
                     anaform.Invoke(new Action(() => anaform.RemoveMefromList(this)));
                     this.Close();
                 }
-            }catch { anaform.Invoke(new Action(() => anaform.RemoveMefromList(this))); this.Close(); }
+            }
+            catch { anaform.Invoke(new Action(() => anaform.RemoveMefromList(this))); this.Close(); }
         }
 
         private void TestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -538,34 +528,35 @@ namespace Korot
                 switchToToolStripMenuItem.DropDownItems.Add(profileItem);
             }
         }
-
-        public void RefreshTrnaslation()
+        public void RefreshTranslation()
         {
             emptyItem.Text = anaform.empty;
             defaultproxyItem.Text = anaform.defaultproxytext;
             switchToToolStripMenuItem.Text = anaform.switchTo;
             newProfileToolStripMenuItem.Text = anaform.newprofile;
             deleteThisProfileToolStripMenuItem.Text = anaform.deleteProfile;
+            showCertificateErrorsToolStripMenuItem.Text = anaform.showCertError;
+            if (certError)
+            {
+                safeStatusToolStripMenuItem.Text = anaform.CertificateErrorTitle;
+                ınfoToolStripMenuItem.Text = anaform.CertificateError;
+            }else
+            {
+                safeStatusToolStripMenuItem.Text = anaform.CertificateOKTitle;
+                ınfoToolStripMenuItem.Text = anaform.CertificateOK;
+            }
+            if (cookieUsage) { cookieInfoToolStripMenuItem.Text = anaform.usesCookies; }else { cookieInfoToolStripMenuItem.Text = anaform.notUsesCookies; }
+            label7.Text = anaform.CertErrorPageTitle;
+            label8.Text = anaform.CertErrorPageMessage;
+            button10.Text = anaform.CertErrorPageButton;
         }
-        private void ProfilesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            anaform.Invoke(new Action(() => anaform.SwitchProfile(((ToolStripMenuItem)sender).Text)));
-        }
+        private void ProfilesToolStripMenuItem_Click(object sender, EventArgs e) => anaform.Invoke(new Action(() => anaform.SwitchProfile(((ToolStripMenuItem)sender).Text)));
 
-        private void NewProfileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            anaform.Invoke(new Action(() => anaform.NewProfile()));
-        }
+        private void NewProfileToolStripMenuItem_Click(object sender, EventArgs e) => anaform.Invoke(new Action(() => anaform.NewProfile()));
 
-        private void DeleteThisProfileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            anaform.Invoke(new Action(() => anaform.DeleteProfile(userName)));
-        }
+        private void DeleteThisProfileToolStripMenuItem_Click(object sender, EventArgs e) => anaform.Invoke(new Action(() => anaform.DeleteProfile(userName)));
 
-        private void Button9_Click(object sender, EventArgs e)
-        {
-            cmsProfiles.Show(MousePosition);
-        }
+        private void Button9_Click(object sender, EventArgs e) => cmsProfiles.Show(MousePosition);
 
         private void ExtensionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -626,7 +617,7 @@ namespace Korot
                 if (File.Exists(x + "\\proxy.kem"))
                 {
                     ToolStripMenuItem extItem = new ToolStripMenuItem();
-                    extItem.Text = new DirectoryInfo(x).Name;             
+                    extItem.Text = new DirectoryInfo(x).Name;
                     extItem.Click += ExampleProxyToolStripMenuItem_Click;
                     extItem.Tag = File.ReadAllText(x + "\\proxy.kem");
                     contextMenuStrip2.Items.Add(extItem);
@@ -634,21 +625,12 @@ namespace Korot
                 }
             }
         }
-        private void Button8_Click(object sender, EventArgs e)
-        {
-            contextMenuStrip1.Show(MousePosition);
-        }
+        private void Button8_Click(object sender, EventArgs e) => contextMenuStrip1.Show(MousePosition);
 
-        private void TmrSlower_Tick(object sender, EventArgs e)
-        {
-            RefreshFavorites();
-        }
+        private void TmrSlower_Tick(object sender, EventArgs e) => RefreshFavorites();
 
 
-        private void FrmCEF_SizeChanged(object sender, EventArgs e)
-        {
-            pbProgress.Width = (this.Width / 100) * websiteprogress;
-        }
+        public void FrmCEF_SizeChanged(object sender, EventArgs e) => pbProgress.Width = (this.Width / 100) * websiteprogress;
 
         private void TextBox2_TextChanged(object sender, EventArgs e)
         {
@@ -665,15 +647,7 @@ namespace Korot
             chromiumWebBrowser1.StopFinding(true);
         }
 
-        private void Panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void Panel1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            tabform_KeyDown(panel1, new KeyEventArgs(e.KeyData));
-        }
+        private void Panel1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e) => tabform_KeyDown(panel1, new KeyEventArgs(e.KeyData));
 
         private void ExampleProxyToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -684,19 +658,60 @@ namespace Korot
             catch { }
             chromiumWebBrowser1.Reload();
         }
-
-        private void Button6_Click(object sender, EventArgs e)
+        public string GetElementValueByID(ChromiumWebBrowser browser,string elementID)
         {
-            contextMenuStrip2.Show(MousePosition);
+            bool isError = false;
+            string result = null;
+            try
+            {
+                string script = string.Format("document.getElementById(\"" + elementID + "\").value;");
+                browser.EvaluateScriptAsync(script).ContinueWith(x =>
+                {
+                    var response = x.Result;
+
+                    if (response.Success && response.Result != null)
+                    {
+                        result = response.Result.ToString();
+                    }
+                    else
+                    {
+                        result = null;
+                    }
+                });
+                if (isError)
+                {
+                    isError = true;
+                    throw new NullReferenceException("[ERROR] [KOROT:frmCEF] GetElementValueByID :\" browser: " + browser.Name.ToString() + " elementID: " + elementID + "\"");
+                }
+                else { return result; }
+            }catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        private void Button6_MouseEnter(object sender, EventArgs e)
+        private void Button6_Click(object sender, EventArgs e) => contextMenuStrip2.Show(MousePosition);
+
+        private void pictureBox2_Click(object sender, EventArgs e) => cmsPrivacy.Show(pictureBox2, 0, pictureBox2.Size.Height);
+
+        private void xToolStripMenuItem_Click(object sender, EventArgs e) => cmsPrivacy.Close();
+
+        private void showCertificateErrorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (showCertificateErrorsToolStripMenuItem.Tag != null)
+            {
+                TextBox txtCertificate = new TextBox() { ScrollBars = ScrollBars.Both,Multiline = true, Dock = DockStyle.Fill, Text = showCertificateErrorsToolStripMenuItem.Tag.ToString() };
+                Form frmCertificate = new Form() { Icon = anaform.Icon,Text = anaform.CertificateErrorMenuTitle,FormBorderStyle = FormBorderStyle.SizableToolWindow};
+                frmCertificate.Controls.Add(txtCertificate);
+                frmCertificate.ShowDialog();
+            }
         }
-
-        private void MFavorites_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+       public List<string> CertAllowedUrls = new List<string>();
+        private void button10_Click(object sender, EventArgs e)
         {
-
+            CertAllowedUrls.Add(button10.Tag.ToString());
+            chromiumWebBrowser1.Refresh();
+            pnlCert.Visible = false;
         }
     }
 }

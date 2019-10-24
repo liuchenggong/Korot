@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -30,6 +31,8 @@ namespace Korot
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\")) { Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\", true); }
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\");
             pictureBox1.Width = 0;
             WebC.DownloadFileAsync(new Uri(downloadUrl), downloadloc);
         }
@@ -38,6 +41,7 @@ namespace Korot
             pictureBox1.Width = e.ProgressPercentage * 4;
             label2.Text = anaform.StatusType.Replace("[PERC]", e.ProgressPercentage.ToString()).Replace("[CURRENT]", (e.BytesReceived / 1024).ToString()).Replace("[TOTAL]", (e.TotalBytesToReceive / 1024).ToString());
             label1.Text = anaform.installStatus;
+            this.Text = anaform.updateTitle;
         }
 
         private void WebC_DownloadFileAsyncCompleted(object sender,AsyncCompletedEventArgs e)
@@ -45,6 +49,7 @@ namespace Korot
             if (e.Error != null || e.Cancelled) { } else
             {
                 Process.Start(downloadloc);
+                Application.Exit();
             }
         }
     }

@@ -66,7 +66,10 @@ namespace Korot
         public void OnLoadingProgressChange(IWebBrowser chromiumWebBrowser, IBrowser browser, double progress)
         {
             //we done this but i still need that progress so
-            CEFform.Invoke(new Action(() => CEFform.ChangeProgress(Convert.ToInt32(progress * 100 ))));
+            try
+            {
+                CEFform.Invoke(new Action(() => CEFform.ChangeProgress(Convert.ToInt32(progress * 100))));
+            }catch { }
         }
 
         public void OnStatusMessage(IWebBrowser chromiumWebBrowser, StatusMessageEventArgs statusMessageArgs)
