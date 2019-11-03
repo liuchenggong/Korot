@@ -404,7 +404,7 @@ namespace Korot
         private void frmMain_Load(object sender, EventArgs e)
         {
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
-            if (DateTime.Now.ToString("MM") == "03" & DateTime.Now.ToString("dd") == "11" & DateTime.Now.ToString("HH") == "20")
+            if (DateTime.Now.ToString("MM") == "03" & DateTime.Now.ToString("dd") == "11")
             {
                 Output.WriteLine("Happy " + (DateTime.Now.Year - 2001) + "th Birthday Dad!");
                 List<string> HaltroyNameHistory = new List<string>() {"efojaeren","Eren Kanat","ErenKanat02","ErenKanat03","Lapisman","LapisGamingTR","NirvanaWolfTR","TheLordEren","SnowWolfTR","Pell Game","Pell Artz","TheEfoja","Mr Pell","Pellguy","LordPell","Pellaraptor","Pellraptor","Pellerma","PLLTR","SpringTR","KurtSys32","KANAT","Spiklyman (vs Mendebur Lemur)","Wingaxy","Haltroy"};
@@ -414,7 +414,7 @@ namespace Korot
                     Output.WriteLine(x);
                 }
                 Output.WriteLine("That's a lot of usernames but each of them is still terrible since day 0.");
-            } else if (DateTime.Now.ToString("MM") == "06" & DateTime.Now.ToString("dd") == "09" & DateTime.Now.ToString("HH") == "20")
+            } else if (DateTime.Now.ToString("MM") == "06" & DateTime.Now.ToString("dd") == "09")
             {
                 List<string> KorotNameHistory = new List<string>(){"StoneHomepage (not browser) (First code written by Haltroy)","StoneBrowser (Trident) (First ever program written by Haltroy)", "ZStone (Trident)", "Pell Browser (Trident)", "Kolme Browser (Trident)", "Ninova (Gecko)", "Webtroy (Gecko,CEF)", "Korot (CEF)","Korot (Boron)"};
                 Output.WriteLine("I'm " + (DateTime.Now.Year - 2017) + " years old now!");
@@ -423,11 +423,21 @@ namespace Korot
                 {
                     Output.WriteLine(x);
                 }
-                Output.WriteLine("We come too far now.Isn't it?");
-            }
-            else if (DateTime.Now.ToString("MM") == "10" & DateTime.Now.ToString("dd") == "18" & DateTime.Now.ToString("HH") == "20")
+                Output.WriteLine("I'm too far now isn't it?");
+            } else if (DateTime.Now.ToString("MM") == "01" & DateTime.Now.ToString("dd") == "21")
             {
-                Output.WriteLine("Your account is " + (DateTime.Now.Year - 2017) + " years old now!");
+                List<string> PTNameHistory = new List<string>(){"Pell Media Player (WMP)","ZStone (WMP)","Kolme Player (WMP)","MyPlay (WMP)","Playtroy"};
+                Output.WriteLine("My sister's " + (DateTime.Now.Year - 2017) + " years old now!");
+                Output.WriteLine("Here's a quick history about my sister:");
+                foreach (string x in PTNameHistory)
+                {
+                    Output.WriteLine(x);
+                }
+                Output.WriteLine("She's too far now isn't it?");
+            }
+            else if (DateTime.Now.ToString("MM") == "10" & DateTime.Now.ToString("dd") == "18")
+            {
+                Output.WriteLine("Your account on Instagram is now " + (DateTime.Now.Year - 2017) + " years old!");
                 Output.WriteLine("\"Herkes içinde bir yıldız taşır.Önemli olan o yıldızı kullanabilmektir.İyi günler...\" -Haltroy");
             }
             betaTS.Text = "Korot Beta " + Application.ProductVersion.ToString();
