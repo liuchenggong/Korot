@@ -81,8 +81,8 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HaltroyFramework, Version=0.0.1.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HaltroyFramework.0.0.1.3-hotfix2\lib\HaltroyFramework.dll</HintPath>
+    <Reference Include="HaltroyFramework, Version=0.0.1.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HaltroyFramework.0.0.1.5-alpha\lib\net45\HaltroyFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.3.3, Culture=neutral, PublicKeyToken=8985beaab7ea3f04, processorArchitecture=MSIL">
@@ -200,6 +200,7 @@
     <None Include="Lang\Turkish.lang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="Source Code\Others\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

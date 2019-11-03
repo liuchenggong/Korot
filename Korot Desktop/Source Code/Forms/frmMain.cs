@@ -14,54 +14,8 @@ using System.Windows.Forms;
 namespace Korot
 {
 
-    public partial class frmMain : Form
+    public partial class frmMain : HaltroyFramework.HaltroyForms
     {
-
-        protected override System.Windows.Forms.CreateParams CreateParams
-        {
-            get
-            {
-                // If this form is inherited, the IDE needs this style
-                // set so that it's coordinate system is correct.
-                const Int32 WS_CHILDWINDOW = 0x40000000;
-                // The following two styles are used to clip child
-                // and sibling windows in Paint events.
-                const Int32 WS_CLIPCHILDREN = 0x2000000;
-                const Int32 WS_CLIPSIBLINGS = 0x4000000;
-                // Add a Minimize button (or Minimize option in Window Menu).
-                const Int32 WS_MINIMIZEBOX = 0x20000;
-                // Add a Maximum/Restore Button (or Options in Window Menu).
-                const Int32 WS_MAXIMIZEBOX = 0x10000;
-                // Window can be resized.
-                const Int32 WS_THICKFRAME = 0x40000;
-                // Add A Window Menu
-                const Int32 WS_SYSMENU = 0x80000;
-
-                // Detect Double Clicks
-                const int CS_DBLCLKS = 0x8;
-                // Add a DropShadow (WinXP or greater).
-                const int CS_DROPSHADOW = 0x20000;
-
-                CreateParams cp = base.CreateParams;
-
-                cp.Style = WS_CLIPCHILDREN | WS_CLIPSIBLINGS
-            | WS_MAXIMIZEBOX | WS_MINIMIZEBOX
-            | WS_SYSMENU | WS_THICKFRAME;
-
-                if (this.DesignMode)
-                    cp.Style = cp.Style | WS_CHILDWINDOW;
-
-                int ClassFlags = CS_DBLCLKS;
-                int OSVER = Environment.OSVersion.Version.Major * 10;
-                OSVER += Environment.OSVersion.Version.Minor;
-
-                if (OSVER >= 51)
-                    ClassFlags = ClassFlags | CS_DROPSHADOW;
-                cp.ClassStyle = ClassFlags;
-
-                return cp;
-            }
-        }
         private MyJumplist list;
         bool isMouseDown = false;
         Point mouseposition;

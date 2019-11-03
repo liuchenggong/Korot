@@ -1,6 +1,6 @@
 ﻿namespace Korot
 {
-    partial class frmMain
+    partial class frmMain : HaltroyFramework.HaltroyForms
     {
         /// <summary>
         /// Required designer variable.
@@ -417,8 +417,8 @@
             this.tabControl2.Controls.Add(this.tbDownload);
             this.tabControl2.Controls.Add(this.tbAbout);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl2.DoNotRemoveThisTab1 = null;
-            this.tabControl2.DoNotRemoveThisTab2 = null;
+            this.tabControl2.LockedFirstTab = null;
+            this.tabControl2.LockedLastTab = null;
             this.tabControl2.EnableRepositioning = false;
             this.tabControl2.HeaderColor = System.Drawing.Color.White;
             this.tabControl2.HorizontalLineColor = System.Drawing.Color.DodgerBlue;
