@@ -372,8 +372,8 @@
             this.tabControl1.ContextMenuStrip = this.cmsPlusRightClick;
             this.tabControl1.Controls.Add(this.tbKorot);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.DoNotRemoveThisTab1 = this.tbKorot;
-            this.tabControl1.DoNotRemoveThisTab2 = this.tabPage2;
+            this.tabControl1.LockedFirstTab = this.tbKorot;
+            this.tabControl1.LockedLastTab = this.tabPage2;
             this.tabControl1.EnableRepositioning = true;
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.tabControl1.HeaderColor = System.Drawing.Color.White;
