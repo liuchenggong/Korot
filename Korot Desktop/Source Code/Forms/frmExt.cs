@@ -18,6 +18,7 @@ namespace Korot
 {
     public partial class frmExt : Form
     {
+        frmSettings Settingsform;
         string ExtensionPopupPath;
         frmCEF tabform;
         string userCache;
@@ -25,8 +26,9 @@ namespace Korot
         string startupJS;
         ChromiumWebBrowser chromiumWebBrowser1;
         string extensionFolder;
-        public frmExt(frmCEF CefForm,frmMain rmmain, string profileName,string manifestFile)
+        public frmExt(frmCEF CefForm,frmMain rmmain, string profileName,string manifestFile, frmSettings _frmSettings)
         {
+            Settingsform = _frmSettings;
             InitializeComponent();
             extensionFolder = new FileInfo(manifestFile).DirectoryName + "//";
             tabform = CefForm;
@@ -94,11 +96,11 @@ namespace Korot
             chromiumWebBrowser1.DisplayHandler = new DisplayHandler(tabform, anaform);
             chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
             chromiumWebBrowser1.LoadError += cef_onLoadError;
-            chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(tabform, anaform);
+            chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(tabform, anaform, Settingsform);
             chromiumWebBrowser1.LifeSpanHandler = new BrowserLifeSpanHandler(tabform);
             chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
-            chromiumWebBrowser1.DownloadHandler = new DownloadHandler(tabform, anaform);
-            chromiumWebBrowser1.JsDialogHandler = new JsHandler(anaform);
+            chromiumWebBrowser1.DownloadHandler = new DownloadHandler(tabform, anaform, Settingsform);
+            chromiumWebBrowser1.JsDialogHandler = new JsHandler(Settingsform);
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
         }

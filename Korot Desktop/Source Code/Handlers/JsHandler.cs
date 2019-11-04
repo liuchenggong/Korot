@@ -10,10 +10,10 @@ namespace Korot
 {
     public class JsHandler : IJsDialogHandler
     {
-        frmMain anaform;
-        public JsHandler(frmMain _frmMain)
+        frmSettings anaform;
+        public JsHandler(frmSettings _frmSettings)
         {
-            anaform = _frmMain;
+            anaform = _frmSettings;
         }
         public bool OnBeforeUnloadDialog(IWebBrowser chromiumWebBrowser, IBrowser browser, string messageText, bool isReload, IJsDialogCallback callback)
         {

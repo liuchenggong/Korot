@@ -18,15 +18,16 @@ namespace Korot {
 		private const int SeacrhOrOpenSelectedInNewTab = 40007;
 		private const int RefreshTab = 40008;
         private const int OpenImageInNewTab = 26508;
+        frmSettings SettingsForm;
         frmCEF ActiveForm;
-        frmMain aNaFRM;
+        frmMain anafrm;
 
 		private string lastSelText = "";
 
-		public ContextMenuHandler(frmCEF activeform,frmMain anaform) {
-
+		public ContextMenuHandler(frmCEF activeform,frmMain aNaform,frmSettings settingform) {
+            SettingsForm = settingform;
             ActiveForm = activeform;
-            aNaFRM = anaform;
+            anafrm = aNaform;
 		}
 
 		public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model) {
@@ -36,52 +37,52 @@ namespace Korot {
 			// save text
 			lastSelText = parameters.SelectionText;
 
-            model.AddItem(CefMenuCommand.Back, aNaFRM.goBack);
-            model.AddItem(CefMenuCommand.Forward, aNaFRM.goForward);
-            model.AddItem((CefMenuCommand)RefreshTab, aNaFRM.refresh);
-            model.AddItem(CefMenuCommand.ReloadNoCache, aNaFRM.refreshNoCache);
-            model.AddItem(CefMenuCommand.StopLoad, aNaFRM.stop);
-            model.AddItem(CefMenuCommand.SelectAll, aNaFRM.selectAll);
+            model.AddItem(CefMenuCommand.Back, SettingsForm.goBack);
+            model.AddItem(CefMenuCommand.Forward, SettingsForm.goForward);
+            model.AddItem((CefMenuCommand)RefreshTab, SettingsForm.refresh);
+            model.AddItem(CefMenuCommand.ReloadNoCache, SettingsForm.refreshNoCache);
+            model.AddItem(CefMenuCommand.StopLoad, SettingsForm.stop);
+            model.AddItem(CefMenuCommand.SelectAll, SettingsForm.selectAll);
             model.AddSeparator();
 
 			//Removing existing menu item
 			//bool removed = model.Remove(CefMenuCommand.ViewSource); // Remove "View Source" option
 			if (parameters.LinkUrl != "") {
-				model.AddItem((CefMenuCommand)OpenLinkInNewTab, aNaFRM.openLinkInNewTab);
-				model.AddItem((CefMenuCommand)CopyLinkAddress,aNaFRM.copyLink);
+				model.AddItem((CefMenuCommand)OpenLinkInNewTab, SettingsForm.openLinkInNewTab);
+				model.AddItem((CefMenuCommand)CopyLinkAddress, SettingsForm.copyLink);
 			}
 			if (parameters.HasImageContents && parameters.SourceUrl.Length > 0) {
 
                 // RIGHT CLICKED ON IMAGE
-                model.AddItem((CefMenuCommand)OpenImageInNewTab,aNaFRM.openImageInNewTab );
-                model.AddItem((CefMenuCommand)SaveImageAs, aNaFRM.saveImageAs);
+                model.AddItem((CefMenuCommand)OpenImageInNewTab, SettingsForm.openImageInNewTab );
+                model.AddItem((CefMenuCommand)SaveImageAs, SettingsForm.saveImageAs);
                 model.AddSeparator();
 			}
             if (parameters.IsEditable)
             {
-                model.AddItem(CefMenuCommand.Paste, aNaFRM.paste);
+                model.AddItem(CefMenuCommand.Paste, SettingsForm.paste);
             }
             if (parameters.SelectionText != "") {
 
                 // TEXT IS SELECTED
-                model.AddItem(CefMenuCommand.Copy, aNaFRM.copy);
+                model.AddItem(CefMenuCommand.Copy, SettingsForm.copy);
                 if (parameters.IsEditable)
                 {
-                    model.AddItem(CefMenuCommand.Cut, aNaFRM.cut);
+                    model.AddItem(CefMenuCommand.Cut, SettingsForm.cut);
 
-                    model.AddItem(CefMenuCommand.Undo, aNaFRM.undo);
-                    model.AddItem(CefMenuCommand.Redo, aNaFRM.redo);
-                    model.AddItem(CefMenuCommand.Delete, aNaFRM.delete);
+                    model.AddItem(CefMenuCommand.Undo, SettingsForm.undo);
+                    model.AddItem(CefMenuCommand.Redo, SettingsForm.redo);
+                    model.AddItem(CefMenuCommand.Delete, SettingsForm.delete);
                 }
-                model.AddItem((CefMenuCommand)SeacrhOrOpenSelectedInNewTab, aNaFRM.SearchOrOpenSelectedInNewTab);
+                model.AddItem((CefMenuCommand)SeacrhOrOpenSelectedInNewTab, SettingsForm.SearchOrOpenSelectedInNewTab);
                 model.AddSeparator();
             }
 
 
 			//Add new custom menu items
 			//#if DEBUG
-			model.AddItem((CefMenuCommand)ShowDevTools,  aNaFRM.developerTools);
-			model.AddItem(CefMenuCommand.ViewSource, aNaFRM.viewSource);
+			model.AddItem((CefMenuCommand)ShowDevTools,  SettingsForm.developerTools);
+			model.AddItem(CefMenuCommand.ViewSource, SettingsForm.viewSource);
 			//#endif
 
 
@@ -107,7 +108,7 @@ namespace Korot {
 			if (id == OpenLinkInNewTab) {
                 browserControl.EvaluateScriptAsync("window.open('" + parameters.LinkUrl + "')");
                // ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(parameters.LinkUrl)));
-                // aNaFRM.Invoke(new Action(() => aNaFRM.NewTab(parameters.LinkUrl))); blank
+                // SettingsForm.Invoke(new Action(() => SettingsForm.NewTab(parameters.LinkUrl))); blank
                // browserControl.ExecuteScriptAsync("window.open('" + parameters.LinkUrl + "')"); => CEFSHARP ONLY SUPPORT V8CONTEXT FOR NOW
 			}
 			if (id == CopyLinkAddress) {

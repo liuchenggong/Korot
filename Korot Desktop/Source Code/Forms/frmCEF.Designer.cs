@@ -46,6 +46,11 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.cmsHamburger = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.newWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newIncognitoWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button9 = new System.Windows.Forms.Button();
             this.cmsProfiles = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.profilenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,11 +87,13 @@
             this.button10 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.restoreLastSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.cmsHamburger.SuspendLayout();
             this.cmsProfiles.SuspendLayout();
             this.panel3.SuspendLayout();
             this.pnlCert.SuspendLayout();
@@ -100,7 +107,7 @@
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.textBox1.Location = new System.Drawing.Point(149, 7);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(136, 23);
+            this.textBox1.Size = new System.Drawing.Size(116, 23);
             this.textBox1.TabIndex = 1;
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
@@ -115,6 +122,7 @@
             this.panel2.Controls.Add(this.button7);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.button11);
             this.panel2.Controls.Add(this.button9);
             this.panel2.Controls.Add(this.button4);
             this.panel2.Controls.Add(this.button2);
@@ -217,7 +225,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Image = global::Korot.Properties.Resources.inctab;
-            this.pictureBox1.Location = new System.Drawing.Point(282, 7);
+            this.pictureBox1.Location = new System.Drawing.Point(264, 7);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(23, 23);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -280,6 +288,53 @@
             this.button1.Click += new System.EventHandler(this.button1_Click);
             this.button1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
             // 
+            // button11
+            // 
+            this.button11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button11.BackColor = System.Drawing.Color.Transparent;
+            this.button11.ContextMenuStrip = this.cmsHamburger;
+            this.button11.FlatAppearance.BorderSize = 0;
+            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button11.Image = global::Korot.Properties.Resources.hamburger;
+            this.button11.Location = new System.Drawing.Point(374, 5);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(26, 26);
+            this.button11.TabIndex = 0;
+            this.button11.UseVisualStyleBackColor = false;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            this.button11.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
+            // 
+            // cmsHamburger
+            // 
+            this.cmsHamburger.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newWindowToolStripMenuItem,
+            this.newIncognitoWindowToolStripMenuItem,
+            this.settingsToolStripMenuItem,
+            this.restoreLastSessionToolStripMenuItem});
+            this.cmsHamburger.Name = "cmsHamburger";
+            this.cmsHamburger.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cmsHamburger.ShowImageMargin = false;
+            this.cmsHamburger.Size = new System.Drawing.Size(175, 114);
+            // 
+            // newWindowToolStripMenuItem
+            // 
+            this.newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
+            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.newWindowToolStripMenuItem.Text = "New Window";
+            // 
+            // newIncognitoWindowToolStripMenuItem
+            // 
+            this.newIncognitoWindowToolStripMenuItem.Name = "newIncognitoWindowToolStripMenuItem";
+            this.newIncognitoWindowToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.newIncognitoWindowToolStripMenuItem.Text = "New Incognito Window";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
             // button9
             // 
             this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -288,7 +343,7 @@
             this.button9.FlatAppearance.BorderSize = 0;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.Image = global::Korot.Properties.Resources.profiles;
-            this.button9.Location = new System.Drawing.Point(374, 5);
+            this.button9.Location = new System.Drawing.Point(354, 5);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(26, 26);
             this.button9.TabIndex = 0;
@@ -342,7 +397,7 @@
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Image = global::Korot.Properties.Resources.go;
-            this.button4.Location = new System.Drawing.Point(308, 5);
+            this.button4.Location = new System.Drawing.Point(288, 5);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(26, 26);
             this.button4.TabIndex = 0;
@@ -371,7 +426,7 @@
             this.button6.FlatAppearance.BorderSize = 0;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Image = global::Korot.Properties.Resources.prxy;
-            this.button6.Location = new System.Drawing.Point(330, 5);
+            this.button6.Location = new System.Drawing.Point(310, 5);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(26, 26);
             this.button6.TabIndex = 0;
@@ -387,7 +442,7 @@
             this.button8.FlatAppearance.BorderSize = 0;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.Image = global::Korot.Properties.Resources.ext;
-            this.button8.Location = new System.Drawing.Point(351, 5);
+            this.button8.Location = new System.Drawing.Point(331, 5);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(26, 26);
             this.button8.TabIndex = 0;
@@ -633,6 +688,13 @@
             this.label7.TabIndex = 1;
             this.label7.Text = "Stinky";
             // 
+            // restoreLastSessionToolStripMenuItem
+            // 
+            this.restoreLastSessionToolStripMenuItem.Name = "restoreLastSessionToolStripMenuItem";
+            this.restoreLastSessionToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.restoreLastSessionToolStripMenuItem.Text = "Restore last session";
+            this.restoreLastSessionToolStripMenuItem.Click += new System.EventHandler(this.restoreLastSessionToolStripMenuItem_Click);
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -662,6 +724,7 @@
             this.cmsPrivacy.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.cmsHamburger.ResumeLayout(false);
             this.cmsProfiles.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -724,5 +787,11 @@
         public System.Windows.Forms.Button button10;
         public System.Windows.Forms.Label label8;
         public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.Button button11;
+        private System.Windows.Forms.ContextMenuStrip cmsHamburger;
+        private System.Windows.Forms.ToolStripMenuItem newWindowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newIncognitoWindowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreLastSessionToolStripMenuItem;
     }
 }

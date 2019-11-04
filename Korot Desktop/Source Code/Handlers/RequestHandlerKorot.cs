@@ -13,10 +13,12 @@ namespace Korot
 {
     class RequestHandlerKorot : IRequestHandler
     {
+        frmSettings Settingsform;
         frmMain anaform;
         frmCEF cefform;
-        public RequestHandlerKorot(frmMain _frmMain,frmCEF _frmCEF) 
+        public RequestHandlerKorot(frmMain _frmMain,frmCEF _frmCEF, frmSettings _frmSettings) 
         {
+            Settingsform = _frmSettings;
             anaform = _frmMain;
             cefform = _frmCEF;
         }
@@ -42,7 +44,7 @@ namespace Korot
 
         public IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
         {
-            return new ResReqHandler(anaform, cefform);
+            return new ResReqHandler(anaform, cefform,Settingsform);
         }
 
         public bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
@@ -53,8 +55,8 @@ namespace Korot
         public bool OnCertificateError(IWebBrowser chromiumWebBrowser, IBrowser browser, CefErrorCode errorCode, string requestUrl, ISslInfo sslInfo, IRequestCallback callback)
         {
             
-            cefform.Invoke(new Action(() => cefform.safeStatusToolStripMenuItem.Text = anaform.CertificateErrorTitle));
-            cefform.Invoke(new Action(() => cefform.ınfoToolStripMenuItem.Text = anaform.CertificateError));
+            cefform.Invoke(new Action(() => cefform.safeStatusToolStripMenuItem.Text = Settingsform.CertificateErrorTitle));
+            cefform.Invoke(new Action(() => cefform.ınfoToolStripMenuItem.Text = Settingsform.CertificateError));
             string certError = "CefErrorCode: "
                 + errorCode
                 + Environment.NewLine

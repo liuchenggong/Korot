@@ -17,14 +17,14 @@ namespace Korot
     {
         string downloadUrl = "http://bit.ly/KorotSetup";
         string downloadloc = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\Installer.exe";
-        frmMain anaform;
+        frmSettings anaform;
         WebClient WebC = new WebClient();
-        public Form1(frmMain formMain)
+        public Form1(frmSettings formSettings)
         {
             InitializeComponent();
-            anaform = formMain;
-            label1.Text = formMain.installStatus;
-            label2.Text = formMain.StatusType;
+            anaform = formSettings;
+            label1.Text = formSettings.installStatus;
+            label2.Text = formSettings.StatusType;
             WebC.DownloadProgressChanged += WebC_DownloadProgressChanged;
             WebC.DownloadFileCompleted += WebC_DownloadFileAsyncCompleted;
         }

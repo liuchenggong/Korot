@@ -16,7 +16,11 @@ namespace Korot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain(args));
+            frmMain testform = null;
+            frmSettings formsetting = new frmSettings(testform);
+            testform = new frmMain(args, formsetting);
+            formsetting.Visible = false;
+            Application.Run(testform);
         }
 
       

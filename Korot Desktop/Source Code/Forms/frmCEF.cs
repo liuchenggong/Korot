@@ -15,6 +15,7 @@ namespace Korot
 {
     public partial class frmCEF : Form
     {
+        frmSettings SettingsForm;
         TabPage parentTabPage;
         bool isLoading = false;
         string loaduri = null;
@@ -24,9 +25,10 @@ namespace Korot
         frmMain anaform;
         public ChromiumWebBrowser chromiumWebBrowser1;
         string defaultproxyaddress;
-        public frmCEF(TabPage pranetPage, frmMain rmmain, bool isIncognito, string loadurl, string profileName)
+        public frmCEF(TabPage pranetPage, frmMain rmmain,frmSettings rmSettings, bool isIncognito, string loadurl, string profileName)
         {
             InitializeComponent();
+            SettingsForm = rmSettings;
             parentTabPage = pranetPage;
             loaduri = loadurl;
             anaform = rmmain;
@@ -120,23 +122,23 @@ namespace Korot
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = "korot",
-                SchemeHandlerFactory = new SchemeHandlerFactory(anaform, this)
+                SchemeHandlerFactory = new SchemeHandlerFactory(anaform, this,SettingsForm)
             });
             // Initialize cef with the provided settings
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
             chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri);
             panel1.Controls.Add(chromiumWebBrowser1);
-            chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(anaform, this);
+            chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(anaform, this,SettingsForm);
             chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this, anaform);
             chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
             chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
             chromiumWebBrowser1.AddressChanged += cef_AddressChanged;
             chromiumWebBrowser1.LoadError += cef_onLoadError;
             chromiumWebBrowser1.KeyDown += tabform_KeyDown;
-            chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(this, anaform);
+            chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(this, anaform,SettingsForm);
             chromiumWebBrowser1.LifeSpanHandler = new BrowserLifeSpanHandler(this);
-            chromiumWebBrowser1.DownloadHandler = new DownloadHandler(this, anaform);
-            chromiumWebBrowser1.JsDialogHandler = new JsHandler(anaform);
+            chromiumWebBrowser1.DownloadHandler = new DownloadHandler(this, anaform, SettingsForm);
+            chromiumWebBrowser1.JsDialogHandler = new JsHandler(SettingsForm);
             chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
@@ -173,9 +175,9 @@ namespace Korot
                 pictureBox2.Invoke(new Action(() => pictureBox2.Image = Properties.Resources.lockg));
                 this.Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Tag = null));
                 this.Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Visible = false));
-                this.Invoke(new Action(() => safeStatusToolStripMenuItem.Text = anaform.CertificateOKTitle));
-                this.Invoke(new Action(() => ınfoToolStripMenuItem.Text = anaform.CertificateOK));
-                this.Invoke(new Action(() => cookieInfoToolStripMenuItem.Text = anaform.notUsesCookies));
+                this.Invoke(new Action(() => safeStatusToolStripMenuItem.Text = SettingsForm.CertificateOKTitle));
+                this.Invoke(new Action(() => ınfoToolStripMenuItem.Text = SettingsForm.CertificateOK));
+                this.Invoke(new Action(() => cookieInfoToolStripMenuItem.Text = SettingsForm.notUsesCookies));
                 if (Brightness(Properties.Settings.Default.BackColor) > 130)
                 {
                     button2.Image = Korot.Properties.Resources.cancel;
@@ -214,7 +216,7 @@ namespace Korot
             isLoading = e.IsLoading;
         }
 
-        public void NewTab(string url) => anaform.Invoke(new Action(() => anaform.NewTab(url)));
+        public void NewTab(string url) => SettingsForm.Invoke(new Action(() => anaform.NewTab(url)));
         public void RefreshFavorites()
         {
             mFavorites.Items.Clear();
@@ -242,9 +244,9 @@ namespace Korot
             LoadExt();
             RefreshProfiles();
             profilenameToolStripMenuItem.Text = userName;
-            label3.Text = anaform.SearchOnPage;
-            label6.Text = anaform.CaseSensitive;
-            showCertificateErrorsToolStripMenuItem.Text = anaform.showCertError;
+            label3.Text = SettingsForm.SearchOnPage;
+            label6.Text = SettingsForm.CaseSensitive;
+            showCertificateErrorsToolStripMenuItem.Text = SettingsForm.showCertError;
             chromiumWebBrowser1.Select();
         }
 
@@ -397,6 +399,9 @@ namespace Korot
                 button3.Image = Properties.Resources.rightarrow;
                 button4.Image = Properties.Resources.go;
                 button5.Image = Properties.Resources.home;
+                button11.Image = Properties.Resources.hamburger;
+                cmsHamburger.BackColor = Properties.Settings.Default.BackColor;
+                cmsHamburger.ForeColor = Color.Black;
                 textBox1.BackColor = Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 textBox1.ForeColor = Color.Black;
                 this.BackColor = Properties.Settings.Default.BackColor;
@@ -426,6 +431,9 @@ namespace Korot
             }
             else //Dark
             {
+                button11.Image = Properties.Resources.hamburger_w;
+                cmsHamburger.BackColor = Properties.Settings.Default.BackColor;
+                cmsHamburger.ForeColor = Color.White;
                 pbProgress.BackColor = Properties.Settings.Default.OverlayColor;
                 contextMenuStrip1.BackColor = Properties.Settings.Default.BackColor;
                 contextMenuStrip1.ForeColor = Color.White;
@@ -486,11 +494,13 @@ namespace Korot
                 if (((TabControl)parentTabPage.Parent).TabPages.Contains(parentTabPage)) { }
                 else
                 {
-                    anaform.Invoke(new Action(() => anaform.RemoveMefromList(this)));
+                    SettingsForm.Invoke(new Action(() => anaform.RemoveMefromList(this)));
                     this.Close();
                 }
             }
-            catch { anaform.Invoke(new Action(() => anaform.RemoveMefromList(this))); this.Close(); }
+            catch { SettingsForm.Invoke(new Action(() => anaform.RemoveMefromList(this))); this.Close(); }
+            RefreshTranslation();
+            if (anaform.restoremedaddy == "") { restoreLastSessionToolStripMenuItem.Visible = false; } else { restoreLastSessionToolStripMenuItem.Visible = true; }
         }
 
         private void TestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -530,37 +540,42 @@ namespace Korot
         }
         public void RefreshTranslation()
         {
-            emptyItem.Text = anaform.empty;
-            defaultproxyItem.Text = anaform.defaultproxytext;
-            switchToToolStripMenuItem.Text = anaform.switchTo;
-            newProfileToolStripMenuItem.Text = anaform.newprofile;
-            deleteThisProfileToolStripMenuItem.Text = anaform.deleteProfile;
-            showCertificateErrorsToolStripMenuItem.Text = anaform.showCertError;
+            emptyItem.Text = SettingsForm.empty;
+            defaultproxyItem.Text = SettingsForm.defaultproxytext;
+            switchToToolStripMenuItem.Text = SettingsForm.switchTo;
+            newProfileToolStripMenuItem.Text = SettingsForm.newprofile;
+            deleteThisProfileToolStripMenuItem.Text = SettingsForm.deleteProfile;
+            showCertificateErrorsToolStripMenuItem.Text = SettingsForm.showCertError;
             if (certError)
             {
-                safeStatusToolStripMenuItem.Text = anaform.CertificateErrorTitle;
-                ınfoToolStripMenuItem.Text = anaform.CertificateError;
+                safeStatusToolStripMenuItem.Text = SettingsForm.CertificateErrorTitle;
+                ınfoToolStripMenuItem.Text = SettingsForm.CertificateError;
             }else
             {
-                safeStatusToolStripMenuItem.Text = anaform.CertificateOKTitle;
-                ınfoToolStripMenuItem.Text = anaform.CertificateOK;
+                safeStatusToolStripMenuItem.Text = SettingsForm.CertificateOKTitle;
+                ınfoToolStripMenuItem.Text = SettingsForm.CertificateOK;
             }
-            if (cookieUsage) { cookieInfoToolStripMenuItem.Text = anaform.usesCookies; }else { cookieInfoToolStripMenuItem.Text = anaform.notUsesCookies; }
-            label7.Text = anaform.CertErrorPageTitle;
-            label8.Text = anaform.CertErrorPageMessage;
-            button10.Text = anaform.CertErrorPageButton;
+            if (cookieUsage) { cookieInfoToolStripMenuItem.Text = SettingsForm.usesCookies; }else { cookieInfoToolStripMenuItem.Text = SettingsForm.notUsesCookies; }
+            label7.Text = SettingsForm.CertErrorPageTitle;
+            label8.Text = SettingsForm.CertErrorPageMessage;
+            button10.Text = SettingsForm.CertErrorPageButton;
+            newWindowToolStripMenuItem.Text = SettingsForm.newWindow;
+            newIncognitoWindowToolStripMenuItem.Text = SettingsForm.newincognitoWindow;
+            settingsToolStripMenuItem.Text = SettingsForm.settingstitle;
+            restoreLastSessionToolStripMenuItem.Text = SettingsForm.restoreOldSessions;
+
         }
-        private void ProfilesToolStripMenuItem_Click(object sender, EventArgs e) => anaform.Invoke(new Action(() => anaform.SwitchProfile(((ToolStripMenuItem)sender).Text)));
+        private void ProfilesToolStripMenuItem_Click(object sender, EventArgs e) => SettingsForm.Invoke(new Action(() => anaform.SwitchProfile(((ToolStripMenuItem)sender).Text)));
 
-        private void NewProfileToolStripMenuItem_Click(object sender, EventArgs e) => anaform.Invoke(new Action(() => anaform.NewProfile()));
+        private void NewProfileToolStripMenuItem_Click(object sender, EventArgs e) => SettingsForm.Invoke(new Action(() => anaform.NewProfile()));
 
-        private void DeleteThisProfileToolStripMenuItem_Click(object sender, EventArgs e) => anaform.Invoke(new Action(() => anaform.DeleteProfile(userName)));
+        private void DeleteThisProfileToolStripMenuItem_Click(object sender, EventArgs e) => SettingsForm.Invoke(new Action(() => anaform.DeleteProfile(userName)));
 
         private void Button9_Click(object sender, EventArgs e) => cmsProfiles.Show(MousePosition);
 
         private void ExtensionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmExt formext = new frmExt(this, anaform, userName, ((ToolStripMenuItem)sender).Tag.ToString());
+            frmExt formext = new frmExt(this, anaform, userName, ((ToolStripMenuItem)sender).Tag.ToString(),SettingsForm);
             formext.Show();
         }
         public void LoadExt()
@@ -594,7 +609,7 @@ namespace Korot
             {
                 ToolStripMenuItem emptylol = new ToolStripMenuItem();
                 emptyItem = emptylol;
-                emptylol.Text = anaform.empty;
+                emptylol.Text = SettingsForm.empty;
                 emptylol.Enabled = false;
                 contextMenuStrip1.Items.Add(emptylol);
             }
@@ -608,7 +623,7 @@ namespace Korot
             // add default proxy
             ToolStripMenuItem defaultProxyMenuItem = new ToolStripMenuItem();
             defaultproxyItem = defaultProxyMenuItem;
-            defaultProxyMenuItem.Text = anaform.defaultproxytext;
+            defaultProxyMenuItem.Text = SettingsForm.defaultproxytext;
             defaultProxyMenuItem.Click += ExampleProxyToolStripMenuItem_Click;
             defaultProxyMenuItem.Tag = defaultproxyaddress;
             contextMenuStrip2.Items.Add(defaultProxyMenuItem);
@@ -701,7 +716,7 @@ namespace Korot
             if (showCertificateErrorsToolStripMenuItem.Tag != null)
             {
                 TextBox txtCertificate = new TextBox() { ScrollBars = ScrollBars.Both,Multiline = true, Dock = DockStyle.Fill, Text = showCertificateErrorsToolStripMenuItem.Tag.ToString() };
-                Form frmCertificate = new Form() { Icon = anaform.Icon,Text = anaform.CertificateErrorMenuTitle,FormBorderStyle = FormBorderStyle.SizableToolWindow};
+                Form frmCertificate = new Form() { Icon = SettingsForm.Icon,Text = SettingsForm.CertificateErrorMenuTitle,FormBorderStyle = FormBorderStyle.SizableToolWindow};
                 frmCertificate.Controls.Add(txtCertificate);
                 frmCertificate.ShowDialog();
             }
@@ -712,6 +727,22 @@ namespace Korot
             CertAllowedUrls.Add(button10.Tag.ToString());
             chromiumWebBrowser1.Refresh();
             pnlCert.Visible = false;
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm.Show();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            cmsHamburger.Show(button11, 0, 0);
+        }
+
+        private void restoreLastSessionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            anaform.Invoke(new Action(() => anaform.ReadSession(anaform.restoremedaddy)));
+            restoreLastSessionToolStripMenuItem.Visible = false;
         }
     }
 }

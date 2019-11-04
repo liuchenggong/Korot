@@ -13,14 +13,14 @@ namespace Korot
     public class MyJumplist
     {
         private JumpList list;
-        frmMain anaform;
+        frmSettings anaform;
         /// <summary>
         /// Creating a JumpList for the application
         /// </summary>
         /// <param name="windowHandle"></param>
-        public MyJumplist(IntPtr windowHandle,frmMain MainForm)
+        public MyJumplist(IntPtr windowHandle, frmSettings _frmSettings)
         {
-            anaform = MainForm;
+            anaform = _frmSettings;
             list = JumpList.CreateJumpListForIndividualWindow(TaskbarManager.Instance.ApplicationId, windowHandle);
             list.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
             BuildList();
