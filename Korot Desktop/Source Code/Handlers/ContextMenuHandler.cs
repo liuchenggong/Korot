@@ -18,14 +18,12 @@ namespace Korot {
 		private const int SeacrhOrOpenSelectedInNewTab = 40007;
 		private const int RefreshTab = 40008;
         private const int OpenImageInNewTab = 26508;
-        frmSettings SettingsForm;
         frmCEF ActiveForm;
         frmMain anafrm;
 
 		private string lastSelText = "";
 
-		public ContextMenuHandler(frmCEF activeform,frmMain aNaform,frmSettings settingform) {
-            SettingsForm = settingform;
+		public ContextMenuHandler(frmCEF activeform,frmMain aNaform) {
             ActiveForm = activeform;
             anafrm = aNaform;
 		}
@@ -37,52 +35,52 @@ namespace Korot {
 			// save text
 			lastSelText = parameters.SelectionText;
 
-            model.AddItem(CefMenuCommand.Back, SettingsForm.goBack);
-            model.AddItem(CefMenuCommand.Forward, SettingsForm.goForward);
-            model.AddItem((CefMenuCommand)RefreshTab, SettingsForm.refresh);
-            model.AddItem(CefMenuCommand.ReloadNoCache, SettingsForm.refreshNoCache);
-            model.AddItem(CefMenuCommand.StopLoad, SettingsForm.stop);
-            model.AddItem(CefMenuCommand.SelectAll, SettingsForm.selectAll);
+            model.AddItem(CefMenuCommand.Back, ActiveForm.goBack);
+            model.AddItem(CefMenuCommand.Forward, ActiveForm.goForward);
+            model.AddItem((CefMenuCommand)RefreshTab, ActiveForm.refresh);
+            model.AddItem(CefMenuCommand.ReloadNoCache, ActiveForm.refreshNoCache);
+            model.AddItem(CefMenuCommand.StopLoad, ActiveForm.stop);
+            model.AddItem(CefMenuCommand.SelectAll, ActiveForm.selectAll);
             model.AddSeparator();
 
 			//Removing existing menu item
 			//bool removed = model.Remove(CefMenuCommand.ViewSource); // Remove "View Source" option
 			if (parameters.LinkUrl != "") {
-				model.AddItem((CefMenuCommand)OpenLinkInNewTab, SettingsForm.openLinkInNewTab);
-				model.AddItem((CefMenuCommand)CopyLinkAddress, SettingsForm.copyLink);
+				model.AddItem((CefMenuCommand)OpenLinkInNewTab, ActiveForm.openLinkInNewTab);
+				model.AddItem((CefMenuCommand)CopyLinkAddress, ActiveForm.copyLink);
 			}
 			if (parameters.HasImageContents && parameters.SourceUrl.Length > 0) {
 
                 // RIGHT CLICKED ON IMAGE
-                model.AddItem((CefMenuCommand)OpenImageInNewTab, SettingsForm.openImageInNewTab );
-                model.AddItem((CefMenuCommand)SaveImageAs, SettingsForm.saveImageAs);
+                model.AddItem((CefMenuCommand)OpenImageInNewTab, ActiveForm.openImageInNewTab );
+                model.AddItem((CefMenuCommand)SaveImageAs, ActiveForm.saveImageAs);
                 model.AddSeparator();
 			}
             if (parameters.IsEditable)
             {
-                model.AddItem(CefMenuCommand.Paste, SettingsForm.paste);
+                model.AddItem(CefMenuCommand.Paste, ActiveForm.paste);
             }
             if (parameters.SelectionText != "") {
 
                 // TEXT IS SELECTED
-                model.AddItem(CefMenuCommand.Copy, SettingsForm.copy);
+                model.AddItem(CefMenuCommand.Copy, ActiveForm.copy);
                 if (parameters.IsEditable)
                 {
-                    model.AddItem(CefMenuCommand.Cut, SettingsForm.cut);
+                    model.AddItem(CefMenuCommand.Cut, ActiveForm.cut);
 
-                    model.AddItem(CefMenuCommand.Undo, SettingsForm.undo);
-                    model.AddItem(CefMenuCommand.Redo, SettingsForm.redo);
-                    model.AddItem(CefMenuCommand.Delete, SettingsForm.delete);
+                    model.AddItem(CefMenuCommand.Undo, ActiveForm.undo);
+                    model.AddItem(CefMenuCommand.Redo, ActiveForm.redo);
+                    model.AddItem(CefMenuCommand.Delete, ActiveForm.delete);
                 }
-                model.AddItem((CefMenuCommand)SeacrhOrOpenSelectedInNewTab, SettingsForm.SearchOrOpenSelectedInNewTab);
+                model.AddItem((CefMenuCommand)SeacrhOrOpenSelectedInNewTab, ActiveForm.SearchOrOpenSelectedInNewTab);
                 model.AddSeparator();
             }
 
 
 			//Add new custom menu items
 			//#if DEBUG
-			model.AddItem((CefMenuCommand)ShowDevTools,  SettingsForm.developerTools);
-			model.AddItem(CefMenuCommand.ViewSource, SettingsForm.viewSource);
+			model.AddItem((CefMenuCommand)ShowDevTools,  ActiveForm.developerTools);
+			model.AddItem(CefMenuCommand.ViewSource, ActiveForm.viewSource);
 			//#endif
 
 
@@ -108,7 +106,7 @@ namespace Korot {
 			if (id == OpenLinkInNewTab) {
                 browserControl.EvaluateScriptAsync("window.open('" + parameters.LinkUrl + "')");
                // ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(parameters.LinkUrl)));
-                // SettingsForm.Invoke(new Action(() => SettingsForm.NewTab(parameters.LinkUrl))); blank
+                // ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(parameters.LinkUrl))); blank
                // browserControl.ExecuteScriptAsync("window.open('" + parameters.LinkUrl + "')"); => CEFSHARP ONLY SUPPORT V8CONTEXT FOR NOW
 			}
 			if (id == CopyLinkAddress) {

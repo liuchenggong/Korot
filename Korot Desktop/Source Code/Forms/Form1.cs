@@ -17,9 +17,9 @@ namespace Korot
     {
         string downloadUrl = "http://bit.ly/KorotSetup";
         string downloadloc = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\Installer.exe";
-        frmSettings anaform;
+        frmCEF anaform;
         WebClient WebC = new WebClient();
-        public Form1(frmSettings formSettings)
+        public Form1(frmCEF formSettings)
         {
             InitializeComponent();
             anaform = formSettings;

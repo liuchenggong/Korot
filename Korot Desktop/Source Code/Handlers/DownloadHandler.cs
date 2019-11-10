@@ -13,12 +13,10 @@ namespace Korot
 {
     public class DownloadHandler : IDownloadHandler
     {
-        frmSettings settingsform;
         frmCEF ActiveForm;
         frmMain aNaFRM;
-        public DownloadHandler (frmCEF activeForm,frmMain anaform, frmSettings _settingsform)
+        public DownloadHandler (frmCEF activeForm,frmMain anaform)
         {
-            settingsform = _settingsform;
             ActiveForm = activeForm;
             aNaFRM = anaform;
         }
@@ -34,12 +32,12 @@ namespace Korot
                 {
                     callback.Continue(saveFileDialog1.FileName, false);
                     frmdown.Show();
-                    frmdown.label1.Text = settingsform.fromtwodot + downloadItem.Url;
-                    frmdown.label2.Text = settingsform.totwodot + saveFileDialog1.FileName;
-                    frmdown.Text = settingsform.korotdownloading;
-                    frmdown.checkBox1.Text = settingsform.openfileafterdownload;
-                    frmdown.checkBox2.Text = settingsform.closethisafterdownload;
-                    frmdown.button1.Text = settingsform.open;
+                    frmdown.label1.Text = ActiveForm.fromtwodot + downloadItem.Url;
+                    frmdown.label2.Text = ActiveForm.totwodot + saveFileDialog1.FileName;
+                    frmdown.Text = ActiveForm.korotdownloading;
+                    frmdown.checkBox1.Text = ActiveForm.openfileafterdownload;
+                    frmdown.checkBox2.Text = ActiveForm.closethisafterdownload;
+                    frmdown.button1.Text = ActiveForm.open;
                 }
             
         }
@@ -52,7 +50,7 @@ namespace Korot
             if (downloadItem.IsComplete)
             {      
                     frmdown.downloaddone();
-                    aNaFRM.Invoke(new Action(() => settingsform.RefreshDownloadList()));
+                    aNaFRM.Invoke(new Action(() => ActiveForm.RefreshDownloadList()));
             }
         }
     }

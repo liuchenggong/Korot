@@ -10,53 +10,36 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using HaltroyTabs;
 
 namespace Korot
 {
 
-    public partial class frmMain : HaltroyFramework.HaltroyForms
+    public partial class frmMain : TitleBarTabs
     {
-        frmSettings Settingsfrm;
         private MyJumplist list;
-        bool isMouseDown = false;
-        Point mouseposition;
-        string[] _args = null;
-        string maname = " - Korot";
-        bool isIncognito = false;
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
+        // string[] _args = null;
+        public bool isIncognito = false;
+        public KorotTabRenderer tabRenderer;
+        //TRANSLATE
+        public string newincwindow = "New Incognito Window";
+        public string newwindow = "New  Window";
+        public string Yes = "Yes";
+        public string No = "No";
+        public string OK = "OK";
+        public string Cancel = "Cancel";
+        public string newProfileInfo = "Please enter a name for the new profile.It should not contain: ";
 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-        public frmMain(string[] args,frmSettings formsettings)
+        //END
+        public frmMain()
         {
+
+            AeroPeekEnabled = true;
+            tabRenderer = new KorotTabRenderer(this, Color.Black, Color.White, Color.DodgerBlue);
+            TabRenderer = tabRenderer;
+            Icon = Properties.Resources.KorotIcon;
+            list = new MyJumplist(this.Handle,this);
             InitializeComponent();
-            Settingsfrm = formsettings;
-            if (args.Contains("-incognito"))
-            {
-                isIncognito = true;
-            }
-            _args = args;
-            list = new MyJumplist(this.Handle, Settingsfrm);
-            
-        }
-        private void Form1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                if (e.Clicks > 1) 
-                {
-                    frmMain_MouseDoubleClick(sender, e);
-                }
-                else
-                {
-                    ReleaseCapture();
-                    SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-                    ReleaseCapture();
-                }
-            }
         }
         private static int Brightness(Color c)
         {
@@ -69,19 +52,9 @@ namespace Korot
         private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır) => defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
         void PrintImages()
         {
+            tabRenderer.ChangeColors(Properties.Settings.Default.BackColor, Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White, Properties.Settings.Default.OverlayColor);
             this.BackColor = Properties.Settings.Default.BackColor;
-            tabControl1.BackTabColor = Properties.Settings.Default.BackColor;
-            tabControl1.BorderColor = Properties.Settings.Default.BackColor;
-            tabControl1.HeaderColor = Properties.Settings.Default.BackColor;
-            tabControl1.ActiveColor = Properties.Settings.Default.OverlayColor;
-            tabControl1.HorizontalLineColor = Properties.Settings.Default.OverlayColor;            
-           
-            menuStrip1.BackColor = Properties.Settings.Default.BackColor;
             this.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            tabControl1.SelectedTextColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            tabControl1.TextColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-           
-            menuStrip1.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;    
         }
         void LoadSettings(string settingFile, string historyFile, string favoritesFile, string downloadHistory)
         {
@@ -211,7 +184,7 @@ namespace Korot
         }
         public void NewProfile()
         {
-            HaltroyFramework.HaltroyInputBox newprof = new HaltroyFramework.HaltroyInputBox("Korot",Settingsfrm.newProfileInfo + Environment.NewLine + "/ \\ : ? * |", this.Icon, "", Properties.Settings.Default.BackColor, Properties.Settings.Default.OverlayColor, Settingsfrm.OK, Settingsfrm.Cancel, 400, 150);
+            HaltroyFramework.HaltroyInputBox newprof = new HaltroyFramework.HaltroyInputBox("Korot",newProfileInfo + Environment.NewLine + "/ \\ : ? * |", this.Icon, "", Properties.Settings.Default.BackColor, Properties.Settings.Default.OverlayColor, OK,Cancel, 400, 150);
             DialogResult diagres = newprof.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -292,7 +265,6 @@ namespace Korot
                 Output.WriteLine("Your account on Instagram is now " + (DateTime.Now.Year - 2017) + " years old!");
                 Output.WriteLine("\"Herkes içinde bir yıldız taşır.Önemli olan o yıldızı kullanabilmektir.İyi günler...\" -Haltroy");
             }
-            betaTS.Text = "Korot Beta " + Application.ProductVersion.ToString();
             if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"); }
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\"); }
@@ -351,12 +323,9 @@ namespace Korot
                 PrintImages();
             }
             catch { }
-            NewTab(Korot.Properties.Settings.Default.Homepage);
+            CreateTab(Korot.Properties.Settings.Default.Homepage);
 
-            foreach (string x in _args)
-            {
-                if (x == Application.ExecutablePath) { } else if (x == "-incognito") { } else { NewTab(x); }
-            }
+            
             this.Location = new Point(Korot.Properties.Settings.Default.WindowPosX, Korot.Properties.Settings.Default.WindowPosY);
             this.Size = new Size(Korot.Properties.Settings.Default.WindowSizeW, Korot.Properties.Settings.Default.WindowSizeH);
             
@@ -379,7 +348,7 @@ namespace Korot
             int Count = SplittedFase.Length - 1; ; int i = 0;
             while (!(i == Count))
             {
-                NewTab(SplittedFase[i].Replace(Environment.NewLine, ""));
+                CreateTab(SplittedFase[i].Replace(Environment.NewLine, ""));
                 i += 1;
             }
         }
@@ -412,66 +381,37 @@ namespace Korot
                 throw new InvalidOperationException("How tf did you get this error message?Tell me niBBa!");
             }
         }
-        public void TabText(int TabID, string TabText)
-        {
-            tabControl1.Invoke(new Action(() => tabControl1.TabPages[TabID].Text = TabText.ToString()));
-        }
-        public void NewTab(string url)
+        public TitleBarTab CreateTab(string url)
         {
             if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
-            TabPage tab = new TabPage();
-            frmCEF form = new frmCEF(tab, this,Settingsfrm, isIncognito, url, Properties.Settings.Default.LastUser);
-            form.TopMost = false;
-            form.TopLevel = false;
-            form.Visible = true;
-            tab.Text = Settingsfrm.newtabtitle;
-            form.Dock = DockStyle.Fill;
-            form.ShowInTaskbar = true;
-            CefFormList.Add(form);
-            tabControl1.Invoke(new Action(() => tabControl1.TabPages.Insert(tabControl1.TabPages.Count - 1, tab)));
-            tab.Controls.Add(form);
-            tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tab));
+            return new TitleBarTab(this)
+            {
+                Content = new frmCEF(this, isIncognito, url, Properties.Settings.Default.LastUser)
+                {
+                    Text = "New Tab"
+                }
+            };
+        }
+        public override TitleBarTab CreateTab()
+        {
+            if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
+            return new TitleBarTab(this)
+            {
+                Content = new frmCEF(this, isIncognito, "korot://newtab", Properties.Settings.Default.LastUser)
+                {
+                    Text = "New Tab"
+                }
+            };
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab == tabPage2)
-            {
-                tabControl1.SelectedIndex -= 1;
-                NewTab("korot://newtab");
-            }
-
-            else
-            {
-                if (tabControl1.SelectedTab == null) { } else { this.Text = tabControl1.SelectedTab.Text + maname; }
-            }
-            if (tabControl1.TabPages.Count == 1) { this.Close(); }
             PrintImages();
-            tabPage2.Text = "+";
-            if (this.WindowState == FormWindowState.Maximized) { button2.Text = "▫"; } else { button2.Text = "□"; }
         }
         public void Fullscreenmode(bool fullscreen)
         {
             this.MaximizedBounds = Screen.FromHandle(this.Handle).Bounds;
             this.FormBorderStyle = fullscreen ? FormBorderStyle.None : FormBorderStyle.Sizable;
             this.WindowState = fullscreen ? FormWindowState.Maximized : FormWindowState.Normal;
-            menuStrip1.Visible = !fullscreen;
-        }
-        private void frmMain_MouseDoubleClick(object sender,MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                if (this.WindowState == FormWindowState.Normal)
-                {
-                    MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
-                    this.WindowState = FormWindowState.Maximized;
-                    button2.Text = "▫";
-                }
-                else
-                {
-                    this.WindowState = FormWindowState.Normal;
-                    button2.Text = "□";
-                }
-            }
         }
 
 
@@ -486,136 +426,17 @@ namespace Korot
             SaveSettings(Application.StartupPath + "\\Profiles\\user0\\settings.ksf", Application.StartupPath + "\\Profiles\\user0\\history.ksf", Application.StartupPath + "\\Profiles\\user0\\favorites.ksf", Application.StartupPath + "\\Profiles\\user0\\download.ksf");
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.LastSessionURIs = "";
-            Korot.Properties.Settings.Default.Save();
-            this.Close();
-        }
-
-
-
         private void SessionLogger_Tick(object sender, EventArgs e)
         {
             WriteCurrentSession();
         }
-
-        private void ToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void FrmMain_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape & e.Shift == true)
-            {
-                isMouseDown = false;
-                this.Top = 0;
-                this.Left = 0;
-            }
-        }
-        bool isShiftKeyDown = false;
-        [System.Runtime.InteropServices.DllImport("User32.dll")]
-        private static extern short GetAsyncKeyState(int vKey);
-        private static readonly int VK_ESCAPE = 0x1B;
-        private static readonly int VK_SHIFT = 0x10;
-        private void TmrSlower_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                short keyState = GetAsyncKeyState(VK_ESCAPE);
-                short keyState2 = GetAsyncKeyState(VK_SHIFT);
-                //Check if the MSB is set. If so, then the key is pressed.
-                bool escIsPressed = ((keyState >> 15) & 0x0001) == 0x0001;
-
-                //Check if the LSB is set. If so, then the key was pressed since
-                //the last call to GetAsyncKeyState
-                bool unprocessedPress = ((keyState >> 0) & 0x0001) == 0x0001;
-
-                bool shiftIsPressed = ((keyState2 >> 15) & 0x0001) == 0x0001;
-
-                //Check if the LSB is set. If so, then the key was pressed since
-                //the last call to GetAsyncKeyState
-                bool unprocessedPress2 = ((keyState2 >> 0) & 0x0001) == 0x0001;
-
-                isShiftKeyDown = shiftIsPressed | unprocessedPress2;
-                if ((escIsPressed & shiftIsPressed) | (escIsPressed & unprocessedPress2) | (unprocessedPress & shiftIsPressed) | (unprocessedPress & unprocessedPress2))
-                {
-                    isMouseDown = false;
-                    this.Top = 0;
-                    this.Left = 0;
-                }
-            }
-            catch
-            {
-                //Ignored
-            }
-        }
-
-        private static ManagementObject GetMngObj(string className)
-        {
-            var wmi = new ManagementClass(className);
-
-            foreach (var o in wmi.GetInstances())
-            {
-                var mo = (ManagementObject)o;
-                if (mo != null) return mo;
-            }
-
-            return null;
-        }
-
-        public static string GetOsVer()
-        {
-            try
-            {
-                ManagementObject mo = GetMngObj("Win32_OperatingSystem");
-
-                if (null == mo)
-                    return string.Empty;
-
-                return mo["Version"] as string;
-            }
-            catch
-            {
-                return string.Empty;
-            }
-        }
-
-        
-        private void korotBeta453ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-                if (betaTS.DisplayStyle == ToolStripItemDisplayStyle.ImageAndText)
-                {
-                    betaTS.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                }else if (betaTS.DisplayStyle == ToolStripItemDisplayStyle.Image)
-                {
-                    betaTS.DisplayStyle = ToolStripItemDisplayStyle.Text;
-                }
-                else if (betaTS.DisplayStyle == ToolStripItemDisplayStyle.Text)
-                {
-                    betaTS.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
-                }
-        }
-
-
+     
         private void frmMain_Resize(object sender, EventArgs e)
         {
             foreach (frmCEF cefform in CefFormList)
             {
                 cefform.Invoke(new Action(() => cefform.FrmCEF_SizeChanged(null, null)));
             }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            MouseEventArgs newe = new MouseEventArgs(MouseButtons.Left, 2, Cursor.Position.X, Cursor.Position.Y,0);
-            frmMain_MouseDoubleClick(sender, newe);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Settingsfrm.Show();
         }
     }
 

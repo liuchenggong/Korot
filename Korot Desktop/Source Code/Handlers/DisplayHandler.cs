@@ -48,9 +48,11 @@ namespace Korot
                 {
                     using (Stream stream = webc.OpenRead(new Uri(x)))
                     {
-                        Image favicon = Image.FromStream(stream);
-                        aNaFRM.Invoke(new Action(() => aNaFRM.ımageList2.Images.Add(x,favicon)));
-                        CEFform.Parent.Invoke(new Action(() => ((System.Windows.Forms.TabPage)CEFform.Parent).ImageKey = x));
+                        Bitmap bitmap = new Bitmap(stream); 
+                        bitmap.SetResolution(72, 72);
+                        Icon icon = System.Drawing.Icon.FromHandle(bitmap.GetHicon());
+                        CEFform.ParentTabs.Invoke(new Action(() => CEFform.ParentTabs.Icon = icon));
+
                     }
                 }
                 catch { continue; }
@@ -74,7 +76,8 @@ namespace Korot
 
         public void OnStatusMessage(IWebBrowser chromiumWebBrowser, StatusMessageEventArgs statusMessageArgs)
         {
-            CEFform.Invoke(new Action(() => CEFform.ChangeStatus(statusMessageArgs.Value)));
+            try { CEFform.Invoke(new Action(() => CEFform.ChangeStatus(statusMessageArgs.Value)));} catch { }
+            
         }
 
         public void OnTitleChanged(IWebBrowser chromiumWebBrowser, TitleChangedEventArgs titleChangedArgs)

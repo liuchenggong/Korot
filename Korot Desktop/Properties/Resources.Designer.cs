@@ -246,6 +246,16 @@ namespace Korot.Properties {
         }
         
         /// <summary>
+        ///   (Simge) öğesine benzeyen System.Drawing.Icon türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Icon KorotIcon {
+            get {
+                object obj = ResourceManager.GetObject("KorotIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
         ///&lt;head&gt;

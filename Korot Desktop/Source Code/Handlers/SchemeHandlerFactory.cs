@@ -10,12 +10,10 @@ namespace Korot
 {
     class SchemeHandlerFactory : ISchemeHandlerFactory
     {
-        frmSettings _frmSettings;
         frmMain anaform;
         frmCEF CefForm;
-        public SchemeHandlerFactory(frmMain _anaForm,frmCEF _CefForm, frmSettings settingsform)
+        public SchemeHandlerFactory(frmMain _anaForm,frmCEF _CefForm)
         {
-            _frmSettings = settingsform;
             anaform = _anaForm;
             CefForm = _CefForm;
         }
@@ -31,7 +29,7 @@ namespace Korot
             {
                 if (request.Url == "korot://newtab/")
                 {
-                    return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BACKSTYLE§", Properties.Settings.Default.BackStyle).Replace("§SEARCHHELP§", _frmSettings.SearchHelpText).Replace("§SEARCH§", _frmSettings.Search).Replace("§DAYS§", _frmSettings.DayNames).Replace("§MONTHS§", _frmSettings.MonthNames).Replace("§TITLE§", _frmSettings.newtabtitle));
+                    return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BACKSTYLE§", Properties.Settings.Default.BackStyle).Replace("§SEARCHHELP§", CefForm.SearchHelpText).Replace("§SEARCH§", CefForm.Search).Replace("§DAYS§", CefForm.DayNames).Replace("§MONTHS§", CefForm.MonthNames).Replace("§TITLE§", CefForm.NewTabtitle));
                 }else if (request.Url.StartsWith("korot://search/?q="))
                 {
                     string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
@@ -93,7 +91,7 @@ namespace Korot
                 else if (request.Url.StartsWith("korot://error/?e="))
                 {
                     string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
-                    return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§TITLE§",_frmSettings.ErrorPageTitle).Replace("§KT§",_frmSettings.KT).Replace("§ET§", _frmSettings.ET).Replace("§E1§", _frmSettings.E1).Replace("§E2§", _frmSettings.E2).Replace("§E3§", _frmSettings.E3).Replace("§E4§", _frmSettings.E4).Replace("§RT§", _frmSettings.RT).Replace("§R1§", _frmSettings.R1).Replace("§R2§", _frmSettings.R2).Replace("§R3§", _frmSettings.R3).Replace("§R4§", _frmSettings.R4) + "<a>" + x + " </a></body>");
+                    return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§TITLE§",CefForm.ErrorPageTitle).Replace("§KT§",CefForm.KT).Replace("§ET§", CefForm.ET).Replace("§E1§", CefForm.E1).Replace("§E2§", CefForm.E2).Replace("§E3§", CefForm.E3).Replace("§E4§", CefForm.E4).Replace("§RT§", CefForm.RT).Replace("§R1§", CefForm.R1).Replace("§R2§", CefForm.R2).Replace("§R3§", CefForm.R3).Replace("§R4§", CefForm.R4) + "<a>" + x + " </a></body>");
                 }else if (request.Url == "korot://100m/")
                 {
                     Output.WriteLine("yyyyyyyyyyyyyyyyyyssoo+++/////+++++oosyyyyyyyyyyyy");
