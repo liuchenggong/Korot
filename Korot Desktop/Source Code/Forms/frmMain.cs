@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -40,6 +41,10 @@ namespace Korot
             Icon = Properties.Resources.KorotIcon;
             list = new MyJumplist(this.Handle,this);
             InitializeComponent();
+            this.MinimumSize = new System.Drawing.Size(660, 340);
+            this.Size = new Size(Properties.Settings.Default.WindowSizeW, Properties.Settings.Default.WindowSizeH);
+            this.Location = new Point(Properties.Settings.Default.WindowPosX, Properties.Settings.Default.WindowPosY);
+            this.Font = new Font("Ubuntu",this.Font.Size);
         }
         private static int Brightness(Color c)
         {
@@ -52,6 +57,7 @@ namespace Korot
         private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır) => defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
         void PrintImages()
         {
+            this.MinimumSize = new System.Drawing.Size(660, 340);
             tabRenderer.ChangeColors(Properties.Settings.Default.BackColor, Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White, Properties.Settings.Default.OverlayColor);
             this.BackColor = Properties.Settings.Default.BackColor;
             this.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
@@ -381,15 +387,12 @@ namespace Korot
                 throw new InvalidOperationException("How tf did you get this error message?Tell me niBBa!");
             }
         }
-        public TitleBarTab CreateTab(string url)
+        public TitleBarTab CreateTab(string url = "korot://newtab")
         {
             if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
             return new TitleBarTab(this)
             {
                 Content = new frmCEF(this, isIncognito, url, Properties.Settings.Default.LastUser)
-                {
-                    Text = "New Tab"
-                }
             };
         }
         public override TitleBarTab CreateTab()
@@ -398,9 +401,6 @@ namespace Korot
             return new TitleBarTab(this)
             {
                 Content = new frmCEF(this, isIncognito, "korot://newtab", Properties.Settings.Default.LastUser)
-                {
-                    Text = "New Tab"
-                }
             };
         }
         private void timer1_Tick(object sender, EventArgs e)

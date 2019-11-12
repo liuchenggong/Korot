@@ -24,10 +24,7 @@ namespace Korot
             testApp.Tabs.Add(
                 new TitleBarTab(testApp)
                 {
-                    Content = new frmCEF(testApp,isIncognito,Properties.Settings.Default.Homepage,Properties.Settings.Default.LastUser)
-                    {
-                        Text = "[NEWTAB]"
-                    }
+                    Content = new frmCEF(testApp,isIncognito,Properties.Settings.Default.Homepage,Properties.Settings.Default.LastUser){}
                 });
             foreach (string x in args)
             {

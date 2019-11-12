@@ -127,6 +127,7 @@
             this.tbAbout = new System.Windows.Forms.TabPage();
             this.btInstall = new System.Windows.Forms.Button();
             this.btUpdater = new System.Windows.Forms.Button();
+            this.linkLabel6 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel9 = new System.Windows.Forms.LinkLabel();
             this.linkLabel8 = new System.Windows.Forms.LinkLabel();
@@ -135,6 +136,7 @@
             this.llCEFS = new System.Windows.Forms.LinkLabel();
             this.llMS = new System.Windows.Forms.LinkLabel();
             this.llGoogle = new System.Windows.Forms.LinkLabel();
+            this.linkLabel5 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.llGNU = new System.Windows.Forms.LinkLabel();
             this.llVS = new System.Windows.Forms.LinkLabel();
@@ -144,7 +146,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label19 = new System.Windows.Forms.Label();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.button13 = new System.Windows.Forms.Button();
             this.cmsHistory = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -172,6 +173,7 @@
             this.fromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrRefresher = new System.Windows.Forms.Timer(this.components);
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -194,11 +196,11 @@
             this.tbHistory.SuspendLayout();
             this.tbDownload.SuspendLayout();
             this.tbAbout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.cmsHistory.SuspendLayout();
             this.cmsDownload.SuspendLayout();
             this.cmsSearchEngine.SuspendLayout();
             this.contextMenuStrip3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
             // tbAddress
@@ -209,7 +211,7 @@
             this.tbAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.tbAddress.Location = new System.Drawing.Point(149, 7);
             this.tbAddress.Name = "tbAddress";
-            this.tbAddress.Size = new System.Drawing.Size(16, 23);
+            this.tbAddress.Size = new System.Drawing.Size(185, 23);
             this.tbAddress.TabIndex = 1;
             this.tbAddress.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
@@ -233,7 +235,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(300, 59);
+            this.panel2.Size = new System.Drawing.Size(469, 59);
             this.panel2.TabIndex = 6;
             // 
             // pictureBox2
@@ -317,7 +319,7 @@
             this.mFavorites.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.mFavorites.Location = new System.Drawing.Point(0, 35);
             this.mFavorites.Name = "mFavorites";
-            this.mFavorites.Size = new System.Drawing.Size(300, 24);
+            this.mFavorites.Size = new System.Drawing.Size(469, 24);
             this.mFavorites.TabIndex = 0;
             this.mFavorites.Text = "menuStrip1";
             // 
@@ -327,7 +329,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Image = global::Korot.Properties.Resources.inctab;
-            this.pictureBox1.Location = new System.Drawing.Point(164, 7);
+            this.pictureBox1.Location = new System.Drawing.Point(333, 7);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(23, 23);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -398,7 +400,7 @@
             this.button11.FlatAppearance.BorderSize = 0;
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button11.Image = global::Korot.Properties.Resources.hamburger;
-            this.button11.Location = new System.Drawing.Point(274, 5);
+            this.button11.Location = new System.Drawing.Point(443, 5);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(26, 26);
             this.button11.TabIndex = 0;
@@ -452,7 +454,7 @@
             this.button9.FlatAppearance.BorderSize = 0;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.Image = global::Korot.Properties.Resources.profiles;
-            this.button9.Location = new System.Drawing.Point(254, 5);
+            this.button9.Location = new System.Drawing.Point(423, 5);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(26, 26);
             this.button9.TabIndex = 0;
@@ -506,7 +508,7 @@
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Image = global::Korot.Properties.Resources.go;
-            this.button4.Location = new System.Drawing.Point(188, 5);
+            this.button4.Location = new System.Drawing.Point(357, 5);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(26, 26);
             this.button4.TabIndex = 0;
@@ -535,7 +537,7 @@
             this.button6.FlatAppearance.BorderSize = 0;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Image = global::Korot.Properties.Resources.prxy;
-            this.button6.Location = new System.Drawing.Point(210, 5);
+            this.button6.Location = new System.Drawing.Point(379, 5);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(26, 26);
             this.button6.TabIndex = 0;
@@ -551,7 +553,7 @@
             this.button8.FlatAppearance.BorderSize = 0;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.Image = global::Korot.Properties.Resources.ext;
-            this.button8.Location = new System.Drawing.Point(231, 5);
+            this.button8.Location = new System.Drawing.Point(400, 5);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(26, 26);
             this.button8.TabIndex = 0;
@@ -658,7 +660,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(624, 417);
+            this.panel1.Size = new System.Drawing.Size(476, 372);
             this.panel1.TabIndex = 0;
             this.panel1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
             // 
@@ -671,9 +673,9 @@
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Location = new System.Drawing.Point(0, 227);
+            this.label2.Location = new System.Drawing.Point(0, 414);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(300, 13);
+            this.label2.Size = new System.Drawing.Size(469, 13);
             this.label2.TabIndex = 8;
             // 
             // panel3
@@ -686,14 +688,14 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 59);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(300, 45);
+            this.panel3.Size = new System.Drawing.Size(469, 45);
             this.panel3.TabIndex = 0;
             this.panel3.Visible = false;
             // 
             // haltroySwitch1
             // 
             this.haltroySwitch1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.haltroySwitch1.Location = new System.Drawing.Point(65, 2);
+            this.haltroySwitch1.Location = new System.Drawing.Point(149, 2);
             this.haltroySwitch1.Name = "haltroySwitch1";
             this.haltroySwitch1.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.haltroySwitch1.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -705,7 +707,7 @@
             this.findTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.findTextBox.Location = new System.Drawing.Point(0, 25);
             this.findTextBox.Name = "findTextBox";
-            this.findTextBox.Size = new System.Drawing.Size(300, 20);
+            this.findTextBox.Size = new System.Drawing.Size(469, 20);
             this.findTextBox.TabIndex = 1;
             this.findTextBox.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
             // 
@@ -713,7 +715,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(283, 4);
+            this.label4.Location = new System.Drawing.Point(452, 4);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(14, 13);
             this.label4.TabIndex = 0;
@@ -724,7 +726,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(110, 4);
+            this.label6.Location = new System.Drawing.Point(194, 4);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 13);
             this.label6.TabIndex = 0;
@@ -756,7 +758,7 @@
             this.pnlCert.ForeColor = System.Drawing.Color.White;
             this.pnlCert.Location = new System.Drawing.Point(3, 3);
             this.pnlCert.Name = "pnlCert";
-            this.pnlCert.Size = new System.Drawing.Size(624, 417);
+            this.pnlCert.Size = new System.Drawing.Size(476, 372);
             this.pnlCert.TabIndex = 8;
             this.pnlCert.Visible = false;
             // 
@@ -766,7 +768,7 @@
             this.button10.AutoSize = true;
             this.button10.FlatAppearance.BorderSize = 0;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Location = new System.Drawing.Point(17, 381);
+            this.button10.Location = new System.Drawing.Point(17, 336);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(75, 23);
             this.button10.TabIndex = 2;
@@ -804,7 +806,7 @@
             this.tabControl1.Location = new System.Drawing.Point(-9, 33);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(329, 218);
+            this.tabControl1.Size = new System.Drawing.Size(490, 404);
             this.tabControl1.TabIndex = 9;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
@@ -814,7 +816,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(630, 423);
+            this.tabPage1.Size = new System.Drawing.Size(482, 378);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -825,7 +827,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(630, 423);
+            this.tabPage2.Size = new System.Drawing.Size(482, 378);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -837,7 +839,7 @@
             this.tabPage3.Controls.Add(this.button13);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(321, 192);
+            this.tabPage3.Size = new System.Drawing.Size(482, 378);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -880,7 +882,7 @@
             this.tabControl2.SelectedTextColor = System.Drawing.Color.Black;
             this.tabControl2.ShowClosingButton = false;
             this.tabControl2.ShowClosingMessage = false;
-            this.tabControl2.Size = new System.Drawing.Size(321, 156);
+            this.tabControl2.Size = new System.Drawing.Size(482, 342);
             this.tabControl2.TabIndex = 33;
             this.tabControl2.TextColor = System.Drawing.Color.Black;
             // 
@@ -896,7 +898,7 @@
             this.tbSetting.Location = new System.Drawing.Point(4, 20);
             this.tbSetting.Name = "tbSetting";
             this.tbSetting.Padding = new System.Windows.Forms.Padding(3);
-            this.tbSetting.Size = new System.Drawing.Size(622, 363);
+            this.tbSetting.Size = new System.Drawing.Size(474, 318);
             this.tbSetting.TabIndex = 0;
             this.tbSetting.Text = "Settings";
             // 
@@ -941,7 +943,7 @@
             this.textBox3.Location = new System.Drawing.Point(126, 57);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(482, 20);
+            this.textBox3.Size = new System.Drawing.Size(334, 20);
             this.textBox3.TabIndex = 23;
             this.textBox3.Tag = "";
             this.textBox3.Text = "gugıl";
@@ -953,7 +955,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Location = new System.Drawing.Point(126, 6);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(482, 20);
+            this.textBox2.Size = new System.Drawing.Size(334, 20);
             this.textBox2.TabIndex = 18;
             this.textBox2.Tag = "";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
@@ -975,7 +977,7 @@
             this.tbTheme.Location = new System.Drawing.Point(4, 20);
             this.tbTheme.Name = "tbTheme";
             this.tbTheme.Padding = new System.Windows.Forms.Padding(3);
-            this.tbTheme.Size = new System.Drawing.Size(622, 363);
+            this.tbTheme.Size = new System.Drawing.Size(474, 318);
             this.tbTheme.TabIndex = 6;
             this.tbTheme.Text = "Theme";
             // 
@@ -987,7 +989,7 @@
             this.textBox4.Location = new System.Drawing.Point(141, 81);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(467, 20);
+            this.textBox4.Size = new System.Drawing.Size(319, 20);
             this.textBox4.TabIndex = 32;
             this.textBox4.Text = "background-color: rgb(255,255,255)";
             this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
@@ -1000,7 +1002,7 @@
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(11, 125);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(594, 186);
+            this.listBox2.Size = new System.Drawing.Size(446, 173);
             this.listBox2.TabIndex = 31;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
@@ -1009,7 +1011,7 @@
             this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button12.FlatAppearance.BorderSize = 0;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(541, 13);
+            this.button12.Location = new System.Drawing.Point(393, 13);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(64, 23);
             this.button12.TabIndex = 30;
@@ -1028,7 +1030,7 @@
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.comboBox1.Location = new System.Drawing.Point(108, 13);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(427, 24);
+            this.comboBox1.Size = new System.Drawing.Size(279, 24);
             this.comboBox1.TabIndex = 1;
             this.comboBox1.Tag = "";
             // 
@@ -1121,7 +1123,7 @@
             this.tbLang.Location = new System.Drawing.Point(4, 20);
             this.tbLang.Name = "tbLang";
             this.tbLang.Padding = new System.Windows.Forms.Padding(3);
-            this.tbLang.Size = new System.Drawing.Size(622, 363);
+            this.tbLang.Size = new System.Drawing.Size(474, 318);
             this.tbLang.TabIndex = 2;
             this.tbLang.Text = "Language";
             // 
@@ -1131,7 +1133,7 @@
             this.lbLang.FormattingEnabled = true;
             this.lbLang.Location = new System.Drawing.Point(3, 3);
             this.lbLang.Name = "lbLang";
-            this.lbLang.Size = new System.Drawing.Size(616, 357);
+            this.lbLang.Size = new System.Drawing.Size(468, 312);
             this.lbLang.TabIndex = 21;
             this.lbLang.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
@@ -1142,7 +1144,7 @@
             this.tbHistory.Location = new System.Drawing.Point(4, 20);
             this.tbHistory.Name = "tbHistory";
             this.tbHistory.Padding = new System.Windows.Forms.Padding(3);
-            this.tbHistory.Size = new System.Drawing.Size(622, 363);
+            this.tbHistory.Size = new System.Drawing.Size(474, 318);
             this.tbHistory.TabIndex = 3;
             this.tbHistory.Text = "History";
             // 
@@ -1159,7 +1161,7 @@
             this.hlvHistory.HideSelection = false;
             this.hlvHistory.Location = new System.Drawing.Point(3, 3);
             this.hlvHistory.Name = "hlvHistory";
-            this.hlvHistory.Size = new System.Drawing.Size(616, 357);
+            this.hlvHistory.Size = new System.Drawing.Size(468, 312);
             this.hlvHistory.TabIndex = 0;
             this.hlvHistory.UseCompatibleStateImageBehavior = false;
             this.hlvHistory.View = System.Windows.Forms.View.Details;
@@ -1187,7 +1189,7 @@
             this.tbDownload.Location = new System.Drawing.Point(4, 20);
             this.tbDownload.Name = "tbDownload";
             this.tbDownload.Padding = new System.Windows.Forms.Padding(3);
-            this.tbDownload.Size = new System.Drawing.Size(622, 363);
+            this.tbDownload.Size = new System.Drawing.Size(474, 318);
             this.tbDownload.TabIndex = 4;
             this.tbDownload.Text = "Downloads";
             // 
@@ -1204,7 +1206,7 @@
             this.hlvDownload.HideSelection = false;
             this.hlvDownload.Location = new System.Drawing.Point(3, 3);
             this.hlvDownload.Name = "hlvDownload";
-            this.hlvDownload.Size = new System.Drawing.Size(616, 357);
+            this.hlvDownload.Size = new System.Drawing.Size(468, 312);
             this.hlvDownload.TabIndex = 1;
             this.hlvDownload.UseCompatibleStateImageBehavior = false;
             this.hlvDownload.View = System.Windows.Forms.View.Details;
@@ -1231,6 +1233,7 @@
             this.tbAbout.BackColor = System.Drawing.Color.White;
             this.tbAbout.Controls.Add(this.btInstall);
             this.tbAbout.Controls.Add(this.btUpdater);
+            this.tbAbout.Controls.Add(this.linkLabel6);
             this.tbAbout.Controls.Add(this.linkLabel3);
             this.tbAbout.Controls.Add(this.linkLabel9);
             this.tbAbout.Controls.Add(this.linkLabel8);
@@ -1239,6 +1242,7 @@
             this.tbAbout.Controls.Add(this.llCEFS);
             this.tbAbout.Controls.Add(this.llMS);
             this.tbAbout.Controls.Add(this.llGoogle);
+            this.tbAbout.Controls.Add(this.linkLabel5);
             this.tbAbout.Controls.Add(this.linkLabel2);
             this.tbAbout.Controls.Add(this.llGNU);
             this.tbAbout.Controls.Add(this.llVS);
@@ -1252,7 +1256,7 @@
             this.tbAbout.Location = new System.Drawing.Point(4, 20);
             this.tbAbout.Name = "tbAbout";
             this.tbAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tbAbout.Size = new System.Drawing.Size(313, 132);
+            this.tbAbout.Size = new System.Drawing.Size(474, 318);
             this.tbAbout.TabIndex = 5;
             this.tbAbout.Text = "About";
             // 
@@ -1261,32 +1265,47 @@
             this.btInstall.AutoSize = true;
             this.btInstall.FlatAppearance.BorderSize = 0;
             this.btInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btInstall.Location = new System.Drawing.Point(12, 267);
+            this.btInstall.Location = new System.Drawing.Point(5, 304);
             this.btInstall.Name = "btInstall";
             this.btInstall.Size = new System.Drawing.Size(137, 29);
             this.btInstall.TabIndex = 3;
             this.btInstall.Text = "Install the update";
-            this.btInstall.UseVisualStyleBackColor = true;
+            this.btInstall.UseVisualStyleBackColor = false;
             this.btInstall.Visible = false;
+            this.btInstall.Click += new System.EventHandler(this.btInstall_Click);
             // 
             // btUpdater
             // 
             this.btUpdater.AutoSize = true;
             this.btUpdater.FlatAppearance.BorderSize = 0;
             this.btUpdater.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btUpdater.Location = new System.Drawing.Point(11, 267);
+            this.btUpdater.Location = new System.Drawing.Point(5, 276);
             this.btUpdater.Name = "btUpdater";
             this.btUpdater.Size = new System.Drawing.Size(137, 29);
             this.btUpdater.TabIndex = 3;
             this.btUpdater.Text = "Check for Updates";
-            this.btUpdater.UseVisualStyleBackColor = true;
+            this.btUpdater.UseVisualStyleBackColor = false;
+            this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
+            // 
+            // linkLabel6
+            // 
+            this.linkLabel6.AutoSize = true;
+            this.linkLabel6.LinkArea = new System.Windows.Forms.LinkArea(0, 21);
+            this.linkLabel6.Location = new System.Drawing.Point(5, 230);
+            this.linkLabel6.Name = "linkLabel6";
+            this.linkLabel6.Size = new System.Drawing.Size(108, 17);
+            this.linkLabel6.TabIndex = 2;
+            this.linkLabel6.TabStop = true;
+            this.linkLabel6.Tag = "https://ubuntu.com/legal/font-licence";
+            this.linkLabel6.Text = "Ubuntu Font License";
+            this.linkLabel6.UseCompatibleTextRendering = true;
+            this.linkLabel6.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.openmytaginnewtab);
             // 
             // linkLabel3
             // 
             this.linkLabel3.AutoSize = true;
-            this.linkLabel3.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel3.LinkArea = new System.Windows.Forms.LinkArea(0, 21);
-            this.linkLabel3.Location = new System.Drawing.Point(8, 227);
+            this.linkLabel3.Location = new System.Drawing.Point(5, 216);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(97, 17);
             this.linkLabel3.TabIndex = 2;
@@ -1299,9 +1318,8 @@
             // linkLabel9
             // 
             this.linkLabel9.AutoSize = true;
-            this.linkLabel9.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel9.LinkArea = new System.Windows.Forms.LinkArea(0, 21);
-            this.linkLabel9.Location = new System.Drawing.Point(6, 208);
+            this.linkLabel9.Location = new System.Drawing.Point(3, 190);
             this.linkLabel9.Name = "linkLabel9";
             this.linkLabel9.Size = new System.Drawing.Size(108, 13);
             this.linkLabel9.TabIndex = 2;
@@ -1313,9 +1331,8 @@
             // linkLabel8
             // 
             this.linkLabel8.AutoSize = true;
-            this.linkLabel8.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel8.LinkArea = new System.Windows.Forms.LinkArea(0, 16);
-            this.linkLabel8.Location = new System.Drawing.Point(5, 189);
+            this.linkLabel8.Location = new System.Drawing.Point(3, 203);
             this.linkLabel8.Name = "linkLabel8";
             this.linkLabel8.Size = new System.Drawing.Size(93, 13);
             this.linkLabel8.TabIndex = 2;
@@ -1327,9 +1344,8 @@
             // linkLabel4
             // 
             this.linkLabel4.AutoSize = true;
-            this.linkLabel4.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel4.LinkArea = new System.Windows.Forms.LinkArea(0, 16);
-            this.linkLabel4.Location = new System.Drawing.Point(5, 171);
+            this.linkLabel4.Location = new System.Drawing.Point(3, 177);
             this.linkLabel4.Name = "linkLabel4";
             this.linkLabel4.Size = new System.Drawing.Size(95, 13);
             this.linkLabel4.TabIndex = 2;
@@ -1341,9 +1357,8 @@
             // llGIT
             // 
             this.llGIT.AutoSize = true;
-            this.llGIT.BackColor = System.Drawing.Color.Transparent;
             this.llGIT.LinkArea = new System.Windows.Forms.LinkArea(36, 6);
-            this.llGIT.Location = new System.Drawing.Point(4, 116);
+            this.llGIT.Location = new System.Drawing.Point(6, 113);
             this.llGIT.Name = "llGIT";
             this.llGIT.Size = new System.Drawing.Size(216, 17);
             this.llGIT.TabIndex = 2;
@@ -1356,9 +1371,8 @@
             // llCEFS
             // 
             this.llCEFS.AutoSize = true;
-            this.llCEFS.BackColor = System.Drawing.Color.Transparent;
             this.llCEFS.LinkArea = new System.Windows.Forms.LinkArea(6, 27);
-            this.llCEFS.Location = new System.Drawing.Point(166, 79);
+            this.llCEFS.Location = new System.Drawing.Point(160, 79);
             this.llCEFS.Name = "llCEFS";
             this.llCEFS.Size = new System.Drawing.Size(93, 17);
             this.llCEFS.TabIndex = 2;
@@ -1371,9 +1385,8 @@
             // llMS
             // 
             this.llMS.AutoSize = true;
-            this.llMS.BackColor = System.Drawing.Color.Transparent;
             this.llMS.LinkArea = new System.Windows.Forms.LinkArea(3, 20);
-            this.llMS.Location = new System.Drawing.Point(260, 99);
+            this.llMS.Location = new System.Drawing.Point(262, 96);
             this.llMS.Name = "llMS";
             this.llMS.Size = new System.Drawing.Size(65, 17);
             this.llMS.TabIndex = 2;
@@ -1386,9 +1399,8 @@
             // llGoogle
             // 
             this.llGoogle.AutoSize = true;
-            this.llGoogle.BackColor = System.Drawing.Color.Transparent;
             this.llGoogle.LinkArea = new System.Windows.Forms.LinkArea(3, 20);
-            this.llGoogle.Location = new System.Drawing.Point(110, 79);
+            this.llGoogle.Location = new System.Drawing.Point(109, 79);
             this.llGoogle.Name = "llGoogle";
             this.llGoogle.Size = new System.Drawing.Size(56, 17);
             this.llGoogle.TabIndex = 2;
@@ -1398,12 +1410,25 @@
             this.llGoogle.UseCompatibleTextRendering = true;
             this.llGoogle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.openmytaginnewtab);
             // 
+            // linkLabel5
+            // 
+            this.linkLabel5.AutoSize = true;
+            this.linkLabel5.LinkArea = new System.Windows.Forms.LinkArea(11, 11);
+            this.linkLabel5.Location = new System.Drawing.Point(6, 147);
+            this.linkLabel5.Name = "linkLabel5";
+            this.linkLabel5.Size = new System.Drawing.Size(127, 17);
+            this.linkLabel5.TabIndex = 2;
+            this.linkLabel5.TabStop = true;
+            this.linkLabel5.Tag = "https://design.ubuntu.com/font/";
+            this.linkLabel5.Text = "Korot uses Ubuntu Font.";
+            this.linkLabel5.UseCompatibleTextRendering = true;
+            this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.openmytaginnewtab);
+            // 
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel2.LinkArea = new System.Windows.Forms.LinkArea(31, 8);
-            this.linkLabel2.Location = new System.Drawing.Point(6, 133);
+            this.linkLabel2.Location = new System.Drawing.Point(6, 130);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(213, 17);
             this.linkLabel2.TabIndex = 2;
@@ -1416,9 +1441,8 @@
             // llGNU
             // 
             this.llGNU.AutoSize = true;
-            this.llGNU.BackColor = System.Drawing.Color.Transparent;
             this.llGNU.LinkArea = new System.Windows.Forms.LinkArea(0, 13);
-            this.llGNU.Location = new System.Drawing.Point(5, 154);
+            this.llGNU.Location = new System.Drawing.Point(3, 164);
             this.llGNU.Name = "llGNU";
             this.llGNU.Size = new System.Drawing.Size(72, 13);
             this.llGNU.TabIndex = 2;
@@ -1430,9 +1454,8 @@
             // llVS
             // 
             this.llVS.AutoSize = true;
-            this.llVS.BackColor = System.Drawing.Color.Transparent;
             this.llVS.LinkArea = new System.Windows.Forms.LinkArea(29, 23);
-            this.llVS.Location = new System.Drawing.Point(3, 99);
+            this.llVS.Location = new System.Drawing.Point(6, 96);
             this.llVS.Name = "llVS";
             this.llVS.Size = new System.Drawing.Size(268, 17);
             this.llVS.TabIndex = 2;
@@ -1445,9 +1468,8 @@
             // llCEF
             // 
             this.llCEF.AutoSize = true;
-            this.llCEF.BackColor = System.Drawing.Color.Transparent;
             this.llCEF.LinkArea = new System.Windows.Forms.LinkArea(11, 20);
-            this.llCEF.Location = new System.Drawing.Point(4, 79);
+            this.llCEF.Location = new System.Drawing.Point(6, 79);
             this.llCEF.Name = "llCEF";
             this.llCEF.Size = new System.Drawing.Size(117, 17);
             this.llCEF.TabIndex = 2;
@@ -1460,9 +1482,8 @@
             // lbUpdateStatus
             // 
             this.lbUpdateStatus.AutoSize = true;
-            this.lbUpdateStatus.BackColor = System.Drawing.Color.Transparent;
             this.lbUpdateStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lbUpdateStatus.Location = new System.Drawing.Point(9, 247);
+            this.lbUpdateStatus.Location = new System.Drawing.Point(3, 256);
             this.lbUpdateStatus.Name = "lbUpdateStatus";
             this.lbUpdateStatus.Size = new System.Drawing.Size(156, 17);
             this.lbUpdateStatus.TabIndex = 1;
@@ -1471,9 +1492,8 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label17.Location = new System.Drawing.Point(139, 33);
+            this.label17.Location = new System.Drawing.Point(146, 34);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(43, 17);
             this.label17.TabIndex = 1;
@@ -1482,9 +1502,8 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.BackColor = System.Drawing.Color.Transparent;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label18.Location = new System.Drawing.Point(139, 11);
+            this.label18.Location = new System.Drawing.Point(146, 12);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(77, 17);
             this.label18.TabIndex = 1;
@@ -1493,10 +1512,9 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(3, 7);
-            this.linkLabel1.Location = new System.Drawing.Point(52, 50);
+            this.linkLabel1.Location = new System.Drawing.Point(61, 51);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(100, 29);
             this.linkLabel1.TabIndex = 1;
@@ -1509,24 +1527,12 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.BackColor = System.Drawing.Color.Transparent;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
-            this.label19.Location = new System.Drawing.Point(47, 11);
+            this.label19.Location = new System.Drawing.Point(54, 12);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(98, 39);
             this.label19.TabIndex = 1;
             this.label19.Text = "Korot";
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox5.Image = global::Korot.Properties.Resources.Korot;
-            this.pictureBox5.Location = new System.Drawing.Point(5, 9);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(38, 38);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox5.TabIndex = 0;
-            this.pictureBox5.TabStop = false;
             // 
             // button13
             // 
@@ -1760,12 +1766,24 @@
             this.tmrRefresher.Interval = 5000;
             this.tmrRefresher.Tick += new System.EventHandler(this.tmrRefresher_Tick);
             // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::Korot.Properties.Resources.Korot;
+            this.pictureBox5.Location = new System.Drawing.Point(15, 13);
+            this.pictureBox5.MaximumSize = new System.Drawing.Size(38, 38);
+            this.pictureBox5.MinimumSize = new System.Drawing.Size(38, 38);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(38, 38);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox5.TabIndex = 0;
+            this.pictureBox5.TabStop = false;
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(300, 240);
+            this.ClientSize = new System.Drawing.Size(469, 427);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label2);
@@ -1811,11 +1829,11 @@
             this.tbDownload.ResumeLayout(false);
             this.tbAbout.ResumeLayout(false);
             this.tbAbout.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.cmsHistory.ResumeLayout(false);
             this.cmsDownload.ResumeLayout(false);
             this.cmsSearchEngine.ResumeLayout(false);
             this.contextMenuStrip3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1932,7 +1950,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.ContextMenuStrip cmsHistory;
         private System.Windows.Forms.ToolStripMenuItem removeSelectedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
@@ -1963,5 +1980,8 @@
         public System.Windows.Forms.Button button13;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.LinkLabel linkLabel6;
+        private System.Windows.Forms.LinkLabel linkLabel5;
+        private System.Windows.Forms.PictureBox pictureBox5;
     }
 }
