@@ -1,5 +1,5 @@
 # Korot
-An advanced webbrowser.
+An advanced lightweight webbrowser.
 
 [Korot's Page](http://korot.haltroy.com/ "Korot's Page")
 
