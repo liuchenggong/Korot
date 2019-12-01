@@ -63,6 +63,66 @@ namespace Korot.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap _1 {
+            get {
+                object obj = ResourceManager.GetObject("1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1_w {
+            get {
+                object obj = ResourceManager.GetObject("1-w", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2 {
+            get {
+                object obj = ResourceManager.GetObject("2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2_w {
+            get {
+                object obj = ResourceManager.GetObject("2-w", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3 {
+            get {
+                object obj = ResourceManager.GetObject("3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap _3_w {
+            get {
+                object obj = ResourceManager.GetObject("3-w", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap cancel {
             get {
                 object obj = ResourceManager.GetObject("cancel", resourceCulture);
@@ -263,12 +323,12 @@ namespace Korot.Properties {
         ///&lt;/head&gt;
         ///&lt;body&gt;
         ///
-        ///&lt;h1&gt;List of Korot Links&lt;/h1&gt;
-        ///&lt;p&gt;&lt;a href=&quot;http://korot://links&quot;&gt;korot://links&lt;/a&gt; - this page&lt;/p&gt;
-        ///&lt;p&gt;&lt;a href=&quot;http://korot://newtab&quot;&gt;korot://newtab&lt;/a&gt; - the New Tab Page&lt;/p&gt;
-        ///&lt;p&gt;&lt;a href=&quot;http://korot://settings&quot;&gt;korot://settings&lt;/a&gt; - shows a list of settings applied to current user&lt;/p&gt;
-        ///&lt;p&gt;&lt;a href=&quot;http://korot://defaultsettings&quot;&gt;korot://defaultsettings&lt;/a&gt; - shows a list of defaults of each setting&lt;/p&gt;
-        ///&lt;p&gt;&lt;a href=&quot;http://ko [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        ///    &lt;h1&gt;List of Korot Links&lt;/h1&gt;
+        ///    &lt;p&gt;&lt;a href=&quot;http://korot://links&quot;&gt;korot://links&lt;/a&gt; - this page&lt;/p&gt;
+        ///    &lt;p&gt;&lt;a href=&quot;http://korot://licenses&quot;&gt;korot://licenses&lt;/a&gt; - the Licenses Page&lt;/p&gt;
+        ///    &lt;p&gt;&lt;a href=&quot;http://korot://empty&quot;&gt;korot://licenses&lt;/a&gt; - Empty Page&lt;/p&gt;
+        ///    &lt;p&gt;&lt;a href=&quot;http://korot://newtab&quot;&gt;korot://newtab&lt;/a&gt; - the New Tab Page&lt;/p&gt;
+        ///    &lt;p&gt;&lt;a href=&quot;http://korot://settings&quot;&gt;korot://settings&lt;/a&gt; - shows a list of [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         internal static string korotlinks {
             get {
@@ -314,6 +374,25 @@ namespace Korot.Properties {
             get {
                 object obj = ResourceManager.GetObject("leftarrow_w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;head&gt;
+        ///&lt;title&gt;Korot Licenses Page&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///&lt;h1 style=&quot;text-align: center;&quot;&gt;Korot Licenses Page&lt;/h1&gt;
+        ///&lt;ul style=&quot;list-style-type: square;&quot;&gt;
+        ///&lt;li style=&quot;text-align: center;&quot;&gt;
+        ///&lt;h2&gt;&lt;a title=&quot;Korot&quot; href=&quot;https://github.com/Haltroy/Korot/blob/master/LICENSE&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Korot License&lt;/a&gt;&lt;/h2&gt;
+        ///&lt;/li&gt;
+        ///&lt;li style=&quot;text-align: center;&quot;&gt;
+        ///&lt;h2&gt;&lt;a title=&quot;MS VS 2019 COMMUNITY&quot; href=&quot;https://visualstudio.microsoft.com/tr/license-terms/mlt031819/&quot;&gt;Microsoft Visual Studio 2019 Communit [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string licenses {
+            get {
+                return ResourceManager.GetString("licenses", resourceCulture);
             }
         }
         

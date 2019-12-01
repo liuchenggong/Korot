@@ -107,3 +107,27 @@ This websites does not use cookies.
 This website is not safe.
 This website is using a certificate that has errors. Which means your information (credit cards,passwords,messages...) can be stolen by unknown people in this website.
 I understand these risks.
+Korot uses Chromium by Google using CefSharp.[NEWLINE]Korot is written in C# using Visual Studio Community by Microsoft.[NEWLINE]Korot uses modified version of EasyTabs.[NEWLINE]Korot uses Ubuntu Font.[NEWLINE]Translation made by Haltroy.
+Licenses...
+Update Channel:
+Beta: Receives every update. These updates may sometimes be small bugfixes. Good for bug-haunting. (0.0.0.0 -> 0.0.0.1)
+Gama: Receives less updates than Beta. Only receives updates with min. 0.1 change in version. Good for people still wanting to get more features without taking a big risk. (0.0.0.0 -> 0.1.0.0)
+Delta: Receives less updates than Gama. Only receives updates with min. 1.0 change in version. Good for people that doesn't wants to take risks and don't understand computer. (0.0.0.0 -> 1.0.0.0)
+This extension requires these permissions. Do you want to install it?
+This extension does not require any permissions.
+Cannot install this extension.
+Installing...
+Removing old files...
+Removed old files.
+Creating directory...
+Directory created. Moving files and folders...
+Installed.
+Close
+Install
+Initializing...
+Loads automaticly
+This extension can load a script after the page load is finished.
+Can access web content
+This extension can see all the information about the page, including credit card information to passwords or other private information.
+Online Files
+This extension uses files from the Internet instead of using local files. This can eat some data.

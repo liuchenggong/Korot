@@ -1,5 +1,9 @@
-﻿Example
-Haltroy
-1.0
-popup.html
-startup.js
+﻿Extension name goes to this line.
+Extension version goes to this line.
+Extension author goes to this line.
+Extension icon file goes to this line.
+1 if loads a script automaticly. Otherwise write 0 on this line.
+1 if can access web content. Otherwise write 0 on this line.
+1 if uses onliğne files from web. Otherwise write 0 on this line.
+Script File goes to here.
+HTML file goes to here.

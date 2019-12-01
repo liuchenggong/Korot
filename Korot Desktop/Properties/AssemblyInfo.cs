@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // Bir bütünleştirilmiş koda ilişkin Genel Bilgiler aşağıdaki öznitelikler kümesiyle
 // denetlenir. Bütünleştirilmiş kod ile ilişkili bilgileri değiştirmek için
 // bu öznitelik değerlerini değiştirin.
-[assembly: AssemblyTitle("Korot Beta")]
-[assembly: AssemblyDescription("Beta realase of Korot Desktop webbrowser with CEF.")]
+[assembly: AssemblyTitle("Korot")]
+[assembly: AssemblyDescription("Explore the web.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Haltroy")]
 [assembly: AssemblyProduct("Korot")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Tüm değerleri belirtebilir veya varsayılan Derleme ve Düzeltme Numaralarını kullanmak için
 // '*' kullanarak varsayılana ayarlayabilirsiniz:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.4.7.0")]
-[assembly: AssemblyFileVersion("0.4.7.0")]
+[assembly: AssemblyVersion("0.4.8.0")]
+[assembly: AssemblyFileVersion("0.4.8.0")]

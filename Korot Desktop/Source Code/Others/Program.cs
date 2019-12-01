@@ -28,13 +28,22 @@ namespace Korot
                 });
             foreach (string x in args)
             {
-                if (x == Application.ExecutablePath) { } else if (x == "-incognito") { } else { testApp.CreateTab(x); }
+                if (x == Application.ExecutablePath) { } else if (x == "-incognito") { } else { if (x.ToLower().EndsWith(".kem") || x.ToLower().EndsWith(".kef")) 
+                    {
+                        frmInstallExt ınstallExt = new frmInstallExt(x);
+                        ınstallExt.Show();
+                    } else {
+
+                        testApp.CreateTab(x);
+                        
+                    } }
             }
             testApp.isIncognito = args.Contains("-incognito");
             testApp.SelectedTabIndex = 0;
             TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
             applicationContext.Start(testApp);
             Application.Run(applicationContext);
+
         }
 
       

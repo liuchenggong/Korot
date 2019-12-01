@@ -40,59 +40,78 @@ namespace Korot
                         return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + Properties.Settings.Default.SearchURL + x + "\" />");
                     }
                     }
-                else if (request.Url == "korot://empty")
+                else if (request.Url == "korot://empty/")
                 {
                     return ResourceHandler.FromString("");
                 }
+                else if (request.Url == "korot://licenses/")
+                {
+                    return ResourceHandler.FromString(Properties.Resources.licenses);
+                }
                 else if (request.Url == "korot://settings/")
                 {
-                    string x = "<head><title>Korot Settings</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" + Environment.NewLine +
-                        "<a> Homepage: " + Properties.Settings.Default.Homepage + "</a>" + Environment.NewLine +   
+                    if(frame.IsMain)
+                    {
+                        string x = "<head><title>Korot Settings</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" + Environment.NewLine +
+                        "<a> Homepage: " + Properties.Settings.Default.Homepage + "</a>" + Environment.NewLine +
                     "<a> Window : ( Height:" + Properties.Settings.Default.WindowSizeH + " Width:" + Properties.Settings.Default.WindowSizeW + " X:" + Properties.Settings.Default.WindowPosX + " Y:" + Properties.Settings.Default.WindowPosY + ")</a>" + Environment.NewLine +
                         "<a> SearchUrl: " + Properties.Settings.Default.SearchURL + "</a>" + Environment.NewLine +
                         "<a> Download: ( OpenFile:" + Properties.Settings.Default.downloadOpen + " CloseForm:" + Properties.Settings.Default.downloadClose + ")</a>" + Environment.NewLine +
                     "<a> LangFile: " + Properties.Settings.Default.LangFile + "</a>" + Environment.NewLine +
                         "<a> Color: (BackColor:" + Properties.Settings.Default.BackColor.ToString() + " OverlayColor:" + Properties.Settings.Default.OverlayColor.ToString() + " BackStyle:" + Properties.Settings.Default.BackStyle + ")</a>" + Environment.NewLine +
                         "<a> Theme: " + Properties.Settings.Default.ThemeFile + "</a></body>";
-                    return ResourceHandler.FromString(x);
+                        return ResourceHandler.FromString(x);
 
+                    }else
+                    {
+                        return ResourceHandler.FromString("This feature is not allowed to show in this kind of frame. Please visit https://www.github.com/haltroy/korot/issues/20 for more information");
+                    }
                 }
                 else if (request.Url == "korot://settings/history/")
                 {
-                    string x = "<head><title>Korot Settings - History</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
+                    if (frame.IsMain)
+                    {
+                        string x = "<head><title>Korot Settings - History</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
                         "<a>" + Properties.Settings.Default.History + "</a></body>";
                     return ResourceHandler.FromString(x);
+                    }
+                    else
+                    {
+                        return ResourceHandler.FromString("This feature is not allowed to show in this kind of frame. Please visit https://www.github.com/haltroy/korot/issues/20 for more information");
+                    }
                 }
                 else if (request.Url == "korot://settings/download/")
                 {
-                    string x = "<head><title>Korot Settings - Download History</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
+                        if (frame.IsMain)
+                        {
+                            string x = "<head><title>Korot Settings - Download History</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
                         "<a>" + Properties.Settings.Default.DowloadHistory + "</a></body>";
                     return ResourceHandler.FromString(x);
+                    }
+                    else
+                    {
+                        return ResourceHandler.FromString("This feature is not allowed to show in this kind of frame. Please visit https://www.github.com/haltroy/korot/issues/20 for more information");
+                    }
                 }
                 else if (request.Url == "korot://settings/favorites/")
                 {
-                    string x = "<head><title>Korot Settings - Favorites</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
+                            if (frame.IsMain)
+                            {
+                                string x = "<head><title>Korot Settings - Favorites</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
                         "<a>" + Properties.Settings.Default.Favorites + "</a></body>";
                     return ResourceHandler.FromString(x);
+                    }
+                    else
+                    {
+                        return ResourceHandler.FromString("This feature is not allowed to show in this kind of frame. Please visit https://www.github.com/haltroy/korot/issues/20 for more information");
+                    }
                 }
-                else if (request.Url == "korot://defaultsettings/")
-                {
-                    string x = "<head><title>Korot Settings</title></head><body><h1>user0</h1>" + Environment.NewLine +
-    "<a> Homepage: korot://newtab</a>" + Environment.NewLine +
-    "<a> Window : ( Height:0 Width:0 X:0 Y:0)</a>" + Environment.NewLine +
-    "<a> SearchUrl: https://www.google.com/search?q=</a>" + Environment.NewLine +
-    "<a> Download: ( OpenFile:false CloseForm:false)</a>" + Environment.NewLine +
-    "<a> LangFile: English.lang</a>" + Environment.NewLine +
-    "<a> Color: (BackColor:White OverlayColor:DodgerBlue BackStyle:background-color: #ffffff)</a>" + Environment.NewLine +
-    "<a> Theme: Korot Light.ktf</a>" + Environment.NewLine +
-    "<a> Empty Lists: History , Download History, Favorites</body>";
-                    return ResourceHandler.FromString(x);
-                }
+               
                 else if (request.Url.StartsWith("korot://error/?e="))
                 {
                     string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
                     return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§TITLE§",CefForm.ErrorPageTitle).Replace("§KT§",CefForm.KT).Replace("§ET§", CefForm.ET).Replace("§E1§", CefForm.E1).Replace("§E2§", CefForm.E2).Replace("§E3§", CefForm.E3).Replace("§E4§", CefForm.E4).Replace("§RT§", CefForm.RT).Replace("§R1§", CefForm.R1).Replace("§R2§", CefForm.R2).Replace("§R3§", CefForm.R3).Replace("§R4§", CefForm.R4) + "<a>" + x + " </a></body>");
-                }else if (request.Url == "korot://100m/")
+                }else if (request.Url == "korot://pdp/")
                 {
                     Output.WriteLine("yyyyyyyyyyyyyyyyyyssoo+++/////+++++oosyyyyyyyyyyyy");
                     Output.WriteLine("yyyyyyyyyyso+/:-.......................-:/oyyyyyyy");
@@ -119,8 +138,7 @@ namespace Korot
                     Output.WriteLine("yyyyyyyyyy+...-/////::-..........-:/syyyyyyyyyyyyy");
                     Output.WriteLine("yyyyyyyyyyy/............--::/+oosyyyyyyyyyyyyyyyyy");
                     Output.WriteLine("yyyyyyyyyyyysooooooosssyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-                    // request.Url = "https://www.youtube.com/watch?v=zlPxW56jfLU";
-                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = https://www.youtube.com/watch?v=zlPxW56jfLU \" />");
+                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw \" />");
 
                 }
                 else if (request.Url == "korot://dad/")

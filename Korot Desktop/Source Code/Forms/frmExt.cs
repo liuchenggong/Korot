@@ -22,23 +22,17 @@ namespace Korot
         frmCEF tabform;
         string userCache;
         frmMain anaform;
-        string startupJS;
+        bool allowWebContent;
         ChromiumWebBrowser chromiumWebBrowser1;
-        string extensionFolder;
-        public frmExt(frmCEF CefForm,frmMain rmmain, string profileName,string manifestFile)
+        public frmExt(frmCEF CefForm,frmMain rmmain, string profileName,string manifestFile,string popupHTML,bool _allowWebContent)
         {
             InitializeComponent();
-            extensionFolder = new FileInfo(manifestFile).DirectoryName + "//";
             tabform = CefForm;
             anaform = rmmain;
             userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + profileName + "\\cache\\";
-            string manifest = System.IO.File.ReadAllText(manifestFile);
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SplittedFase = manifest.Split(token);
-            int i = 0;
-            this.Text = SplittedFase[i].ToString().Replace(Environment.NewLine, "").Replace(Environment.NewLine, "") + " v" + SplittedFase[i + 2].ToString().Substring(1).Replace(Environment.NewLine, "").Replace(Environment.NewLine, "") + " by " + SplittedFase[i + 1].ToString().Substring(1).Replace(Environment.NewLine, "").Replace(Environment.NewLine, "");
-            ExtensionPopupPath = extensionFolder + SplittedFase[i + 3].ToString().Substring(1).Replace(Environment.NewLine, "").Replace(Environment.NewLine, "");
-            startupJS = extensionFolder + SplittedFase[i + 4].ToString().Substring(1).Replace(Environment.NewLine, "").Replace(Environment.NewLine, "");
+            this.Text = "Korot";
+            allowWebContent = _allowWebContent;
+            ExtensionPopupPath = popupHTML;
                 InitializeChromium();
         }
         private static bool IsLocalPath(string p)
@@ -67,15 +61,18 @@ namespace Korot
         }
         private void cefaddresschanged(object sender,AddressChangedEventArgs e)
         {
+            if (!allowWebContent)
+            {
                 if (IsLocalPath(e.Address))
                 {
 
-                } else
+                }
+                else
                 {
                     tabform.Invoke(new Action(() => tabform.NewTab(e.Address)));
                     e.Browser.GoBack();
                 }
-            
+            }
         }
         public static string GetOsVer() { try { ManagementObject mo = GetMngObj("Win32_OperatingSystem"); if (null == mo) return string.Empty; return mo["Version"] as string; } catch { return string.Empty; } }
 

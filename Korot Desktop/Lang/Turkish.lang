@@ -1,7 +1,7 @@
 Gizli Mod
 Korot - Güncelleme
 Güncelleme bulundu.Güncellemek ister misiniz?
-Güncellerken hata.
+Güncelleme sırasında hata.
 Yeni Sekme
 (Not: Aranan yazı bu adresin sonuna eklenir.)
 Kişisel Arama Motoru adresini yazın
@@ -107,3 +107,27 @@ Bu website çerezleri kullanmıyor.
 Bu website güvenli değil.
 Bu websitesi hatalı bir sertifika kullanıyor. Bu da bazı bilgileriniz (kredi kartı,şifreler,mesajlar...) tanınmayan kişiler tarafından çalınabilir kılıyor.
 Bu riskleri anlıyorum.
+Korot, CefSharp kullanarak Google tarafından yapılan Chromium'u kullanıyor.[NEWLINE]Korot, Microsoft tarafından Visual Studio Community kullanılarak C# dilinde yazılmıştır.[NEWLINE]Korot, EasyTabs'in değiştirilmiş sürümünü kullanır.[NEWLINE]Korot, Ubuntu Yazı Tipini kullanır.[NEWLINE]Çeviri Haltroy tarafından yapılmıştır.
+Lisanslar...
+Güncelleme Kanalı:
+Beta: Tüm güncellemeleri alır. Bu güncellemeler bazen küçük hata düzeltmeleri olabilir. Hata avcıları için ideal. (0.0.0.0 -> 0.0.0.1)
+Gama: Beta'dan daha az güncelleme alır. Versionda sadece min. 0.1 değişiklikte güncellenir. Riske girmeden yeni özellikler elde etmek isteyenler için ideal. (0.0.0.0 -> 0.1.0.0)
+Delta: Gama'dan daha az güncelleme alır. Versionda sadece min. 1.0 değişiklikte güncellenir. Riske girmek istemeyenler ve bilgisayarlardan anlamayanlar için ideal. (0.0.0.0 -> 1.0.0.0)
+Bu eklenti şu izinleri istiyor. Yüklemek istiyor musunuz?
+Bu eklenti bir izin istemiyor.
+Bu eklenti yüklenemez.
+Yükleniyor...
+Eski dosyalar siliniyor...
+Eski dosyalar silindi.
+Klasör oluşturuluyor...
+Klasör oluşturuldu.Dosyalar aktarılıyor...
+Yüklendi.
+Kapat
+Yükle
+Hazırlanıyor...
+Otomatik yüklenme
+Bu eklenti, websitesi yükelndiğinde otomatik başlatılır.
+Web içeriğine erişim
+Bu eklenti, parolalar ve kredi kartı bilgileri gibi web site içeriklerine erişebilir.
+Çevrimiçi dosyalar
+Bu eklenti, yere olmayan web dosyalarını kullanıyor. Bu biraz veri tüketebilir.

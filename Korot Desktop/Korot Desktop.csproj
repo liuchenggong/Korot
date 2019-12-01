@@ -11,7 +11,7 @@
     <ProjectGuid>{E21E1051-DBF6-4117-B3A5-BCB7FAC45EC6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Korot</RootNamespace>
-    <AssemblyName>Korot Beta</AssemblyName>
+    <AssemblyName>Korot</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -146,6 +146,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source Code\Filters\StreamResponseFilter.cs" />
+    <Compile Include="Source Code\Forms\frmInstallExt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmInstallExt.Designer.cs">
+      <DependentUpon>frmInstallExt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Handlers\CookieAccessFilter.cs" />
     <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
     <Compile Include="Source Code\Tools\ConsoleOutputLog.cs" />
@@ -207,6 +213,9 @@
     <EmbeddedResource Include="Source Code\Forms\frmExt.resx">
       <DependentUpon>frmExt.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmInstallExt.resx">
+      <DependentUpon>frmInstallExt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -218,6 +227,7 @@
     <EmbeddedResource Include="Source Code\Forms\frmCEF.resx">
       <DependentUpon>frmCEF.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Fonts\Ubuntu\Ubuntu-Bold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -259,7 +269,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Examples\Proxy\Example\proxy.kem" />
     <None Include="Themes\Korot Dark.ktf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -271,18 +280,11 @@
     <None Include="Source Code\Others\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Başlıksız-1.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\hamburger-w.png" />
     <None Include="Resources\hamburger.png" />
     <None Include="Resources\history-w.png" />
     <None Include="Resources\history.png" />
-    <None Include="Resources\ie.png" />
-    <None Include="Resources\gecko.png" />
-    <None Include="Resources\chromium.png" />
     <None Include="Resources\Korot.png" />
-    <None Include="Resources\Korot1.png" />
     <None Include="Resources\yerli.png" />
     <None Include="Resources\whiteimages\inctab.png" />
     <None Include="Resources\whiteimages\home-w.png" />
@@ -343,6 +345,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\KorotIcon.ico" />
+    <None Include="Resources\licenses.html" />
+    <None Include="Resources\1.png" />
+    <None Include="Resources\1-w.png" />
+    <None Include="Resources\2.png" />
+    <None Include="Resources\2-w.png" />
+    <None Include="Resources\3.png" />
+    <None Include="Resources\3-w.png" />
     <Content Include="Source Code\Others\Korot.ico" />
     <None Include="Resources\prxy.png" />
     <None Include="Resources\prxy-w.png" />

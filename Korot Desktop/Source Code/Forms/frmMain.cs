@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -347,7 +346,7 @@ namespace Korot
             }
             SessionLogger.Start();
         }
-       
+
         public void ReadSession(string Session)
         {
             string[] SplittedFase = Session.Split(';');
@@ -381,10 +380,6 @@ namespace Korot
             if (CefFormList.Contains(myself))
             {
                 CefFormList.Remove(myself);
-            }
-            else
-            {
-                throw new InvalidOperationException("How tf did you get this error message?Tell me niBBa!");
             }
         }
         public TitleBarTab CreateTab(string url = "korot://newtab")
@@ -421,9 +416,21 @@ namespace Korot
             Korot.Properties.Settings.Default.WindowPosY = this.Location.Y;
             Korot.Properties.Settings.Default.WindowSizeH = this.Size.Height;
             Korot.Properties.Settings.Default.WindowSizeW = this.Size.Width;
+            if (e.CloseReason != CloseReason.None || e.CloseReason != CloseReason.WindowsShutDown || e.CloseReason != CloseReason.TaskManagerClosing)
+            {
+                Korot.Properties.Settings.Default.LastSessionURIs = "";
+            }else
+            {
+                Korot.Properties.Settings.Default.LastSessionURIs = "";
+                foreach (frmCEF x in CefFormList)
+                {
+                    Korot.Properties.Settings.Default.LastSessionURIs += x.chromiumWebBrowser1.Address;
+                }
+            }
             Korot.Properties.Settings.Default.Save();
             if (Directory.Exists(Application.StartupPath + "\\Profiles\\user0\\")) { } else { Directory.CreateDirectory(Application.StartupPath + "\\Profiles\\user0\\"); }
             SaveSettings(Application.StartupPath + "\\Profiles\\user0\\settings.ksf", Application.StartupPath + "\\Profiles\\user0\\history.ksf", Application.StartupPath + "\\Profiles\\user0\\favorites.ksf", Application.StartupPath + "\\Profiles\\user0\\download.ksf");
+            
         }
 
         private void SessionLogger_Tick(object sender, EventArgs e)

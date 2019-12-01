@@ -15,12 +15,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Korot
 {
     public partial class frmCEF : Form
     {
-        int apr = 3;
         int updateProgress = 0;
         //0 = Checking 1=UpToDate 2=UpdateAvailabe 3=Error
         bool noProxy = true;
@@ -40,7 +41,9 @@ namespace Korot
             _Incognito = isIncognito;
             userName = profileName;
             userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profileName + "\\cache\\";
+#pragma warning disable CS0618 // Tür veya üye artık kullanılmıyor
             WebProxy proxy = (WebProxy)WebProxy.GetDefaultProxy();
+#pragma warning restore CS0618 // Tür veya üye artık kullanılmıyor
             Uri resource = new Uri("http://localhost");
             Uri resourceProxy = proxy.GetProxy(resource);
             if (resourceProxy == resource)
@@ -68,9 +71,7 @@ namespace Korot
                 {
                 }
             }
-            llGoogle.Location = new Point(llCEF.Location.X + llCEF.Width - (3*apr), llCEF.Location.Y);
-            llCEFS.Location = new Point(llGoogle.Location.X + llGoogle.Width - (1 * apr), llCEFS.Location.Y);
-            llMS.Location = new Point(llVS.Location.X + llVS.Width - (2 * apr), llVS.Location.Y);
+        
         }
         void RefreshHistory()
         {
@@ -88,16 +89,20 @@ namespace Korot
 
             }
         }
-
         private void ListBox2_DoubleClick(object sender, EventArgs e)
         {
             if (listBox2.SelectedItem != null)
             {
                 HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ThemesTitle, listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, this.Icon, MessageBoxButtons.YesNoCancel, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
                 if (mesaj.ShowDialog() == DialogResult.Yes)
-                {
-                    LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\" + listBox2.SelectedItem.ToString());
-                    comboBox1.Text = listBox2.SelectedItem.ToString().Replace(".ktf", "");
+                {try
+                    {
+                        LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\" + listBox2.SelectedItem.ToString());
+                        comboBox1.Text = listBox2.SelectedItem.ToString().Replace(".ktf", "");
+                    }catch (Exception ex)
+                    {
+                        Output.WriteLine(ex.Message);
+                    }
 
                 }
             }
@@ -211,8 +216,23 @@ namespace Korot
                          string nuc,
                          string cept,
                          string cepm,
-                         string cepb)
+                         string cepb,
+                         string aboutkorot,
+                         string licenses,
+                         string uch,
+                         string ucb,
+                         string ucg,
+                         string ucd)
         {
+            label22.Text = uch.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
+            UCBeta = ucb.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
+            UCGama = ucg.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
+            UCDelta = ucd.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
+            label21.Text = aboutkorot.Replace(Environment.NewLine, "").Replace("[NEWLINE]",Environment.NewLine);
+            linkLabel1.Text = licenses.Replace(Environment.NewLine, "");
+            linkLabel1.LinkArea = new LinkArea(0, linkLabel1.Text.Length);
+            linkLabel1.Location = new Point(label21.Location.X, label21.Location.Y + label21.Size.Height);
+            searchToolStripMenuItem.Text = searchtxt.Replace(Environment.NewLine, "");
             lbSettings.Text = settingstxt.Replace(Environment.NewLine, "");
             CertErrorPageButton = cepb.Replace(Environment.NewLine, "");
             CertErrorPageMessage = cepm.Replace(Environment.NewLine, "");
@@ -259,9 +279,9 @@ namespace Korot
             NewTabtitle = CreateTabtext.Replace(Environment.NewLine, "");
             customSearchNote = csnote.Replace(Environment.NewLine, "");
             customSearchMessage = cse.Replace(Environment.NewLine, "");
-            label10.Text = backstyle.Replace(Environment.NewLine, "");
-            textBox4.Location = new Point(label10.Location.X + label10.Width, label10.Location.Y);
-            textBox4.Width = tbTheme.Width - (label10.Width + label10.Location.X + 5);
+            label12.Text = backstyle.Replace(Environment.NewLine, "");
+            textBox4.Location = new Point(label12.Location.X + label12.Width, label12.Location.Y);
+            textBox4.Width = tbTheme.Width - (label12.Width + label12.Location.X + 5);
             newWindow = nw.Replace(Environment.NewLine, "");
             newincognitoWindow = niw.Replace(Environment.NewLine, "");
             anaform.newincwindow = niw.Replace(Environment.NewLine, "");
@@ -351,10 +371,6 @@ namespace Korot
             newprofile = newProfile.Replace(Environment.NewLine, "");
             switchTo = SwitchTo.Replace(Environment.NewLine, "");
             deleteProfile = delProfile.Replace(Environment.NewLine, "");
-            //Positions of about page texts.
-            llGoogle.Location = new Point(llCEF.Location.X + llCEF.Width - (3 * apr), llCEF.Location.Y);
-            llCEFS.Location = new Point(llGoogle.Location.X + llGoogle.Width - (1 * apr), llCEFS.Location.Y);
-            llMS.Location = new Point(llVS.Location.X + llVS.Width - (2 * apr), llVS.Location.Y);
         }
         private void dummyCMS_Opening(object sender, CancelEventArgs e)
         {
@@ -370,9 +386,16 @@ namespace Korot
                 DialogResult result = CustomMessageBox.ShowDialog();
                 if (result == DialogResult.Yes)
                 {
-                    LoadLangFromFile(Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang");
-                    Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
-                    Properties.Settings.Default.Save();
+                    try
+                    {
+                        LoadLangFromFile(Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang");
+                        Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
+                        Properties.Settings.Default.Save();
+                    } catch (Exception ex)
+                    {
+                        Output.WriteLine(ex.Message);
+                    }
+
                 }
             }
         }
@@ -512,7 +535,13 @@ namespace Korot
                     languagedummy.Items[105].ToString().Substring(1),
                     languagedummy.Items[106].ToString().Substring(1),
                     languagedummy.Items[107].ToString().Substring(1),
-                    languagedummy.Items[108].ToString().Substring(1));
+                    languagedummy.Items[108].ToString().Substring(1),
+                    languagedummy.Items[109].ToString().Substring(1),
+                    languagedummy.Items[110].ToString().Substring(1),
+                    languagedummy.Items[111].ToString().Substring(1),
+                    languagedummy.Items[112].ToString().Substring(1),
+                    languagedummy.Items[113].ToString().Substring(1),
+                    languagedummy.Items[114].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -805,6 +834,7 @@ namespace Korot
 
         private void btUpdater_Click(object sender, EventArgs e)
         {
+            if (UpdateWebC.IsBusy) { UpdateWebC.CancelAsync(); }
             UpdateWebC.DownloadStringAsync(new Uri("https://onedrive.live.com/download?resid=3FD0899CA240B9B!2123&authkey=!ADjFaqhHH3MjOAQ&ithint=file%2ctxt&e=5QH8I8"));
             updateProgress = 0;
         }
@@ -981,6 +1011,10 @@ namespace Korot
         public string CertErrorPageTitle = "This website is not secure";
         public string CertErrorPageMessage = "This website is using a certificate that has errors. Which means your information (credit cards,passwords,messages...) can be stolen by unknown people in this website.";
         public string CertErrorPageButton = "I understand these risks.";
+        //UpdateType
+        public string UCBeta = "Beta: Receives every update. These updates may sometimes be small bugfixes. Good for bug-haunting. (0.0.0.0 -> 0.0.0.1)";
+        public string UCGama = "Gama: Receives less updates than Beta. Only receives updates with min. 0.1 change in version. Good for people still wanting to get more features without taking a big risk. (0.0.0.0 -> 0.1.0.0)";
+        public string UCDelta = "Delta: Receives less updates than Gama. Only receives updates with min. 1.0 change in version. Good for people that doesn't wants to take risks and don't understand computer. (0.0.0.0 -> 1.0.0.0)";
         #endregion
         public void refreshThemeList()
         {
@@ -1034,40 +1068,120 @@ namespace Korot
             }
             else
             {
-                Version newest = new Version(e.Result);
-                Version current = new Version(Application.ProductVersion);
-                if (newest > current)
+                if (Properties.Settings.Default.UpdateChannel == 0) { UpdateResultBeta(e.Result); }
+                if (Properties.Settings.Default.UpdateChannel == 1) { UpdateResultGama(e.Result); }
+                if (Properties.Settings.Default.UpdateChannel == 2) { UpdateResultDelta(e.Result); }
+            }
+        }
+        void UpdateResultBeta(String latestversion)
+        {
+            Version newest = new Version(latestversion);
+            Version current = new Version(Application.ProductVersion);
+            if (newest > current)
+            {
+                if (alreadyCheckedForUpdatesOnce)
                 {
-                    if (alreadyCheckedForUpdatesOnce)
-                    {
-                        updateProgress = 2;
-                        lbUpdateStatus.Text = updateavailable;
-                        btUpdater.Visible = true;
-                        btInstall.Visible = true;
-                    }
-                    else
-                    {
-                        alreadyCheckedForUpdatesOnce = true;
-                        updateProgress = 2;
-                        lbUpdateStatus.Text = updateavailable;
-                        btInstall.Visible = true;
-                        btUpdater.Visible = true;
-                        HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(updateTitle, updateMessage, this.Icon, MessageBoxButtons.YesNo, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
-                        DialogResult diagres = mesaj.ShowDialog();
-                        if (diagres == DialogResult.Yes)
-                        {
-                            Form1 frmUpdate = new Form1(this);
-                            frmUpdate.Show();
-                        }
-                    }
+                    updateProgress = 2;
+                    lbUpdateStatus.Text = updateavailable;
+                    btUpdater.Visible = true;
+                    btInstall.Visible = true;
                 }
                 else
                 {
+                    alreadyCheckedForUpdatesOnce = true;
+                    updateProgress = 2;
+                    lbUpdateStatus.Text = updateavailable;
+                    btInstall.Visible = true;
                     btUpdater.Visible = true;
-                    btInstall.Visible = false;
-                    updateProgress = 1;
-                    lbUpdateStatus.Text = uptodate;
+                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(updateTitle, updateMessage, this.Icon, MessageBoxButtons.YesNo, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
+                    DialogResult diagres = mesaj.ShowDialog();
+                    if (diagres == DialogResult.Yes)
+                    {
+                        Form1 frmUpdate = new Form1(this);
+                        frmUpdate.Show();
+                    }
                 }
+            }
+            else
+            {
+                btUpdater.Visible = true;
+                btInstall.Visible = false;
+                updateProgress = 1;
+                lbUpdateStatus.Text = uptodate;
+            }
+        }
+        void UpdateResultGama(String latestversion)
+        {
+            Version newest = new Version(latestversion);
+            Version current = new Version(Application.ProductVersion);
+            if (newest.Minor > current.Minor || newest.Major > current.Major)
+            {
+                if (alreadyCheckedForUpdatesOnce)
+                {
+                    updateProgress = 2;
+                    lbUpdateStatus.Text = updateavailable;
+                    btUpdater.Visible = true;
+                    btInstall.Visible = true;
+                }
+                else
+                {
+                    alreadyCheckedForUpdatesOnce = true;
+                    updateProgress = 2;
+                    lbUpdateStatus.Text = updateavailable;
+                    btInstall.Visible = true;
+                    btUpdater.Visible = true;
+                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(updateTitle, updateMessage, this.Icon, MessageBoxButtons.YesNo, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
+                    DialogResult diagres = mesaj.ShowDialog();
+                    if (diagres == DialogResult.Yes)
+                    {
+                        Form1 frmUpdate = new Form1(this);
+                        frmUpdate.Show();
+                    }
+                }
+            }
+            else
+            {
+                btUpdater.Visible = true;
+                btInstall.Visible = false;
+                updateProgress = 1;
+                lbUpdateStatus.Text = uptodate;
+            }
+        }
+        void UpdateResultDelta(String latestversion)
+        {
+            Version newest = new Version(latestversion);
+            Version current = new Version(Application.ProductVersion);
+            if (newest.Major > current.Major)
+            {
+                if (alreadyCheckedForUpdatesOnce)
+                {
+                    updateProgress = 2;
+                    lbUpdateStatus.Text = updateavailable;
+                    btUpdater.Visible = true;
+                    btInstall.Visible = true;
+                }
+                else
+                {
+                    alreadyCheckedForUpdatesOnce = true;
+                    updateProgress = 2;
+                    lbUpdateStatus.Text = updateavailable;
+                    btInstall.Visible = true;
+                    btUpdater.Visible = true;
+                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(updateTitle, updateMessage, this.Icon, MessageBoxButtons.YesNo, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
+                    DialogResult diagres = mesaj.ShowDialog();
+                    if (diagres == DialogResult.Yes)
+                    {
+                        Form1 frmUpdate = new Form1(this);
+                        frmUpdate.Show();
+                    }
+                }
+            }
+            else
+            {
+                btUpdater.Visible = true;
+                btInstall.Visible = false;
+                updateProgress = 1;
+                lbUpdateStatus.Text = uptodate;
             }
         }
         Font CreateFont(string fontFile, float size, FontStyle style)
@@ -1152,8 +1266,8 @@ namespace Korot
                 + Cef.ChromiumVersion
                 + " Safari/537.36 Korot/"
                 + Application.ProductVersion.ToString();
-            if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; }
-            else { settings.CachePath = userCache; }
+            if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
+            else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = "korot",
@@ -1182,17 +1296,22 @@ namespace Korot
         {
             foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\", "*.*", SearchOption.AllDirectories))
             {
-                if (x.EndsWith("\\startup.js", StringComparison.CurrentCultureIgnoreCase))
+                if (x.EndsWith("\\ext.kem", StringComparison.CurrentCultureIgnoreCase))
                 {
                     try
                     {
-                        Output.WriteLine("[Korot] Script Execute : " + x);
-                        chromiumWebBrowser1.EvaluateScriptAsync(File.ReadAllText(x));
-                        Output.WriteLine("[Korot] Script Execute Completed: " + x);
+                        StreamReader ReadFile = new StreamReader(x, Encoding.UTF8, false);
+                        string Playlist = ReadFile.ReadToEnd();
+                        char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+                        string[] SplittedFase = Playlist.Split(token);
+                        if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "") == "1")
+                        {
+                            chromiumWebBrowser1.EvaluateScriptAsync(File.ReadAllText(SplittedFase[7].Substring(1).Replace(Environment.NewLine, "".Replace("[EXTFOLDER]", new FileInfo(x).Directory + "\\"))));
+                        }
                     }
                     catch (Exception ex)
                     {
-                        Output.WriteLine("[Korot] Script Execute Error : {Script:" + x + ",ErrorMessage:" + ex.Message + "}");
+                        Output.WriteLine("[Korot] Script Execute Error : { KEM: " + x + " , ErrorMessage: " + ex.Message + " } ");
                         continue;
                     }
                 }
@@ -1255,7 +1374,10 @@ namespace Korot
             isLoading = e.IsLoading;
         }
 
-        public void NewTab(string url) => this.Invoke(new Action(() => anaform.CreateTab(url)));
+        public void NewTab(string url) 
+        {
+            ((frmMain)ParentTabs).CreateTab(url);
+        }
         public void RefreshFavorites()
         {
             mFavorites.Items.Clear();
@@ -1271,7 +1393,6 @@ namespace Korot
                 i += 1;
                 miFavorite.Click += TestToolStripMenuItem_Click;
                 mFavorites.Items.Add(miFavorite);
-                i += 1;
             }
         }
         private void tabform_Load(object sender, EventArgs e)
@@ -1297,7 +1418,55 @@ namespace Korot
             ChangeTheme();
             RefreshDownloadList();
             if (_Incognito) { } else { pictureBox1.Visible = false; tbAddress.Size = new Size(tbAddress.Size.Width + pictureBox1.Size.Width, tbAddress.Size.Height); }
-            label18.Text = "Beta " + Application.ProductVersion.ToString();
+            Version korotVersion = new Version(Application.ProductVersion);
+            if (korotVersion.Major == 0)
+            {
+                if (korotVersion.Revision == 0) 
+                {
+                if (korotVersion.Build == 0)
+                    {
+                        if (korotVersion.Minor == 0)
+                        {
+                            label18.Text = "Illegal Copy";
+                        }else
+                        {
+                            label18.Text = "Beta " + korotVersion.Minor;
+                        }
+                    }
+                    else
+                    {
+                        label18.Text = "Beta " + korotVersion.Minor + "." + korotVersion.Build;
+                    }
+                } 
+                else 
+                {
+                    label18.Text = "Beta " + korotVersion.Minor + "." + korotVersion.Build + "." + korotVersion.Revision; 
+                }
+            }else
+            {
+                if (korotVersion.Revision == 0)
+                {
+                    if (korotVersion.Build == 0)
+                    {
+                        if (korotVersion.Minor == 0)
+                        {
+                            label18.Text = "" + korotVersion.Major;
+                        }
+                        else
+                        {
+                            label18.Text = korotVersion.Major + "." + korotVersion.Minor;
+                        }
+                    }
+                    else
+                    {
+                        label18.Text = korotVersion.Major + "." + korotVersion.Minor + "." + korotVersion.Build;
+                    }
+                }
+                else
+                {
+                    label18.Text = korotVersion.Major + "." + korotVersion.Minor + "." + korotVersion.Build + "." + korotVersion.Revision;
+                }
+            }
             label17.Visible = Environment.Is64BitProcess;
             RefreshFavorites();
             LoadProxies();
@@ -1308,6 +1477,9 @@ namespace Korot
             label6.Text = CaseSensitive;
             showCertificateErrorsToolStripMenuItem.Text = showCertError;
             chromiumWebBrowser1.Select();
+            //if (Properties.Settings.Default.UpdateChannel == 0) //beta{comboBox2.Text = "Beta";}else if (Properties.Settings.Default.UpdateChannel == 1) //gama{comboBox2.Text = "Gama";}else if (Properties.Settings.Default.UpdateChannel == 2) //delta{comboBox2.Text = "Delta";}
+            comboBox2.SelectedIndex = Properties.Settings.Default.UpdateChannel;
+            updateUCI();
         }
         private void button4_Click(object sender, EventArgs e)
         {
@@ -1349,7 +1521,7 @@ namespace Korot
 
         }
 
-        private void button3_Click(object sender, EventArgs e) {allowSwitching = true;tabControl1.SelectedTab = tabPage1; chromiumWebBrowser1.Forward(); }
+        private void button3_Click(object sender, EventArgs e) { allowSwitching = true;tabControl1.SelectedTab = tabPage1; chromiumWebBrowser1.Forward(); }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -1375,7 +1547,6 @@ namespace Korot
                 else { button7.Image = Properties.Resources.star_w; }
                 isLoadedPageFavroited = false;
             }
-            Uri newUri = null;
             if (!ValidHttpURL(e.Address))
             {
                 chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + e.Address);
@@ -1455,82 +1626,88 @@ namespace Korot
         }
         private static int GerekiyorsaAzalt(int defaultint, int azaltma) => defaultint > azaltma ? defaultint - 20 : defaultint;
         private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır) => defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
+        private Color oldBackColor;
+        private Color oldOverlayColor;
         void ChangeTheme()
         {
-            button13.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.leftarrow_w : Properties.Resources.leftarrow;
-            lbSettings.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            tabControl2.ActiveColor = Properties.Settings.Default.OverlayColor;
-            tabControl2.BackTabColor = Properties.Settings.Default.BackColor;
-            tabControl2.BorderColor = Properties.Settings.Default.BackColor;
-            tabControl2.HeaderColor = Properties.Settings.Default.BackColor;
-            tabControl2.HorizontalLineColor = Properties.Settings.Default.OverlayColor;
-            hlvDownload.BackColor = Properties.Settings.Default.BackColor;
-            hlvHistory.BackColor = Properties.Settings.Default.BackColor;
-            cmsDownload.BackColor = Properties.Settings.Default.BackColor;
-            cmsHistory.BackColor = Properties.Settings.Default.BackColor;
-            cmsSearchEngine.BackColor = Properties.Settings.Default.BackColor;
-            tabControl2.SelectedTextColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            tabControl2.TextColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            cmsDownload.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            listBox2.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            comboBox1.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            textBox2.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            textBox3.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            button10.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            hlvDownload.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            lbLang.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            hlvHistory.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            lbLang.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            cmsHistory.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            cmsSearchEngine.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            listBox2.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-            comboBox1.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-            textBox2.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-            textBox3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-            button10.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-            textBox2.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-            textBox3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-            lbLang.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-            lbLang.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-            panel3.BackColor = Properties.Settings.Default.BackColor;
-            cmsProfiles.BackColor = Properties.Settings.Default.BackColor;
-            cmsHamburger.BackColor = Properties.Settings.Default.BackColor;
-            cmsPrivacy.BackColor = Properties.Settings.Default.BackColor;
-            label2.BackColor = Properties.Settings.Default.BackColor;
-            this.BackColor = Properties.Settings.Default.BackColor;
-            contextMenuStrip2.BackColor = Properties.Settings.Default.BackColor;
-            contextMenuStrip1.BackColor = Properties.Settings.Default.BackColor;
-            findTextBox.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            tbAddress.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            cmsHamburger.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            cmsProfiles.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            this.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            contextMenuStrip1.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            label2.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            panel3.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            cmsPrivacy.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            contextMenuStrip2.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            textBox4.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            if (isLoadedPageFavroited) { button7.Image = Properties.Resources.star_on; } else { button7.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
-            mFavorites.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-            pbProgress.BackColor = Properties.Settings.Default.OverlayColor;
-            findTextBox.BackColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10)) : Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
-            button9.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.profiles : Properties.Resources.profiles_w;
-            button1.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-            button2.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.refresh : Properties.Resources.refresh_w;
-            button3.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
-            button4.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.go : Properties.Resources.go_w;
-            button5.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.home : Properties.Resources.home_w;
-            button11.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
-            tbAddress.BackColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10)) : Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
-            textBox4.BackColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10)) : Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
-            button6.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.prxy : Properties.Resources.prxy_w;
-            mFavorites.BackColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10)) : Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
-            button8.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.ext : Properties.Resources.ext_w;
-            foreach (ToolStripMenuItem x in cmsProfiles.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
-            foreach (ToolStripMenuItem x in contextMenuStrip1.Items){x.BackColor = Properties.Settings.Default.BackColor;x.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;}
-            foreach (TabPage x in tabControl2.TabPages){x.BackColor = Properties.Settings.Default.BackColor;x.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;}
-            foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black; }
+            if (Properties.Settings.Default.OverlayColor != oldOverlayColor) { oldOverlayColor = Properties.Settings.Default.OverlayColor; pbProgress.BackColor = Properties.Settings.Default.OverlayColor; }
+            if (Properties.Settings.Default.BackColor != oldBackColor)
+            {
+                oldBackColor = Properties.Settings.Default.BackColor;
+                button13.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.leftarrow_w : Properties.Resources.leftarrow;
+                lbSettings.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                tabControl2.ActiveColor = Properties.Settings.Default.OverlayColor;
+                tabControl2.BackTabColor = Properties.Settings.Default.BackColor;
+                tabControl2.BorderColor = Properties.Settings.Default.BackColor;
+                tabControl2.HeaderColor = Properties.Settings.Default.BackColor;
+                tabControl2.HorizontalLineColor = Properties.Settings.Default.OverlayColor;
+                hlvDownload.BackColor = Properties.Settings.Default.BackColor;
+                hlvHistory.BackColor = Properties.Settings.Default.BackColor;
+                cmsDownload.BackColor = Properties.Settings.Default.BackColor;
+                cmsHistory.BackColor = Properties.Settings.Default.BackColor;
+                cmsSearchEngine.BackColor = Properties.Settings.Default.BackColor;
+                tabControl2.SelectedTextColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                tabControl2.TextColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                cmsDownload.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                listBox2.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                comboBox1.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                textBox2.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                textBox3.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                button10.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                hlvDownload.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                lbLang.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                hlvHistory.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                lbLang.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                cmsHistory.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                cmsSearchEngine.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                listBox2.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                comboBox1.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                textBox2.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                textBox3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                button10.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                textBox2.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                textBox3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                lbLang.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                lbLang.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                panel3.BackColor = Properties.Settings.Default.BackColor;
+                cmsProfiles.BackColor = Properties.Settings.Default.BackColor;
+                cmsHamburger.BackColor = Properties.Settings.Default.BackColor;
+                cmsPrivacy.BackColor = Properties.Settings.Default.BackColor;
+                label2.BackColor = Properties.Settings.Default.BackColor;
+                this.BackColor = Properties.Settings.Default.BackColor;
+                contextMenuStrip2.BackColor = Properties.Settings.Default.BackColor;
+                contextMenuStrip1.BackColor = Properties.Settings.Default.BackColor;
+                findTextBox.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                tbAddress.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                cmsHamburger.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                cmsProfiles.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                this.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                contextMenuStrip1.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                label2.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                panel3.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                cmsPrivacy.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                contextMenuStrip2.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                textBox4.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                if (isLoadedPageFavroited) { button7.Image = Properties.Resources.star_on; } else { button7.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
+                mFavorites.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                findTextBox.BackColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10)) : Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
+                button9.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.profiles : Properties.Resources.profiles_w;
+                button1.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                button2.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.refresh : Properties.Resources.refresh_w;
+                button3.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
+                button4.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.go : Properties.Resources.go_w;
+                button5.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.home : Properties.Resources.home_w;
+                button11.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
+                tbAddress.BackColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10)) : Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
+                textBox4.BackColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10)) : Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
+                button6.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.prxy : Properties.Resources.prxy_w;
+                mFavorites.BackColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10)) : Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
+                button8.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.ext : Properties.Resources.ext_w;
+                foreach (ToolStripMenuItem x in cmsProfiles.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
+                foreach (ToolStripMenuItem x in contextMenuStrip1.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
+                foreach (TabPage x in tabControl2.TabPages) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black; }
+                foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black; }
+            }
         }
         int websiteprogress;
         public void ChangeProgress(int value)
@@ -1548,8 +1725,7 @@ namespace Korot
             }catch { } //ignored
             try
             {
-                if ("" == "") { }
-                else
+                if (!this.Parent.Controls.Contains(this))
                 {
                     this.Invoke(new Action(() => anaform.RemoveMefromList(this)));
                     this.Close();
@@ -1625,7 +1801,8 @@ namespace Korot
             newIncognitoWindowToolStripMenuItem.Text = this.newincognitoWindow;
             settingsToolStripMenuItem.Text = this.settingstitle;
             restoreLastSessionToolStripMenuItem.Text = this.restoreOldSessions;
-
+            comboBox2.SelectedIndex = Properties.Settings.Default.UpdateChannel;
+            updateUCI();
         }
         private void ProfilesToolStripMenuItem_Click(object sender, EventArgs e) => this.Invoke(new Action(() => anaform.SwitchProfile(((ToolStripMenuItem)sender).Text)));
 
@@ -1637,7 +1814,21 @@ namespace Korot
 
         private void ExtensionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmExt formext = new frmExt(this, anaform, userName, ((ToolStripMenuItem)sender).Tag.ToString());
+            String fileLocation = ((ToolStripMenuItem)sender).Tag.ToString();
+            StreamReader ReadFile = new StreamReader(fileLocation, Encoding.UTF8, false);
+            string Playlist = ReadFile.ReadToEnd();
+            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+            string[] SplittedFase = Playlist.Split(token);
+            if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "") == "1")
+            {
+                try
+                {
+                    chromiumWebBrowser1.EvaluateScriptAsync(File.ReadAllText(SplittedFase[7].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\")));
+                }catch { }
+            }
+            bool allowWebContent = false;
+            if (SplittedFase[6].Substring(1).Replace(Environment.NewLine, "") == "1") { allowWebContent = true; }
+            frmExt formext = new frmExt(this, anaform, userName,fileLocation,SplittedFase[8].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"),  allowWebContent);
             formext.Show();
         }
         public void LoadExt()
@@ -1647,22 +1838,26 @@ namespace Korot
 
             foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\"))
             {
-                if (File.Exists(x + "\\extension.kem"))
+                if (File.Exists(x + "\\ext.kem"))
                 {
+                    StreamReader ReadFile = new StreamReader(x + "\\ext.kem", Encoding.UTF8, false);
+                    string Playlist = ReadFile.ReadToEnd();
+                    char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+                    string[] SplittedFase = Playlist.Split(token);
                     ToolStripMenuItem extItem = new ToolStripMenuItem();
-                    extItem.Text = new DirectoryInfo(x).Name;
-                    if (!File.Exists(x + "\\icon.png"))
+                    extItem.Text = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
+                    if (!File.Exists(SplittedFase[3].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(x + "\\ext.kem").DirectoryName + " \\")))
                     {
                         if (Brightness(Properties.Settings.Default.BackColor) > 130) { extItem.Image = Properties.Resources.ext; }
                         else { extItem.Image = Properties.Resources.ext_w; }
                     }
                     else
                     {
-                        extItem.Image = Image.FromFile(x + "\\icon.png");
+                        extItem.Image = Image.FromFile(SplittedFase[3].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(x + "\\ext.kem").DirectoryName + " \\"));
                     }
                     ToolStripMenuItem extRunItem = new ToolStripMenuItem();
                     extItem.Click += ExtensionToolStripMenuItem_Click;
-                    extItem.Tag = x + "\\extension.kem";
+                    extItem.Tag = x + "\\ext.kem";
                     contextMenuStrip1.Items.Add(extItem);
 
                 }
@@ -1713,7 +1908,7 @@ namespace Korot
                 }
             }
         }
-        private void Button8_Click(object sender, EventArgs e) => contextMenuStrip1.Show(MousePosition);
+        private void Button8_Click(object sender, EventArgs e) { LoadExt(); contextMenuStrip1.Show(MousePosition); }
 
         private void TmrSlower_Tick(object sender, EventArgs e) => RefreshFavorites(); 
 
@@ -1823,7 +2018,7 @@ namespace Korot
         bool onCEFTab = true;
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (allowSwitching = false) { e.Cancel = true; } else { e.Cancel = false; allowSwitching = false; }
+            if (allowSwitching == false) { e.Cancel = true; } else { e.Cancel = false; allowSwitching = false; }
         onCEFTab = (tabControl1.SelectedTab == tabPage1);
         }
 
@@ -1832,5 +2027,37 @@ namespace Korot
             contextMenuStrip3.Show(textBox4, 0, 0);
         }
 
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            allowSwitching = true;
+            tabControl1.SelectedTab = tabPage1;
+            chromiumWebBrowser1.Load("korot://licenses");
+        }
+
+        private void searchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel3.Visible = !panel3.Visible;
+        }
+        void updateUCI()
+        {
+            if (Properties.Settings.Default.UpdateChannel == 0) //beta
+            {
+                label23.Text = UCBeta;
+            }
+            else if(Properties.Settings.Default.UpdateChannel == 1) //gama
+            {
+                label23.Text = UCGama;
+            }
+            else if (Properties.Settings.Default.UpdateChannel == 2) //delta
+            {
+                label23.Text = UCDelta;
+            }
+        }
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //if (comboBox2.Text == "Beta"){Properties.Settings.Default.UpdateChannel = 0;}if (comboBox2.Text == "Gama"){Properties.Settings.Default.UpdateChannel = 1;}if (comboBox2.Text == "Delta"){Properties.Settings.Default.UpdateChannel = 2;}
+            Properties.Settings.Default.UpdateChannel = comboBox2.SelectedIndex;
+            updateUCI();
+        }
     }
 }
