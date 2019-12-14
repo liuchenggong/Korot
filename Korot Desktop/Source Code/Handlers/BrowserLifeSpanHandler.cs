@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CefSharp;
-using CefSharp.WinForms;
-using CefSharp.Internals;
-using System.Windows.Forms;
+﻿using CefSharp;
 
 namespace Korot
 {

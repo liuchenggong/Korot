@@ -4,6 +4,8 @@ Extension author goes to this line.
 Extension icon file goes to this line.
 1 if loads a script automaticly. Otherwise write 0 on this line.
 1 if can access web content. Otherwise write 0 on this line.
-1 if uses onliğne files from web. Otherwise write 0 on this line.
-Script File goes to here.
-HTML file goes to here.
+1 if uses online files from web. Otherwise write 0 on this line.
+1 to show an popup menu. Otherwise write 0 on this line.
+1 to activate script on popup icon click. Otherwise write 0 on this line.
+Script File goes to here. Use [EXTFOLDER] for extension folder.
+HTML file goes to here. Use [EXTFOLDER] for extension folder.

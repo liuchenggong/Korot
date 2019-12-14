@@ -1,16 +1,9 @@
-﻿using System;
+﻿using CefSharp;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using CefSharp;
-using CefSharp.Structs;
-using Korot;
-using Korot.Properties;
 
 namespace Korot
 {
@@ -18,7 +11,7 @@ namespace Korot
     {
         frmCEF CEFform;
         frmMain aNaFRM;
-        public DisplayHandler (frmCEF tabform,frmMain anaform)
+        public DisplayHandler(frmCEF tabform, frmMain anaform)
         {
             CEFform = tabform;
             aNaFRM = anaform;
@@ -48,7 +41,7 @@ namespace Korot
                 {
                     using (Stream stream = webc.OpenRead(new Uri(x)))
                     {
-                        Bitmap bitmap = new Bitmap(stream); 
+                        Bitmap bitmap = new Bitmap(stream);
                         bitmap.SetResolution(72, 72);
                         Icon icon = System.Drawing.Icon.FromHandle(bitmap.GetHicon());
                         CEFform.ParentTabs.Invoke(new Action(() => CEFform.ParentTabs.Icon = icon));
@@ -61,7 +54,7 @@ namespace Korot
 
         public void OnFullscreenModeChange(IWebBrowser chromiumWebBrowser, IBrowser browser, bool fullscreen)
         {
-                aNaFRM.Invoke(new Action(() => aNaFRM.Fullscreenmode(fullscreen)));
+            aNaFRM.Invoke(new Action(() => aNaFRM.Fullscreenmode(fullscreen)));
 
         }
 
@@ -71,13 +64,14 @@ namespace Korot
             try
             {
                 CEFform.Invoke(new Action(() => CEFform.ChangeProgress(Convert.ToInt32(progress * 100))));
-            }catch { }
+            }
+            catch { }
         }
 
         public void OnStatusMessage(IWebBrowser chromiumWebBrowser, StatusMessageEventArgs statusMessageArgs)
         {
-            try { CEFform.Invoke(new Action(() => CEFform.ChangeStatus(statusMessageArgs.Value)));} catch { }
-            
+            try { CEFform.Invoke(new Action(() => CEFform.ChangeStatus(statusMessageArgs.Value))); } catch { }
+
         }
 
         public void OnTitleChanged(IWebBrowser chromiumWebBrowser, TitleChangedEventArgs titleChangedArgs)

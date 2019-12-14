@@ -228,30 +228,6 @@
       <DependentUpon>frmCEF.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Fonts\Ubuntu\Ubuntu-Bold.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fonts\Ubuntu\Ubuntu-BoldItalic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fonts\Ubuntu\Ubuntu-Italic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fonts\Ubuntu\Ubuntu-Light.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fonts\Ubuntu\Ubuntu-LightItalic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fonts\Ubuntu\Ubuntu-Medium.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fonts\Ubuntu\Ubuntu-MediumItalic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fonts\Ubuntu\Ubuntu-Regular.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Lang\English.lang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -362,7 +338,6 @@
     <None Include="Resources\locko.png" />
     <None Include="Resources\lockr.png" />
     <Content Include="Resources\newtab.html" />
-    <Content Include="Source Code\Others\TODO.txt" />
     <None Include="Resources\theme-w.png" />
     <None Include="Resources\theme.png" />
     <None Include="Resources\language-w.png" />

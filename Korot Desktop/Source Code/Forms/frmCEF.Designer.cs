@@ -79,11 +79,11 @@
             this.tmrSlower = new System.Windows.Forms.Timer(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.haltroySwitch1 = new HaltroyFramework.HaltroySwitch();
-            this.findTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.findTextBox = new System.Windows.Forms.TextBox();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pnlCert = new System.Windows.Forms.Panel();
             this.button10 = new System.Windows.Forms.Button();
@@ -138,11 +138,12 @@
             this.removeSelectedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tbAbout = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lbUpdateStatus = new System.Windows.Forms.Label();
+            this.btUpdater = new System.Windows.Forms.Button();
+            this.btInstall = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label21 = new System.Windows.Forms.Label();
-            this.btInstall = new System.Windows.Forms.Button();
-            this.btUpdater = new System.Windows.Forms.Button();
-            this.lbUpdateStatus = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -192,6 +193,7 @@
             this.tbDownload.SuspendLayout();
             this.cmsDownload.SuspendLayout();
             this.tbAbout.SuspendLayout();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.cmsSearchEngine.SuspendLayout();
             this.contextMenuStrip3.SuspendLayout();
@@ -203,11 +205,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.tbAddress.Location = new System.Drawing.Point(149, 7);
+            this.tbAddress.Location = new System.Drawing.Point(174, 8);
             this.tbAddress.Name = "tbAddress";
-            this.tbAddress.Size = new System.Drawing.Size(185, 23);
+            this.tbAddress.Size = new System.Drawing.Size(215, 23);
             this.tbAddress.TabIndex = 1;
-            this.tbAddress.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // panel2
             // 
@@ -229,7 +230,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(469, 59);
+            this.panel2.Size = new System.Drawing.Size(547, 64);
             this.panel2.TabIndex = 6;
             // 
             // pictureBox2
@@ -237,9 +238,9 @@
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.ContextMenuStrip = this.cmsPrivacy;
             this.pictureBox2.Image = global::Korot.Properties.Resources.lockg;
-            this.pictureBox2.Location = new System.Drawing.Point(133, 10);
+            this.pictureBox2.Location = new System.Drawing.Point(155, 11);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(15, 15);
+            this.pictureBox2.Size = new System.Drawing.Size(17, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
@@ -311,9 +312,10 @@
             // mFavorites
             // 
             this.mFavorites.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.mFavorites.Location = new System.Drawing.Point(0, 35);
+            this.mFavorites.Location = new System.Drawing.Point(0, 40);
             this.mFavorites.Name = "mFavorites";
-            this.mFavorites.Size = new System.Drawing.Size(469, 24);
+            this.mFavorites.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.mFavorites.Size = new System.Drawing.Size(547, 24);
             this.mFavorites.TabIndex = 0;
             this.mFavorites.Text = "menuStrip1";
             // 
@@ -323,9 +325,9 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Image = global::Korot.Properties.Resources.inctab;
-            this.pictureBox1.Location = new System.Drawing.Point(333, 7);
+            this.pictureBox1.Location = new System.Drawing.Point(388, 8);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox1.Size = new System.Drawing.Size(26, 25);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
@@ -336,9 +338,9 @@
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Image = global::Korot.Properties.Resources.home;
-            this.button5.Location = new System.Drawing.Point(52, 5);
+            this.button5.Location = new System.Drawing.Point(61, 5);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(26, 26);
+            this.button5.Size = new System.Drawing.Size(30, 28);
             this.button5.TabIndex = 4;
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
@@ -350,9 +352,9 @@
             this.button7.FlatAppearance.BorderSize = 0;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Image = global::Korot.Properties.Resources.star;
-            this.button7.Location = new System.Drawing.Point(102, 5);
+            this.button7.Location = new System.Drawing.Point(119, 5);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(26, 26);
+            this.button7.Size = new System.Drawing.Size(30, 28);
             this.button7.TabIndex = 0;
             this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.Button7_Click);
@@ -364,9 +366,9 @@
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Image = global::Korot.Properties.Resources.rightarrow;
-            this.button3.Location = new System.Drawing.Point(77, 5);
+            this.button3.Location = new System.Drawing.Point(90, 5);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(26, 26);
+            this.button3.Size = new System.Drawing.Size(30, 28);
             this.button3.TabIndex = 0;
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -380,7 +382,7 @@
             this.button1.Image = global::Korot.Properties.Resources.leftarrow;
             this.button1.Location = new System.Drawing.Point(2, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(26, 26);
+            this.button1.Size = new System.Drawing.Size(30, 28);
             this.button1.TabIndex = 0;
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -394,9 +396,9 @@
             this.button11.FlatAppearance.BorderSize = 0;
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button11.Image = global::Korot.Properties.Resources.hamburger;
-            this.button11.Location = new System.Drawing.Point(443, 5);
+            this.button11.Location = new System.Drawing.Point(517, 5);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(26, 26);
+            this.button11.Size = new System.Drawing.Size(30, 28);
             this.button11.TabIndex = 0;
             this.button11.UseVisualStyleBackColor = false;
             this.button11.Click += new System.EventHandler(this.button11_Click);
@@ -409,11 +411,11 @@
             this.newIncognitoWindowToolStripMenuItem,
             this.searchToolStripMenuItem,
             this.settingsToolStripMenuItem,
-            this.restoreLastSessionToolStripMenuItem,   });
+            this.restoreLastSessionToolStripMenuItem});
             this.cmsHamburger.Name = "cmsHamburger";
             this.cmsHamburger.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsHamburger.ShowImageMargin = false;
-            this.cmsHamburger.Size = new System.Drawing.Size(175, 180);
+            this.cmsHamburger.Size = new System.Drawing.Size(175, 114);
             // 
             // newWindowToolStripMenuItem
             // 
@@ -458,9 +460,9 @@
             this.button9.FlatAppearance.BorderSize = 0;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.Image = global::Korot.Properties.Resources.profiles;
-            this.button9.Location = new System.Drawing.Point(423, 5);
+            this.button9.Location = new System.Drawing.Point(493, 5);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(26, 26);
+            this.button9.Size = new System.Drawing.Size(30, 28);
             this.button9.TabIndex = 0;
             this.button9.UseVisualStyleBackColor = false;
             this.button9.Click += new System.EventHandler(this.Button9_Click);
@@ -512,9 +514,9 @@
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Image = global::Korot.Properties.Resources.go;
-            this.button4.Location = new System.Drawing.Point(357, 5);
+            this.button4.Location = new System.Drawing.Point(416, 5);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(26, 26);
+            this.button4.Size = new System.Drawing.Size(30, 28);
             this.button4.TabIndex = 0;
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -526,9 +528,9 @@
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Image = global::Korot.Properties.Resources.refresh;
-            this.button2.Location = new System.Drawing.Point(27, 5);
+            this.button2.Location = new System.Drawing.Point(31, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(26, 26);
+            this.button2.Size = new System.Drawing.Size(30, 28);
             this.button2.TabIndex = 0;
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -541,9 +543,9 @@
             this.button6.FlatAppearance.BorderSize = 0;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Image = global::Korot.Properties.Resources.prxy;
-            this.button6.Location = new System.Drawing.Point(379, 5);
+            this.button6.Location = new System.Drawing.Point(442, 5);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(26, 26);
+            this.button6.Size = new System.Drawing.Size(30, 28);
             this.button6.TabIndex = 0;
             this.button6.Tag = "Proxy";
             this.button6.UseVisualStyleBackColor = false;
@@ -557,9 +559,9 @@
             this.button8.FlatAppearance.BorderSize = 0;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.Image = global::Korot.Properties.Resources.ext;
-            this.button8.Location = new System.Drawing.Point(400, 5);
+            this.button8.Location = new System.Drawing.Point(467, 5);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(26, 26);
+            this.button8.Size = new System.Drawing.Size(30, 28);
             this.button8.TabIndex = 0;
             this.button8.UseVisualStyleBackColor = false;
             this.button8.Click += new System.EventHandler(this.Button8_Click);
@@ -664,7 +666,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(476, 372);
+            this.panel1.Size = new System.Drawing.Size(558, 402);
             this.panel1.TabIndex = 0;
             this.panel1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
             // 
@@ -677,51 +679,50 @@
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Location = new System.Drawing.Point(0, 414);
+            this.label2.Location = new System.Drawing.Point(0, 446);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(469, 13);
+            this.label2.Size = new System.Drawing.Size(547, 14);
             this.label2.TabIndex = 8;
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.haltroySwitch1);
-            this.panel3.Controls.Add(this.findTextBox);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.findTextBox);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 59);
+            this.panel3.Location = new System.Drawing.Point(0, 64);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(469, 45);
+            this.panel3.Size = new System.Drawing.Size(547, 50);
             this.panel3.TabIndex = 0;
             this.panel3.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 14);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Search : ";
             // 
             // haltroySwitch1
             // 
             this.haltroySwitch1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.haltroySwitch1.Location = new System.Drawing.Point(149, 2);
+            this.haltroySwitch1.Location = new System.Drawing.Point(95, 27);
             this.haltroySwitch1.Name = "haltroySwitch1";
             this.haltroySwitch1.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.haltroySwitch1.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.haltroySwitch1.Size = new System.Drawing.Size(46, 19);
+            this.haltroySwitch1.Size = new System.Drawing.Size(54, 20);
             this.haltroySwitch1.TabIndex = 2;
-            // 
-            // findTextBox
-            // 
-            this.findTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.findTextBox.Location = new System.Drawing.Point(0, 25);
-            this.findTextBox.Name = "findTextBox";
-            this.findTextBox.Size = new System.Drawing.Size(469, 20);
-            this.findTextBox.TabIndex = 1;
-            this.findTextBox.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(452, 4);
+            this.label4.Location = new System.Drawing.Point(530, 3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(14, 13);
+            this.label4.Size = new System.Drawing.Size(14, 14);
             this.label4.TabIndex = 0;
             this.label4.Text = "X";
             this.label4.Click += new System.EventHandler(this.Label4_Click);
@@ -730,20 +731,19 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(194, 4);
+            this.label6.Location = new System.Drawing.Point(3, 30);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(77, 13);
+            this.label6.Size = new System.Drawing.Size(84, 14);
             this.label6.TabIndex = 0;
             this.label6.Text = "Case Sensitive";
             // 
-            // label3
+            // findTextBox
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(2, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Search : ";
+            this.findTextBox.Location = new System.Drawing.Point(61, 3);
+            this.findTextBox.Name = "findTextBox";
+            this.findTextBox.Size = new System.Drawing.Size(466, 22);
+            this.findTextBox.TabIndex = 1;
+            this.findTextBox.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
             // 
             // contextMenuStrip2
             // 
@@ -762,7 +762,7 @@
             this.pnlCert.ForeColor = System.Drawing.Color.White;
             this.pnlCert.Location = new System.Drawing.Point(3, 3);
             this.pnlCert.Name = "pnlCert";
-            this.pnlCert.Size = new System.Drawing.Size(476, 372);
+            this.pnlCert.Size = new System.Drawing.Size(558, 402);
             this.pnlCert.TabIndex = 8;
             this.pnlCert.Visible = false;
             // 
@@ -772,9 +772,9 @@
             this.button10.AutoSize = true;
             this.button10.FlatAppearance.BorderSize = 0;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Location = new System.Drawing.Point(17, 336);
+            this.button10.Location = new System.Drawing.Point(20, 363);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
+            this.button10.Size = new System.Drawing.Size(87, 25);
             this.button10.TabIndex = 2;
             this.button10.Text = "Poop Funny";
             this.button10.UseVisualStyleBackColor = true;
@@ -783,9 +783,9 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 49);
+            this.label8.Location = new System.Drawing.Point(16, 53);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(37, 13);
+            this.label8.Size = new System.Drawing.Size(41, 14);
             this.label8.TabIndex = 1;
             this.label8.Text = "Poopy";
             // 
@@ -793,7 +793,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label7.Location = new System.Drawing.Point(12, 16);
+            this.label7.Location = new System.Drawing.Point(14, 17);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(66, 25);
             this.label7.TabIndex = 1;
@@ -807,20 +807,20 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(-9, 33);
+            this.tabControl1.Location = new System.Drawing.Point(-10, 36);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(490, 404);
+            this.tabControl1.Size = new System.Drawing.Size(572, 435);
             this.tabControl1.TabIndex = 9;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 23);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(482, 378);
+            this.tabPage1.Size = new System.Drawing.Size(564, 408);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -828,10 +828,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.pnlCert);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 23);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(482, 378);
+            this.tabPage2.Size = new System.Drawing.Size(564, 408);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -841,9 +841,9 @@
             this.tabPage3.Controls.Add(this.lbSettings);
             this.tabPage3.Controls.Add(this.tabControl2);
             this.tabPage3.Controls.Add(this.button13);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 23);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(482, 378);
+            this.tabPage3.Size = new System.Drawing.Size(564, 408);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -852,7 +852,7 @@
             // 
             this.lbSettings.AutoSize = true;
             this.lbSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.lbSettings.Location = new System.Drawing.Point(24, 4);
+            this.lbSettings.Location = new System.Drawing.Point(28, 4);
             this.lbSettings.Name = "lbSettings";
             this.lbSettings.Size = new System.Drawing.Size(83, 25);
             this.lbSettings.TabIndex = 34;
@@ -878,7 +878,7 @@
             this.tabControl2.HeaderColor = System.Drawing.Color.White;
             this.tabControl2.HorizontalLineColor = System.Drawing.Color.DodgerBlue;
             this.tabControl2.ItemSize = new System.Drawing.Size(240, 16);
-            this.tabControl2.Location = new System.Drawing.Point(3, 36);
+            this.tabControl2.Location = new System.Drawing.Point(3, 39);
             this.tabControl2.LockedFirstTab = null;
             this.tabControl2.LockedLastTab = null;
             this.tabControl2.Name = "tabControl2";
@@ -886,7 +886,7 @@
             this.tabControl2.SelectedTextColor = System.Drawing.Color.Black;
             this.tabControl2.ShowClosingButton = false;
             this.tabControl2.ShowClosingMessage = false;
-            this.tabControl2.Size = new System.Drawing.Size(471, 336);
+            this.tabControl2.Size = new System.Drawing.Size(549, 361);
             this.tabControl2.TabIndex = 33;
             this.tabControl2.TextColor = System.Drawing.Color.Black;
             // 
@@ -905,51 +905,55 @@
             this.tbSetting.Location = new System.Drawing.Point(4, 20);
             this.tbSetting.Name = "tbSetting";
             this.tbSetting.Padding = new System.Windows.Forms.Padding(3);
-            this.tbSetting.Size = new System.Drawing.Size(463, 312);
+            this.tbSetting.Size = new System.Drawing.Size(541, 337);
             this.tbSetting.TabIndex = 0;
             this.tbSetting.Text = "Settings";
+            this.tbSetting.Click += new System.EventHandler(this.tbSetting_Click);
             // 
             // label23
             // 
             this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label23.Location = new System.Drawing.Point(126, 115);
+            this.label23.Location = new System.Drawing.Point(147, 124);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(323, 65);
+            this.label23.Size = new System.Drawing.Size(377, 70);
             this.label23.TabIndex = 27;
-            this.label23.Text = "Select an update channel for more info.";
+            this.label23.Text = "UPDATE CHANNEL INFO GOES TO HERE";
             // 
             // comboBox2
             // 
             this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox2.BackColor = System.Drawing.Color.White;
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.ForeColor = System.Drawing.Color.Black;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
+            "Alpha",
             "Beta",
             "Gama",
             "Delta"});
-            this.comboBox2.Location = new System.Drawing.Point(126, 87);
+            this.comboBox2.Location = new System.Drawing.Point(147, 94);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(323, 21);
+            this.comboBox2.Size = new System.Drawing.Size(376, 22);
             this.comboBox2.TabIndex = 26;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             this.comboBox2.TextUpdate += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label22
             // 
-            this.label22.Location = new System.Drawing.Point(3, 90);
+            this.label22.Location = new System.Drawing.Point(3, 97);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(117, 90);
+            this.label22.Size = new System.Drawing.Size(136, 97);
             this.label22.TabIndex = 25;
             this.label22.Text = "Update Channel : ";
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(126, 30);
+            this.radioButton1.Location = new System.Drawing.Point(147, 32);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(69, 17);
+            this.radioButton1.Size = new System.Drawing.Size(75, 18);
             this.radioButton1.TabIndex = 24;
             this.radioButton1.TabStop = true;
             this.radioButton1.Tag = "";
@@ -962,7 +966,7 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Location = new System.Drawing.Point(0, 6);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(120, 45);
+            this.label11.Size = new System.Drawing.Size(140, 48);
             this.label11.TabIndex = 17;
             this.label11.Tag = "";
             this.label11.Text = "Home Page :";
@@ -970,9 +974,9 @@
             // label9
             // 
             this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Location = new System.Drawing.Point(0, 60);
+            this.label9.Location = new System.Drawing.Point(0, 65);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(120, 17);
+            this.label9.Size = new System.Drawing.Size(140, 18);
             this.label9.TabIndex = 16;
             this.label9.Tag = "";
             this.label9.Text = "Search Engine : ";
@@ -982,10 +986,10 @@
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.textBox3.Location = new System.Drawing.Point(126, 57);
+            this.textBox3.Location = new System.Drawing.Point(147, 61);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(323, 20);
+            this.textBox3.Size = new System.Drawing.Size(376, 22);
             this.textBox3.TabIndex = 23;
             this.textBox3.Tag = "";
             this.textBox3.Text = "gugıl";
@@ -995,9 +999,9 @@
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(126, 6);
+            this.textBox2.Location = new System.Drawing.Point(147, 6);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(323, 20);
+            this.textBox2.Size = new System.Drawing.Size(376, 22);
             this.textBox2.TabIndex = 18;
             this.textBox2.Tag = "";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
@@ -1019,7 +1023,7 @@
             this.tbTheme.Location = new System.Drawing.Point(4, 20);
             this.tbTheme.Name = "tbTheme";
             this.tbTheme.Padding = new System.Windows.Forms.Padding(3);
-            this.tbTheme.Size = new System.Drawing.Size(463, 312);
+            this.tbTheme.Size = new System.Drawing.Size(541, 337);
             this.tbTheme.TabIndex = 6;
             this.tbTheme.Text = "Theme";
             // 
@@ -1028,10 +1032,10 @@
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox4.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.textBox4.Location = new System.Drawing.Point(141, 81);
+            this.textBox4.Location = new System.Drawing.Point(164, 87);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(308, 20);
+            this.textBox4.Size = new System.Drawing.Size(359, 22);
             this.textBox4.TabIndex = 32;
             this.textBox4.Text = "background-color: rgb(255,255,255)";
             this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
@@ -1042,9 +1046,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(11, 125);
+            this.listBox2.ItemHeight = 14;
+            this.listBox2.Location = new System.Drawing.Point(13, 135);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(435, 160);
+            this.listBox2.Size = new System.Drawing.Size(507, 158);
             this.listBox2.TabIndex = 31;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
@@ -1053,9 +1058,9 @@
             this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button12.FlatAppearance.BorderSize = 0;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(382, 13);
+            this.button12.Location = new System.Drawing.Point(446, 14);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(64, 23);
+            this.button12.Size = new System.Drawing.Size(75, 25);
             this.button12.TabIndex = 30;
             this.button12.Tag = "";
             this.button12.Text = "Save";
@@ -1070,9 +1075,9 @@
             this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox1.Location = new System.Drawing.Point(108, 13);
+            this.comboBox1.Location = new System.Drawing.Point(126, 14);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(268, 24);
+            this.comboBox1.Size = new System.Drawing.Size(312, 24);
             this.comboBox1.TabIndex = 1;
             this.comboBox1.Tag = "";
             // 
@@ -1081,7 +1086,7 @@
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label12.Location = new System.Drawing.Point(10, 84);
+            this.label12.Location = new System.Drawing.Point(12, 90);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(134, 17);
             this.label12.TabIndex = 25;
@@ -1093,7 +1098,7 @@
             this.label15.AutoSize = true;
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label15.Location = new System.Drawing.Point(11, 105);
+            this.label15.Location = new System.Drawing.Point(13, 113);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(71, 17);
             this.label15.TabIndex = 25;
@@ -1105,7 +1110,7 @@
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label13.Location = new System.Drawing.Point(11, 16);
+            this.label13.Location = new System.Drawing.Point(13, 17);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(105, 17);
             this.label13.TabIndex = 25;
@@ -1117,7 +1122,7 @@
             this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.Transparent;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label14.Location = new System.Drawing.Point(11, 40);
+            this.label14.Location = new System.Drawing.Point(13, 43);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(133, 17);
             this.label14.TabIndex = 25;
@@ -1129,7 +1134,7 @@
             this.label16.AutoSize = true;
             this.label16.BackColor = System.Drawing.Color.Transparent;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label16.Location = new System.Drawing.Point(11, 59);
+            this.label16.Location = new System.Drawing.Point(13, 64);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(99, 17);
             this.label16.TabIndex = 26;
@@ -1139,9 +1144,9 @@
             // pictureBox4
             // 
             this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox4.Location = new System.Drawing.Point(145, 59);
+            this.pictureBox4.Location = new System.Drawing.Point(169, 64);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox4.Size = new System.Drawing.Size(23, 21);
             this.pictureBox4.TabIndex = 28;
             this.pictureBox4.TabStop = false;
             this.pictureBox4.Tag = "Default: DodgerBlue";
@@ -1150,9 +1155,9 @@
             // pictureBox3
             // 
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox3.Location = new System.Drawing.Point(145, 38);
+            this.pictureBox3.Location = new System.Drawing.Point(169, 41);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox3.Size = new System.Drawing.Size(23, 21);
             this.pictureBox3.TabIndex = 27;
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Tag = "";
@@ -1165,7 +1170,7 @@
             this.tbLang.Location = new System.Drawing.Point(4, 20);
             this.tbLang.Name = "tbLang";
             this.tbLang.Padding = new System.Windows.Forms.Padding(3);
-            this.tbLang.Size = new System.Drawing.Size(463, 312);
+            this.tbLang.Size = new System.Drawing.Size(541, 337);
             this.tbLang.TabIndex = 2;
             this.tbLang.Text = "Language";
             // 
@@ -1173,9 +1178,10 @@
             // 
             this.lbLang.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbLang.FormattingEnabled = true;
+            this.lbLang.ItemHeight = 14;
             this.lbLang.Location = new System.Drawing.Point(3, 3);
             this.lbLang.Name = "lbLang";
-            this.lbLang.Size = new System.Drawing.Size(457, 306);
+            this.lbLang.Size = new System.Drawing.Size(535, 331);
             this.lbLang.TabIndex = 21;
             this.lbLang.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
@@ -1186,7 +1192,7 @@
             this.tbHistory.Location = new System.Drawing.Point(4, 20);
             this.tbHistory.Name = "tbHistory";
             this.tbHistory.Padding = new System.Windows.Forms.Padding(3);
-            this.tbHistory.Size = new System.Drawing.Size(463, 312);
+            this.tbHistory.Size = new System.Drawing.Size(541, 337);
             this.tbHistory.TabIndex = 3;
             this.tbHistory.Text = "History";
             // 
@@ -1204,7 +1210,7 @@
             this.hlvHistory.HideSelection = false;
             this.hlvHistory.Location = new System.Drawing.Point(3, 3);
             this.hlvHistory.Name = "hlvHistory";
-            this.hlvHistory.Size = new System.Drawing.Size(457, 306);
+            this.hlvHistory.Size = new System.Drawing.Size(535, 331);
             this.hlvHistory.TabIndex = 0;
             this.hlvHistory.UseCompatibleStateImageBehavior = false;
             this.hlvHistory.View = System.Windows.Forms.View.Details;
@@ -1256,7 +1262,7 @@
             this.tbDownload.Location = new System.Drawing.Point(4, 20);
             this.tbDownload.Name = "tbDownload";
             this.tbDownload.Padding = new System.Windows.Forms.Padding(3);
-            this.tbDownload.Size = new System.Drawing.Size(463, 312);
+            this.tbDownload.Size = new System.Drawing.Size(541, 337);
             this.tbDownload.TabIndex = 4;
             this.tbDownload.Text = "Downloads";
             // 
@@ -1274,7 +1280,7 @@
             this.hlvDownload.HideSelection = false;
             this.hlvDownload.Location = new System.Drawing.Point(3, 3);
             this.hlvDownload.Name = "hlvDownload";
-            this.hlvDownload.Size = new System.Drawing.Size(457, 306);
+            this.hlvDownload.Size = new System.Drawing.Size(535, 331);
             this.hlvDownload.TabIndex = 1;
             this.hlvDownload.UseCompatibleStateImageBehavior = false;
             this.hlvDownload.View = System.Windows.Forms.View.Details;
@@ -1347,11 +1353,9 @@
             // 
             this.tbAbout.AutoScroll = true;
             this.tbAbout.BackColor = System.Drawing.Color.White;
+            this.tbAbout.Controls.Add(this.panel4);
             this.tbAbout.Controls.Add(this.linkLabel1);
             this.tbAbout.Controls.Add(this.label21);
-            this.tbAbout.Controls.Add(this.btInstall);
-            this.tbAbout.Controls.Add(this.btUpdater);
-            this.tbAbout.Controls.Add(this.lbUpdateStatus);
             this.tbAbout.Controls.Add(this.label17);
             this.tbAbout.Controls.Add(this.label18);
             this.tbAbout.Controls.Add(this.label20);
@@ -1360,16 +1364,63 @@
             this.tbAbout.Location = new System.Drawing.Point(4, 20);
             this.tbAbout.Name = "tbAbout";
             this.tbAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tbAbout.Size = new System.Drawing.Size(463, 312);
+            this.tbAbout.Size = new System.Drawing.Size(541, 337);
             this.tbAbout.TabIndex = 5;
             this.tbAbout.Text = "About";
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.lbUpdateStatus);
+            this.panel4.Controls.Add(this.btUpdater);
+            this.panel4.Controls.Add(this.btInstall);
+            this.panel4.Location = new System.Drawing.Point(17, 170);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(517, 100);
+            this.panel4.TabIndex = 6;
+            // 
+            // lbUpdateStatus
+            // 
+            this.lbUpdateStatus.AutoSize = true;
+            this.lbUpdateStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbUpdateStatus.Location = new System.Drawing.Point(3, 10);
+            this.lbUpdateStatus.Name = "lbUpdateStatus";
+            this.lbUpdateStatus.Size = new System.Drawing.Size(156, 17);
+            this.lbUpdateStatus.TabIndex = 1;
+            this.lbUpdateStatus.Text = "Checking for Updates...";
+            // 
+            // btUpdater
+            // 
+            this.btUpdater.AutoSize = true;
+            this.btUpdater.FlatAppearance.BorderSize = 0;
+            this.btUpdater.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btUpdater.Location = new System.Drawing.Point(6, 30);
+            this.btUpdater.Name = "btUpdater";
+            this.btUpdater.Size = new System.Drawing.Size(160, 31);
+            this.btUpdater.TabIndex = 3;
+            this.btUpdater.Text = "Check for Updates";
+            this.btUpdater.UseVisualStyleBackColor = false;
+            this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
+            // 
+            // btInstall
+            // 
+            this.btInstall.AutoSize = true;
+            this.btInstall.FlatAppearance.BorderSize = 0;
+            this.btInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btInstall.Location = new System.Drawing.Point(6, 60);
+            this.btInstall.Name = "btInstall";
+            this.btInstall.Size = new System.Drawing.Size(160, 31);
+            this.btInstall.TabIndex = 3;
+            this.btInstall.Text = "Install the update";
+            this.btInstall.UseVisualStyleBackColor = false;
+            this.btInstall.Visible = false;
+            this.btInstall.Click += new System.EventHandler(this.btInstall_Click);
             // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(12, 142);
+            this.linkLabel1.Location = new System.Drawing.Point(14, 139);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(58, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(64, 14);
             this.linkLabel1.TabIndex = 5;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Licenses...";
@@ -1378,99 +1429,61 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(12, 90);
+            this.label21.Location = new System.Drawing.Point(14, 97);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(313, 52);
+            this.label21.Size = new System.Drawing.Size(369, 42);
             this.label21.TabIndex = 4;
             this.label21.Text = "Korot uses Chromium by Google using CefSharp.\r\nKorot is written in C# using Visua" +
-    "l Studio Community by Microsoft.\r\nKorot uses modified version of EasyTabs.\r\nKoro" +
-    "t uses Ubuntu Font.";
-            // 
-            // btInstall
-            // 
-            this.btInstall.AutoSize = true;
-            this.btInstall.FlatAppearance.BorderSize = 0;
-            this.btInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btInstall.Location = new System.Drawing.Point(17, 225);
-            this.btInstall.Name = "btInstall";
-            this.btInstall.Size = new System.Drawing.Size(137, 29);
-            this.btInstall.TabIndex = 3;
-            this.btInstall.Text = "Install the update";
-            this.btInstall.UseVisualStyleBackColor = false;
-            this.btInstall.Visible = false;
-            this.btInstall.Click += new System.EventHandler(this.btInstall_Click);
-            // 
-            // btUpdater
-            // 
-            this.btUpdater.AutoSize = true;
-            this.btUpdater.FlatAppearance.BorderSize = 0;
-            this.btUpdater.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btUpdater.Location = new System.Drawing.Point(17, 197);
-            this.btUpdater.Name = "btUpdater";
-            this.btUpdater.Size = new System.Drawing.Size(137, 29);
-            this.btUpdater.TabIndex = 3;
-            this.btUpdater.Text = "Check for Updates";
-            this.btUpdater.UseVisualStyleBackColor = false;
-            this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
-            // 
-            // lbUpdateStatus
-            // 
-            this.lbUpdateStatus.AutoSize = true;
-            this.lbUpdateStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lbUpdateStatus.Location = new System.Drawing.Point(15, 177);
-            this.lbUpdateStatus.Name = "lbUpdateStatus";
-            this.lbUpdateStatus.Size = new System.Drawing.Size(156, 17);
-            this.lbUpdateStatus.TabIndex = 1;
-            this.lbUpdateStatus.Text = "Checking for Updates...";
+    "l Studio Community by Microsoft.\r\nKorot uses modified version of EasyTabs.";
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label17.Location = new System.Drawing.Point(146, 34);
+            this.label17.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label17.Location = new System.Drawing.Point(170, 37);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(43, 17);
+            this.label17.Size = new System.Drawing.Size(40, 16);
             this.label17.TabIndex = 1;
             this.label17.Text = "64 bit";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label18.Location = new System.Drawing.Point(146, 12);
+            this.label18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label18.Location = new System.Drawing.Point(170, 13);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(77, 17);
+            this.label18.Size = new System.Drawing.Size(73, 16);
             this.label18.TabIndex = 1;
             this.label18.Text = "Beta <ver>";
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label20.Location = new System.Drawing.Point(60, 51);
+            this.label20.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label20.Location = new System.Drawing.Point(70, 55);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(73, 25);
+            this.label20.Size = new System.Drawing.Size(75, 24);
             this.label20.TabIndex = 1;
             this.label20.Text = "Haltroy";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
-            this.label19.Location = new System.Drawing.Point(54, 12);
+            this.label19.Font = new System.Drawing.Font("Tahoma", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label19.Location = new System.Drawing.Point(63, 13);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(98, 39);
+            this.label19.Size = new System.Drawing.Size(95, 40);
             this.label19.TabIndex = 1;
             this.label19.Text = "Korot";
             // 
             // pictureBox5
             // 
             this.pictureBox5.Image = global::Korot.Properties.Resources.Korot;
-            this.pictureBox5.Location = new System.Drawing.Point(15, 13);
-            this.pictureBox5.MaximumSize = new System.Drawing.Size(38, 38);
-            this.pictureBox5.MinimumSize = new System.Drawing.Size(38, 38);
+            this.pictureBox5.Location = new System.Drawing.Point(17, 14);
+            this.pictureBox5.MaximumSize = new System.Drawing.Size(44, 41);
+            this.pictureBox5.MinimumSize = new System.Drawing.Size(44, 41);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(38, 38);
+            this.pictureBox5.Size = new System.Drawing.Size(44, 41);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox5.TabIndex = 0;
             this.pictureBox5.TabStop = false;
@@ -1483,7 +1496,7 @@
             this.button13.Image = global::Korot.Properties.Resources.leftarrow;
             this.button13.Location = new System.Drawing.Point(3, 4);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(26, 26);
+            this.button13.Size = new System.Drawing.Size(30, 28);
             this.button13.TabIndex = 0;
             this.button13.UseVisualStyleBackColor = false;
             this.button13.Click += new System.EventHandler(this.button1_Click);
@@ -1655,20 +1668,21 @@
             // 
             // frmCEF
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(469, 427);
+            this.ClientSize = new System.Drawing.Size(547, 460);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tabControl1);
+            this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.mFavorites;
-            this.MinimumSize = new System.Drawing.Size(300, 240);
+            this.MinimumSize = new System.Drawing.Size(350, 258);
             this.Name = "frmCEF";
             this.Text = " ";
             this.Load += new System.EventHandler(this.tabform_Load);
@@ -1706,6 +1720,8 @@
             this.cmsDownload.ResumeLayout(false);
             this.tbAbout.ResumeLayout(false);
             this.tbAbout.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.cmsSearchEngine.ResumeLayout(false);
             this.contextMenuStrip3.ResumeLayout(false);
@@ -1852,5 +1868,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ToolStripMenuItem ınternetArchiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yaaniToolStripMenuItem;
+        private System.Windows.Forms.Panel panel4;
     }
 }

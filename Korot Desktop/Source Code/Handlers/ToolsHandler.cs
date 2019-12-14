@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Korot
 {
@@ -17,7 +13,7 @@ namespace Korot
             int r = Convert.ToInt16(color.R);
             int g = Convert.ToInt16(color.G);
             int b = Convert.ToInt16(color.B);
-            return Color.FromArgb(255,r,g,b);
+            return Color.FromArgb(255, r, g, b);
         }
     }
 }

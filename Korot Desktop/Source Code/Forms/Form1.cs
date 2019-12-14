@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
@@ -36,7 +30,7 @@ namespace Korot
             pictureBox1.Width = 0;
             WebC.DownloadFileAsync(new Uri(downloadUrl), downloadloc);
         }
-        private void WebC_DownloadProgressChanged(object sender,DownloadProgressChangedEventArgs e)
+        private void WebC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             pictureBox1.Width = e.ProgressPercentage * 4;
             label2.Text = anaform.StatusType.Replace("[PERC]", e.ProgressPercentage.ToString()).Replace("[CURRENT]", (e.BytesReceived / 1024).ToString()).Replace("[TOTAL]", (e.TotalBytesToReceive / 1024).ToString());
@@ -44,9 +38,10 @@ namespace Korot
             this.Text = anaform.updateTitle;
         }
 
-        private void WebC_DownloadFileAsyncCompleted(object sender,AsyncCompletedEventArgs e)
+        private void WebC_DownloadFileAsyncCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            if (e.Error != null || e.Cancelled) { } else
+            if (e.Error != null || e.Cancelled) { }
+            else
             {
                 Process.Start(downloadloc);
                 Application.Exit();

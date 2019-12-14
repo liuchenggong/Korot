@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
@@ -30,19 +24,19 @@ namespace Korot
         }
         private void frmDownloader_Load(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DowloadHistory += DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + kaynak + ";"+hedef + ";";
+            Properties.Settings.Default.DowloadHistory += DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + kaynak + ";" + hedef + ";";
             label1.Text += kaynak;
             label2.Text += hedef; //2023
             checkBox2.Checked = Properties.Settings.Default.downloadClose;
             checkBox1.Checked = Properties.Settings.Default.downloadOpen;
-          //  webc.DownloadFileAsync(new Uri(kaynak), hedef);
+            //  webc.DownloadFileAsync(new Uri(kaynak), hedef);
             if (Brightness(Properties.Settings.Default.BackColor) < 130)
-            { this.BackColor = Properties.Settings.Default.BackColor; this.ForeColor = Color.White; button1.BackColor = Color.FromArgb(Properties.Settings.Default.BackColor.R + 20, Properties.Settings.Default.BackColor.G + 20, Properties.Settings.Default.BackColor.B + 20);button1.ForeColor = Color.White; }
+            { this.BackColor = Properties.Settings.Default.BackColor; this.ForeColor = Color.White; button1.BackColor = Color.FromArgb(Properties.Settings.Default.BackColor.R + 20, Properties.Settings.Default.BackColor.G + 20, Properties.Settings.Default.BackColor.B + 20); button1.ForeColor = Color.White; }
             else
             { this.BackColor = Properties.Settings.Default.BackColor; this.ForeColor = Color.Black; button1.BackColor = Color.FromArgb(Properties.Settings.Default.BackColor.R - 20, Properties.Settings.Default.BackColor.G - 20, Properties.Settings.Default.BackColor.B - 20); button1.ForeColor = Color.Black; }
         }
-       
-        public void downloaddone ()
+
+        public void downloaddone()
         {
             if (checkBox1.Checked) { button1_Click(null, null); }
             if (checkBox2.Checked) { this.Close(); }
@@ -65,9 +59,10 @@ namespace Korot
             try
             {
                 Process.Start(hedef);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", ex.Message,this.Icon,MessageBoxButtons.OK,Properties.Settings.Default.BackColor);
+                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", ex.Message, this.Icon, MessageBoxButtons.OK, Properties.Settings.Default.BackColor);
                 mesaj.ShowDialog();
             }
         }

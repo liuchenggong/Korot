@@ -1,17 +1,8 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using CefSharp.WinForms.Internals;
-using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Management;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
@@ -24,7 +15,7 @@ namespace Korot
         frmMain anaform;
         bool allowWebContent;
         ChromiumWebBrowser chromiumWebBrowser1;
-        public frmExt(frmCEF CefForm,frmMain rmmain, string profileName,string manifestFile,string popupHTML,bool _allowWebContent)
+        public frmExt(frmCEF CefForm, frmMain rmmain, string profileName, string manifestFile, string popupHTML, bool _allowWebContent)
         {
             InitializeComponent();
             tabform = CefForm;
@@ -33,14 +24,15 @@ namespace Korot
             this.Text = "Korot";
             allowWebContent = _allowWebContent;
             ExtensionPopupPath = popupHTML;
-                InitializeChromium();
+            InitializeChromium();
         }
         private static bool IsLocalPath(string p)
         {
             if (p.ToLower().StartsWith("http:\\") | p.ToLower().StartsWith("https:\\") | p.ToLower().StartsWith("ftp:\\"))
             {
                 return false;
-            }else if (p.ToLower().StartsWith("file:\\"))
+            }
+            else if (p.ToLower().StartsWith("file:\\"))
             {
                 return true;
             }
@@ -59,7 +51,7 @@ namespace Korot
 
             return null;
         }
-        private void cefaddresschanged(object sender,AddressChangedEventArgs e)
+        private void cefaddresschanged(object sender, AddressChangedEventArgs e)
         {
             if (!allowWebContent)
             {
@@ -76,7 +68,7 @@ namespace Korot
         }
         public static string GetOsVer() { try { ManagementObject mo = GetMngObj("Win32_OperatingSystem"); if (null == mo) return string.Empty; return mo["Version"] as string; } catch { return string.Empty; } }
 
-        private void FrmExt_Load(object sender, EventArgs e)        {        }
+        private void FrmExt_Load(object sender, EventArgs e) { }
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings();

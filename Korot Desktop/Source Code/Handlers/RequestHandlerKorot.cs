@@ -1,11 +1,7 @@
 ﻿using CefSharp;
 using CefSharp.WinForms.Internals;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,7 +11,7 @@ namespace Korot
     {
         frmMain anaform;
         frmCEF cefform;
-        public RequestHandlerKorot(frmMain _frmMain,frmCEF _frmCEF) 
+        public RequestHandlerKorot(frmMain _frmMain, frmCEF _frmCEF)
         {
             anaform = _frmMain;
             cefform = _frmCEF;
@@ -52,7 +48,7 @@ namespace Korot
 
         public bool OnCertificateError(IWebBrowser chromiumWebBrowser, IBrowser browser, CefErrorCode errorCode, string requestUrl, ISslInfo sslInfo, IRequestCallback callback)
         {
-            
+
             cefform.Invoke(new Action(() => cefform.safeStatusToolStripMenuItem.Text = cefform.CertificateErrorTitle));
             cefform.Invoke(new Action(() => cefform.ınfoToolStripMenuItem.Text = cefform.CertificateError));
             string certError = "CefErrorCode: "
@@ -61,7 +57,7 @@ namespace Korot
                 + "Url: "
                 + requestUrl
                 + Environment.NewLine
-                + "SSLInfo: " 
+                + "SSLInfo: "
                 + Environment.NewLine
                 + "CertStatus: "
                 + sslInfo.CertStatus
@@ -72,7 +68,7 @@ namespace Korot
             cefform.Invoke(new Action(() => cefform.certError = true));
             cefform.Invoke(new Action(() => cefform.showCertificateErrorsToolStripMenuItem.Visible = true));
             cefform.Invoke(new Action(() => cefform.pictureBox2.Image = Properties.Resources.lockr));
-            if (cefform.CertAllowedUrls.Contains(requestUrl)) 
+            if (cefform.CertAllowedUrls.Contains(requestUrl))
             {
                 callback.Continue(true);
                 return true;
@@ -92,10 +88,11 @@ namespace Korot
             {
                 anaform.Invoke(new Action(() => anaform.CreateTab(targetUrl)));
                 return true;
-            } else { return false; }
+            }
+            else { return false; }
         }
 
-        public void OnPluginCrashed(IWebBrowser chromiumWebBrowser, IBrowser browser, string pluginPath){}
+        public void OnPluginCrashed(IWebBrowser chromiumWebBrowser, IBrowser browser, string pluginPath) { }
         public bool OnQuotaRequest(IWebBrowser chromiumWebBrowser, IBrowser browser, string originUrl, long newSize, IRequestCallback callback)
         {
             callback.Dispose();
@@ -107,7 +104,7 @@ namespace Korot
             chromiumWebBrowser.Load("korot://error/?=RENDER_PROCESS_TERMINATED");
         }
 
-        public void OnRenderViewReady(IWebBrowser chromiumWebBrowser, IBrowser browser){}
+        public void OnRenderViewReady(IWebBrowser chromiumWebBrowser, IBrowser browser) { }
 
         public bool OnSelectClientCertificate(IWebBrowser chromiumWebBrowser, IBrowser browser, bool isProxy, string host, int port, X509Certificate2Collection certificates, ISelectClientCertificateCallback callback)
         {

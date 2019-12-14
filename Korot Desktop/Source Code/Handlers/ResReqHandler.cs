@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CefSharp;
+using System;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using CefSharp;
 
 namespace Korot
 {
@@ -12,14 +9,14 @@ namespace Korot
     {
         frmMain anaform;
         frmCEF Cefform;
-        public ResReqHandler(frmMain _anaform,frmCEF _Cefform)
+        public ResReqHandler(frmMain _anaform, frmCEF _Cefform)
         {
             anaform = _anaform;
             Cefform = _Cefform;
         }
         public ICookieAccessFilter GetCookieAccessFilter(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)
         {
-            return new CookieAccessFilter(anaform,Cefform);
+            return new CookieAccessFilter(anaform, Cefform);
         }
 
         public IResourceHandler GetResourceHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)
@@ -119,14 +116,14 @@ namespace Korot
         {
             return request.Url.StartsWith("mailto");
         }
-        
+
         private MemoryStream memoryStream;
         public void OnResourceLoadComplete(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
         {
             var url = new Uri(request.Url);
             if (url.Scheme == "korot" && memoryStream != null)
             {
-//TODO: Do something with the data here
+                //TODO: Do something with the data here
                 var data = memoryStream.ToArray();
                 var dataLength = data.Length;
                 //NOTE: You may need to use a different encoding depending on the request

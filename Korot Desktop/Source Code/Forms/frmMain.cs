@@ -1,16 +1,11 @@
-﻿using System;
+﻿using HaltroyTabs;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Management;
-using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using HaltroyTabs;
 
 namespace Korot
 {
@@ -35,15 +30,15 @@ namespace Korot
         {
 
             AeroPeekEnabled = true;
-            tabRenderer = new KorotTabRenderer(this, Color.Black, Color.White, Color.DodgerBlue);
+            tabRenderer = new KorotTabRenderer(this, Color.Black, Color.White, Color.DodgerBlue,null,false);
             TabRenderer = tabRenderer;
             Icon = Properties.Resources.KorotIcon;
-            list = new MyJumplist(this.Handle,this);
+            list = new MyJumplist(this.Handle, this);
             InitializeComponent();
             this.MinimumSize = new System.Drawing.Size(660, 340);
             this.Size = new Size(Properties.Settings.Default.WindowSizeW, Properties.Settings.Default.WindowSizeH);
             this.Location = new Point(Properties.Settings.Default.WindowPosX, Properties.Settings.Default.WindowPosY);
-            this.Font = new Font("Ubuntu",this.Font.Size);
+            this.Font = new Font("Ubuntu", this.Font.Size);
         }
         private static int Brightness(Color c)
         {
@@ -189,7 +184,7 @@ namespace Korot
         }
         public void NewProfile()
         {
-            HaltroyFramework.HaltroyInputBox newprof = new HaltroyFramework.HaltroyInputBox("Korot",newProfileInfo + Environment.NewLine + "/ \\ : ? * |", this.Icon, "", Properties.Settings.Default.BackColor, Properties.Settings.Default.OverlayColor, OK,Cancel, 400, 150);
+            HaltroyFramework.HaltroyInputBox newprof = new HaltroyFramework.HaltroyInputBox("Korot", newProfileInfo + Environment.NewLine + "/ \\ : ? * |", this.Icon, "", Properties.Settings.Default.BackColor, Properties.Settings.Default.OverlayColor, OK, Cancel, 400, 150);
             DialogResult diagres = newprof.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -230,23 +225,23 @@ namespace Korot
         }
         public string restoremedaddy = "";
         string profilePath;
-       public List<frmCEF> CefFormList = new List<frmCEF>();
         private void frmMain_Load(object sender, EventArgs e)
         {
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
             if (DateTime.Now.ToString("MM") == "03" & DateTime.Now.ToString("dd") == "11")
             {
                 Output.WriteLine("Happy " + (DateTime.Now.Year - 2001) + "th Birthday Dad!");
-                List<string> HaltroyNameHistory = new List<string>() {"efojaeren","Eren Kanat","ErenKanat02","ErenKanat03","Lapisman","LapisGamingTR","NirvanaWolfTR","TheLordEren","SnowWolfTR","Pell Game","Pell Artz","TheEfoja","Mr Pell","Pellguy","LordPell","Pellaraptor","Pellraptor","Pellerma","PLLTR","SpringTR","KurtSys32","KANAT","Spiklyman (vs Mendebur Lemur)","Wingaxy","Haltroy"};
+                List<string> HaltroyNameHistory = new List<string>() { "efojaeren", "Eren Kanat", "ErenKanat02", "ErenKanat03", "Lapisman", "LapisGamingTR", "NirvanaWolfTR", "TheLordEren", "SnowWolfTR", "Pell Game", "Pell Artz", "TheEfoja", "Mr Pell", "Pellguy", "LordPell", "Pellaraptor", "Pellraptor", "Pellerma", "PLLTR", "SpringTR", "KurtSys32", "KANAT", "Spiklyman (vs Mendebur Lemur)", "Wingaxy", "Haltroy" };
                 Output.WriteLine("Here's a quick history about you:");
                 foreach (string x in HaltroyNameHistory)
                 {
                     Output.WriteLine(x);
                 }
                 Output.WriteLine("That's a lot of usernames but each of them is still terrible since day 0.");
-            } else if (DateTime.Now.ToString("MM") == "06" & DateTime.Now.ToString("dd") == "09")
+            }
+            else if (DateTime.Now.ToString("MM") == "06" & DateTime.Now.ToString("dd") == "09")
             {
-                List<string> KorotNameHistory = new List<string>(){"StoneHomepage (not browser) (First code written by Haltroy)","StoneBrowser (Trident) (First ever program written by Haltroy)", "ZStone (Trident)", "Pell Browser (Trident)", "Kolme Browser (Trident)", "Ninova (Gecko)", "Webtroy (Gecko,CEF)", "Korot (CEF)","Korot (Boron)"};
+                List<string> KorotNameHistory = new List<string>() { "StoneHomepage (not browser) (First code written by Haltroy)", "StoneBrowser (Trident) (First ever program written by Haltroy)", "ZStone (Trident)", "Pell Browser (Trident)", "Kolme Browser (Trident)", "Ninova (Gecko)", "Webtroy (Gecko,CEF)", "Korot (CEF)", "Korot (Boron)" };
                 Output.WriteLine("I'm " + (DateTime.Now.Year - 2017) + " years old now!");
                 Output.WriteLine("Here's a quick history about me:");
                 foreach (string x in KorotNameHistory)
@@ -254,9 +249,10 @@ namespace Korot
                     Output.WriteLine(x);
                 }
                 Output.WriteLine("I'm too far now isn't it?");
-            } else if (DateTime.Now.ToString("MM") == "01" & DateTime.Now.ToString("dd") == "21")
+            }
+            else if (DateTime.Now.ToString("MM") == "01" & DateTime.Now.ToString("dd") == "21")
             {
-                List<string> PTNameHistory = new List<string>(){"Pell Media Player (WMP)","ZStone (WMP)","Kolme Player (WMP)","MyPlay (WMP)","Playtroy"};
+                List<string> PTNameHistory = new List<string>() { "Pell Media Player (WMP)", "ZStone (WMP)", "Kolme Player (WMP)", "MyPlay (WMP)", "Playtroy" };
                 Output.WriteLine("My sister's " + (DateTime.Now.Year - 2017) + " years old now!");
                 Output.WriteLine("Here's a quick history about my sister:");
                 foreach (string x in PTNameHistory)
@@ -328,12 +324,11 @@ namespace Korot
                 PrintImages();
             }
             catch { }
-            CreateTab(Korot.Properties.Settings.Default.Homepage);
 
-            
+
             this.Location = new Point(Korot.Properties.Settings.Default.WindowPosX, Korot.Properties.Settings.Default.WindowPosY);
             this.Size = new Size(Korot.Properties.Settings.Default.WindowSizeW, Korot.Properties.Settings.Default.WindowSizeH);
-            
+
             if (Properties.Settings.Default.LangFile == null) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
 
             if (Properties.Settings.Default.LastSessionURIs == "")
@@ -369,26 +364,20 @@ namespace Korot
         public void WriteCurrentSession()
         {
             string CurrentSessionURIs = null;
-            foreach (frmCEF tabform in CefFormList)
+            foreach (TitleBarTab x in this.Tabs)
             {
-                CurrentSessionURIs += ((frmCEF)tabform).chromiumWebBrowser1.Address + ";";
+                CurrentSessionURIs += ((frmCEF)x.Content).chromiumWebBrowser1.Address + ";";
             }
             WriteSessions(CurrentSessionURIs);
         }
-        public void RemoveMefromList(frmCEF myself)
-        {
-            if (CefFormList.Contains(myself))
-            {
-                CefFormList.Remove(myself);
-            }
-        }
-        public TitleBarTab CreateTab(string url = "korot://newtab")
+        public void CreateTab(string url = "korot://newtab")
         {
             if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
-            return new TitleBarTab(this)
+            TitleBarTab newTab = new TitleBarTab(this)
             {
                 Content = new frmCEF(this, isIncognito, url, Properties.Settings.Default.LastUser)
             };
+            this.Tabs.Add(newTab);
         }
         public override TitleBarTab CreateTab()
         {
@@ -419,33 +408,33 @@ namespace Korot
             if (e.CloseReason != CloseReason.None || e.CloseReason != CloseReason.WindowsShutDown || e.CloseReason != CloseReason.TaskManagerClosing)
             {
                 Korot.Properties.Settings.Default.LastSessionURIs = "";
-            }else
+            }
+            else
             {
                 Korot.Properties.Settings.Default.LastSessionURIs = "";
-                foreach (frmCEF x in CefFormList)
+                foreach (TitleBarTab x in this.Tabs)
                 {
-                    Korot.Properties.Settings.Default.LastSessionURIs += x.chromiumWebBrowser1.Address;
+                    Korot.Properties.Settings.Default.LastSessionURIs += ((frmCEF)x.Content).chromiumWebBrowser1.Address + ";";
                 }
             }
             Korot.Properties.Settings.Default.Save();
-            if (Directory.Exists(Application.StartupPath + "\\Profiles\\user0\\")) { } else { Directory.CreateDirectory(Application.StartupPath + "\\Profiles\\user0\\"); }
-            SaveSettings(Application.StartupPath + "\\Profiles\\user0\\settings.ksf", Application.StartupPath + "\\Profiles\\user0\\history.ksf", Application.StartupPath + "\\Profiles\\user0\\favorites.ksf", Application.StartupPath + "\\Profiles\\user0\\download.ksf");
-            
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser +  "\\")) { } else { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
+            SaveSettings(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\settings.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\history.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\favorites.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\download.ksf");
+
         }
 
         private void SessionLogger_Tick(object sender, EventArgs e)
         {
             WriteCurrentSession();
         }
-     
+
         private void frmMain_Resize(object sender, EventArgs e)
         {
-            foreach (frmCEF cefform in CefFormList)
+            foreach (TitleBarTab x in this.Tabs)
             {
-                cefform.Invoke(new Action(() => cefform.FrmCEF_SizeChanged(null, null)));
+                ((frmCEF)x.Content).Invoke(new Action(() => ((frmCEF)x.Content).FrmCEF_SizeChanged(null, null)));             
             }
+                
         }
     }
-
-
 }

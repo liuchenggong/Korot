@@ -13,10 +13,8 @@ using System.Management;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Serialization;
+
 
 namespace Korot
 {
@@ -58,20 +56,12 @@ namespace Korot
                 Output.WriteLine("[INFO] Listening on proxy : " + defaultproxyaddress);
                 SetProxy(chromiumWebBrowser1, defaultproxyaddress);
             }
-            if (!rmmain.CefFormList.Contains(this)) { rmmain.Invoke(new Action(() => rmmain.CefFormList.Add(this))); }
             InitializeComponent();
             InitializeChromium();
-            this.Font = new Font("Ubuntu", this.Font.Size);
             foreach (Control x in this.Controls)
             {
-                try
-                {
-                    x.Font = new Font("Ubuntu", x.Font.Size);
-                }catch 
-                {
-                }
+                try { x.KeyDown += tabform_KeyDown; } catch { }
             }
-        
         }
         void RefreshHistory()
         {
@@ -95,11 +85,13 @@ namespace Korot
             {
                 HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ThemesTitle, listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, this.Icon, MessageBoxButtons.YesNoCancel, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
                 if (mesaj.ShowDialog() == DialogResult.Yes)
-                {try
+                {
+                    try
                     {
                         LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\" + listBox2.SelectedItem.ToString());
                         comboBox1.Text = listBox2.SelectedItem.ToString().Replace(".ktf", "");
-                    }catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         Output.WriteLine(ex.Message);
                     }
@@ -222,13 +214,15 @@ namespace Korot
                          string uch,
                          string ucb,
                          string ucg,
-                         string ucd)
+                         string ucd,
+                         string uca)
         {
+            UCAlpha = uca.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
             label22.Text = uch.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
             UCBeta = ucb.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
             UCGama = ucg.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
             UCDelta = ucd.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-            label21.Text = aboutkorot.Replace(Environment.NewLine, "").Replace("[NEWLINE]",Environment.NewLine);
+            label21.Text = aboutkorot.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
             linkLabel1.Text = licenses.Replace(Environment.NewLine, "");
             linkLabel1.LinkArea = new LinkArea(0, linkLabel1.Text.Length);
             linkLabel1.Location = new Point(label21.Location.X, label21.Location.Y + label21.Size.Height);
@@ -391,7 +385,8 @@ namespace Korot
                         LoadLangFromFile(Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang");
                         Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
                         Properties.Settings.Default.Save();
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         Output.WriteLine(ex.Message);
                     }
@@ -541,7 +536,8 @@ namespace Korot
                     languagedummy.Items[111].ToString().Substring(1),
                     languagedummy.Items[112].ToString().Substring(1),
                     languagedummy.Items[113].ToString().Substring(1),
-                    languagedummy.Items[114].ToString().Substring(1));
+                    languagedummy.Items[114].ToString().Substring(1),
+                    languagedummy.Items[115].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -1012,9 +1008,10 @@ namespace Korot
         public string CertErrorPageMessage = "This website is using a certificate that has errors. Which means your information (credit cards,passwords,messages...) can be stolen by unknown people in this website.";
         public string CertErrorPageButton = "I understand these risks.";
         //UpdateType
-        public string UCBeta = "Beta: Receives every update. These updates may sometimes be small bugfixes. Good for bug-haunting. (0.0.0.0 -> 0.0.0.1)";
+        public string UCBeta = "Beta: Receives almost every update. Only receives updates with min. 0.0.1 change in version. Good for safely bug-haunting. (0.0.0.0 -> 0.0.1.0)";
         public string UCGama = "Gama: Receives less updates than Beta. Only receives updates with min. 0.1 change in version. Good for people still wanting to get more features without taking a big risk. (0.0.0.0 -> 0.1.0.0)";
         public string UCDelta = "Delta: Receives less updates than Gama. Only receives updates with min. 1.0 change in version. Good for people that doesn't wants to take risks and don't understand computer. (0.0.0.0 -> 1.0.0.0)";
+        public string UCAlpha = "Alpha: Receives every update. These updates may sometimes be small bugfixes. Good for bug-haunting. (0.0.0.0 -> 0.0.0.1)";
         #endregion
         public void refreshThemeList()
         {
@@ -1068,16 +1065,54 @@ namespace Korot
             }
             else
             {
-                if (Properties.Settings.Default.UpdateChannel == 0) { UpdateResultBeta(e.Result); }
-                if (Properties.Settings.Default.UpdateChannel == 1) { UpdateResultGama(e.Result); }
-                if (Properties.Settings.Default.UpdateChannel == 2) { UpdateResultDelta(e.Result); }
+                if (Properties.Settings.Default.UpdateChannel == 0) { UpdateResultAlpha(e.Result); }
+                if (Properties.Settings.Default.UpdateChannel == 1) { UpdateResultBeta(e.Result); }
+                if (Properties.Settings.Default.UpdateChannel == 2) { UpdateResultGama(e.Result); }
+                if (Properties.Settings.Default.UpdateChannel == 3) { UpdateResultDelta(e.Result); }
+            }
+        }
+        void UpdateResultAlpha(String latestversion)
+        {
+            Version newest = new Version(latestversion);
+            Version current = new Version(Application.ProductVersion);
+            if (newest > current)
+            {
+                if (alreadyCheckedForUpdatesOnce)
+                {
+                    updateProgress = 2;
+                    lbUpdateStatus.Text = updateavailable;
+                    btUpdater.Visible = true;
+                    btInstall.Visible = true;
+                }
+                else
+                {
+                    alreadyCheckedForUpdatesOnce = true;
+                    updateProgress = 2;
+                    lbUpdateStatus.Text = updateavailable;
+                    btInstall.Visible = true;
+                    btUpdater.Visible = true;
+                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(updateTitle, updateMessage, this.Icon, MessageBoxButtons.YesNo, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
+                    DialogResult diagres = mesaj.ShowDialog();
+                    if (diagres == DialogResult.Yes)
+                    {
+                        Form1 frmUpdate = new Form1(this);
+                        frmUpdate.Show();
+                    }
+                }
+            }
+            else
+            {
+                btUpdater.Visible = true;
+                btInstall.Visible = false;
+                updateProgress = 1;
+                lbUpdateStatus.Text = uptodate;
             }
         }
         void UpdateResultBeta(String latestversion)
         {
             Version newest = new Version(latestversion);
             Version current = new Version(Application.ProductVersion);
-            if (newest > current)
+            if (newest.Minor > current.Minor || newest.Major > current.Major || newest.Build > current.Build)
             {
                 if (alreadyCheckedForUpdatesOnce)
                 {
@@ -1306,7 +1341,7 @@ namespace Korot
                         string[] SplittedFase = Playlist.Split(token);
                         if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "") == "1")
                         {
-                            chromiumWebBrowser1.EvaluateScriptAsync(File.ReadAllText(SplittedFase[7].Substring(1).Replace(Environment.NewLine, "".Replace("[EXTFOLDER]", new FileInfo(x).Directory + "\\"))));
+                            chromiumWebBrowser1.EvaluateScriptAsync(File.ReadAllText(SplittedFase[7].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(x).Directory + "\\")));
                         }
                     }
                     catch (Exception ex)
@@ -1374,9 +1409,9 @@ namespace Korot
             isLoading = e.IsLoading;
         }
 
-        public void NewTab(string url) 
+        public void NewTab(string url)
         {
-            ((frmMain)ParentTabs).CreateTab(url);
+            anaform.Invoke(new Action(() => anaform.CreateTab(url)));
         }
         public void RefreshFavorites()
         {
@@ -1406,7 +1441,6 @@ namespace Korot
             {
                 comboBox1.Text = "";
             }
-            label6.Text = "Beta " + Application.ProductVersion;
             textBox2.Text = Properties.Settings.Default.Homepage;
             textBox3.Text = Properties.Settings.Default.SearchURL;
             if (Properties.Settings.Default.Homepage == "korot://newtab") { radioButton1.Enabled = true; }
@@ -1418,55 +1452,7 @@ namespace Korot
             ChangeTheme();
             RefreshDownloadList();
             if (_Incognito) { } else { pictureBox1.Visible = false; tbAddress.Size = new Size(tbAddress.Size.Width + pictureBox1.Size.Width, tbAddress.Size.Height); }
-            Version korotVersion = new Version(Application.ProductVersion);
-            if (korotVersion.Major == 0)
-            {
-                if (korotVersion.Revision == 0) 
-                {
-                if (korotVersion.Build == 0)
-                    {
-                        if (korotVersion.Minor == 0)
-                        {
-                            label18.Text = "Illegal Copy";
-                        }else
-                        {
-                            label18.Text = "Beta " + korotVersion.Minor;
-                        }
-                    }
-                    else
-                    {
-                        label18.Text = "Beta " + korotVersion.Minor + "." + korotVersion.Build;
-                    }
-                } 
-                else 
-                {
-                    label18.Text = "Beta " + korotVersion.Minor + "." + korotVersion.Build + "." + korotVersion.Revision; 
-                }
-            }else
-            {
-                if (korotVersion.Revision == 0)
-                {
-                    if (korotVersion.Build == 0)
-                    {
-                        if (korotVersion.Minor == 0)
-                        {
-                            label18.Text = "" + korotVersion.Major;
-                        }
-                        else
-                        {
-                            label18.Text = korotVersion.Major + "." + korotVersion.Minor;
-                        }
-                    }
-                    else
-                    {
-                        label18.Text = korotVersion.Major + "." + korotVersion.Minor + "." + korotVersion.Build;
-                    }
-                }
-                else
-                {
-                    label18.Text = korotVersion.Major + "." + korotVersion.Minor + "." + korotVersion.Build + "." + korotVersion.Revision;
-                }
-            }
+            label18.Text = Application.ProductVersion.ToString();
             label17.Visible = Environment.Is64BitProcess;
             RefreshFavorites();
             LoadProxies();
@@ -1477,7 +1463,6 @@ namespace Korot
             label6.Text = CaseSensitive;
             showCertificateErrorsToolStripMenuItem.Text = showCertError;
             chromiumWebBrowser1.Select();
-            //if (Properties.Settings.Default.UpdateChannel == 0) //beta{comboBox2.Text = "Beta";}else if (Properties.Settings.Default.UpdateChannel == 1) //gama{comboBox2.Text = "Gama";}else if (Properties.Settings.Default.UpdateChannel == 2) //delta{comboBox2.Text = "Delta";}
             comboBox2.SelectedIndex = Properties.Settings.Default.UpdateChannel;
             updateUCI();
         }
@@ -1501,13 +1486,13 @@ namespace Korot
 
 
 
-        private void button1_Click(object sender, EventArgs e) 
+        private void button1_Click(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tabPage1) //CEF
             {
                 chromiumWebBrowser1.Back();
             }
-            else if(tabControl1.SelectedTab == tabPage2) //Certificate Error Menu
+            else if (tabControl1.SelectedTab == tabPage2) //Certificate Error Menu
             {
                 chromiumWebBrowser1.Back();
                 allowSwitching = true;
@@ -1521,7 +1506,7 @@ namespace Korot
 
         }
 
-        private void button3_Click(object sender, EventArgs e) { allowSwitching = true;tabControl1.SelectedTab = tabPage1; chromiumWebBrowser1.Forward(); }
+        private void button3_Click(object sender, EventArgs e) { allowSwitching = true; tabControl1.SelectedTab = tabPage1; chromiumWebBrowser1.Forward(); }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -1585,15 +1570,7 @@ namespace Korot
             this.Parent.Invoke(new Action(() => this.Parent.Text = this.Text));
         }
 
-        private void button5_Click(object sender, EventArgs e) {allowSwitching = true;tabControl1.SelectedTab = tabPage1; chromiumWebBrowser1.Load(Properties.Settings.Default.Homepage); }
-
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                button4_Click(null, null);
-            }
-        }
+        private void button5_Click(object sender, EventArgs e) { allowSwitching = true; tabControl1.SelectedTab = tabPage1; chromiumWebBrowser1.Load(Properties.Settings.Default.Homepage); }
 
         private void tabform_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1619,9 +1596,22 @@ namespace Korot
             }
             else if (e.KeyCode == Keys.F && e.Control)
             {
-                panel3.Visible = !panel3.Visible;
-                findTextBox.Text = "";
-                chromiumWebBrowser1.StopFinding(true);
+                if (tabControl1.SelectedTab == tabPage1)
+                {
+                    panel3.Visible = !panel3.Visible;
+                    findTextBox.Text = "";
+                    chromiumWebBrowser1.StopFinding(true);
+                }
+                else
+                {
+                    panel3.Visible = false;
+                    findTextBox.Text = "";
+                    chromiumWebBrowser1.StopFinding(true);
+                }
+            }
+            else if (e.KeyData == Keys.Enter)
+            {
+                button4_Click(null, null);
             }
         }
         private static int GerekiyorsaAzalt(int defaultint, int azaltma) => defaultint > azaltma ? defaultint - 20 : defaultint;
@@ -1722,16 +1712,9 @@ namespace Korot
             {
                 ChangeTheme();
                 this.Parent.Text = this.Text;
-            }catch { } //ignored
-            try
-            {
-                if (!this.Parent.Controls.Contains(this))
-                {
-                    this.Invoke(new Action(() => anaform.RemoveMefromList(this)));
-                    this.Close();
-                }
             }
-            catch { this.Invoke(new Action(() => anaform.RemoveMefromList(this))); this.Close(); }
+            catch { } //ignored
+            
             RefreshTranslation();
             if (anaform.restoremedaddy == "") { restoreLastSessionToolStripMenuItem.Visible = false; } else { restoreLastSessionToolStripMenuItem.Visible = true; }
         }
@@ -1773,8 +1756,8 @@ namespace Korot
         }
         public void RefreshTranslation()
         {
-            if (emptyItem != null) {emptyItem.Text = this.empty; }
-            
+            if (emptyItem != null) { emptyItem.Text = this.empty; }
+
             if (noProxy) { }
             else
             {
@@ -1788,12 +1771,13 @@ namespace Korot
             {
                 safeStatusToolStripMenuItem.Text = this.CertificateErrorTitle;
                 ınfoToolStripMenuItem.Text = this.CertificateError;
-            }else
+            }
+            else
             {
                 safeStatusToolStripMenuItem.Text = this.CertificateOKTitle;
                 ınfoToolStripMenuItem.Text = this.CertificateOK;
             }
-            if (cookieUsage) { cookieInfoToolStripMenuItem.Text = this.usesCookies; }else { cookieInfoToolStripMenuItem.Text = this.notUsesCookies; }
+            if (cookieUsage) { cookieInfoToolStripMenuItem.Text = this.usesCookies; } else { cookieInfoToolStripMenuItem.Text = this.notUsesCookies; }
             label7.Text = this.CertErrorPageTitle;
             label8.Text = this.CertErrorPageMessage;
             button10.Text = this.CertErrorPageButton;
@@ -1819,17 +1803,21 @@ namespace Korot
             string Playlist = ReadFile.ReadToEnd();
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
-            if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "") == "1")
+            if (SplittedFase[8].Substring(1).Replace(Environment.NewLine, "") == "1")
             {
                 try
                 {
-                    chromiumWebBrowser1.EvaluateScriptAsync(File.ReadAllText(SplittedFase[7].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\")));
-                }catch { }
+                    chromiumWebBrowser1.EvaluateScriptAsync(File.ReadAllText(SplittedFase[9].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\")));
+                }
+                catch { }
             }
             bool allowWebContent = false;
             if (SplittedFase[6].Substring(1).Replace(Environment.NewLine, "") == "1") { allowWebContent = true; }
-            frmExt formext = new frmExt(this, anaform, userName,fileLocation,SplittedFase[8].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"),  allowWebContent);
-            formext.Show();
+            if (SplittedFase[7].Substring(1).Replace(Environment.NewLine, "") == "1")
+            {
+                frmExt formext = new frmExt(this, anaform, userName, fileLocation, SplittedFase[10].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"), allowWebContent);
+                formext.Show();
+            }
         }
         public void LoadExt()
         {
@@ -1910,7 +1898,7 @@ namespace Korot
         }
         private void Button8_Click(object sender, EventArgs e) { LoadExt(); contextMenuStrip1.Show(MousePosition); }
 
-        private void TmrSlower_Tick(object sender, EventArgs e) => RefreshFavorites(); 
+        private void TmrSlower_Tick(object sender, EventArgs e) => RefreshFavorites();
 
 
         public void FrmCEF_SizeChanged(object sender, EventArgs e) => pbProgress.Width = (this.Width / 100) * websiteprogress;
@@ -1941,7 +1929,7 @@ namespace Korot
             catch { }
             chromiumWebBrowser1.Reload();
         }
-        public string GetElementValueByID(ChromiumWebBrowser browser,string elementID)
+        public string GetElementValueByID(ChromiumWebBrowser browser, string elementID)
         {
             bool isError = false;
             string result = null;
@@ -1967,7 +1955,8 @@ namespace Korot
                     throw new NullReferenceException("[ERROR] [KOROT:frmCEF] GetElementValueByID :\" browser: " + browser.Name.ToString() + " elementID: " + elementID + "\"");
                 }
                 else { return result; }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1983,13 +1972,13 @@ namespace Korot
         {
             if (showCertificateErrorsToolStripMenuItem.Tag != null)
             {
-                TextBox txtCertificate = new TextBox() { ScrollBars = ScrollBars.Both,Multiline = true, Dock = DockStyle.Fill, Text = showCertificateErrorsToolStripMenuItem.Tag.ToString() };
-                Form frmCertificate = new Form() { Icon = this.Icon,Text = this.CertificateErrorMenuTitle,FormBorderStyle = FormBorderStyle.SizableToolWindow};
+                TextBox txtCertificate = new TextBox() { ScrollBars = ScrollBars.Both, Multiline = true, Dock = DockStyle.Fill, Text = showCertificateErrorsToolStripMenuItem.Tag.ToString() };
+                Form frmCertificate = new Form() { Icon = this.Icon, Text = this.CertificateErrorMenuTitle, FormBorderStyle = FormBorderStyle.SizableToolWindow };
                 frmCertificate.Controls.Add(txtCertificate);
                 frmCertificate.ShowDialog();
             }
         }
-       public List<string> CertAllowedUrls = new List<string>();
+        public List<string> CertAllowedUrls = new List<string>();
         private void button10_Click(object sender, EventArgs e)
         {
             CertAllowedUrls.Add(button10.Tag.ToString());
@@ -2018,8 +2007,8 @@ namespace Korot
         bool onCEFTab = true;
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (allowSwitching == false) { e.Cancel = true; } else { e.Cancel = false; allowSwitching = false; }
-        onCEFTab = (tabControl1.SelectedTab == tabPage1);
+            if (allowSwitching == false) { e.Cancel = true; } else { panel3.Visible = false; findTextBox.Text = ""; chromiumWebBrowser1.StopFinding(true); e.Cancel = false; allowSwitching = false; }
+            onCEFTab = (tabControl1.SelectedTab == tabPage1);
         }
 
         private void textBox4_Click(object sender, EventArgs e)
@@ -2040,15 +2029,19 @@ namespace Korot
         }
         void updateUCI()
         {
-            if (Properties.Settings.Default.UpdateChannel == 0) //beta
+            if (Properties.Settings.Default.UpdateChannel == 0) //alpha
+            {
+                label23.Text = UCAlpha;
+            }
+            else if (Properties.Settings.Default.UpdateChannel == 1) //Beta
             {
                 label23.Text = UCBeta;
             }
-            else if(Properties.Settings.Default.UpdateChannel == 1) //gama
+            else if (Properties.Settings.Default.UpdateChannel == 2) //gama
             {
                 label23.Text = UCGama;
             }
-            else if (Properties.Settings.Default.UpdateChannel == 2) //delta
+            else if (Properties.Settings.Default.UpdateChannel == 3) //delta
             {
                 label23.Text = UCDelta;
             }
@@ -2058,6 +2051,11 @@ namespace Korot
             //if (comboBox2.Text == "Beta"){Properties.Settings.Default.UpdateChannel = 0;}if (comboBox2.Text == "Gama"){Properties.Settings.Default.UpdateChannel = 1;}if (comboBox2.Text == "Delta"){Properties.Settings.Default.UpdateChannel = 2;}
             Properties.Settings.Default.UpdateChannel = comboBox2.SelectedIndex;
             updateUCI();
+        }
+
+        private void tbSetting_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using CefSharp;
+using System;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using CefSharp;
 
 namespace Korot
 {
@@ -12,7 +8,7 @@ namespace Korot
     {
         frmMain anaform;
         frmCEF CefForm;
-        public SchemeHandlerFactory(frmMain _anaForm,frmCEF _CefForm)
+        public SchemeHandlerFactory(frmMain _anaForm, frmCEF _CefForm)
         {
             anaform = _anaForm;
             CefForm = _CefForm;
@@ -30,16 +26,19 @@ namespace Korot
                 if (request.Url == "korot://newtab/")
                 {
                     return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BACKSTYLE§", Properties.Settings.Default.BackStyle).Replace("§SEARCHHELP§", CefForm.SearchHelpText).Replace("§SEARCH§", CefForm.Search).Replace("§DAYS§", CefForm.DayNames).Replace("§MONTHS§", CefForm.MonthNames).Replace("§TITLE§", CefForm.NewTabtitle));
-                }else if (request.Url.StartsWith("korot://search/?q="))
+                }
+                else if (request.Url.StartsWith("korot://search/?q="))
                 {
                     string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
                     if (ValidHttpURL(x))
                     {
-                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" +  x + "\" />");
-                    } else {
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + x + "\" />");
+                    }
+                    else
+                    {
                         return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + Properties.Settings.Default.SearchURL + x + "\" />");
                     }
-                    }
+                }
                 else if (request.Url == "korot://empty/")
                 {
                     return ResourceHandler.FromString("");
@@ -50,7 +49,7 @@ namespace Korot
                 }
                 else if (request.Url == "korot://settings/")
                 {
-                    if(frame.IsMain)
+                    if (frame.IsMain)
                     {
                         string x = "<head><title>Korot Settings</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" + Environment.NewLine +
                         "<a> Homepage: " + Properties.Settings.Default.Homepage + "</a>" + Environment.NewLine +
@@ -62,7 +61,8 @@ namespace Korot
                         "<a> Theme: " + Properties.Settings.Default.ThemeFile + "</a></body>";
                         return ResourceHandler.FromString(x);
 
-                    }else
+                    }
+                    else
                     {
                         return ResourceHandler.FromString("This feature is not allowed to show in this kind of frame. Please visit https://www.github.com/haltroy/korot/issues/20 for more information");
                     }
@@ -73,7 +73,7 @@ namespace Korot
                     {
                         string x = "<head><title>Korot Settings - History</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
                         "<a>" + Properties.Settings.Default.History + "</a></body>";
-                    return ResourceHandler.FromString(x);
+                        return ResourceHandler.FromString(x);
                     }
                     else
                     {
@@ -82,11 +82,11 @@ namespace Korot
                 }
                 else if (request.Url == "korot://settings/download/")
                 {
-                        if (frame.IsMain)
-                        {
-                            string x = "<head><title>Korot Settings - Download History</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
-                        "<a>" + Properties.Settings.Default.DowloadHistory + "</a></body>";
-                    return ResourceHandler.FromString(x);
+                    if (frame.IsMain)
+                    {
+                        string x = "<head><title>Korot Settings - Download History</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
+                    "<a>" + Properties.Settings.Default.DowloadHistory + "</a></body>";
+                        return ResourceHandler.FromString(x);
                     }
                     else
                     {
@@ -95,23 +95,24 @@ namespace Korot
                 }
                 else if (request.Url == "korot://settings/favorites/")
                 {
-                            if (frame.IsMain)
-                            {
-                                string x = "<head><title>Korot Settings - Favorites</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
-                        "<a>" + Properties.Settings.Default.Favorites + "</a></body>";
-                    return ResourceHandler.FromString(x);
+                    if (frame.IsMain)
+                    {
+                        string x = "<head><title>Korot Settings - Favorites</title></head><body><h1>" + Properties.Settings.Default.LastUser + "</h1>" +
+                "<a>" + Properties.Settings.Default.Favorites + "</a></body>";
+                        return ResourceHandler.FromString(x);
                     }
                     else
                     {
                         return ResourceHandler.FromString("This feature is not allowed to show in this kind of frame. Please visit https://www.github.com/haltroy/korot/issues/20 for more information");
                     }
                 }
-               
+
                 else if (request.Url.StartsWith("korot://error/?e="))
                 {
                     string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
-                    return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§TITLE§",CefForm.ErrorPageTitle).Replace("§KT§",CefForm.KT).Replace("§ET§", CefForm.ET).Replace("§E1§", CefForm.E1).Replace("§E2§", CefForm.E2).Replace("§E3§", CefForm.E3).Replace("§E4§", CefForm.E4).Replace("§RT§", CefForm.RT).Replace("§R1§", CefForm.R1).Replace("§R2§", CefForm.R2).Replace("§R3§", CefForm.R3).Replace("§R4§", CefForm.R4) + "<a>" + x + " </a></body>");
-                }else if (request.Url == "korot://pdp/")
+                    return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§TITLE§", CefForm.ErrorPageTitle).Replace("§KT§", CefForm.KT).Replace("§ET§", CefForm.ET).Replace("§E1§", CefForm.E1).Replace("§E2§", CefForm.E2).Replace("§E3§", CefForm.E3).Replace("§E4§", CefForm.E4).Replace("§RT§", CefForm.RT).Replace("§R1§", CefForm.R1).Replace("§R2§", CefForm.R2).Replace("§R3§", CefForm.R3).Replace("§R4§", CefForm.R4) + "<a>" + x + " </a></body>");
+                }
+                else if (request.Url == "korot://pdp/")
                 {
                     Output.WriteLine("yyyyyyyyyyyyyyyyyyssoo+++/////+++++oosyyyyyyyyyyyy");
                     Output.WriteLine("yyyyyyyyyyso+/:-.......................-:/oyyyyyyy");
@@ -168,16 +169,17 @@ namespace Korot
                     Output.WriteLine("MMMMMMMMMMMMMMMMMMMMMMmo+sNMMMMMMMMMMMMMMMMMMMMMMM");
                     Output.WriteLine("MMMMMMMMMMMMMMMMMMMMMMMmyNMMMMMMMMMMMMMMMMMMMMMMMM");
                     Output.WriteLine("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
-                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://haltroy.com \" />");
+                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = https://haltroy.com \" />");
                 }
                 else if (request.Url == "korot://me/")
                 {
-                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot.haltroy.com \" />");
+                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = https://haltroy.com/Korot.html \" />");
                 }
                 else if (request.Url == "korot://sister/")
                 {
-                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://playtroy.haltroy.com \" />");
-                }else if (request.Url == "korot://links/")
+                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = https://haltroy.com/playtroy.html \" />");
+                }
+                else if (request.Url == "korot://links/")
                 {
                     return ResourceHandler.FromString(Properties.Resources.korotlinks);
                 }
@@ -185,7 +187,7 @@ namespace Korot
                 {
                     return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?FILE_NOT_FOUND \" />");
                 }
-                
+
             }
             return new ResourceHandler();
         }

@@ -107,12 +107,13 @@ Bu website çerezleri kullanmıyor.
 Bu website güvenli değil.
 Bu websitesi hatalı bir sertifika kullanıyor. Bu da bazı bilgileriniz (kredi kartı,şifreler,mesajlar...) tanınmayan kişiler tarafından çalınabilir kılıyor.
 Bu riskleri anlıyorum.
-Korot, CefSharp kullanarak Google tarafından yapılan Chromium'u kullanıyor.[NEWLINE]Korot, Microsoft tarafından Visual Studio Community kullanılarak C# dilinde yazılmıştır.[NEWLINE]Korot, EasyTabs'in değiştirilmiş sürümünü kullanır.[NEWLINE]Korot, Ubuntu Yazı Tipini kullanır.[NEWLINE]Çeviri Haltroy tarafından yapılmıştır.
+Korot, CefSharp kullanarak Google tarafından yapılan Chromium'u kullanıyor.[NEWLINE]Korot, Microsoft tarafından Visual Studio Community kullanılarak C# dilinde yazılmıştır.[NEWLINE]Korot, EasyTabs'in değiştirilmiş sürümünü kullanır.[NEWLINE]Çeviri Haltroy tarafından yapılmıştır.
 Lisanslar...
 Güncelleme Kanalı:
-Beta: Tüm güncellemeleri alır. Bu güncellemeler bazen küçük hata düzeltmeleri olabilir. Hata avcıları için ideal. (0.0.0.0 -> 0.0.0.1)
+Beta: Tüm güncellemeleri alır. Versionda sadece min. 0.0.1 değişiklikte güncellenir. Günveli bir şekilde hata avı için ideal. (0.0.0.0 -> 0.0.1.0)
 Gama: Beta'dan daha az güncelleme alır. Versionda sadece min. 0.1 değişiklikte güncellenir. Riske girmeden yeni özellikler elde etmek isteyenler için ideal. (0.0.0.0 -> 0.1.0.0)
 Delta: Gama'dan daha az güncelleme alır. Versionda sadece min. 1.0 değişiklikte güncellenir. Riske girmek istemeyenler ve bilgisayarlardan anlamayanlar için ideal. (0.0.0.0 -> 1.0.0.0)
+Alpha: Tüm güncellemeleri alır. Bu güncellemeler bazen küçük hata düzeltmeleri olabilir. Hata avcıları için ideal. (0.0.0.0 -> 0.0.0.1)
 Bu eklenti şu izinleri istiyor. Yüklemek istiyor musunuz?
 Bu eklenti bir izin istemiyor.
 Bu eklenti yüklenemez.
@@ -131,3 +132,4 @@ Web içeriğine erişim
 Bu eklenti, parolalar ve kredi kartı bilgileri gibi web site içeriklerine erişebilir.
 Çevrimiçi dosyalar
 Bu eklenti, yere olmayan web dosyalarını kullanıyor. Bu biraz veri tüketebilir.
+([REQ]) değeri sadece "1" veya "0" olabilir.[NEWLINE] dosya [FILE] satır [LINE]

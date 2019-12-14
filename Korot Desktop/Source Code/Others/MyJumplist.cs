@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Taskbar;
-using System.IO;
-using System.Reflection;
-using Microsoft.WindowsAPICodePack.Shell;
+using System;
 using System.Windows.Forms;
 
 namespace Korot
@@ -51,7 +46,8 @@ namespace Korot
                 list.AddUserTasks(jlNotepad);
                 list.AddUserTasks(jlCalculator);
                 list.Refresh();
-            }catch { } //Ignore
+            }
+            catch { } //Ignore
         }
     }
 }
