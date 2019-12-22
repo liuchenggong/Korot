@@ -24,7 +24,6 @@ namespace Korot
         public string OK = "OK";
         public string Cancel = "Cancel";
         public string newProfileInfo = "Please enter a name for the new profile.It should not contain: ";
-
         //END
         public frmMain()
         {
@@ -38,8 +37,8 @@ namespace Korot
             this.MinimumSize = new System.Drawing.Size(660, 340);
             this.Size = new Size(Properties.Settings.Default.WindowSizeW, Properties.Settings.Default.WindowSizeH);
             this.Location = new Point(Properties.Settings.Default.WindowPosX, Properties.Settings.Default.WindowPosY);
-            this.Font = new Font("Ubuntu", this.Font.Size);
         }
+      
         private static int Brightness(Color c)
         {
             return (int)Math.Sqrt(
@@ -70,6 +69,7 @@ namespace Korot
                 Properties.Settings.Default.downloadOpen = SplittedFase[2].Replace(Environment.NewLine, "") == "1";
                 Properties.Settings.Default.downloadClose = SplittedFase[3].Replace(Environment.NewLine, "") == "1";
                 Properties.Settings.Default.ThemeFile = SplittedFase[4].Replace(Environment.NewLine, "");
+                Properties.Settings.Default.DoNotTrack = SplittedFase[5].Replace(Environment.NewLine, "") == "1";
                 ReadFile.Close();
                 if (Properties.Settings.Default.ThemeFile == null || !File.Exists(Properties.Settings.Default.ThemeFile))
                 {
@@ -84,7 +84,8 @@ namespace Korot
                     newtheme.WriteLine("30");
                     newtheme.WriteLine("144");
                     newtheme.WriteLine("255");
-                    newtheme.WriteLine("background-color: rgb(255,255,255)");
+                    newtheme.WriteLine("BACKCOLOR");
+                    newtheme.WriteLine("0");
                     newtheme.Close();
                 }
                 if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf"))
@@ -96,7 +97,8 @@ namespace Korot
                     newtheme.WriteLine("30");
                     newtheme.WriteLine("144");
                     newtheme.WriteLine("255");
-                    newtheme.WriteLine("background-color: rgb(0,0,0)");
+                    newtheme.WriteLine("BACKCOLOR");
+                    newtheme.WriteLine("0");
                     newtheme.Close();
                 }
                 // History
@@ -132,6 +134,7 @@ namespace Korot
                 if (Properties.Settings.Default.downloadOpen) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
                 if (Properties.Settings.Default.downloadClose) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
                 objWriter.WriteLine(Properties.Settings.Default.ThemeFile);
+                if (Properties.Settings.Default.DoNotTrack) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
                 objWriter.Close();
                 // History
                 System.IO.StreamWriter objWriter1;
@@ -354,8 +357,11 @@ namespace Korot
         }
         public void WriteSessions(string Session)
         {
-            Properties.Settings.Default.LastSessionURIs = Session;
-            Properties.Settings.Default.Save();
+            try
+            {
+                Properties.Settings.Default.LastSessionURIs = Session;
+                Properties.Settings.Default.Save();
+            }catch { }
         }
         public void ReadLatestCurrentSession()
         {

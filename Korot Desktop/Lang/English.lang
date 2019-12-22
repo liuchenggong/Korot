@@ -133,3 +133,14 @@ This extension can see all the information about the page, including credit card
 Online Files
 This extension uses files from the Internet instead of using local files. This can eat some data.
 Requirement ([REQ]) can only get "1" or "0" values.[NEWLINE] at [FILE] line [LINE]
+Enable DoNotTrack:
+Some files are above the file size limits. Please go to https://github.com/Haltroy/Korot/issues/27 for more info.
+Please wait...
+Use backgound color
+Using background color
+Image from URL
+Image from local file
+Image Files
+All Files
+Select a background image...
+Background Image Layout:

@@ -279,7 +279,10 @@ namespace HaltroyTabs
 
             else
             {
-                _parentForm.Tooltip.Hide(_parentForm);
+                try
+                {
+                    _parentForm.Tooltip.Hide(_parentForm);
+                }catch { }
             }
         }
 

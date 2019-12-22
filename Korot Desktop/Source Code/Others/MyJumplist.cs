@@ -35,16 +35,11 @@ namespace Korot
                 userActionsCategory.AddJumpListItems();
                 list.AddCustomCategories(userActionsCategory);
 
-                string incmodepath = Application.ExecutablePath + " -incognito";
+                string incmodepath = "\"" + Application.ExecutablePath + "\"" + " -incognito";
                 JumpListLink jlNotepad = new JumpListLink(incmodepath, anaform.newincwindow);
                 jlNotepad.IconReference = new IconReference(Application.ExecutablePath, 0);
 
-                string newwindow = Application.ExecutablePath;
-                JumpListLink jlCalculator = new JumpListLink(newwindow, anaform.newwindow);
-                jlCalculator.IconReference = new IconReference(Application.ExecutablePath, 0);
-
                 list.AddUserTasks(jlNotepad);
-                list.AddUserTasks(jlCalculator);
                 list.Refresh();
             }
             catch { } //Ignore

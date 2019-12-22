@@ -51,12 +51,18 @@
       <Value Profile="(Default)">Korot Light.ktf</Value>
     </Setting>
     <Setting Name="BackStyle" Type="System.String" Scope="User">
-      <Value Profile="(Default)">background-color: #ffffff</Value>
+      <Value Profile="(Default)">BACKCOLOR</Value>
     </Setting>
     <Setting Name="LastSessionURIs" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="UpdateChannel" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="DoNotTrack" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="BStyleLayout" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>

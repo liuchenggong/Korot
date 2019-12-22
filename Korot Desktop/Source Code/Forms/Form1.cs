@@ -16,6 +16,7 @@ namespace Korot
         public Form1(frmCEF formSettings)
         {
             InitializeComponent();
+            this.TopMost = true;
             anaform = formSettings;
             label1.Text = formSettings.installStatus;
             label2.Text = formSettings.StatusType;

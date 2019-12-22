@@ -128,26 +128,50 @@ namespace HaltroyTabs
                 }
             return outputImage;
         }
-        public static Image RepaintImage(Image input, Image texture)
+        public static Image RepaintImage(Image input, Image texture, bool repeatable)
         {
-            Bitmap inputImage = new Bitmap(input);
-            Bitmap outputImage = new Bitmap(input.Width, input.Height);
-            Bitmap textureImage = new Bitmap(original: texture, newSize: input.Size);
-            for (Int32 y = 0; y < outputImage.Height; y++)
-                for (Int32 x = 0; x < outputImage.Width; x++)
-                {
-                    Color PixelColor = textureImage.GetPixel(x, y);
-                    Color PixelColor2 = inputImage.GetPixel(x, y);
-                    if (PixelColor2.A < PixelColor.A)
+            if (repeatable)
+            {
+                Bitmap inputImage = new Bitmap(input);
+                Bitmap outputImage = new Bitmap(input.Width, input.Height);
+                Bitmap textureImage = new Bitmap(texture);
+                for (Int32 y = 0; y < outputImage.Height; y++)
+                    for (Int32 x = 0; x < outputImage.Width; x++)
                     {
-                        outputImage.SetPixel(x, y, Color.FromArgb(PixelColor2.A, PixelColor.R, PixelColor.G, PixelColor.B));
+                        Color PixelColor = textureImage.GetPixel(x % textureImage.Width, y % textureImage.Height);
+                        Color PixelColor2 = inputImage.GetPixel(x, y);
+                        if (PixelColor2.A < PixelColor.A)
+                        {
+                            outputImage.SetPixel(x, y, Color.FromArgb(PixelColor2.A, PixelColor.R, PixelColor.G, PixelColor.B));
+                        }
+                        else
+                        {
+                            outputImage.SetPixel(x, y, Color.FromArgb(PixelColor.A, PixelColor.R, PixelColor.G, PixelColor.B));
+                        }
                     }
-                    else
+                return outputImage;
+            }
+            else
+            {
+                Bitmap inputImage = new Bitmap(input);
+                Bitmap outputImage = new Bitmap(input.Width, input.Height);
+                Bitmap textureImage = new Bitmap(original: texture, newSize: input.Size);
+                for (Int32 y = 0; y < outputImage.Height; y++)
+                    for (Int32 x = 0; x < outputImage.Width; x++)
                     {
-                        outputImage.SetPixel(x, y, Color.FromArgb(PixelColor.A, PixelColor.R, PixelColor.G, PixelColor.B));
+                        Color PixelColor = textureImage.GetPixel(x, y);
+                        Color PixelColor2 = inputImage.GetPixel(x, y);
+                        if (PixelColor2.A < PixelColor.A)
+                        {
+                            outputImage.SetPixel(x, y, Color.FromArgb(PixelColor2.A, PixelColor.R, PixelColor.G, PixelColor.B));
+                        }
+                        else
+                        {
+                            outputImage.SetPixel(x, y, Color.FromArgb(PixelColor.A, PixelColor.R, PixelColor.G, PixelColor.B));
+                        }
                     }
-                }
-            return outputImage;
+                return outputImage;
+            }
         }
         /// <summary>
         /// Gets the image to use for the right side of the tab.  For Korot, we pick a specific image for inactive tabs that aren't at

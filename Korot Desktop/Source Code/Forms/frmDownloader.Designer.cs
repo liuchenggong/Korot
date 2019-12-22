@@ -37,32 +37,33 @@
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.lbSpeed = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(12, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(505, 32);
+            this.label1.Size = new System.Drawing.Size(350, 28);
             this.label1.TabIndex = 0;
-            this.label1.Text = "From : \r\n";
+            this.label1.Text = "From : \r";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(13, 43);
+            this.label2.Location = new System.Drawing.Point(12, 53);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(505, 32);
+            this.label2.Size = new System.Drawing.Size(350, 28);
             this.label2.TabIndex = 0;
             this.label2.Text = "To : ";
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(16, 93);
+            this.panel1.Location = new System.Drawing.Point(15, 84);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(500, 10);
+            this.panel1.Size = new System.Drawing.Size(300, 10);
             this.panel1.TabIndex = 1;
             // 
             // pictureBox1
@@ -77,7 +78,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(16, 110);
+            this.checkBox1.Location = new System.Drawing.Point(15, 115);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(141, 17);
             this.checkBox1.TabIndex = 3;
@@ -89,7 +90,7 @@
             // 
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(466, 110);
+            this.button1.Location = new System.Drawing.Point(16, 157);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(50, 23);
             this.button1.TabIndex = 4;
@@ -101,7 +102,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(16, 133);
+            this.checkBox2.Location = new System.Drawing.Point(15, 138);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(144, 17);
             this.checkBox2.TabIndex = 3;
@@ -112,17 +113,27 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(485, 77);
+            this.label3.Location = new System.Drawing.Point(321, 81);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(21, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "%0";
             // 
+            // lbSpeed
+            // 
+            this.lbSpeed.AutoSize = true;
+            this.lbSpeed.Location = new System.Drawing.Point(12, 97);
+            this.lbSpeed.Name = "lbSpeed";
+            this.lbSpeed.Size = new System.Drawing.Size(35, 13);
+            this.lbSpeed.TabIndex = 5;
+            this.lbSpeed.Text = "label4";
+            // 
             // frmDownloader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 154);
+            this.ClientSize = new System.Drawing.Size(384, 211);
+            this.Controls.Add(this.lbSpeed);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
@@ -132,8 +143,8 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(546, 193);
-            this.MinimumSize = new System.Drawing.Size(546, 193);
+            this.MaximumSize = new System.Drawing.Size(400, 250);
+            this.MinimumSize = new System.Drawing.Size(400, 250);
             this.Name = "frmDownloader";
             this.Text = "Korot - Downloading...";
             this.Load += new System.EventHandler(this.frmDownloader_Load);
@@ -153,5 +164,6 @@
         public System.Windows.Forms.CheckBox checkBox1;
         public System.Windows.Forms.Button button1;
         public System.Windows.Forms.CheckBox checkBox2;
+        public System.Windows.Forms.Label lbSpeed;
     }
 }

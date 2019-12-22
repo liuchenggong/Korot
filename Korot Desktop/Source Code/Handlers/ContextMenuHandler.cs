@@ -112,7 +112,7 @@ namespace Korot
             }
             if (id == OpenLinkInNewTab)
             {
-                browserControl.EvaluateScriptAsync("window.open('" + parameters.LinkUrl + "')");
+                browserControl.GetMainFrame().ExecuteJavaScriptAsync("window.open('" + parameters.LinkUrl + "')");
                 // ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(parameters.LinkUrl)));
                 // ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(parameters.LinkUrl))); blank
                 // browserControl.ExecuteScriptAsync("window.open('" + parameters.LinkUrl + "')"); => CEFSHARP ONLY SUPPORT V8CONTEXT FOR NOW
@@ -124,7 +124,7 @@ namespace Korot
             }
             if (id == OpenImageInNewTab)
             {
-                browserControl.EvaluateScriptAsync("window.open('" + parameters.SourceUrl + "')");
+                browserControl.GetMainFrame().ExecuteJavaScriptAsync("window.open('" + parameters.SourceUrl + "')");
                 //ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(parameters.SourceUrl)));
                 //browserControl.ExecuteScriptAsync("window.open('" + parameters.SourceUrl + "')"); => CEFSHARP ONLY SUPPORT V8CONTEXT FOR NOW
             }
@@ -132,7 +132,7 @@ namespace Korot
             {
                 // ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(parameters.SelectionText)));
                 // browserControl.ExecuteScriptAsync("window.open('" + parameters.SelectionText + "')"); => CEFSHARP ONLY SUPPORT V8CONTEXT FOR NOW
-                browserControl.EvaluateScriptAsync("window.open('" + parameters.SelectionText + "')");
+                browserControl.GetMainFrame().ExecuteJavaScriptAsync("window.open('" + parameters.SelectionText + "')");
             }
 
             return false;

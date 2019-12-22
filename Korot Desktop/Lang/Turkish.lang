@@ -133,3 +133,14 @@ Bu eklenti, parolalar ve kredi kartı bilgileri gibi web site içeriklerine eri�
 Çevrimiçi dosyalar
 Bu eklenti, yere olmayan web dosyalarını kullanıyor. Bu biraz veri tüketebilir.
 ([REQ]) değeri sadece "1" veya "0" olabilir.[NEWLINE] dosya [FILE] satır [LINE]
+DoNotTrack'ı Etkinleştir:
+Bazı dosyalar, dosya limitlerini aşıyor. Lütfen detaylı bilgi için https://github.com/Haltroy/Korot/issues/27 adresine bakın.
+Lütfen bekleyiniz...
+Arkaplan rengini kullan
+Arkaplan rengi kullanılıyor
+Bir adresteki görüntüyü kullan
+Yerel bir görüntüyü kullan
+Resim Dosyası
+Tüm Dosyalar
+Arkaplan resmi seçin...
+Arkaplan Resmi Düzeni:

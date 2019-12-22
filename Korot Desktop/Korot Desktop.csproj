@@ -313,11 +313,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Examples\Extensions\Example\icon.PNG" />
-    <Content Include="Examples\Extensions\Example\popup.html">
+    <Content Include="Extension template\icon.PNG" />
+    <Content Include="Extension template\popup.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Examples\Extensions\Example\startup.js">
+    <Content Include="Extension template\startup.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\KorotIcon.ico" />
@@ -333,7 +333,6 @@
     <None Include="Resources\prxy-w.png" />
     <Content Include="Resources\errorpage.html" />
     <Content Include="Resources\korotlinks.html" />
-    <None Include="Resources\korotsettings.html" />
     <None Include="Resources\lockg.png" />
     <None Include="Resources\locko.png" />
     <None Include="Resources\lockr.png" />
@@ -353,7 +352,7 @@
     <None Include="Resources\star.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Examples\Extensions\Example\ext.kem">
+    <None Include="Extension template\ext.kem">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -364,6 +363,7 @@
       <Name>HaltroyTabs</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

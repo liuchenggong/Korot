@@ -1,0 +1,7 @@
+﻿Extension Name
+Extension version
+Extension author
+Extension icon file
+1111 -Allows all settings. In order: 1)autoLoad 2)onlineFiles 3)showPopupMenu 4)activateScript
+[EXTFOLDER]startup.js
+[EXTFOLDER]popup.html
