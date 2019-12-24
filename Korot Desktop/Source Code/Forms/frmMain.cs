@@ -29,7 +29,7 @@ namespace Korot
         {
 
             AeroPeekEnabled = true;
-            tabRenderer = new KorotTabRenderer(this, Color.Black, Color.White, Color.DodgerBlue,null,false);
+            tabRenderer = new KorotTabRenderer(this, Color.Black, Color.White, Color.DodgerBlue, null, false);
             TabRenderer = tabRenderer;
             Icon = Properties.Resources.KorotIcon;
             list = new MyJumplist(this.Handle, this);
@@ -38,7 +38,7 @@ namespace Korot
             this.Size = new Size(Properties.Settings.Default.WindowSizeW, Properties.Settings.Default.WindowSizeH);
             this.Location = new Point(Properties.Settings.Default.WindowPosX, Properties.Settings.Default.WindowPosY);
         }
-      
+
         private static int Brightness(Color c)
         {
             return (int)Math.Sqrt(
@@ -60,8 +60,7 @@ namespace Korot
             // Settings
             try
             {
-                StreamReader ReadFile = new StreamReader(settingFile, Encoding.UTF8, false);
-                string Playlist = ReadFile.ReadToEnd();
+                string Playlist = FileSystem2.ReadFile(settingFile, Encoding.UTF8);
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                 string[] SplittedFase = Playlist.Split(token);
                 Properties.Settings.Default.Homepage = SplittedFase[0].Replace(Environment.NewLine, "");
@@ -70,51 +69,42 @@ namespace Korot
                 Properties.Settings.Default.downloadClose = SplittedFase[3].Replace(Environment.NewLine, "") == "1";
                 Properties.Settings.Default.ThemeFile = SplittedFase[4].Replace(Environment.NewLine, "");
                 Properties.Settings.Default.DoNotTrack = SplittedFase[5].Replace(Environment.NewLine, "") == "1";
-                ReadFile.Close();
                 if (Properties.Settings.Default.ThemeFile == null || !File.Exists(Properties.Settings.Default.ThemeFile))
                 {
                     Properties.Settings.Default.ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf";
                 }
                 if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf"))
                 {
-                    StreamWriter newtheme = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf");
-                    newtheme.WriteLine("255");
-                    newtheme.WriteLine("255");
-                    newtheme.WriteLine("255");
-                    newtheme.WriteLine("30");
-                    newtheme.WriteLine("144");
-                    newtheme.WriteLine("255");
-                    newtheme.WriteLine("BACKCOLOR");
-                    newtheme.WriteLine("0");
-                    newtheme.Close();
+                    string newTheme = "255" + Environment.NewLine +
+                                    "255" + Environment.NewLine +
+                                    "255" + Environment.NewLine +
+                                    "30" + Environment.NewLine +
+                                    "144" + Environment.NewLine +
+                                    "255" + Environment.NewLine +
+                                    "BACKCOLOR" + Environment.NewLine +
+                                    "0";
+                    FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
+
                 }
                 if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf"))
                 {
-                    StreamWriter newtheme = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf");
-                    newtheme.WriteLine("0");
-                    newtheme.WriteLine("0");
-                    newtheme.WriteLine("0");
-                    newtheme.WriteLine("30");
-                    newtheme.WriteLine("144");
-                    newtheme.WriteLine("255");
-                    newtheme.WriteLine("BACKCOLOR");
-                    newtheme.WriteLine("0");
-                    newtheme.Close();
+                    string newTheme = "255" + Environment.NewLine +
+                                    "255" + Environment.NewLine +
+                                    "255" + Environment.NewLine +
+                                    "30" + Environment.NewLine +
+                                    "144" + Environment.NewLine +
+                                    "255" + Environment.NewLine +
+                                    "BACKCOLOR" + Environment.NewLine +
+                                    "0";
+                    FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
+
                 }
                 // History
-                StreamReader ReadFile1 = new StreamReader(historyFile, Encoding.UTF8, false);
-                Properties.Settings.Default.History = ReadFile1.ReadToEnd();
-                ReadFile1.Close();
+                Properties.Settings.Default.History = FileSystem2.ReadFile(historyFile, Encoding.UTF8);
                 // Favorites
-                StreamReader ReadFile2 = new StreamReader(favoritesFile, Encoding.UTF8, false);
-                Properties.Settings.Default.Favorites = ReadFile2.ReadToEnd();
-                ReadFile2.Close();
-                // Theme
-
+                Properties.Settings.Default.Favorites = FileSystem2.ReadFile(favoritesFile, Encoding.UTF8);
                 // Downloads
-                StreamReader ReadFile4 = new StreamReader(downloadHistory, Encoding.UTF8, false);
-                Properties.Settings.Default.DowloadHistory = ReadFile4.ReadToEnd();
-                ReadFile4.Close();
+                Properties.Settings.Default.DowloadHistory = FileSystem2.ReadFile(downloadHistory, Encoding.UTF8);
             }
             catch (Exception ex)
             {
@@ -127,30 +117,20 @@ namespace Korot
             try
             {
                 // Settings
-                System.IO.StreamWriter objWriter;
-                objWriter = new System.IO.StreamWriter(settingFile);
-                objWriter.WriteLine(Properties.Settings.Default.Homepage);
-                objWriter.WriteLine(Properties.Settings.Default.SearchURL);
-                if (Properties.Settings.Default.downloadOpen) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
-                if (Properties.Settings.Default.downloadClose) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
-                objWriter.WriteLine(Properties.Settings.Default.ThemeFile);
-                if (Properties.Settings.Default.DoNotTrack) { objWriter.WriteLine("1"); } else { objWriter.WriteLine("0"); }
-                objWriter.Close();
+                string settingsString = Properties.Settings.Default.Homepage + Environment.NewLine +
+                Properties.Settings.Default.SearchURL + Environment.NewLine +
+                (Properties.Settings.Default.downloadOpen ? "1" : "0") + Environment.NewLine +
+                (Properties.Settings.Default.downloadClose ? "1" : "0") + Environment.NewLine +
+                Properties.Settings.Default.ThemeFile + Environment.NewLine +
+                (Properties.Settings.Default.DoNotTrack ? "1" : "0") + Environment.NewLine;
+                FileSystem2.WriteFile(settingFile, settingsString, Encoding.UTF8);
                 // History
-                System.IO.StreamWriter objWriter1;
-                objWriter1 = new System.IO.StreamWriter(historyFile);
-                objWriter1.WriteLine(Properties.Settings.Default.History);
-                objWriter1.Close();
+                FileSystem2.WriteFile(historyFile, Properties.Settings.Default.History, Encoding.UTF8);
                 // Favorites
-                System.IO.StreamWriter objWriter2;
-                objWriter2 = new System.IO.StreamWriter(favoritesFile);
-                objWriter2.WriteLine(Properties.Settings.Default.Favorites);
-                objWriter2.Close();
+                FileSystem2.WriteFile(favoritesFile, Properties.Settings.Default.Favorites, Encoding.UTF8);
+
                 // Download
-                System.IO.StreamWriter objWriter4;
-                objWriter4 = new System.IO.StreamWriter(downloadHistory);
-                objWriter4.WriteLine(Properties.Settings.Default.DowloadHistory);
-                objWriter4.Close();
+                FileSystem2.WriteFile(downloadHistory, Properties.Settings.Default.DowloadHistory, Encoding.UTF8);
             }
             catch (Exception ex)
             {
@@ -282,27 +262,27 @@ namespace Korot
             if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\Korot Light.ktf"))
             {
-                StreamWriter newtheme = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf");
-                newtheme.WriteLine("255");
-                newtheme.WriteLine("255");
-                newtheme.WriteLine("255");
-                newtheme.WriteLine("30");
-                newtheme.WriteLine("144");
-                newtheme.WriteLine("255");
-                newtheme.WriteLine("background-color: rgb(255,255,255)");
-                newtheme.Close();
+                string newTheme = "255" + Environment.NewLine +
+                                "255" + Environment.NewLine +
+                                "255" + Environment.NewLine +
+                                "30" + Environment.NewLine +
+                                "144" + Environment.NewLine +
+                                "255" + Environment.NewLine +
+                                "BACKCOLOR" + Environment.NewLine +
+                                "0";
+                FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
             }
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\Korot Dark.ktf"))
             {
-                StreamWriter newtheme = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf");
-                newtheme.WriteLine("0");
-                newtheme.WriteLine("0");
-                newtheme.WriteLine("0");
-                newtheme.WriteLine("30");
-                newtheme.WriteLine("144");
-                newtheme.WriteLine("255");
-                newtheme.WriteLine("background-color: rgb(0,0,0)");
-                newtheme.Close();
+                string newTheme = "0" + Environment.NewLine +
+                "0" + Environment.NewLine +
+                "0" + Environment.NewLine +
+                "30" + Environment.NewLine +
+                "144" + Environment.NewLine +
+                "255" + Environment.NewLine +
+                "BACKCOLOR" + Environment.NewLine +
+                "0";
+                FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
             }
             if (File.Exists(profilePath + "settings.ksf") &&
                     File.Exists(profilePath + "history.ksf") &&
@@ -361,7 +341,8 @@ namespace Korot
             {
                 Properties.Settings.Default.LastSessionURIs = Session;
                 Properties.Settings.Default.Save();
-            }catch { }
+            }
+            catch { }
         }
         public void ReadLatestCurrentSession()
         {
@@ -424,7 +405,7 @@ namespace Korot
                 }
             }
             Korot.Properties.Settings.Default.Save();
-            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser +  "\\")) { } else { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\")) { } else { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
             SaveSettings(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\settings.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\history.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\favorites.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\download.ksf");
 
         }
@@ -438,9 +419,9 @@ namespace Korot
         {
             foreach (TitleBarTab x in this.Tabs)
             {
-                ((frmCEF)x.Content).Invoke(new Action(() => ((frmCEF)x.Content).FrmCEF_SizeChanged(null, null)));             
+                ((frmCEF)x.Content).Invoke(new Action(() => ((frmCEF)x.Content).FrmCEF_SizeChanged(null, null)));
             }
-                
+
         }
     }
 }

@@ -17,7 +17,7 @@ namespace HaltroyTabs
 
         /// <summary>Constructor that initializes the various resources that we use in rendering.</summary>
         /// <param name="parentWindow">Parent window that this renderer belongs to.</param>
-        public KorotTabRenderer(TitleBarTabs parentWindow, Color BackColor, Color ForeColor, Color OverlayColor, Image _back,bool drawback = false)
+        public KorotTabRenderer(TitleBarTabs parentWindow, Color BackColor, Color ForeColor, Color OverlayColor, Image _back, bool drawback = false)
             : base(parentWindow)
         {
             _BackColor = BackColor;
@@ -79,6 +79,7 @@ namespace HaltroyTabs
                 _closeButtonImage = ColorReplace(ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor), 50, Color.Red, OverlayColor);
                 _closeButtonHoverImage = IsBright(OverlayColor) ? ColorReplace(ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor), 50, Color.Red, Color.FromArgb(255, LowerBrightnessIfNeeded(OverlayColor.R, 20), LowerBrightnessIfNeeded(OverlayColor.G, 20), LowerBrightnessIfNeeded(OverlayColor.B, 20))) : ColorReplace(ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor), 50, Color.Red, Color.FromArgb(255, MoreBrightnessIfNeeded(OverlayColor.R, 20, 255), MoreBrightnessIfNeeded(OverlayColor.G, 20, 255), MoreBrightnessIfNeeded(OverlayColor.B, 20, 255)));
             }
+
         }
         public void ChangeBackImage(Image BackImage)
         {

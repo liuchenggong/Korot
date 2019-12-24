@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,7 +15,7 @@ namespace Korot
         bool requires3;
         bool allowSwitch = false;
         string ExtFile;
-        string noPermission = "This extension does not require any permissions.";
+        string noPermission = "This extension does not require any permissions but:";
         string Initializing = "Initializing...";
         string installed = "Installed.";
         string dc = "Directory created. Moving files and folders...";
@@ -24,6 +25,8 @@ namespace Korot
         string installing = "Installing...";
         string reqError = "Requirement ([REQ]) can only get \"1\" or \"0\" values." + Environment.NewLine + " at [FILE] line [LINE]";
         string fileSizeError = "Some files are above the file size limits. Please go to https://github.com/Haltroy/Korot/issues/27 for more info.";
+        string ext = "Extension";
+        string theme = "Theme";
         public frmInstallExt(string installFrom)
         {
             ExtFile = installFrom;
@@ -82,29 +85,49 @@ namespace Korot
             reqError = SplittedFase[134].Substring(1).Replace(Environment.NewLine, "");
             fileSizeError = SplittedFase[136].Substring(1).Replace(Environment.NewLine, "");
             label1.Text = SplittedFase[137].Substring(1).Replace(Environment.NewLine, "");
+            label2.Text = SplittedFase[146].Substring(1).Replace(Environment.NewLine, "");
+            ext = SplittedFase[147].Substring(1).Replace(Environment.NewLine, "");
+            theme = SplittedFase[13].Substring(1).Replace(Environment.NewLine, "");
             allowSwitch = true;
             tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage4));
-            Startup();
+            StartupEXT();
         }
-        async void Startup()
+        string generateRandomText()
         {
-           await Task.Run(() => {
-                if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\"))
+            StringBuilder builder = new StringBuilder();
+            Enumerable
+               .Range(65, 26)
+                .Select(e => ((char)e).ToString())
+                .Concat(Enumerable.Range(97, 26).Select(e => ((char)e).ToString()))
+                .Concat(Enumerable.Range(0, 10).Select(e => e.ToString()))
+                .OrderBy(e => Guid.NewGuid())
+                .Take(11)
+                .ToList().ForEach(e => builder.Append(e));
+            return builder.ToString().Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
+        }
+        async void StartupEXT()
+        {
+            await Task.Run(() =>
+            {
+                label3.Invoke(new Action(() => label3.Text = ext));
+                string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + generateRandomText() + "\\";
+                if (Directory.Exists(tempFolder))
                 {
-                    Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", true);
+                    Directory.Delete(tempFolder, true);
                 }
-                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\");
-                ZipFile.ExtractToDirectory(ExtFile, Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", Encoding.UTF8);
-                ExtFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\ext.kem";
-               if (new FileInfo(ExtFile).Length < 1048576)
-               {
-                   ReadKEM(ExtFile);
-               }else
-               {
-                   allowSwitch = true;
-                   tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                   textBox1.Invoke(new Action(() => textBox1.Text = fileSizeError));
-               }
+                Directory.CreateDirectory(tempFolder);
+                ZipFile.ExtractToDirectory(ExtFile, tempFolder, Encoding.UTF8);
+                ExtFile = tempFolder + "ext.kem";
+                if (new FileInfo(ExtFile).Length < 1048576)
+                {
+                    ReadKEM(ExtFile);
+                }
+                else
+                {
+                    allowSwitch = true;
+                    tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
+                    textBox1.Invoke(new Action(() => textBox1.Text = fileSizeError));
+                }
             });
         }
         void ReadKEM(string fileLocation)
@@ -120,9 +143,16 @@ namespace Korot
             //ExtAuthor
             lbAuthor.Text = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
             //ExtIcon
-            pbLogo.Image = Image.FromFile(SplittedFase[3].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).DirectoryName + " \\"));
+            if (File.Exists(SplittedFase[3].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).DirectoryName + " \\")))
+            {
+                pbLogo.Image = Image.FromFile(SplittedFase[3].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).DirectoryName + " \\"));
+            }
+            else
+            {
+                pbLogo.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.ext_w : Properties.Resources.ext;
+            }
             //ExtReq - autoLoad
-            if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(0,1) == "1")
+            if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(0, 1) == "1")
             {
                 requires1 = true;
             }
@@ -133,7 +163,7 @@ namespace Korot
             else
             {
                 allowSwitch = true;
-                                   tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
+                tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
                 textBox1.Text = reqError.Replace("[REQ]", "(autoLoad)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
                 return;
             }
@@ -156,32 +186,32 @@ namespace Korot
             //ExtReq - showPopupMenu
             if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "1")
             {
-                
+
             }
             else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "0")
             {
-                
+
             }
             else
             {
                 allowSwitch = true;
-                                   tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
+                tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
                 textBox1.Text = reqError.Replace("[REQ]", "(showPopupMenu)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
                 return;
             }
             //ExtReq - activateScript
             if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "1")
             {
-                
+
             }
             else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "0")
             {
-                
+
             }
             else
             {
                 allowSwitch = true;
-                                   tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
+                tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
                 textBox1.Text = reqError.Replace("[REQ]", "(activateScript)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
                 return;
             }

@@ -66,6 +66,7 @@ namespace Korot
         }
         void RefreshHistory()
         {
+            int selectedValue = hlvHistory.SelectedIndices.Count > 0 ? hlvHistory.SelectedIndices[0] : 0;
             hlvHistory.Items.Clear();
             string Playlist = Properties.Settings.Default.History;
             string[] SplittedFase = Playlist.Split(';');
@@ -77,8 +78,13 @@ namespace Korot
                 listV.SubItems.Add(SplittedFase[i + 2].Replace(Environment.NewLine, ""));
                 hlvHistory.Items.Add(listV);
                 i += 3;
-
             }
+            try
+            {
+                hlvHistory.SelectedIndices.Clear();
+                hlvHistory.Items[selectedValue].Selected = true;
+            }
+            catch { }
         }
         private void ListBox2_DoubleClick(object sender, EventArgs e)
         {
@@ -223,8 +229,8 @@ namespace Korot
                          string themeTitle, string themeMessage, string themeError, string cemt, string cet, string ce,
                          string cokt, string cok, string sce, string uc, string nuc, string cept, string cepm,
                          string cepb, string aboutkorot, string licenses, string uch, string ucb, string ucg, string ucd,
-                         string uca, string enablednt,string useBackColor,string _usingBackColor,string imageFromURL,string imageFromFile,
-                         string iFiles,string aFiles, string selectABI,string backStyleLay)
+                         string uca, string enablednt, string useBackColor, string _usingBackColor, string imageFromURL, string imageFromFile,
+                         string iFiles, string aFiles, string selectABI, string backStyleLay)
         {
             label25.Text = backStyleLay.Replace(Environment.NewLine, "");
             imageFiles = iFiles.Replace(Environment.NewLine, "");
@@ -423,8 +429,7 @@ namespace Korot
             try
             {
                 languagedummy.Items.Clear();
-                StreamReader ReadFile = new StreamReader(LangFile, Encoding.UTF8, false);
-                string Playlist = ReadFile.ReadToEnd();
+                string Playlist = FileSystem2.ReadFile(LangFile, Encoding.UTF8);
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                 string[] SplittedFase = Playlist.Split(token);
                 int Count = SplittedFase.Length - 1; ; int i = 0;
@@ -433,7 +438,6 @@ namespace Korot
                     languagedummy.Items.Add(SplittedFase[i].Replace(Environment.NewLine, ""));
                     i += 1;
                 }
-                ReadFile.Close();
                 ReadLangFileFromTemp();
             }
             catch (Exception ex)
@@ -598,11 +602,13 @@ namespace Korot
         }
         public void RefreshLangList()
         {
+            int savedValue = lbLang.SelectedIndex;
             lbLang.Items.Clear();
             foreach (string foundfile in Directory.GetFiles(Application.StartupPath + "//Lang//", "*.lang", SearchOption.TopDirectoryOnly))
             {
                 lbLang.Items.Add(Path.GetFileNameWithoutExtension(foundfile));
             }
+            try { lbLang.SelectedIndex = savedValue; } catch { }
 
         }
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
@@ -717,6 +723,7 @@ namespace Korot
         }
         public void RefreshDownloadList()
         {
+            int selectedValue = hlvDownload.SelectedIndices.Count > 0 ? hlvDownload.SelectedIndices[0] : 0;
             hlvDownload.Items.Clear();
             string Playlist = Properties.Settings.Default.DowloadHistory;
             string[] SplittedFase = Playlist.Split(';');
@@ -732,6 +739,12 @@ namespace Korot
                 i += 1;
                 hlvDownload.Items.Add(listV);
             }
+            try
+            {
+                hlvDownload.SelectedIndices.Clear();
+                hlvDownload.Items[selectedValue].Selected = true;
+            }
+            catch { }
 
         }
         private void ListView2_DoubleClick(object sender, EventArgs e)
@@ -780,7 +793,7 @@ namespace Korot
 
         private void NewIncognitoWindowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Application.ExecutablePath,"-incognito");
+            Process.Start(Application.ExecutablePath, "-incognito");
         }
 
         private void ColorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -822,7 +835,7 @@ namespace Korot
         private void FromLocalFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog filedlg = new OpenFileDialog();
-            filedlg.Filter =  imageFiles + "|*.jpg;*.png;*.bmp;*.jpeg;*.jfif;*.gif;*.apng;*.ico;*.svg;*.webp|" + allFiles + "|*.*";
+            filedlg.Filter = imageFiles + "|*.jpg;*.png;*.bmp;*.jpeg;*.jfif;*.gif;*.apng;*.ico;*.svg;*.webp|" + allFiles + "|*.*";
             filedlg.Title = selectBackImage;
             filedlg.Multiselect = false;
             if (filedlg.ShowDialog() == DialogResult.OK)
@@ -930,9 +943,8 @@ namespace Korot
         {
             try
             {
-                StreamReader ReadFile3 = new StreamReader(themeFile, Encoding.UTF8, false);
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-                string Playlist3 = ReadFile3.ReadToEnd();
+                string Playlist3 = FileSystem2.ReadFile(themeFile, Encoding.UTF8);
                 string[] SplittedFase3 = Playlist3.Split(token);
                 int backR = System.Convert.ToInt32(SplittedFase3[0].Replace(Environment.NewLine, ""));
 
@@ -952,11 +964,22 @@ namespace Korot
                 pictureBox3.BackColor = Properties.Settings.Default.BackColor;
                 pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
                 Properties.Settings.Default.ThemeFile = themeFile;
-
-                ReadFile3.Close();
             }
             catch (Exception ex)
             {
+                if (themeFile == Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf")
+                {
+                    string newTheme = "255" + Environment.NewLine +
+"255" + Environment.NewLine +
+"255" + Environment.NewLine +
+"30" + Environment.NewLine +
+"144" + Environment.NewLine +
+"255" + Environment.NewLine +
+"BACKCOLOR" + Environment.NewLine +
+"0";
+                    FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
+
+                }
                 HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ErrorPageTitle,
                                                                                           ErrorTheme,
                                                                                           this.Icon,
@@ -968,10 +991,12 @@ namespace Korot
                 Output.WriteLine(ex.ToString());
 
                 LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf");
+
             }
         }
         public void refreshThemeList()
         {
+            int savedValue = listBox2.SelectedIndex;
             listBox2.Items.Clear();
             foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"))
             {
@@ -980,6 +1005,11 @@ namespace Korot
                     listBox2.Items.Add(new FileInfo(x).Name);
                 }
             }
+            try
+            {
+                listBox2.SelectedIndex = savedValue;
+            }
+            catch { }
         }
 
 
@@ -1333,13 +1363,13 @@ namespace Korot
                 {
                     try
                     {
-                        StreamReader ReadFile = new StreamReader(x, Encoding.UTF8, false);
-                        string Playlist = ReadFile.ReadToEnd();
+
+                        string Playlist = FileSystem2.ReadFile(x, Encoding.UTF8);
                         char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                         string[] SplittedFase = Playlist.Split(token);
                         if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(0, 1) == "1" && (new FileInfo(x).Length < 1048576) && (new FileInfo(SplittedFase[5].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(x).Directory + "\\")).Length < 5242880))
                         {
-                            chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(File.ReadAllText(SplittedFase[5].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(x).Directory + "\\")));
+                            chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(FileSystem2.ReadFile(SplittedFase[5].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(x).Directory + "\\"), Encoding.UTF8));
                         }
                     }
                     catch (Exception ex)
@@ -1618,19 +1648,27 @@ namespace Korot
         {
             if (URL.ToLower().StartsWith("file://"))
             {
-                Output.WriteLine(URL.ToLower().Replace("file://", "").Replace("/", "\\"));
-                return Image.FromFile(URL.ToLower().Replace("file://","").Replace("/","\\"));
-            }else
+                return Image.FromFile(URL.ToLower().Replace("file://", "").Replace("/", "\\"));
+            }
+            else if (URL == "BACKCOLOR") { return null; }
+            else
             {
-                using (WebClient webClient = new WebClient())
+                try
                 {
-                    byte[] data = webClient.DownloadData(URL);
-
-                    using (MemoryStream mem = new MemoryStream(data))
+                    using (WebClient webClient = new WebClient())
                     {
-                        return Image.FromStream(mem);
-                    }
+                        byte[] data = webClient.DownloadData(URL);
 
+                        using (MemoryStream mem = new MemoryStream(data))
+                        {
+                            return Image.FromStream(mem);
+                        }
+
+                    }
+                }
+                catch
+                {
+                    return null;
                 }
             }
         }
@@ -1646,6 +1684,7 @@ namespace Korot
             {
                 oldBackColor = Properties.Settings.Default.BackColor;
                 button13.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.leftarrow_w : Properties.Resources.leftarrow;
+                lbSettings.BackColor = Color.Transparent;
                 lbSettings.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 tabControl2.ActiveColor = Properties.Settings.Default.OverlayColor;
                 tabControl2.BackTabColor = Properties.Settings.Default.BackColor;
@@ -1720,8 +1759,8 @@ namespace Korot
                 button8.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.ext : Properties.Resources.ext_w;
                 contextMenuStrip3.BackColor = Properties.Settings.Default.BackColor;
                 contextMenuStrip3.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                
-                switchToToolStripMenuItem.DropDown.BackColor = Properties.Settings.Default.BackColor; switchToToolStripMenuItem.DropDown.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; 
+
+                switchToToolStripMenuItem.DropDown.BackColor = Properties.Settings.Default.BackColor; switchToToolStripMenuItem.DropDown.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 foreach (ToolStripMenuItem x in cmsProfiles.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (ToolStripMenuItem x in contextMenuStrip1.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (TabPage x in tabControl2.TabPages) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black; }
@@ -1737,6 +1776,7 @@ namespace Korot
                     mFavorites.BackgroundImage = backStyle;
                     panel3.BackgroundImage = backStyle;
                     foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImage = backStyle; }
+                    tabPage3.BackgroundImage = backStyle;
                 }
             }
             else
@@ -1748,6 +1788,7 @@ namespace Korot
                     mFavorites.BackgroundImage = null;
                     panel3.BackgroundImage = null;
                     foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImage = null; }
+                    tabPage3.BackgroundImage = null;
                 }
             }
             if (Properties.Settings.Default.BStyleLayout == 0) //NONE
@@ -1755,6 +1796,7 @@ namespace Korot
                 panel2.BackgroundImageLayout = ImageLayout.None;
                 mFavorites.BackgroundImageLayout = ImageLayout.None;
                 panel3.BackgroundImageLayout = ImageLayout.None;
+                tabPage3.BackgroundImageLayout = ImageLayout.None;
                 foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImageLayout = ImageLayout.None; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 1) //TILE
@@ -1762,6 +1804,7 @@ namespace Korot
                 panel2.BackgroundImageLayout = ImageLayout.Tile;
                 mFavorites.BackgroundImageLayout = ImageLayout.Tile;
                 panel3.BackgroundImageLayout = ImageLayout.Tile;
+                tabPage3.BackgroundImageLayout = ImageLayout.Tile;
                 foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImageLayout = ImageLayout.Tile; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 2) //CENTER
@@ -1769,6 +1812,7 @@ namespace Korot
                 panel2.BackgroundImageLayout = ImageLayout.Center;
                 mFavorites.BackgroundImageLayout = ImageLayout.Center;
                 panel3.BackgroundImageLayout = ImageLayout.Center;
+                tabPage3.BackgroundImageLayout = ImageLayout.Center;
                 foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImageLayout = ImageLayout.Center; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 3) //STRETCH
@@ -1776,6 +1820,7 @@ namespace Korot
                 panel2.BackgroundImageLayout = ImageLayout.Stretch;
                 mFavorites.BackgroundImageLayout = ImageLayout.Stretch;
                 panel3.BackgroundImageLayout = ImageLayout.Stretch;
+                tabPage3.BackgroundImageLayout = ImageLayout.Stretch;
                 foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImageLayout = ImageLayout.Stretch; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 4) //ZOOM
@@ -1783,6 +1828,7 @@ namespace Korot
                 panel2.BackgroundImageLayout = ImageLayout.Zoom;
                 mFavorites.BackgroundImageLayout = ImageLayout.Zoom;
                 panel3.BackgroundImageLayout = ImageLayout.Zoom;
+                tabPage3.BackgroundImageLayout = ImageLayout.Zoom;
                 foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImageLayout = ImageLayout.Zoom; }
             }
         }
@@ -1889,15 +1935,14 @@ namespace Korot
         private void ExtensionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String fileLocation = ((ToolStripMenuItem)sender).Tag.ToString();
-            StreamReader ReadFile = new StreamReader(fileLocation, Encoding.UTF8, false);
-            string Playlist = ReadFile.ReadToEnd();
+            string Playlist = FileSystem2.ReadFile(fileLocation, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
             if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "1" && (new FileInfo(((ToolStripMenuItem)sender).Tag.ToString()).Length < 1048576) && (new FileInfo(SplittedFase[5].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(((ToolStripMenuItem)sender).Tag.ToString()).Directory + "\\")).Length < 5242880))
             {
                 try
                 {
-                    chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(File.ReadAllText(SplittedFase[5].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\")));
+                    chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(FileSystem2.ReadFile(SplittedFase[5].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"), Encoding.UTF8));
                 }
                 catch { }
             }
@@ -1918,8 +1963,7 @@ namespace Korot
             {
                 if (File.Exists(x + "\\ext.kem") && new FileInfo(x + "\\ext.kem").Length < 1048576)
                 {
-                    StreamReader ReadFile = new StreamReader(x + "\\ext.kem", Encoding.UTF8, false);
-                    string Playlist = ReadFile.ReadToEnd();
+                    string Playlist = FileSystem2.ReadFile(x + "\\ext.kem", Encoding.UTF8);
                     char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                     string[] SplittedFase = Playlist.Split(token);
                     ToolStripMenuItem extItem = new ToolStripMenuItem();
@@ -1987,7 +2031,7 @@ namespace Korot
                         ToolStripMenuItem extItem = new ToolStripMenuItem();
                         extItem.Text = new DirectoryInfo(x).Name;
                         extItem.Click += ExampleProxyToolStripMenuItem_Click;
-                        extItem.Tag = File.ReadAllText(x + "\\proxy.kem");
+                        extItem.Tag = FileSystem2.ReadFile(x + "\\proxy.kem", Encoding.UTF8);
                         contextMenuStrip2.Items.Add(extItem);
 
                     }

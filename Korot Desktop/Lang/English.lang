@@ -114,7 +114,7 @@ Beta: Receives almost every update. Only receives updates with min. 0.0.1 change
 Gama: Receives less updates than Beta. Only receives updates with min. 0.1 change in version. Good for people still wanting to get more features without taking a big risk. (0.0.0.0 -> 0.1.0.0)
 Delta: Receives less updates than Gama. Only receives updates with min. 1.0 change in version. Good for people that doesn't wants to take risks and don't understand computer. (0.0.0.0 -> 1.0.0.0)
 Alpha: Receives every update. These updates may sometimes be small bugfixes. Good for bug-haunting. (0.0.0.0 -> 0.0.0.1)
-This extension requires these permissions. Do you want to install it?
+This extension requires these permissions.
 This extension does not require any permissions.
 Cannot install this extension.
 Installing...
@@ -144,3 +144,5 @@ Image Files
 All Files
 Select a background image...
 Background Image Layout:
+Do you want to install it?
+Extension

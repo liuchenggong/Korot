@@ -114,7 +114,7 @@ Beta: Tüm güncellemeleri alır. Versionda sadece min. 0.0.1 değişiklikte gü
 Gama: Beta'dan daha az güncelleme alır. Versionda sadece min. 0.1 değişiklikte güncellenir. Riske girmeden yeni özellikler elde etmek isteyenler için ideal. (0.0.0.0 -> 0.1.0.0)
 Delta: Gama'dan daha az güncelleme alır. Versionda sadece min. 1.0 değişiklikte güncellenir. Riske girmek istemeyenler ve bilgisayarlardan anlamayanlar için ideal. (0.0.0.0 -> 1.0.0.0)
 Alpha: Tüm güncellemeleri alır. Bu güncellemeler bazen küçük hata düzeltmeleri olabilir. Hata avcıları için ideal. (0.0.0.0 -> 0.0.0.1)
-Bu eklenti şu izinleri istiyor. Yüklemek istiyor musunuz?
+Bu eklenti şu izinleri istiyor.
 Bu eklenti bir izin istemiyor.
 Bu eklenti yüklenemez.
 Yükleniyor...
@@ -144,3 +144,5 @@ Resim Dosyası
 Tüm Dosyalar
 Arkaplan resmi seçin...
 Arkaplan Resmi Düzeni:
+Yüklemek istiyor musunuz?
+Eklenti

@@ -1,8 +1,6 @@
 ﻿using HaltroyTabs;
 using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Korot
@@ -32,10 +30,10 @@ namespace Korot
                 else if (x == "-incognito") { }
                 else
                 {
-                    if ( x.ToLower().EndsWith(".kef"))
+                    if (x.ToLower().EndsWith(".kef"))
                     {
-                        frmInstallExt ınstallExt = new frmInstallExt(x);
-                        ınstallExt.Show();
+                        frmInstallExt install = new frmInstallExt(x);
+                        install.Show();
                     }
                     else
                     {
@@ -48,7 +46,6 @@ namespace Korot
             TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
             applicationContext.Start(testApp);
             Application.Run(applicationContext);
-
         }
     }
 }

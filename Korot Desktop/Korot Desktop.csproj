@@ -203,6 +203,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Tools\FileSystem2.cs" />
     <Compile Include="Source Code\Tools\WindowsMessageHelper.cs" />
     <EmbeddedResource Include="Source Code\Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
