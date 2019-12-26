@@ -15,37 +15,37 @@ namespace Korot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            frmMain testApp = new frmMain();
-            bool isIncognito = args.Contains("-incognito") ? true : false;
-            if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
-            testApp.Tabs.Add(
-                new TitleBarTab(testApp)
-                {
-                    Content = new frmCEF(testApp, isIncognito, Properties.Settings.Default.Homepage, Properties.Settings.Default.LastUser) { }
-                });
-            foreach (string x in args)
+            if (args.Contains("-oobe"))
             {
-                if (x == Application.ExecutablePath) { }
-                else if (x == "-incognito") { }
-                else
-                {
-                    if (x.ToLower().EndsWith(".kef"))
+                Application.Run(new frmOOBE());
+            }else 
+            {
+                frmMain testApp = new frmMain();
+                bool isIncognito = args.Contains("-incognito");
+                if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
+                testApp.Tabs.Add(
+                    new TitleBarTab(testApp)
                     {
-                        frmInstallExt install = new frmInstallExt(x);
-                        install.Show();
+                        Content = new frmCEF(testApp, isIncognito, Properties.Settings.Default.Homepage, Properties.Settings.Default.LastUser) { }
+                    });
+                foreach (string x in args)
+                {
+                    if (x == Application.ExecutablePath || x == "-incognito" || x == "-oobe"){}
+                    else if (x.ToLower().EndsWith(".kef"))
+                    {
+                        Application.Run(new frmInstallExt(x));
                     }
                     else
                     {
                         testApp.CreateTab(x);
                     }
                 }
+                testApp.isIncognito = args.Contains("-incognito");
+                testApp.SelectedTabIndex = 0;
+                TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
+                applicationContext.Start(testApp);
+                Application.Run(applicationContext);
             }
-            testApp.isIncognito = args.Contains("-incognito");
-            testApp.SelectedTabIndex = 0;
-            TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
-            applicationContext.Start(testApp);
-            Application.Run(applicationContext);
         }
     }
 }

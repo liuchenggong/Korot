@@ -152,6 +152,12 @@
     <Compile Include="Source Code\Forms\frmInstallExt.Designer.cs">
       <DependentUpon>frmInstallExt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Forms\frmOOBE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmOOBE.Designer.cs">
+      <DependentUpon>frmOOBE.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Handlers\CookieAccessFilter.cs" />
     <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
     <Compile Include="Source Code\Tools\ConsoleOutputLog.cs" />
@@ -227,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmCEF.resx">
       <DependentUpon>frmCEF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmOOBE.resx">
+      <DependentUpon>frmOOBE.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Lang\English.lang">

@@ -25,14 +25,18 @@ namespace Korot
         {
             try
             {
-                var writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
-                writer.Write(encode.GetBytes(input), 0, encode.GetBytes(input).Length);
-                writer.Close();
-                return true;
+                if (!File.Exists(fileLocation))
+                {
+                    File.Create(fileLocation).Dispose();
+                }
+                    var writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+                    writer.Write(encode.GetBytes(input), 0, encode.GetBytes(input).Length);
+                    writer.Close();
+                    return true;
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                throw ex;
             }
         }
     }

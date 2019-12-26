@@ -57,8 +57,7 @@ namespace Korot
             pictureBox7.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._1_w : Properties.Resources._1;
             pictureBox2.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._2_w : Properties.Resources._2;
             pictureBox5.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._3_w : Properties.Resources._3;
-            StreamReader ReadFile = new StreamReader(Properties.Settings.Default.LangFile, Encoding.UTF8, false);
-            string Playlist = ReadFile.ReadToEnd();
+            string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
             noPermission = SplittedFase[117].Substring(1).Replace(Environment.NewLine, "");
