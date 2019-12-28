@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOOBE));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btContinue2 = new System.Windows.Forms.Button();
             this.lbLang = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -87,6 +87,7 @@
             this.askToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ınternetArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -117,7 +118,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button3);
+            this.tabPage1.Controls.Add(this.btContinue2);
             this.tabPage1.Controls.Add(this.lbLang);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -129,23 +130,23 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btContinue2
             // 
-            this.button3.AutoSize = true;
-            this.button3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(3, 434);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(615, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Continue";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Visible = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btContinue2.AutoSize = true;
+            this.btContinue2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btContinue2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btContinue2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btContinue2.FlatAppearance.BorderSize = 0;
+            this.btContinue2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btContinue2.Location = new System.Drawing.Point(3, 434);
+            this.btContinue2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btContinue2.Name = "btContinue2";
+            this.btContinue2.Size = new System.Drawing.Size(615, 23);
+            this.btContinue2.TabIndex = 5;
+            this.btContinue2.Text = "Continue";
+            this.btContinue2.UseVisualStyleBackColor = false;
+            this.btContinue2.Visible = false;
+            this.btContinue2.Click += new System.EventHandler(this.button3_Click);
             // 
             // lbLang
             // 
@@ -159,6 +160,7 @@
             this.lbLang.Size = new System.Drawing.Size(605, 368);
             this.lbLang.TabIndex = 4;
             this.lbLang.SelectedIndexChanged += new System.EventHandler(this.lbLang_SelectedIndexChanged);
+            this.lbLang.DoubleClick += new System.EventHandler(this.lbLang_DoubleClick);
             // 
             // label2
             // 
@@ -660,7 +662,7 @@
             this.lbThemes.Name = "lbThemes";
             this.lbThemes.Size = new System.Drawing.Size(615, 48);
             this.lbThemes.TabIndex = 19;
-            this.lbThemes.Text = "Themes";
+            this.lbThemes.Text = "Theme";
             this.lbThemes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cmsSearchEngine
@@ -779,6 +781,12 @@
             this.customToolStripMenuItem.Text = "Custom";
             this.customToolStripMenuItem.Click += new System.EventHandler(this.customToolStripMenuItem_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 2000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // frmOOBE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -790,11 +798,14 @@
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmOOBE";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Korot Installation";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmOOBE_FormClosing);
             this.Load += new System.EventHandler(this.frmOOBE_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmOOBE_KeyDown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -820,7 +831,7 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btContinue2;
         private System.Windows.Forms.ListBox lbLang;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btContinue;
@@ -872,5 +883,6 @@
         private System.Windows.Forms.Button btBack2;
         private System.Windows.Forms.Label lbInfoTheme;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Timer timer1;
     }
 }

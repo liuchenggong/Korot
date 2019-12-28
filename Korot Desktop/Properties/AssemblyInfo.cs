@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Haltroy")]
 [assembly: AssemblyProduct("Korot")]
-[assembly: AssemblyCopyright("Copyright © Haltroy 2019")]
+[assembly: AssemblyCopyright("Copyright © Haltroy 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // Tüm değerleri belirtebilir veya varsayılan Derleme ve Düzeltme Numaralarını kullanmak için
 // '*' kullanarak varsayılana ayarlayabilirsiniz:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.4.9.2")]
-[assembly: AssemblyFileVersion("0.4.9.2")]
+[assembly: AssemblyVersion("0.4.9.3")]
+[assembly: AssemblyFileVersion("0.4.9.3")]

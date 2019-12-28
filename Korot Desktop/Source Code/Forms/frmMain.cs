@@ -181,31 +181,6 @@ namespace Korot
             }
 
         }
-        public bool IsProcessOpen(string name)
-        {
-            //here we're going to get a list of all running processes on
-            //the computer
-            foreach (Process clsProcess in Process.GetProcesses())
-            {
-                //now we're going to see if any of the running processes
-                //match the currently running processes. Be sure to not
-                //add the .exe to the name you provide, i.e: NOTEPAD,
-                //not NOTEPAD.EXE or false is always returned even if
-                //notepad is running.
-                //Remember, if you have the process running more than once, 
-                //say IE open 4 times the loop thr way it is now will close all 4,
-                //if you want it to just close the first one it finds
-                //then add a return; after the Kill
-                if (clsProcess.ProcessName.Contains(name))
-                {
-                    //if the process is found to be running then we
-                    //return a true
-                    return true;
-                }
-            }
-            //otherwise we return a false
-            return false;
-        }
         public string restoremedaddy = "";
         string profilePath;
         private void frmMain_Load(object sender, EventArgs e)
@@ -220,7 +195,6 @@ namespace Korot
                 {
                     Output.WriteLine(x);
                 }
-                Output.WriteLine("That's a lot of usernames but each of them is still terrible since day 0.");
             }
             else if (DateTime.Now.ToString("MM") == "06" & DateTime.Now.ToString("dd") == "09")
             {
@@ -231,7 +205,6 @@ namespace Korot
                 {
                     Output.WriteLine(x);
                 }
-                Output.WriteLine("I'm too far now isn't it?");
             }
             else if (DateTime.Now.ToString("MM") == "01" & DateTime.Now.ToString("dd") == "21")
             {
@@ -242,7 +215,6 @@ namespace Korot
                 {
                     Output.WriteLine(x);
                 }
-                Output.WriteLine("She's too far now isn't it?");
             }
             else if (DateTime.Now.ToString("MM") == "10" & DateTime.Now.ToString("dd") == "18")
             {
@@ -250,65 +222,68 @@ namespace Korot
                 Output.WriteLine("\"Herkes içinde bir yıldız taşır.Önemli olan o yıldızı kullanabilmektir.İyi günler...\" -Haltroy");
             }
             if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"); }
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\"); }
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"); }
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\"); }
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\"); }
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\"); }
-            if (IsDirectoryEmpty(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
-            if (!(Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"))) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
-            profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\";
-            if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf"))
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
             {
-                string newTheme = "255" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "30" + Environment.NewLine +
-                                "144" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "BACKCOLOR" + Environment.NewLine +
-                                "0";
-                FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
-            }
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf"))
-            {
-                string newTheme = "0" + Environment.NewLine +
-                "0" + Environment.NewLine +
-                "0" + Environment.NewLine +
-                "30" + Environment.NewLine +
-                "144" + Environment.NewLine +
-                "255" + Environment.NewLine +
-                "BACKCOLOR" + Environment.NewLine +
-                "0";
-                FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
-            }
-            if (File.Exists(profilePath + "settings.ksf") &&
-                    File.Exists(profilePath + "history.ksf") &&
-                    File.Exists(profilePath + "favorites.ksf") &&
-                    File.Exists(profilePath + "download.ksf"))
-            {
-                LoadSettings(profilePath + "settings.ksf",
-                    profilePath + "history.ksf",
-                    profilePath + "favorites.ksf",
-                    profilePath + "download.ksf");
+                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\"); }
+                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"); }
+                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\"); }
+                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\"); }
+                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\"); }
+                if (IsDirectoryEmpty(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
+                if (!(Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"))) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
+                profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\";
+                if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
+                if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf"))
+                {
+                    string newTheme = "255" + Environment.NewLine +
+                                    "255" + Environment.NewLine +
+                                    "255" + Environment.NewLine +
+                                    "30" + Environment.NewLine +
+                                    "144" + Environment.NewLine +
+                                    "255" + Environment.NewLine +
+                                    "BACKCOLOR" + Environment.NewLine +
+                                    "0";
+                    FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
+                }
+                if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf"))
+                {
+                    string newTheme = "0" + Environment.NewLine +
+                    "0" + Environment.NewLine +
+                    "0" + Environment.NewLine +
+                    "30" + Environment.NewLine +
+                    "144" + Environment.NewLine +
+                    "255" + Environment.NewLine +
+                    "BACKCOLOR" + Environment.NewLine +
+                    "0";
+                    FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
+                }
+                if (File.Exists(profilePath + "settings.ksf") &&
+                        File.Exists(profilePath + "history.ksf") &&
+                        File.Exists(profilePath + "favorites.ksf") &&
+                        File.Exists(profilePath + "download.ksf"))
+                {
+                    LoadSettings(profilePath + "settings.ksf",
+                        profilePath + "history.ksf",
+                        profilePath + "favorites.ksf",
+                        profilePath + "download.ksf");
+                }
+                else
+                {
+                    SaveSettings(profilePath + "settings.ksf",
+                        profilePath + "history.ksf",
+                        profilePath + "favorites.ksf",
+                        profilePath + "download.ksf");
+                }
+
+                try
+                {
+                    PrintImages();
+                }
+                catch { }
+
             }
             else
-            {
-                SaveSettings(profilePath + "settings.ksf",
-                    profilePath + "history.ksf",
-                    profilePath + "favorites.ksf",
-                    profilePath + "download.ksf");
-            }
-
-            try
-            {
-                PrintImages();
-            }
-            catch { }
-
-
+            { Process.Start(Application.ExecutablePath, "-oobe"); this.Close(); }
             this.Location = new Point(Korot.Properties.Settings.Default.WindowPosX, Korot.Properties.Settings.Default.WindowPosY);
             this.Size = new Size(Korot.Properties.Settings.Default.WindowSizeW, Korot.Properties.Settings.Default.WindowSizeH);
 

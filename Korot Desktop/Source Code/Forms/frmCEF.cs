@@ -229,8 +229,8 @@ namespace Korot
                          string themeTitle, string themeMessage, string themeError, string cemt, string cet, string ce,
                          string cokt, string cok, string sce, string uc, string nuc, string cept, string cepm,
                          string cepb, string aboutkorot, string licenses, string uch, string ucb, string ucg, string ucd,
-                         string uca, string enablednt, string useBackColor, string _usingBackColor, string imageFromURL, string imageFromFile,
-                         string iFiles, string aFiles, string selectABI, string backStyleLay)
+                         string uca, string enablednt, string useBackColor, string _usingBackColor, string imageFromURL, 
+                         string imageFromFile, string iFiles, string aFiles, string selectABI, string backStyleLay)
         {
             label25.Text = backStyleLay.Replace(Environment.NewLine, "");
             imageFiles = iFiles.Replace(Environment.NewLine, "");
@@ -372,6 +372,7 @@ namespace Korot
             SearchOnWeb = searchURL.Replace(Environment.NewLine, "");
             goTotxt = goToURL.Replace(Environment.NewLine, "");
             anaform.newProfileInfo = newProfInfo.Replace(Environment.NewLine, "");
+            label9.Text = setxt.Replace(Environment.NewLine, "");
             //pages
             MonthNames = MonthName.Replace(Environment.NewLine, "");
             DayNames = DayName.Replace(Environment.NewLine, "");
@@ -395,6 +396,7 @@ namespace Korot
             haltroySwitch1.Location = new Point(label6.Location.X + label6.Width + 5, haltroySwitch1.Location.Y);
             findTextBox.Width = panel3.Width - label3.Width - label4.Width - 10;
             findTextBox.Location = new Point(label3.Location.X + label3.Width, label3.Location.Y);
+
         }
         private void dummyCMS_Opening(object sender, CancelEventArgs e)
         {
@@ -959,7 +961,7 @@ namespace Korot
                 int ovB = System.Convert.ToInt32(SplittedFase3[5].Replace(Environment.NewLine, ""));
                 Properties.Settings.Default.BackColor = Color.FromArgb(255, backR, backG, backB);
                 Properties.Settings.Default.OverlayColor = Color.FromArgb(255, ovR, ovG, ovB);
-                Properties.Settings.Default.BackStyle = SplittedFase3[6].Replace(Environment.NewLine, "").Replace("[THEMEFOLDER]", "file://" + Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\");
+                Properties.Settings.Default.BackStyle = SplittedFase3[6].Substring(1).Replace(Environment.NewLine, "") == "BACKCOLOR" ?  usingBC : SplittedFase3[6].Replace(Environment.NewLine, "").Replace("[THEMEFOLDER]", "file://" + Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\");
                 Properties.Settings.Default.BStyleLayout = Convert.ToInt32(SplittedFase3[7].Replace(Environment.NewLine, ""));
                 pictureBox3.BackColor = Properties.Settings.Default.BackColor;
                 pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
@@ -967,18 +969,25 @@ namespace Korot
             }
             catch (Exception ex)
             {
-                if (themeFile == Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf")
+                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot"))
                 {
-                    string newTheme = "255" + Environment.NewLine +
-"255" + Environment.NewLine +
-"255" + Environment.NewLine +
-"30" + Environment.NewLine +
-"144" + Environment.NewLine +
-"255" + Environment.NewLine +
-"BACKCOLOR" + Environment.NewLine +
-"0";
-                    FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
+                    
+                }
+                else
+                {
+                    if (themeFile == Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf")
+                    {
+                        string newTheme = "255" + Environment.NewLine +
+    "255" + Environment.NewLine +
+    "255" + Environment.NewLine +
+    "30" + Environment.NewLine +
+    "144" + Environment.NewLine +
+    "255" + Environment.NewLine +
+    "BACKCOLOR" + Environment.NewLine +
+    "0";
+                        FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
 
+                    }
                 }
                 HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ErrorPageTitle,
                                                                                           ErrorTheme,
@@ -996,24 +1005,27 @@ namespace Korot
         }
         public void refreshThemeList()
         {
-            int savedValue = listBox2.SelectedIndex;
-            listBox2.Items.Clear();
-            foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"))
-            {
-                if (x.EndsWith(".ktf", StringComparison.OrdinalIgnoreCase))
-                {
-                    listBox2.Items.Add(new FileInfo(x).Name);
-                }
-            }
             try
             {
-                listBox2.SelectedIndex = savedValue;
-            }
-            catch { }
+                int savedValue = listBox2.SelectedIndex;
+                listBox2.Items.Clear();
+                foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"))
+                {
+                    if (x.EndsWith(".ktf", StringComparison.OrdinalIgnoreCase))
+                    {
+                        listBox2.Items.Add(new FileInfo(x).Name);
+                    }
+                }
+                try
+                {
+                    listBox2.SelectedIndex = savedValue;
+                }
+                catch { }
+            }catch { }
         }
 
 
-        private void Button10_Click(object sender, EventArgs e)
+        private void Button12_Click(object sender, EventArgs e)
         {
             System.IO.StreamWriter objWriter3;
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"); }
@@ -1712,6 +1724,8 @@ namespace Korot
                 cmsSearchEngine.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 listBox2.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 comboBox1.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                btInstall.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                btUpdater.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 textBox2.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 textBox3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 button10.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
@@ -2177,6 +2191,11 @@ namespace Korot
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.BStyleLayout = comboBox3.SelectedIndex;
+        }
+
+        private void Button10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

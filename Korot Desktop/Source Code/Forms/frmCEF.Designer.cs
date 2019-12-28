@@ -97,9 +97,6 @@
             this.lbSettings = new System.Windows.Forms.Label();
             this.tabControl2 = new HaltroyFramework.HaltroyTabControl();
             this.tbSetting = new System.Windows.Forms.TabPage();
-            this.lbUpdateStatus = new System.Windows.Forms.Label();
-            this.btUpdater = new System.Windows.Forms.Button();
-            this.btInstall = new System.Windows.Forms.Button();
             this.label24 = new System.Windows.Forms.Label();
             this.hsDoNotTrack = new HaltroyFramework.HaltroySwitch();
             this.label23 = new System.Windows.Forms.Label();
@@ -146,6 +143,9 @@
             this.removeSelectedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tbAbout = new System.Windows.Forms.TabPage();
+            this.lbUpdateStatus = new System.Windows.Forms.Label();
+            this.btInstall = new System.Windows.Forms.Button();
+            this.btUpdater = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label21 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -909,9 +909,6 @@
             // 
             this.tbSetting.AutoScroll = true;
             this.tbSetting.BackColor = System.Drawing.Color.White;
-            this.tbSetting.Controls.Add(this.lbUpdateStatus);
-            this.tbSetting.Controls.Add(this.btUpdater);
-            this.tbSetting.Controls.Add(this.btInstall);
             this.tbSetting.Controls.Add(this.label24);
             this.tbSetting.Controls.Add(this.hsDoNotTrack);
             this.tbSetting.Controls.Add(this.label23);
@@ -929,51 +926,11 @@
             this.tbSetting.TabIndex = 0;
             this.tbSetting.Text = "Settings";
             // 
-            // lbUpdateStatus
-            // 
-            this.lbUpdateStatus.AutoSize = true;
-            this.lbUpdateStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lbUpdateStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lbUpdateStatus.Location = new System.Drawing.Point(3, 229);
-            this.lbUpdateStatus.Name = "lbUpdateStatus";
-            this.lbUpdateStatus.Size = new System.Drawing.Size(156, 17);
-            this.lbUpdateStatus.TabIndex = 1;
-            this.lbUpdateStatus.Text = "Checking for Updates...";
-            // 
-            // btUpdater
-            // 
-            this.btUpdater.AutoSize = true;
-            this.btUpdater.BackColor = System.Drawing.Color.Transparent;
-            this.btUpdater.FlatAppearance.BorderSize = 0;
-            this.btUpdater.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btUpdater.Location = new System.Drawing.Point(6, 249);
-            this.btUpdater.Name = "btUpdater";
-            this.btUpdater.Size = new System.Drawing.Size(160, 31);
-            this.btUpdater.TabIndex = 3;
-            this.btUpdater.Text = "Check for Updates";
-            this.btUpdater.UseVisualStyleBackColor = false;
-            this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
-            // 
-            // btInstall
-            // 
-            this.btInstall.AutoSize = true;
-            this.btInstall.BackColor = System.Drawing.Color.Transparent;
-            this.btInstall.FlatAppearance.BorderSize = 0;
-            this.btInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btInstall.Location = new System.Drawing.Point(6, 279);
-            this.btInstall.Name = "btInstall";
-            this.btInstall.Size = new System.Drawing.Size(160, 31);
-            this.btInstall.TabIndex = 3;
-            this.btInstall.Text = "Install the update";
-            this.btInstall.UseVisualStyleBackColor = false;
-            this.btInstall.Visible = false;
-            this.btInstall.Click += new System.EventHandler(this.btInstall_Click);
-            // 
             // label24
             // 
             this.label24.AutoSize = true;
             this.label24.BackColor = System.Drawing.Color.Transparent;
-            this.label24.Location = new System.Drawing.Point(0, 98);
+            this.label24.Location = new System.Drawing.Point(0, 106);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(120, 14);
             this.label24.TabIndex = 29;
@@ -981,7 +938,7 @@
             // 
             // hsDoNotTrack
             // 
-            this.hsDoNotTrack.Location = new System.Drawing.Point(121, 98);
+            this.hsDoNotTrack.Location = new System.Drawing.Point(121, 106);
             this.hsDoNotTrack.Name = "hsDoNotTrack";
             this.hsDoNotTrack.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsDoNotTrack.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -994,7 +951,7 @@
             this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label23.BackColor = System.Drawing.Color.Transparent;
-            this.label23.Location = new System.Drawing.Point(146, 168);
+            this.label23.Location = new System.Drawing.Point(146, 176);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(377, 50);
             this.label23.TabIndex = 27;
@@ -1014,7 +971,7 @@
             "Beta",
             "Gama",
             "Delta"});
-            this.comboBox2.Location = new System.Drawing.Point(146, 138);
+            this.comboBox2.Location = new System.Drawing.Point(146, 146);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(376, 22);
             this.comboBox2.TabIndex = 26;
@@ -1024,9 +981,9 @@
             // label22
             // 
             this.label22.BackColor = System.Drawing.Color.Transparent;
-            this.label22.Location = new System.Drawing.Point(2, 141);
+            this.label22.Location = new System.Drawing.Point(2, 149);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(136, 77);
+            this.label22.Size = new System.Drawing.Size(136, 49);
             this.label22.TabIndex = 25;
             this.label22.Text = "Update Channel : ";
             // 
@@ -1057,19 +1014,19 @@
             // label9
             // 
             this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Location = new System.Drawing.Point(0, 65);
+            this.label9.Location = new System.Drawing.Point(0, 59);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(140, 18);
+            this.label9.Size = new System.Drawing.Size(141, 38);
             this.label9.TabIndex = 16;
             this.label9.Tag = "";
-            this.label9.Text = "Search Engine : ";
+            this.label9.Text = "Search Engine :";
             // 
             // textBox3
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.textBox3.Location = new System.Drawing.Point(147, 61);
+            this.textBox3.Location = new System.Drawing.Point(145, 61);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(376, 22);
@@ -1168,7 +1125,7 @@
             this.button12.Tag = "";
             this.button12.Text = "Save";
             this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button10_Click);
+            this.button12.Click += new System.EventHandler(this.Button12_Click);
             // 
             // comboBox1
             // 
@@ -1468,6 +1425,9 @@
             // 
             this.tbAbout.AutoScroll = true;
             this.tbAbout.BackColor = System.Drawing.Color.White;
+            this.tbAbout.Controls.Add(this.lbUpdateStatus);
+            this.tbAbout.Controls.Add(this.btInstall);
+            this.tbAbout.Controls.Add(this.btUpdater);
             this.tbAbout.Controls.Add(this.linkLabel1);
             this.tbAbout.Controls.Add(this.label21);
             this.tbAbout.Controls.Add(this.label17);
@@ -1481,6 +1441,49 @@
             this.tbAbout.Size = new System.Drawing.Size(541, 337);
             this.tbAbout.TabIndex = 5;
             this.tbAbout.Text = "About";
+            // 
+            // lbUpdateStatus
+            // 
+            this.lbUpdateStatus.BackColor = System.Drawing.Color.Transparent;
+            this.lbUpdateStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbUpdateStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbUpdateStatus.Location = new System.Drawing.Point(3, 255);
+            this.lbUpdateStatus.Name = "lbUpdateStatus";
+            this.lbUpdateStatus.Size = new System.Drawing.Size(535, 17);
+            this.lbUpdateStatus.TabIndex = 1;
+            this.lbUpdateStatus.Text = "Checking for Updates...";
+            this.lbUpdateStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btInstall
+            // 
+            this.btInstall.AutoSize = true;
+            this.btInstall.BackColor = System.Drawing.Color.Transparent;
+            this.btInstall.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btInstall.FlatAppearance.BorderSize = 0;
+            this.btInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btInstall.Location = new System.Drawing.Point(3, 272);
+            this.btInstall.Name = "btInstall";
+            this.btInstall.Size = new System.Drawing.Size(535, 31);
+            this.btInstall.TabIndex = 3;
+            this.btInstall.Text = "Install the update";
+            this.btInstall.UseVisualStyleBackColor = false;
+            this.btInstall.Visible = false;
+            this.btInstall.Click += new System.EventHandler(this.btInstall_Click);
+            // 
+            // btUpdater
+            // 
+            this.btUpdater.AutoSize = true;
+            this.btUpdater.BackColor = System.Drawing.Color.Transparent;
+            this.btUpdater.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btUpdater.FlatAppearance.BorderSize = 0;
+            this.btUpdater.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btUpdater.Location = new System.Drawing.Point(3, 303);
+            this.btUpdater.Name = "btUpdater";
+            this.btUpdater.Size = new System.Drawing.Size(535, 31);
+            this.btUpdater.TabIndex = 3;
+            this.btUpdater.Text = "Check for Updates";
+            this.btUpdater.UseVisualStyleBackColor = false;
+            this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
             // 
             // linkLabel1
             // 

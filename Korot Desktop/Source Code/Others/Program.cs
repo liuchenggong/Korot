@@ -1,5 +1,6 @@
 ﻿using HaltroyTabs;
 using System;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -15,7 +16,7 @@ namespace Korot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (args.Contains("-oobe"))
+            if (args.Contains("-oobe") || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
             {
                 Application.Run(new frmOOBE());
             }else 
