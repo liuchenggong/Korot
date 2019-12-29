@@ -1,4 +1,25 @@
-﻿using CefSharp;
+﻿//MIT License
+//
+//Copyright (c) 2020 Eren "Haltroy" Kanat
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+using CefSharp;
 using CefSharp.WinForms;
 using CefSharp.WinForms.Internals;
 using HaltroyTabs;
@@ -202,11 +223,6 @@ namespace Korot
         public string CertErrorPageTitle = "This website is not secure";
         public string CertErrorPageMessage = "This website is using a certificate that has errors. Which means your information (credit cards,passwords,messages...) can be stolen by unknown people in this website.";
         public string CertErrorPageButton = "I understand these risks.";
-        //UpdateType
-        public string UCBeta = "Beta: Receives almost every update. Only receives updates with min. 0.0.1 change in version. Good for safely bug-haunting. (0.0.0.0 -> 0.0.1.0)";
-        public string UCGama = "Gama: Receives less updates than Beta. Only receives updates with min. 0.1 change in version. Good for people still wanting to get more features without taking a big risk. (0.0.0.0 -> 0.1.0.0)";
-        public string UCDelta = "Delta: Receives less updates than Gama. Only receives updates with min. 1.0 change in version. Good for people that doesn't wants to take risks and don't understand computer. (0.0.0.0 -> 1.0.0.0)";
-        public string UCAlpha = "Alpha: Receives every update. These updates may sometimes be small bugfixes. Good for bug-haunting. (0.0.0.0 -> 0.0.0.1)";
         #endregion
         void SetLanguage(string privatemodetxt, string updatetitletxt, string updatemessagetxt, string updateerrortxt,
                          string CreateTabtext, string csnote, string cse, string nw, string niw, string settingstxt,
@@ -228,9 +244,9 @@ namespace Korot
                          string checkbutton, string installbutton, string installstatus, string statustype,
                          string themeTitle, string themeMessage, string themeError, string cemt, string cet, string ce,
                          string cokt, string cok, string sce, string uc, string nuc, string cept, string cepm,
-                         string cepb, string aboutkorot, string licenses, string uch, string ucb, string ucg, string ucd,
-                         string uca, string enablednt, string useBackColor, string _usingBackColor, string imageFromURL, 
-                         string imageFromFile, string iFiles, string aFiles, string selectABI, string backStyleLay)
+                         string cepb, string aboutkorot, string licenses, string enablednt, string useBackColor, 
+                         string _usingBackColor, string imageFromURL, string imageFromFile, string iFiles, string aFiles,
+                         string selectABI, string backStyleLay)
         {
             label25.Text = backStyleLay.Replace(Environment.NewLine, "");
             imageFiles = iFiles.Replace(Environment.NewLine, "");
@@ -242,11 +258,6 @@ namespace Korot
             ımageFromLocalFileToolStripMenuItem.Text = imageFromFile.Replace(Environment.NewLine, "");
             label24.Text = enablednt.Replace(Environment.NewLine, "");
             hsDoNotTrack.Location = new Point(label24.Location.X + label24.Width + 5, label24.Location.Y);
-            UCAlpha = uca.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-            label22.Text = uch.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-            UCBeta = ucb.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-            UCGama = ucg.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-            UCDelta = ucd.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
             label21.Text = aboutkorot.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
             linkLabel1.Text = licenses.Replace(Environment.NewLine, "");
             linkLabel1.LinkArea = new LinkArea(0, linkLabel1.Text.Length);
@@ -568,15 +579,10 @@ namespace Korot
                     languagedummy.Items[113].ToString().Substring(1),
                     languagedummy.Items[114].ToString().Substring(1),
                     languagedummy.Items[115].ToString().Substring(1),
-                    languagedummy.Items[135].ToString().Substring(1),
-                    languagedummy.Items[138].ToString().Substring(1),
-                    languagedummy.Items[139].ToString().Substring(1),
-                    languagedummy.Items[140].ToString().Substring(1),
-                    languagedummy.Items[141].ToString().Substring(1),
-                    languagedummy.Items[142].ToString().Substring(1),
-                    languagedummy.Items[143].ToString().Substring(1),
-                    languagedummy.Items[144].ToString().Substring(1),
-                    languagedummy.Items[145].ToString().Substring(1));
+                    languagedummy.Items[131].ToString().Substring(1),
+                    languagedummy.Items[133].ToString().Substring(1),
+                    languagedummy.Items[134].ToString().Substring(1),
+                    languagedummy.Items[135].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -1039,11 +1045,13 @@ namespace Korot
         }
 
         WebClient UpdateWebC = new WebClient();
+        // Old Update URL
+        // https://onedrive.live.com/download?resid=3FD0899CA240B9B!2123&authkey=!ADjFaqhHH3MjOAQ&ithint=file%2ctxt&e=5QH8I8
         public void Updater()
         {
             UpdateWebC.DownloadStringCompleted += Updater_DownloadStringCompleted;
             UpdateWebC.DownloadProgressChanged += updater_checking;
-            UpdateWebC.DownloadStringAsync(new Uri("https://onedrive.live.com/download?resid=3FD0899CA240B9B!2123&authkey=!ADjFaqhHH3MjOAQ&ithint=file%2ctxt&e=5QH8I8"));
+            UpdateWebC.DownloadStringAsync(new Uri("https://haltroy.com/Updater/Korot.htupdate"));
             updateProgress = 0;
         }
         bool alreadyCheckedForUpdatesOnce = false;
@@ -1064,158 +1072,20 @@ namespace Korot
             }
             else
             {
-                if (Properties.Settings.Default.UpdateChannel == 0) { UpdateResultAlpha(e.Result); }
-                if (Properties.Settings.Default.UpdateChannel == 1) { UpdateResultBeta(e.Result); }
-                if (Properties.Settings.Default.UpdateChannel == 2) { UpdateResultGama(e.Result); }
-                if (Properties.Settings.Default.UpdateChannel == 3) { UpdateResultDelta(e.Result); }
+                UpdateResult(e.Result); 
             }
         }
-        void UpdateResultAlpha(String latestversion)
+        public string ZipPath32 = "";
+        public string ZipPath64 = "";
+        void UpdateResult(String info)
         {
-            Version newest = new Version(latestversion);
+            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+            string[] SplittedFase3 = info.Split(token);
+            ZipPath64 = SplittedFase3[1].Substring(1).Replace(Environment.NewLine, "");
+            ZipPath32 = SplittedFase3[2].Substring(1).Replace(Environment.NewLine, "");
+            Version newest = new Version(SplittedFase3[0].Replace(Environment.NewLine, ""));
             Version current = new Version(Application.ProductVersion);
             if (newest > current)
-            {
-                if (alreadyCheckedForUpdatesOnce)
-                {
-                    updateProgress = 2;
-                    lbUpdateStatus.Text = updateavailable;
-                    btUpdater.Visible = true;
-                    btInstall.Visible = true;
-                }
-                else
-                {
-                    alreadyCheckedForUpdatesOnce = true;
-                    updateProgress = 2;
-                    lbUpdateStatus.Text = updateavailable;
-                    btInstall.Visible = true;
-                    btUpdater.Visible = true;
-                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(updateTitle, updateMessage, this.Icon, MessageBoxButtons.YesNo, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
-                    DialogResult diagres = mesaj.ShowDialog();
-                    if (diagres == DialogResult.Yes)
-                    {
-                        if (Application.OpenForms.OfType<Form1>().Count() < 1)
-                        {
-                            Form1 frmUpdate = new Form1(this);
-                            frmUpdate.Show();
-                        }
-                        else
-                        {
-                            foreach (Form1 x in Application.OpenForms)
-                            {
-                                x.Focus();
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                btUpdater.Visible = true;
-                btInstall.Visible = false;
-                updateProgress = 1;
-                lbUpdateStatus.Text = uptodate;
-            }
-        }
-        void UpdateResultBeta(String latestversion)
-        {
-            Version newest = new Version(latestversion);
-            Version current = new Version(Application.ProductVersion);
-            if (newest.Minor > current.Minor || newest.Major > current.Major || newest.Build > current.Build)
-            {
-                if (alreadyCheckedForUpdatesOnce)
-                {
-                    updateProgress = 2;
-                    lbUpdateStatus.Text = updateavailable;
-                    btUpdater.Visible = true;
-                    btInstall.Visible = true;
-                }
-                else
-                {
-                    alreadyCheckedForUpdatesOnce = true;
-                    updateProgress = 2;
-                    lbUpdateStatus.Text = updateavailable;
-                    btInstall.Visible = true;
-                    btUpdater.Visible = true;
-                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(updateTitle, updateMessage, this.Icon, MessageBoxButtons.YesNo, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
-                    DialogResult diagres = mesaj.ShowDialog();
-                    if (diagres == DialogResult.Yes)
-                    {
-                        if (Application.OpenForms.OfType<Form1>().Count() < 1)
-                        {
-                            Form1 frmUpdate = new Form1(this);
-                            frmUpdate.Show();
-                        }
-                        else
-                        {
-                            foreach (Form1 x in Application.OpenForms)
-                            {
-                                x.Focus();
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                btUpdater.Visible = true;
-                btInstall.Visible = false;
-                updateProgress = 1;
-                lbUpdateStatus.Text = uptodate;
-            }
-        }
-        void UpdateResultGama(String latestversion)
-        {
-            Version newest = new Version(latestversion);
-            Version current = new Version(Application.ProductVersion);
-            if (newest.Minor > current.Minor || newest.Major > current.Major)
-            {
-                if (alreadyCheckedForUpdatesOnce)
-                {
-                    updateProgress = 2;
-                    lbUpdateStatus.Text = updateavailable;
-                    btUpdater.Visible = true;
-                    btInstall.Visible = true;
-                }
-                else
-                {
-                    alreadyCheckedForUpdatesOnce = true;
-                    updateProgress = 2;
-                    lbUpdateStatus.Text = updateavailable;
-                    btInstall.Visible = true;
-                    btUpdater.Visible = true;
-                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(updateTitle, updateMessage, this.Icon, MessageBoxButtons.YesNo, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
-                    DialogResult diagres = mesaj.ShowDialog();
-                    if (diagres == DialogResult.Yes)
-                    {
-                        if (Application.OpenForms.OfType<Form1>().Count() < 1)
-                        {
-                            Form1 frmUpdate = new Form1(this);
-                            frmUpdate.Show();
-                        }
-                        else
-                        {
-                            foreach (Form1 x in Application.OpenForms)
-                            {
-                                x.Focus();
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                btUpdater.Visible = true;
-                btInstall.Visible = false;
-                updateProgress = 1;
-                lbUpdateStatus.Text = uptodate;
-            }
-        }
-        void UpdateResultDelta(String latestversion)
-        {
-            Version newest = new Version(latestversion);
-            Version current = new Version(Application.ProductVersion);
-            if (newest.Major > current.Major)
             {
                 if (alreadyCheckedForUpdatesOnce)
                 {
@@ -1503,9 +1373,7 @@ namespace Korot
             label6.Text = CaseSensitive;
             showCertificateErrorsToolStripMenuItem.Text = showCertError;
             chromiumWebBrowser1.Select();
-            comboBox2.SelectedIndex = Properties.Settings.Default.UpdateChannel;
             hsDoNotTrack.Checked = Properties.Settings.Default.DoNotTrack;
-            updateUCI();
             RefreshTranslation();
         }
         private void button4_Click(object sender, EventArgs e)
@@ -1734,8 +1602,6 @@ namespace Korot
                 lbLang.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 lbLang.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 panel3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-                comboBox2.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-                comboBox2.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 comboBox3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 comboBox3.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsProfiles.BackColor = Properties.Settings.Default.BackColor;
@@ -1935,8 +1801,6 @@ namespace Korot
             newIncognitoWindowToolStripMenuItem.Text = this.newincognitoWindow;
             settingsToolStripMenuItem.Text = this.settingstitle;
             restoreLastSessionToolStripMenuItem.Text = this.restoreOldSessions;
-            comboBox2.SelectedIndex = Properties.Settings.Default.UpdateChannel;
-            updateUCI();
         }
         private void ProfilesToolStripMenuItem_Click(object sender, EventArgs e) => this.Invoke(new Action(() => anaform.SwitchProfile(((ToolStripMenuItem)sender).Text)));
 
@@ -2150,31 +2014,6 @@ namespace Korot
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             panel3.Visible = !panel3.Visible;
-        }
-        void updateUCI()
-        {
-            if (Properties.Settings.Default.UpdateChannel == 0) //alpha
-            {
-                label23.Text = UCAlpha;
-            }
-            else if (Properties.Settings.Default.UpdateChannel == 1) //Beta
-            {
-                label23.Text = UCBeta;
-            }
-            else if (Properties.Settings.Default.UpdateChannel == 2) //gama
-            {
-                label23.Text = UCGama;
-            }
-            else if (Properties.Settings.Default.UpdateChannel == 3) //delta
-            {
-                label23.Text = UCDelta;
-            }
-        }
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //if (comboBox2.Text == "Beta"){Properties.Settings.Default.UpdateChannel = 0;}if (comboBox2.Text == "Gama"){Properties.Settings.Default.UpdateChannel = 1;}if (comboBox2.Text == "Delta"){Properties.Settings.Default.UpdateChannel = 2;}
-            Properties.Settings.Default.UpdateChannel = comboBox2.SelectedIndex;
-            updateUCI();
         }
 
         private void contextMenuStrip4_Opening(object sender, CancelEventArgs e)

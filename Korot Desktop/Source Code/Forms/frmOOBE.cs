@@ -1,4 +1,25 @@
-﻿using Microsoft.Win32;
+﻿//MIT License
+//
+//Copyright (c) 2020 Eren "Haltroy" Kanat
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -67,6 +88,50 @@ namespace Korot
             }
             else
             {
+                Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
+                string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+                char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+                string[] SplittedFase = Playlist.Split(token);
+                this.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
+                btContinue.Text = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
+                btContinue1.Text = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
+                btContinue2.Text = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
+                btBack.Text = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
+                btBack1.Text = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
+                btBack2.Text = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
+                btFinal.Text = SplittedFase[157].Substring(1).Replace(Environment.NewLine, "");
+                lbInfoTheme.Text = SplittedFase[153].Substring(1).Replace(Environment.NewLine, "");
+                lbInfoSettings.Text = SplittedFase[153].Substring(1).Replace(Environment.NewLine, "");
+                lbWelcome.Text = SplittedFase[145].Substring(1).Replace(Environment.NewLine, "");
+                lbProfile.Text = SplittedFase[146].Substring(1).Replace(Environment.NewLine, "");
+                lbNotContain.Text = SplittedFase[147].Substring(1).Replace(Environment.NewLine, "");
+                lbProfileInfo.Text = SplittedFase[148].Substring(1).Replace(Environment.NewLine, "");
+                lbWelcomeSetting.Text = SplittedFase[149].Substring(1).Replace(Environment.NewLine, "");
+                lbWelcomeTheme.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
+                lbHomePage.Text = SplittedFase[11].Substring(1).Replace(Environment.NewLine, "");
+                lbNewTab.Text = SplittedFase[152].Substring(1).Replace(Environment.NewLine, "");
+                rbKorotL.Text = SplittedFase[154].Substring(1).Replace(Environment.NewLine, "");
+                rbKorotD.Text = SplittedFase[155].Substring(1).Replace(Environment.NewLine, "");
+                rbCustom.Text = SplittedFase[156].Substring(1).Replace(Environment.NewLine, "");
+                lbBack.Text = SplittedFase[39].Substring(1).Replace(Environment.NewLine, "");
+                lbOveral.Text = SplittedFase[40].Substring(1).Replace(Environment.NewLine, "");
+                lbSE.Text = SplittedFase[12].Substring(1).Replace(Environment.NewLine, "");
+                lbDNT.Text = SplittedFase[131].Substring(1).Replace(Environment.NewLine, "");
+                Yes = SplittedFase[84].Substring(1).Replace(Environment.NewLine, "");
+                No = SplittedFase[85].Substring(1).Replace(Environment.NewLine, "");
+                OK = SplittedFase[86].Substring(1).Replace(Environment.NewLine, "");
+                Cancel = SplittedFase[87].Substring(1).Replace(Environment.NewLine, "");
+                customSearchMessage = SplittedFase[5].Substring(1).Replace(Environment.NewLine, "");
+                customSearchNote = SplittedFase[6].Substring(1).Replace(Environment.NewLine, "");
+                customToolStripMenuItem.Text = SplittedFase[14].Substring(1).Replace(Environment.NewLine, "");
+                closeMessage = SplittedFase[158].Substring(1).Replace(Environment.NewLine, "");
+                lbSettings.Text = SplittedFase[9].Substring(1).Replace(Environment.NewLine, "");
+                lbThemes.Text = SplittedFase[13].Substring(1).Replace(Environment.NewLine, "");
+                textBox3.Width = this.Width - (50 + lbSE.Width);
+                textBox3.Location = new Point(lbSE.Width + lbSE.Location.X + 5, textBox3.Location.Y);
+                haltroySwitch4.Location = new Point(lbDNT.Location.X + 5 + lbDNT.Width, haltroySwitch4.Location.Y);
+                pbBack.Location = new Point(lbBack.Location.X + lbBack.Width + 5, pbBack.Location.Y);
+                pbOverlay.Location = new Point(lbOveral.Location.X + lbOveral.Width + 5, pbOverlay.Location.Y);
                 btContinue2.Visible = true;
             }
         }
@@ -107,12 +172,8 @@ namespace Korot
                 btContinue1.Text = btContinue2.Text;
             }
         }
-
-        private void frmOOBE_Load(object sender, EventArgs e)
+        private void RefreshTheme()
         {
-                DetectDarkMode();
-            rbKorotD.Checked = isDarkMode;
-            rbKorotL.Checked = !isDarkMode;
             this.BackColor = isDarkMode ? Color.Black : Color.White;
             this.ForeColor = isDarkMode ? Color.White : Color.Black;
             cmsSearchEngine.BackColor = isDarkMode ? Color.Black : Color.White;
@@ -120,7 +181,7 @@ namespace Korot
             foreach (TabPage x in tabControl1.TabPages)
             {
                 x.BackColor = isDarkMode ? Color.Black : Color.White;
-                x.ForeColor =  isDarkMode ? Color.White : Color.Black;
+                x.ForeColor = isDarkMode ? Color.White : Color.Black;
             }
             textBox1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
             btContinue.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
@@ -144,6 +205,14 @@ namespace Korot
             lbLang.ForeColor = isDarkMode ? Color.White : Color.Black;
             textBox2.ForeColor = isDarkMode ? Color.White : Color.Black;
             textBox3.ForeColor = isDarkMode ? Color.White : Color.Black;
+        }
+        private void frmOOBE_Load(object sender, EventArgs e)
+        {
+            try { DetectDarkMode(); } catch { isDarkMode = false; }
+            RefreshTheme();
+            rbKorotD.Checked = isDarkMode;
+            rbKorotL.Checked = !isDarkMode;
+            
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
             {
                 Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\", true);
@@ -153,50 +222,7 @@ namespace Korot
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
-            string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SplittedFase = Playlist.Split(token);
-            this.Text = SplittedFase[148].Substring(1).Replace(Environment.NewLine, "");
-            btContinue.Text = SplittedFase[149].Substring(1).Replace(Environment.NewLine, "");
-            btContinue1.Text = SplittedFase[149].Substring(1).Replace(Environment.NewLine, "");
-            btContinue2.Text = SplittedFase[149].Substring(1).Replace(Environment.NewLine, "");
-            btBack.Text = SplittedFase[156].Substring(1).Replace(Environment.NewLine, "");
-            btBack1.Text = SplittedFase[156].Substring(1).Replace(Environment.NewLine, "");
-            btBack2.Text = SplittedFase[156].Substring(1).Replace(Environment.NewLine, "");
-            btFinal.Text = SplittedFase[162].Substring(1).Replace(Environment.NewLine, "");
-            lbInfoTheme.Text = SplittedFase[158].Substring(1).Replace(Environment.NewLine, "");
-            lbInfoSettings.Text = SplittedFase[158].Substring(1).Replace(Environment.NewLine, "");
-            lbWelcome.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
-            lbProfile.Text = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
-            lbNotContain.Text = SplittedFase[152].Substring(1).Replace(Environment.NewLine, "");
-            lbProfileInfo.Text = SplittedFase[153].Substring(1).Replace(Environment.NewLine, "");
-            lbWelcomeSetting.Text = SplittedFase[154].Substring(1).Replace(Environment.NewLine, "");
-            lbWelcomeTheme.Text = SplittedFase[155].Substring(1).Replace(Environment.NewLine, "");
-            lbHomePage.Text = SplittedFase[11].Substring(1).Replace(Environment.NewLine, "");
-            lbNewTab.Text = SplittedFase[157].Substring(1).Replace(Environment.NewLine, "");
-            rbKorotL.Text = SplittedFase[159].Substring(1).Replace(Environment.NewLine, "");
-            rbKorotD.Text = SplittedFase[160].Substring(1).Replace(Environment.NewLine, "");
-            rbCustom.Text = SplittedFase[161].Substring(1).Replace(Environment.NewLine, "");
-            lbBack.Text = SplittedFase[39].Substring(1).Replace(Environment.NewLine, "");
-            lbOveral.Text = SplittedFase[40].Substring(1).Replace(Environment.NewLine, "");
-            lbSE.Text = SplittedFase[12].Substring(1).Replace(Environment.NewLine, "");
-            lbDNT.Text = SplittedFase[135].Substring(1).Replace(Environment.NewLine, "");
-            Yes = SplittedFase[84].Substring(1).Replace(Environment.NewLine, "");
-            No = SplittedFase[85].Substring(1).Replace(Environment.NewLine, "");
-            OK = SplittedFase[86].Substring(1).Replace(Environment.NewLine, "");
-            Cancel = SplittedFase[87].Substring(1).Replace(Environment.NewLine, "");
-            customSearchMessage = SplittedFase[5].Substring(1).Replace(Environment.NewLine, "");
-            customSearchNote = SplittedFase[6].Substring(1).Replace(Environment.NewLine, "");
-            customToolStripMenuItem.Text = SplittedFase[14].Substring(1).Replace(Environment.NewLine, "");
-            closeMessage = SplittedFase[163].Substring(1).Replace(Environment.NewLine, "");
-            lbSettings.Text = SplittedFase[9].Substring(1).Replace(Environment.NewLine, "");
-            lbThemes.Text = SplittedFase[13].Substring(1).Replace(Environment.NewLine, "");
-            textBox3.Width = this.Width - (50 + lbSE.Width);
-            textBox3.Location = new Point(lbSE.Width + lbSE.Location.X + 5, textBox3.Location.Y);
-            haltroySwitch4.Location = new Point(lbDNT.Location.X + 5 + lbDNT.Width, haltroySwitch4.Location.Y);
-            pbBack.Location = new Point(lbBack.Location.X + lbBack.Width + 5, pbBack.Location.Y);
-            pbOverlay.Location = new Point(lbOveral.Location.X + lbOveral.Width + 5, pbOverlay.Location.Y);
+           
             allowSwitch = true;
             tabControl1.SelectedTab = tabPage2;
         }
@@ -486,73 +512,13 @@ namespace Korot
             {
                 isDarkMode = true;
                 timer1.Stop();
-                this.BackColor = isDarkMode ? Color.Black : Color.White;
-                this.ForeColor = isDarkMode ? Color.White : Color.Black;
-                cmsSearchEngine.BackColor = isDarkMode ? Color.Black : Color.White;
-                cmsSearchEngine.ForeColor = isDarkMode ? Color.White : Color.Black;
-                foreach (TabPage x in tabControl1.TabPages)
-                {
-                    x.BackColor = isDarkMode ? Color.Black : Color.White;
-                    x.ForeColor = isDarkMode ? Color.White : Color.Black;
-                }
-                textBox1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btFinal.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                lbLang.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox3.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btFinal.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                lbLang.ForeColor = isDarkMode ? Color.White : Color.Black;
-                textBox2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                textBox3.ForeColor = isDarkMode ? Color.White : Color.Black;
+               RefreshTheme();
             }
             else if (e.KeyData == Keys.F3)
             {
                 isDarkMode = false;
                 timer1.Stop();
-                this.BackColor = isDarkMode ? Color.Black : Color.White;
-                this.ForeColor = isDarkMode ? Color.White : Color.Black;
-                cmsSearchEngine.BackColor = isDarkMode ? Color.Black : Color.White;
-                cmsSearchEngine.ForeColor = isDarkMode ? Color.White : Color.Black;
-                foreach (TabPage x in tabControl1.TabPages)
-                {
-                    x.BackColor = isDarkMode ? Color.Black : Color.White;
-                    x.ForeColor = isDarkMode ? Color.White : Color.Black;
-                }
-                textBox1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btFinal.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                lbLang.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox3.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btFinal.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                lbLang.ForeColor = isDarkMode ? Color.White : Color.Black;
-                textBox2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                textBox3.ForeColor = isDarkMode ? Color.White : Color.Black;
+                RefreshTheme();
             }
         }
 
@@ -561,72 +527,12 @@ namespace Korot
             try
             {
                 isDarkMode = DetectIsDarkMode();
-                this.BackColor = isDarkMode ? Color.Black : Color.White;
-                this.ForeColor = isDarkMode ? Color.White : Color.Black;
-                cmsSearchEngine.BackColor = isDarkMode ? Color.Black : Color.White;
-                cmsSearchEngine.ForeColor = isDarkMode ? Color.White : Color.Black;
-                foreach (TabPage x in tabControl1.TabPages)
-                {
-                    x.BackColor = isDarkMode ? Color.Black : Color.White;
-                    x.ForeColor = isDarkMode ? Color.White : Color.Black;
-                }
-                textBox1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btFinal.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                lbLang.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox3.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btFinal.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                lbLang.ForeColor = isDarkMode ? Color.White : Color.Black;
-                textBox2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                textBox3.ForeColor = isDarkMode ? Color.White : Color.Black;
+               RefreshTheme();
             }
             catch
             {
                 isDarkMode = false;
-                this.BackColor = isDarkMode ? Color.Black : Color.White;
-                this.ForeColor = isDarkMode ? Color.White : Color.Black;
-                cmsSearchEngine.BackColor = isDarkMode ? Color.Black : Color.White;
-                cmsSearchEngine.ForeColor = isDarkMode ? Color.White : Color.Black;
-                foreach (TabPage x in tabControl1.TabPages)
-                {
-                    x.BackColor = isDarkMode ? Color.Black : Color.White;
-                    x.ForeColor = isDarkMode ? Color.White : Color.Black;
-                }
-                textBox1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btContinue2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btFinal.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                btBack2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                lbLang.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox3.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-                textBox1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btContinue2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btFinal.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack1.ForeColor = isDarkMode ? Color.White : Color.Black;
-                btBack2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                lbLang.ForeColor = isDarkMode ? Color.White : Color.Black;
-                textBox2.ForeColor = isDarkMode ? Color.White : Color.Black;
-                textBox3.ForeColor = isDarkMode ? Color.White : Color.Black;
+               RefreshTheme();
             }
         }
     }

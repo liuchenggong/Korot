@@ -109,11 +109,6 @@ Bu websitesi hatalı bir sertifika kullanıyor. Bu da bazı bilgileriniz (kredi 
 Bu riskleri anlıyorum.
 Korot, CefSharp kullanarak Google tarafından yapılan Chromium'u kullanıyor.[NEWLINE]Korot, Microsoft tarafından Visual Studio Community kullanılarak C# dilinde yazılmıştır.[NEWLINE]Korot, EasyTabs'in değiştirilmiş sürümünü kullanır.[NEWLINE]Çeviri Haltroy tarafından yapılmıştır.
 Lisanslar...
-Güncelleme Kanalı:
-Beta: Tüm güncellemeleri alır. Versionda sadece min. 0.0.1 değişiklikte güncellenir. Günveli bir şekilde hata avı için ideal. (0.0.0.0 -> 0.0.1.0)
-Gama: Beta'dan daha az güncelleme alır. Versionda sadece min. 0.1 değişiklikte güncellenir. Riske girmeden yeni özellikler elde etmek isteyenler için ideal. (0.0.0.0 -> 0.1.0.0)
-Delta: Gama'dan daha az güncelleme alır. Versionda sadece min. 1.0 değişiklikte güncellenir. Riske girmek istemeyenler ve bilgisayarlardan anlamayanlar için ideal. (0.0.0.0 -> 1.0.0.0)
-Alpha: Tüm güncellemeleri alır. Bu güncellemeler bazen küçük hata düzeltmeleri olabilir. Hata avcıları için ideal. (0.0.0.0 -> 0.0.0.1)
 Bu eklenti şu izinleri istiyor.
 Bu eklenti bir izin istemiyor.
 Bu eklenti yüklenemez.

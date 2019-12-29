@@ -1,4 +1,25 @@
-﻿using System;
+﻿//MIT License
+//
+//Copyright (c) 2020 Eren "Haltroy" Kanat
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+using System;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
@@ -60,32 +81,32 @@ namespace Korot
             string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
-            noPermission = SplittedFase[117].Substring(1).Replace(Environment.NewLine, "");
-            Initializing = SplittedFase[127].Substring(1).Replace(Environment.NewLine, "");
-            installed = SplittedFase[124].Substring(1).Replace(Environment.NewLine, "");
-            dc = SplittedFase[123].Substring(1).Replace(Environment.NewLine, "");
-            cd = SplittedFase[122].Substring(1).Replace(Environment.NewLine, "");
-            rof2 = SplittedFase[121].Substring(1).Replace(Environment.NewLine, "");
-            rof1 = SplittedFase[120].Substring(1).Replace(Environment.NewLine, "");
-            installing = SplittedFase[118].Substring(1).Replace(Environment.NewLine, "");
-            label9.Text = SplittedFase[116].Substring(1).Replace(Environment.NewLine, "");
-            label15.Text = SplittedFase[128].Substring(1).Replace(Environment.NewLine, "");
-            label16.Text = SplittedFase[129].Substring(1).Replace(Environment.NewLine, "");
-            label5.Text = SplittedFase[130].Substring(1).Replace(Environment.NewLine, "");
-            label10.Text = SplittedFase[131].Substring(1).Replace(Environment.NewLine, "");
-            label7.Text = SplittedFase[132].Substring(1).Replace(Environment.NewLine, "");
-            label14.Text = SplittedFase[133].Substring(1).Replace(Environment.NewLine, "");
-            button1.Text = SplittedFase[126].Substring(1).Replace(Environment.NewLine, "");
+            noPermission = SplittedFase[112].Substring(1).Replace(Environment.NewLine, "");
+            Initializing = SplittedFase[122].Substring(1).Replace(Environment.NewLine, "");
+            installed = SplittedFase[119].Substring(1).Replace(Environment.NewLine, "");
+            dc = SplittedFase[118].Substring(1).Replace(Environment.NewLine, "");
+            cd = SplittedFase[117].Substring(1).Replace(Environment.NewLine, "");
+            rof2 = SplittedFase[116].Substring(1).Replace(Environment.NewLine, "");
+            rof1 = SplittedFase[115].Substring(1).Replace(Environment.NewLine, "");
+            installing = SplittedFase[113].Substring(1).Replace(Environment.NewLine, "");
+            label9.Text = SplittedFase[111].Substring(1).Replace(Environment.NewLine, "");
+            label15.Text = SplittedFase[123].Substring(1).Replace(Environment.NewLine, "");
+            label16.Text = SplittedFase[124].Substring(1).Replace(Environment.NewLine, "");
+            label5.Text = SplittedFase[125].Substring(1).Replace(Environment.NewLine, "");
+            label10.Text = SplittedFase[126].Substring(1).Replace(Environment.NewLine, "");
+            label7.Text = SplittedFase[127].Substring(1).Replace(Environment.NewLine, "");
+            label14.Text = SplittedFase[128].Substring(1).Replace(Environment.NewLine, "");
+            button1.Text = SplittedFase[121].Substring(1).Replace(Environment.NewLine, "");
             button2.Text = SplittedFase[87].Substring(1).Replace(Environment.NewLine, "");
-            button3.Text = SplittedFase[125].Substring(1).Replace(Environment.NewLine, "");
-            button4.Text = SplittedFase[125].Substring(1).Replace(Environment.NewLine, "");
-            label8.Text = SplittedFase[119].Substring(1).Replace(Environment.NewLine, "");
-            label6.Text = SplittedFase[118].Substring(1).Replace(Environment.NewLine, "");
-            reqError = SplittedFase[134].Substring(1).Replace(Environment.NewLine, "");
-            fileSizeError = SplittedFase[136].Substring(1).Replace(Environment.NewLine, "");
-            label1.Text = SplittedFase[137].Substring(1).Replace(Environment.NewLine, "");
-            label2.Text = SplittedFase[146].Substring(1).Replace(Environment.NewLine, "");
-            ext = SplittedFase[147].Substring(1).Replace(Environment.NewLine, "");
+            button3.Text = SplittedFase[120].Substring(1).Replace(Environment.NewLine, "");
+            button4.Text = SplittedFase[120].Substring(1).Replace(Environment.NewLine, "");
+            label8.Text = SplittedFase[114].Substring(1).Replace(Environment.NewLine, "");
+            label6.Text = SplittedFase[113].Substring(1).Replace(Environment.NewLine, "");
+            reqError = SplittedFase[129].Substring(1).Replace(Environment.NewLine, "");
+            fileSizeError = SplittedFase[131].Substring(1).Replace(Environment.NewLine, "");
+            label1.Text = SplittedFase[132].Substring(1).Replace(Environment.NewLine, "");
+            label2.Text = SplittedFase[141].Substring(1).Replace(Environment.NewLine, "");
+            ext = SplittedFase[142].Substring(1).Replace(Environment.NewLine, "");
             theme = SplittedFase[13].Substring(1).Replace(Environment.NewLine, "");
             allowSwitch = true;
             tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage4));

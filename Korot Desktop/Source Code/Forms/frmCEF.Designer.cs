@@ -1,4 +1,25 @@
-﻿namespace Korot
+﻿//MIT License
+//
+//Copyright (c) 2020 Eren "Haltroy" Kanat
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+namespace Korot
 {
     partial class frmCEF
     {
@@ -99,9 +120,6 @@
             this.tbSetting = new System.Windows.Forms.TabPage();
             this.label24 = new System.Windows.Forms.Label();
             this.hsDoNotTrack = new HaltroyFramework.HaltroySwitch();
-            this.label23 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label22 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -911,9 +929,6 @@
             this.tbSetting.BackColor = System.Drawing.Color.White;
             this.tbSetting.Controls.Add(this.label24);
             this.tbSetting.Controls.Add(this.hsDoNotTrack);
-            this.tbSetting.Controls.Add(this.label23);
-            this.tbSetting.Controls.Add(this.comboBox2);
-            this.tbSetting.Controls.Add(this.label22);
             this.tbSetting.Controls.Add(this.radioButton1);
             this.tbSetting.Controls.Add(this.label11);
             this.tbSetting.Controls.Add(this.label9);
@@ -945,47 +960,6 @@
             this.hsDoNotTrack.Size = new System.Drawing.Size(50, 19);
             this.hsDoNotTrack.TabIndex = 28;
             this.hsDoNotTrack.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsDoNotTrack_CheckedChanged);
-            // 
-            // label23
-            // 
-            this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label23.BackColor = System.Drawing.Color.Transparent;
-            this.label23.Location = new System.Drawing.Point(146, 176);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(377, 50);
-            this.label23.TabIndex = 27;
-            this.label23.Text = "UPDATE CHANNEL INFO GOES TO HERE";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.BackColor = System.Drawing.Color.White;
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox2.ForeColor = System.Drawing.Color.Black;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Alpha",
-            "Beta",
-            "Gama",
-            "Delta"});
-            this.comboBox2.Location = new System.Drawing.Point(146, 146);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(376, 22);
-            this.comboBox2.TabIndex = 26;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
-            this.comboBox2.TextUpdate += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
-            // 
-            // label22
-            // 
-            this.label22.BackColor = System.Drawing.Color.Transparent;
-            this.label22.Location = new System.Drawing.Point(2, 149);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(136, 49);
-            this.label22.TabIndex = 25;
-            this.label22.Text = "Update Channel : ";
             // 
             // radioButton1
             // 
@@ -1926,9 +1900,6 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ToolStripMenuItem ınternetArchiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yaaniToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip cms4;
