@@ -19,7 +19,7 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
-using HaltroyTabs;
+using Korot;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,7 +33,6 @@ namespace Korot
 
     public partial class frmMain : TitleBarTabs
     {
-        private MyJumplist list;
         // string[] _args = null;
         public bool isIncognito = false;
         public KorotTabRenderer tabRenderer;
@@ -53,7 +52,6 @@ namespace Korot
             tabRenderer = new KorotTabRenderer(this, Color.Black, Color.White, Color.DodgerBlue, null, false);
             TabRenderer = tabRenderer;
             Icon = Properties.Resources.KorotIcon;
-            list = new MyJumplist(this.Handle, this);
             InitializeComponent();
             this.MinimumSize = new System.Drawing.Size(660, 340);
             this.Size = new Size(Properties.Settings.Default.WindowSizeW, Properties.Settings.Default.WindowSizeH);

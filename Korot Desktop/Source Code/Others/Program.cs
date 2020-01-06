@@ -19,7 +19,7 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
-using HaltroyTabs;
+using Korot;
 using System;
 using System.IO;
 using System.Linq;
@@ -37,7 +37,11 @@ namespace Korot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (args.Contains("-oobe") || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
+            if (args.Contains("-update"))
+            {
+                Application.Run(new Form1());
+            }
+            else if (args.Contains("-oobe") || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
             {
                 Application.Run(new frmOOBE());
             }else 

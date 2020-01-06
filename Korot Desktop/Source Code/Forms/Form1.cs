@@ -25,6 +25,8 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -32,24 +34,37 @@ namespace Korot
 {
     public partial class Form1 : Form
     {
-        string downloadUrl = "";
-        string downloadloc = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\update.zip";
-        frmCEF anaform;
+        string downloadUrl = "http://bit.ly/KorotSetup";
+        string downloadloc = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\update.exe";
         WebClient WebC = new WebClient();
-        public Form1(frmCEF formSettings)
+        string StatusType;
+        string installStatus;
+        public Form1()
         {
             InitializeComponent();
             this.TopMost = true;
-            anaform = formSettings;
-            label1.Text = formSettings.installStatus;
-            label2.Text = formSettings.StatusType;
             WebC.DownloadProgressChanged += WebC_DownloadProgressChanged;
             WebC.DownloadFileCompleted += WebC_DownloadFileAsyncCompleted;
         }
+        void RefreshTranslate()
+        {
+            if (!File.Exists(Properties.Settings.Default.LangFile)) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
+            string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+            string[] SplittedFase = Playlist.Split(token);
+            StatusType = SplittedFase[94].Substring(1).Replace(Environment.NewLine, "");
+            installStatus = SplittedFase[93].Substring(1).Replace(Environment.NewLine, "");
+            this.Text = SplittedFase[1].Substring(1).Replace(Environment.NewLine, "");
+            label1.Text = installStatus;
+            label2.Text = StatusType.Replace("[PERC]", "0").Replace("[CURRENT]", "0").Replace("[TOTAL]","0");
 
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (Environment.Is64BitProcess) { downloadUrl = anaform.ZipPath64; }else { downloadUrl = anaform.ZipPath32; }
+            string info = new WebClient().DownloadString("https://haltroy.com/Updater/Korot.htupdate");
+            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+            string[] SplittedFase3 = info.Split(token);
+            RefreshTranslate();
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\")) { Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\", true); }
             if(File.Exists(downloadloc)) { File.Delete(downloadloc); }
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\");
@@ -59,9 +74,8 @@ namespace Korot
         private void WebC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             pictureBox1.Width = e.ProgressPercentage * 4;
-            label2.Text = anaform.StatusType.Replace("[PERC]", e.ProgressPercentage.ToString()).Replace("[CURRENT]", (e.BytesReceived / 1024).ToString()).Replace("[TOTAL]", (e.TotalBytesToReceive / 1024).ToString());
-            label1.Text = anaform.installStatus;
-            this.Text = anaform.updateTitle;
+            label2.Text = StatusType.Replace("[PERC]", e.ProgressPercentage.ToString()).Replace("[CURRENT]", (e.BytesReceived / 1024).ToString()).Replace("[TOTAL]", (e.TotalBytesToReceive / 1024).ToString());
+            label1.Text = installStatus;
         }
 
         private void WebC_DownloadFileAsyncCompleted(object sender, AsyncCompletedEventArgs e)
@@ -73,28 +87,44 @@ namespace Korot
             }
             else
             {
-                Install();
+                allowClose = true;
+                Process.Start(downloadloc);
+                Application.Exit();
             }
         }
-        async void Install()
+ 
+        bool allowClose = false;
+        void OtherInstances()
         {
-            await Task.Run(() => 
+            Process current = Process.GetCurrentProcess();
+            Process[] processes = Process.GetProcessesByName(current.ProcessName);
+
+            //Loop through the running processes in with the same name 
+            foreach (Process process in processes)
             {
-                string installPath = Application.StartupPath;
-                string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\old\\";
-                try
+                //Ignore the current process 
+                if (process.Id != current.Id)
                 {
-                    
-                    Directory.Move(installPath, tempPath);
-                    ZipFile.ExtractToDirectory(downloadloc, installPath);
-                    Process.Start(Application.ExecutablePath, "https://github.com/Haltroy/Korot/releases");
-                    Application.Exit();
+                    //Make sure that the process is running from the exe file. 
+                    if (Assembly.GetExecutingAssembly().Location.
+                         Replace("/", "\\") == current.MainModule.FileName)
+                    {
+                        //Kill the other process instance.  
+                        Process.Start("taskkill /f /pid" + process.Id);
+
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Output.WriteLine(ex.ToString());
-                }
-            });
+            }
+        }
+        
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!allowClose) { e.Cancel = true; }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            OtherInstances();
         }
     }
 }

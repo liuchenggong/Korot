@@ -87,14 +87,13 @@
     <Reference Include="Microsoft.VisualBasic">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.3.3, Culture=neutral, PublicKeyToken=8985beaab7ea3f04, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\HaltroyTabs\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.3.3, Culture=neutral, PublicKeyToken=8985beaab7ea3f04, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\HaltroyTabs\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework">
       <Private>True</Private>
     </Reference>
@@ -143,6 +142,22 @@
     <Reference Include="System.Xml">
       <Private>True</Private>
     </Reference>
+    <Reference Include="Win32Interop.Dwmapi, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Win32Interop.Dwmapi.1.0.1\lib\Win32Interop.Dwmapi.dll</HintPath>
+    </Reference>
+    <Reference Include="Win32Interop.Gdi32, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Win32Interop.Gdi32.1.0.1\lib\Win32Interop.Gdi32.dll</HintPath>
+    </Reference>
+    <Reference Include="Win32Interop.Kernel32, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Win32Interop.Kernel32.1.0.1\lib\Win32Interop.Kernel32.dll</HintPath>
+    </Reference>
+    <Reference Include="Win32Interop.User32, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Win32Interop.User32.1.0.1\lib\Win32Interop.User32.dll</HintPath>
+    </Reference>
+    <Reference Include="Win32Interop.Uxtheme, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Win32Interop.Uxtheme.1.0.1\lib\Win32Interop.Uxtheme.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source Code\Filters\StreamResponseFilter.cs" />
@@ -160,6 +175,30 @@
     </Compile>
     <Compile Include="Source Code\Handlers\CookieAccessFilter.cs" />
     <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
+    <Compile Include="Source Code\Tab\BaseTabRenderer.cs" />
+    <Compile Include="Source Code\Tab\DisplayType.cs" />
+    <Compile Include="Source Code\Tab\KorotTabRenderer.cs" />
+    <Compile Include="Source Code\Tab\ListItemEventArgs.cs" />
+    <Compile Include="Source Code\Tab\ListModification.cs" />
+    <Compile Include="Source Code\Tab\ListModificationEventArgs.cs" />
+    <Compile Include="Source Code\Tab\ListRangeEventArgs.cs" />
+    <Compile Include="Source Code\Tab\ListWithEvents.cs" />
+    <Compile Include="Source Code\Tab\TitleBarTab.cs" />
+    <Compile Include="Source Code\Tab\TitleBarTabCancelEventArgs.cs" />
+    <Compile Include="Source Code\Tab\TitleBarTabEventArgs.cs" />
+    <Compile Include="Source Code\Tab\TitleBarTabs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Tab\TitleBarTabs.Designer.cs">
+      <DependentUpon>TitleBarTabs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Tab\TitleBarTabsApplicationContext.cs" />
+    <Compile Include="Source Code\Tab\TitleBarTabsOverlay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Tab\TornTabForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Source Code\Tools\ConsoleOutputLog.cs" />
     <Compile Include="Source Code\Forms\Form1.cs">
       <SubType>Form</SubType>
@@ -195,7 +234,6 @@
     <Compile Include="Source Code\Handlers\RequestHandlerKorot.cs" />
     <Compile Include="Source Code\Handlers\SchemeHandlerFactory.cs" />
     <Compile Include="Source Code\Handlers\ToolsHandler.cs" />
-    <Compile Include="Source Code\Others\MyJumplist.cs" />
     <Compile Include="Source Code\Others\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source Code\Forms\frmCEF.cs">
@@ -237,6 +275,10 @@
     <EmbeddedResource Include="Source Code\Forms\frmOOBE.resx">
       <DependentUpon>frmOOBE.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Tab\TitleBarTabs.resx">
+      <DependentUpon>TitleBarTabs.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Lang\English.lang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -255,12 +297,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Themes\Korot Dark.ktf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Themes\Korot Light.ktf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source Code\Others\App.config" />
@@ -323,13 +359,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Extension template\icon.PNG" />
-    <Content Include="Extension template\popup.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Extension template\startup.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\KorotIcon.ico" />
     <None Include="Resources\licenses.html" />
     <None Include="Resources\1.png" />
@@ -338,6 +367,12 @@
     <None Include="Resources\2-w.png" />
     <None Include="Resources\3.png" />
     <None Include="Resources\3-w.png" />
+    <None Include="Resources\korotright.png" />
+    <None Include="Resources\korotadd.png" />
+    <None Include="Resources\korotbackground.png" />
+    <None Include="Resources\korotcenter.png" />
+    <None Include="Resources\korotclose.png" />
+    <None Include="Resources\korotleft.png" />
     <Content Include="Source Code\Others\Korot.ico" />
     <None Include="Resources\prxy.png" />
     <None Include="Resources\prxy-w.png" />
@@ -360,18 +395,6 @@
     <None Include="Resources\star-w.png" />
     <None Include="Resources\star-on.png" />
     <None Include="Resources\star.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Extension template\ext.kem">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HaltroyTabs\HaltroyTabs.csproj">
-      <Project>{690ba0f7-d8fe-4ebe-ba39-8058086c7a09}</Project>
-      <Name>HaltroyTabs</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

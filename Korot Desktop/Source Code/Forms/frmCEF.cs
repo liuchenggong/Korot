@@ -22,7 +22,7 @@
 using CefSharp;
 using CefSharp.WinForms;
 using CefSharp.WinForms.Internals;
-using HaltroyTabs;
+using Korot;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -896,17 +896,13 @@ namespace Korot
 
         private void btInstall_Click(object sender, EventArgs e)
         {
-            if (Application.OpenForms.OfType<Form1>().Count() < 1)
-            {
-                Form1 frmUpdate = new Form1(this);
-                frmUpdate.Show();
-            }
+            Process.Start(Application.ExecutablePath,"-update");
         }
 
         private void btUpdater_Click(object sender, EventArgs e)
         {
             if (UpdateWebC.IsBusy) { UpdateWebC.CancelAsync(); }
-            UpdateWebC.DownloadStringAsync(new Uri("https://onedrive.live.com/download?resid=3FD0899CA240B9B!2123&authkey=!ADjFaqhHH3MjOAQ&ithint=file%2ctxt&e=5QH8I8"));
+            UpdateWebC.DownloadStringAsync(new Uri("https://haltroy.com/Updater/Korot.htupdate"));
             updateProgress = 0;
         }
         private void Timer2_Tick(object sender, EventArgs e)
@@ -938,7 +934,7 @@ namespace Korot
 
         private void Label2_Click(object sender, EventArgs e)
         {
-            anaform.Invoke(new Action(() => anaform.CreateTab("http://korot.haltroy.com")));
+            anaform.Invoke(new Action(() => anaform.CreateTab("https://haltroy.com/Korot.html")));
         }
 
 
@@ -1107,8 +1103,7 @@ namespace Korot
                     {
                         if (Application.OpenForms.OfType<Form1>().Count() < 1)
                         {
-                            Form1 frmUpdate = new Form1(this);
-                            frmUpdate.Show();
+                            Process.Start(Application.ExecutablePath, "-update");
                         }
                         else
                         {
