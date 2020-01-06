@@ -19,7 +19,6 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
-using Korot;
 using System;
 using System.IO;
 using System.Linq;
@@ -44,7 +43,8 @@ namespace Korot
             else if (args.Contains("-oobe") || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
             {
                 Application.Run(new frmOOBE());
-            }else 
+            }
+            else
             {
                 frmMain testApp = new frmMain();
                 bool isIncognito = args.Contains("-incognito");
@@ -56,7 +56,7 @@ namespace Korot
                     });
                 foreach (string x in args)
                 {
-                    if (x == Application.ExecutablePath || x == "-incognito" || x == "-oobe"){}
+                    if (x == Application.ExecutablePath || x == "-incognito" || x == "-oobe") { }
                     else if (x.ToLower().EndsWith(".kef"))
                     {
                         Application.Run(new frmInstallExt(x));

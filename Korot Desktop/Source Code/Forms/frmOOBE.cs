@@ -68,7 +68,7 @@ namespace Korot
         }
         private bool DetectIsDarkMode()
         {
-                    return RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64).OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", RegistryKeyPermissionCheck.ReadSubTree).GetValue("AppsUseLightTheme").ToString() == "0" ? true : false;
+            return RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64).OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", RegistryKeyPermissionCheck.ReadSubTree).GetValue("AppsUseLightTheme").ToString() == "0" ? true : false;
         }
         public void RefreshLangList()
         {
@@ -116,7 +116,7 @@ namespace Korot
                 lbBack.Text = SplittedFase[39].Substring(1).Replace(Environment.NewLine, "");
                 lbOveral.Text = SplittedFase[40].Substring(1).Replace(Environment.NewLine, "");
                 lbSE.Text = SplittedFase[12].Substring(1).Replace(Environment.NewLine, "");
-                lbDNT.Text = SplittedFase[131].Substring(1).Replace(Environment.NewLine, "");
+                lbDNT.Text = SplittedFase[130].Substring(1).Replace(Environment.NewLine, "");
                 Yes = SplittedFase[84].Substring(1).Replace(Environment.NewLine, "");
                 No = SplittedFase[85].Substring(1).Replace(Environment.NewLine, "");
                 OK = SplittedFase[86].Substring(1).Replace(Environment.NewLine, "");
@@ -212,7 +212,7 @@ namespace Korot
             RefreshTheme();
             rbKorotD.Checked = isDarkMode;
             rbKorotL.Checked = !isDarkMode;
-            
+
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
             {
                 Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\", true);
@@ -222,7 +222,7 @@ namespace Korot
 
         private void button3_Click(object sender, EventArgs e)
         {
-           
+
             allowSwitch = true;
             tabControl1.SelectedTab = tabPage2;
         }
@@ -312,15 +312,15 @@ namespace Korot
                                 "255" + Environment.NewLine +
                                 "BACKCOLOR" + Environment.NewLine +
                                 "0", Encoding.UTF8);
-           FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf",
-                                 "0" + Environment.NewLine +
-                                 "0" + Environment.NewLine +
-                                 "0" + Environment.NewLine +
-                                 "30" + Environment.NewLine +
-                                 "144" + Environment.NewLine +
-                                 "255" + Environment.NewLine +
-                                 "BACKCOLOR" + Environment.NewLine +
-                                 "0", Encoding.UTF8);
+            FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf",
+                                  "0" + Environment.NewLine +
+                                  "0" + Environment.NewLine +
+                                  "0" + Environment.NewLine +
+                                  "30" + Environment.NewLine +
+                                  "144" + Environment.NewLine +
+                                  "255" + Environment.NewLine +
+                                  "BACKCOLOR" + Environment.NewLine +
+                                  "0", Encoding.UTF8);
             SaveSettings(profilePath + "settings.ksf",
                     profilePath + "history.ksf",
                     profilePath + "favorites.ksf",
@@ -491,14 +491,15 @@ namespace Korot
                 {
                     e.Cancel = true;
                 }
-            }else { e.Cancel = false; }
+            }
+            else { e.Cancel = false; }
         }
 
         private void lbLang_DoubleClick(object sender, EventArgs e)
         {
             if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".lang"))
             {
-                
+
             }
             else
             {
@@ -512,7 +513,7 @@ namespace Korot
             {
                 isDarkMode = true;
                 timer1.Stop();
-               RefreshTheme();
+                RefreshTheme();
             }
             else if (e.KeyData == Keys.F3)
             {
@@ -527,12 +528,12 @@ namespace Korot
             try
             {
                 isDarkMode = DetectIsDarkMode();
-               RefreshTheme();
+                RefreshTheme();
             }
             catch
             {
                 isDarkMode = false;
-               RefreshTheme();
+                RefreshTheme();
             }
         }
     }

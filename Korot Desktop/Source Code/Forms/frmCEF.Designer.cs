@@ -190,6 +190,7 @@ namespace Korot
             this.ımageFromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ımageFromLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrRefresher = new System.Windows.Forms.Timer(this.components);
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -217,6 +218,7 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.cmsSearchEngine.SuspendLayout();
             this.contextMenuStrip3.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbAddress
@@ -871,9 +873,8 @@ namespace Korot
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.lbSettings);
+            this.tabPage3.Controls.Add(this.flowLayoutPanel1);
             this.tabPage3.Controls.Add(this.tabControl2);
-            this.tabPage3.Controls.Add(this.button13);
             this.tabPage3.Location = new System.Drawing.Point(4, 23);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(564, 408);
@@ -885,7 +886,7 @@ namespace Korot
             // 
             this.lbSettings.AutoSize = true;
             this.lbSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.lbSettings.Location = new System.Drawing.Point(28, 4);
+            this.lbSettings.Location = new System.Drawing.Point(39, 0);
             this.lbSettings.Name = "lbSettings";
             this.lbSettings.Size = new System.Drawing.Size(83, 25);
             this.lbSettings.TabIndex = 34;
@@ -1358,40 +1359,40 @@ namespace Korot
             this.cmsDownload.Name = "cmsDownload";
             this.cmsDownload.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsDownload.ShowImageMargin = false;
-            this.cmsDownload.Size = new System.Drawing.Size(275, 114);
+            this.cmsDownload.Size = new System.Drawing.Size(274, 114);
             // 
             // openLinkİnNewTabToolStripMenuItem
             // 
             this.openLinkİnNewTabToolStripMenuItem.Name = "openLinkİnNewTabToolStripMenuItem";
-            this.openLinkİnNewTabToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.openLinkİnNewTabToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.openLinkİnNewTabToolStripMenuItem.Text = "Open Link in New Tab";
             this.openLinkİnNewTabToolStripMenuItem.Click += new System.EventHandler(this.OpenLinkİnNewTabToolStripMenuItem_Click);
             // 
             // openFileToolStripMenuItem
             // 
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
-            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.openFileToolStripMenuItem.Text = "Open File";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.OpenFileToolStripMenuItem_Click);
             // 
             // openFileİnExplorerToolStripMenuItem
             // 
             this.openFileİnExplorerToolStripMenuItem.Name = "openFileİnExplorerToolStripMenuItem";
-            this.openFileİnExplorerToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.openFileİnExplorerToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.openFileİnExplorerToolStripMenuItem.Text = "Open the Folder containing File in Explorer";
             this.openFileİnExplorerToolStripMenuItem.Click += new System.EventHandler(this.OpenFileİnExplorerToolStripMenuItem_Click);
             // 
             // removeSelectedToolStripMenuItem1
             // 
             this.removeSelectedToolStripMenuItem1.Name = "removeSelectedToolStripMenuItem1";
-            this.removeSelectedToolStripMenuItem1.Size = new System.Drawing.Size(274, 22);
+            this.removeSelectedToolStripMenuItem1.Size = new System.Drawing.Size(273, 22);
             this.removeSelectedToolStripMenuItem1.Text = "Remove Selected";
             this.removeSelectedToolStripMenuItem1.Click += new System.EventHandler(this.RemoveSelectedToolStripMenuItem1_Click);
             // 
             // clearToolStripMenuItem2
             // 
             this.clearToolStripMenuItem2.Name = "clearToolStripMenuItem2";
-            this.clearToolStripMenuItem2.Size = new System.Drawing.Size(274, 22);
+            this.clearToolStripMenuItem2.Size = new System.Drawing.Size(273, 22);
             this.clearToolStripMenuItem2.Text = "Clear";
             this.clearToolStripMenuItem2.Click += new System.EventHandler(this.ClearToolStripMenuItem2_Click);
             // 
@@ -1545,7 +1546,7 @@ namespace Korot
             this.button13.FlatAppearance.BorderSize = 0;
             this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button13.Image = global::Korot.Properties.Resources.leftarrow;
-            this.button13.Location = new System.Drawing.Point(3, 4);
+            this.button13.Location = new System.Drawing.Point(3, 3);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(30, 28);
             this.button13.TabIndex = 0;
@@ -1708,6 +1709,16 @@ namespace Korot
             this.tmrRefresher.Interval = 5000;
             this.tmrRefresher.Tick += new System.EventHandler(this.tmrRefresher_Tick);
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.button13);
+            this.flowLayoutPanel1.Controls.Add(this.lbSettings);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(564, 33);
+            this.flowLayoutPanel1.TabIndex = 35;
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1747,7 +1758,6 @@ namespace Korot
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tbSetting.ResumeLayout(false);
             this.tbSetting.PerformLayout();
@@ -1765,6 +1775,8 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.cmsSearchEngine.ResumeLayout(false);
             this.contextMenuStrip3.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1909,5 +1921,6 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem ımageFromLocalFileToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

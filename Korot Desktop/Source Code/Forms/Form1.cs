@@ -23,11 +23,9 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
@@ -56,7 +54,7 @@ namespace Korot
             installStatus = SplittedFase[93].Substring(1).Replace(Environment.NewLine, "");
             this.Text = SplittedFase[1].Substring(1).Replace(Environment.NewLine, "");
             label1.Text = installStatus;
-            label2.Text = StatusType.Replace("[PERC]", "0").Replace("[CURRENT]", "0").Replace("[TOTAL]","0");
+            label2.Text = StatusType.Replace("[PERC]", "0").Replace("[CURRENT]", "0").Replace("[TOTAL]", "0");
 
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -66,10 +64,10 @@ namespace Korot
             string[] SplittedFase3 = info.Split(token);
             RefreshTranslate();
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\")) { Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\", true); }
-            if(File.Exists(downloadloc)) { File.Delete(downloadloc); }
+            if (File.Exists(downloadloc)) { File.Delete(downloadloc); }
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\");
             pictureBox1.Width = 0;
-                WebC.DownloadFileAsync(new Uri(downloadUrl), downloadloc);
+            WebC.DownloadFileAsync(new Uri(downloadUrl), downloadloc);
         }
         private void WebC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -80,9 +78,9 @@ namespace Korot
 
         private void WebC_DownloadFileAsyncCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            if (e.Error != null || e.Cancelled) 
+            if (e.Error != null || e.Cancelled)
             {
-            if (((WebClient)sender).IsBusy) { ((WebClient)sender).CancelAsync(); }
+                if (((WebClient)sender).IsBusy) { ((WebClient)sender).CancelAsync(); }
             ((WebClient)sender).DownloadFileAsync(new Uri(downloadUrl), downloadloc);
             }
             else
@@ -92,7 +90,7 @@ namespace Korot
                 Application.Exit();
             }
         }
- 
+
         bool allowClose = false;
         void OtherInstances()
         {
@@ -116,7 +114,7 @@ namespace Korot
                 }
             }
         }
-        
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!allowClose) { e.Cancel = true; }

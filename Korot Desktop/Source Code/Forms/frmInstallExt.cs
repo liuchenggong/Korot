@@ -140,7 +140,7 @@ namespace Korot
                 ExtFile = tempFolder + "ext.kem";
                 if (new FileInfo(ExtFile).Length < 1048576)
                 {
-                    ReadKEM(ExtFile);
+                    this.Invoke(new Action(() => ReadKEM(ExtFile)));
                 }
                 else
                 {
@@ -287,6 +287,11 @@ namespace Korot
                 timer1.Stop();
             }
         }
+        void button3Mode(bool ev)
+        {
+            button3.Visible = ev;
+            button3.Enabled = ev;
+        }
         string korotExtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions";
         string extCodeName;
         private async void installKEM()
@@ -294,21 +299,20 @@ namespace Korot
             await Task.Run(() =>
             {
                 extCodeName = (lbAuthor.Text + "." + lbName.Text).Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
-                button3.Visible = false;
-                button3.Enabled = false;
-                lbStatus.Text = installing;
-                pbStatus.Width = 45;
+                this.Invoke(new Action(() => button3Mode(false)));
+                lbStatus.Invoke(new Action(() => lbStatus.Text = installing));
+                pbStatus.Invoke(new Action(() => pbStatus.Width = 45));
                 if (Directory.Exists(korotExtDirectory + "\\" + extCodeName))
                 {
-                    lbStatus.Text = rof1;
+                    lbStatus.Invoke(new Action(() => lbStatus.Text = rof1));
                     Directory.Delete(korotExtDirectory + "\\" + extCodeName, true);
-                    lbStatus.Text = rof2;
+                    lbStatus.Invoke(new Action(() => lbStatus.Text = rof2));
                 }
-                pbStatus.Width = 90;
-                lbStatus.Text = cd;
+                pbStatus.Invoke(new Action(() => pbStatus.Width = 90));
+                lbStatus.Invoke(new Action(() => lbStatus.Text = cd));
                 Directory.CreateDirectory(korotExtDirectory + "\\" + extCodeName);
-                pbStatus.Width = 180;
-                lbStatus.Text = dc;
+                pbStatus.Invoke(new Action(() => pbStatus.Width = 180));
+                lbStatus.Invoke(new Action(() => lbStatus.Text = dc));
                 foreach (String x in Directory.GetFiles(new FileInfo(ExtFile).DirectoryName + " \\"))
                 {
                     File.Copy(x, korotExtDirectory + "\\" + extCodeName + "\\" + new FileInfo(x).Name);
@@ -317,12 +321,11 @@ namespace Korot
                 {
                     Directory.Move(x, korotExtDirectory + "\\" + extCodeName + "\\" + new DirectoryInfo(x).Name);
                 }
-                lbStatus.Visible = false;
-                label8.Text = installed;
-                button3.Visible = true;
-                button3.Enabled = true;
-                panel2.Visible = false;
-                pbStatus.Width = 300;
+                lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
+                label8.Invoke(new Action(() => label8.Text = installed));
+                this.Invoke(new Action(() => button3Mode(true)));
+                panel2.Invoke(new Action(() => panel2.Visible = false));
+                pbStatus.Invoke(new Action(() => pbStatus.Width = 300));
             });
         }
     }

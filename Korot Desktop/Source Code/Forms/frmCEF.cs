@@ -22,7 +22,6 @@
 using CefSharp;
 using CefSharp.WinForms;
 using CefSharp.WinForms.Internals;
-using Korot;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -244,7 +243,7 @@ namespace Korot
                          string checkbutton, string installbutton, string installstatus, string statustype,
                          string themeTitle, string themeMessage, string themeError, string cemt, string cet, string ce,
                          string cokt, string cok, string sce, string uc, string nuc, string cept, string cepm,
-                         string cepb, string aboutkorot, string licenses, string enablednt, string useBackColor, 
+                         string cepb, string aboutkorot, string licenses, string enablednt, string useBackColor,
                          string _usingBackColor, string imageFromURL, string imageFromFile, string iFiles, string aFiles,
                          string selectABI, string backStyleLay)
         {
@@ -355,9 +354,9 @@ namespace Korot
             // lightToolStripMenuItem.Text = ltxt.Replace(Environment.NewLine, "");
             //darkToolStripMenuItem.Text = dtxt.Replace(Environment.NewLine, "");
             restoreOldSessions = restoreLastSession.Replace(Environment.NewLine, "");
-            label7.Text = bcolor.Replace(Environment.NewLine, "");
+            label14.Text = bcolor.Replace(Environment.NewLine, "");
             enterAValidUrl = enterValidUrl.Replace(Environment.NewLine, "");
-            label8.Text = ocolor.Replace(Environment.NewLine, "");
+            label16.Text = ocolor.Replace(Environment.NewLine, "");
             chDate.Text = kaynak.Replace(Environment.NewLine, "");
             fromtwodot = kaynak2nokta.Replace(Environment.NewLine, "");
             chFrom.Text = hedef.Replace(Environment.NewLine, "");
@@ -407,7 +406,8 @@ namespace Korot
             haltroySwitch1.Location = new Point(label6.Location.X + label6.Width + 5, haltroySwitch1.Location.Y);
             findTextBox.Width = panel3.Width - label3.Width - label4.Width - 10;
             findTextBox.Location = new Point(label3.Location.X + label3.Width, label3.Location.Y);
-
+            pictureBox3.Location = new Point(label14.Location.X + label14.Width, pictureBox3.Location.Y);
+            pictureBox4.Location = new Point(label16.Location.X + label16.Width, pictureBox4.Location.Y);
         }
         private void dummyCMS_Opening(object sender, CancelEventArgs e)
         {
@@ -574,15 +574,15 @@ namespace Korot
                     languagedummy.Items[108].ToString().Substring(1),
                     languagedummy.Items[109].ToString().Substring(1),
                     languagedummy.Items[110].ToString().Substring(1),
-                    languagedummy.Items[111].ToString().Substring(1),
-                    languagedummy.Items[112].ToString().Substring(1),
-                    languagedummy.Items[113].ToString().Substring(1),
-                    languagedummy.Items[114].ToString().Substring(1),
-                    languagedummy.Items[115].ToString().Substring(1),
-                    languagedummy.Items[131].ToString().Substring(1),
+                    languagedummy.Items[130].ToString().Substring(1),
                     languagedummy.Items[133].ToString().Substring(1),
                     languagedummy.Items[134].ToString().Substring(1),
-                    languagedummy.Items[135].ToString().Substring(1));
+                    languagedummy.Items[135].ToString().Substring(1),
+                    languagedummy.Items[136].ToString().Substring(1),
+                    languagedummy.Items[137].ToString().Substring(1),
+                    languagedummy.Items[138].ToString().Substring(1),
+                    languagedummy.Items[139].ToString().Substring(1),
+                    languagedummy.Items[140].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -896,7 +896,7 @@ namespace Korot
 
         private void btInstall_Click(object sender, EventArgs e)
         {
-            Process.Start(Application.ExecutablePath,"-update");
+            Process.Start(Application.ExecutablePath, "-update");
         }
 
         private void btUpdater_Click(object sender, EventArgs e)
@@ -963,7 +963,7 @@ namespace Korot
                 int ovB = System.Convert.ToInt32(SplittedFase3[5].Replace(Environment.NewLine, ""));
                 Properties.Settings.Default.BackColor = Color.FromArgb(255, backR, backG, backB);
                 Properties.Settings.Default.OverlayColor = Color.FromArgb(255, ovR, ovG, ovB);
-                Properties.Settings.Default.BackStyle = SplittedFase3[6].Substring(1).Replace(Environment.NewLine, "") == "BACKCOLOR" ?  usingBC : SplittedFase3[6].Replace(Environment.NewLine, "").Replace("[THEMEFOLDER]", "file://" + Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\");
+                Properties.Settings.Default.BackStyle = SplittedFase3[6].Substring(1).Replace(Environment.NewLine, "") == "BACKCOLOR" ? usingBC : SplittedFase3[6].Replace(Environment.NewLine, "").Replace("[THEMEFOLDER]", "file://" + Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\");
                 Properties.Settings.Default.BStyleLayout = Convert.ToInt32(SplittedFase3[7].Replace(Environment.NewLine, ""));
                 pictureBox3.BackColor = Properties.Settings.Default.BackColor;
                 pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
@@ -973,7 +973,7 @@ namespace Korot
             {
                 if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot"))
                 {
-                    
+
                 }
                 else
                 {
@@ -1023,7 +1023,8 @@ namespace Korot
                     listBox2.SelectedIndex = savedValue;
                 }
                 catch { }
-            }catch { }
+            }
+            catch { }
         }
 
 
@@ -1068,7 +1069,7 @@ namespace Korot
             }
             else
             {
-                UpdateResult(e.Result); 
+                UpdateResult(e.Result);
             }
         }
         public string ZipPath32 = "";
