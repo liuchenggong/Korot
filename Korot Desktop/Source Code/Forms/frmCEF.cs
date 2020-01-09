@@ -127,6 +127,8 @@ namespace Korot
             }
         }
         #region "Translate"
+        public string disallowCookie = "Disallow this page using cookies";
+        public string allowCookie = "Allow this page using cookie";
         public string imageFiles = "Image Files";
         public string allFiles = "All Files";
         public string selectBackImage = "Select a background image...";
@@ -245,8 +247,18 @@ namespace Korot
                          string cokt, string cok, string sce, string uc, string nuc, string cept, string cepm,
                          string cepb, string aboutkorot, string licenses, string enablednt, string useBackColor,
                          string _usingBackColor, string imageFromURL, string imageFromFile, string iFiles, string aFiles,
-                         string selectABI, string backStyleLay)
+                         string selectABI, string backStyleLay, string dca, string aca)
         {
+            disallowCookie = dca.Replace(Environment.NewLine, "");
+            allowCookie = aca.Replace(Environment.NewLine, "");
+            if (Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser1.Address))
+            {
+                disallowThisPageForCookieAccessToolStripMenuItem.Text = allowCookie;
+            }
+            else
+            {
+                disallowThisPageForCookieAccessToolStripMenuItem.Text = disallowCookie;
+            }
             label25.Text = backStyleLay.Replace(Environment.NewLine, "");
             imageFiles = iFiles.Replace(Environment.NewLine, "");
             allFiles = aFiles.Replace(Environment.NewLine, "");
@@ -582,7 +594,9 @@ namespace Korot
                     languagedummy.Items[137].ToString().Substring(1),
                     languagedummy.Items[138].ToString().Substring(1),
                     languagedummy.Items[139].ToString().Substring(1),
-                    languagedummy.Items[140].ToString().Substring(1));
+                    languagedummy.Items[140].ToString().Substring(1),
+                    languagedummy.Items[159].ToString().Substring(1),
+                    languagedummy.Items[160].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -812,7 +826,7 @@ namespace Korot
         }
         public static bool ValidHttpURL(string s)
         {
-            string Pattern = @"^(?:about)|(?:about)|(?:file)|(?:korot)|(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
+            string Pattern = @"^(?:about\:\/\/)|(?:about\:\/\/)|(?:file\:\/\/)|(?:korot\:\/\/)|(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$";
             Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return Rgx.IsMatch(s);
         }
@@ -1313,6 +1327,14 @@ namespace Korot
                 }
             }
             isLoading = e.IsLoading;
+            if (Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser1.Address))
+            {
+                disallowThisPageForCookieAccessToolStripMenuItem.Text = allowCookie;
+            }
+            else
+            {
+                disallowThisPageForCookieAccessToolStripMenuItem.Text = disallowCookie;
+            }
         }
 
         public void NewTab(string url)
@@ -2031,6 +2053,20 @@ namespace Korot
         private void Button10_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void disallowThisPageForCookieAccessToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser1.Address))
+            {
+                Properties.Settings.Default.CookieDisallowList.Remove(chromiumWebBrowser1.Address);
+                chromiumWebBrowser1.Reload();
+            }
+            else
+            {
+                Properties.Settings.Default.CookieDisallowList.Add(chromiumWebBrowser1.Address);
+                chromiumWebBrowser1.Reload();
+            }
         }
     }
 }

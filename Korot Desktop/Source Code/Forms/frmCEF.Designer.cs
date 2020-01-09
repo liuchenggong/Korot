@@ -115,6 +115,8 @@ namespace Korot
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.button13 = new System.Windows.Forms.Button();
             this.lbSettings = new System.Windows.Forms.Label();
             this.tabControl2 = new HaltroyFramework.HaltroyTabControl();
             this.tbSetting = new System.Windows.Forms.TabPage();
@@ -171,7 +173,6 @@ namespace Korot
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.button13 = new System.Windows.Forms.Button();
             this.cmsSearchEngine = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.googleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yandexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -190,7 +191,7 @@ namespace Korot
             this.ımageFromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ımageFromLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrRefresher = new System.Windows.Forms.Timer(this.components);
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.disallowThisPageForCookieAccessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -204,6 +205,7 @@ namespace Korot
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tbSetting.SuspendLayout();
             this.tbTheme.SuspendLayout();
@@ -218,7 +220,6 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.cmsSearchEngine.SuspendLayout();
             this.contextMenuStrip3.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbAddress
@@ -278,18 +279,19 @@ namespace Korot
             this.safeStatusToolStripMenuItem,
             this.ınfoToolStripMenuItem,
             this.cookieInfoToolStripMenuItem,
-            this.showCertificateErrorsToolStripMenuItem});
+            this.showCertificateErrorsToolStripMenuItem,
+            this.disallowThisPageForCookieAccessToolStripMenuItem});
             this.cmsPrivacy.Name = "cmsPrivacy";
             this.cmsPrivacy.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsPrivacy.ShowImageMargin = false;
             this.cmsPrivacy.ShowItemToolTips = false;
-            this.cmsPrivacy.Size = new System.Drawing.Size(175, 134);
+            this.cmsPrivacy.Size = new System.Drawing.Size(238, 182);
             // 
             // xToolStripMenuItem
             // 
             this.xToolStripMenuItem.Name = "xToolStripMenuItem";
             this.xToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.xToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
             this.xToolStripMenuItem.Text = "x";
             this.xToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
@@ -299,27 +301,27 @@ namespace Korot
             this.safeStatusToolStripMenuItem.Enabled = false;
             this.safeStatusToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.safeStatusToolStripMenuItem.Name = "safeStatusToolStripMenuItem";
-            this.safeStatusToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.safeStatusToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
             this.safeStatusToolStripMenuItem.Text = "SafeStatus";
             // 
             // ınfoToolStripMenuItem
             // 
             this.ınfoToolStripMenuItem.Enabled = false;
             this.ınfoToolStripMenuItem.Name = "ınfoToolStripMenuItem";
-            this.ınfoToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.ınfoToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
             this.ınfoToolStripMenuItem.Text = "Info";
             // 
             // cookieInfoToolStripMenuItem
             // 
             this.cookieInfoToolStripMenuItem.Enabled = false;
             this.cookieInfoToolStripMenuItem.Name = "cookieInfoToolStripMenuItem";
-            this.cookieInfoToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.cookieInfoToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
             this.cookieInfoToolStripMenuItem.Text = "CookieInfo";
             // 
             // showCertificateErrorsToolStripMenuItem
             // 
             this.showCertificateErrorsToolStripMenuItem.Name = "showCertificateErrorsToolStripMenuItem";
-            this.showCertificateErrorsToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+            this.showCertificateErrorsToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
             this.showCertificateErrorsToolStripMenuItem.Text = "Show certificate error(s)";
             this.showCertificateErrorsToolStripMenuItem.Click += new System.EventHandler(this.showCertificateErrorsToolStripMenuItem_Click);
             // 
@@ -881,6 +883,30 @@ namespace Korot
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.button13);
+            this.flowLayoutPanel1.Controls.Add(this.lbSettings);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(564, 33);
+            this.flowLayoutPanel1.TabIndex = 35;
+            // 
+            // button13
+            // 
+            this.button13.BackColor = System.Drawing.Color.Transparent;
+            this.button13.FlatAppearance.BorderSize = 0;
+            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button13.Image = global::Korot.Properties.Resources.leftarrow;
+            this.button13.Location = new System.Drawing.Point(3, 3);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(30, 28);
+            this.button13.TabIndex = 0;
+            this.button13.UseVisualStyleBackColor = false;
+            this.button13.Click += new System.EventHandler(this.button1_Click);
+            this.button13.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
             // 
             // lbSettings
             // 
@@ -1540,20 +1566,6 @@ namespace Korot
             this.pictureBox5.TabIndex = 0;
             this.pictureBox5.TabStop = false;
             // 
-            // button13
-            // 
-            this.button13.BackColor = System.Drawing.Color.Transparent;
-            this.button13.FlatAppearance.BorderSize = 0;
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.Image = global::Korot.Properties.Resources.leftarrow;
-            this.button13.Location = new System.Drawing.Point(3, 3);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(30, 28);
-            this.button13.TabIndex = 0;
-            this.button13.UseVisualStyleBackColor = false;
-            this.button13.Click += new System.EventHandler(this.button1_Click);
-            this.button13.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
-            // 
             // cmsSearchEngine
             // 
             this.cmsSearchEngine.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1709,15 +1721,12 @@ namespace Korot
             this.tmrRefresher.Interval = 5000;
             this.tmrRefresher.Tick += new System.EventHandler(this.tmrRefresher_Tick);
             // 
-            // flowLayoutPanel1
+            // disallowThisPageForCookieAccessToolStripMenuItem
             // 
-            this.flowLayoutPanel1.Controls.Add(this.button13);
-            this.flowLayoutPanel1.Controls.Add(this.lbSettings);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(564, 33);
-            this.flowLayoutPanel1.TabIndex = 35;
+            this.disallowThisPageForCookieAccessToolStripMenuItem.Name = "disallowThisPageForCookieAccessToolStripMenuItem";
+            this.disallowThisPageForCookieAccessToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.disallowThisPageForCookieAccessToolStripMenuItem.Text = "Disallow this page for cookie access";
+            this.disallowThisPageForCookieAccessToolStripMenuItem.Click += new System.EventHandler(this.disallowThisPageForCookieAccessToolStripMenuItem_Click);
             // 
             // frmCEF
             // 
@@ -1758,6 +1767,8 @@ namespace Korot
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tbSetting.ResumeLayout(false);
             this.tbSetting.PerformLayout();
@@ -1775,8 +1786,6 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.cmsSearchEngine.ResumeLayout(false);
             this.contextMenuStrip3.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1922,5 +1931,6 @@ namespace Korot
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.ToolStripMenuItem disallowThisPageForCookieAccessToolStripMenuItem;
     }
 }

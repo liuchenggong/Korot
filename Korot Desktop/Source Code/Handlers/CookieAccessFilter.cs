@@ -35,18 +35,32 @@ namespace Korot
         }
         public bool CanSaveCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, Cookie cookie)
         {
-            Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
-            Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
-            if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pictureBox2.Image = Properties.Resources.locko)); }
-            return true;
+            if (!Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address))
+            {
+                try
+                {
+                    Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
+                    Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
+                    if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pictureBox2.Image = Properties.Resources.locko)); }
+                }
+                catch { } //Probably catches while closing the program
+            }
+            return !Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address);
         }
 
         public bool CanSendCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, Cookie cookie)
         {
-            Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
-            Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
-            if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pictureBox2.Image = Properties.Resources.locko)); }
-            return true;
+            if (!Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address))
+            {
+                try
+                {
+                    Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
+                    Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
+                    if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pictureBox2.Image = Properties.Resources.locko)); }
+                }
+                catch { } //Probably catches while closing the program
+            }
+            return !Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address);
         }
     }
 }
