@@ -152,7 +152,7 @@ namespace Korot
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error at saving settings(" + settingFile + ") : " + ex.ToString());
+                Console.WriteLine(" [KOROT] Error at saving settings(" + settingFile + ") : " + ex.ToString());
             }
         }
 
@@ -164,7 +164,7 @@ namespace Korot
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("IsDirectoryEmpty : " + ex.Message);
+                Debug.WriteLine(" [KOROT] IsDirectoryEmpty Error : " + ex.ToString());
                 return true;
             }
         }
@@ -352,7 +352,7 @@ namespace Korot
         }
         public void CreateTab(string url = "korot://newtab")
         {
-            if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
+            if (!Directory.Exists(profilePath) && profilePath != null) { Directory.CreateDirectory(profilePath); }
             TitleBarTab newTab = new TitleBarTab(this)
             {
                 Content = new frmCEF(this, isIncognito, url, Properties.Settings.Default.LastUser)
@@ -381,26 +381,28 @@ namespace Korot
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Korot.Properties.Settings.Default.WindowPosX = this.Location.X;
-            Korot.Properties.Settings.Default.WindowPosY = this.Location.Y;
-            Korot.Properties.Settings.Default.WindowSizeH = this.Size.Height;
-            Korot.Properties.Settings.Default.WindowSizeW = this.Size.Width;
-            if (e.CloseReason != CloseReason.None || e.CloseReason != CloseReason.WindowsShutDown || e.CloseReason != CloseReason.TaskManagerClosing)
+            if (!isIncognito)
             {
-                Korot.Properties.Settings.Default.LastSessionURIs = "";
-            }
-            else
-            {
-                Korot.Properties.Settings.Default.LastSessionURIs = "";
-                foreach (TitleBarTab x in this.Tabs)
+                Korot.Properties.Settings.Default.WindowPosX = this.Location.X;
+                Korot.Properties.Settings.Default.WindowPosY = this.Location.Y;
+                Korot.Properties.Settings.Default.WindowSizeH = this.Size.Height;
+                Korot.Properties.Settings.Default.WindowSizeW = this.Size.Width;
+                if (e.CloseReason != CloseReason.None || e.CloseReason != CloseReason.WindowsShutDown || e.CloseReason != CloseReason.TaskManagerClosing)
                 {
-                    Korot.Properties.Settings.Default.LastSessionURIs += ((frmCEF)x.Content).chromiumWebBrowser1.Address + ";";
+                    Korot.Properties.Settings.Default.LastSessionURIs = "";
                 }
+                else
+                {
+                    Korot.Properties.Settings.Default.LastSessionURIs = "";
+                    foreach (TitleBarTab x in this.Tabs)
+                    {
+                        Korot.Properties.Settings.Default.LastSessionURIs += ((frmCEF)x.Content).chromiumWebBrowser1.Address + ";";
+                    }
+                }
+                Korot.Properties.Settings.Default.Save();
+                if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\")) { } else { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
+                SaveSettings(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\settings.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\history.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\favorites.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\download.ksf");
             }
-            Korot.Properties.Settings.Default.Save();
-            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\")) { } else { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
-            SaveSettings(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\settings.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\history.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\favorites.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\download.ksf");
-
         }
 
         private void SessionLogger_Tick(object sender, EventArgs e)

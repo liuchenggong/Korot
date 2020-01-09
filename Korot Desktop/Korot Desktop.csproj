@@ -81,8 +81,8 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HaltroyFramework, Version=0.0.1.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HaltroyFramework.0.0.1.5-alpha\lib\net45\HaltroyFramework.dll</HintPath>
+    <Reference Include="HaltroyFramework, Version=0.0.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HaltroyFramework.0.0.1.6-alpha\lib\net45\HaltroyFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic">
       <Private>True</Private>
@@ -373,6 +373,7 @@
     <None Include="Resources\korotcenter.png" />
     <None Include="Resources\korotclose.png" />
     <None Include="Resources\korotleft.png" />
+    <None Include="Resources\incognito.html" />
     <Content Include="Source Code\Others\Korot.ico" />
     <None Include="Resources\prxy.png" />
     <None Include="Resources\prxy-w.png" />

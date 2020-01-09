@@ -47,6 +47,7 @@ namespace Korot
             else
             {
                 frmMain testApp = new frmMain();
+                testApp.isIncognito = args.Contains("-incognito");
                 bool isIncognito = args.Contains("-incognito");
                 if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
                 testApp.Tabs.Add(
@@ -56,7 +57,11 @@ namespace Korot
                     });
                 foreach (string x in args)
                 {
-                    if (x == Application.ExecutablePath || x == "-incognito" || x == "-oobe") { }
+                    if (x == Application.ExecutablePath|| x == "-oobe") { }
+                    else if (x == "-incognito")
+                    {
+                        testApp.CreateTab("korot://incognito");
+                    }
                     else if (x.ToLower().EndsWith(".kef"))
                     {
                         Application.Run(new frmInstallExt(x));
@@ -66,7 +71,6 @@ namespace Korot
                         testApp.CreateTab(x);
                     }
                 }
-                testApp.isIncognito = args.Contains("-incognito");
                 testApp.SelectedTabIndex = 0;
                 TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
                 applicationContext.Start(testApp);

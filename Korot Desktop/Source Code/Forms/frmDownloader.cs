@@ -81,10 +81,8 @@ namespace Korot
             {
                 Process.Start(hedef);
             }
-            catch (Exception ex)
+            catch
             {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", ex.Message, this.Icon, MessageBoxButtons.OK, Properties.Settings.Default.BackColor);
-                mesaj.ShowDialog();
             }
         }
     }

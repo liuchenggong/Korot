@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 // denetlenir. Bütünleştirilmiş kod ile ilişkili bilgileri değiştirmek için
 // bu öznitelik değerlerini değiştirin.
 [assembly: AssemblyTitle("Korot")]
-[assembly: AssemblyDescription("Explore the web.")]
+[assembly: AssemblyDescription("Surf the universe.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Haltroy")]
 [assembly: AssemblyProduct("Korot")]

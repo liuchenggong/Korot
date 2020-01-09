@@ -262,6 +262,37 @@ namespace Korot.Properties {
         }
         
         /// <summary>
+        ///   &lt;head&gt;
+        ///&lt;style&gt;
+        ///.content {
+        ///  max-width: 500px;
+        ///  margin: auto;
+        ///}
+        /// body{
+        /// background-color: rgb(64,64,64);
+        /// }
+        /// h1{
+        /// color: white;
+        /// }
+        /// h2{
+        /// color: white;
+        /// }
+        /// li{
+        /// color: white;
+        /// }
+        ///&lt;/style&gt;
+        ///&lt;title&gt;§TITLE§&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///&lt;body class=&quot;content&quot;&gt;
+        ///&lt;img style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAA7EAAAOxAGVKw4bAAA57mlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXB [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string incognito {
+            get {
+                return ResourceManager.GetString("incognito", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static System.Drawing.Bitmap inctab {

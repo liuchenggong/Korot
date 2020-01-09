@@ -60,6 +60,7 @@ namespace Korot
             this.ınfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cookieInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showCertificateErrorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disallowThisPageForCookieAccessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbProgress = new System.Windows.Forms.PictureBox();
             this.mFavorites = new System.Windows.Forms.MenuStrip();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -191,7 +192,6 @@ namespace Korot
             this.ımageFromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ımageFromLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrRefresher = new System.Windows.Forms.Timer(this.components);
-            this.disallowThisPageForCookieAccessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -285,7 +285,7 @@ namespace Korot
             this.cmsPrivacy.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsPrivacy.ShowImageMargin = false;
             this.cmsPrivacy.ShowItemToolTips = false;
-            this.cmsPrivacy.Size = new System.Drawing.Size(238, 182);
+            this.cmsPrivacy.Size = new System.Drawing.Size(238, 160);
             // 
             // xToolStripMenuItem
             // 
@@ -325,6 +325,13 @@ namespace Korot
             this.showCertificateErrorsToolStripMenuItem.Text = "Show certificate error(s)";
             this.showCertificateErrorsToolStripMenuItem.Click += new System.EventHandler(this.showCertificateErrorsToolStripMenuItem_Click);
             // 
+            // disallowThisPageForCookieAccessToolStripMenuItem
+            // 
+            this.disallowThisPageForCookieAccessToolStripMenuItem.Name = "disallowThisPageForCookieAccessToolStripMenuItem";
+            this.disallowThisPageForCookieAccessToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.disallowThisPageForCookieAccessToolStripMenuItem.Text = "Disallow this page for cookie access";
+            this.disallowThisPageForCookieAccessToolStripMenuItem.Click += new System.EventHandler(this.disallowThisPageForCookieAccessToolStripMenuItem_Click);
+            // 
             // pbProgress
             // 
             this.pbProgress.BackColor = System.Drawing.Color.DodgerBlue;
@@ -352,10 +359,11 @@ namespace Korot
             this.pictureBox1.Image = global::Korot.Properties.Resources.inctab;
             this.pictureBox1.Location = new System.Drawing.Point(386, 8);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(26, 25);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.Size = new System.Drawing.Size(26, 23);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // button5
             // 
@@ -1527,9 +1535,9 @@ namespace Korot
             this.label18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label18.Location = new System.Drawing.Point(170, 13);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(73, 16);
+            this.label18.Size = new System.Drawing.Size(49, 16);
             this.label18.TabIndex = 1;
-            this.label18.Text = "Beta <ver>";
+            this.label18.Text = "version";
             // 
             // label20
             // 
@@ -1720,13 +1728,6 @@ namespace Korot
             this.tmrRefresher.Enabled = true;
             this.tmrRefresher.Interval = 5000;
             this.tmrRefresher.Tick += new System.EventHandler(this.tmrRefresher_Tick);
-            // 
-            // disallowThisPageForCookieAccessToolStripMenuItem
-            // 
-            this.disallowThisPageForCookieAccessToolStripMenuItem.Name = "disallowThisPageForCookieAccessToolStripMenuItem";
-            this.disallowThisPageForCookieAccessToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
-            this.disallowThisPageForCookieAccessToolStripMenuItem.Text = "Disallow this page for cookie access";
-            this.disallowThisPageForCookieAccessToolStripMenuItem.Click += new System.EventHandler(this.disallowThisPageForCookieAccessToolStripMenuItem_Click);
             // 
             // frmCEF
             // 
