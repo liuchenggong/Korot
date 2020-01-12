@@ -192,6 +192,10 @@ namespace Korot
             this.ımageFromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ımageFromLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrRefresher = new System.Windows.Forms.Timer(this.components);
+            this.cmsFavorite = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openInNewTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeSelectedTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -220,6 +224,7 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.cmsSearchEngine.SuspendLayout();
             this.contextMenuStrip3.SuspendLayout();
+            this.cmsFavorite.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbAddress
@@ -343,6 +348,7 @@ namespace Korot
             // 
             // mFavorites
             // 
+            this.mFavorites.ContextMenuStrip = this.cmsFavorite;
             this.mFavorites.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.mFavorites.Location = new System.Drawing.Point(0, 38);
             this.mFavorites.Name = "mFavorites";
@@ -447,41 +453,43 @@ namespace Korot
             this.restoreLastSessionToolStripMenuItem});
             this.cmsHamburger.Name = "cmsHamburger";
             this.cmsHamburger.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsHamburger.ShowImageMargin = false;
-            this.cmsHamburger.Size = new System.Drawing.Size(175, 114);
+            this.cmsHamburger.Size = new System.Drawing.Size(200, 136);
             // 
             // newWindowToolStripMenuItem
             // 
+            this.newWindowToolStripMenuItem.Image = global::Korot.Properties.Resources.newwindow;
             this.newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
-            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.newWindowToolStripMenuItem.Text = "New Window";
             this.newWindowToolStripMenuItem.Click += new System.EventHandler(this.NewWindowToolStripMenuItem_Click);
             // 
             // newIncognitoWindowToolStripMenuItem
             // 
+            this.newIncognitoWindowToolStripMenuItem.Image = global::Korot.Properties.Resources.newincwindow;
             this.newIncognitoWindowToolStripMenuItem.Name = "newIncognitoWindowToolStripMenuItem";
-            this.newIncognitoWindowToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.newIncognitoWindowToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.newIncognitoWindowToolStripMenuItem.Text = "New Incognito Window";
             this.newIncognitoWindowToolStripMenuItem.Click += new System.EventHandler(this.NewIncognitoWindowToolStripMenuItem_Click);
             // 
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.searchToolStripMenuItem.Text = "Search";
             this.searchToolStripMenuItem.Click += new System.EventHandler(this.searchToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
+            this.settingsToolStripMenuItem.Image = global::Korot.Properties.Resources.Settings;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // restoreLastSessionToolStripMenuItem
             // 
             this.restoreLastSessionToolStripMenuItem.Name = "restoreLastSessionToolStripMenuItem";
-            this.restoreLastSessionToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.restoreLastSessionToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.restoreLastSessionToolStripMenuItem.Text = "Restore last session";
             this.restoreLastSessionToolStripMenuItem.Click += new System.EventHandler(this.restoreLastSessionToolStripMenuItem_Click);
             // 
@@ -523,7 +531,7 @@ namespace Korot
             // deleteThisProfileToolStripMenuItem
             // 
             this.deleteThisProfileToolStripMenuItem.Name = "deleteThisProfileToolStripMenuItem";
-            this.deleteThisProfileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.deleteThisProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteThisProfileToolStripMenuItem.Text = "Delete this Profile";
             this.deleteThisProfileToolStripMenuItem.Click += new System.EventHandler(this.DeleteThisProfileToolStripMenuItem_Click);
             // 
@@ -1729,6 +1737,40 @@ namespace Korot
             this.tmrRefresher.Interval = 5000;
             this.tmrRefresher.Tick += new System.EventHandler(this.tmrRefresher_Tick);
             // 
+            // cmsFavorite
+            // 
+            this.cmsFavorite.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openInNewTab,
+            this.removeSelectedTSMI,
+            this.clearTSMI});
+            this.cmsFavorite.Name = "cmsFavorite";
+            this.cmsFavorite.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cmsFavorite.ShowImageMargin = false;
+            this.cmsFavorite.Size = new System.Drawing.Size(141, 70);
+            this.cmsFavorite.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.cmsFavorite_Closing);
+            this.cmsFavorite.Opening += new System.ComponentModel.CancelEventHandler(this.cmsFavorite_Opening);
+            // 
+            // openInNewTab
+            // 
+            this.openInNewTab.Name = "openInNewTab";
+            this.openInNewTab.Size = new System.Drawing.Size(140, 22);
+            this.openInNewTab.Text = "Open in New Tab";
+            this.openInNewTab.Click += new System.EventHandler(this.openInNewTab_Click);
+            // 
+            // removeSelectedTSMI
+            // 
+            this.removeSelectedTSMI.Name = "removeSelectedTSMI";
+            this.removeSelectedTSMI.Size = new System.Drawing.Size(140, 22);
+            this.removeSelectedTSMI.Text = "Remove Selected";
+            this.removeSelectedTSMI.Click += new System.EventHandler(this.removeSelectedTSMI_Click);
+            // 
+            // clearTSMI
+            // 
+            this.clearTSMI.Name = "clearTSMI";
+            this.clearTSMI.Size = new System.Drawing.Size(140, 22);
+            this.clearTSMI.Text = "Clear";
+            this.clearTSMI.Click += new System.EventHandler(this.clearTSMI_Click);
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1787,6 +1829,7 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.cmsSearchEngine.ResumeLayout(false);
             this.contextMenuStrip3.ResumeLayout(false);
+            this.cmsFavorite.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1933,5 +1976,9 @@ namespace Korot
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.ToolStripMenuItem disallowThisPageForCookieAccessToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip cmsFavorite;
+        private System.Windows.Forms.ToolStripMenuItem openInNewTab;
+        private System.Windows.Forms.ToolStripMenuItem removeSelectedTSMI;
+        private System.Windows.Forms.ToolStripMenuItem clearTSMI;
     }
 }

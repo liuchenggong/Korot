@@ -173,6 +173,12 @@
     <Compile Include="Source Code\Forms\frmOOBE.Designer.cs">
       <DependentUpon>frmOOBE.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Forms\frmTamir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmTamir.Designer.cs">
+      <DependentUpon>frmTamir.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Handlers\CookieAccessFilter.cs" />
     <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
     <Compile Include="Source Code\Tab\BaseTabRenderer.cs" />
@@ -274,6 +280,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmOOBE.resx">
       <DependentUpon>frmOOBE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmTamir.resx">
+      <DependentUpon>frmTamir.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Tab\TitleBarTabs.resx">
       <DependentUpon>TitleBarTabs.cs</DependentUpon>

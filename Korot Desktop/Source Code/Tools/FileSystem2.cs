@@ -47,5 +47,17 @@ namespace Korot
             writer.Close();
             return true;
         }
+        public static bool WriteFile(string fileLocation, byte[] input)
+        {
+
+            if (!File.Exists(fileLocation))
+            {
+                File.Create(fileLocation).Dispose();
+            }
+            var writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+            writer.Write(input, 0, input.Length);
+            writer.Close();
+            return true;
+        }
     }
 }

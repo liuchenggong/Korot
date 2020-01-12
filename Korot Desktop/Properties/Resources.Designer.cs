@@ -151,6 +151,16 @@ namespace Korot.Properties {
         }
         
         /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] English {
+            get {
+                object obj = ResourceManager.GetObject("English", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   &lt;head&gt;
         ///&lt;!--MIT License
         ///

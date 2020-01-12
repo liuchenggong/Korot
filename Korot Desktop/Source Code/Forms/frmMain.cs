@@ -171,16 +171,16 @@ namespace Korot
         public void SwitchProfile(string profilename)
         {
             Properties.Settings.Default.LastUser = profilename;
-            Properties.Settings.Default.Save();
+            if (!isIncognito) { Properties.Settings.Default.Save(); }
             Application.Restart();
         }
         public void DeleteProfile(string profilename)
         {
             Properties.Settings.Default.LastUser = new DirectoryInfo(Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")[0]).Name;
-            Properties.Settings.Default.Save();
+            if (!isIncognito) { Properties.Settings.Default.Save(); }
             frmCEF obj = (frmCEF)Application.OpenForms["frmCEF"]; obj.Close(); CefSharp.Cef.Shutdown();
             Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profilename + "\\", true);
-            Properties.Settings.Default.Save();
+            if (!isIncognito) { Properties.Settings.Default.Save(); }
             Application.Restart();
         }
         public void NewProfile()
@@ -333,7 +333,7 @@ namespace Korot
             try
             {
                 Properties.Settings.Default.LastSessionURIs = Session;
-                Properties.Settings.Default.Save();
+                if (!isIncognito) { Properties.Settings.Default.Save(); }
             }
             catch { }
         }
@@ -399,7 +399,7 @@ namespace Korot
                         Korot.Properties.Settings.Default.LastSessionURIs += ((frmCEF)x.Content).chromiumWebBrowser1.Address + ";";
                     }
                 }
-                Korot.Properties.Settings.Default.Save();
+                if (!isIncognito) { Properties.Settings.Default.Save(); }
                 if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\")) { } else { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
                 SaveSettings(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\settings.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\history.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\favorites.ksf", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\download.ksf");
             }

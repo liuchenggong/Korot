@@ -141,15 +141,6 @@ namespace Korot
         private MemoryStream memoryStream;
         public void OnResourceLoadComplete(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
         {
-            var url = new Uri(request.Url);
-            if (url.Scheme == "korot" && memoryStream != null)
-            {
-                //TODO: Do something with the data here
-                var data = memoryStream.ToArray();
-                var dataLength = data.Length;
-                //NOTE: You may need to use a different encoding depending on the request
-                var dataAsUtf8String = Encoding.UTF8.GetString(data);
-            }
         }
 
         public void OnResourceRedirect(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, ref string newUrl)
