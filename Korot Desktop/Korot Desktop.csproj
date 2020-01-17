@@ -115,6 +115,7 @@
     <Reference Include="System.Security">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Speech" />
     <Reference Include="System.Xml.Linq">
       <Private>True</Private>
     </Reference>
@@ -161,6 +162,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source Code\Filters\StreamResponseFilter.cs" />
+    <Compile Include="Source Code\Forms\frmDebugSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmDebugSettings.Designer.cs">
+      <DependentUpon>frmDebugSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Forms\frmInstallExt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +187,7 @@
       <DependentUpon>frmTamir.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Handlers\CookieAccessFilter.cs" />
+    <Compile Include="Source Code\Handlers\KeyboardHandler.cs" />
     <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
     <Compile Include="Source Code\Tab\BaseTabRenderer.cs" />
     <Compile Include="Source Code\Tab\DisplayType.cs" />
@@ -254,9 +262,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Tools\FileSystem2.cs" />
+    <Compile Include="Source Code\Tools\TakeScrenshot.cs" />
     <Compile Include="Source Code\Tools\WindowsMessageHelper.cs" />
     <EmbeddedResource Include="Source Code\Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmDebugSettings.resx">
+      <DependentUpon>frmDebugSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmDownloader.resx">
       <DependentUpon>frmDownloader.cs</DependentUpon>

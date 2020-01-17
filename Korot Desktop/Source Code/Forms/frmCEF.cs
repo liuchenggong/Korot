@@ -32,8 +32,10 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net;
+using System.Speech.Recognition;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -81,7 +83,7 @@ namespace Korot
             InitializeChromium();
             foreach (Control x in this.Controls)
             {
-                try { x.KeyDown += tabform_KeyDown; } catch { }
+                try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; } catch { }
             }
         }
         void RefreshHistory()
@@ -127,6 +129,8 @@ namespace Korot
             }
         }
         #region "Translate"
+        public string htmlFiles = "HTML File";
+        public string print = "Print";
         public string IncognitoT = "Incognito";
         public string IncognitoTitle = "You are now in Incognito Mode!";
         public string IncognitoTitle1 = "Korot will not going to:";
@@ -252,8 +256,16 @@ namespace Korot
                          string cepb, string aboutkorot, string licenses, string enablednt, string useBackColor,
                          string _usingBackColor, string imageFromURL, string imageFromFile, string iFiles, string aFiles,
                          string selectABI, string backStyleLay, string dca, string aca,string ititle,string ititle0,string ititle1
-            , string it1m1, string it1m2, string it1m3,string ititle2,string it2m1, string it2m2, string it2m3)
+            , string it1m1, string it1m2, string it1m3,string ititle2,string it2m1, string it2m2, string it2m3,string _print,
+            string hFile, string takeSS,string savePage,string zoomIn,string resetZoom,string zoomOut)
         {
+            zoomInToolStripMenuItem.Text = zoomIn.Replace(Environment.NewLine, "");
+            resetZoomToolStripMenuItem.Text = resetZoom.Replace(Environment.NewLine, "");
+            zoomOutToolStripMenuItem.Text = zoomOut.Replace(Environment.NewLine, "");
+            htmlFiles = hFile.Replace(Environment.NewLine, "");
+            takeAScreenshotToolStripMenuItem.Text = takeSS.Replace(Environment.NewLine, "");
+            saveThisPageToolStripMenuItem.Text = savePage.Replace(Environment.NewLine, "");
+            print = _print.Replace(Environment.NewLine, "");
             IncognitoT = ititle.Replace(Environment.NewLine, "");
             IncognitoTitle = ititle0.Replace(Environment.NewLine, "");
             IncognitoTitle1 = ititle1.Replace(Environment.NewLine, "");
@@ -621,7 +633,14 @@ namespace Korot
                     languagedummy.Items[167].ToString().Substring(1),
                     languagedummy.Items[168].ToString().Substring(1),
                     languagedummy.Items[169].ToString().Substring(1),
-                    languagedummy.Items[170].ToString().Substring(1));
+                    languagedummy.Items[170].ToString().Substring(1),
+                    languagedummy.Items[171].ToString().Substring(1),
+                    languagedummy.Items[172].ToString().Substring(1),
+                    languagedummy.Items[173].ToString().Substring(1),
+                    languagedummy.Items[174].ToString().Substring(1),
+                    languagedummy.Items[175].ToString().Substring(1),
+                    languagedummy.Items[176].ToString().Substring(1),
+                    languagedummy.Items[177].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -1237,7 +1256,7 @@ namespace Korot
             settings.UserAgent = "Mozilla/5.0 ( Windows NT "
                 + GetOsVer()
                 + "; "
-                + Environment.OSVersion.Platform
+                + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
                 + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
                 + Cef.ChromiumVersion
                 + " Safari/537.36 Korot/"
@@ -1253,6 +1272,7 @@ namespace Korot
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
             chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri);
             panel1.Controls.Add(chromiumWebBrowser1);
+            chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this, anaform);
             chromiumWebBrowser1.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
             chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(anaform, this);
             chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this, anaform);
@@ -1266,6 +1286,7 @@ namespace Korot
             chromiumWebBrowser1.DownloadHandler = new DownloadHandler(this, anaform);
             chromiumWebBrowser1.JsDialogHandler = new JsHandler(this, anaform);
             chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
+            chromiumWebBrowser1.MouseWheel += MouseScroll;
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
         }
@@ -1405,7 +1426,7 @@ namespace Korot
             pictureBox3.BackColor = Properties.Settings.Default.BackColor;
             pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
             RefreshLangList();
-            LoadLangFromFile(Properties.Settings.Default.LangFile);
+            
             refreshThemeList();
             ChangeTheme();
             RefreshDownloadList();
@@ -1448,6 +1469,8 @@ namespace Korot
                 pictureBox1.Visible = false; 
                 tbAddress.Size = new Size(tbAddress.Size.Width + pictureBox1.Size.Width, tbAddress.Size.Height);
             }
+            LoadLangFromFile(Properties.Settings.Default.LangFile);
+            LoadLangFromFile(Properties.Settings.Default.LangFile);
         }
         private void button4_Click(object sender, EventArgs e)
         {
@@ -1552,10 +1575,50 @@ namespace Korot
             this.Parent.Invoke(new Action(() => this.Parent.Text = this.Text));
         }
 
+        public void showHideSearchMenu()
+        {
+            if (tabControl1.SelectedTab == tabPage1)
+            {
+                panel3.Visible = true;
+                findTextBox.Text = "";
+                chromiumWebBrowser1.StopFinding(true);
+            }
+            else
+            {
+                panel3.Visible = false;
+                findTextBox.Text = "";
+                chromiumWebBrowser1.StopFinding(true);
+            }
+        }
+        public void retrieveKey(int code)
+        {
+            if (code == 0) //BrowserBack
+            {
+                button1_Click(null, null);
+            }
+            else if (code == 1) //BrowserForward
+            {
+                button3_Click(null, null);
+            }
+            else if (code == 2) //BrowserRefresh
+            {
+                button2_Click(null, null);
+            }
+            else if (code == 3) //BrowserStop
+            {
+                button2_Click(null, null);
+            }
+            else if (code == 4) //BrowserHome
+            {
+                button5_Click(null, null);
+            }
+        }
         private void button5_Click(object sender, EventArgs e) { allowSwitching = true; tabControl1.SelectedTab = tabPage1; chromiumWebBrowser1.Load(Properties.Settings.Default.Homepage); }
 
-        private void tabform_KeyDown(object sender, KeyEventArgs e)
+       public bool isControlKeyPressed = false;
+        public void tabform_KeyDown(object sender, KeyEventArgs e)
         {
+            isControlKeyPressed = e.Control;
             if (e.KeyData == Keys.BrowserBack)
             {
                 button1_Click(null, null);
@@ -1576,7 +1639,19 @@ namespace Korot
             {
                 button5_Click(null, null);
             }
-            else if (e.KeyCode == Keys.F && e.Control)
+            else if (e.KeyCode == Keys.N && isControlKeyPressed)
+            {
+                NewTab("korot://newtab");
+            }
+            else if (e.KeyCode == Keys.N && isControlKeyPressed && e.Shift)
+            {
+                Process.Start(Application.ExecutablePath, "-incognito");
+            }
+            else if (e.KeyCode == Keys.N && isControlKeyPressed && e.Alt)
+            {
+                Process.Start(Application.ExecutablePath);
+            }
+            else if (e.KeyCode == Keys.F && isControlKeyPressed)
             {
                 if (tabControl1.SelectedTab == tabPage1)
                 {
@@ -1594,6 +1669,14 @@ namespace Korot
             else if (e.KeyData == Keys.Enter)
             {
                 button4_Click(null, null);
+            }
+            if ((e.KeyData == Keys.Up || e.KeyData == Keys.PageUp) && isControlKeyPressed)
+            {
+                zoomInToolStripMenuItem_Click(sender, null);
+            }
+            if ((e.KeyData == Keys.Down || e.KeyData == Keys.PageDown) && isControlKeyPressed)
+            {
+                zoomOutToolStripMenuItem_Click(sender, null);
             }
         }
         private Image GetImageFromURL(string URL)
@@ -2094,6 +2177,8 @@ namespace Korot
 
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            allowSwitching = true;
+            tabControl1.SelectedTab = tabPage1;
             panel3.Visible = !panel3.Visible;
         }
 
@@ -2179,6 +2264,97 @@ namespace Korot
                 removeSelectedTSMI.Enabled = !_Incognito;
                 openInNewTab.Enabled = !_Incognito;
             }
+        }
+
+        private void takeAScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            allowSwitching = true;
+            tabControl1.SelectedTab = tabPage1;
+            SaveFileDialog save = new SaveFileDialog() {
+                FileName = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "Korot-Screenshot.png", Filter = imageFiles + "|*.png|" + allFiles + "|*.*"};
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                FileSystem2.WriteFile(save.FileName, TakeScrenshot.ImageToByte2(TakeScrenshot.Snapshot(chromiumWebBrowser1)));
+            }
+        }
+
+        private void saveThisPageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            allowSwitching = true;
+            tabControl1.SelectedTab = tabPage1;
+            SaveFileDialog save = new SaveFileDialog()
+            {
+                FileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + this.Text + ".html",
+                Filter = htmlFiles + "|*.html;*.htm|" + allFiles + "|*.*"
+            };
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                Task<String> htmlText = chromiumWebBrowser1.GetSourceAsync();
+                FileSystem2.WriteFile(save.FileName,htmlText.Result,Encoding.UTF8);
+            }
+        }
+
+        private void frmCEF_KeyUp(object sender, KeyEventArgs e) => isControlKeyPressed = !e.Control;
+        private void MouseScroll(object sender, MouseEventArgs e)
+        {
+            if (isControlKeyPressed)
+            {
+                allowSwitching = true;
+                tabControl1.SelectedTab = tabPage1;
+                if (e.Delta > 0)
+                {
+                    zoomInToolStripMenuItem_Click(sender, null);
+                }
+                else if (e.Delta < 0)
+                {
+                    zoomOutToolStripMenuItem_Click(sender, null);
+                }
+            }
+        }
+
+        private void resetZoomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            allowSwitching = true;
+            tabControl1.SelectedTab = tabPage1;
+            chromiumWebBrowser1.SetZoomLevel(0.0);
+            cmsHamburger.Show(button11, 0, 0);
+        }
+        public void zoomIn()
+        {
+            Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
+            if (zoomLevel.Result <= 8)
+            {
+                chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result + 0.25);
+            }
+        }
+        public void zoomOut()
+        {
+            Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
+            if (zoomLevel.Result >= -0.75)
+            {
+                chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result - 0.25);
+            }
+        }
+        public void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            allowSwitching = true;
+            tabControl1.SelectedTab = tabPage1;
+            zoomIn();
+            cmsHamburger.Show(button11, 0, 0);
+        }
+
+        public void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            allowSwitching = true;
+            tabControl1.SelectedTab = tabPage1;
+            zoomOut();
+            cmsHamburger.Show(button11, 0, 0);
+        }
+
+        private void cmsHamburger_Opening(object sender, CancelEventArgs e)
+        {
+            Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
+            zOOMLEVELToolStripMenuItem.Text = ((zoomLevel.Result * 100)+ 100) + "%";
         }
     }
 }

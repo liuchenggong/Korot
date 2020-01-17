@@ -69,6 +69,11 @@ namespace Korot
                         {
                             testApp.CreateTab("korot://incognito");
                         }
+                        else if (x == "-debug")
+                        {
+                            frmDebugSettings frmDebug = new frmDebugSettings();
+                            frmDebug.Show();
+                        }
                         else if (x.ToLower().EndsWith(".kef"))
                         {
                             Application.Run(new frmInstallExt(x));
