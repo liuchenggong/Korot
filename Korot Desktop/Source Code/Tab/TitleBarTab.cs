@@ -28,10 +28,7 @@ namespace Korot
         /// <summary>Parent window that contains this tab.</summary>
         public TitleBarTabs Parent
         {
-            get
-            {
-                return _parent;
-            }
+            get => _parent;
 
             internal set
             {
@@ -55,24 +52,15 @@ namespace Korot
         /// <see cref="Content" />).</summary>
         public string Caption
         {
-            get
-            {
-                return Content.Text;
-            }
+            get => Content.Text;
 
-            set
-            {
-                Content.Text = value;
-            }
+            set => Content.Text = value;
         }
 
         /// <summary>Flag indicating whether or not this tab is active.</summary>
         public bool Active
         {
-            get
-            {
-                return _active;
-            }
+            get => _active;
 
             internal set
             {
@@ -86,15 +74,9 @@ namespace Korot
         /// <summary>The icon that's displayed in the tab's title (simply uses the <see cref="Form.Icon" /> of <see cref="Content" />).</summary>
         public Icon Icon
         {
-            get
-            {
-                return Content.Icon;
-            }
+            get => Content.Icon;
 
-            set
-            {
-                Content.Icon = value;
-            }
+            set => Content.Icon = value;
         }
 
         /// <summary>The area in which the tab is rendered in the client window.</summary>
@@ -121,10 +103,7 @@ namespace Korot
         /// <summary>The content that should be displayed for this tab.</summary>
         public Form Content
         {
-            get
-            {
-                return _content;
-            }
+            get => _content;
 
             set
             {

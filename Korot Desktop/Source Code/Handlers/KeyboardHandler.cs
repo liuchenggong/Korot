@@ -19,11 +19,11 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
+using CefSharp;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CefSharp;
 
 namespace Korot
 {
@@ -44,13 +44,13 @@ namespace Korot
         const int VK_NEXT = 0x22;
         const int keyF = 0x46;
         const int keyN = 0x4E;
-        const int VK_MENU = 0x12;
-        const int VK_SHIFT = 0x10;
+        const int keyS = 0x53;
+        const int VK_SNAPSHOT = 0x2C;
 
-        public KeyboardHandler (frmCEF FrmCEF,frmMain FrmMain)
+        public KeyboardHandler(frmCEF FrmCEF, frmMain FrmMain)
         {
-             _frmCEF = FrmCEF;
-             _frmMain = FrmMain;
+            _frmCEF = FrmCEF;
+            _frmMain = FrmMain;
         }
         public bool OnPreKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut)
         {
@@ -59,7 +59,7 @@ namespace Korot
             if (windowsKeyCode == VK_BROWSER_BACK)
             {
                 isKeyboardShortcut = true;
-                    _frmCEF.Invoke(new Action(() => _frmCEF.retrieveKey(0)));
+                _frmCEF.Invoke(new Action(() => _frmCEF.retrieveKey(0)));
                 //_frmCEF.Invoke(new Action(() => { _frmCEF.tabform_KeyDown(chromiumWebBrowser, new KeyEventArgs(Keys.BrowserBack)); }));
                 return true;
             }
@@ -82,7 +82,7 @@ namespace Korot
                 isKeyboardShortcut = true;
                 _frmCEF.Invoke(new Action(() => _frmCEF.retrieveKey(3)));
                 //_frmCEF.Invoke(new Action(() => { _frmCEF.tabform_KeyDown(chromiumWebBrowser, new KeyEventArgs(Keys.BrowserStop)); }));
-               
+
                 return true;
             }
             else if (windowsKeyCode == VK_BROWSER_SEARCH)
@@ -95,7 +95,7 @@ namespace Korot
             {
                 isKeyboardShortcut = true;
                 _frmCEF.Invoke(new Action(() => _frmCEF.retrieveKey(4)));
-               // _frmCEF.Invoke(new Action(() => { _frmCEF.tabform_KeyDown(chromiumWebBrowser, new KeyEventArgs(Keys.BrowserHome)); }));
+                // _frmCEF.Invoke(new Action(() => { _frmCEF.tabform_KeyDown(chromiumWebBrowser, new KeyEventArgs(Keys.BrowserHome)); }));
                 return true;
             }
             else if ((windowsKeyCode == VK_PRIOR || windowsKeyCode == VK_UP) && modifiers == CefEventFlags.ControlDown)
@@ -119,12 +119,26 @@ namespace Korot
                 }
                 //_frmCEF.Invoke(new Action(() => { _frmCEF.zoomOut(); }));
                 return true;
-            }else if (windowsKeyCode == keyF && modifiers == CefEventFlags.ControlDown)
+            }
+            else if (windowsKeyCode == keyF && modifiers == CefEventFlags.ControlDown)
             {
                 isKeyboardShortcut = true;
                 _frmCEF.Invoke(new Action(() => { _frmCEF.showHideSearchMenu(); }));
                 return true;
-            }else if (windowsKeyCode == keyN && modifiers == CefEventFlags.ControlDown)
+            }
+            else if (windowsKeyCode == keyS && modifiers == CefEventFlags.ControlDown)
+            {
+                isKeyboardShortcut = true;
+                _frmCEF.Invoke(new Action(() => { _frmCEF.savePage(); }));
+                return true;
+            }
+            else if (windowsKeyCode == VK_SNAPSHOT && modifiers == CefEventFlags.ControlDown)
+            {
+                isKeyboardShortcut = true;
+                _frmCEF.Invoke(new Action(() => { _frmCEF.takeScreenShot(); }));
+                return true;
+            }
+            else if (windowsKeyCode == keyN && modifiers == CefEventFlags.ControlDown)
             {
                 isKeyboardShortcut = true;
                 _frmCEF.Invoke(new Action(() => _frmCEF.NewTab("korot://newtab")));
@@ -155,6 +169,8 @@ namespace Korot
                 || windowsKeyCode == VK_BROWSER_SEARCH
                 || windowsKeyCode == VK_BROWSER_HOME
                 || (windowsKeyCode == keyN && modifiers == CefEventFlags.ControlDown)
+                || (windowsKeyCode == keyS && modifiers == CefEventFlags.ControlDown)
+                || (windowsKeyCode == VK_SNAPSHOT && modifiers == CefEventFlags.ControlDown)
                 || (windowsKeyCode == keyN && modifiers.HasFlag(CefEventFlags.ControlDown) && modifiers.HasFlag(CefEventFlags.ShiftDown))
                 || (windowsKeyCode == keyN && modifiers.HasFlag(CefEventFlags.ControlDown) && modifiers.HasFlag(CefEventFlags.AltDown)))
             {

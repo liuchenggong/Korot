@@ -22,21 +22,9 @@ namespace Korot
         }
 
         /// <summary>Gets the index of the first item in the range.</summary>
-        public int StartIndex
-        {
-            get
-            {
-                return _startIndex;
-            }
-        }
+        public int StartIndex => _startIndex;
 
         /// <summary>Gets the number of items in the range.</summary>
-        public int Count
-        {
-            get
-            {
-                return _count;
-            }
-        }
+        public int Count => _count;
     }
 }

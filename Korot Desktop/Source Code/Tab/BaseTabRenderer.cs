@@ -106,13 +106,7 @@ namespace Korot
         }
 
         /// <summary>Height of the tab content area; derived from the height of <see cref="_activeCenterImage" />.</summary>
-        public virtual int TabHeight
-        {
-            get
-            {
-                return _activeCenterImage.Height;
-            }
-        }
+        public virtual int TabHeight => _activeCenterImage.Height;
 
         /// <summary>Flag indicating whether or not we should display the add button.</summary>
         public bool ShowAddButton
@@ -209,13 +203,7 @@ namespace Korot
         /// If the renderer overlaps the tabs (like Chrome), this is the width that the tabs should overlap by.  For renderers that do not overlap tabs (like
         /// Firefox), this should be left at 0.
         /// </summary>
-        public virtual int OverlapWidth
-        {
-            get
-            {
-                return 0;
-            }
-        }
+        public virtual int OverlapWidth => 0;
 
         /// <summary>Horizontal distance that a tab must be dragged before it starts to be repositioned.</summary>
         public int TabRepositionDragDistance
@@ -234,10 +222,7 @@ namespace Korot
         /// <summary>Flag indicating whether or not a tab is being repositioned.</summary>
         public bool IsTabRepositioning
         {
-            get
-            {
-                return _isTabRepositioning;
-            }
+            get => _isTabRepositioning;
 
             internal set
             {
@@ -251,22 +236,10 @@ namespace Korot
         }
 
         /// <summary>Width of the content area of the tabs.</summary>
-        public int TabContentWidth
-        {
-            get
-            {
-                return _tabContentWidth;
-            }
-        }
+        public int TabContentWidth => _tabContentWidth;
 
         /// <summary>Maximum area that the tabs can occupy.  Excludes the add button.</summary>
-        public Rectangle MaxTabArea
-        {
-            get
-            {
-                return _maxTabArea;
-            }
-        }
+        public Rectangle MaxTabArea => _maxTabArea;
 
         /// <summary>Initialize the <see cref="_dragStart" /> and <see cref="_tabClickOffset" /> fields in case the user starts dragging a tab.</summary>
         /// <param name="sender">Object from which this event originated.</param>

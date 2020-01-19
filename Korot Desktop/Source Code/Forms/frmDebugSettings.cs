@@ -20,62 +20,113 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
 {
     public partial class frmDebugSettings : Form
     {
-        public frmDebugSettings() => InitializeComponent();
+        public frmDebugSettings()
+        {
+            InitializeComponent();
+        }
 
-        private void tbHomepage_TextChanged(object sender, EventArgs e) => Properties.Settings.Default.Homepage = tbHomepage.Text;
+        private void tbHomepage_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Homepage = tbHomepage.Text;
+        }
 
-        private void nX_ValueChanged(object sender, EventArgs e) => Properties.Settings.Default.WindowPosX = Convert.ToInt32(nX.Value);
+        private void nX_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.WindowPosX = Convert.ToInt32(nX.Value);
+        }
 
-        private void nY_ValueChanged(object sender, EventArgs e) => Properties.Settings.Default.WindowPosY = Convert.ToInt32(nY.Value);
+        private void nY_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.WindowPosY = Convert.ToInt32(nY.Value);
+        }
 
-        private void nW_ValueChanged(object sender, EventArgs e) => Properties.Settings.Default.WindowSizeW = Convert.ToInt32(nW.Value);
+        private void nW_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.WindowSizeW = Convert.ToInt32(nW.Value);
+        }
 
-        private void nH_ValueChanged(object sender, EventArgs e) => Properties.Settings.Default.WindowSizeH = Convert.ToInt32(nH.Value);
+        private void nH_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.WindowSizeH = Convert.ToInt32(nH.Value);
+        }
 
-        private void tbSE_TextChanged(object sender, EventArgs e) => Properties.Settings.Default.SearchURL = tbSE.Text;
+        private void tbSE_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.SearchURL = tbSE.Text;
+        }
 
-        private void cbOpen_CheckedChanged(object sender, EventArgs e) => Properties.Settings.Default.downloadOpen = cbOpen.Checked;
+        private void cbOpen_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.downloadOpen = cbOpen.Checked;
+        }
 
-        private void cbClose_CheckedChanged(object sender, EventArgs e) => Properties.Settings.Default.downloadClose = cbClose.Checked;
+        private void cbClose_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.downloadClose = cbClose.Checked;
+        }
 
-        private void cbDNT_CheckedChanged(object sender, EventArgs e) => Properties.Settings.Default.DoNotTrack = cbDNT.Checked;
+        private void cbDNT_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.DoNotTrack = cbDNT.Checked;
+        }
 
-        private void tbLang_TextChanged(object sender, EventArgs e) => Properties.Settings.Default.LangFile = tbLang.Text;
+        private void tbLang_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.LangFile = tbLang.Text;
+        }
 
-        private void nStyle_ValueChanged(object sender, EventArgs e) => Properties.Settings.Default.BStyleLayout = Convert.ToInt32(nStyle.Value);
+        private void nStyle_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.BStyleLayout = Convert.ToInt32(nStyle.Value);
+        }
 
-        private void tbStyle_TextChanged(object sender, EventArgs e) => Properties.Settings.Default.BackStyle = tbStyle.Text;
+        private void tbStyle_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.BackStyle = tbStyle.Text;
+        }
 
-        private void tbTheme_TextChanged(object sender, EventArgs e) => Properties.Settings.Default.ThemeFile = tbTheme.Text;
+        private void tbTheme_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ThemeFile = tbTheme.Text;
+        }
 
-        private void tbUser_TextChanged(object sender, EventArgs e) => Properties.Settings.Default.LastUser = tbUser.Text;
+        private void tbUser_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.LastUser = tbUser.Text;
+        }
 
-        private void tbFavorites_TextChanged(object sender, EventArgs e) => Properties.Settings.Default.Favorites = tbFavorites.Text;
+        private void tbFavorites_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Favorites = tbFavorites.Text;
+        }
 
-        private void tbHistory_TextChanged(object sender, EventArgs e) => Properties.Settings.Default.History = tbHistory.Text;
+        private void tbHistory_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.History = tbHistory.Text;
+        }
 
-        private void tbDownloads_TextChanged(object sender, EventArgs e) => Properties.Settings.Default.DowloadHistory = tbDownloads.Text;
+        private void tbDownloads_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.DowloadHistory = tbDownloads.Text;
+        }
 
-        private void tbSession_TextChanged(object sender, EventArgs e) => Properties.Settings.Default.LastSessionURIs = tbSession.Text;
+        private void tbSession_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.LastSessionURIs = tbSession.Text;
+        }
 
-        private void lbCookie_MouseClick(object sender, MouseEventArgs e){if (lbCookie.SelectedItem != null && e.Button == MouseButtons.Right){Properties.Settings.Default.CookieDisallowList.Remove(lbCookie.SelectedItem.ToString());timer1_Tick(sender, null);}}
+        private void lbCookie_MouseClick(object sender, MouseEventArgs e) { if (lbCookie.SelectedItem != null && e.Button == MouseButtons.Right) { Properties.Settings.Default.CookieDisallowList.Remove(lbCookie.SelectedItem.ToString()); timer1_Tick(sender, null); } }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            int selected = lbCookie.SelectedIndex; lbCookie.Items.Clear(); foreach (String x in Properties.Settings.Default.CookieDisallowList){lbCookie.Items.Add(x);}try { lbCookie.SelectedIndex = selected; } catch { }
+            int selected = lbCookie.SelectedIndex; lbCookie.Items.Clear(); foreach (String x in Properties.Settings.Default.CookieDisallowList) { lbCookie.Items.Add(x); }
+            try { lbCookie.SelectedIndex = selected; } catch { }
             tbHomepage.Text = Properties.Settings.Default.Homepage;
             nX.Value = Properties.Settings.Default.WindowPosX;
             nY.Value = Properties.Settings.Default.WindowPosY;
@@ -101,7 +152,7 @@ namespace Korot
 
         private void pbBack_Click(object sender, EventArgs e)
         {
-            ColorDialog color = new ColorDialog() { AnyColor = true, AllowFullOpen = true, FullOpen = true};
+            ColorDialog color = new ColorDialog() { AnyColor = true, AllowFullOpen = true, FullOpen = true };
             if (color.ShowDialog() == DialogResult.OK)
             {
                 pbBack.BackColor = color.Color;

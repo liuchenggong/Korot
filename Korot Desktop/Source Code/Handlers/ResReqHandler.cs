@@ -22,7 +22,6 @@
 using CefSharp;
 using System;
 using System.IO;
-using System.Text;
 
 namespace Korot
 {

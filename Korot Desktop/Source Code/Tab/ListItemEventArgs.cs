@@ -17,12 +17,6 @@ namespace Korot
         }
 
         /// <summary>Gets the index of the item changed.</summary>
-        public int ItemIndex
-        {
-            get
-            {
-                return _itemIndex;
-            }
-        }
+        public int ItemIndex => _itemIndex;
     }
 }

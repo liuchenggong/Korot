@@ -41,7 +41,7 @@ namespace Korot
 
         private string lastSelText = "";
 
-        public ContextMenuHandler(frmCEF activeform, frmMain aNaform){ActiveForm = activeform;anafrm = aNaform;}
+        public ContextMenuHandler(frmCEF activeform, frmMain aNaform) { ActiveForm = activeform; anafrm = aNaform; }
 
         public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
         {
@@ -83,7 +83,7 @@ namespace Korot
                 model.AddItem((CefMenuCommand)SeacrhOrOpenSelectedInNewTab, ActiveForm.SearchOrOpenSelectedInNewTab);
                 model.AddSeparator();
             }
-            model.AddItem(CefMenuCommand.Print,ActiveForm.print);
+            model.AddItem(CefMenuCommand.Print, ActiveForm.print);
             model.AddItem((CefMenuCommand)ShowDevTools, ActiveForm.developerTools);
             model.AddItem(CefMenuCommand.ViewSource, ActiveForm.viewSource);
         }
@@ -123,10 +123,11 @@ namespace Korot
             {
                 browserControl.GetMainFrame().ExecuteJavaScriptAsync("window.open('" + parameters.SelectionText + "')");
             }
-            return false;}
+            return false;
+        }
 
-        public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame){}
+        public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame) { }
 
-        public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback){return false;}
+        public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback) { return false; }
     }
 }

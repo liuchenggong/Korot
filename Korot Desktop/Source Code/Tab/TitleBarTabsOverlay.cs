@@ -158,19 +158,13 @@ namespace Korot
         }
 
         /// <summary>Gradient color for the titlebar background.</summary>
-        protected Color TitleBarGradientColor
-        {
-            get
-            {
-                return _active
+        protected Color TitleBarGradientColor => _active
                     ? SystemInformation.IsTitleBarGradientEnabled
                         ? SystemColors.GradientActiveCaption
                         : SystemColors.ActiveCaption
                     : SystemInformation.IsTitleBarGradientEnabled
                         ? SystemColors.GradientInactiveCaption
                         : SystemColors.InactiveCaption;
-            }
-        }
 
         /// <summary>Screen area in which tabs can be dragged to and dropped for this window.</summary>
         public Rectangle TabDropArea

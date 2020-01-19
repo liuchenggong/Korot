@@ -91,7 +91,7 @@ namespace Korot
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.restoreLastSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.spRestorer = new System.Windows.Forms.ToolStripSeparator();
             this.button9 = new System.Windows.Forms.Button();
             this.cmsProfiles = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.profilenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -510,10 +510,10 @@ namespace Korot
             this.settingsToolStripMenuItem,
             this.toolStripSeparator4,
             this.restoreLastSessionToolStripMenuItem,
-            this.toolStripSeparator5});
+            this.spRestorer});
             this.cmsHamburger.Name = "cmsHamburger";
             this.cmsHamburger.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsHamburger.Size = new System.Drawing.Size(275, 288);
+            this.cmsHamburger.Size = new System.Drawing.Size(275, 310);
             this.cmsHamburger.Opening += new System.ComponentModel.CancelEventHandler(this.cmsHamburger_Opening);
             // 
             // toolStripSeparator6
@@ -549,6 +549,7 @@ namespace Korot
             // takeAScreenshotToolStripMenuItem
             // 
             this.takeAScreenshotToolStripMenuItem.Name = "takeAScreenshotToolStripMenuItem";
+            this.takeAScreenshotToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.PrintScreen)));
             this.takeAScreenshotToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.takeAScreenshotToolStripMenuItem.Text = "Take a Screenshot";
             this.takeAScreenshotToolStripMenuItem.Click += new System.EventHandler(this.takeAScreenshotToolStripMenuItem_Click);
@@ -556,6 +557,7 @@ namespace Korot
             // saveThisPageToolStripMenuItem
             // 
             this.saveThisPageToolStripMenuItem.Name = "saveThisPageToolStripMenuItem";
+            this.saveThisPageToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveThisPageToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.saveThisPageToolStripMenuItem.Text = "Save this page";
             this.saveThisPageToolStripMenuItem.Click += new System.EventHandler(this.saveThisPageToolStripMenuItem_Click);
@@ -575,6 +577,7 @@ namespace Korot
             // zoomInToolStripMenuItem
             // 
             this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
+            this.zoomInToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
             this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
             this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.zoomInToolStripMenuItem_Click);
@@ -589,6 +592,7 @@ namespace Korot
             // zoomOutToolStripMenuItem
             // 
             this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
+            this.zoomOutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
             this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.zoomOutToolStripMenuItem.Text = "Zoom Out";
             this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
@@ -601,6 +605,7 @@ namespace Korot
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
             this.searchToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.searchToolStripMenuItem.Text = "Search";
             this.searchToolStripMenuItem.Click += new System.EventHandler(this.searchToolStripMenuItem_Click);
@@ -630,10 +635,10 @@ namespace Korot
             this.restoreLastSessionToolStripMenuItem.Text = "Restore last session";
             this.restoreLastSessionToolStripMenuItem.Click += new System.EventHandler(this.restoreLastSessionToolStripMenuItem_Click);
             // 
-            // toolStripSeparator5
+            // spRestorer
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(271, 6);
+            this.spRestorer.Name = "spRestorer";
+            this.spRestorer.Size = new System.Drawing.Size(271, 6);
             // 
             // button9
             // 
@@ -2096,11 +2101,11 @@ namespace Korot
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem resetZoomToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem zoomInToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zOOMLEVELToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator spRestorer;
     }
 }

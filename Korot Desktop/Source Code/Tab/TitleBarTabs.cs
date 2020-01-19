@@ -101,10 +101,7 @@ namespace Korot
         /// <summary>Flag indicating whether or not each tab has an Aero Peek entry allowing the user to switch between tabs from the taskbar.</summary>
         public bool AeroPeekEnabled
         {
-            get
-            {
-                return _aeroPeekEnabled;
-            }
+            get => _aeroPeekEnabled;
 
             set
             {
@@ -151,21 +148,12 @@ namespace Korot
         }
 
         /// <summary>List of tabs to display for this window.</summary>
-        public ListWithEvents<TitleBarTab> Tabs
-        {
-            get
-            {
-                return _tabs;
-            }
-        }
+        public ListWithEvents<TitleBarTab> Tabs => _tabs;
 
         /// <summary>The renderer to use when drawing the tabs.</summary>
         public BaseTabRenderer TabRenderer
         {
-            get
-            {
-                return _tabRenderer;
-            }
+            get => _tabRenderer;
 
             set
             {
@@ -177,24 +165,15 @@ namespace Korot
         /// <summary>The tab that is currently selected by the user.</summary>
         public TitleBarTab SelectedTab
         {
-            get
-            {
-                return Tabs.FirstOrDefault((TitleBarTab t) => t.Active);
-            }
+            get => Tabs.FirstOrDefault((TitleBarTab t) => t.Active);
 
-            set
-            {
-                SelectedTabIndex = Tabs.IndexOf(value);
-            }
+            set => SelectedTabIndex = Tabs.IndexOf(value);
         }
 
         /// <summary>Gets or sets the index of the tab that is currently selected by the user.</summary>
         public int SelectedTabIndex
         {
-            get
-            {
-                return Tabs.FindIndex((TitleBarTab t) => t.Active);
-            }
+            get => Tabs.FindIndex((TitleBarTab t) => t.Active);
 
             set
             {
@@ -290,22 +269,10 @@ namespace Korot
         }
 
         /// <summary>Height of the "glassed" area of the window's non-client area.</summary>
-        public int NonClientAreaHeight
-        {
-            get
-            {
-                return _nonClientAreaHeight;
-            }
-        }
+        public int NonClientAreaHeight => _nonClientAreaHeight;
 
         /// <summary>Area of the screen in which tabs can be dropped for this window.</summary>
-        public Rectangle TabDropArea
-        {
-            get
-            {
-                return _overlay.TabDropArea;
-            }
-        }
+        public Rectangle TabDropArea => _overlay.TabDropArea;
 
         /// <summary>Calls <see cref="Uxtheme.SetWindowThemeAttribute" /> to set various attributes on the window.</summary>
         /// <param name="attributes">Attributes to set on the window.</param>

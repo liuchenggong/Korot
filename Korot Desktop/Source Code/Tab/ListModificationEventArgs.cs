@@ -20,12 +20,6 @@ namespace Korot
         }
 
         /// <summary>Gets the type of list modification.</summary>
-        public ListModification Modification
-        {
-            get
-            {
-                return _modification;
-            }
-        }
+        public ListModification Modification => _modification;
     }
 }

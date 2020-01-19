@@ -47,7 +47,7 @@ namespace Korot
         {
             label1.Text += kaynak;
             label2.Text += hedef; //2023
-            Properties.Settings.Default.DowloadHistory += DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + kaynak + ";" + hedef + ";";            checkBox2.Checked = Properties.Settings.Default.downloadClose;
+            Properties.Settings.Default.DowloadHistory += DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + kaynak + ";" + hedef + ";"; checkBox2.Checked = Properties.Settings.Default.downloadClose;
             checkBox1.Checked = Properties.Settings.Default.downloadOpen;
             if (Brightness(Properties.Settings.Default.BackColor) < 130)
             { this.BackColor = Properties.Settings.Default.BackColor; this.ForeColor = Color.White; button1.BackColor = Color.FromArgb(Properties.Settings.Default.BackColor.R + 20, Properties.Settings.Default.BackColor.G + 20, Properties.Settings.Default.BackColor.B + 20); button1.ForeColor = Color.White; }

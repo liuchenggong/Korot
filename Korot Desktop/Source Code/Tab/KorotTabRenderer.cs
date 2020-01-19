@@ -92,8 +92,16 @@ namespace Korot
         {
             drawBackgroundColor = drawBack;
         }
-        private static int LowerBrightnessIfNeeded(int defaultint, int lower) => defaultint > lower ? defaultint - lower : defaultint;
-        private static int MoreBrightnessIfNeeded(int defaultint, int add, int limit) => defaultint + add > limit ? defaultint : defaultint + add;
+        private static int LowerBrightnessIfNeeded(int defaultint, int lower)
+        {
+            return defaultint > lower ? defaultint - lower : defaultint;
+        }
+
+        private static int MoreBrightnessIfNeeded(int defaultint, int add, int limit)
+        {
+            return defaultint + add > limit ? defaultint : defaultint + add;
+        }
+
         private static bool IsBright(Color c) { return (int)Math.Sqrt(c.R * c.R * .241 + c.G * c.G * .691 + c.B * c.B * .068) > 130 ? true : false; }
 
         public static Image ColorReplace(Image inputImage, int tolerance, Color oldColor, Color NewColor)
@@ -192,12 +200,6 @@ namespace Korot
         }
 
         /// <summary>Since Korot tabs overlap, we set this property to the amount that they overlap by.</summary>
-        public override int OverlapWidth
-        {
-            get
-            {
-                return 15;
-            }
-        }
+        public override int OverlapWidth => 15;
     }
 }

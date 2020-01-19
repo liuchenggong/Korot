@@ -13,13 +13,7 @@ namespace Korot
         protected List<TitleBarTabs> _openWindows = new List<TitleBarTabs>();
 
         /// <summary>List of all opened windows.</summary>
-        public List<TitleBarTabs> OpenWindows
-        {
-            get
-            {
-                return _openWindows;
-            }
-        }
+        public List<TitleBarTabs> OpenWindows => _openWindows;
 
         /// <summary>Constructor; takes the initial window to display and, if it's not closing, opens it and shows it.</summary>
         /// <param name="initialFormInstance">Initial window to display.</param>

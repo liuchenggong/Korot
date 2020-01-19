@@ -26,7 +26,10 @@ namespace Korot
 {
     static class ToolsHandler
     {
-        public static string ToHexString(this Color c) => $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+        public static string ToHexString(this Color c)
+        {
+            return $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+        }
 
         public static Color ToRgbString(this string c)
         {

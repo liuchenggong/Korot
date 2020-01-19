@@ -42,21 +42,12 @@ namespace Korot
         }
 
         /// <summary>Gets whether the events are currently being suppressed.</summary>
-        protected bool EventsSuppressed
-        {
-            get
-            {
-                return _suppressEvents;
-            }
-        }
+        protected bool EventsSuppressed => _suppressEvents;
 
         /// <summary>Overloads <see cref="List{T}.this" />.</summary>
         public new virtual T this[int index]
         {
-            get
-            {
-                return base[index];
-            }
+            get => base[index];
             set
             {
                 lock (_syncRoot)
@@ -85,13 +76,7 @@ namespace Korot
         }
 
         /// <summary>Gets an object that can be used to synchronize access to the <see cref="ListWithEvents{T}" />.</summary>
-        public object SyncRoot
-        {
-            get
-            {
-                return _syncRoot;
-            }
-        }
+        public object SyncRoot => _syncRoot;
 
         /// <summary>Adds an item to the end of the list.</summary>
         /// <param name="value">Item to add to the list.</param>

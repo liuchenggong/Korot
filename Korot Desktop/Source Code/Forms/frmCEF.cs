@@ -32,7 +32,6 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net;
-using System.Speech.Recognition;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -63,7 +62,7 @@ namespace Korot
             userName = profileName;
             userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profileName + "\\cache\\";
 #pragma warning disable CS0618 // Tür veya üye artık kullanılmıyor
-            WebProxy proxy = (WebProxy)WebProxy.GetDefaultProxy();
+            WebProxy proxy = WebProxy.GetDefaultProxy();
 #pragma warning restore CS0618 // Tür veya üye artık kullanılmıyor
             Uri resource = new Uri("http://localhost");
             Uri resourceProxy = proxy.GetProxy(resource);
@@ -255,9 +254,9 @@ namespace Korot
                          string cokt, string cok, string sce, string uc, string nuc, string cept, string cepm,
                          string cepb, string aboutkorot, string licenses, string enablednt, string useBackColor,
                          string _usingBackColor, string imageFromURL, string imageFromFile, string iFiles, string aFiles,
-                         string selectABI, string backStyleLay, string dca, string aca,string ititle,string ititle0,string ititle1
-            , string it1m1, string it1m2, string it1m3,string ititle2,string it2m1, string it2m2, string it2m3,string _print,
-            string hFile, string takeSS,string savePage,string zoomIn,string resetZoom,string zoomOut)
+                         string selectABI, string backStyleLay, string dca, string aca, string ititle, string ititle0, string ititle1
+            , string it1m1, string it1m2, string it1m3, string ititle2, string it2m1, string it2m2, string it2m3, string _print,
+            string hFile, string takeSS, string savePage, string zoomIn, string resetZoom, string zoomOut)
         {
             zoomInToolStripMenuItem.Text = zoomIn.Replace(Environment.NewLine, "");
             resetZoomToolStripMenuItem.Text = resetZoom.Replace(Environment.NewLine, "");
@@ -1190,13 +1189,7 @@ namespace Korot
                 }
             }
         }
-        public TitleBarTabs ParentTabs
-        {
-            get
-            {
-                return (ParentForm as TitleBarTabs);
-            }
-        }
+        public TitleBarTabs ParentTabs => (ParentForm as TitleBarTabs);
         async private void SetProxy(ChromiumWebBrowser cwb, string Address)
         {
             if (Address == null) { }
@@ -1317,7 +1310,11 @@ namespace Korot
         }
         public bool certError = false;
         public bool cookieUsage = false;
-        public void ChangeStatus(string status) => label2.Text = status;
+        public void ChangeStatus(string status)
+        {
+            label2.Text = status;
+        }
+
         public void loadingstatechanged(object sender, LoadingStateChangedEventArgs e)
         {
             if (e.IsLoading)
@@ -1400,11 +1397,12 @@ namespace Korot
                     i += 1;
                     miFavorite.Text = SplittedFase[i].Replace(Environment.NewLine, "");
                     i += 1;
-                    miFavorite.Click += new EventHandler((sender, e) => { selectedFavorite = miFavorite; cmsFavorite.Show(MousePosition.X,MousePosition.Y - 5); });
+                    miFavorite.Click += new EventHandler((sender, e) => { selectedFavorite = miFavorite; cmsFavorite.Show(MousePosition.X, MousePosition.Y - 5); });
                     miFavorite.DoubleClick += TestToolStripMenuItem_Click;
                     mFavorites.Items.Add(miFavorite);
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Output.WriteLine(" [KOROT] Error while refreshing favorites : " + ex.ToString());
             }
@@ -1426,7 +1424,7 @@ namespace Korot
             pictureBox3.BackColor = Properties.Settings.Default.BackColor;
             pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
             RefreshLangList();
-            
+
             refreshThemeList();
             ChangeTheme();
             RefreshDownloadList();
@@ -1464,9 +1462,10 @@ namespace Korot
                 clearTSMI.Enabled = false;
                 Properties.Settings.Default.BackColor = Color.FromArgb(255, 64, 64, 64);
                 Properties.Settings.Default.OverlayColor = Color.DodgerBlue;
-            }else
+            }
+            else
             {
-                pictureBox1.Visible = false; 
+                pictureBox1.Visible = false;
                 tbAddress.Size = new Size(tbAddress.Size.Width + pictureBox1.Size.Width, tbAddress.Size.Height);
             }
             LoadLangFromFile(Properties.Settings.Default.LangFile);
@@ -1615,7 +1614,7 @@ namespace Korot
         }
         private void button5_Click(object sender, EventArgs e) { allowSwitching = true; tabControl1.SelectedTab = tabPage1; chromiumWebBrowser1.Load(Properties.Settings.Default.Homepage); }
 
-       public bool isControlKeyPressed = false;
+        public bool isControlKeyPressed = false;
         public void tabform_KeyDown(object sender, KeyEventArgs e)
         {
             isControlKeyPressed = e.Control;
@@ -1670,13 +1669,33 @@ namespace Korot
             {
                 button4_Click(null, null);
             }
-            if ((e.KeyData == Keys.Up || e.KeyData == Keys.PageUp) && isControlKeyPressed)
+            else if ((e.KeyData == Keys.Up || e.KeyData == Keys.PageUp) && isControlKeyPressed)
             {
                 zoomInToolStripMenuItem_Click(sender, null);
             }
-            if ((e.KeyData == Keys.Down || e.KeyData == Keys.PageDown) && isControlKeyPressed)
+            else if ((e.KeyData == Keys.Down || e.KeyData == Keys.PageDown) && isControlKeyPressed)
             {
                 zoomOutToolStripMenuItem_Click(sender, null);
+            }
+            else if (e.KeyData == Keys.PrintScreen && isControlKeyPressed)
+            {
+                takeScreenShot();
+            }
+            else if (e.KeyData == Keys.S && isControlKeyPressed)
+            {
+                savePage();
+            }
+            else if (isControlKeyPressed && e.Shift && e.KeyData == Keys.N)
+            {
+                NewIncognitoWindowToolStripMenuItem_Click(null, null);
+            }
+            else if (isControlKeyPressed && e.Alt && e.KeyData == Keys.N)
+            {
+                NewWindowToolStripMenuItem_Click(null, null);
+            }
+            else if (isControlKeyPressed && e.KeyData == Keys.N)
+            {
+                NewTab("korot://newtab");
             }
         }
         private Image GetImageFromURL(string URL)
@@ -1707,8 +1726,16 @@ namespace Korot
                 }
             }
         }
-        private static int GerekiyorsaAzalt(int defaultint, int azaltma) => defaultint > azaltma ? defaultint - 20 : defaultint;
-        private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır) => defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
+        private static int GerekiyorsaAzalt(int defaultint, int azaltma)
+        {
+            return defaultint > azaltma ? defaultint - 20 : defaultint;
+        }
+
+        private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır)
+        {
+            return defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
+        }
+
         private Color oldBackColor;
         private Color oldOverlayColor;
         private string oldStyle;
@@ -1893,7 +1920,7 @@ namespace Korot
             catch { } //ignored
 
             RefreshTranslation();
-            if (anaform.restoremedaddy == "") { restoreLastSessionToolStripMenuItem.Visible = false; } else { restoreLastSessionToolStripMenuItem.Visible = true; }
+            if (anaform.restoremedaddy == "") { spRestorer.Visible = false; restoreLastSessionToolStripMenuItem.Visible = false; } else { spRestorer.Visible = true; restoreLastSessionToolStripMenuItem.Visible = true; }
         }
 
         private void TestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1966,13 +1993,25 @@ namespace Korot
             settingsToolStripMenuItem.Text = this.settingstitle;
             restoreLastSessionToolStripMenuItem.Text = this.restoreOldSessions;
         }
-        private void ProfilesToolStripMenuItem_Click(object sender, EventArgs e) => this.Invoke(new Action(() => anaform.SwitchProfile(((ToolStripMenuItem)sender).Text)));
+        private void ProfilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Invoke(new Action(() => anaform.SwitchProfile(((ToolStripMenuItem)sender).Text)));
+        }
 
-        private void NewProfileToolStripMenuItem_Click(object sender, EventArgs e) => this.Invoke(new Action(() => anaform.NewProfile()));
+        private void NewProfileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Invoke(new Action(() => anaform.NewProfile()));
+        }
 
-        private void DeleteThisProfileToolStripMenuItem_Click(object sender, EventArgs e) => this.Invoke(new Action(() => anaform.DeleteProfile(userName)));
+        private void DeleteThisProfileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Invoke(new Action(() => anaform.DeleteProfile(userName)));
+        }
 
-        private void Button9_Click(object sender, EventArgs e) => cmsProfiles.Show(MousePosition);
+        private void Button9_Click(object sender, EventArgs e)
+        {
+            cmsProfiles.Show(MousePosition);
+        }
 
         private void ExtensionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2082,10 +2121,15 @@ namespace Korot
         }
         private void Button8_Click(object sender, EventArgs e) { LoadExt(); contextMenuStrip1.Show(MousePosition); }
 
-        private void TmrSlower_Tick(object sender, EventArgs e) => RefreshFavorites();
+        private void TmrSlower_Tick(object sender, EventArgs e)
+        {
+            RefreshFavorites();
+        }
 
-
-        public void FrmCEF_SizeChanged(object sender, EventArgs e) => pbProgress.Width = (this.Width / 100) * websiteprogress;
+        public void FrmCEF_SizeChanged(object sender, EventArgs e)
+        {
+            pbProgress.Width = (this.Width / 100) * websiteprogress;
+        }
 
         private void TextBox2_TextChanged(object sender, EventArgs e)
         {
@@ -2102,7 +2146,10 @@ namespace Korot
             chromiumWebBrowser1.StopFinding(true);
         }
 
-        private void Panel1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e) => tabform_KeyDown(panel1, new KeyEventArgs(e.KeyData));
+        private void Panel1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            tabform_KeyDown(panel1, new KeyEventArgs(e.KeyData));
+        }
 
         private void ExampleProxyToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2114,11 +2161,20 @@ namespace Korot
             chromiumWebBrowser1.Reload();
         }
 
-        private void Button6_Click(object sender, EventArgs e) => contextMenuStrip2.Show(MousePosition);
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip2.Show(MousePosition);
+        }
 
-        private void pictureBox2_Click(object sender, EventArgs e) => cmsPrivacy.Show(pictureBox2, 0, pictureBox2.Size.Height);
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            cmsPrivacy.Show(pictureBox2, 0, pictureBox2.Size.Height);
+        }
 
-        private void xToolStripMenuItem_Click(object sender, EventArgs e) => cmsPrivacy.Close();
+        private void xToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cmsPrivacy.Close();
+        }
 
         private void showCertificateErrorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2220,9 +2276,9 @@ namespace Korot
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             NewTab("korot://incognito");
-            anaform.Invoke(new Action(() => anaform.SelectedTabIndex = anaform.Tabs.Count -1));
+            anaform.Invoke(new Action(() => anaform.SelectedTabIndex = anaform.Tabs.Count - 1));
         }
-        
+
         private void openInNewTab_Click(object sender, EventArgs e)
         {
             if (selectedFavorite != null) { NewTab(selectedFavorite.Tag.ToString()); }
@@ -2259,19 +2315,33 @@ namespace Korot
             {
                 removeSelectedTSMI.Enabled = false;
                 openInNewTab.Enabled = false;
-            }else
+            }
+            else
             {
                 removeSelectedTSMI.Enabled = !_Incognito;
                 openInNewTab.Enabled = !_Incognito;
             }
+        }
+        public void takeScreenShot()
+        {
+            takeAScreenshotToolStripMenuItem_Click(null, null);
+        }
+
+        public void savePage()
+        {
+            saveThisPageToolStripMenuItem_Click(null, null);
         }
 
         private void takeAScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             allowSwitching = true;
             tabControl1.SelectedTab = tabPage1;
-            SaveFileDialog save = new SaveFileDialog() {
-                FileName = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "Korot-Screenshot.png", Filter = imageFiles + "|*.png|" + allFiles + "|*.*"};
+            SaveFileDialog save = new SaveFileDialog()
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                FileName = "Korot Screenshot.png",
+                Filter = imageFiles + "|*.png|" + allFiles + "|*.*"
+            };
             if (save.ShowDialog() == DialogResult.OK)
             {
                 FileSystem2.WriteFile(save.FileName, TakeScrenshot.ImageToByte2(TakeScrenshot.Snapshot(chromiumWebBrowser1)));
@@ -2284,17 +2354,22 @@ namespace Korot
             tabControl1.SelectedTab = tabPage1;
             SaveFileDialog save = new SaveFileDialog()
             {
-                FileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + this.Text + ".html",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                FileName = this.Text + ".html",
                 Filter = htmlFiles + "|*.html;*.htm|" + allFiles + "|*.*"
             };
             if (save.ShowDialog() == DialogResult.OK)
             {
                 Task<String> htmlText = chromiumWebBrowser1.GetSourceAsync();
-                FileSystem2.WriteFile(save.FileName,htmlText.Result,Encoding.UTF8);
+                FileSystem2.WriteFile(save.FileName, htmlText.Result, Encoding.UTF8);
             }
         }
 
-        private void frmCEF_KeyUp(object sender, KeyEventArgs e) => isControlKeyPressed = !e.Control;
+        private void frmCEF_KeyUp(object sender, KeyEventArgs e)
+        {
+            isControlKeyPressed = !e.Control;
+        }
+
         private void MouseScroll(object sender, MouseEventArgs e)
         {
             if (isControlKeyPressed)
@@ -2354,7 +2429,7 @@ namespace Korot
         private void cmsHamburger_Opening(object sender, CancelEventArgs e)
         {
             Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
-            zOOMLEVELToolStripMenuItem.Text = ((zoomLevel.Result * 100)+ 100) + "%";
+            zOOMLEVELToolStripMenuItem.Text = ((zoomLevel.Result * 100) + 100) + "%";
         }
     }
 }

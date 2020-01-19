@@ -64,8 +64,16 @@ namespace Korot
                c.G * c.G * .691 +
                c.B * c.B * .068);
         }
-        private static int GerekiyorsaAzalt(int defaultint, int azaltma) => defaultint > azaltma ? defaultint - 20 : defaultint;
-        private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır) => defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
+        private static int GerekiyorsaAzalt(int defaultint, int azaltma)
+        {
+            return defaultint > azaltma ? defaultint - 20 : defaultint;
+        }
+
+        private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır)
+        {
+            return defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
+        }
+
         void PrintImages()
         {
             this.MinimumSize = new System.Drawing.Size(660, 340);
