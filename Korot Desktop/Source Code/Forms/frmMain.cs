@@ -19,7 +19,6 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
-using CefSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,10 +32,10 @@ namespace Korot
 
     public partial class frmMain : TitleBarTabs
     {
-        public List<DownloadItem> CurrentDownloads = new List<DownloadItem>();
-        public List<string> CancelledDownloads = new List<string>();
+        // string[] _args = null;
         public bool isIncognito = false;
         public KorotTabRenderer tabRenderer;
+        //TRANSLATE
         public string newincwindow = "New Incognito Window";
         public string newwindow = "New  Window";
         public string Yes = "Yes";
@@ -44,6 +43,7 @@ namespace Korot
         public string OK = "OK";
         public string Cancel = "Cancel";
         public string newProfileInfo = "Please enter a name for the new profile.It should not contain: ";
+        //END
         public frmMain()
         {
 
@@ -56,23 +56,7 @@ namespace Korot
             this.Size = new Size(Properties.Settings.Default.WindowSizeW, Properties.Settings.Default.WindowSizeH);
             this.Location = new Point(Properties.Settings.Default.WindowPosX, Properties.Settings.Default.WindowPosY);
         }
-        public void removeThisDownloadItem(DownloadItem removeItem)
-        {
-            List<DownloadItem> removeDownloads = new List<DownloadItem>();
-            foreach (DownloadItem x in CurrentDownloads)
-            {
-                if (x == removeItem) { removeDownloads.Add(x); }
-                if (x.FullPath == removeItem.FullPath && x.Url == removeItem.Url && x.OriginalUrl == removeItem.OriginalUrl)
-                {
-                    removeDownloads.Add(x);
-                }
-            }
-            foreach(DownloadItem x in removeDownloads)
-            {
-                CurrentDownloads.Remove(x);
-            }
-            removeDownloads.Clear();
-        }
+
         private static int Brightness(Color c)
         {
             return (int)Math.Sqrt(

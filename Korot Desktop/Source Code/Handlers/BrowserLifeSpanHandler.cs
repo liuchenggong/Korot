@@ -41,6 +41,7 @@ namespace Korot
 
         public void OnAfterCreated(IWebBrowser browserControl, IBrowser browser)
         {
+            //
         }
 
         public bool DoClose(IWebBrowser browserControl, IBrowser browser)
@@ -50,6 +51,7 @@ namespace Korot
 
         public void OnBeforeClose(IWebBrowser browserControl, IBrowser browser)
         {
+            //nothing
         }
     }
 }

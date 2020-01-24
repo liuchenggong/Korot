@@ -65,7 +65,7 @@ namespace Korot
                         Bitmap bitmap = new Bitmap(stream);
                         bitmap.SetResolution(72, 72);
                         Icon icon = System.Drawing.Icon.FromHandle(bitmap.GetHicon());
-                        //CEFform.Invoke(new Action(() => CEFform.Icon = icon));
+                        CEFform.Invoke(new Action(() => CEFform.Icon = icon));
                         CEFform.ParentTabs.Invoke(new Action(() => CEFform.ParentTabs.Icon = icon));
 
                     }
@@ -82,9 +82,10 @@ namespace Korot
 
         public void OnLoadingProgressChange(IWebBrowser chromiumWebBrowser, IBrowser browser, double progress)
         {
+            //we done this but i still need that progress so
             try
             {
-                CEFform.Invoke(new Action(() => CEFform.ChangeProgress(progress)));
+                CEFform.Invoke(new Action(() => CEFform.ChangeProgress(Convert.ToInt32(progress * 100))));
             }
             catch { }
         }
@@ -92,11 +93,12 @@ namespace Korot
         public void OnStatusMessage(IWebBrowser chromiumWebBrowser, StatusMessageEventArgs statusMessageArgs)
         {
             try { CEFform.Invoke(new Action(() => CEFform.ChangeStatus(statusMessageArgs.Value))); } catch { }
+
         }
 
         public void OnTitleChanged(IWebBrowser chromiumWebBrowser, TitleChangedEventArgs titleChangedArgs)
         {
-            //if you are reading this then drink some water idk but dont die
+            //no need
         }
 
         public bool OnTooltipChanged(IWebBrowser chromiumWebBrowser, ref string text)

@@ -275,5 +275,17 @@ namespace Korot.Properties {
                 this["CookieDisallowList"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DebugRecordKeys {
+            get {
+                return ((bool)(this["DebugRecordKeys"]));
+            }
+            set {
+                this["DebugRecordKeys"] = value;
+            }
+        }
     }
 }

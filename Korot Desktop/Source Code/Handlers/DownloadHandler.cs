@@ -39,45 +39,82 @@ namespace Korot
             if (downloadItem.SuggestedFileName.ToLower().EndsWith(".kef"))
             {
                 callback.Continue(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName, false);
-                ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
+                frmdown = new frmDownloader();
+                frmdown.Show();
+                frmdown.Focus();
+                frmdown.label1.Text = ActiveForm.fromtwodot + downloadItem.Url;
+                frmdown.label2.Text = ActiveForm.totwodot + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName;
+                frmdown.Text = ActiveForm.korotdownloading;
+                frmdown.checkBox1.Enabled = false;
+                frmdown.checkBox2.Enabled = false;
+                frmdown.checkBox1.Text = ActiveForm.openfileafterdownload;
+                frmdown.checkBox2.Text = ActiveForm.closethisafterdownload;
+                frmdown.button1.Enabled = false;
+                frmdown.button1.Text = ActiveForm.open;
             }
             else
             {
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog() { Filter = ActiveForm.allFiles + "|*.*", FilterIndex = 2, RestoreDirectory = true, FileName = downloadItem.SuggestedFileName };
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "All files (*.*)|*.*";
+                saveFileDialog1.FilterIndex = 2;
+                saveFileDialog1.RestoreDirectory = true;
+                saveFileDialog1.FileName = downloadItem.SuggestedFileName;
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
+                    frmdown = new frmDownloader();
                     callback.Continue(saveFileDialog1.FileName, false);
-                    ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
+                    frmdown.Show();
+                    frmdown.Focus();
+                    frmdown.label1.Text = ActiveForm.fromtwodot + downloadItem.Url;
+                    frmdown.label2.Text = ActiveForm.totwodot + saveFileDialog1.FileName;
+                    frmdown.Text = ActiveForm.korotdownloading;
+                    frmdown.checkBox1.Text = ActiveForm.openfileafterdownload;
+                    frmdown.checkBox2.Text = ActiveForm.closethisafterdownload;
+                    frmdown.button1.Text = ActiveForm.open;
                 }
             }
-            browser.GoBack();
         }
-
+        frmDownloader frmdown = null;
         public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)
         {
-            aNaFRM.Invoke(new Action(() => aNaFRM.removeThisDownloadItem(downloadItem)));
-            aNaFRM.CurrentDownloads.Add(downloadItem);
-            if (aNaFRM.CancelledDownloads.Contains(downloadItem.Url)) { aNaFRM.removeThisDownloadItem(downloadItem); aNaFRM.CurrentDownloads.Remove(downloadItem); downloadItem.IsCancelled = true; callback.Cancel(); }
-            if (downloadItem.IsCancelled)
+            if (frmdown != null)
             {
-                aNaFRM.CurrentDownloads.Remove(downloadItem);
-                Properties.Settings.Default.DowloadHistory += "X;" + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + downloadItem.FullPath + ";" + downloadItem.Url + ";"; 
-            }
-            if (downloadItem.IsComplete)
-            {
-                aNaFRM.CurrentDownloads.Remove(downloadItem);
-                Properties.Settings.Default.DowloadHistory += "✓;" + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + downloadItem.Url + ";" + downloadItem.FullPath + ";";
+                frmdown.FormClosing += new FormClosingEventHandler((sender, e) => { callback.Cancel(); });
+                frmdown.pictureBox1.Size = new System.Drawing.Size(downloadItem.PercentComplete * 3, 20);
+                frmdown.label3.Text = downloadItem.PercentComplete + "%";
+                if (downloadItem.CurrentSpeed < 1024) //byte 
+                {
+                    frmdown.lbSpeed.Text = downloadItem.CurrentSpeed + " b/s";
+                }
+                else if (downloadItem.CurrentSpeed > 1024 && downloadItem.CurrentSpeed < 1048576) //kb 
+                {
+                    frmdown.lbSpeed.Text = downloadItem.CurrentSpeed / 1024 + " kb/s";
+                }
+                else if (downloadItem.CurrentSpeed < 1073741824 && downloadItem.CurrentSpeed > 1048576) //mb 
+                {
+                    frmdown.lbSpeed.Text = downloadItem.CurrentSpeed / 1048576 + " mb/s";
+                }
+                else if (downloadItem.CurrentSpeed > 1073741824) //gb 
+                {
+                    frmdown.lbSpeed.Text = downloadItem.CurrentSpeed / 1048576 + " gb/s";
+                }
 
-                if (downloadItem.SuggestedFileName.ToLower().EndsWith(".kef"))
+                if (downloadItem.IsCancelled) { frmdown.Close(); }
+                if (downloadItem.IsComplete)
+                {
+                    if (downloadItem.SuggestedFileName.ToLower().EndsWith(".kef"))
                     {
+                        frmdown.Close();
                         frmInstallExt installExt = new frmInstallExt(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName);
                         installExt.Show();
-                }else
-                {
-                        ActiveForm.Invoke(new Action(() => ActiveForm.RefreshDownloadList()));
+                    }
+                    else
+                    {
+                        frmdown.downloaddone();
+                        aNaFRM.Invoke(new Action(() => ActiveForm.RefreshDownloadList()));
+                    }
                 }
             }
-            
         }
     }
 }

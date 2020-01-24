@@ -147,6 +147,7 @@ namespace Korot
             tbSession.Text = Properties.Settings.Default.LastSessionURIs;
             pbBack.BackColor = Properties.Settings.Default.BackColor;
             pbOverlay.BackColor = Properties.Settings.Default.OverlayColor;
+            checkBox1.Checked = Properties.Settings.Default.DebugRecordKeys;
         }
 
         private void pbBack_Click(object sender, EventArgs e)
@@ -169,9 +170,9 @@ namespace Korot
             }
         }
 
-        private void frmDebugSettings_Load(object sender, EventArgs e)
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-
+            Properties.Settings.Default.DebugRecordKeys = checkBox1.Checked;
         }
     }
 }
