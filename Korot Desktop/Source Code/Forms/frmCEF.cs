@@ -163,6 +163,7 @@ namespace Korot
         public string UserAgentMessage = "Please enter an user agent.";
         public string installStatus = "Downloading Update...";
         public string StatusType = "[PERC]% | [CURRENT] KB downloaded out of [TOTAL] KB.";
+        public string enterAValidCode = "Please enter a Valid Base64 Code.";
         public string enterAValidUrl = "Enter a Valid URL";
         public string goTotxt = "Go to \"[TEXT]\"";
         public string SearchOnWeb = "Search \"[TEXT]\"";
@@ -231,6 +232,7 @@ namespace Korot
         public string CertErrorPageTitle = "This website is not secure";
         public string CertErrorPageMessage = "This website is using a certificate that has errors. Which means your information (credit cards,passwords,messages...) can be stolen by unknown people in this website.";
         public string CertErrorPageButton = "I understand these risks.";
+        public string renderProcessDies = "Render Process Terminated. Closing application...";
         #endregion
         void SetLanguage(string privatemodetxt, string updatetitletxt, string updatemessagetxt, string updateerrortxt,
                          string CreateTabtext, string csnote, string cse, string nw, string niw, string settingstxt,
@@ -253,11 +255,14 @@ namespace Korot
                          string themeTitle, string themeMessage, string themeError, string cemt, string cet, string ce,
                          string cokt, string cok, string sce, string uc, string nuc, string cept, string cepm,
                          string cepb, string aboutkorot, string licenses, string enablednt, string useBackColor,
-                         string _usingBackColor, string imageFromURL, string imageFromFile, string iFiles, string aFiles,
+                         string _usingBackColor, string imageFromCode, string imageFromFile, string iFiles, string aFiles,
                          string selectABI, string backStyleLay, string dca, string aca, string ititle, string ititle0, string ititle1
             , string it1m1, string it1m2, string it1m3, string ititle2, string it2m1, string it2m2, string it2m3, string _print,
-            string hFile, string takeSS, string savePage, string zoomIn, string resetZoom, string zoomOut)
+            string hFile, string takeSS, string savePage, string zoomIn, string resetZoom, string zoomOut,string validCode,
+            string renderProcessIsKil)
         {
+            renderProcessDies = renderProcessIsKil.Replace(Environment.NewLine, "");
+            enterAValidCode = validCode.Replace(Environment.NewLine, "");
             zoomInToolStripMenuItem.Text = zoomIn.Replace(Environment.NewLine, "");
             resetZoomToolStripMenuItem.Text = resetZoom.Replace(Environment.NewLine, "");
             zoomOutToolStripMenuItem.Text = zoomOut.Replace(Environment.NewLine, "");
@@ -291,7 +296,7 @@ namespace Korot
             selectBackImage = selectABI.Replace(Environment.NewLine, "");
             colorToolStripMenuItem.Text = useBackColor.Replace(Environment.NewLine, "");
             usingBC = _usingBackColor.Replace(Environment.NewLine, "");
-            ımageFromURLToolStripMenuItem.Text = imageFromURL.Replace(Environment.NewLine, "");
+            ımageFromURLToolStripMenuItem.Text = imageFromCode.Replace(Environment.NewLine, "");
             ımageFromLocalFileToolStripMenuItem.Text = imageFromFile.Replace(Environment.NewLine, "");
             label24.Text = enablednt.Replace(Environment.NewLine, "");
             hsDoNotTrack.Location = new Point(label24.Location.X + label24.Width + 5, label24.Location.Y);
@@ -299,7 +304,6 @@ namespace Korot
             linkLabel1.Text = licenses.Replace(Environment.NewLine, "");
             linkLabel1.LinkArea = new LinkArea(0, linkLabel1.Text.Length);
             linkLabel1.Location = new Point(label21.Location.X, label21.Location.Y + label21.Size.Height);
-            searchToolStripMenuItem.Text = searchtxt.Replace(Environment.NewLine, "");
             lbSettings.Text = settingstxt.Replace(Environment.NewLine, "");
             CertErrorPageButton = cepb.Replace(Environment.NewLine, "");
             CertErrorPageMessage = cepm.Replace(Environment.NewLine, "");
@@ -348,28 +352,27 @@ namespace Korot
             customSearchMessage = cse.Replace(Environment.NewLine, "");
             label12.Text = backstyle.Replace(Environment.NewLine, "");
             textBox4.Location = new Point(label12.Location.X + label12.Width, label12.Location.Y);
-            textBox4.Width = tbTheme.Width - (label12.Width + label12.Location.X + 20);
+            textBox4.Width = tabPage3.Width - (label12.Width + label12.Location.X + 25);
             comboBox3.Location = new Point(label25.Location.X + label25.Width, label25.Location.Y);
-            comboBox3.Width = tbTheme.Width - (label25.Width + label25.Location.X + 20);
+            comboBox3.Width = tabPage3.Width - (label25.Width + label25.Location.X + 25);
             newWindow = nw.Replace(Environment.NewLine, "");
             newincognitoWindow = niw.Replace(Environment.NewLine, "");
             anaform.newincwindow = niw.Replace(Environment.NewLine, "");
             anaform.newwindow = nw.Replace(Environment.NewLine, "");
-            tbSetting.Text = settingstxt.Replace(Environment.NewLine, "");
-            tbDownload.Text = downloadsstring.Replace(Environment.NewLine, "");
-            tbAbout.Text = AboutText.Replace(Environment.NewLine, "");
+            label6.Text = downloadsstring.Replace(Environment.NewLine, "");
+            downloadsToolStripMenuItem.Text = downloadsstring.Replace(Environment.NewLine, "");
+            aboutToolStripMenuItem.Text = AboutText.Replace(Environment.NewLine, "");
             label11.Text = hptxt.Replace(Environment.NewLine, "");
-            label3.Text = SearchOnCurrentPage.Replace(Environment.NewLine, "");
-            tbTheme.Text = themetxt.Replace(Environment.NewLine, "");
             SearchOnPage = SearchOnCurrentPage.Replace(Environment.NewLine, "");
+            label26.Text = themetxt.Replace(Environment.NewLine, "");
             CaseSensitive = CaseSensitivity.Replace(Environment.NewLine, "");
             customToolStripMenuItem.Text = customtxt.Replace(Environment.NewLine, "");
             removeSelectedToolStripMenuItem.Text = rstxt.Replace(Environment.NewLine, "");
             clearToolStripMenuItem.Text = cleartxt.Replace(Environment.NewLine, "");
             settingstitle = settingstxt.Replace(Environment.NewLine, "");
-            this.Text = settingstxt.Replace(Environment.NewLine, "");
-            tbHistory.Text = historytxt.Replace(Environment.NewLine, "");
-            tbAbout.Text = abouttxt.Replace(Environment.NewLine, "");
+            historyToolStripMenuItem.Text = historytxt.Replace(Environment.NewLine, "");
+            label4.Text = historytxt.Replace(Environment.NewLine, "");
+            label22.Text = abouttxt.Replace(Environment.NewLine, "");
             goBack = gBack.Replace(Environment.NewLine, "");
             goForward = gForward.Replace(Environment.NewLine, "");
             refresh = reload.Replace(Environment.NewLine, "");
@@ -441,9 +444,6 @@ namespace Korot
             newprofile = newProfile.Replace(Environment.NewLine, "");
             switchTo = SwitchTo.Replace(Environment.NewLine, "");
             deleteProfile = delProfile.Replace(Environment.NewLine, "");
-            haltroySwitch1.Location = new Point(label6.Location.X + label6.Width + 5, haltroySwitch1.Location.Y);
-            findTextBox.Width = panel3.Width - label3.Width - label4.Width - 10;
-            findTextBox.Location = new Point(label3.Location.X + label3.Width, label3.Location.Y);
             pictureBox3.Location = new Point(label14.Location.X + label14.Width, pictureBox3.Location.Y);
             pictureBox4.Location = new Point(label16.Location.X + label16.Width, pictureBox4.Location.Y);
         }
@@ -639,7 +639,9 @@ namespace Korot
                     languagedummy.Items[174].ToString().Substring(1),
                     languagedummy.Items[175].ToString().Substring(1),
                     languagedummy.Items[176].ToString().Substring(1),
-                    languagedummy.Items[177].ToString().Substring(1));
+                    languagedummy.Items[177].ToString().Substring(1),
+                    languagedummy.Items[178].ToString().Substring(1),
+                    languagedummy.Items[179].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -786,24 +788,44 @@ namespace Korot
             if (!_Incognito) { Properties.Settings.Default.Save(); }
             ChangeTheme();
         }
+
         public void RefreshDownloadList()
         {
             int selectedValue = hlvDownload.SelectedIndices.Count > 0 ? hlvDownload.SelectedIndices[0] : 0;
             hlvDownload.Items.Clear();
-            string Playlist = Properties.Settings.Default.DowloadHistory;
-            string[] SplittedFase = Playlist.Split(';');
-            int Count = SplittedFase.Length - 1; ; int i = 0;
-            while (!(i == Count))
+            try { 
+            foreach (DownloadItem item in anaform.CurrentDownloads)
             {
                 ListViewItem listV = new ListViewItem();
-                listV.Text = SplittedFase[i].Replace(Environment.NewLine, "");
-                i += 1;
-                listV.SubItems.Add(SplittedFase[i].Replace(Environment.NewLine, ""));
-                i += 1;
-                listV.SubItems.Add(SplittedFase[i].Replace(Environment.NewLine, ""));
-                i += 1;
+                listV.Text = item.PercentComplete + "%";
+                listV.SubItems.Add(DateTime.Now.ToString("dd/MM/yy hh:mm:ss"));
+                listV.SubItems.Add(item.FullPath);
+                listV.SubItems.Add(item.Url);
                 hlvDownload.Items.Add(listV);
             }
+            }
+            catch { }
+                string Playlist = Properties.Settings.Default.DowloadHistory;
+                string[] SplittedFase = Playlist.Split(';');
+                int Count = SplittedFase.Length - 1; ; int i = 0;
+                while (!(i == Count))
+                {
+                    try
+                    {
+                        ListViewItem listV = new ListViewItem();
+                        listV.Text = SplittedFase[i].Replace(Environment.NewLine, "");
+                        i += 1;
+                        listV.SubItems.Add(SplittedFase[i].Replace(Environment.NewLine, ""));
+                        i += 1;
+                        listV.SubItems.Add(SplittedFase[i].Replace(Environment.NewLine, ""));
+                        i += 1;
+                        listV.SubItems.Add(SplittedFase[i].Replace(Environment.NewLine, ""));
+                        i += 1;
+                        hlvDownload.Items.Add(listV);
+                    }
+                    catch { continue; }
+
+                }
             try
             {
                 hlvDownload.SelectedIndices.Clear();
@@ -823,20 +845,27 @@ namespace Korot
 
         private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(hlvDownload.SelectedItems[0].SubItems[1].Text);
+            Process.Start(hlvDownload.SelectedItems[0].SubItems[3].Text);
         }
 
         private void OpenFileİnExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", "/select," + hlvDownload.SelectedItems[0].SubItems[1].Text);
+            Process.Start("explorer.exe", "/select," + hlvDownload.SelectedItems[0].SubItems[3].Text);
         }
 
         private void RemoveSelectedToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            string x = hlvDownload.SelectedItems[0].Text + ";" + hlvDownload.SelectedItems[0].SubItems[1].Text + ";" + hlvDownload.SelectedItems[0].SubItems[2].Text + ";";
-            Properties.Settings.Default.DowloadHistory = Properties.Settings.Default.DowloadHistory.Replace(x, "");
-            if (!_Incognito) { Properties.Settings.Default.Save(); }
-            RefreshDownloadList();
+            if (hlvDownload.SelectedItems.Count > 0)
+            {
+                if (hlvDownload.SelectedItems[0].Text == "X" || hlvDownload.SelectedItems[0].Text == "✓")
+                {
+                    string x = hlvDownload.SelectedItems[0].Text + ";" + hlvDownload.SelectedItems[0].SubItems[1].Text + ";" + hlvDownload.SelectedItems[0].SubItems[2].Text + ";" + hlvDownload.SelectedItems[0].SubItems[3].Text + ";";
+                    Properties.Settings.Default.DowloadHistory = Properties.Settings.Default.DowloadHistory.Replace(x, "");
+                }
+                else { anaform.CancelledDownloads.Add(hlvDownload.SelectedItems[0].SubItems[3].Text); }
+                if (!_Incognito) { Properties.Settings.Default.Save(); }
+                RefreshDownloadList();
+            }
         }
 
         private void ClearToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -880,7 +909,7 @@ namespace Korot
         private void FromURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HaltroyFramework.HaltroyInputBox inputbox = new HaltroyFramework.HaltroyInputBox("Korot",
-                                                                                            enterAValidUrl,
+                                                                                            enterAValidCode,
                                                                                             this.Icon,
                                                                                             "",
                                                                                             Properties.Settings.Default.BackColor,
@@ -888,16 +917,9 @@ namespace Korot
                                                                                             anaform.OK, anaform.Cancel, 400, 150);
             if (inputbox.ShowDialog() == DialogResult.OK)
             {
-                if (ValidHttpURL(inputbox.TextValue()))
-                {
-                    Properties.Settings.Default.BackStyle = inputbox.TextValue().Replace("\\", "/");
+                    Properties.Settings.Default.BackStyle = inputbox.TextValue() + ";";
                     textBox4.Text = Properties.Settings.Default.BackStyle;
                     colorToolStripMenuItem.Checked = false;
-                }
-                else
-                {
-                    FromURLToolStripMenuItem_Click(null, null);
-                }
             }
         }
 
@@ -909,16 +931,18 @@ namespace Korot
             filedlg.Multiselect = false;
             if (filedlg.ShowDialog() == DialogResult.OK)
             {
-                Properties.Settings.Default.BackStyle = "file://" + filedlg.FileName.Replace("\\", "/");
-                textBox4.Text = Properties.Settings.Default.BackStyle;
-                colorToolStripMenuItem.Checked = false;
-
+                int fileSize = Convert.ToInt32(new FileInfo(filedlg.FileName).Length);
+                if (fileSize <= 131072)
+                {
+                    string imageType = Path.GetExtension(filedlg.FileName).Replace(".", "");
+                    Properties.Settings.Default.BackStyle = "background-image: url('data:image/" + imageType + ";base64," + FileSystem2.ImageToBase64(Image.FromFile(filedlg.FileName)) + "');";
+                    textBox4.Text = Properties.Settings.Default.BackStyle;
+                    colorToolStripMenuItem.Checked = false;
+                }else
+                {
+                    FromLocalFileToolStripMenuItem_Click(sender, e);
+                }
             }
-        }
-
-        private void TextBox1_Click(object sender, EventArgs e)
-        {
-            contextMenuStrip1.Show(MousePosition);
         }
 
         private void RadioButton1_CheckedChanged(object sender, EventArgs e)
@@ -1431,22 +1455,22 @@ namespace Korot
             label18.Text = Application.ProductVersion.ToString();
             label17.Visible = Environment.Is64BitProcess;
             RefreshFavorites();
-            LoadProxies();
             LoadExt();
             RefreshProfiles();
             profilenameToolStripMenuItem.Text = userName;
-            label3.Text = SearchOnPage;
-            label6.Text = CaseSensitive;
+            caseSensitiveToolStripMenuItem.Text = CaseSensitive;
             showCertificateErrorsToolStripMenuItem.Text = showCertError;
             chromiumWebBrowser1.Select();
             hsDoNotTrack.Checked = Properties.Settings.Default.DoNotTrack;
             RefreshTranslation();
             if (_Incognito)
             {
+                foreach(Control x in tabPage3.Controls)
+                {
+                    if (x != button13) { x.Enabled = false; }
+                }
                 btInstall.Enabled = false;
                 btUpdater.Enabled = false;
-                tbSetting.Enabled = false;
-                tbTheme.Enabled = false;
                 button9.Enabled = false;
                 contextMenuStrip3.Enabled = false;
                 cmsSearchEngine.Enabled = false;
@@ -1503,7 +1527,7 @@ namespace Korot
                 allowSwitching = true;
                 tabControl1.SelectedTab = tabPage1;
             }
-            else if (tabControl1.SelectedTab == tabPage3) //Settings Menu
+            else if (tabControl1.SelectedTab == tabPage3 || tabControl1.SelectedTab == tabPage4 || tabControl1.SelectedTab == tabPage5 || tabControl1.SelectedTab == tabPage6) //Menu
             {
                 allowSwitching = true;
                 tabControl1.SelectedTab = tabPage1;
@@ -1576,16 +1600,16 @@ namespace Korot
 
         public void showHideSearchMenu()
         {
-            if (tabControl1.SelectedTab == tabPage1)
+            if (cmsHamburger.Visible)
             {
-                panel3.Visible = true;
-                findTextBox.Text = "";
+                cmsHamburger.Close();
+                toolStripTextBox1.Text = SearchOnPage;
                 chromiumWebBrowser1.StopFinding(true);
             }
             else
             {
-                panel3.Visible = false;
-                findTextBox.Text = "";
+                cmsHamburger.Show(button11, 0, 0);
+                toolStripTextBox1.Text = SearchOnPage;
                 chromiumWebBrowser1.StopFinding(true);
             }
         }
@@ -1652,18 +1676,7 @@ namespace Korot
             }
             else if (e.KeyCode == Keys.F && isControlKeyPressed)
             {
-                if (tabControl1.SelectedTab == tabPage1)
-                {
-                    panel3.Visible = !panel3.Visible;
-                    findTextBox.Text = "";
-                    chromiumWebBrowser1.StopFinding(true);
-                }
-                else
-                {
-                    panel3.Visible = false;
-                    findTextBox.Text = "";
-                    chromiumWebBrowser1.StopFinding(true);
-                }
+                showHideSearchMenu();
             }
             else if (e.KeyData == Keys.Enter)
             {
@@ -1748,14 +1761,12 @@ namespace Korot
 
                 oldBackColor = Properties.Settings.Default.BackColor;
                 cmsFavorite.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                button13.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.leftarrow_w : Properties.Resources.leftarrow;
+                button13.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button6.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button8.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button14.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 lbSettings.BackColor = Color.Transparent;
                 lbSettings.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                tabControl2.ActiveColor = Properties.Settings.Default.OverlayColor;
-                tabControl2.BackTabColor = Properties.Settings.Default.BackColor;
-                tabControl2.BorderColor = Properties.Settings.Default.BackColor;
-                tabControl2.HeaderColor = Properties.Settings.Default.BackColor;
-                tabControl2.HorizontalLineColor = Properties.Settings.Default.OverlayColor;
                 hlvDownload.BackColor = Properties.Settings.Default.BackColor;
                 hlvHistory.BackColor = Properties.Settings.Default.BackColor;
                 cmsDownload.BackColor = Properties.Settings.Default.BackColor;
@@ -1763,8 +1774,6 @@ namespace Korot
                 cmsSearchEngine.BackColor = Properties.Settings.Default.BackColor;
                 profilenameToolStripMenuItem.DropDown.BackColor = Properties.Settings.Default.BackColor;
                 profilenameToolStripMenuItem.DropDown.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                tabControl2.SelectedTextColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                tabControl2.TextColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 cmsDownload.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 listBox2.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 comboBox1.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
@@ -1782,13 +1791,14 @@ namespace Korot
                 btInstall.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 btUpdater.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 textBox2.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                button12.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 textBox3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 button10.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 textBox2.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 textBox3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 lbLang.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 lbLang.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
-                panel3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
+                toolStripTextBox1.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 comboBox3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10));
                 comboBox3.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsProfiles.BackColor = Properties.Settings.Default.BackColor;
@@ -1796,23 +1806,19 @@ namespace Korot
                 cmsPrivacy.BackColor = Properties.Settings.Default.BackColor;
                 label2.BackColor = Properties.Settings.Default.BackColor;
                 this.BackColor = Properties.Settings.Default.BackColor;
-                contextMenuStrip2.BackColor = Properties.Settings.Default.BackColor;
-                contextMenuStrip1.BackColor = Properties.Settings.Default.BackColor;
+                extensionToolStripMenuItem1.DropDown.BackColor = Properties.Settings.Default.BackColor;
                 pictureBox1.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.inctab_w : Properties.Resources.inctab;
-                findTextBox.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 tbAddress.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsHamburger.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsProfiles.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 this.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                contextMenuStrip1.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 label2.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                panel3.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                toolStripTextBox1.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsPrivacy.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                contextMenuStrip2.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                extensionToolStripMenuItem1.DropDown.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 textBox4.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 if (isLoadedPageFavroited) { button7.Image = Properties.Resources.star_on; } else { button7.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
                 mFavorites.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                findTextBox.BackColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10)) : Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
                 settingsToolStripMenuItem.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.Settings : Properties.Resources.Settings_w;
                 newWindowToolStripMenuItem.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.newwindow : Properties.Resources.newwindow_w;
                 newIncognitoWindowToolStripMenuItem.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.newincwindow : Properties.Resources.newincwindow_w;
@@ -1825,16 +1831,14 @@ namespace Korot
                 button11.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
                 tbAddress.BackColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10)) : Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
                 textBox4.BackColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 10), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 10)) : Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 10, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 10, 255));
-                button6.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.prxy : Properties.Resources.prxy_w;
                 mFavorites.BackColor = Properties.Settings.Default.BackColor;
-                button8.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.ext : Properties.Resources.ext_w;
+                extensionToolStripMenuItem1.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.ext : Properties.Resources.ext_w;
                 contextMenuStrip3.BackColor = Properties.Settings.Default.BackColor;
                 contextMenuStrip3.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
 
                 switchToToolStripMenuItem.DropDown.BackColor = Properties.Settings.Default.BackColor; switchToToolStripMenuItem.DropDown.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 foreach (ToolStripMenuItem x in cmsProfiles.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
-                foreach (ToolStripMenuItem x in contextMenuStrip1.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
-                foreach (TabPage x in tabControl2.TabPages) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black; }
+                foreach (ToolStripMenuItem x in extensionToolStripMenuItem1.DropDownItems) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black; }
             }
             if (Properties.Settings.Default.BackStyle != "BACKCOLOR")
@@ -1845,8 +1849,7 @@ namespace Korot
                     Image backStyle = GetImageFromURL(Properties.Settings.Default.BackStyle);
                     panel2.BackgroundImage = backStyle;
                     mFavorites.BackgroundImage = backStyle;
-                    panel3.BackgroundImage = backStyle;
-                    foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImage = backStyle; }
+                    foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImage = backStyle; }
                     tabPage3.BackgroundImage = backStyle;
                 }
             }
@@ -1857,8 +1860,7 @@ namespace Korot
                     oldStyle = Properties.Settings.Default.BackStyle;
                     panel2.BackgroundImage = null;
                     mFavorites.BackgroundImage = null;
-                    panel3.BackgroundImage = null;
-                    foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImage = null; }
+                    foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImage = null; }
                     tabPage3.BackgroundImage = null;
                 }
             }
@@ -1866,48 +1868,45 @@ namespace Korot
             {
                 panel2.BackgroundImageLayout = ImageLayout.None;
                 mFavorites.BackgroundImageLayout = ImageLayout.None;
-                panel3.BackgroundImageLayout = ImageLayout.None;
                 tabPage3.BackgroundImageLayout = ImageLayout.None;
-                foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImageLayout = ImageLayout.None; }
+                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.None; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 1) //TILE
             {
                 panel2.BackgroundImageLayout = ImageLayout.Tile;
                 mFavorites.BackgroundImageLayout = ImageLayout.Tile;
-                panel3.BackgroundImageLayout = ImageLayout.Tile;
                 tabPage3.BackgroundImageLayout = ImageLayout.Tile;
-                foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImageLayout = ImageLayout.Tile; }
+                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Tile; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 2) //CENTER
             {
                 panel2.BackgroundImageLayout = ImageLayout.Center;
                 mFavorites.BackgroundImageLayout = ImageLayout.Center;
-                panel3.BackgroundImageLayout = ImageLayout.Center;
                 tabPage3.BackgroundImageLayout = ImageLayout.Center;
-                foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImageLayout = ImageLayout.Center; }
+                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Center; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 3) //STRETCH
             {
                 panel2.BackgroundImageLayout = ImageLayout.Stretch;
                 mFavorites.BackgroundImageLayout = ImageLayout.Stretch;
-                panel3.BackgroundImageLayout = ImageLayout.Stretch;
                 tabPage3.BackgroundImageLayout = ImageLayout.Stretch;
-                foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImageLayout = ImageLayout.Stretch; }
+                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Stretch; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 4) //ZOOM
             {
                 panel2.BackgroundImageLayout = ImageLayout.Zoom;
                 mFavorites.BackgroundImageLayout = ImageLayout.Zoom;
-                panel3.BackgroundImageLayout = ImageLayout.Zoom;
                 tabPage3.BackgroundImageLayout = ImageLayout.Zoom;
-                foreach (TabPage x in tabControl2.TabPages) { x.BackgroundImageLayout = ImageLayout.Zoom; }
+                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Zoom; }
             }
         }
-        int websiteprogress;
-        public void ChangeProgress(int value)
+        double websiteprogress;
+        public void ChangeProgress(double value)
         {
+            if (value == 1) { websiteprogress = value; pbProgress.Width = this.Width; }else { 
             websiteprogress = value;
-            pbProgress.Width = (this.Width / 100) * websiteprogress;
+            pbProgress.Width = Convert.ToInt32(Convert.ToDouble(this.Width / 100) * Convert.ToDouble(value * 100));
+            }
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -2037,7 +2036,7 @@ namespace Korot
         }
         public void LoadExt()
         {
-            contextMenuStrip1.Items.Clear();
+            extensionToolStripMenuItem1.DropDownItems.Clear();
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\"); }
 
             foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\"))
@@ -2069,57 +2068,21 @@ namespace Korot
                     ToolStripMenuItem extRunItem = new ToolStripMenuItem();
                     extItem.Click += ExtensionToolStripMenuItem_Click;
                     extItem.Tag = x + "\\ext.kem";
-                    contextMenuStrip1.Items.Add(extItem);
+                    extensionToolStripMenuItem1.DropDownItems.Add(extItem);
 
                 }
             }
-            if (contextMenuStrip1.Items.Count == 0)
+            if (extensionToolStripMenuItem1.DropDownItems.Count == 0)
             {
                 ToolStripMenuItem emptylol = new ToolStripMenuItem();
                 emptyItem = emptylol;
                 emptylol.Text = this.empty;
                 emptylol.Enabled = false;
-                contextMenuStrip1.Items.Add(emptylol);
+                extensionToolStripMenuItem1.DropDownItems.Add(emptylol);
             }
         }
         ToolStripMenuItem emptyItem;
         ToolStripMenuItem defaultproxyItem;
-        public void LoadProxies()
-        {
-            contextMenuStrip2.Items.Clear();
-            if (noProxy)
-            {
-                ToolStripMenuItem noProxyItem = new ToolStripMenuItem();
-                noProxyItem.Text = "No Proxies Detected.";
-                noProxyItem.Enabled = false;
-                contextMenuStrip2.Items.Add(noProxyItem);
-            }
-            else
-            {
-
-                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\"); }
-                // add default proxy
-                ToolStripMenuItem defaultProxyMenuItem = new ToolStripMenuItem();
-                defaultproxyItem = defaultProxyMenuItem;
-                defaultProxyMenuItem.Text = this.defaultproxytext;
-                defaultProxyMenuItem.Click += ExampleProxyToolStripMenuItem_Click;
-                defaultProxyMenuItem.Tag = defaultproxyaddress;
-                contextMenuStrip2.Items.Add(defaultProxyMenuItem);
-                foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Proxies\\"))
-                {
-                    if (File.Exists(x + "\\proxy.kem"))
-                    {
-                        ToolStripMenuItem extItem = new ToolStripMenuItem();
-                        extItem.Text = new DirectoryInfo(x).Name;
-                        extItem.Click += ExampleProxyToolStripMenuItem_Click;
-                        extItem.Tag = FileSystem2.ReadFile(x + "\\proxy.kem", Encoding.UTF8);
-                        contextMenuStrip2.Items.Add(extItem);
-
-                    }
-                }
-            }
-        }
-        private void Button8_Click(object sender, EventArgs e) { LoadExt(); contextMenuStrip1.Show(MousePosition); }
 
         private void TmrSlower_Tick(object sender, EventArgs e)
         {
@@ -2128,23 +2091,9 @@ namespace Korot
 
         public void FrmCEF_SizeChanged(object sender, EventArgs e)
         {
-            pbProgress.Width = (this.Width / 100) * websiteprogress;
+            ChangeProgress(websiteprogress);
         }
 
-        private void TextBox2_TextChanged(object sender, EventArgs e)
-        {
-            if ((!string.IsNullOrEmpty(findTextBox.Text)) & panel3.Visible)
-            {
-                chromiumWebBrowser1.Find(0, findTextBox.Text, false, haltroySwitch1.Checked, false);
-            }
-        }
-
-        private void Label4_Click(object sender, EventArgs e)
-        {
-            panel3.Visible = false;
-            findTextBox.Text = "";
-            chromiumWebBrowser1.StopFinding(true);
-        }
 
         private void Panel1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
@@ -2160,12 +2109,6 @@ namespace Korot
             catch { }
             chromiumWebBrowser1.Reload();
         }
-
-        private void Button6_Click(object sender, EventArgs e)
-        {
-            contextMenuStrip2.Show(MousePosition);
-        }
-
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             cmsPrivacy.Show(pictureBox2, 0, pictureBox2.Size.Height);
@@ -2203,7 +2146,8 @@ namespace Korot
 
         private void button11_Click(object sender, EventArgs e)
         {
-            cmsHamburger.Show(button11, 0, 0);
+            if (cmsHamburger.Visible) { cmsHamburger.Close(); } else { cmsHamburger.Show(button11, 0, 0); }
+            button11.FlatAppearance.BorderSize = 0;
         }
 
         private void restoreLastSessionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2215,7 +2159,7 @@ namespace Korot
         bool onCEFTab = true;
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (allowSwitching == false) { e.Cancel = true; } else { panel3.Visible = false; findTextBox.Text = ""; chromiumWebBrowser1.StopFinding(true); e.Cancel = false; allowSwitching = false; }
+            if (allowSwitching == false) { e.Cancel = true; } else { toolStripTextBox1.Text = SearchOnPage; chromiumWebBrowser1.StopFinding(true); e.Cancel = false; allowSwitching = false; }
             onCEFTab = (tabControl1.SelectedTab == tabPage1);
         }
 
@@ -2230,14 +2174,6 @@ namespace Korot
             tabControl1.SelectedTab = tabPage1;
             chromiumWebBrowser1.Load("korot://licenses");
         }
-
-        private void searchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            allowSwitching = true;
-            tabControl1.SelectedTab = tabPage1;
-            panel3.Visible = !panel3.Visible;
-        }
-
         private void contextMenuStrip4_Opening(object sender, CancelEventArgs e)
         {
             Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\\"");
@@ -2393,6 +2329,7 @@ namespace Korot
             tabControl1.SelectedTab = tabPage1;
             chromiumWebBrowser1.SetZoomLevel(0.0);
             cmsHamburger.Show(button11, 0, 0);
+            caseSensitiveToolStripMenuItem_Click(sender, e);
         }
         public void zoomIn()
         {
@@ -2415,7 +2352,8 @@ namespace Korot
             allowSwitching = true;
             tabControl1.SelectedTab = tabPage1;
             zoomIn();
-            cmsHamburger.Show(button11, 0, 0);
+            caseSensitiveToolStripMenuItem_Click(sender, e);
+            
         }
 
         public void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2424,12 +2362,77 @@ namespace Korot
             tabControl1.SelectedTab = tabPage1;
             zoomOut();
             cmsHamburger.Show(button11, 0, 0);
+            caseSensitiveToolStripMenuItem_Click(sender, e);
         }
 
         private void cmsHamburger_Opening(object sender, CancelEventArgs e)
         {
+            toolStripTextBox1.Text = SearchOnPage;
+            chromiumWebBrowser1.StopFinding(true);
             Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
             zOOMLEVELToolStripMenuItem.Text = ((zoomLevel.Result * 100) + 100) + "%";
+        }
+        string searchPrev;
+        private void toolStripTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if ((!string.IsNullOrEmpty(toolStripTextBox1.Text)) & toolStripTextBox1.Text != SearchOnPage)
+            {
+                searchPrev = toolStripTextBox1.Text;
+                chromiumWebBrowser1.Find(0, toolStripTextBox1.Text, false, caseSensitiveToolStripMenuItem.Checked, false);
+            }
+            else
+            {
+                toolStripTextBox1.Text = SearchOnPage;
+                chromiumWebBrowser1.StopFinding(true);
+            }
+        }
+        private void cancelSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void cmsHamburger_Closing(object sender, ToolStripDropDownClosingEventArgs e)
+        {
+            toolStripTextBox1.Text = SearchOnPage;
+            chromiumWebBrowser1.StopFinding(true);
+        }
+
+        private void caseSensitiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cmsHamburger.Show(button11, 0, 0);
+            toolStripTextBox1.Text = searchPrev;
+            toolStripTextBox_TextChanged(null, e);
+        }
+        private void toolStripTextBox1_Click(object sender,EventArgs e)
+        {
+            toolStripTextBox1.SelectAll();
+        }
+
+        private void historyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            button3.Enabled = true;
+            allowSwitching = true;
+            tabControl1.SelectedTab = tabPage4;
+        }
+
+        private void downloadsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            button3.Enabled = true;
+            allowSwitching = true;
+            tabControl1.SelectedTab = tabPage5;
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            button3.Enabled = true;
+            allowSwitching = true;
+            tabControl1.SelectedTab = tabPage6;
+        }
+
+        private void ımageFromCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

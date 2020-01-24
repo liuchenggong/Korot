@@ -95,9 +95,9 @@ namespace Korot
             this.tbHomepage = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -637,14 +637,9 @@ namespace Korot
             this.label1.Text = "These are the applied Settings to .Net Framework\'s default setting system. You ca" +
     "n change the settings.";
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // tabPage7
             // 
-            this.tabPage7.Controls.Add(this.checkBox1);
+            this.tabPage7.Controls.Add(this.textBox1);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
@@ -653,16 +648,20 @@ namespace Korot
             this.tabPage7.Text = "Debug";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // timer1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(9, 7);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(108, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Debug Key Press";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(3, 3);
+            this.textBox1.MaxLength = 2147483647;
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(520, 418);
+            this.textBox1.TabIndex = 0;
             // 
             // frmDebugSettings
             // 
@@ -674,6 +673,7 @@ namespace Korot
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmDebugSettings";
             this.Text = "Korot Debugging Menu";
+            this.Load += new System.EventHandler(this.frmDebugSettings_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -750,6 +750,6 @@ namespace Korot
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox tbFavorites;
         private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

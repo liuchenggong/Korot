@@ -57,7 +57,7 @@ Themes :
 Open in New Tab
 Open File
 Open Folder containing this file
-Search :
+Search on this page
 Case Sensitive
 "Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"
 "January","February","March","April","May","June","July","August","September","October","November","December"
@@ -133,7 +133,7 @@ Some files are above the file size limits. Please go to https://github.com/Haltr
 Please wait...
 Use backgound color
 Using background color
-Image from URL
+Image from Base64 Code
 Image from local file
 Image Files
 All Files
@@ -176,3 +176,5 @@ Save this Page
 Zoom In
 Reset Zoom
 Zoom Out
+Please enter a valid base64 code.
+Render Process Terminated. Korot cannot work without this process. Press OK to close application.
