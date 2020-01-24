@@ -41,7 +41,7 @@ namespace Korot
             }
             else
             {
-                return "background-image: url(\"" + Properties.Settings.Default.BackStyle.Replace("\\", "/") + "\");";
+                return Properties.Settings.Default.BackStyle;
             }
         }
         public static bool ValidHttpURL(string s)

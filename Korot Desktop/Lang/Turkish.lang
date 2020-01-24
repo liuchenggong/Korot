@@ -57,7 +57,7 @@ Temalar :
 Yeni sekmede aç
 Dosyayı Aç
 Dosyayı içeren klasörü aç
-Ara :
+Bu sayfada ara
 Büyük/küçük duyarlı
 "Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"
 "Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"
@@ -133,7 +133,7 @@ Bazı dosyalar, dosya limitlerini aşıyor. Lütfen detaylı bilgi için https:/
 Lütfen bekleyiniz...
 Arkaplan rengini kullan
 Arkaplan rengi kullanılıyor
-Bir adresteki görüntüyü kullan
+Bir base64 kodunu kullan
 Yerel bir görüntüyü kullan
 Resim Dosyası
 Tüm Dosyalar
@@ -176,3 +176,6 @@ Sayfayı kaydet
 Yakınlaştır
 Yakınlaştırmayı Sıfırla
 Uzaklaştır
+Lütfen geçerli bir base64 kodu giriniz.
+Oluşturucu işlem sonlandırıldı. Korot bu işlem olmadan çalışamaz. Uygulamayı kapatmak için Tamam butonuna basın.
+

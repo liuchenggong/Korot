@@ -69,9 +69,6 @@ namespace Korot
 
         public bool OnCertificateError(IWebBrowser chromiumWebBrowser, IBrowser browser, CefErrorCode errorCode, string requestUrl, ISslInfo sslInfo, IRequestCallback callback)
         {
-
-            cefform.Invoke(new Action(() => cefform.safeStatusToolStripMenuItem.Text = cefform.CertificateErrorTitle));
-            cefform.Invoke(new Action(() => cefform.ınfoToolStripMenuItem.Text = cefform.CertificateError));
             string certError = "CefErrorCode: "
                 + errorCode
                 + Environment.NewLine
@@ -85,10 +82,14 @@ namespace Korot
                 + Environment.NewLine
                 + "X509Certificate: "
                 + sslInfo.X509Certificate.ToString();
-            cefform.Invoke(new Action(() => cefform.showCertificateErrorsToolStripMenuItem.Tag = certError));
-            cefform.Invoke(new Action(() => cefform.certError = true));
-            cefform.Invoke(new Action(() => cefform.showCertificateErrorsToolStripMenuItem.Visible = true));
-            cefform.Invoke(new Action(() => cefform.pictureBox2.Image = Properties.Resources.lockr));
+            cefform.Invoke(new Action(() => {
+                cefform.safeStatusToolStripMenuItem.Text = cefform.CertificateErrorTitle;
+                cefform.ınfoToolStripMenuItem.Text = cefform.CertificateError;
+                cefform.showCertificateErrorsToolStripMenuItem.Tag = certError;
+                cefform.certError = true;
+                cefform.showCertificateErrorsToolStripMenuItem.Visible = true;
+                cefform.pictureBox2.Image = Properties.Resources.lockr;
+            }));
             if (cefform.CertAllowedUrls.Contains(requestUrl))
             {
                 callback.Continue(true);
@@ -96,8 +97,11 @@ namespace Korot
             }
             else
             {
-                cefform.Invoke(new Action(() => cefform.pnlCert.Visible = true));
-                cefform.Invoke(new Action(() => cefform.button10.Tag = requestUrl));
+                cefform.Invoke(new Action(() => { 
+                    cefform.pnlCert.Visible = true;
+                    cefform.button10.Tag = requestUrl;
+                    cefform.tabControl1.SelectedTab = cefform.tabPage2;
+                }));
                 callback.Cancel();
                 return false;
             }
@@ -122,7 +126,12 @@ namespace Korot
 
         public void OnRenderProcessTerminated(IWebBrowser chromiumWebBrowser, IBrowser browser, CefTerminationStatus status)
         {
-            chromiumWebBrowser.Load("korot://error/?=RENDER_PROCESS_TERMINATED");
+            anaform.Invoke(new Action(() => anaform.Hide()));
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", cefform.renderProcessDies, anaform.Icon, MessageBoxButtons.OK, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
+            if (mesaj.ShowDialog() == DialogResult.OK || mesaj.ShowDialog() == DialogResult.Cancel)
+            {
+                Application.Exit();
+            }
         }
 
         public void OnRenderViewReady(IWebBrowser chromiumWebBrowser, IBrowser browser) { }

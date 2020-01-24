@@ -54,7 +54,6 @@ namespace Korot
         }
         public bool OnPreKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut)
         {
-            if (Properties.Settings.Default.DebugRecordKeys) { Output.WriteLine(" [Korot.KeyboradHandler.OnPreKeyEvent] KeyCode: " + (Keys)windowsKeyCode + " Modifiers: " + modifiers); }
             _frmCEF.Invoke(new Action(() => _frmCEF.isControlKeyPressed = ((modifiers == CefEventFlags.ControlDown) || windowsKeyCode == VK_CONTROL)));
             if (windowsKeyCode == VK_BROWSER_BACK)
             {
