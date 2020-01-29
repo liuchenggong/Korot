@@ -30,7 +30,6 @@ SOFTWARE. -->
 			 background-repeat:no-repeat;
 			background-size:100% 100vh;
         }
-
         .bw {
             background-color: rgba(0,0,0,0.5);
             color: white;
@@ -44,7 +43,10 @@ SOFTWARE. -->
 			top: 50%;
 			left: 50%;
 			transform: translateX(-50%) translateY(-50%);
-					}
+				}
+		input{
+		§BACKSTYLE2§
+        }
     </style>
 
     <script>
@@ -55,7 +57,7 @@ SOFTWARE. -->
         var s = today.getSeconds();
         m = checkTime(m);
         s = checkTime(s);
-        document.getElementById('saat').innerHTML = h + ":" + m + ":" + s;
+        document.getElementById('saat').innerHTML = h + '<br />' + m + '<br />' + s;
         var days = [§DAYS§];
         var months = [§MONTHS§];
         document.getElementById("date").innerHTML = days[today.getDay()] + ' , '+ today.getDate() + ' '  + months[today.getMonth()] + ' ' + today.getFullYear();

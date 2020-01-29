@@ -86,6 +86,10 @@ namespace Korot
             this.label11 = new System.Windows.Forms.Label();
             this.tbStyle = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.tbThemeAuthor = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tbThemeName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.tbUser = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.tbLang = new System.Windows.Forms.TextBox();
@@ -96,8 +100,12 @@ namespace Korot
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -115,6 +123,7 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.nW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nX)).BeginInit();
             this.tabPage7.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -125,7 +134,7 @@ namespace Korot
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(534, 450);
+            this.tabControl1.Size = new System.Drawing.Size(534, 509);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -145,6 +154,10 @@ namespace Korot
             this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.tbStyle);
             this.tabPage1.Controls.Add(this.label10);
+            this.tabPage1.Controls.Add(this.tbThemeAuthor);
+            this.tabPage1.Controls.Add(this.label15);
+            this.tabPage1.Controls.Add(this.tbThemeName);
+            this.tabPage1.Controls.Add(this.label13);
             this.tabPage1.Controls.Add(this.tbUser);
             this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.tbLang);
@@ -157,7 +170,7 @@ namespace Korot
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(526, 424);
+            this.tabPage1.Size = new System.Drawing.Size(526, 483);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Settings Report";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -172,11 +185,11 @@ namespace Korot
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage6);
-            this.tabControl2.Location = new System.Drawing.Point(15, 302);
+            this.tabControl2.Location = new System.Drawing.Point(15, 354);
             this.tabControl2.MinimumSize = new System.Drawing.Size(503, 114);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(503, 114);
+            this.tabControl2.Size = new System.Drawing.Size(503, 123);
             this.tabControl2.TabIndex = 35;
             // 
             // tabPage2
@@ -185,7 +198,7 @@ namespace Korot
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(495, 88);
+            this.tabPage2.Size = new System.Drawing.Size(495, 97);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "Favorites";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -196,7 +209,7 @@ namespace Korot
             this.tbFavorites.Location = new System.Drawing.Point(3, 3);
             this.tbFavorites.Multiline = true;
             this.tbFavorites.Name = "tbFavorites";
-            this.tbFavorites.Size = new System.Drawing.Size(489, 82);
+            this.tbFavorites.Size = new System.Drawing.Size(489, 91);
             this.tbFavorites.TabIndex = 1;
             this.tbFavorites.TextChanged += new System.EventHandler(this.tbFavorites_TextChanged);
             // 
@@ -206,7 +219,7 @@ namespace Korot
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(495, 88);
+            this.tabPage3.Size = new System.Drawing.Size(495, 97);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "History";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -217,7 +230,7 @@ namespace Korot
             this.tbHistory.Location = new System.Drawing.Point(3, 3);
             this.tbHistory.Multiline = true;
             this.tbHistory.Name = "tbHistory";
-            this.tbHistory.Size = new System.Drawing.Size(489, 82);
+            this.tbHistory.Size = new System.Drawing.Size(489, 91);
             this.tbHistory.TabIndex = 1;
             this.tbHistory.TextChanged += new System.EventHandler(this.tbHistory_TextChanged);
             // 
@@ -227,7 +240,7 @@ namespace Korot
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(495, 88);
+            this.tabPage4.Size = new System.Drawing.Size(495, 97);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "Downloads";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -238,7 +251,7 @@ namespace Korot
             this.tbDownloads.Location = new System.Drawing.Point(3, 3);
             this.tbDownloads.Multiline = true;
             this.tbDownloads.Name = "tbDownloads";
-            this.tbDownloads.Size = new System.Drawing.Size(489, 82);
+            this.tbDownloads.Size = new System.Drawing.Size(489, 91);
             this.tbDownloads.TabIndex = 1;
             this.tbDownloads.TextChanged += new System.EventHandler(this.tbDownloads_TextChanged);
             // 
@@ -248,7 +261,7 @@ namespace Korot
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(495, 88);
+            this.tabPage5.Size = new System.Drawing.Size(495, 97);
             this.tabPage5.TabIndex = 3;
             this.tabPage5.Text = "Last Session";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -259,7 +272,7 @@ namespace Korot
             this.tbSession.Location = new System.Drawing.Point(3, 3);
             this.tbSession.Multiline = true;
             this.tbSession.Name = "tbSession";
-            this.tbSession.Size = new System.Drawing.Size(489, 82);
+            this.tbSession.Size = new System.Drawing.Size(489, 91);
             this.tbSession.TabIndex = 1;
             this.tbSession.TextChanged += new System.EventHandler(this.tbSession_TextChanged);
             // 
@@ -269,7 +282,7 @@ namespace Korot
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(495, 88);
+            this.tabPage6.Size = new System.Drawing.Size(495, 97);
             this.tabPage6.TabIndex = 4;
             this.tabPage6.Text = "Cookie Disallow";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -280,7 +293,7 @@ namespace Korot
             this.lbCookie.FormattingEnabled = true;
             this.lbCookie.Location = new System.Drawing.Point(3, 3);
             this.lbCookie.Name = "lbCookie";
-            this.lbCookie.Size = new System.Drawing.Size(489, 82);
+            this.lbCookie.Size = new System.Drawing.Size(489, 91);
             this.lbCookie.TabIndex = 1;
             this.lbCookie.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbCookie_MouseClick);
             // 
@@ -390,6 +403,7 @@ namespace Korot
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.BackColor = System.Drawing.Color.White;
             this.groupBox1.Controls.Add(this.nH);
             this.groupBox1.Controls.Add(this.nY);
             this.groupBox1.Controls.Add(this.nW);
@@ -551,6 +565,44 @@ namespace Korot
             this.label10.TabIndex = 1;
             this.label10.Text = "Style:";
             // 
+            // tbThemeAuthor
+            // 
+            this.tbThemeAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbThemeAuthor.Location = new System.Drawing.Point(92, 326);
+            this.tbThemeAuthor.Name = "tbThemeAuthor";
+            this.tbThemeAuthor.Size = new System.Drawing.Size(428, 20);
+            this.tbThemeAuthor.TabIndex = 2;
+            this.tbThemeAuthor.TextChanged += new System.EventHandler(this.tbThemeAuthor_TextChanged);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(11, 329);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(77, 13);
+            this.label15.TabIndex = 1;
+            this.label15.Text = "Theme Author:";
+            // 
+            // tbThemeName
+            // 
+            this.tbThemeName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbThemeName.Location = new System.Drawing.Point(92, 300);
+            this.tbThemeName.Name = "tbThemeName";
+            this.tbThemeName.Size = new System.Drawing.Size(428, 20);
+            this.tbThemeName.TabIndex = 2;
+            this.tbThemeName.TextChanged += new System.EventHandler(this.tbThemeName_TextChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(11, 303);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(74, 13);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "Theme Name:";
+            // 
             // tbUser
             // 
             this.tbUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -564,7 +616,7 @@ namespace Korot
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(11, 276);
+            this.label9.Location = new System.Drawing.Point(11, 274);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(55, 13);
             this.label9.TabIndex = 1;
@@ -632,48 +684,105 @@ namespace Korot
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(8, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(497, 13);
+            this.label1.Size = new System.Drawing.Size(466, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "These are the applied Settings to .Net Framework\'s default setting system. You ca" +
-    "n change the settings.";
+    "n change them.";
             // 
             // tabPage7
             // 
-            this.tabPage7.Controls.Add(this.textBox1);
+            this.tabPage7.Controls.Add(this.groupBox2);
+            this.tabPage7.Controls.Add(this.checkBox4);
+            this.tabPage7.Controls.Add(this.checkBox3);
+            this.tabPage7.Controls.Add(this.checkBox1);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(526, 424);
+            this.tabPage7.Size = new System.Drawing.Size(526, 483);
             this.tabPage7.TabIndex = 1;
             this.tabPage7.Text = "Debug";
             this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox2.Location = new System.Drawing.Point(3, 347);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(520, 133);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Description";
+            // 
+            // label17
+            // 
+            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label17.Location = new System.Drawing.Point(3, 16);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(514, 114);
+            this.label17.TabIndex = 0;
+            this.label17.Tag = "Hover on a debug setting for more info.";
+            this.label17.Text = "Hover on a debug setting for more info.";
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(8, 53);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(79, 17);
+            this.checkBox4.TabIndex = 0;
+            this.checkBox4.Tag = "Logs every mouse scroll. If unsure, leave unchecked.";
+            this.checkBox4.Text = "Log Mouse";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            this.checkBox4.MouseEnter += new System.EventHandler(this.checkBox1_MouseEnter);
+            this.checkBox4.MouseLeave += new System.EventHandler(this.checkBox1_MouseLeave);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(9, 30);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(70, 17);
+            this.checkBox3.TabIndex = 0;
+            this.checkBox3.Tag = "Logs every key press. If unsure, leave unchecked.";
+            this.checkBox3.Text = "Log Keys";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            this.checkBox3.MouseEnter += new System.EventHandler(this.checkBox1_MouseEnter);
+            this.checkBox3.MouseLeave += new System.EventHandler(this.checkBox1_MouseLeave);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(9, 7);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(90, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Tag = "Logs disposes inside of methods with arguments. If unsure, leave unchecked.";
+            this.checkBox1.Text = "Log Disposes";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.MouseEnter += new System.EventHandler(this.checkBox1_MouseEnter);
+            this.checkBox1.MouseLeave += new System.EventHandler(this.checkBox1_MouseLeave);
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // textBox1
-            // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(3, 3);
-            this.textBox1.MaxLength = 2147483647;
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(520, 418);
-            this.textBox1.TabIndex = 0;
-            // 
             // frmDebugSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 450);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(534, 509);
             this.Controls.Add(this.tabControl1);
+            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmDebugSettings";
             this.Text = "Korot Debugging Menu";
-            this.Load += new System.EventHandler(this.frmDebugSettings_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -698,6 +807,7 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.nX)).EndInit();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -749,7 +859,15 @@ namespace Korot
         private System.Windows.Forms.NumericUpDown nStyle;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox tbFavorites;
+        private System.Windows.Forms.TextBox tbThemeAuthor;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox tbThemeName;
+        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label17;
     }
 }

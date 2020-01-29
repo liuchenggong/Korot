@@ -275,5 +275,65 @@ namespace Korot.Properties {
                 this["CookieDisallowList"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ThemeName {
+            get {
+                return ((string)(this["ThemeName"]));
+            }
+            set {
+                this["ThemeName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ThemeAuthor {
+            get {
+                return ((string)(this["ThemeAuthor"]));
+            }
+            set {
+                this["ThemeAuthor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool debugLogDisposes {
+            get {
+                return ((bool)(this["debugLogDisposes"]));
+            }
+            set {
+                this["debugLogDisposes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool debugLogKeys {
+            get {
+                return ((bool)(this["debugLogKeys"]));
+            }
+            set {
+                this["debugLogKeys"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool debugLogMouse {
+            get {
+                return ((bool)(this["debugLogMouse"]));
+            }
+            set {
+                this["debugLogMouse"] = value;
+            }
+        }
     }
 }

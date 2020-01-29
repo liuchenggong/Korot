@@ -74,7 +74,7 @@ namespace Korot
                             frmDebugSettings frmDebug = new frmDebugSettings();
                             frmDebug.Show();
                         }
-                        else if (x.ToLower().EndsWith(".kef"))
+                        else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
                         {
                             Application.Run(new frmInstallExt(x));
                         }

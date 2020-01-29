@@ -76,6 +76,9 @@ namespace Korot
             this.cmsHamburger = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.tsSearchNext = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSearchStatus = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSearchPrev = new System.Windows.Forms.ToolStripMenuItem();
             this.caseSensitiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.extensionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,7 +107,6 @@ namespace Korot
             this.deleteThisProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.cms4 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.lErrorTitle2Text = new System.Windows.Forms.Label();
@@ -242,10 +244,10 @@ namespace Korot
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.tbAddress.Location = new System.Drawing.Point(169, 2);
+            this.tbAddress.Location = new System.Drawing.Point(139, 2);
             this.tbAddress.MaxLength = 2147483647;
             this.tbAddress.Name = "tbAddress";
-            this.tbAddress.Size = new System.Drawing.Size(274, 23);
+            this.tbAddress.Size = new System.Drawing.Size(304, 23);
             this.tbAddress.TabIndex = 1;
             // 
             // panel2
@@ -262,7 +264,6 @@ namespace Korot
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.button11);
             this.panel2.Controls.Add(this.button9);
-            this.panel2.Controls.Add(this.button4);
             this.panel2.Controls.Add(this.button2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
@@ -275,7 +276,7 @@ namespace Korot
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.ContextMenuStrip = this.cmsPrivacy;
             this.pictureBox2.Image = global::Korot.Properties.Resources.lockg;
-            this.pictureBox2.Location = new System.Drawing.Point(150, 5);
+            this.pictureBox2.Location = new System.Drawing.Point(120, 5);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(17, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -429,11 +430,12 @@ namespace Korot
             // 
             // button7
             // 
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button7.BackColor = System.Drawing.Color.Transparent;
             this.button7.FlatAppearance.BorderSize = 0;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Image = global::Korot.Properties.Resources.star;
-            this.button7.Location = new System.Drawing.Point(116, 0);
+            this.button7.Location = new System.Drawing.Point(472, 0);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(30, 28);
             this.button7.TabIndex = 0;
@@ -490,6 +492,9 @@ namespace Korot
             this.cmsHamburger.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator8,
             this.toolStripTextBox1,
+            this.tsSearchNext,
+            this.tsSearchStatus,
+            this.tsSearchPrev,
             this.caseSensitiveToolStripMenuItem,
             this.toolStripSeparator5,
             this.extensionToolStripMenuItem1,
@@ -514,50 +519,73 @@ namespace Korot
             this.spRestorer});
             this.cmsHamburger.Name = "cmsHamburger";
             this.cmsHamburger.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsHamburger.Size = new System.Drawing.Size(275, 407);
+            this.cmsHamburger.Size = new System.Drawing.Size(281, 473);
             this.cmsHamburger.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.cmsHamburger_Closing);
             this.cmsHamburger.Opening += new System.ComponentModel.CancelEventHandler(this.cmsHamburger_Opening);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(271, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(277, 6);
             // 
             // toolStripTextBox1
             // 
             this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.MaxLength = 2147483647;
             this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(200, 23);
+            this.toolStripTextBox1.Size = new System.Drawing.Size(220, 23);
             this.toolStripTextBox1.Text = "Search on page";
             this.toolStripTextBox1.ToolTipText = "Search on page";
             this.toolStripTextBox1.Click += new System.EventHandler(this.toolStripTextBox1_Click);
             this.toolStripTextBox1.TextChanged += new System.EventHandler(this.toolStripTextBox_TextChanged);
             // 
+            // tsSearchNext
+            // 
+            this.tsSearchNext.Name = "tsSearchNext";
+            this.tsSearchNext.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tsSearchNext.ShortcutKeyDisplayString = "";
+            this.tsSearchNext.Size = new System.Drawing.Size(280, 22);
+            this.tsSearchNext.Text = "Find Next";
+            this.tsSearchNext.Click += new System.EventHandler(this.tsSearchNext_Click);
+            // 
+            // tsSearchStatus
+            // 
+            this.tsSearchStatus.Enabled = false;
+            this.tsSearchStatus.Name = "tsSearchStatus";
+            this.tsSearchStatus.Size = new System.Drawing.Size(280, 22);
+            this.tsSearchStatus.Text = "Not Searching";
+            // 
+            // tsSearchPrev
+            // 
+            this.tsSearchPrev.Name = "tsSearchPrev";
+            this.tsSearchPrev.Size = new System.Drawing.Size(280, 22);
+            this.tsSearchPrev.Text = "Find Previous";
+            this.tsSearchPrev.Click += new System.EventHandler(this.tsSearchPrev_Click);
+            // 
             // caseSensitiveToolStripMenuItem
             // 
             this.caseSensitiveToolStripMenuItem.CheckOnClick = true;
             this.caseSensitiveToolStripMenuItem.Name = "caseSensitiveToolStripMenuItem";
-            this.caseSensitiveToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.caseSensitiveToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.caseSensitiveToolStripMenuItem.Text = "Case Sensitive";
             this.caseSensitiveToolStripMenuItem.Click += new System.EventHandler(this.caseSensitiveToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(271, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(277, 6);
             // 
             // extensionToolStripMenuItem1
             // 
             this.extensionToolStripMenuItem1.Image = global::Korot.Properties.Resources.ext;
             this.extensionToolStripMenuItem1.Name = "extensionToolStripMenuItem1";
-            this.extensionToolStripMenuItem1.Size = new System.Drawing.Size(274, 22);
+            this.extensionToolStripMenuItem1.Size = new System.Drawing.Size(280, 22);
             this.extensionToolStripMenuItem1.Text = "Extensions";
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(271, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(277, 6);
             // 
             // newWindowToolStripMenuItem
             // 
@@ -565,30 +593,30 @@ namespace Korot
             this.newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
             this.newWindowToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.N)));
-            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.newWindowToolStripMenuItem.Text = "New Window";
             this.newWindowToolStripMenuItem.Click += new System.EventHandler(this.NewWindowToolStripMenuItem_Click);
             // 
             // newIncognitoWindowToolStripMenuItem
             // 
-            this.newIncognitoWindowToolStripMenuItem.Image = global::Korot.Properties.Resources.newincwindow;
+            this.newIncognitoWindowToolStripMenuItem.Image = global::Korot.Properties.Resources.inctab;
             this.newIncognitoWindowToolStripMenuItem.Name = "newIncognitoWindowToolStripMenuItem";
             this.newIncognitoWindowToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.N)));
-            this.newIncognitoWindowToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.newIncognitoWindowToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.newIncognitoWindowToolStripMenuItem.Text = "New Incognito Window";
             this.newIncognitoWindowToolStripMenuItem.Click += new System.EventHandler(this.NewIncognitoWindowToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(271, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(277, 6);
             // 
             // takeAScreenshotToolStripMenuItem
             // 
             this.takeAScreenshotToolStripMenuItem.Name = "takeAScreenshotToolStripMenuItem";
             this.takeAScreenshotToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.PrintScreen)));
-            this.takeAScreenshotToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.takeAScreenshotToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.takeAScreenshotToolStripMenuItem.Text = "Take a Screenshot";
             this.takeAScreenshotToolStripMenuItem.Click += new System.EventHandler(this.takeAScreenshotToolStripMenuItem_Click);
             // 
@@ -596,34 +624,34 @@ namespace Korot
             // 
             this.saveThisPageToolStripMenuItem.Name = "saveThisPageToolStripMenuItem";
             this.saveThisPageToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveThisPageToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.saveThisPageToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.saveThisPageToolStripMenuItem.Text = "Save this page";
             this.saveThisPageToolStripMenuItem.Click += new System.EventHandler(this.saveThisPageToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(271, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(277, 6);
             // 
             // zOOMLEVELToolStripMenuItem
             // 
             this.zOOMLEVELToolStripMenuItem.Enabled = false;
             this.zOOMLEVELToolStripMenuItem.Name = "zOOMLEVELToolStripMenuItem";
-            this.zOOMLEVELToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.zOOMLEVELToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.zOOMLEVELToolStripMenuItem.Text = "[ZOOMLEVEL]";
             // 
             // zoomInToolStripMenuItem
             // 
             this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
             this.zoomInToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
-            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
             this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.zoomInToolStripMenuItem_Click);
             // 
             // resetZoomToolStripMenuItem
             // 
             this.resetZoomToolStripMenuItem.Name = "resetZoomToolStripMenuItem";
-            this.resetZoomToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.resetZoomToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.resetZoomToolStripMenuItem.Text = "Reset Zoom";
             this.resetZoomToolStripMenuItem.Click += new System.EventHandler(this.resetZoomToolStripMenuItem_Click);
             // 
@@ -631,26 +659,28 @@ namespace Korot
             // 
             this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
             this.zoomOutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.zoomOutToolStripMenuItem.Text = "Zoom Out";
             this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(271, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(277, 6);
             // 
             // historyToolStripMenuItem
             // 
+            this.historyToolStripMenuItem.Image = global::Korot.Properties.Resources.history;
             this.historyToolStripMenuItem.Name = "historyToolStripMenuItem";
-            this.historyToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.historyToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.historyToolStripMenuItem.Text = "History";
             this.historyToolStripMenuItem.Click += new System.EventHandler(this.historyToolStripMenuItem_Click);
             // 
             // downloadsToolStripMenuItem
             // 
+            this.downloadsToolStripMenuItem.Image = global::Korot.Properties.Resources.download;
             this.downloadsToolStripMenuItem.Name = "downloadsToolStripMenuItem";
-            this.downloadsToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.downloadsToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.downloadsToolStripMenuItem.Text = "Downloads";
             this.downloadsToolStripMenuItem.Click += new System.EventHandler(this.downloadsToolStripMenuItem_Click);
             // 
@@ -658,33 +688,34 @@ namespace Korot
             // 
             this.settingsToolStripMenuItem.Image = global::Korot.Properties.Resources.Settings;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.Image = global::Korot.Properties.Resources.about;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(271, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(277, 6);
             // 
             // restoreLastSessionToolStripMenuItem
             // 
             this.restoreLastSessionToolStripMenuItem.Name = "restoreLastSessionToolStripMenuItem";
-            this.restoreLastSessionToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.restoreLastSessionToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.restoreLastSessionToolStripMenuItem.Text = "Restore last session";
             this.restoreLastSessionToolStripMenuItem.Click += new System.EventHandler(this.restoreLastSessionToolStripMenuItem_Click);
             // 
             // spRestorer
             // 
             this.spRestorer.Name = "spRestorer";
-            this.spRestorer.Size = new System.Drawing.Size(271, 6);
+            this.spRestorer.Size = new System.Drawing.Size(277, 6);
             // 
             // button9
             // 
@@ -740,21 +771,6 @@ namespace Korot
             this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.newProfileToolStripMenuItem.Text = "New Profile";
             this.newProfileToolStripMenuItem.Click += new System.EventHandler(this.NewProfileToolStripMenuItem_Click);
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Image = global::Korot.Properties.Resources.go;
-            this.button4.Location = new System.Drawing.Point(472, 0);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(30, 28);
-            this.button4.TabIndex = 0;
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            this.button4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
             // 
             // button2
             // 
@@ -1027,7 +1043,7 @@ namespace Korot
             "Zoom"});
             this.comboBox3.Location = new System.Drawing.Point(182, 374);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(366, 22);
+            this.comboBox3.Size = new System.Drawing.Size(372, 22);
             this.comboBox3.TabIndex = 33;
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
@@ -1049,9 +1065,9 @@ namespace Korot
             this.textBox4.MaxLength = 2147483647;
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(394, 22);
+            this.textBox4.Size = new System.Drawing.Size(400, 22);
             this.textBox4.TabIndex = 32;
-            this.textBox4.Text = "Using background color";
+            this.textBox4.Text = "please china";
             this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
             // 
             // button13
@@ -1078,7 +1094,7 @@ namespace Korot
             this.listBox2.ItemHeight = 14;
             this.listBox2.Location = new System.Drawing.Point(84, 479);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(464, 88);
+            this.listBox2.Size = new System.Drawing.Size(470, 88);
             this.listBox2.TabIndex = 31;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
@@ -1097,7 +1113,7 @@ namespace Korot
             this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button12.FlatAppearance.BorderSize = 0;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(473, 441);
+            this.button12.Location = new System.Drawing.Point(489, 438);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(75, 32);
             this.button12.TabIndex = 30;
@@ -1136,7 +1152,7 @@ namespace Korot
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.comboBox1.Location = new System.Drawing.Point(123, 446);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(349, 24);
+            this.comboBox1.Size = new System.Drawing.Size(360, 24);
             this.comboBox1.TabIndex = 1;
             this.comboBox1.Tag = "";
             // 
@@ -1254,7 +1270,7 @@ namespace Korot
             this.lbLang.ItemHeight = 14;
             this.lbLang.Location = new System.Drawing.Point(87, 184);
             this.lbLang.Name = "lbLang";
-            this.lbLang.Size = new System.Drawing.Size(461, 102);
+            this.lbLang.Size = new System.Drawing.Size(467, 102);
             this.lbLang.TabIndex = 21;
             this.lbLang.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
@@ -1297,7 +1313,7 @@ namespace Korot
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Location = new System.Drawing.Point(160, 48);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(388, 22);
+            this.textBox2.Size = new System.Drawing.Size(394, 22);
             this.textBox2.TabIndex = 18;
             this.textBox2.Tag = "";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
@@ -1321,10 +1337,10 @@ namespace Korot
             this.textBox3.Location = new System.Drawing.Point(158, 103);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(390, 22);
+            this.textBox3.Size = new System.Drawing.Size(396, 22);
             this.textBox3.TabIndex = 23;
             this.textBox3.Tag = "";
-            this.textBox3.Text = "gugıl";
+            this.textBox3.Text = "dont eat bats";
             this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
             // 
             // tabPage4
@@ -1943,7 +1959,6 @@ namespace Korot
         public System.Windows.Forms.Button button1;
         public System.Windows.Forms.Button button2;
         public System.Windows.Forms.Button button3;
-        public System.Windows.Forms.Button button4;
         public System.Windows.Forms.TextBox tbAddress;
         public System.Windows.Forms.Button button5;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -2099,5 +2114,8 @@ namespace Korot
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ToolStripMenuItem ımageFromLocalFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsSearchNext;
+        private System.Windows.Forms.ToolStripMenuItem tsSearchPrev;
+        private System.Windows.Forms.ToolStripMenuItem tsSearchStatus;
     }
 }

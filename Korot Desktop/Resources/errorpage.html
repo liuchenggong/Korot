@@ -23,6 +23,10 @@ SOFTWARE. -->
     <meta charset="utf-8" />
     <title>§TITLE§</title>
     <style>
+	.content {
+  max-width: 500px;
+  margin: auto;
+}
     body {
             §BACKSTYLE§
 			background-size: cover;
@@ -30,7 +34,7 @@ SOFTWARE. -->
 			 background-repeat:no-repeat;
 			background-size:100% 100vh;
         }
-                h1 {
+		table{
          height: inherit;
     background: inherit;
     -webkit-background-clip: text;
@@ -38,42 +42,64 @@ SOFTWARE. -->
         color: transparent;
         filter: invert(1);
         }
-        h2 {
-        height: inherit;
+		h1{
+         height: inherit;
     background: inherit;
     -webkit-background-clip: text;
                     background-clip: text;
         color: transparent;
         filter: invert(1);
         }
-        h3 {
-        height: inherit;
+		        a{
+         height: inherit;
     background: inherit;
     -webkit-background-clip: text;
                     background-clip: text;
         color: transparent;
         filter: invert(1);
         }
-        a {
-        height: inherit;
-    background: inherit;
-    -webkit-background-clip: text;
-                    background-clip: text;
-        color: transparent;
-        filter: invert(1);
-        }
+		ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding-left: 1em; 
+  text-indent: -.7em;
+}
+li::before {
+  content: "• ";
+  }
     </style>
     </style>
     </head>
-        <body>
-            <h1>§KT§</h1>
-            <h2>§ET§</h2>
-            <h3>§E1§</h3>
-            <h3>§E2§</h3>
-            <h3>§E3§</h3>
-            <h3>§E4§</h3>
-            <h2>§RT§</h2>
-            <h3>§R1§</h3>
-            <h3>§R2§</h3>
-            <h3>§R3§</h3>
-            <h3>§R4§</h3>
+        <body class="content">
+            <h1 style="text-align: center;">&nbsp;</h1>
+<h1 class="text" style="text-align: center;">§KT§</h1>
+<table style="margin-left: auto; margin-right: auto;" border="0" width="460">
+<tbody>
+<tr>
+<td style="width: 275px;">
+<h2>§ET§</h2>
+<ul>
+<li>§E1§</li>
+<li>§E2§</li>
+<li>§E3§</li>
+<li>§E4§</li>
+</ul>
+</td>
+<td style="width: 181px;">
+<h2>§RT§</h2>
+<ul>
+<li>§R1§</li>
+<li>§R2§</li>
+<li>§R3§</li>
+<li>§R4§</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<a class="text" style="text-align: center;">§ERROR§</a>
+</body>

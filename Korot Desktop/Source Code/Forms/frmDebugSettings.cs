@@ -128,6 +128,8 @@ namespace Korot
             int selected = lbCookie.SelectedIndex; lbCookie.Items.Clear(); foreach (String x in Properties.Settings.Default.CookieDisallowList) { lbCookie.Items.Add(x); }
             try { lbCookie.SelectedIndex = selected; } catch { }
             tbHomepage.Text = Properties.Settings.Default.Homepage;
+            tbThemeName.Text = Properties.Settings.Default.ThemeName;
+            tbThemeAuthor.Text = Properties.Settings.Default.ThemeAuthor;
             nX.Value = Properties.Settings.Default.WindowPosX;
             nY.Value = Properties.Settings.Default.WindowPosY;
             nW.Value = Properties.Settings.Default.WindowSizeW;
@@ -147,6 +149,9 @@ namespace Korot
             tbSession.Text = Properties.Settings.Default.LastSessionURIs;
             pbBack.BackColor = Properties.Settings.Default.BackColor;
             pbOverlay.BackColor = Properties.Settings.Default.OverlayColor;
+            checkBox1.Checked = Properties.Settings.Default.debugLogDisposes;
+            checkBox3.Checked = Properties.Settings.Default.debugLogKeys;
+            checkBox4.Checked = Properties.Settings.Default.debugLogMouse;
         }
 
         private void pbBack_Click(object sender, EventArgs e)
@@ -168,10 +173,39 @@ namespace Korot
                 Properties.Settings.Default.OverlayColor = color.Color;
             }
         }
-
-        private void frmDebugSettings_Load(object sender, EventArgs e)
+        private void tbThemeName_TextChanged(object sender, EventArgs e)
         {
+            Properties.Settings.Default.ThemeName = tbThemeName.Text;
+        }
 
+        private void tbThemeAuthor_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ThemeAuthor = tbThemeAuthor.Text;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.debugLogDisposes = checkBox1.Checked;
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.debugLogKeys = checkBox3.Checked;
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.debugLogMouse = checkBox4.Checked;
+        }
+
+        private void checkBox1_MouseEnter(object sender, EventArgs e)
+        {
+            label17.Text = ((Control)sender).Tag.ToString();
+        }
+
+        private void checkBox1_MouseLeave(object sender, EventArgs e)
+        {
+            label17.Text = label17.Tag.ToString();
         }
     }
 }

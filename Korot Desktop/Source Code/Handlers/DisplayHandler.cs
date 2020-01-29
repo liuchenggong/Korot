@@ -65,8 +65,8 @@ namespace Korot
                         Bitmap bitmap = new Bitmap(stream);
                         bitmap.SetResolution(72, 72);
                         Icon icon = System.Drawing.Icon.FromHandle(bitmap.GetHicon());
-                        //CEFform.Invoke(new Action(() => CEFform.Icon = icon));
-                        CEFform.ParentTabs.Invoke(new Action(() => CEFform.ParentTabs.Icon = icon));
+                        CEFform.Invoke(new Action(() => CEFform.Icon = icon));
+                        //CEFform.ParentTabs.Invoke(new Action(() => CEFform.ParentTabs.Icon = icon));
 
                     }
                 }

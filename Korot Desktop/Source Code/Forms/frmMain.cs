@@ -67,7 +67,7 @@ namespace Korot
                     removeDownloads.Add(x);
                 }
             }
-            foreach(DownloadItem x in removeDownloads)
+            foreach (DownloadItem x in removeDownloads)
             {
                 CurrentDownloads.Remove(x);
             }
@@ -124,20 +124,24 @@ namespace Korot
                                     "144" + Environment.NewLine +
                                     "255" + Environment.NewLine +
                                     "BACKCOLOR" + Environment.NewLine +
-                                    "0";
+                                    "0" + Environment.NewLine +
+    "Korot Light" + Environment.NewLine +
+    "Haltroy";
                     FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
 
                 }
                 if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf"))
                 {
-                    string newTheme = "255" + Environment.NewLine +
-                                    "255" + Environment.NewLine +
-                                    "255" + Environment.NewLine +
+                    string newTheme = "0" + Environment.NewLine +
+                                    "0" + Environment.NewLine +
+                                    "0" + Environment.NewLine +
                                     "30" + Environment.NewLine +
                                     "144" + Environment.NewLine +
                                     "255" + Environment.NewLine +
                                     "BACKCOLOR" + Environment.NewLine +
-                                    "0";
+                                    "0" + Environment.NewLine +
+    "Korot Dark" + Environment.NewLine +
+    "Haltroy";
                     FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
 
                 }
@@ -284,7 +288,9 @@ namespace Korot
                                     "144" + Environment.NewLine +
                                     "255" + Environment.NewLine +
                                     "BACKCOLOR" + Environment.NewLine +
-                                    "0";
+                                    "0" + Environment.NewLine +
+    "Korot Light" + Environment.NewLine +
+    "Haltroy";
                     FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
                 }
                 if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf"))
@@ -296,7 +302,9 @@ namespace Korot
                     "144" + Environment.NewLine +
                     "255" + Environment.NewLine +
                     "BACKCOLOR" + Environment.NewLine +
-                    "0";
+                    "0" + Environment.NewLine +
+    "Korot Dark" + Environment.NewLine +
+    "Haltroy";
                     FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
                 }
                 if (File.Exists(profilePath + "settings.ksf") &&

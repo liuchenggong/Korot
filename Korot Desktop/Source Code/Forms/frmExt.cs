@@ -21,7 +21,6 @@
 //SOFTWARE.
 using CefSharp;
 using CefSharp.WinForms;
-using CefSharp.WinForms.Internals;
 using System;
 using System.Management;
 using System.Windows.Forms;
@@ -114,7 +113,7 @@ namespace Korot
         }
         private void cef_TitleChanged(object sender, TitleChangedEventArgs e)
         {
-            this.InvokeOnUiThreadIfRequired(() => this.Text = e.Title);
+            this.Invoke(new Action(() => this.Text = e.Title));
         }
         private void cef_onLoadError(object sender, LoadErrorEventArgs e)
         {

@@ -29,12 +29,12 @@ namespace Korot
     {
         public static string ImageToBase64(System.Drawing.Image image)
         {
-                using (MemoryStream m = new MemoryStream())
-                {
-                    image.Save(m, image.RawFormat);
-                    byte[] imageBytes = m.ToArray();
-                    return Convert.ToBase64String(imageBytes);
-                }
+            using (MemoryStream m = new MemoryStream())
+            {
+                image.Save(m, image.RawFormat);
+                byte[] imageBytes = m.ToArray();
+                return Convert.ToBase64String(imageBytes);
+            }
         }
         public static System.Drawing.Image Base64ToImage(string base64String)
         {

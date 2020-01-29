@@ -108,9 +108,11 @@ namespace Korot
             label2.Text = SplittedFase[141].Substring(1).Replace(Environment.NewLine, "");
             ext = SplittedFase[142].Substring(1).Replace(Environment.NewLine, "");
             theme = SplittedFase[13].Substring(1).Replace(Environment.NewLine, "");
+            label4.Text = SplittedFase[180].Substring(1).Replace(Environment.NewLine, "");
+            label12.Text = SplittedFase[181].Substring(1).Replace(Environment.NewLine, "");
             allowSwitch = true;
             tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage4));
-            StartupEXT();
+            if (ExtFile.ToLower().EndsWith(".kef")) { StartupEXT(); } else if (ExtFile.ToLower().EndsWith(".ktf")) { StartupTF(); }
         }
         string generateRandomText()
         {
@@ -150,10 +152,17 @@ namespace Korot
                 }
             });
         }
+        async void StartupTF()
+        {
+            await Task.Run(() =>
+            {
+                label3.Invoke(new Action(() => label3.Text = theme));
+                this.Invoke(new Action(() => ReadKTF(ExtFile)));
+            });
+        }
         void ReadKEM(string fileLocation)
         {
-            StreamReader ReadFile = new StreamReader(fileLocation, Encoding.UTF8, false);
-            string Playlist = ReadFile.ReadToEnd();
+            string Playlist = FileSystem2.ReadFile(fileLocation, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
             //ExtName
@@ -235,7 +244,6 @@ namespace Korot
                 textBox1.Text = reqError.Replace("[REQ]", "(activateScript)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
                 return;
             }
-            ReadFile.Close();
             panel6.Visible = requires1;
             panel3.Visible = requires3;
             if (!requires1 && !requires3)
@@ -247,6 +255,33 @@ namespace Korot
             tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage2));
 
         }
+        void ReadKTF(string fileLocation)
+        {
+            string Playlist = FileSystem2.ReadFile(fileLocation, Encoding.UTF8);
+            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+            string[] SplittedFase = Playlist.Split(token);
+            //ExtName
+            lbName.Text = SplittedFase[8].Substring(0).Replace(Environment.NewLine, "");
+            //ExtVersion
+            lbVersion.Visible = false;
+            //ExtAuthor
+            lbAuthor.Text = SplittedFase[9].Substring(1).Replace(Environment.NewLine, "");
+            panel6.Visible = false;
+            pbLogo.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.theme_w : Properties.Resources.theme;
+            panel7.Visible = false;
+            panel4.Visible = true;
+            label9.Visible = false;
+            panel3.Visible = false;
+            if (!requires1 && !requires3)
+            {
+                label9.Text = noPermission;
+            }
+            lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
+            allowSwitch = true;
+            tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage2));
+
+        }
+
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
@@ -283,7 +318,14 @@ namespace Korot
             lbStatus.Text = Initializing;
             if (i == 5)
             {
-                installKEM();
+                if (label3.Text == ext)
+                {
+                    installKEM();
+                }
+                else if (label3.Text == theme)
+                {
+                    installKTF();
+                }
                 timer1.Stop();
             }
         }
@@ -293,6 +335,7 @@ namespace Korot
             button3.Enabled = ev;
         }
         string korotExtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions";
+        string korotThemeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes";
         string extCodeName;
         private async void installKEM()
         {
@@ -328,5 +371,22 @@ namespace Korot
                 pbStatus.Invoke(new Action(() => pbStatus.Width = 300));
             });
         }
+        private async void installKTF()
+        {
+            await Task.Run(() =>
+            {
+                this.Invoke(new Action(() => button3Mode(false)));
+                lbStatus.Invoke(new Action(() => lbStatus.Text = installing));
+                pbStatus.Invoke(new Action(() => pbStatus.Width = 90));
+                string fileName = new FileInfo(ExtFile).Name;
+                File.Copy(ExtFile, korotThemeDirectory + fileName);
+                lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
+                label8.Invoke(new Action(() => label8.Text = installed));
+                this.Invoke(new Action(() => button3Mode(true)));
+                panel2.Invoke(new Action(() => panel2.Visible = false));
+                pbStatus.Invoke(new Action(() => pbStatus.Width = 300));
+            });
+        }
+
     }
 }

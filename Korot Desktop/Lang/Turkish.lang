@@ -64,15 +64,15 @@ Büyük/küçük duyarlı
 Web'te arayın veya URL girin
 Korot bu ekranı görünütüleyemiyor.
 Bu sebeplerden olabilir:
-1.  URL doğru olmayabilir.
-2.  Adresteki web sayfası çok meşgul veya yanıt vermiyor.
-3.  Makineniz Internet'e bağlı değil veya bağlantı çok yavaş.
-4.  Antivirüs programı bu siteyi veya bu tarayıcıyı virüs olarak algıladı.
+URL doğru olmayabilir.
+Adresteki web sayfası çok meşgul veya yanıt vermiyor.
+Makineniz Internet'e bağlı değil veya bağlantı çok yavaş.
+Antivirüs programı bu siteyi veya bu tarayıcıyı virüs olarak algıladı.
 Önerimiz:
-1.  Adresteki yazım hatalarına dikkat ederek tekrar yazın. 
-2.  Makinenizi Internet'e bağlayın.
-3.  Bir süre sonra tekrar deneyin. 
-4.  Antivürüs programını geçici olarak kapatın veya bu tarayıcıyı güvenilir listesine alın.
+Adresteki yazım hatalarına dikkat ederek tekrar yazın. 
+Makinenizi Internet'e bağlayın.
+Bir süre sonra tekrar deneyin. 
+Antivürüs programını geçici olarak kapatın veya bu tarayıcıyı güvenilir listesine alın.
 Ara
 Şuna Geç:
 Yeni Profil
@@ -178,4 +178,15 @@ Yakınlaştırmayı Sıfırla
 Uzaklaştır
 Lütfen geçerli bir base64 kodu giriniz.
 Oluşturucu işlem sonlandırıldı. Korot bu işlem olmadan çalışamaz. Uygulamayı kapatmak için Tamam butonuna basın.
-
+İncelenmemiş İçerik
+Korot, bu temanın içeriğini otomatik olarak algılamaz. Sonuç olarak, bu tema epileptik ve/ya kullanım için uygun olmayan içerik içerebilir.
+Eklentiler
+[THEMENAME] teması [THEMEAUTHOR] tarafından yapılmıştır.
+bilinmeyen birisi
+Adı bilinmeyen Korot
+Sonrakini bul
+Öncekini bul
+Seçili: 
+Toplam: 
+(Sonuncu)
+Arama yapılmıyor veya sonuç yok

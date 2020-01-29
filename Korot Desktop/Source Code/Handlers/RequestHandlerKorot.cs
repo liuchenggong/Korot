@@ -20,7 +20,6 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using CefSharp;
-using CefSharp.WinForms.Internals;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -82,7 +81,8 @@ namespace Korot
                 + Environment.NewLine
                 + "X509Certificate: "
                 + sslInfo.X509Certificate.ToString();
-            cefform.Invoke(new Action(() => {
+            cefform.Invoke(new Action(() =>
+            {
                 cefform.safeStatusToolStripMenuItem.Text = cefform.CertificateErrorTitle;
                 cefform.ınfoToolStripMenuItem.Text = cefform.CertificateError;
                 cefform.showCertificateErrorsToolStripMenuItem.Tag = certError;
@@ -97,7 +97,8 @@ namespace Korot
             }
             else
             {
-                cefform.Invoke(new Action(() => { 
+                cefform.Invoke(new Action(() =>
+                {
                     cefform.pnlCert.Visible = true;
                     cefform.button10.Tag = requestUrl;
                     cefform.tabControl1.SelectedTab = cefform.tabPage2;
@@ -121,6 +122,7 @@ namespace Korot
         public bool OnQuotaRequest(IWebBrowser chromiumWebBrowser, IBrowser browser, string originUrl, long newSize, IRequestCallback callback)
         {
             callback.Dispose();
+            if (Properties.Settings.Default.debugLogDisposes) Output.WriteLine(" [Korot.RequestHandler.OnQuotaRequest] Callback Disposed  [originUrl: " + originUrl + " newSize: " + newSize + " Time: " + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + " IsDisposed:" + callback.IsDisposed + "]");
             return false;
         }
 
@@ -140,7 +142,7 @@ namespace Korot
         {
             var control = (Control)chromiumWebBrowser;
 
-            control.InvokeOnUiThreadIfRequired(delegate ()
+            control.Invoke(new Action(delegate ()
             {
                 var selectedCertificateCollection = X509Certificate2UI.SelectFromCollection(certificates, "Certificates Dialog", "Select Certificate for authentication", X509SelectionFlag.SingleSelection);
                 if (selectedCertificateCollection.Count > 0)
@@ -154,7 +156,7 @@ namespace Korot
                     //User canceled no certificate should be selected.
                     callback.Select(null);
                 }
-            });
+            }));
 
             return true;
         }

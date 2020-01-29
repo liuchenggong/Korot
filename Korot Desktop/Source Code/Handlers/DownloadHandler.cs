@@ -61,7 +61,7 @@ namespace Korot
             if (downloadItem.IsCancelled)
             {
                 aNaFRM.CurrentDownloads.Remove(downloadItem);
-                Properties.Settings.Default.DowloadHistory += "X;" + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + downloadItem.FullPath + ";" + downloadItem.Url + ";"; 
+                Properties.Settings.Default.DowloadHistory += "X;" + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + downloadItem.FullPath + ";" + downloadItem.Url + ";";
             }
             if (downloadItem.IsComplete)
             {
@@ -69,15 +69,16 @@ namespace Korot
                 Properties.Settings.Default.DowloadHistory += "✓;" + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + downloadItem.Url + ";" + downloadItem.FullPath + ";";
 
                 if (downloadItem.SuggestedFileName.ToLower().EndsWith(".kef"))
-                    {
-                        frmInstallExt installExt = new frmInstallExt(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName);
-                        installExt.Show();
-                }else
                 {
-                        ActiveForm.Invoke(new Action(() => ActiveForm.RefreshDownloadList()));
+                    frmInstallExt installExt = new frmInstallExt(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName);
+                    installExt.Show();
+                }
+                else
+                {
+                    ActiveForm.Invoke(new Action(() => ActiveForm.RefreshDownloadList()));
                 }
             }
-            
+
         }
     }
 }
