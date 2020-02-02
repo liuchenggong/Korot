@@ -102,10 +102,12 @@ namespace Korot
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -692,6 +694,8 @@ namespace Korot
             // tabPage7
             // 
             this.tabPage7.Controls.Add(this.groupBox2);
+            this.tabPage7.Controls.Add(this.checkBox5);
+            this.tabPage7.Controls.Add(this.checkBox2);
             this.tabPage7.Controls.Add(this.checkBox4);
             this.tabPage7.Controls.Add(this.checkBox3);
             this.tabPage7.Controls.Add(this.checkBox1);
@@ -723,6 +727,21 @@ namespace Korot
             this.label17.TabIndex = 0;
             this.label17.Tag = "Hover on a debug setting for more info.";
             this.label17.Text = "Hover on a debug setting for more info.";
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(9, 76);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(213, 17);
+            this.checkBox2.TabIndex = 0;
+            this.checkBox2.Tag = "Forces the while function to continue even there\'s an exception. If unsure, leave" +
+    " unchecked.";
+            this.checkBox2.Text = "Force Continue in RefreshDownloadList";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.checkBox2.MouseEnter += new System.EventHandler(this.checkBox1_MouseEnter);
+            this.checkBox2.MouseLeave += new System.EventHandler(this.checkBox1_MouseLeave);
             // 
             // checkBox4
             // 
@@ -770,6 +789,21 @@ namespace Korot
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(8, 99);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(99, 17);
+            this.checkBox5.TabIndex = 0;
+            this.checkBox5.Tag = "Logs every exception, including exceptions that are ignored. If unsure, leave unc" +
+    "hecked.";
+            this.checkBox5.Text = "Log Exceptions";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            this.checkBox5.MouseEnter += new System.EventHandler(this.checkBox1_MouseEnter);
+            this.checkBox5.MouseLeave += new System.EventHandler(this.checkBox1_MouseLeave);
             // 
             // frmDebugSettings
             // 
@@ -869,5 +903,7 @@ namespace Korot
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox5;
     }
 }

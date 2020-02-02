@@ -66,7 +66,7 @@ namespace Korot
             InitializeChromium();
             foreach (Control x in this.Controls)
             {
-                try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; } catch { }
+                try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; } catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.New()] Error: " + ex.ToString()); }
             }
         }
         void RefreshHistory()
@@ -78,18 +78,21 @@ namespace Korot
             int Count = SplittedFase.Length - 1; ; int i = 0;
             while (!(i == Count))
             {
-                ListViewItem listV = new ListViewItem(SplittedFase[i].Replace(Environment.NewLine, ""));
-                listV.SubItems.Add(SplittedFase[i + 1].Replace(Environment.NewLine, ""));
-                listV.SubItems.Add(SplittedFase[i + 2].Replace(Environment.NewLine, ""));
-                hlvHistory.Items.Add(listV);
-                i += 3;
+                try
+                {
+                    ListViewItem listV = new ListViewItem(SplittedFase[i].Replace(Environment.NewLine, ""));
+                    listV.SubItems.Add(SplittedFase[i + 1].Replace(Environment.NewLine, ""));
+                    listV.SubItems.Add(SplittedFase[i + 2].Replace(Environment.NewLine, ""));
+                    hlvHistory.Items.Add(listV);
+                    i += 3;
+                }catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshHistory] (Refresh) i=" + i + " Count=" + Count + "Error: " + ex.ToString()); }
             }
             try
             {
                 hlvHistory.SelectedIndices.Clear();
-                hlvHistory.Items[selectedValue].Selected = true;
+               if (selectedValue < (hlvHistory.Items.Count -1)) hlvHistory.Items[selectedValue].Selected = true;
             }
-            catch { }
+            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshHistory] Error: " + ex.ToString()); }
         }
         public void FindUpdate(int identifier, int count, int activeMatchOrdinal, bool finalUpdate)
         {
@@ -704,7 +707,7 @@ namespace Korot
             {
                 lbLang.Items.Add(Path.GetFileNameWithoutExtension(foundfile));
             }
-            try { lbLang.SelectedIndex = savedValue; } catch { }
+            try { lbLang.SelectedIndex = savedValue; } catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.FrmCEF.RefreshLangList] Error: " + ex.ToString()); }
 
         }
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
@@ -838,7 +841,7 @@ namespace Korot
                     hlvDownload.Items.Add(listV);
                 }
             }
-            catch { }
+            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshDownloadList] (Current Downloads) Error: " + ex.ToString()); }
             string Playlist = Properties.Settings.Default.DowloadHistory;
             string[] SplittedFase = Playlist.Split(';');
             int Count = SplittedFase.Length - 1; ; int i = 0;
@@ -857,15 +860,15 @@ namespace Korot
                     i += 1;
                     hlvDownload.Items.Add(listV);
                 }
-                catch { continue; }
+                catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshDownloadList] (Finished Downloads) Error: " + ex.ToString()); if (Properties.Settings.Default.debugForceContinue) { continue; } else { i = Count; } }
 
             }
             try
             {
                 hlvDownload.SelectedIndices.Clear();
-                hlvDownload.Items[selectedValue].Selected = true;
+                if (selectedValue < (hlvDownload.Items.Count -1)) hlvDownload.Items[selectedValue].Selected = true;
             }
-            catch { }
+            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshDownloadList] Error: " + ex.ToString()); }
 
         }
         private void ListView2_DoubleClick(object sender, EventArgs e)
@@ -1128,9 +1131,10 @@ namespace Korot
         }
         public void refreshThemeList()
         {
+            int savedValue = listBox2.SelectedIndex;
             try
             {
-                int savedValue = listBox2.SelectedIndex;
+                
                 listBox2.Items.Clear();
                 foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"))
                 {
@@ -1139,13 +1143,13 @@ namespace Korot
                         listBox2.Items.Add(new FileInfo(x).Name);
                     }
                 }
-                try
-                {
-                    listBox2.SelectedIndex = savedValue;
-                }
-                catch { }
             }
-            catch { }
+            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshThemeList] (Reload) Error: " + ex.ToString()); }
+            try
+            {
+                listBox2.SelectedIndex = savedValue;
+            }
+            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshThemeList] Error: " + ex.ToString()); }
         }
 
 
@@ -1425,7 +1429,7 @@ namespace Korot
                         button1.Invoke(new Action(() => button1.Enabled = false));
                         button3.Invoke(new Action(() => button3.Enabled = false));
                     }
-                    catch { }
+                    catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.LoadingStateChanged.Catch] Error: " + ex.ToString()); }
                 }
             }
             isLoading = e.IsLoading;
@@ -1795,6 +1799,7 @@ namespace Korot
         private string oldStyle;
         void ChangeTheme()
         {
+            anaform.tabRenderer.ChangeColors(Properties.Settings.Default.BackColor, Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White, Properties.Settings.Default.OverlayColor);
             if (Properties.Settings.Default.OverlayColor != oldOverlayColor) { oldOverlayColor = Properties.Settings.Default.OverlayColor; pbProgress.BackColor = Properties.Settings.Default.OverlayColor; }
             if (Properties.Settings.Default.BackColor != oldBackColor)
             {
@@ -1975,7 +1980,7 @@ namespace Korot
                 ChangeTheme();
                 this.Parent.Text = this.Text;
             }
-            catch { } //ignored
+            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.timer1_Tick] Error: " + ex.ToString()); }
 
             RefreshTranslation();
             if (anaform.restoremedaddy == "") { spRestorer.Visible = false; restoreLastSessionToolStripMenuItem.Visible = false; } else { spRestorer.Visible = true; restoreLastSessionToolStripMenuItem.Visible = true; }
@@ -2077,7 +2082,7 @@ namespace Korot
                 {
                     chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(FileSystem2.ReadFile(SplittedFase[5].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"), Encoding.UTF8));
                 }
-                catch { }
+                catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.ExtensionToolStripMenuItem] Error: " + ex.ToString()); }
             }
             bool allowWebContent = false;
             if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "1") { allowWebContent = true; }
@@ -2150,16 +2155,6 @@ namespace Korot
         private void Panel1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             tabform_KeyDown(panel1, new KeyEventArgs(e.KeyData));
-        }
-
-        private void ExampleProxyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SetProxy(chromiumWebBrowser1, ((ToolStripMenuItem)sender).Tag.ToString());
-            }
-            catch { }
-            chromiumWebBrowser1.Reload();
         }
         private void pictureBox2_Click(object sender, EventArgs e)
         {
@@ -2435,6 +2430,10 @@ namespace Korot
                 chromiumWebBrowser1.StopFinding(true);
                 doNotDestroyFind = false;
             }
+            Task.Run(new Action(() => getZoomLevel()));
+        }
+        async void getZoomLevel()
+        {
             Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
             zOOMLEVELToolStripMenuItem.Text = ((zoomLevel.Result * 100) + 100) + "%";
         }
@@ -2499,7 +2498,7 @@ namespace Korot
         }
         private void tsSearchPrev_Click(object sender, EventArgs e)
         {
-            chromiumWebBrowser1.Find(0, toolStripTextBox1.Text, false, caseSensitiveToolStripMenuItem.Checked, true);
+            chromiumWebBrowser1.Find(0, toolStripTextBox1.Text, false, caseSensitiveToolStripMenuItem.Checked, false);
             cmsHamburger.Show(button11, 0, 0);
             doNotDestroyFind = true;
             toolStripTextBox1.Text = searchPrev;

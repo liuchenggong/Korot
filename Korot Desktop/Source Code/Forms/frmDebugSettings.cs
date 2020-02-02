@@ -126,7 +126,7 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             int selected = lbCookie.SelectedIndex; lbCookie.Items.Clear(); foreach (String x in Properties.Settings.Default.CookieDisallowList) { lbCookie.Items.Add(x); }
-            try { lbCookie.SelectedIndex = selected; } catch { }
+            try { lbCookie.SelectedIndex = selected; } catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.Debug] Error: " + ex.ToString()); }
             tbHomepage.Text = Properties.Settings.Default.Homepage;
             tbThemeName.Text = Properties.Settings.Default.ThemeName;
             tbThemeAuthor.Text = Properties.Settings.Default.ThemeAuthor;
@@ -152,6 +152,7 @@ namespace Korot
             checkBox1.Checked = Properties.Settings.Default.debugLogDisposes;
             checkBox3.Checked = Properties.Settings.Default.debugLogKeys;
             checkBox4.Checked = Properties.Settings.Default.debugLogMouse;
+            checkBox2.Checked = Properties.Settings.Default.debugForceContinue;
         }
 
         private void pbBack_Click(object sender, EventArgs e)
@@ -206,6 +207,16 @@ namespace Korot
         private void checkBox1_MouseLeave(object sender, EventArgs e)
         {
             label17.Text = label17.Tag.ToString();
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.debugForceContinue = checkBox2.Checked;
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.debugLogExceptions = checkBox5.Checked;
         }
     }
 }

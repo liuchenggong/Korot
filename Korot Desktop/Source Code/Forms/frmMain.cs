@@ -93,7 +93,6 @@ namespace Korot
         void PrintImages()
         {
             this.MinimumSize = new System.Drawing.Size(660, 340);
-            tabRenderer.ChangeColors(Properties.Settings.Default.BackColor, Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White, Properties.Settings.Default.OverlayColor);
             this.BackColor = Properties.Settings.Default.BackColor;
             this.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
         }
@@ -262,11 +261,6 @@ namespace Korot
                     Output.WriteLine(x);
                 }
             }
-            else if (DateTime.Now.ToString("MM") == "10" & DateTime.Now.ToString("dd") == "18")
-            {
-                Output.WriteLine("Your account on Instagram is now " + (DateTime.Now.Year - 2017) + " years old!");
-                Output.WriteLine("\"Herkes içinde bir yıldız taşır.Önemli olan o yıldızı kullanabilmektir.İyi günler...\" -Haltroy");
-            }
             if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
             {
@@ -323,20 +317,13 @@ namespace Korot
                         profilePath + "history.ksf",
                         profilePath + "favorites.ksf",
                         profilePath + "download.ksf");
-                }
-
-                try
-                {
-                    PrintImages();
-                }
-                catch { }
-
+                }  
             }
             else
             { Process.Start(Application.ExecutablePath, "-oobe"); this.Close(); }
             this.Location = new Point(Korot.Properties.Settings.Default.WindowPosX, Korot.Properties.Settings.Default.WindowPosY);
             this.Size = new Size(Korot.Properties.Settings.Default.WindowSizeW, Korot.Properties.Settings.Default.WindowSizeH);
-
+            PrintImages();
             if (Properties.Settings.Default.LangFile == null) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
 
             if (Properties.Settings.Default.LastSessionURIs == "")
@@ -367,7 +354,7 @@ namespace Korot
                 Properties.Settings.Default.LastSessionURIs = Session;
                 if (!isIncognito) { Properties.Settings.Default.Save(); }
             }
-            catch { }
+            catch (Exception ex ){ if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [KorotfrmMain.WriteSession] Error: " + ex.ToString()); }
         }
         public void ReadLatestCurrentSession()
         {

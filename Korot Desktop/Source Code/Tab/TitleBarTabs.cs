@@ -520,8 +520,11 @@ namespace Korot
 
             if (tab != null)
             {
-                tab.Content.Location = new Point(0, Padding.Top - 1);
-                tab.Content.Size = new Size(ClientRectangle.Width, ClientRectangle.Height - Padding.Top + 1);
+                tab.Content.Invoke(new Action(() =>
+                {
+                    tab.Content.Location = new Point(0, Padding.Top - 1);
+                    tab.Content.Size = new Size(ClientRectangle.Width, ClientRectangle.Height - Padding.Top + 1);
+                }));
             }
         }
 

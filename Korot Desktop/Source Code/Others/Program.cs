@@ -86,7 +86,7 @@ namespace Korot
                     testApp.SelectedTabIndex = 0;
                     TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
                     applicationContext.Start(testApp);
-                    Application.Run(applicationContext);
+                        Application.Run(applicationContext);
                 }
             }
         }

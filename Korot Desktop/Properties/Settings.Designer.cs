@@ -335,5 +335,29 @@ namespace Korot.Properties {
                 this["debugLogMouse"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool debugForceContinue {
+            get {
+                return ((bool)(this["debugForceContinue"]));
+            }
+            set {
+                this["debugForceContinue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool debugLogExceptions {
+            get {
+                return ((bool)(this["debugLogExceptions"]));
+            }
+            set {
+                this["debugLogExceptions"] = value;
+            }
+        }
     }
 }
