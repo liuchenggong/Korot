@@ -36,58 +36,66 @@ namespace Korot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (!File.Exists(Properties.Settings.Default.LangFile)) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
-            if (!File.Exists(Application.StartupPath + "\\Lang\\English.lang"))
+            try
             {
-                Application.Run(new frmTamir());
-            }
-            else
-            {
-                if (args.Contains("-update"))
+                if (!File.Exists(Properties.Settings.Default.LangFile)) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
+                if (!File.Exists(Application.StartupPath + "\\Lang\\English.lang"))
                 {
-                    Application.Run(new Form1());
-                }
-                else if (args.Contains("-oobe") || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
-                {
-                    Application.Run(new frmOOBE());
+                    Output.WriteLine(" [Korot] FATAL_ERROR: \"English.lang\" not found." + Environment.NewLine + " [Korot] Running Language Repair module.");
+                    Application.Run(new frmTamirLang());
                 }
                 else
                 {
-                    frmMain testApp = new frmMain();
-                    testApp.isIncognito = args.Contains("-incognito");
-                    bool isIncognito = args.Contains("-incognito");
-                    if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
-                    testApp.Tabs.Add(
-                        new TitleBarTab(testApp)
-                        {
-                            Content = new frmCEF(testApp, isIncognito, Properties.Settings.Default.Homepage, Properties.Settings.Default.LastUser) { }
-                        });
-                    foreach (string x in args)
+                    if (args.Contains("-update"))
                     {
-                        if (x == Application.ExecutablePath || x == "-oobe") { }
-                        else if (x == "-incognito")
-                        {
-                            testApp.CreateTab("korot://incognito");
-                        }
-                        else if (x == "-debug")
-                        {
-                            frmDebugSettings frmDebug = new frmDebugSettings();
-                            frmDebug.Show();
-                        }
-                        else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
-                        {
-                            Application.Run(new frmInstallExt(x));
-                        }
-                        else
-                        {
-                            testApp.CreateTab(x);
-                        }
+                        Application.Run(new Form1());
                     }
-                    testApp.SelectedTabIndex = 0;
-                    TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
-                    applicationContext.Start(testApp);
+                    else if (args.Contains("-oobe") || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
+                    {
+                        Application.Run(new frmOOBE());
+                    }
+                    else
+                    {
+                        frmMain testApp = new frmMain();
+                        testApp.isIncognito = args.Contains("-incognito");
+                        bool isIncognito = args.Contains("-incognito");
+                        if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
+                        testApp.Tabs.Add(
+                            new TitleBarTab(testApp)
+                            {
+                                Content = new frmCEF(testApp, isIncognito, Properties.Settings.Default.Homepage, Properties.Settings.Default.LastUser) { }
+                            });
+                        foreach (string x in args)
+                        {
+                            if (x == Application.ExecutablePath || x == "-oobe") { }
+                            else if (x == "-incognito")
+                            {
+                                testApp.CreateTab("korot://incognito");
+                            }
+                            else if (x == "-debug")
+                            {
+                                frmDebugSettings frmDebug = new frmDebugSettings();
+                                frmDebug.Show();
+                            }
+                            else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
+                            {
+                                Application.Run(new frmInstallExt(x));
+                            }
+                            else
+                            {
+                                testApp.CreateTab(x);
+                            }
+                        }
+                        testApp.SelectedTabIndex = 0;
+                        TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
+                        applicationContext.Start(testApp);
                         Application.Run(applicationContext);
+                    }
                 }
+            }catch (Exception ex)
+            {
+                Output.WriteLine(" [Korot] FATAL_ERROR: " + ex.ToString());
+                Application.Run(new frmError(ex.ToString()));
             }
         }
     }

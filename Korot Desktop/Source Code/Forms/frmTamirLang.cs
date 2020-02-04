@@ -5,9 +5,9 @@ using System.Windows.Forms;
 
 namespace Korot
 {
-    public partial class frmTamir : Form
+    public partial class frmTamirLang : Form
     {
-        public frmTamir()
+        public frmTamirLang()
         {
             InitializeComponent();
         }
@@ -23,7 +23,6 @@ namespace Korot
                 if (!Directory.Exists(Application.StartupPath + "\\Lang\\")) Directory.CreateDirectory(Application.StartupPath + "\\Lang\\");
                 FileSystem2.WriteFile(Application.StartupPath + "\\Lang\\English.lang", Properties.Resources.English);
             });
-            Application.Restart();
         }
     }
 }

@@ -117,6 +117,8 @@ namespace Korot
 
                 // We set the content form to a non-top-level child of the parent form.
                 Content.FormBorderStyle = FormBorderStyle.None;
+                //Content.WindowState = FormWindowState.Maximized;
+                Content.Dock = DockStyle.Fill;
                 Content.TopLevel = false;
                 Content.Parent = Parent;
                 Content.FormClosing += Content_Closing;

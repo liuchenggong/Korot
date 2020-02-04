@@ -1,6 +1,6 @@
 ﻿namespace Korot
 {
-    partial class frmTamir
+    partial class frmError
     {
         /// <summary>
         /// Required designer variable.
@@ -28,46 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTamir));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmError));
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(114, 9);
+            this.label1.Location = new System.Drawing.Point(39, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 13);
+            this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Please Wait...";
+            this.label1.Text = "help";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(95, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "We\'re fixing your Korot.";
-            // 
-            // frmTamir
+            // frmError
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(301, 66);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(113, 46);
             this.Controls.Add(this.label1);
-            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(317, 105);
-            this.MinimumSize = new System.Drawing.Size(317, 105);
-            this.Name = "frmTamir";
-            this.Text = "Korot Diagnostics Tool";
-            this.Load += new System.EventHandler(this.frmTamir_Load);
+            this.MaximumSize = new System.Drawing.Size(129, 85);
+            this.MinimumSize = new System.Drawing.Size(129, 85);
+            this.Name = "frmError";
+            this.Text = "Korot";
+            this.Load += new System.EventHandler(this.frmError_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -76,6 +62,5 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
     }
 }
