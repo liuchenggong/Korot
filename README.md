@@ -10,8 +10,8 @@ Latest Dev Version: [`0.5.0.0-pre2`](https://github.com/Haltroy/Korot/releases/t
  - HTML5, CSS3, JS, HTML5 Video, WebGL 3D, etc. supported.
  - Tabbed, built-in search mode inside of address bar.
  - Developer tools & View Source
- - UI language system
- - UI theme system
+ - UI language system (Comes with English and Turkish languages)
+ - UI theme system (Comes with Light and Dark theme)
  - Built-in Extension system
  - Profiles
  - Built-in Proxy system
