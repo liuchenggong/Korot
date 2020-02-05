@@ -53,6 +53,7 @@ namespace Korot
         int findTotal;
         int findCurrent;
         bool findLast;
+        string defaultProxy = null;
         public ChromiumWebBrowser chromiumWebBrowser1;
         // [NEWTAB]
         public frmCEF(frmMain rmmain, bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0")
@@ -67,6 +68,13 @@ namespace Korot
             foreach (Control x in this.Controls)
             {
                 try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; } catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.New()] Error: " + ex.ToString()); }
+            }
+            Uri testUri = new Uri("https://haltroy.com");
+            Uri aUri = WebRequest.GetSystemWebProxy().GetProxy(testUri);
+            if (aUri != testUri) defaultProxy = aUri.AbsoluteUri;
+            if (defaultProxy == null) {DefaultProxyts.Visible = false; DefaultProxyts.Enabled = false;} else
+            {
+                if (Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy)) { SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy); }
             }
         }
         void RefreshHistory()
@@ -105,7 +113,7 @@ namespace Korot
         {
             if (listBox2.SelectedItem != null)
             {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ThemesTitle, listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, this.Icon, MessageBoxButtons.YesNoCancel, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
+                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, this.Icon, MessageBoxButtons.YesNoCancel, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
                     try
@@ -209,7 +217,6 @@ namespace Korot
         public string startatstarup = "Run at startup";
         public string empty = "(empty)";
         public ListBox languagedummy = new ListBox();
-        public string ThemesTitle = "Korot - Themes";
         public string ErrorPageTitle = "Korot - Error";
         public string MonthNames = "\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"";
         public string DayNames = "\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"";
@@ -262,9 +269,11 @@ namespace Korot
             , string it1m1, string it1m2, string it1m3, string ititle2, string it2m1, string it2m2, string it2m3, string _print,
             string hFile, string takeSS, string savePage, string zoomIn, string resetZoom, string zoomOut, string validCode,
             string renderProcessIsKil, string extensionstxt, string themeInfoTXT, string anan, string naname, string fNext,
-            string fPrev, string fC, string fT, string fL, string fN)
+            string rTP, string fC, string fT, string fL, string fN, string status)
         {
-            tsSearchPrev.Text = fPrev.Replace(Environment.NewLine, "");
+            chStatus.Text = status.Replace(Environment.NewLine, "");
+            label23.Text = rTP.Replace(Environment.NewLine, "");
+            //tsSearchPrev.Text = fPrev.Replace(Environment.NewLine, "");
             findC = fC.Replace(Environment.NewLine, "");
             findT = fT.Replace(Environment.NewLine, "");
             findL = fL.Replace(Environment.NewLine, "");
@@ -313,6 +322,7 @@ namespace Korot
             ımageFromLocalFileToolStripMenuItem.Text = imageFromFile.Replace(Environment.NewLine, "");
             label24.Text = enablednt.Replace(Environment.NewLine, "");
             hsDoNotTrack.Location = new Point(label24.Location.X + label24.Width + 5, label24.Location.Y);
+            hsProxy.Location = new Point(label23.Location.X + label23.Width + 5, label23.Location.Y);
             aboutInfo = aboutkorot.Replace(Environment.NewLine, "");
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeAuthor) && string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeName))
             {
@@ -338,7 +348,6 @@ namespace Korot
             CertificateOKTitle = cokt.Replace(Environment.NewLine, "");
             CertificateOK = cok.Replace(Environment.NewLine, "");
             ErrorTheme = themeError.Replace(Environment.NewLine, "");
-            ThemesTitle = themeTitle.Replace(Environment.NewLine, "");
             ThemeMessage = themeMessage.Replace(Environment.NewLine, "");
             btUpdater.Text = checkbutton.Replace(Environment.NewLine, "");
             btInstall.Text = installbutton.Replace(Environment.NewLine, "");
@@ -386,6 +395,7 @@ namespace Korot
             label11.Text = hptxt.Replace(Environment.NewLine, "");
             SearchOnPage = SearchOnCurrentPage.Replace(Environment.NewLine, "");
             label26.Text = themetxt.Replace(Environment.NewLine, "");
+            tsThemes.Text = themeTitle.Replace(Environment.NewLine, "");
             caseSensitiveToolStripMenuItem.Text = CaseSensitivity.Replace(Environment.NewLine, "");
             //CaseSensitive = CaseSensitivity.Replace(Environment.NewLine, "");
             customToolStripMenuItem.Text = customtxt.Replace(Environment.NewLine, "");
@@ -435,7 +445,7 @@ namespace Korot
             openFileİnExplorerToolStripMenuItem.Text = openfolder.Replace(Environment.NewLine, "");
             removeSelectedToolStripMenuItem1.Text = rstxt.Replace(Environment.NewLine, "");
             clearToolStripMenuItem2.Text = cleartxt.Replace(Environment.NewLine, "");
-            defaultproxytext = defaultproxysetting.Replace(Environment.NewLine, "");
+            DefaultProxyts.Text = defaultproxysetting.Replace(Environment.NewLine, "");
             label13.Text = themename.Replace(Environment.NewLine, "");
             anaform.Yes = yes.Replace(Environment.NewLine, "");
             anaform.No = no.Replace(Environment.NewLine, "");
@@ -673,7 +683,8 @@ namespace Korot
                     languagedummy.Items[188].ToString().Substring(1),
                     languagedummy.Items[189].ToString().Substring(1),
                     languagedummy.Items[190].ToString().Substring(1),
-                    languagedummy.Items[191].ToString().Substring(1));
+                    languagedummy.Items[191].ToString().Substring(1),
+                    languagedummy.Items[193].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -998,6 +1009,7 @@ namespace Korot
             textBox2.Text = Properties.Settings.Default.Homepage;
             radioButton1.Checked = Properties.Settings.Default.Homepage == "korot://newtab";
             textBox3.Text = Properties.Settings.Default.SearchURL;
+            hsProxy.Checked = Properties.Settings.Default.rememberLastProxy;
             RefreshLangList();
             refreshThemeList();
             RefreshDownloadList();
@@ -1348,6 +1360,10 @@ namespace Korot
             chromiumWebBrowser1.MouseWheel += MouseScroll;
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
+            if (defaultProxy != null && Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy)) 
+            {
+                SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy); 
+            }
         }
         public void executeStartupExtensions()
         {
@@ -1571,7 +1587,7 @@ namespace Korot
                 allowSwitching = true;
                 tabControl1.SelectedTab = tabPage1;
             }
-            else if (tabControl1.SelectedTab == tabPage3 || tabControl1.SelectedTab == tabPage4 || tabControl1.SelectedTab == tabPage5 || tabControl1.SelectedTab == tabPage6) //Menu
+            else if (tabControl1.SelectedTab == tabPage3 || tabControl1.SelectedTab == tabPage4 || tabControl1.SelectedTab == tabPage5 || tabControl1.SelectedTab == tabPage6 || tabControl1.SelectedTab == tabPage7) //Menu
             {
                 allowSwitching = true;
                 tabControl1.SelectedTab = tabPage1;
@@ -1808,7 +1824,9 @@ namespace Korot
                 oldBackColor = Properties.Settings.Default.BackColor;
                 cmsFavorite.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 button13.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                tsThemes.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.theme_w : Properties.Resources.theme;
                 button6.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button4.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 button8.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 button14.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 lbSettings.BackColor = Color.Transparent;
@@ -1961,6 +1979,7 @@ namespace Korot
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (chromiumWebBrowser1.IsDisposed) this.Close();
             if (findLast)
             {
                 tsSearchStatus.Text = findC + " " + findCurrent + " " + findL + " " + findT + " " + findTotal;
@@ -2069,7 +2088,11 @@ namespace Korot
         {
             cmsProfiles.Show(MousePosition);
         }
-
+        private void DefaultProxyts_Click(object sender,EventArgs e)
+        {
+            SetProxy(chromiumWebBrowser1, defaultProxy);
+            DefaultProxyts.Enabled = false;
+        }
         private void ExtensionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String fileLocation = ((ToolStripMenuItem)sender).Tag.ToString();
@@ -2083,6 +2106,12 @@ namespace Korot
                     chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(FileSystem2.ReadFile(SplittedFase[5].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"), Encoding.UTF8));
                 }
                 catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.ExtensionToolStripMenuItem] Error: " + ex.ToString()); }
+            }
+            if(SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(4, 1) == "1" && !string.IsNullOrWhiteSpace(SplittedFase[7].Substring(1).Replace(Environment.NewLine, "")) && defaultProxy != null)
+            {
+                SetProxy(chromiumWebBrowser1, SplittedFase[7].Substring(1).Replace(Environment.NewLine, ""));
+                DefaultProxyts.Enabled = true;
+                if (Properties.Settings.Default.rememberLastProxy) { Properties.Settings.Default.LastProxy = SplittedFase[7].Substring(1).Replace(Environment.NewLine, ""); }
             }
             bool allowWebContent = false;
             if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "1") { allowWebContent = true; }
@@ -2496,19 +2525,23 @@ namespace Korot
             toolStripTextBox1.Text = searchPrev;
             toolStripTextBox_TextChanged(null, e);
         }
-        private void tsSearchPrev_Click(object sender, EventArgs e)
-        {
-            chromiumWebBrowser1.Find(0, toolStripTextBox1.Text, false, caseSensitiveToolStripMenuItem.Checked, false);
-            cmsHamburger.Show(button11, 0, 0);
-            doNotDestroyFind = true;
-            toolStripTextBox1.Text = searchPrev;
-            toolStripTextBox_TextChanged(null, e);
-        }
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             button3.Enabled = true;
             allowSwitching = true;
             tabControl1.SelectedTab = tabPage6;
+        }
+
+        private void hsProxy_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.rememberLastProxy = hsProxy.Checked;
+        }
+
+        private void tsThemes_Click(object sender, EventArgs e)
+        {
+            button3.Enabled = true;
+            allowSwitching = true;
+            tabControl1.SelectedTab = tabPage7;
         }
     }
 }

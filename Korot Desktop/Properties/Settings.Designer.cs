@@ -359,5 +359,29 @@ namespace Korot.Properties {
                 this["debugLogExceptions"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool rememberLastProxy {
+            get {
+                return ((bool)(this["rememberLastProxy"]));
+            }
+            set {
+                this["rememberLastProxy"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastProxy {
+            get {
+                return ((string)(this["LastProxy"]));
+            }
+            set {
+                this["LastProxy"] = value;
+            }
+        }
     }
 }

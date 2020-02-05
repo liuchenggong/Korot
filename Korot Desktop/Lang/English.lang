@@ -52,7 +52,7 @@ Korot - Error
 About
 Theme Name :
 Save
-Default Proxy
+Reset to default proxy setting
 Themes : 
 Open in New Tab
 Open File
@@ -93,7 +93,7 @@ Check For Updates
 Install Update
 Downloading and Installing Update...
 [PERC]% | [CURRENT] KB downloaded out of [TOTAL] KB
-Korot - Themes
+Themes
 Do you want to apply this theme?
 This theme file is corrupted or not suitable for this version.
 Certificate Error Details
@@ -127,7 +127,7 @@ Can access web content
 This extension can see all the information about the page, including credit card information to passwords or other private information.
 Online Files
 This extension uses files from the Internet instead of using local files. This can eat some data.
-Requirement ([REQ]) can only get "1" or "0" values.[NEWLINE] at [FILE] line [LINE]
+Requirement ([REQ]) can only get "1" or "0" values.[NEWLINE] at [FILE][NEWLINE] line [LINE]
 Enable DoNotTrack:
 Some files are above the file size limits. Please go to https://github.com/Haltroy/Korot/issues/27 for more info.
 Please wait...
@@ -185,8 +185,10 @@ Extensions
 an unknown person
 This unknown Korot
 Find Next
-Find Previous
+Remember the last proxy:
 Current: 
 Total: 
 (Last)
 Not Searching or No Results
+Some requirements are missing.[NEWLINE] at [FILE][NEWLINE] line [LINE].
+Status

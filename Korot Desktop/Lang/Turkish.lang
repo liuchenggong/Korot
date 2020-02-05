@@ -52,7 +52,7 @@ Korot - Hata
 Hakkında
 Tema Adı :
 Kaydet
-Varsayılan Proxy
+Varsayılan proxy ayarına sıfırla
 Temalar : 
 Yeni sekmede aç
 Dosyayı Aç
@@ -93,7 +93,7 @@ Güncellemeleri Ara
 Güncellemeyi Kur
 Güncelleme indiriliyor ve kuruluyor...
 [PERC]% | [TOTAL] KB'dan [CURRENT] KB indirildi.
-Korot - Temalar
+Temalar
 Bu temayı uygulamak istediğinizden emin misiniz?
 Bu tema dosyası bozulmuş veya bu sürüm ile uyumlu değil.
 Sertifika Hata Detayları
@@ -127,7 +127,7 @@ Web içeriğine erişim
 Bu eklenti, parolalar ve kredi kartı bilgileri gibi web site içeriklerine erişebilir.
 Çevrimiçi dosyalar
 Bu eklenti, yere olmayan web dosyalarını kullanıyor. Bu biraz veri tüketebilir.
-([REQ]) değeri sadece "1" veya "0" olabilir.[NEWLINE] dosya [FILE] satır [LINE]
+([REQ]) değeri sadece "1" veya "0" olabilir.[NEWLINE] [FILE] dosyasında[NEWLINE] [LINE] satırında
 DoNotTrack'ı Etkinleştir:
 Bazı dosyalar, dosya limitlerini aşıyor. Lütfen detaylı bilgi için https://github.com/Haltroy/Korot/issues/27 adresine bakın.
 Lütfen bekleyiniz...
@@ -185,8 +185,10 @@ Eklentiler
 bilinmeyen birisi
 Adı bilinmeyen Korot
 Sonrakini bul
-Öncekini bul
+Proxy ayarını hatırla:
 Seçili: 
 Toplam: 
 (Sonuncu)
 Arama yapılmıyor veya sonuç yok
+Bazı gereksinimler eksik.[NEWLINE] [FILE] dosyasında [NEWLINE] [LINE] satırında.
+Durum

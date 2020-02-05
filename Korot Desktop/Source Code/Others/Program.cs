@@ -67,7 +67,7 @@ namespace Korot
                             });
                         foreach (string x in args)
                         {
-                            if (x == Application.ExecutablePath || x == "-oobe") { }
+                            if (x == Application.ExecutablePath || x == "-oobe" || x == "-update") { }
                             else if (x == "-incognito")
                             {
                                 testApp.CreateTab("korot://incognito");
@@ -86,7 +86,7 @@ namespace Korot
                                 testApp.CreateTab(x);
                             }
                         }
-                        testApp.SelectedTabIndex = 0;
+                        testApp.SelectedTabIndex = testApp.isIncognito ? 1 : 0;
                         TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
                         applicationContext.Start(testApp);
                         Application.Run(applicationContext);

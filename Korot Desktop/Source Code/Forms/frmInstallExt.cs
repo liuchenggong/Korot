@@ -45,6 +45,7 @@ namespace Korot
         string rof1 = "Removing old files...";
         string installing = "Installing...";
         string reqError = "Requirement ([REQ]) can only get \"1\" or \"0\" values." + Environment.NewLine + " at [FILE] line [LINE]";
+        string reqEmpty = "Some requirements are missing." + Environment.NewLine + " at [FILE] line [LINE]";
         string fileSizeError = "Some files are above the file size limits. Please go to https://github.com/Haltroy/Korot/issues/27 for more info.";
         string ext = "Extension";
         string theme = "Theme";
@@ -110,6 +111,7 @@ namespace Korot
             theme = SplittedFase[13].Substring(1).Replace(Environment.NewLine, "");
             label4.Text = SplittedFase[180].Substring(1).Replace(Environment.NewLine, "");
             label12.Text = SplittedFase[181].Substring(1).Replace(Environment.NewLine, "");
+            reqEmpty = SplittedFase[192].Substring(1).Replace(Environment.NewLine, "");
             allowSwitch = true;
             tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage4));
             if (ExtFile.ToLower().EndsWith(".kef")) { StartupEXT(); } else if (ExtFile.ToLower().EndsWith(".ktf")) { StartupTF(); }
@@ -165,6 +167,7 @@ namespace Korot
             string Playlist = FileSystem2.ReadFile(fileLocation, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
+            if (SplittedFase.Length >= 8) { 
             //ExtName
             lbName.Text = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
             //ExtVersion
@@ -181,79 +184,111 @@ namespace Korot
                 pbLogo.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.ext_w : Properties.Resources.ext;
             }
             //ExtReq - autoLoad
-            if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(0, 1) == "1")
+            if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Length >= 5)
             {
-                requires1 = true;
-            }
-            else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(0, 1) == "0")
-            {
-                requires1 = false;
+                if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(0, 1) == "1")
+                {
+                    requires1 = true;
+                }
+                else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(0, 1) == "0")
+                {
+                    requires1 = false;
+                }
+                else
+                {
+                    allowSwitch = true;
+                    tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
+                    textBox1.Text = reqError.Replace("[REQ]", "(autoLoad)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
+                    return;
+                }
+                //ExtReq - onlineFiles
+                if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "1")
+                {
+                    requires3 = true;
+                }
+                else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "0")
+                {
+                    requires3 = false;
+                }
+                else
+                {
+                    allowSwitch = true;
+                    tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
+                    textBox1.Text = reqError.Replace("[REQ]", "(onlineFiles)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
+                    return;
+                }
+                //ExtReq - showPopupMenu
+                if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "1")
+                {
+
+                }
+                else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "0")
+                {
+
+                }
+                else
+                {
+                    allowSwitch = true;
+                    tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
+                    textBox1.Text = reqError.Replace("[REQ]", "(showPopupMenu)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
+                    return;
+                }
+                //ExtReq - activateScript
+                if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "1")
+                {
+
+                }
+                else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "0")
+                {
+
+                }
+                else
+                {
+                    allowSwitch = true;
+                    tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
+                    textBox1.Text = reqError.Replace("[REQ]", "(activateScript)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
+                    return;
+                }
+                //ExtReq - hasProxy
+                if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(4, 1) == "1")
+                {
+
+                }
+                else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(4, 1) == "0")
+                {
+
+                }
+                else
+                {
+                    allowSwitch = true;
+                    tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
+                    textBox1.Text = reqError.Replace("[REQ]", "(hasProxy)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
+                    return;
+                }
+                panel6.Visible = requires1;
+                panel3.Visible = requires3;
+                if (!requires1 && !requires3)
+                {
+                    label9.Text = noPermission;
+                }
+                lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
+                allowSwitch = true;
+                tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage2));
             }
             else
             {
                 allowSwitch = true;
                 tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                textBox1.Text = reqError.Replace("[REQ]", "(autoLoad)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
+                textBox1.Text = reqEmpty.Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
                 return;
             }
-            //ExtReq - onlineFiles
-            if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "1")
-            {
-                requires3 = true;
-            }
-            else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "0")
-            {
-                requires3 = false;
-            }
-            else
-            {
-                allowSwitch = true;
+        }else 
+        {
+        allowSwitch = true;
                 tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                textBox1.Text = reqError.Replace("[REQ]", "(onlineFiles)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
+                textBox1.Text = reqEmpty.Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", SplittedFase.Length.ToString());
                 return;
-            }
-            //ExtReq - showPopupMenu
-            if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "1")
-            {
-
-            }
-            else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "0")
-            {
-
-            }
-            else
-            {
-                allowSwitch = true;
-                tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                textBox1.Text = reqError.Replace("[REQ]", "(showPopupMenu)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
-                return;
-            }
-            //ExtReq - activateScript
-            if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "1")
-            {
-
-            }
-            else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "0")
-            {
-
-            }
-            else
-            {
-                allowSwitch = true;
-                tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                textBox1.Text = reqError.Replace("[REQ]", "(activateScript)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
-                return;
-            }
-            panel6.Visible = requires1;
-            panel3.Visible = requires3;
-            if (!requires1 && !requires3)
-            {
-                label9.Text = noPermission;
-            }
-            lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
-            allowSwitch = true;
-            tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage2));
-
+        }
         }
         void ReadKTF(string fileLocation)
         {

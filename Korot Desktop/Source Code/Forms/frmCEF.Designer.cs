@@ -78,10 +78,10 @@ namespace Korot
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.tsSearchNext = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSearchStatus = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSearchPrev = new System.Windows.Forms.ToolStripMenuItem();
             this.caseSensitiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.extensionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.DefaultProxyts = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.newWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newIncognitoWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,6 +96,7 @@ namespace Korot
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsThemes = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -131,32 +132,33 @@ namespace Korot
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.button13 = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.button12 = new System.Windows.Forms.Button();
-            this.label26 = new System.Windows.Forms.Label();
             this.lbSettings = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.hsDoNotTrack = new HaltroyFramework.HaltroySwitch();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lbLang = new System.Windows.Forms.ListBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.button4 = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.lbLang = new System.Windows.Forms.ListBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button12 = new System.Windows.Forms.Button();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.button6 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -212,6 +214,8 @@ namespace Korot
             this.ımageFromLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ımageFromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrRefresher = new System.Windows.Forms.Timer(this.components);
+            this.hsProxy = new HaltroyFramework.HaltroySwitch();
+            this.label23 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -226,8 +230,9 @@ namespace Korot
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.cmsHistory.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -494,10 +499,10 @@ namespace Korot
             this.toolStripTextBox1,
             this.tsSearchNext,
             this.tsSearchStatus,
-            this.tsSearchPrev,
             this.caseSensitiveToolStripMenuItem,
             this.toolStripSeparator5,
             this.extensionToolStripMenuItem1,
+            this.DefaultProxyts,
             this.toolStripSeparator6,
             this.newWindowToolStripMenuItem,
             this.newIncognitoWindowToolStripMenuItem,
@@ -512,6 +517,7 @@ namespace Korot
             this.toolStripSeparator2,
             this.historyToolStripMenuItem,
             this.downloadsToolStripMenuItem,
+            this.tsThemes,
             this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.toolStripSeparator4,
@@ -519,7 +525,7 @@ namespace Korot
             this.spRestorer});
             this.cmsHamburger.Name = "cmsHamburger";
             this.cmsHamburger.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsHamburger.Size = new System.Drawing.Size(281, 473);
+            this.cmsHamburger.Size = new System.Drawing.Size(281, 517);
             this.cmsHamburger.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.cmsHamburger_Closing);
             this.cmsHamburger.Opening += new System.ComponentModel.CancelEventHandler(this.cmsHamburger_Opening);
             // 
@@ -555,13 +561,6 @@ namespace Korot
             this.tsSearchStatus.Size = new System.Drawing.Size(280, 22);
             this.tsSearchStatus.Text = "Not Searching";
             // 
-            // tsSearchPrev
-            // 
-            this.tsSearchPrev.Name = "tsSearchPrev";
-            this.tsSearchPrev.Size = new System.Drawing.Size(280, 22);
-            this.tsSearchPrev.Text = "Find Previous";
-            this.tsSearchPrev.Click += new System.EventHandler(this.tsSearchPrev_Click);
-            // 
             // caseSensitiveToolStripMenuItem
             // 
             this.caseSensitiveToolStripMenuItem.CheckOnClick = true;
@@ -581,6 +580,13 @@ namespace Korot
             this.extensionToolStripMenuItem1.Name = "extensionToolStripMenuItem1";
             this.extensionToolStripMenuItem1.Size = new System.Drawing.Size(280, 22);
             this.extensionToolStripMenuItem1.Text = "Extensions";
+            // 
+            // DefaultProxyts
+            // 
+            this.DefaultProxyts.Name = "DefaultProxyts";
+            this.DefaultProxyts.Size = new System.Drawing.Size(280, 22);
+            this.DefaultProxyts.Text = "Reset to default proxy";
+            this.DefaultProxyts.Click += new System.EventHandler(this.DefaultProxyts_Click);
             // 
             // toolStripSeparator6
             // 
@@ -683,6 +689,14 @@ namespace Korot
             this.downloadsToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.downloadsToolStripMenuItem.Text = "Downloads";
             this.downloadsToolStripMenuItem.Click += new System.EventHandler(this.downloadsToolStripMenuItem_Click);
+            // 
+            // tsThemes
+            // 
+            this.tsThemes.Image = global::Korot.Properties.Resources.theme;
+            this.tsThemes.Name = "tsThemes";
+            this.tsThemes.Size = new System.Drawing.Size(280, 22);
+            this.tsThemes.Text = "Themes";
+            this.tsThemes.Click += new System.EventHandler(this.tsThemes_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -959,6 +973,7 @@ namespace Korot
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
@@ -994,32 +1009,18 @@ namespace Korot
             // 
             // tabPage3
             // 
-            this.tabPage3.AutoScroll = true;
-            this.tabPage3.Controls.Add(this.comboBox3);
             this.tabPage3.Controls.Add(this.label3);
-            this.tabPage3.Controls.Add(this.textBox4);
             this.tabPage3.Controls.Add(this.button13);
-            this.tabPage3.Controls.Add(this.listBox2);
-            this.tabPage3.Controls.Add(this.label24);
-            this.tabPage3.Controls.Add(this.button12);
-            this.tabPage3.Controls.Add(this.label26);
-            this.tabPage3.Controls.Add(this.lbSettings);
-            this.tabPage3.Controls.Add(this.comboBox1);
-            this.tabPage3.Controls.Add(this.hsDoNotTrack);
-            this.tabPage3.Controls.Add(this.label25);
-            this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.radioButton1);
             this.tabPage3.Controls.Add(this.label23);
-            this.tabPage3.Controls.Add(this.label15);
+            this.tabPage3.Controls.Add(this.label24);
+            this.tabPage3.Controls.Add(this.lbSettings);
+            this.tabPage3.Controls.Add(this.hsProxy);
+            this.tabPage3.Controls.Add(this.hsDoNotTrack);
+            this.tabPage3.Controls.Add(this.radioButton1);
             this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Controls.Add(this.label14);
             this.tabPage3.Controls.Add(this.lbLang);
-            this.tabPage3.Controls.Add(this.label16);
             this.tabPage3.Controls.Add(this.label9);
-            this.tabPage3.Controls.Add(this.pictureBox4);
             this.tabPage3.Controls.Add(this.textBox2);
-            this.tabPage3.Controls.Add(this.pictureBox3);
             this.tabPage3.Controls.Add(this.textBox3);
             this.tabPage3.Location = new System.Drawing.Point(4, 23);
             this.tabPage3.Name = "tabPage3";
@@ -1028,47 +1029,15 @@ namespace Korot
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // comboBox3
-            // 
-            this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "None",
-            "Tile",
-            "Center",
-            "Stretch",
-            "Zoom"});
-            this.comboBox3.Location = new System.Drawing.Point(182, 374);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(372, 22);
-            this.comboBox3.TabIndex = 33;
-            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(13, 184);
+            this.label3.Location = new System.Drawing.Point(13, 204);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 14);
             this.label3.TabIndex = 29;
             this.label3.Text = "Language :";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(154, 413);
-            this.textBox4.MaxLength = 2147483647;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(400, 22);
-            this.textBox4.TabIndex = 32;
-            this.textBox4.Text = "please china";
-            this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
             // 
             // button13
             // 
@@ -1086,18 +1055,6 @@ namespace Korot
             this.button13.Click += new System.EventHandler(this.button1_Click);
             this.button13.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
             // 
-            // listBox2
-            // 
-            this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 14;
-            this.listBox2.Location = new System.Drawing.Point(84, 479);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(470, 88);
-            this.listBox2.TabIndex = 31;
-            this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
-            // 
             // label24
             // 
             this.label24.AutoSize = true;
@@ -1107,30 +1064,6 @@ namespace Korot
             this.label24.Size = new System.Drawing.Size(120, 14);
             this.label24.TabIndex = 29;
             this.label24.Text = "Enable DoNotTrack :";
-            // 
-            // button12
-            // 
-            this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button12.FlatAppearance.BorderSize = 0;
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(489, 438);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(75, 32);
-            this.button12.TabIndex = 30;
-            this.button12.Tag = "";
-            this.button12.Text = "Save";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.Button12_Click);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label26.Location = new System.Drawing.Point(8, 294);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(74, 25);
-            this.label26.TabIndex = 34;
-            this.label26.Text = "Theme";
             // 
             // lbSettings
             // 
@@ -1142,53 +1075,15 @@ namespace Korot
             this.lbSettings.TabIndex = 34;
             this.lbSettings.Text = "Settings";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox1.Location = new System.Drawing.Point(123, 446);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(360, 24);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.Tag = "";
-            // 
             // hsDoNotTrack
             // 
-            this.hsDoNotTrack.Location = new System.Drawing.Point(134, 148);
+            this.hsDoNotTrack.Location = new System.Drawing.Point(134, 146);
             this.hsDoNotTrack.Name = "hsDoNotTrack";
             this.hsDoNotTrack.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsDoNotTrack.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsDoNotTrack.Size = new System.Drawing.Size(50, 19);
             this.hsDoNotTrack.TabIndex = 28;
             this.hsDoNotTrack.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsDoNotTrack_CheckedChanged);
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.BackColor = System.Drawing.Color.Transparent;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label25.Location = new System.Drawing.Point(10, 376);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(165, 17);
-            this.label25.TabIndex = 25;
-            this.label25.Tag = "";
-            this.label25.Text = "Background Image Style:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.Color.Transparent;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label12.Location = new System.Drawing.Point(10, 415);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(134, 17);
-            this.label12.TabIndex = 25;
-            this.label12.Tag = "";
-            this.label12.Text = "Background Image :";
             // 
             // radioButton1
             // 
@@ -1204,30 +1099,6 @@ namespace Korot
             this.radioButton1.UseVisualStyleBackColor = false;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
             // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.BackColor = System.Drawing.Color.Transparent;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label23.Location = new System.Drawing.Point(29, 577);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(12, 17);
-            this.label23.TabIndex = 25;
-            this.label23.Tag = "";
-            this.label23.Text = " ";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.Transparent;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label15.Location = new System.Drawing.Point(11, 479);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(71, 17);
-            this.label15.TabIndex = 25;
-            this.label15.Tag = "";
-            this.label15.Text = "Themes : ";
-            // 
             // label11
             // 
             this.label11.BackColor = System.Drawing.Color.Transparent;
@@ -1238,53 +1109,17 @@ namespace Korot
             this.label11.Tag = "";
             this.label11.Text = "Home Page :";
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label13.Location = new System.Drawing.Point(10, 449);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(105, 17);
-            this.label13.TabIndex = 25;
-            this.label13.Tag = "";
-            this.label13.Text = "Theme Name : ";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label14.Location = new System.Drawing.Point(10, 329);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(133, 17);
-            this.label14.TabIndex = 25;
-            this.label14.Tag = "";
-            this.label14.Text = "Background Color : ";
-            // 
             // lbLang
             // 
             this.lbLang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbLang.FormattingEnabled = true;
             this.lbLang.ItemHeight = 14;
-            this.lbLang.Location = new System.Drawing.Point(87, 184);
+            this.lbLang.Location = new System.Drawing.Point(87, 204);
             this.lbLang.Name = "lbLang";
-            this.lbLang.Size = new System.Drawing.Size(467, 102);
+            this.lbLang.Size = new System.Drawing.Size(461, 144);
             this.lbLang.TabIndex = 21;
             this.lbLang.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Transparent;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label16.Location = new System.Drawing.Point(10, 350);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(99, 17);
-            this.label16.TabIndex = 26;
-            this.label16.Tag = "Overall theme (Selected Tab background,Loading Bar Color etc.)";
-            this.label16.Text = "Overal Color : ";
             // 
             // label9
             // 
@@ -1296,38 +1131,16 @@ namespace Korot
             this.label9.Tag = "";
             this.label9.Text = "Search Engine :";
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox4.Location = new System.Drawing.Point(166, 350);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(23, 23);
-            this.pictureBox4.TabIndex = 28;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Tag = "Default: DodgerBlue";
-            this.pictureBox4.Click += new System.EventHandler(this.PictureBox4_Click);
-            // 
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Location = new System.Drawing.Point(160, 48);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(394, 22);
+            this.textBox2.Size = new System.Drawing.Size(388, 22);
             this.textBox2.TabIndex = 18;
             this.textBox2.Tag = "";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox3.Location = new System.Drawing.Point(166, 327);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(23, 23);
-            this.pictureBox3.TabIndex = 27;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Tag = "";
-            this.pictureBox3.Click += new System.EventHandler(this.PictureBox3_Click);
             // 
             // textBox3
             // 
@@ -1337,11 +1150,226 @@ namespace Korot
             this.textBox3.Location = new System.Drawing.Point(158, 103);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(396, 22);
+            this.textBox3.Size = new System.Drawing.Size(390, 22);
             this.textBox3.TabIndex = 23;
             this.textBox3.Tag = "";
-            this.textBox3.Text = "dont eat bats";
+            this.textBox3.Text = "eat pant";
             this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.button4);
+            this.tabPage7.Controls.Add(this.label25);
+            this.tabPage7.Controls.Add(this.label12);
+            this.tabPage7.Controls.Add(this.pictureBox3);
+            this.tabPage7.Controls.Add(this.pictureBox4);
+            this.tabPage7.Controls.Add(this.label14);
+            this.tabPage7.Controls.Add(this.label16);
+            this.tabPage7.Controls.Add(this.comboBox3);
+            this.tabPage7.Controls.Add(this.textBox4);
+            this.tabPage7.Controls.Add(this.label13);
+            this.tabPage7.Controls.Add(this.label15);
+            this.tabPage7.Controls.Add(this.comboBox1);
+            this.tabPage7.Controls.Add(this.button12);
+            this.tabPage7.Controls.Add(this.listBox2);
+            this.tabPage7.Controls.Add(this.label26);
+            this.tabPage7.Location = new System.Drawing.Point(4, 23);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(568, 408);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "tabPage7";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.AutoSize = true;
+            this.button4.BackColor = System.Drawing.Color.Transparent;
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Image = global::Korot.Properties.Resources.cancel;
+            this.button4.Location = new System.Drawing.Point(524, 5);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(30, 28);
+            this.button4.TabIndex = 35;
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.BackColor = System.Drawing.Color.Transparent;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label25.Location = new System.Drawing.Point(18, 90);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(165, 17);
+            this.label25.TabIndex = 25;
+            this.label25.Tag = "";
+            this.label25.Text = "Background Image Style:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label12.Location = new System.Drawing.Point(17, 127);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(134, 17);
+            this.label12.TabIndex = 25;
+            this.label12.Tag = "";
+            this.label12.Text = "Background Image :";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox3.Location = new System.Drawing.Point(173, 38);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox3.TabIndex = 27;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Tag = "";
+            this.pictureBox3.Click += new System.EventHandler(this.PictureBox3_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox4.Location = new System.Drawing.Point(173, 62);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox4.TabIndex = 28;
+            this.pictureBox4.TabStop = false;
+            this.pictureBox4.Tag = "Default: DodgerBlue";
+            this.pictureBox4.Click += new System.EventHandler(this.PictureBox4_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label14.Location = new System.Drawing.Point(17, 41);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(133, 17);
+            this.label14.TabIndex = 25;
+            this.label14.Tag = "";
+            this.label14.Text = "Background Color : ";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label16.Location = new System.Drawing.Point(17, 62);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(99, 17);
+            this.label16.TabIndex = 26;
+            this.label16.Tag = "Overall theme (Selected Tab background,Loading Bar Color etc.)";
+            this.label16.Text = "Overal Color : ";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "None",
+            "Tile",
+            "Center",
+            "Stretch",
+            "Zoom"});
+            this.comboBox3.Location = new System.Drawing.Point(179, 88);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(374, 22);
+            this.comboBox3.TabIndex = 33;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            // 
+            // textBox4
+            // 
+            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox4.Location = new System.Drawing.Point(157, 127);
+            this.textBox4.MaxLength = 2147483647;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(396, 22);
+            this.textBox4.TabIndex = 32;
+            this.textBox4.Text = "this is a certified home classic";
+            this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label13.Location = new System.Drawing.Point(17, 161);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(105, 17);
+            this.label13.TabIndex = 25;
+            this.label13.Tag = "";
+            this.label13.Text = "Theme Name : ";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label15.Location = new System.Drawing.Point(18, 191);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(71, 17);
+            this.label15.TabIndex = 25;
+            this.label15.Tag = "";
+            this.label15.Text = "Themes : ";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboBox1.Location = new System.Drawing.Point(130, 158);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(342, 24);
+            this.comboBox1.TabIndex = 1;
+            this.comboBox1.Tag = "";
+            // 
+            // button12
+            // 
+            this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button12.FlatAppearance.BorderSize = 0;
+            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button12.Location = new System.Drawing.Point(478, 153);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(75, 32);
+            this.button12.TabIndex = 30;
+            this.button12.Tag = "";
+            this.button12.Text = "Save";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.Button12_Click);
+            // 
+            // listBox2
+            // 
+            this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 14;
+            this.listBox2.Location = new System.Drawing.Point(91, 191);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(462, 130);
+            this.listBox2.TabIndex = 31;
+            this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.label26.Location = new System.Drawing.Point(15, 6);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(74, 25);
+            this.label26.TabIndex = 34;
+            this.label26.Text = "Theme";
             // 
             // tabPage4
             // 
@@ -1898,6 +1926,26 @@ namespace Korot
             this.tmrRefresher.Interval = 5000;
             this.tmrRefresher.Tick += new System.EventHandler(this.tmrRefresher_Tick);
             // 
+            // hsProxy
+            // 
+            this.hsProxy.Location = new System.Drawing.Point(168, 173);
+            this.hsProxy.Name = "hsProxy";
+            this.hsProxy.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsProxy.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsProxy.Size = new System.Drawing.Size(50, 19);
+            this.hsProxy.TabIndex = 28;
+            this.hsProxy.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsProxy_CheckedChanged);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.BackColor = System.Drawing.Color.Transparent;
+            this.label23.Location = new System.Drawing.Point(13, 174);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(149, 14);
+            this.label23.TabIndex = 29;
+            this.label23.Text = "Remember the last proxy:";
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1938,8 +1986,10 @@ namespace Korot
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.cmsHistory.ResumeLayout(false);
@@ -2111,11 +2161,15 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem historyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ToolStripMenuItem ımageFromLocalFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsSearchNext;
-        private System.Windows.Forms.ToolStripMenuItem tsSearchPrev;
         private System.Windows.Forms.ToolStripMenuItem tsSearchStatus;
+        private System.Windows.Forms.ToolStripMenuItem DefaultProxyts;
+        private System.Windows.Forms.TabPage tabPage7;
+        public System.Windows.Forms.Button button4;
+        private System.Windows.Forms.ToolStripMenuItem tsThemes;
+        private System.Windows.Forms.Label label23;
+        private HaltroyFramework.HaltroySwitch hsProxy;
     }
 }
