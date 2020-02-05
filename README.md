@@ -21,3 +21,4 @@ Latest Dev Version: [`0.5.0.0-pre2`](https://github.com/Haltroy/Korot/releases/t
  - Save page
  - Zoom
  - Keyboard Shortcuts
+ 
