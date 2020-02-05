@@ -1,6 +1,5 @@
 # [Korot](https://haltroy.com/Korot.html "Korot's Page")
-An advanced lightweight web browser using Chromium.
-Made by [Haltroy](https://haltroy.com "Haltroy's Website").
+An advanced Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy's Website").
 
 Latest Stable Version: [`0.4.9.10`](https://github.com/Haltroy/Korot/releases/tag/0.4.9.10).
 
