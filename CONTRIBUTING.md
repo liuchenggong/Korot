@@ -2,7 +2,7 @@
 Thanks for your interest in contributing to the project! Please follow these simple guidelines:
 
 ### General
-- Please use my social accounts ( ex. [my Instagram account](https://instagram.com/haltroy.global) as your first point of call for basic/simple questions.
+- Please use my social accounts ( ex. [my Instagram account](https://instagram.com/haltroy.global)) as your first point of call for basic/simple questions.
 - When creating an issue please use the issue template provided.
 - Searching the `GitHub` project is a **must**. It's quite likely your question has already been answered before. If something is unclear in the Wiki, of course feel free to ask; the idea is just to reduce the level of "noise" we have to go through, reading the same questions over and over again.
 - Please make sure to **test out the latest version** of `Korot` to see whether the problem you are encountering still exists.
