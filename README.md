@@ -11,9 +11,9 @@ Latest Dev Version: [`0.5.0.0-pre2`](https://github.com/Haltroy/Korot/releases/t
  - Developer tools & View Source
  - UI language system (Comes with English and Turkish languages)
  - UI theme system (Comes with Light and Dark theme)
- - Built-in Extension system
+ - Built-in Extension system (with support for proxies in [0.5](https://github.com/Haltroy/Korot/issues/64) or newer.)
  - Profiles
- - Built-in Proxy system
+ - Built-in Proxy system (will be integrated to extension system in [0.5](https://github.com/Haltroy/Korot/issues/64) or newer.)
  - Download manager (see [#52](https://github.com/Haltroy/Korot/issues/52))
  - Custom pages (New Tab, Incognito, Error Page etc.)
  - View local & online webpages
