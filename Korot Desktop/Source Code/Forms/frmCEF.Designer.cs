@@ -134,8 +134,10 @@ namespace Korot
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
             this.button13 = new System.Windows.Forms.Button();
+            this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.lbSettings = new System.Windows.Forms.Label();
+            this.hsProxy = new HaltroyFramework.HaltroySwitch();
             this.hsDoNotTrack = new HaltroyFramework.HaltroySwitch();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label11 = new System.Windows.Forms.Label();
@@ -214,8 +216,6 @@ namespace Korot
             this.ımageFromLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ımageFromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrRefresher = new System.Windows.Forms.Timer(this.components);
-            this.hsProxy = new HaltroyFramework.HaltroySwitch();
-            this.label23 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -249,10 +249,10 @@ namespace Korot
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.tbAddress.Location = new System.Drawing.Point(139, 2);
+            this.tbAddress.Location = new System.Drawing.Point(140, 4);
             this.tbAddress.MaxLength = 2147483647;
             this.tbAddress.Name = "tbAddress";
-            this.tbAddress.Size = new System.Drawing.Size(304, 23);
+            this.tbAddress.Size = new System.Drawing.Size(305, 23);
             this.tbAddress.TabIndex = 1;
             // 
             // panel2
@@ -279,12 +279,13 @@ namespace Korot
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox2.ContextMenuStrip = this.cmsPrivacy;
             this.pictureBox2.Image = global::Korot.Properties.Resources.lockg;
-            this.pictureBox2.Location = new System.Drawing.Point(120, 5);
+            this.pictureBox2.Location = new System.Drawing.Point(118, 4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(17, 16);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
@@ -411,9 +412,9 @@ namespace Korot
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Image = global::Korot.Properties.Resources.inctab;
-            this.pictureBox1.Location = new System.Drawing.Point(442, 2);
+            this.pictureBox1.Location = new System.Drawing.Point(444, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(26, 23);
+            this.pictureBox1.Size = new System.Drawing.Size(23, 23);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
@@ -525,7 +526,7 @@ namespace Korot
             this.spRestorer});
             this.cmsHamburger.Name = "cmsHamburger";
             this.cmsHamburger.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsHamburger.Size = new System.Drawing.Size(281, 517);
+            this.cmsHamburger.Size = new System.Drawing.Size(281, 495);
             this.cmsHamburger.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.cmsHamburger_Closing);
             this.cmsHamburger.Opening += new System.ComponentModel.CancelEventHandler(this.cmsHamburger_Opening);
             // 
@@ -1055,6 +1056,16 @@ namespace Korot
             this.button13.Click += new System.EventHandler(this.button1_Click);
             this.button13.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
             // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.BackColor = System.Drawing.Color.Transparent;
+            this.label23.Location = new System.Drawing.Point(13, 174);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(149, 14);
+            this.label23.TabIndex = 29;
+            this.label23.Text = "Remember the last proxy:";
+            // 
             // label24
             // 
             this.label24.AutoSize = true;
@@ -1074,6 +1085,16 @@ namespace Korot
             this.lbSettings.Size = new System.Drawing.Size(83, 25);
             this.lbSettings.TabIndex = 34;
             this.lbSettings.Text = "Settings";
+            // 
+            // hsProxy
+            // 
+            this.hsProxy.Location = new System.Drawing.Point(168, 173);
+            this.hsProxy.Name = "hsProxy";
+            this.hsProxy.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsProxy.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsProxy.Size = new System.Drawing.Size(50, 19);
+            this.hsProxy.TabIndex = 28;
+            this.hsProxy.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsProxy_CheckedChanged);
             // 
             // hsDoNotTrack
             // 
@@ -1200,7 +1221,7 @@ namespace Korot
             this.label25.AutoSize = true;
             this.label25.BackColor = System.Drawing.Color.Transparent;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label25.Location = new System.Drawing.Point(18, 90);
+            this.label25.Location = new System.Drawing.Point(18, 95);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(165, 17);
             this.label25.TabIndex = 25;
@@ -1212,7 +1233,7 @@ namespace Korot
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label12.Location = new System.Drawing.Point(17, 127);
+            this.label12.Location = new System.Drawing.Point(17, 132);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(134, 17);
             this.label12.TabIndex = 25;
@@ -1233,7 +1254,7 @@ namespace Korot
             // pictureBox4
             // 
             this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox4.Location = new System.Drawing.Point(173, 62);
+            this.pictureBox4.Location = new System.Drawing.Point(173, 67);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(23, 23);
             this.pictureBox4.TabIndex = 28;
@@ -1258,7 +1279,7 @@ namespace Korot
             this.label16.AutoSize = true;
             this.label16.BackColor = System.Drawing.Color.Transparent;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label16.Location = new System.Drawing.Point(17, 62);
+            this.label16.Location = new System.Drawing.Point(17, 67);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(99, 17);
             this.label16.TabIndex = 26;
@@ -1278,7 +1299,7 @@ namespace Korot
             "Center",
             "Stretch",
             "Zoom"});
-            this.comboBox3.Location = new System.Drawing.Point(179, 88);
+            this.comboBox3.Location = new System.Drawing.Point(179, 93);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(374, 22);
             this.comboBox3.TabIndex = 33;
@@ -1288,7 +1309,7 @@ namespace Korot
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(157, 127);
+            this.textBox4.Location = new System.Drawing.Point(157, 132);
             this.textBox4.MaxLength = 2147483647;
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
@@ -1302,7 +1323,7 @@ namespace Korot
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label13.Location = new System.Drawing.Point(17, 161);
+            this.label13.Location = new System.Drawing.Point(17, 166);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(105, 17);
             this.label13.TabIndex = 25;
@@ -1314,7 +1335,7 @@ namespace Korot
             this.label15.AutoSize = true;
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label15.Location = new System.Drawing.Point(18, 191);
+            this.label15.Location = new System.Drawing.Point(18, 196);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(71, 17);
             this.label15.TabIndex = 25;
@@ -1329,7 +1350,7 @@ namespace Korot
             this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox1.Location = new System.Drawing.Point(130, 158);
+            this.comboBox1.Location = new System.Drawing.Point(130, 163);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(342, 24);
             this.comboBox1.TabIndex = 1;
@@ -1355,7 +1376,7 @@ namespace Korot
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 14;
-            this.listBox2.Location = new System.Drawing.Point(91, 191);
+            this.listBox2.Location = new System.Drawing.Point(91, 196);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(462, 130);
             this.listBox2.TabIndex = 31;
@@ -1925,26 +1946,6 @@ namespace Korot
             this.tmrRefresher.Enabled = true;
             this.tmrRefresher.Interval = 5000;
             this.tmrRefresher.Tick += new System.EventHandler(this.tmrRefresher_Tick);
-            // 
-            // hsProxy
-            // 
-            this.hsProxy.Location = new System.Drawing.Point(168, 173);
-            this.hsProxy.Name = "hsProxy";
-            this.hsProxy.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsProxy.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsProxy.Size = new System.Drawing.Size(50, 19);
-            this.hsProxy.TabIndex = 28;
-            this.hsProxy.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsProxy_CheckedChanged);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.BackColor = System.Drawing.Color.Transparent;
-            this.label23.Location = new System.Drawing.Point(13, 174);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(149, 14);
-            this.label23.TabIndex = 29;
-            this.label23.Text = "Remember the last proxy:";
             // 
             // frmCEF
             // 

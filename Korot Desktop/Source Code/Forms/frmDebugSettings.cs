@@ -126,7 +126,14 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             int selected = lbCookie.SelectedIndex; lbCookie.Items.Clear(); foreach (String x in Properties.Settings.Default.CookieDisallowList) { lbCookie.Items.Add(x); }
-            try { lbCookie.SelectedIndex = selected; } catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.Debug] Error: " + ex.ToString()); }
+            try { lbCookie.SelectedIndex = selected; }
+            catch (Exception ex)
+            {
+                if (Properties.Settings.Default.debugLogExceptions)
+                {
+                    Output.WriteLine(" [Korot.Debug] Error: " + ex.ToString());
+                }
+            }
             tbHomepage.Text = Properties.Settings.Default.Homepage;
             tbThemeName.Text = Properties.Settings.Default.ThemeName;
             tbThemeAuthor.Text = Properties.Settings.Default.ThemeAuthor;

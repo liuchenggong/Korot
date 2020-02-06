@@ -92,7 +92,8 @@ namespace Korot
                         Application.Run(applicationContext);
                     }
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Output.WriteLine(" [Korot] FATAL_ERROR: " + ex.ToString());
                 Application.Run(new frmError(ex.ToString()));

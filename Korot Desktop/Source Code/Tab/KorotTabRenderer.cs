@@ -33,8 +33,8 @@ namespace Korot
             _activeLeftSideImage = IsBright(BackColor) ? ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 30), LowerBrightnessIfNeeded(BackColor.G, 30), LowerBrightnessIfNeeded(BackColor.B, 30))) : ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 30, 255), MoreBrightnessIfNeeded(BackColor.G, 30, 255), MoreBrightnessIfNeeded(BackColor.B, 30, 255)));
             _activeRightSideImage = IsBright(BackColor) ? ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 30), LowerBrightnessIfNeeded(BackColor.G, 30), LowerBrightnessIfNeeded(BackColor.B, 30))) : ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 30, 255), MoreBrightnessIfNeeded(BackColor.G, 30, 255), MoreBrightnessIfNeeded(BackColor.B, 30, 255)));
             _activeCenterImage = IsBright(BackColor) ? ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 30), LowerBrightnessIfNeeded(BackColor.G, 30), LowerBrightnessIfNeeded(BackColor.B, 30))) : ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 30, 255), MoreBrightnessIfNeeded(BackColor.G, 30, 255), MoreBrightnessIfNeeded(BackColor.B, 30, 255)));
-            _closeButtonImage = ColorReplace(ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor), 50, Color.Red, OverlayColor);
-            _closeButtonHoverImage = IsBright(OverlayColor) ? ColorReplace(ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor), 50, Color.Red, Color.FromArgb(255, LowerBrightnessIfNeeded(OverlayColor.R, 20), LowerBrightnessIfNeeded(OverlayColor.G, 20), LowerBrightnessIfNeeded(OverlayColor.B, 20))) : ColorReplace(ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor), 50, Color.Red, Color.FromArgb(255, MoreBrightnessIfNeeded(OverlayColor.R, 20, 255), MoreBrightnessIfNeeded(OverlayColor.G, 20, 255), MoreBrightnessIfNeeded(OverlayColor.B, 20, 255)));
+            _closeButtonImage = ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor);
+            _closeButtonHoverImage = IsBright(ForeColor) ? ColorReplace(Resources.KorotClose, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(ForeColor.R, 20), LowerBrightnessIfNeeded(ForeColor.G, 20), LowerBrightnessIfNeeded(ForeColor.B, 20))) : ColorReplace(Resources.KorotClose, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(ForeColor.R, 20, 255), MoreBrightnessIfNeeded(ForeColor.G, 20, 255), MoreBrightnessIfNeeded(ForeColor.B, 20, 255)));
             _background = _back;
             _addButtonImage = new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, BackColor));
             _addButtonHoverImage = IsBright(BackColor) ? new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 20), LowerBrightnessIfNeeded(BackColor.G, 20), LowerBrightnessIfNeeded(BackColor.B, 20)))) : new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 20, 255), MoreBrightnessIfNeeded(BackColor.G, 20, 255), MoreBrightnessIfNeeded(BackColor.B, 20, 255)))); _inactiveLeftSideImage = IsBright(BackColor) ? ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 20), LowerBrightnessIfNeeded(BackColor.G, 20), LowerBrightnessIfNeeded(BackColor.B, 20))) : ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 20, 255), MoreBrightnessIfNeeded(BackColor.G, 20, 255), MoreBrightnessIfNeeded(BackColor.B, 20, 255)));
@@ -74,10 +74,10 @@ namespace Korot
                 OverlayLayerColor = OverlayColor;
             }
             // Initialize the various images to use during rendering
-            if (ForeColor != _ForeColor && OverlayColor != _OverlayColor)
+            if (ForeColor != _ForeColor)
             {
-                _closeButtonImage = ColorReplace(ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor), 50, Color.Red, OverlayColor);
-                _closeButtonHoverImage = IsBright(OverlayColor) ? ColorReplace(ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor), 50, Color.Red, Color.FromArgb(255, LowerBrightnessIfNeeded(OverlayColor.R, 20), LowerBrightnessIfNeeded(OverlayColor.G, 20), LowerBrightnessIfNeeded(OverlayColor.B, 20))) : ColorReplace(ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor), 50, Color.Red, Color.FromArgb(255, MoreBrightnessIfNeeded(OverlayColor.R, 20, 255), MoreBrightnessIfNeeded(OverlayColor.G, 20, 255), MoreBrightnessIfNeeded(OverlayColor.B, 20, 255)));
+                _closeButtonImage = ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor);
+                _closeButtonHoverImage = IsBright(ForeColor) ? ColorReplace(Resources.KorotClose, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(ForeColor.R, 20), LowerBrightnessIfNeeded(ForeColor.G, 20), LowerBrightnessIfNeeded(ForeColor.B, 20))) : ColorReplace(Resources.KorotClose, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(ForeColor.R, 20, 255), MoreBrightnessIfNeeded(ForeColor.G, 20, 255), MoreBrightnessIfNeeded(ForeColor.B, 20, 255)));
             }
 
         }
@@ -110,6 +110,7 @@ namespace Korot
             Graphics G = Graphics.FromImage(outputImage);
             G.DrawImage(inputImage, 0, 0);
             for (Int32 y = 0; y < outputImage.Height; y++)
+            {
                 for (Int32 x = 0; x < outputImage.Width; x++)
                 {
                     Color PixelColor = outputImage.GetPixel(x, y);
@@ -119,22 +120,68 @@ namespace Korot
                         int GColorDiff = oldColor.G - PixelColor.G;
                         int BColorDiff = oldColor.B - PixelColor.B;
 
-                        if (PixelColor.R > oldColor.R) RColorDiff = NewColor.R + RColorDiff;
-                        else RColorDiff = NewColor.R - RColorDiff;
-                        if (RColorDiff > 255) RColorDiff = 255;
-                        if (RColorDiff < 0) RColorDiff = 0;
-                        if (PixelColor.G > oldColor.G) GColorDiff = NewColor.G + GColorDiff;
-                        else GColorDiff = NewColor.G - GColorDiff;
-                        if (GColorDiff > 255) GColorDiff = 255;
-                        if (GColorDiff < 0) GColorDiff = 0;
-                        if (PixelColor.B > oldColor.B) BColorDiff = NewColor.B + BColorDiff;
-                        else BColorDiff = NewColor.B - BColorDiff;
-                        if (BColorDiff > 255) BColorDiff = 255;
-                        if (BColorDiff < 0) BColorDiff = 0;
+                        if (PixelColor.R > oldColor.R)
+                        {
+                            RColorDiff = NewColor.R + RColorDiff;
+                        }
+                        else
+                        {
+                            RColorDiff = NewColor.R - RColorDiff;
+                        }
+
+                        if (RColorDiff > 255)
+                        {
+                            RColorDiff = 255;
+                        }
+
+                        if (RColorDiff < 0)
+                        {
+                            RColorDiff = 0;
+                        }
+
+                        if (PixelColor.G > oldColor.G)
+                        {
+                            GColorDiff = NewColor.G + GColorDiff;
+                        }
+                        else
+                        {
+                            GColorDiff = NewColor.G - GColorDiff;
+                        }
+
+                        if (GColorDiff > 255)
+                        {
+                            GColorDiff = 255;
+                        }
+
+                        if (GColorDiff < 0)
+                        {
+                            GColorDiff = 0;
+                        }
+
+                        if (PixelColor.B > oldColor.B)
+                        {
+                            BColorDiff = NewColor.B + BColorDiff;
+                        }
+                        else
+                        {
+                            BColorDiff = NewColor.B - BColorDiff;
+                        }
+
+                        if (BColorDiff > 255)
+                        {
+                            BColorDiff = 255;
+                        }
+
+                        if (BColorDiff < 0)
+                        {
+                            BColorDiff = 0;
+                        }
 
                         outputImage.SetPixel(x, y, Color.FromArgb(RColorDiff, GColorDiff, BColorDiff));
                     }
                 }
+            }
+
             return outputImage;
         }
         public static Image RepaintImage(Image input, Image texture, bool repeatable)
@@ -145,6 +192,7 @@ namespace Korot
                 Bitmap outputImage = new Bitmap(input.Width, input.Height);
                 Bitmap textureImage = new Bitmap(texture);
                 for (Int32 y = 0; y < outputImage.Height; y++)
+                {
                     for (Int32 x = 0; x < outputImage.Width; x++)
                     {
                         Color PixelColor = textureImage.GetPixel(x % textureImage.Width, y % textureImage.Height);
@@ -158,6 +206,8 @@ namespace Korot
                             outputImage.SetPixel(x, y, Color.FromArgb(PixelColor.A, PixelColor.R, PixelColor.G, PixelColor.B));
                         }
                     }
+                }
+
                 return outputImage;
             }
             else
@@ -166,6 +216,7 @@ namespace Korot
                 Bitmap outputImage = new Bitmap(input.Width, input.Height);
                 Bitmap textureImage = new Bitmap(original: texture, newSize: input.Size);
                 for (Int32 y = 0; y < outputImage.Height; y++)
+                {
                     for (Int32 x = 0; x < outputImage.Width; x++)
                     {
                         Color PixelColor = textureImage.GetPixel(x, y);
@@ -179,6 +230,8 @@ namespace Korot
                             outputImage.SetPixel(x, y, Color.FromArgb(PixelColor.A, PixelColor.R, PixelColor.G, PixelColor.B));
                         }
                     }
+                }
+
                 return outputImage;
             }
         }
@@ -194,7 +247,9 @@ namespace Korot
             ListWithEvents<TitleBarTab> allTabs = tab.Parent.Tabs;
 
             if (tab.Active || allTabs.IndexOf(tab) == allTabs.Count - 1)
+            {
                 return base.GetTabRightImage(tab);
+            }
 
             return _inactiveRightSideShadowImage;
         }

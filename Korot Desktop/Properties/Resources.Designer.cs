@@ -313,28 +313,18 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   &lt;head&gt;
-        ///&lt;style&gt;
-        ///.content {
-        ///  max-width: 500px;
-        ///  margin: auto;
-        ///}
-        /// body{
-        /// background-color: rgb(64,64,64);
-        /// }
-        /// h1{
-        /// color: white;
-        /// }
-        /// h2{
-        /// color: white;
-        /// }
-        /// li{
-        /// color: white;
-        /// }
-        ///&lt;/style&gt;
-        ///&lt;title&gt;§TITLE§&lt;/title&gt;
-        ///&lt;/head&gt;
-        ///&lt;body class=&quot;content&quot;&gt;
-        ///&lt;img style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAA7EAAAOxAGVKw4bAAA57mlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXB [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        ///&lt;!--MIT License
+        ///
+        ///Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///
+        ///Permission is hereby granted, free of charge, to any person obtaining a copy
+        ///of this software and associated documentation files (the &quot;Software&quot;), to deal
+        ///in the Software without restriction, including without limitation the rights
+        ///to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        ///copies of the Software, and to permit persons to whom the Software is
+        ///furnished to do so, subject to the following conditions:
+        ///
+        ///T [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         internal static string incognito {
             get {
@@ -534,26 +524,6 @@ namespace Korot.Properties {
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap newincwindow {
-            get {
-                object obj = ResourceManager.GetObject("newincwindow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap newincwindow_w {
-            get {
-                object obj = ResourceManager.GetObject("newincwindow_w", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   &lt;html&gt;
         ///&lt;!--MIT License
         ///
@@ -610,26 +580,6 @@ namespace Korot.Properties {
         internal static System.Drawing.Bitmap profiles_w {
             get {
                 object obj = ResourceManager.GetObject("profiles-w", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap prxy {
-            get {
-                object obj = ResourceManager.GetObject("prxy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static System.Drawing.Bitmap prxy_w {
-            get {
-                object obj = ResourceManager.GetObject("prxy-w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -710,6 +660,16 @@ namespace Korot.Properties {
         internal static System.Drawing.Bitmap star_on {
             get {
                 object obj = ResourceManager.GetObject("star-on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap star_on_w {
+            get {
+                object obj = ResourceManager.GetObject("star_on_w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

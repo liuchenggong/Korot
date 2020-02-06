@@ -86,7 +86,13 @@ namespace Korot
             {
                 CEFform.Invoke(new Action(() => CEFform.ChangeProgress(progress)));
             }
-            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.DisplayHandler.OnLoadingProgressChange] Error: " + ex.ToString()); }
+            catch (Exception ex)
+            {
+                if (Properties.Settings.Default.debugLogExceptions)
+                {
+                    Output.WriteLine(" [Korot.DisplayHandler.OnLoadingProgressChange] Error: " + ex.ToString());
+                }
+            }
         }
 
         public void OnStatusMessage(IWebBrowser chromiumWebBrowser, StatusMessageEventArgs statusMessageArgs)

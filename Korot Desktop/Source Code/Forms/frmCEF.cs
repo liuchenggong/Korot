@@ -67,12 +67,24 @@ namespace Korot
             InitializeChromium();
             foreach (Control x in this.Controls)
             {
-                try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; } catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.New()] Error: " + ex.ToString()); }
+                try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; }
+                catch (Exception ex)
+                {
+                    if (Properties.Settings.Default.debugLogExceptions)
+                    {
+                        Output.WriteLine(" [Korot.frmCEF.New()] Error: " + ex.ToString());
+                    }
+                }
             }
             Uri testUri = new Uri("https://haltroy.com");
             Uri aUri = WebRequest.GetSystemWebProxy().GetProxy(testUri);
-            if (aUri != testUri) defaultProxy = aUri.AbsoluteUri;
-            if (defaultProxy == null) {DefaultProxyts.Visible = false; DefaultProxyts.Enabled = false;} else
+            if (aUri != testUri)
+            {
+                defaultProxy = aUri.AbsoluteUri;
+            }
+
+            if (defaultProxy == null) { DefaultProxyts.Visible = false; DefaultProxyts.Enabled = false; }
+            else
             {
                 if (Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy)) { SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy); }
             }
@@ -93,14 +105,30 @@ namespace Korot
                     listV.SubItems.Add(SplittedFase[i + 2].Replace(Environment.NewLine, ""));
                     hlvHistory.Items.Add(listV);
                     i += 3;
-                }catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshHistory] (Refresh) i=" + i + " Count=" + Count + "Error: " + ex.ToString()); }
+                }
+                catch (Exception ex)
+                {
+                    if (Properties.Settings.Default.debugLogExceptions)
+                    {
+                        Output.WriteLine(" [Korot.frmCEF.RefreshHistory] (Refresh) i=" + i + " Count=" + Count + "Error: " + ex.ToString());
+                    }
+                }
             }
             try
             {
                 hlvHistory.SelectedIndices.Clear();
-               if (selectedValue < (hlvHistory.Items.Count -1)) hlvHistory.Items[selectedValue].Selected = true;
+                if (selectedValue < (hlvHistory.Items.Count - 1))
+                {
+                    hlvHistory.Items[selectedValue].Selected = true;
+                }
             }
-            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshHistory] Error: " + ex.ToString()); }
+            catch (Exception ex)
+            {
+                if (Properties.Settings.Default.debugLogExceptions)
+                {
+                    Output.WriteLine(" [Korot.frmCEF.RefreshHistory] Error: " + ex.ToString());
+                }
+            }
         }
         public void FindUpdate(int identifier, int count, int activeMatchOrdinal, bool finalUpdate)
         {
@@ -718,7 +746,14 @@ namespace Korot
             {
                 lbLang.Items.Add(Path.GetFileNameWithoutExtension(foundfile));
             }
-            try { lbLang.SelectedIndex = savedValue; } catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.FrmCEF.RefreshLangList] Error: " + ex.ToString()); }
+            try { lbLang.SelectedIndex = savedValue; }
+            catch (Exception ex)
+            {
+                if (Properties.Settings.Default.debugLogExceptions)
+                {
+                    Output.WriteLine(" [Korot.FrmCEF.RefreshLangList] Error: " + ex.ToString());
+                }
+            }
 
         }
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
@@ -852,7 +887,13 @@ namespace Korot
                     hlvDownload.Items.Add(listV);
                 }
             }
-            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshDownloadList] (Current Downloads) Error: " + ex.ToString()); }
+            catch (Exception ex)
+            {
+                if (Properties.Settings.Default.debugLogExceptions)
+                {
+                    Output.WriteLine(" [Korot.frmCEF.RefreshDownloadList] (Current Downloads) Error: " + ex.ToString());
+                }
+            }
             string Playlist = Properties.Settings.Default.DowloadHistory;
             string[] SplittedFase = Playlist.Split(';');
             int Count = SplittedFase.Length - 1; ; int i = 0;
@@ -871,15 +912,24 @@ namespace Korot
                     i += 1;
                     hlvDownload.Items.Add(listV);
                 }
-                catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshDownloadList] (Finished Downloads) Error: " + ex.ToString()); if (Properties.Settings.Default.debugForceContinue) { continue; } else { i = Count; } }
+                catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) { Output.WriteLine(" [Korot.frmCEF.RefreshDownloadList] (Finished Downloads) Error: " + ex.ToString()); } if (Properties.Settings.Default.debugForceContinue) { continue; } else { i = Count; } }
 
             }
             try
             {
                 hlvDownload.SelectedIndices.Clear();
-                if (selectedValue < (hlvDownload.Items.Count -1)) hlvDownload.Items[selectedValue].Selected = true;
+                if (selectedValue < (hlvDownload.Items.Count - 1))
+                {
+                    hlvDownload.Items[selectedValue].Selected = true;
+                }
             }
-            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshDownloadList] Error: " + ex.ToString()); }
+            catch (Exception ex)
+            {
+                if (Properties.Settings.Default.debugLogExceptions)
+                {
+                    Output.WriteLine(" [Korot.frmCEF.RefreshDownloadList] Error: " + ex.ToString());
+                }
+            }
 
         }
         private void ListView2_DoubleClick(object sender, EventArgs e)
@@ -1146,7 +1196,7 @@ namespace Korot
             int savedValue = listBox2.SelectedIndex;
             try
             {
-                
+
                 listBox2.Items.Clear();
                 foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"))
                 {
@@ -1156,12 +1206,24 @@ namespace Korot
                     }
                 }
             }
-            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshThemeList] (Reload) Error: " + ex.ToString()); }
+            catch (Exception ex)
+            {
+                if (Properties.Settings.Default.debugLogExceptions)
+                {
+                    Output.WriteLine(" [Korot.frmCEF.RefreshThemeList] (Reload) Error: " + ex.ToString());
+                }
+            }
             try
             {
                 listBox2.SelectedIndex = savedValue;
             }
-            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.RefreshThemeList] Error: " + ex.ToString()); }
+            catch (Exception ex)
+            {
+                if (Properties.Settings.Default.debugLogExceptions)
+                {
+                    Output.WriteLine(" [Korot.frmCEF.RefreshThemeList] Error: " + ex.ToString());
+                }
+            }
         }
 
 
@@ -1290,7 +1352,10 @@ namespace Korot
             foreach (var o in wmi.GetInstances())
             {
                 var mo = (ManagementObject)o;
-                if (mo != null) return mo;
+                if (mo != null)
+                {
+                    return mo;
+                }
             }
 
             return null;
@@ -1303,7 +1368,9 @@ namespace Korot
                 ManagementObject mo = GetMngObj("Win32_OperatingSystem");
 
                 if (null == mo)
+                {
                     return string.Empty;
+                }
 
                 return mo["Version"] as string;
             }
@@ -1360,9 +1427,9 @@ namespace Korot
             chromiumWebBrowser1.MouseWheel += MouseScroll;
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
-            if (defaultProxy != null && Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy)) 
+            if (defaultProxy != null && Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy))
             {
-                SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy); 
+                SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy);
             }
         }
         public void executeStartupExtensions()
@@ -1445,7 +1512,13 @@ namespace Korot
                         button1.Invoke(new Action(() => button1.Enabled = false));
                         button3.Invoke(new Action(() => button3.Enabled = false));
                     }
-                    catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.LoadingStateChanged.Catch] Error: " + ex.ToString()); }
+                    catch (Exception ex)
+                    {
+                        if (Properties.Settings.Default.debugLogExceptions)
+                        {
+                            Output.WriteLine(" [Korot.frmCEF.LoadingStateChanged.Catch] Error: " + ex.ToString());
+                        }
+                    }
                 }
             }
             isLoading = e.IsLoading;
@@ -1613,7 +1686,7 @@ namespace Korot
             if (Properties.Settings.Default.Favorites.Contains(e.Address))
             {
                 isLoadedPageFavroited = true;
-                button7.Image = Properties.Resources.star_on;
+                button7.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.star_on_w : Properties.Resources.star_on;
             }
             else
             {
@@ -1701,7 +1774,11 @@ namespace Korot
         public bool isControlKeyPressed = false;
         public void tabform_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Properties.Settings.Default.debugLogKeys) Output.WriteLine(" [Korot.frmCEF.KeyDown] KeyeventArgs: " + e.ToString());
+            if (Properties.Settings.Default.debugLogKeys)
+            {
+                Output.WriteLine(" [Korot.frmCEF.KeyDown] KeyeventArgs: " + e.ToString());
+            }
+
             isControlKeyPressed = e.Control;
             if (e.KeyData == Keys.BrowserBack)
             {
@@ -1884,7 +1961,7 @@ namespace Korot
                 cmsPrivacy.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 extensionToolStripMenuItem1.DropDown.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 textBox4.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                if (isLoadedPageFavroited) { button7.Image = Properties.Resources.star_on; } else { button7.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
+                if (isLoadedPageFavroited) { button7.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { button7.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
                 mFavorites.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 settingsToolStripMenuItem.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.Settings : Properties.Resources.Settings_w;
                 newWindowToolStripMenuItem.Image = Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.newwindow : Properties.Resources.newwindow_w;
@@ -1979,7 +2056,11 @@ namespace Korot
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (chromiumWebBrowser1.IsDisposed) this.Close();
+            if (chromiumWebBrowser1.IsDisposed)
+            {
+                this.Close();
+            }
+
             if (findLast)
             {
                 tsSearchStatus.Text = findC + " " + findCurrent + " " + findL + " " + findT + " " + findTotal;
@@ -1999,7 +2080,13 @@ namespace Korot
                 ChangeTheme();
                 this.Parent.Text = this.Text;
             }
-            catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.timer1_Tick] Error: " + ex.ToString()); }
+            catch (Exception ex)
+            {
+                if (Properties.Settings.Default.debugLogExceptions)
+                {
+                    Output.WriteLine(" [Korot.frmCEF.timer1_Tick] Error: " + ex.ToString());
+                }
+            }
 
             RefreshTranslation();
             if (anaform.restoremedaddy == "") { spRestorer.Visible = false; restoreLastSessionToolStripMenuItem.Visible = false; } else { spRestorer.Visible = true; restoreLastSessionToolStripMenuItem.Visible = true; }
@@ -2024,7 +2111,7 @@ namespace Korot
             {
                 Properties.Settings.Default.Favorites += (chromiumWebBrowser1.Address + ";");
                 Properties.Settings.Default.Favorites += (this.Text + ";");
-                button7.Image = Properties.Resources.star_on;
+                button7.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.star_on_w : Properties.Resources.star_on;
                 isLoadedPageFavroited = true;
             }
             RefreshFavorites();
@@ -2088,7 +2175,7 @@ namespace Korot
         {
             cmsProfiles.Show(MousePosition);
         }
-        private void DefaultProxyts_Click(object sender,EventArgs e)
+        private void DefaultProxyts_Click(object sender, EventArgs e)
         {
             SetProxy(chromiumWebBrowser1, defaultProxy);
             DefaultProxyts.Enabled = false;
@@ -2105,9 +2192,15 @@ namespace Korot
                 {
                     chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(FileSystem2.ReadFile(SplittedFase[5].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"), Encoding.UTF8));
                 }
-                catch (Exception ex) { if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [Korot.frmCEF.ExtensionToolStripMenuItem] Error: " + ex.ToString()); }
+                catch (Exception ex)
+                {
+                    if (Properties.Settings.Default.debugLogExceptions)
+                    {
+                        Output.WriteLine(" [Korot.frmCEF.ExtensionToolStripMenuItem] Error: " + ex.ToString());
+                    }
+                }
             }
-            if(SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(4, 1) == "1" && !string.IsNullOrWhiteSpace(SplittedFase[7].Substring(1).Replace(Environment.NewLine, "")) && defaultProxy != null)
+            if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(4, 1) == "1" && !string.IsNullOrWhiteSpace(SplittedFase[7].Substring(1).Replace(Environment.NewLine, "")) && defaultProxy != null)
             {
                 SetProxy(chromiumWebBrowser1, SplittedFase[7].Substring(1).Replace(Environment.NewLine, ""));
                 DefaultProxyts.Enabled = true;
@@ -2384,7 +2477,11 @@ namespace Korot
 
         private void MouseScroll(object sender, MouseEventArgs e)
         {
-            if (Properties.Settings.Default.debugLogMouse) Output.WriteLine(" [Korot.frmCEF.MosueScroll] MosueEventArgs: " + e.ToString());
+            if (Properties.Settings.Default.debugLogMouse)
+            {
+                Output.WriteLine(" [Korot.frmCEF.MosueScroll] MosueEventArgs: " + e.ToString());
+            }
+
             if (isControlKeyPressed)
             {
                 allowSwitching = true;
@@ -2501,7 +2598,10 @@ namespace Korot
         }
         private void toolStripTextBox1_Click(object sender, EventArgs e)
         {
-            if (!toolStripTextBox1.Selected) toolStripTextBox1.SelectAll();
+            if (!toolStripTextBox1.Selected)
+            {
+                toolStripTextBox1.SelectAll();
+            }
         }
 
         private void historyToolStripMenuItem_Click(object sender, EventArgs e)

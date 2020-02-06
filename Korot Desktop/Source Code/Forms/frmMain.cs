@@ -316,7 +316,7 @@ namespace Korot
                         profilePath + "history.ksf",
                         profilePath + "favorites.ksf",
                         profilePath + "download.ksf");
-                }  
+                }
             }
             else
             { Process.Start(Application.ExecutablePath, "-oobe"); this.Close(); }
@@ -353,7 +353,13 @@ namespace Korot
                 Properties.Settings.Default.LastSessionURIs = Session;
                 if (!isIncognito) { Properties.Settings.Default.Save(); }
             }
-            catch (Exception ex ){ if (Properties.Settings.Default.debugLogExceptions) Output.WriteLine(" [KorotfrmMain.WriteSession] Error: " + ex.ToString()); }
+            catch (Exception ex)
+            {
+                if (Properties.Settings.Default.debugLogExceptions)
+                {
+                    Output.WriteLine(" [KorotfrmMain.WriteSession] Error: " + ex.ToString());
+                }
+            }
         }
         public void ReadLatestCurrentSession()
         {

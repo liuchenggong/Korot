@@ -54,7 +54,11 @@ namespace Korot
         }
         public bool OnPreKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut)
         {
-            if (Properties.Settings.Default.debugLogKeys) Output.WriteLine(" [Korot.KeyboardHandler.OnPreKeyEvent] KeyType: " + type + " windowsKeyCode: " + windowsKeyCode + " nativeKeyCode: " + nativeKeyCode + " modifiers: " + modifiers + " isSystemKey: " + isSystemKey + " isKeyboardShortcut: " + isKeyboardShortcut);
+            if (Properties.Settings.Default.debugLogKeys)
+            {
+                Output.WriteLine(" [Korot.KeyboardHandler.OnPreKeyEvent] KeyType: " + type + " windowsKeyCode: " + windowsKeyCode + " nativeKeyCode: " + nativeKeyCode + " modifiers: " + modifiers + " isSystemKey: " + isSystemKey + " isKeyboardShortcut: " + isKeyboardShortcut);
+            }
+
             _frmCEF.Invoke(new Action(() => _frmCEF.isControlKeyPressed = ((modifiers == CefEventFlags.ControlDown) || windowsKeyCode == VK_CONTROL)));
             if (windowsKeyCode == VK_BROWSER_BACK)
             {
@@ -161,7 +165,11 @@ namespace Korot
         }
         public bool OnKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey)
         {
-            if (Properties.Settings.Default.debugLogKeys) Output.WriteLine(" [Korot.KeyboardHandler.OnKeyEvent] KeyType: " + type + " windowsKeyCode: " + windowsKeyCode + " nativeKeyCode: " + nativeKeyCode + " modifiers: " + modifiers + " isSystemKey: " + isSystemKey);
+            if (Properties.Settings.Default.debugLogKeys)
+            {
+                Output.WriteLine(" [Korot.KeyboardHandler.OnKeyEvent] KeyType: " + type + " windowsKeyCode: " + windowsKeyCode + " nativeKeyCode: " + nativeKeyCode + " modifiers: " + modifiers + " isSystemKey: " + isSystemKey);
+            }
+
             if ((windowsKeyCode == keyF && modifiers == CefEventFlags.ControlDown)
                 || ((windowsKeyCode == VK_PRIOR || windowsKeyCode == VK_NEXT || windowsKeyCode == VK_UP || windowsKeyCode == VK_DOWN) && modifiers == CefEventFlags.ControlDown)
                 || windowsKeyCode == VK_BROWSER_BACK

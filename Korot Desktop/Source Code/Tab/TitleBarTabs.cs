@@ -11,7 +11,6 @@ using Win32Interop.Enums;
 using Win32Interop.Methods;
 using Win32Interop.Structs;
 using Point = System.Drawing.Point;
-using Size = System.Drawing.Size;
 
 namespace Korot
 {
@@ -520,8 +519,8 @@ namespace Korot
 
             if (tab != null)
             {
-                    tab.Content.Location = new Point(0, Padding.Top - 1);
-                    //tab.Content.Size = new Size(ClientRectangle.Width, ClientRectangle.Height - Padding.Top + 1);
+                tab.Content.Location = new Point(0, Padding.Top - 1);
+                //tab.Content.Size = new Size(ClientRectangle.Width, ClientRectangle.Height - Padding.Top + 1);
             }
         }
 

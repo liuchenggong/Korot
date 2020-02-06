@@ -55,12 +55,21 @@ namespace Korot
         public static bool SendMessage(string windowTitle, int msgId, IntPtr wParam, IntPtr lParam)
         {
             IntPtr WindowToFind = FindWindow(null, windowTitle);
-            if (WindowToFind == IntPtr.Zero) return false;
+            if (WindowToFind == IntPtr.Zero)
+            {
+                return false;
+            }
 
             long result = SendMessage(WindowToFind, msgId, wParam, lParam);
 
-            if (result == 0) return true;
-            else return false;
+            if (result == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

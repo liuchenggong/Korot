@@ -20,7 +20,11 @@ namespace Korot
         {
             await Task.Run(() =>
             {
-                if (!Directory.Exists(Application.StartupPath + "\\Lang\\")) Directory.CreateDirectory(Application.StartupPath + "\\Lang\\");
+                if (!Directory.Exists(Application.StartupPath + "\\Lang\\"))
+                {
+                    Directory.CreateDirectory(Application.StartupPath + "\\Lang\\");
+                }
+
                 FileSystem2.WriteFile(Application.StartupPath + "\\Lang\\English.lang", Properties.Resources.English);
             });
         }
