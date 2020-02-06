@@ -3,7 +3,7 @@ An advanced Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy'
 
 Latest Stable Version: [`0.4.9.10`](https://github.com/Haltroy/Korot/releases/tag/0.4.9.10).
 
-Latest Dev Version: [`0.5.0.0-pre2`](https://github.com/Haltroy/Korot/releases/tag/0.5-pre2)
+Latest Dev Version: [`0.5.0.0-pre3`](https://github.com/Haltroy/Korot/releases/tag/0.5-pre3)
 
 ## Features:
  - HTML5, CSS3, JS, HTML5 Video, WebGL 3D, etc. supported.
