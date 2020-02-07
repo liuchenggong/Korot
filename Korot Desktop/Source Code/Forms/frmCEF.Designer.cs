@@ -55,7 +55,6 @@ namespace Korot
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.cmsPrivacy = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.xToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.safeStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ınfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cookieInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -216,6 +215,10 @@ namespace Korot
             this.ımageFromLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ımageFromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrRefresher = new System.Windows.Forms.Timer(this.components);
+            this.cmsIncognito = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ıncognitoModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clickHereToLearnMoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.thisSessionİsNotGoingToBeSavedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -241,6 +244,7 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.cmsSearchEngine.SuspendLayout();
             this.contextMenuStrip3.SuspendLayout();
+            this.cmsIncognito.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbAddress
@@ -295,7 +299,6 @@ namespace Korot
             this.cmsPrivacy.AllowMerge = false;
             this.cmsPrivacy.BackColor = System.Drawing.Color.White;
             this.cmsPrivacy.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.xToolStripMenuItem,
             this.safeStatusToolStripMenuItem,
             this.ınfoToolStripMenuItem,
             this.cookieInfoToolStripMenuItem,
@@ -305,29 +308,22 @@ namespace Korot
             this.cmsPrivacy.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsPrivacy.ShowImageMargin = false;
             this.cmsPrivacy.ShowItemToolTips = false;
-            this.cmsPrivacy.Size = new System.Drawing.Size(238, 160);
-            // 
-            // xToolStripMenuItem
-            // 
-            this.xToolStripMenuItem.Name = "xToolStripMenuItem";
-            this.xToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.xToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
-            this.xToolStripMenuItem.Text = "x";
-            this.xToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
+            this.cmsPrivacy.Size = new System.Drawing.Size(238, 134);
             // 
             // safeStatusToolStripMenuItem
             // 
-            this.safeStatusToolStripMenuItem.Enabled = false;
             this.safeStatusToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.safeStatusToolStripMenuItem.Name = "safeStatusToolStripMenuItem";
+            this.safeStatusToolStripMenuItem.ShortcutKeyDisplayString = "X";
             this.safeStatusToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
             this.safeStatusToolStripMenuItem.Text = "SafeStatus";
+            this.safeStatusToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
             // 
             // ınfoToolStripMenuItem
             // 
             this.ınfoToolStripMenuItem.Enabled = false;
             this.ınfoToolStripMenuItem.Name = "ınfoToolStripMenuItem";
+            this.ınfoToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.ınfoToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
             this.ınfoToolStripMenuItem.Text = "Info";
             // 
@@ -1947,6 +1943,40 @@ namespace Korot
             this.tmrRefresher.Interval = 5000;
             this.tmrRefresher.Tick += new System.EventHandler(this.tmrRefresher_Tick);
             // 
+            // cmsIncognito
+            // 
+            this.cmsIncognito.BackColor = System.Drawing.Color.White;
+            this.cmsIncognito.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ıncognitoModeToolStripMenuItem,
+            this.thisSessionİsNotGoingToBeSavedToolStripMenuItem,
+            this.clickHereToLearnMoreToolStripMenuItem});
+            this.cmsIncognito.Name = "cmsIncognito";
+            this.cmsIncognito.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cmsIncognito.Size = new System.Drawing.Size(269, 104);
+            // 
+            // ıncognitoModeToolStripMenuItem
+            // 
+            this.ıncognitoModeToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.ıncognitoModeToolStripMenuItem.Name = "ıncognitoModeToolStripMenuItem";
+            this.ıncognitoModeToolStripMenuItem.ShortcutKeyDisplayString = "X";
+            this.ıncognitoModeToolStripMenuItem.Size = new System.Drawing.Size(268, 26);
+            this.ıncognitoModeToolStripMenuItem.Text = "Incognito Mode";
+            this.ıncognitoModeToolStripMenuItem.Click += new System.EventHandler(this.ıncognitoModeToolStripMenuItem_Click);
+            // 
+            // clickHereToLearnMoreToolStripMenuItem
+            // 
+            this.clickHereToLearnMoreToolStripMenuItem.Name = "clickHereToLearnMoreToolStripMenuItem";
+            this.clickHereToLearnMoreToolStripMenuItem.Size = new System.Drawing.Size(268, 26);
+            this.clickHereToLearnMoreToolStripMenuItem.Text = "Click here to learn more.";
+            this.clickHereToLearnMoreToolStripMenuItem.Click += new System.EventHandler(this.clickHereToLearnMoreToolStripMenuItem_Click);
+            // 
+            // thisSessionİsNotGoingToBeSavedToolStripMenuItem
+            // 
+            this.thisSessionİsNotGoingToBeSavedToolStripMenuItem.Enabled = false;
+            this.thisSessionİsNotGoingToBeSavedToolStripMenuItem.Name = "thisSessionİsNotGoingToBeSavedToolStripMenuItem";
+            this.thisSessionİsNotGoingToBeSavedToolStripMenuItem.Size = new System.Drawing.Size(268, 26);
+            this.thisSessionİsNotGoingToBeSavedToolStripMenuItem.Text = "This session is not going to be saved.";
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -2002,6 +2032,7 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.cmsSearchEngine.ResumeLayout(false);
             this.contextMenuStrip3.ResumeLayout(false);
+            this.cmsIncognito.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2036,7 +2067,6 @@ namespace Korot
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer tmrSlower;
         private System.Windows.Forms.PictureBox pbProgress;
-        private System.Windows.Forms.ToolStripMenuItem xToolStripMenuItem;
         public System.Windows.Forms.PictureBox pictureBox2;
         public System.Windows.Forms.ContextMenuStrip cmsPrivacy;
         public System.Windows.Forms.ToolStripMenuItem safeStatusToolStripMenuItem;
@@ -2172,5 +2202,9 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem tsThemes;
         private System.Windows.Forms.Label label23;
         private HaltroyFramework.HaltroySwitch hsProxy;
+        private System.Windows.Forms.ContextMenuStrip cmsIncognito;
+        private System.Windows.Forms.ToolStripMenuItem ıncognitoModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem thisSessionİsNotGoingToBeSavedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clickHereToLearnMoreToolStripMenuItem;
     }
 }

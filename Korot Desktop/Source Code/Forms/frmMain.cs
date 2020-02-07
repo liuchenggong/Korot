@@ -199,7 +199,8 @@ namespace Korot
         {
             Properties.Settings.Default.LastUser = profilename;
             if (!isIncognito) { Properties.Settings.Default.Save(); }
-            Application.Restart();
+            Process.Start(Application.ExecutablePath);
+            this.Close();
         }
         public void DeleteProfile(string profilename)
         {
@@ -208,7 +209,8 @@ namespace Korot
             frmCEF obj = (frmCEF)Application.OpenForms["frmCEF"]; obj.Close(); CefSharp.Cef.Shutdown();
             Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profilename + "\\", true);
             if (!isIncognito) { Properties.Settings.Default.Save(); }
-            Application.Restart();
+            Process.Start(Application.ExecutablePath);
+            this.Close();
         }
         public void NewProfile()
         {

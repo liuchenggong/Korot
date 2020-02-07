@@ -297,8 +297,11 @@ namespace Korot
             , string it1m1, string it1m2, string it1m3, string ititle2, string it2m1, string it2m2, string it2m3, string _print,
             string hFile, string takeSS, string savePage, string zoomIn, string resetZoom, string zoomOut, string validCode,
             string renderProcessIsKil, string extensionstxt, string themeInfoTXT, string anan, string naname, string fNext,
-            string rTP, string fC, string fT, string fL, string fN, string status)
+            string rTP, string fC, string fT, string fL, string fN, string status,string incMode,string incHelp,string incMore)
         {
+            ıncognitoModeToolStripMenuItem.Text = incMode.Replace(Environment.NewLine, "");
+            thisSessionİsNotGoingToBeSavedToolStripMenuItem.Text = incHelp.Replace(Environment.NewLine, "");
+            clickHereToLearnMoreToolStripMenuItem.Text = incMore.Replace(Environment.NewLine, "");
             chStatus.Text = status.Replace(Environment.NewLine, "");
             label23.Text = rTP.Replace(Environment.NewLine, "");
             //tsSearchPrev.Text = fPrev.Replace(Environment.NewLine, "");
@@ -712,7 +715,10 @@ namespace Korot
                     languagedummy.Items[189].ToString().Substring(1),
                     languagedummy.Items[190].ToString().Substring(1),
                     languagedummy.Items[191].ToString().Substring(1),
-                    languagedummy.Items[193].ToString().Substring(1));
+                    languagedummy.Items[193].ToString().Substring(1),
+                    languagedummy.Items[194].ToString().Substring(1),
+                    languagedummy.Items[195].ToString().Substring(1),
+                    languagedummy.Items[196].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -1897,8 +1903,9 @@ namespace Korot
             if (Properties.Settings.Default.BackColor != oldBackColor)
             {
                 cmsFavorite.BackColor = Properties.Settings.Default.BackColor;
-
+                cmsIncognito.BackColor = Properties.Settings.Default.BackColor;
                 oldBackColor = Properties.Settings.Default.BackColor;
+                cmsIncognito.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 cmsFavorite.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 button13.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 tsThemes.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.theme_w : Properties.Resources.theme;
@@ -2380,8 +2387,7 @@ namespace Korot
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            NewTab("korot://incognito");
-            anaform.Invoke(new Action(() => anaform.SelectedTabIndex = anaform.Tabs.Count - 1));
+            cmsIncognito.Show(pictureBox1, 0, 0);
         }
 
         private void openInNewTab_Click(object sender, EventArgs e)
@@ -2642,6 +2648,17 @@ namespace Korot
             button3.Enabled = true;
             allowSwitching = true;
             tabControl1.SelectedTab = tabPage7;
+        }
+
+        private void clickHereToLearnMoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewTab("korot://incognito");
+            anaform.Invoke(new Action(() => anaform.SelectedTabIndex = anaform.Tabs.Count - 1));
+        }
+
+        private void ıncognitoModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cmsIncognito.Close();
         }
     }
 }
