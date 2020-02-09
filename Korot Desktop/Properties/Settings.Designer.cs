@@ -303,66 +303,6 @@ namespace Korot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool debugLogDisposes {
-            get {
-                return ((bool)(this["debugLogDisposes"]));
-            }
-            set {
-                this["debugLogDisposes"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool debugLogKeys {
-            get {
-                return ((bool)(this["debugLogKeys"]));
-            }
-            set {
-                this["debugLogKeys"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool debugLogMouse {
-            get {
-                return ((bool)(this["debugLogMouse"]));
-            }
-            set {
-                this["debugLogMouse"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool debugForceContinue {
-            get {
-                return ((bool)(this["debugForceContinue"]));
-            }
-            set {
-                this["debugForceContinue"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool debugLogExceptions {
-            get {
-                return ((bool)(this["debugLogExceptions"]));
-            }
-            set {
-                this["debugLogExceptions"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool rememberLastProxy {
             get {
                 return ((bool)(this["rememberLastProxy"]));
@@ -381,6 +321,42 @@ namespace Korot.Properties {
             }
             set {
                 this["LastProxy"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DownloadFolder {
+            get {
+                return ((string)(this["DownloadFolder"]));
+            }
+            set {
+                this["DownloadFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool useDownloadFolder {
+            get {
+                return ((bool)(this["useDownloadFolder"]));
+            }
+            set {
+                this["useDownloadFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("korot://newtab")]
+        public string StartupURL {
+            get {
+                return ((string)(this["StartupURL"]));
+            }
+            set {
+                this["StartupURL"] = value;
             }
         }
     }

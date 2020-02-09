@@ -36,23 +36,33 @@ namespace Korot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            bool appStarted = false;
             try
             {
                 if (!File.Exists(Properties.Settings.Default.LangFile)) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
                 if (!File.Exists(Application.StartupPath + "\\Lang\\English.lang"))
                 {
-                    Output.WriteLine(" [Korot] FATAL_ERROR: \"English.lang\" not found." + Environment.NewLine + " [Korot] Running Language Repair module.");
+                    Output.WriteLine(" [Korot] LANG_FATAL_ERROR: \"English.lang\" not found." + Environment.NewLine + " [Korot] Running Language Repair module.");
                     Application.Run(new frmTamirLang());
+                    appStarted = true;
                 }
                 else
                 {
+                    if (string.IsNullOrWhiteSpace(Properties.Settings.Default.DownloadFolder))
+                    {
+                        Properties.Settings.Default.DownloadFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads\\";
+                    }
                     if (args.Contains("-update"))
                     {
                         Application.Run(new Form1());
+                        appStarted = true;
+                        return;
                     }
                     else if (args.Contains("-oobe") || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
                     {
                         Application.Run(new frmOOBE());
+                        appStarted = true;
+                        return;
                     }
                     else
                     {
@@ -60,19 +70,14 @@ namespace Korot
                         testApp.isIncognito = args.Contains("-incognito");
                         bool isIncognito = args.Contains("-incognito");
                         if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
-                        testApp.Tabs.Add(
-                            new TitleBarTab(testApp)
-                            {
-                                Content = new frmCEF(testApp, isIncognito, Properties.Settings.Default.Homepage, Properties.Settings.Default.LastUser) { }
-                            });
                         foreach (string x in args)
                         {
                             if (x == Application.ExecutablePath || x == "-oobe" || x == "-update") { }
                             else if (x == "-incognito")
                             {
-                                testApp.CreateTab("korot://incognito");
+                                testApp.Tabs.Add(new TitleBarTab(testApp){Content = new frmCEF(testApp, true, "korot://incognito", Properties.Settings.Default.LastUser) { }});
                             }
-                            else if (x == "-debug")
+                            else if (x == "-debug" && !isIncognito)
                             {
                                 frmDebugSettings frmDebug = new frmDebugSettings();
                                 frmDebug.Show();
@@ -80,24 +85,36 @@ namespace Korot
                             else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
                             {
                                 Application.Run(new frmInstallExt(x));
+                                appStarted = true;
+                                return;
                             }
                             else
                             {
                                 testApp.CreateTab(x);
                             }
                         }
-                        testApp.SelectedTabIndex = testApp.isIncognito ? 1 : 0;
+                        if (testApp.Tabs.Count < 1)
+                        {
+                            testApp.Tabs.Add(
+    new TitleBarTab(testApp)
+    {
+        Content = new frmCEF(testApp, isIncognito, Properties.Settings.Default.StartupURL, Properties.Settings.Default.LastUser) { }
+    });
+                        }
+                        testApp.SelectedTabIndex = 0;
                         TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
                         applicationContext.Start(testApp);
                         Application.Run(applicationContext);
+                        appStarted = true;
                     }
                 }
             }
             catch (Exception ex)
             {
                 Output.WriteLine(" [Korot] FATAL_ERROR: " + ex.ToString());
-                Application.Run(new frmError(ex.ToString()));
+                frmError form = new frmError(ex.ToString());
+                if (!appStarted) { Application.Run(form); } else { form.Show(); }
+            }
             }
         }
     }
-}

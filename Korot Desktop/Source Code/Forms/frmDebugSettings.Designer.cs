@@ -102,12 +102,14 @@ namespace Korot
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.cbProxy = new System.Windows.Forms.CheckBox();
+            this.cbDownload = new System.Windows.Forms.CheckBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tbStartup = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tbDownload = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -136,7 +138,7 @@ namespace Korot
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(534, 509);
+            this.tabControl1.Size = new System.Drawing.Size(534, 642);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -150,10 +152,16 @@ namespace Korot
             this.tabPage1.Controls.Add(this.pbBack);
             this.tabPage1.Controls.Add(this.cbClose);
             this.tabPage1.Controls.Add(this.cbDNT);
+            this.tabPage1.Controls.Add(this.cbDownload);
+            this.tabPage1.Controls.Add(this.cbProxy);
             this.tabPage1.Controls.Add(this.cbOpen);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.tbTheme);
             this.tabPage1.Controls.Add(this.label11);
+            this.tabPage1.Controls.Add(this.tbDownload);
+            this.tabPage1.Controls.Add(this.label20);
+            this.tabPage1.Controls.Add(this.tbStartup);
+            this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this.tbStyle);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.tbThemeAuthor);
@@ -172,7 +180,7 @@ namespace Korot
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(526, 483);
+            this.tabPage1.Size = new System.Drawing.Size(526, 616);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Settings Report";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -187,11 +195,11 @@ namespace Korot
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage6);
-            this.tabControl2.Location = new System.Drawing.Point(15, 354);
+            this.tabControl2.Location = new System.Drawing.Point(15, 424);
             this.tabControl2.MinimumSize = new System.Drawing.Size(503, 114);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(503, 123);
+            this.tabControl2.Size = new System.Drawing.Size(503, 186);
             this.tabControl2.TabIndex = 35;
             // 
             // tabPage2
@@ -200,7 +208,7 @@ namespace Korot
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(495, 97);
+            this.tabPage2.Size = new System.Drawing.Size(495, 160);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "Favorites";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -211,7 +219,7 @@ namespace Korot
             this.tbFavorites.Location = new System.Drawing.Point(3, 3);
             this.tbFavorites.Multiline = true;
             this.tbFavorites.Name = "tbFavorites";
-            this.tbFavorites.Size = new System.Drawing.Size(489, 91);
+            this.tbFavorites.Size = new System.Drawing.Size(489, 154);
             this.tbFavorites.TabIndex = 1;
             this.tbFavorites.TextChanged += new System.EventHandler(this.tbFavorites_TextChanged);
             // 
@@ -373,16 +381,16 @@ namespace Korot
             this.cbClose.AutoSize = true;
             this.cbClose.Location = new System.Drawing.Point(157, 133);
             this.cbClose.Name = "cbClose";
-            this.cbClose.Size = new System.Drawing.Size(179, 17);
+            this.cbClose.Size = new System.Drawing.Size(169, 17);
             this.cbClose.TabIndex = 4;
-            this.cbClose.Text = "Close when download is finished";
+            this.cbClose.Text = "Close download when finished";
             this.cbClose.UseVisualStyleBackColor = true;
             this.cbClose.CheckedChanged += new System.EventHandler(this.cbClose_CheckedChanged);
             // 
             // cbDNT
             // 
             this.cbDNT.AutoSize = true;
-            this.cbDNT.Location = new System.Drawing.Point(342, 133);
+            this.cbDNT.Location = new System.Drawing.Point(332, 133);
             this.cbDNT.Name = "cbDNT";
             this.cbDNT.Size = new System.Drawing.Size(85, 17);
             this.cbDNT.TabIndex = 4;
@@ -416,7 +424,7 @@ namespace Korot
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(14, 45);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(504, 61);
+            this.groupBox1.Size = new System.Drawing.Size(506, 61);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Window";
@@ -693,12 +701,8 @@ namespace Korot
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.label18);
             this.tabPage7.Controls.Add(this.groupBox2);
-            this.tabPage7.Controls.Add(this.checkBox5);
-            this.tabPage7.Controls.Add(this.checkBox2);
-            this.tabPage7.Controls.Add(this.checkBox4);
-            this.tabPage7.Controls.Add(this.checkBox3);
-            this.tabPage7.Controls.Add(this.checkBox1);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
@@ -728,89 +732,87 @@ namespace Korot
             this.label17.Tag = "Hover on a debug setting for more info.";
             this.label17.Text = "Hover on a debug setting for more info.";
             // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(9, 76);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(213, 17);
-            this.checkBox2.TabIndex = 0;
-            this.checkBox2.Tag = "Forces the while function to continue even there\'s an exception. If unsure, leave" +
-    " unchecked.";
-            this.checkBox2.Text = "Force Continue in RefreshDownloadList";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
-            this.checkBox2.MouseEnter += new System.EventHandler(this.checkBox1_MouseEnter);
-            this.checkBox2.MouseLeave += new System.EventHandler(this.checkBox1_MouseLeave);
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(8, 53);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(79, 17);
-            this.checkBox4.TabIndex = 0;
-            this.checkBox4.Tag = "Logs every mouse scroll. If unsure, leave unchecked.";
-            this.checkBox4.Text = "Log Mouse";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
-            this.checkBox4.MouseEnter += new System.EventHandler(this.checkBox1_MouseEnter);
-            this.checkBox4.MouseLeave += new System.EventHandler(this.checkBox1_MouseLeave);
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(9, 30);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(70, 17);
-            this.checkBox3.TabIndex = 0;
-            this.checkBox3.Tag = "Logs every key press. If unsure, leave unchecked.";
-            this.checkBox3.Text = "Log Keys";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
-            this.checkBox3.MouseEnter += new System.EventHandler(this.checkBox1_MouseEnter);
-            this.checkBox3.MouseLeave += new System.EventHandler(this.checkBox1_MouseLeave);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(9, 7);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(90, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Tag = "Logs disposes inside of methods with arguments. If unsure, leave unchecked.";
-            this.checkBox1.Text = "Log Disposes";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            this.checkBox1.MouseEnter += new System.EventHandler(this.checkBox1_MouseEnter);
-            this.checkBox1.MouseLeave += new System.EventHandler(this.checkBox1_MouseLeave);
-            // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // checkBox5
+            // label18
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(8, 99);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(99, 17);
-            this.checkBox5.TabIndex = 0;
-            this.checkBox5.Tag = "Logs every exception, including exceptions that are ignored. If unsure, leave unc" +
-    "hecked.";
-            this.checkBox5.Text = "Log Exceptions";
-            this.checkBox5.UseVisualStyleBackColor = true;
-            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
-            this.checkBox5.MouseEnter += new System.EventHandler(this.checkBox1_MouseEnter);
-            this.checkBox5.MouseLeave += new System.EventHandler(this.checkBox1_MouseLeave);
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 3);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(207, 13);
+            this.label18.TabIndex = 2;
+            this.label18.Tag = "These are used for testing purposes only.";
+            this.label18.Text = "No Debug Options are available right now.";
+            // 
+            // cbProxy
+            // 
+            this.cbProxy.AutoSize = true;
+            this.cbProxy.Location = new System.Drawing.Point(15, 352);
+            this.cbProxy.Name = "cbProxy";
+            this.cbProxy.Size = new System.Drawing.Size(124, 17);
+            this.cbProxy.TabIndex = 4;
+            this.cbProxy.Text = "Remember last proxy";
+            this.cbProxy.UseVisualStyleBackColor = true;
+            this.cbProxy.CheckedChanged += new System.EventHandler(this.cbProxy_CheckedChanged);
+            // 
+            // cbDownload
+            // 
+            this.cbDownload.AutoSize = true;
+            this.cbDownload.Location = new System.Drawing.Point(146, 352);
+            this.cbDownload.Name = "cbDownload";
+            this.cbDownload.Size = new System.Drawing.Size(97, 17);
+            this.cbDownload.TabIndex = 4;
+            this.cbDownload.Text = "Auto-download";
+            this.cbDownload.UseVisualStyleBackColor = true;
+            this.cbDownload.CheckedChanged += new System.EventHandler(this.cbDownload_CheckedChanged);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(10, 377);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(57, 13);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "At Startup:";
+            // 
+            // tbStartup
+            // 
+            this.tbStartup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbStartup.Location = new System.Drawing.Point(70, 375);
+            this.tbStartup.Name = "tbStartup";
+            this.tbStartup.Size = new System.Drawing.Size(448, 20);
+            this.tbStartup.TabIndex = 2;
+            this.tbStartup.TextChanged += new System.EventHandler(this.tbStartup_TextChanged);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(10, 403);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(90, 13);
+            this.label20.TabIndex = 1;
+            this.label20.Text = "Download Folder:";
+            // 
+            // tbDownload
+            // 
+            this.tbDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbDownload.Location = new System.Drawing.Point(98, 401);
+            this.tbDownload.Name = "tbDownload";
+            this.tbDownload.Size = new System.Drawing.Size(420, 20);
+            this.tbDownload.TabIndex = 2;
+            this.tbDownload.TextChanged += new System.EventHandler(this.tbDownload_TextChanged);
             // 
             // frmDebugSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(534, 509);
+            this.ClientSize = new System.Drawing.Size(534, 642);
             this.Controls.Add(this.tabControl1);
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -898,12 +900,14 @@ namespace Korot
         private System.Windows.Forms.TextBox tbThemeName;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.CheckBox cbProxy;
+        private System.Windows.Forms.CheckBox cbDownload;
+        private System.Windows.Forms.TextBox tbDownload;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox tbStartup;
+        private System.Windows.Forms.Label label19;
     }
 }

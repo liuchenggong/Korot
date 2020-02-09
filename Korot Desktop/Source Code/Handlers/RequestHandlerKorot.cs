@@ -122,11 +122,6 @@ namespace Korot
         public bool OnQuotaRequest(IWebBrowser chromiumWebBrowser, IBrowser browser, string originUrl, long newSize, IRequestCallback callback)
         {
             callback.Dispose();
-            if (Properties.Settings.Default.debugLogDisposes)
-            {
-                Output.WriteLine(" [Korot.RequestHandler.OnQuotaRequest] Callback Disposed  [originUrl: " + originUrl + " newSize: " + newSize + " Time: " + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + " IsDisposed:" + callback.IsDisposed + "]");
-            }
-
             return false;
         }
 

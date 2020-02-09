@@ -419,7 +419,7 @@ namespace Korot
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(119, 205);
+            this.textBox3.Location = new System.Drawing.Point(119, 172);
             this.textBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
@@ -430,7 +430,7 @@ namespace Korot
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(21, 164);
+            this.textBox2.Location = new System.Drawing.Point(21, 131);
             this.textBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(580, 21);
@@ -441,7 +441,7 @@ namespace Korot
             // 
             // haltroySwitch4
             // 
-            this.haltroySwitch4.Location = new System.Drawing.Point(145, 242);
+            this.haltroySwitch4.Location = new System.Drawing.Point(145, 209);
             this.haltroySwitch4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.haltroySwitch4.Name = "haltroySwitch4";
             this.haltroySwitch4.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -453,7 +453,7 @@ namespace Korot
             // haltroySwitch3
             // 
             this.haltroySwitch3.Checked = true;
-            this.haltroySwitch3.Location = new System.Drawing.Point(21, 132);
+            this.haltroySwitch3.Location = new System.Drawing.Point(21, 99);
             this.haltroySwitch3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.haltroySwitch3.Name = "haltroySwitch3";
             this.haltroySwitch3.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -465,7 +465,7 @@ namespace Korot
             // lbNewTab
             // 
             this.lbNewTab.AutoSize = true;
-            this.lbNewTab.Location = new System.Drawing.Point(77, 136);
+            this.lbNewTab.Location = new System.Drawing.Point(77, 103);
             this.lbNewTab.Name = "lbNewTab";
             this.lbNewTab.Size = new System.Drawing.Size(161, 13);
             this.lbNewTab.TabIndex = 8;
@@ -475,7 +475,7 @@ namespace Korot
             // 
             this.lbDNT.AutoSize = true;
             this.lbDNT.Font = new System.Drawing.Font("Tahoma", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbDNT.Location = new System.Drawing.Point(18, 245);
+            this.lbDNT.Location = new System.Drawing.Point(18, 212);
             this.lbDNT.Name = "lbDNT";
             this.lbDNT.Size = new System.Drawing.Size(121, 16);
             this.lbDNT.TabIndex = 9;
@@ -485,7 +485,7 @@ namespace Korot
             // 
             this.lbSE.AutoSize = true;
             this.lbSE.Font = new System.Drawing.Font("Tahoma", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbSE.Location = new System.Drawing.Point(18, 206);
+            this.lbSE.Location = new System.Drawing.Point(18, 173);
             this.lbSE.Name = "lbSE";
             this.lbSE.Size = new System.Drawing.Size(95, 16);
             this.lbSE.TabIndex = 10;
@@ -495,7 +495,7 @@ namespace Korot
             // 
             this.lbHomePage.AutoSize = true;
             this.lbHomePage.Font = new System.Drawing.Font("Tahoma", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbHomePage.Location = new System.Drawing.Point(18, 100);
+            this.lbHomePage.Location = new System.Drawing.Point(18, 67);
             this.lbHomePage.Name = "lbHomePage";
             this.lbHomePage.Size = new System.Drawing.Size(78, 16);
             this.lbHomePage.TabIndex = 11;

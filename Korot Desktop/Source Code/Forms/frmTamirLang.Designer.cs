@@ -41,7 +41,7 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "sorry can\'t talk";
             // 
-            // frmTamir
+            // frmTamirLang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

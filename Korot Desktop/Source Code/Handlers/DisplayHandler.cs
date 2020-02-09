@@ -86,12 +86,8 @@ namespace Korot
             {
                 CEFform.Invoke(new Action(() => CEFform.ChangeProgress(progress)));
             }
-            catch (Exception ex)
+            catch
             {
-                if (Properties.Settings.Default.debugLogExceptions)
-                {
-                    Output.WriteLine(" [Korot.DisplayHandler.OnLoadingProgressChange] Error: " + ex.ToString());
-                }
             }
         }
 

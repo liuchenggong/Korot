@@ -127,12 +127,8 @@ namespace Korot
         {
             int selected = lbCookie.SelectedIndex; lbCookie.Items.Clear(); foreach (String x in Properties.Settings.Default.CookieDisallowList) { lbCookie.Items.Add(x); }
             try { lbCookie.SelectedIndex = selected; }
-            catch (Exception ex)
+            catch
             {
-                if (Properties.Settings.Default.debugLogExceptions)
-                {
-                    Output.WriteLine(" [Korot.Debug] Error: " + ex.ToString());
-                }
             }
             tbHomepage.Text = Properties.Settings.Default.Homepage;
             tbThemeName.Text = Properties.Settings.Default.ThemeName;
@@ -156,10 +152,10 @@ namespace Korot
             tbSession.Text = Properties.Settings.Default.LastSessionURIs;
             pbBack.BackColor = Properties.Settings.Default.BackColor;
             pbOverlay.BackColor = Properties.Settings.Default.OverlayColor;
-            checkBox1.Checked = Properties.Settings.Default.debugLogDisposes;
-            checkBox3.Checked = Properties.Settings.Default.debugLogKeys;
-            checkBox4.Checked = Properties.Settings.Default.debugLogMouse;
-            checkBox2.Checked = Properties.Settings.Default.debugForceContinue;
+            cbProxy.Checked = Properties.Settings.Default.rememberLastProxy;
+            tbDownload.Text = Properties.Settings.Default.DownloadFolder;
+            tbStartup.Text = Properties.Settings.Default.StartupURL;
+            cbDownload.Checked = Properties.Settings.Default.useDownloadFolder;
         }
 
         private void pbBack_Click(object sender, EventArgs e)
@@ -191,21 +187,6 @@ namespace Korot
             Properties.Settings.Default.ThemeAuthor = tbThemeAuthor.Text;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.debugLogDisposes = checkBox1.Checked;
-        }
-
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.debugLogKeys = checkBox3.Checked;
-        }
-
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.debugLogMouse = checkBox4.Checked;
-        }
-
         private void checkBox1_MouseEnter(object sender, EventArgs e)
         {
             label17.Text = ((Control)sender).Tag.ToString();
@@ -216,14 +197,24 @@ namespace Korot
             label17.Text = label17.Tag.ToString();
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        private void cbProxy_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.debugForceContinue = checkBox2.Checked;
+            Properties.Settings.Default.rememberLastProxy = cbProxy.Checked;
         }
 
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        private void cbDownload_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.debugLogExceptions = checkBox5.Checked;
+            Properties.Settings.Default.useDownloadFolder = cbDownload.Checked;
+        }
+
+        private void tbStartup_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.StartupURL = tbStartup.Text;
+        }
+
+        private void tbDownload_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.DownloadFolder = tbDownload.Text;
         }
     }
 }

@@ -322,6 +322,7 @@ namespace Korot
             }
             else
             { Process.Start(Application.ExecutablePath, "-oobe"); this.Close(); }
+            
             this.Location = new Point(Korot.Properties.Settings.Default.WindowPosX, Korot.Properties.Settings.Default.WindowPosY);
             this.Size = new Size(Korot.Properties.Settings.Default.WindowSizeW, Korot.Properties.Settings.Default.WindowSizeH);
             PrintImages();
@@ -335,6 +336,7 @@ namespace Korot
             {
                 restoremedaddy = Properties.Settings.Default.LastSessionURIs;
             }
+
             SessionLogger.Start();
         }
 
@@ -355,12 +357,8 @@ namespace Korot
                 Properties.Settings.Default.LastSessionURIs = Session;
                 if (!isIncognito) { Properties.Settings.Default.Save(); }
             }
-            catch (Exception ex)
+            catch
             {
-                if (Properties.Settings.Default.debugLogExceptions)
-                {
-                    Output.WriteLine(" [KorotfrmMain.WriteSession] Error: " + ex.ToString());
-                }
             }
         }
         public void ReadLatestCurrentSession()
