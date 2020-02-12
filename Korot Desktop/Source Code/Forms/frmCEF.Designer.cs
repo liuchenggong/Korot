@@ -1862,10 +1862,10 @@ namespace Korot
             this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel1.Location = new System.Drawing.Point(15, 166);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(64, 14);
+            this.linkLabel1.Size = new System.Drawing.Size(160, 14);
             this.linkLabel1.TabIndex = 5;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Licenses...";
+            this.linkLabel1.Text = "Licenses && Special Thanks...";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label21
@@ -2323,7 +2323,6 @@ namespace Korot
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer tmrSlower;
         private System.Windows.Forms.PictureBox pbProgress;
         public System.Windows.Forms.PictureBox pictureBox2;
@@ -2485,5 +2484,6 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem showHomepageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAWebsiteToolStripMenuItem;
         private System.Windows.Forms.Button button18;
+        public System.Windows.Forms.Panel panel1;
     }
 }

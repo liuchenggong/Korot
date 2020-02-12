@@ -43,7 +43,7 @@ namespace Korot
                 if (!File.Exists(Application.StartupPath + "\\Lang\\English.lang"))
                 {
                     Output.WriteLine(" [Korot] LANG_FATAL_ERROR: \"English.lang\" not found." + Environment.NewLine + " [Korot] Running Language Repair module.");
-                    Application.Run(new frmTamirLang());
+                    Application.Run(new frmTamirLang(args));
                     appStarted = true;
                 }
                 else
@@ -112,7 +112,7 @@ namespace Korot
             catch (Exception ex)
             {
                 Output.WriteLine(" [Korot] FATAL_ERROR: " + ex.ToString());
-                frmError form = new frmError(ex.ToString());
+                frmError form = new frmError(ex);
                 if (!appStarted) { Application.Run(form); } else { form.Show(); }
             }
             }

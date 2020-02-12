@@ -20,6 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using CefSharp;
+using System;
 using System.Windows.Forms;
 
 namespace Korot
@@ -43,39 +44,37 @@ namespace Korot
 
         }
 
-        public bool OnJSAlert(IWebBrowser browser, string url, string message)
-        {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Alert", "Alert on url : " + url + "\n Message:" + message, anaform.Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
-            DialogResult diag = mesaj.ShowDialog();
-            return true;
-        }
-
         public bool OnJSBeforeUnload(IWebBrowser browserControl, IBrowser browser, string message, bool isReload, IJsDialogCallback callback)
         {
             return false;
         }
 
-        public bool OnJSConfirm(IWebBrowser browser, string url, string message, out bool retval)
-        {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot - Confirm", "Confirm on url : " + url + "\n Message:" + message, anaform.Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
-            DialogResult diag = mesaj.ShowDialog();
-            if (diag == DialogResult.OK) { retval = true; } else { retval = false; }
-            return true;
-        }
-
         public bool OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage)
         {
-            return false;
+           if (dialogType == CefJsDialogType.Alert)
+            {
+                Cefform.Invoke(new Action(() => Cefform.OnJSAlert(originUrl, messageText)));
+                return true;
+            }else if (dialogType == CefJsDialogType.Confirm)
+            {
+                bool value = false;
+                Cefform.Invoke(new Action(() => Cefform.OnJSConfirm(originUrl,messageText,out value)));
+                callback.Continue(value);
+                return true;
+            }
+            else if(dialogType == CefJsDialogType.Prompt){
+                bool value = false;
+                string result = null;
+                Cefform.Invoke(new Action(() => Cefform.OnJSPrompt(originUrl, messageText,defaultPromptText, out value,out result)));
+                callback.Continue(value, result);
+                return true;
+            }else
+            {
+                return false;
+            }
+                
         }
 
-        public bool OnJSPrompt(IWebBrowser browser, string url, string message, string defaultValue, out bool retval, out string result)
-        {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox(url, message, anaform.Icon, defaultValue, Properties.Settings.Default.BackColor, Properties.Settings.Default.OverlayColor, anaform.OK, anaform.Cancel, 400, 150);
-            DialogResult diag = mesaj.ShowDialog();
-            if (diag == DialogResult.OK) { retval = true; } else { retval = false; }
-            result = mesaj.textBox1.Text;
-            return true;
-        }
 
         public void OnResetDialogState(IWebBrowser browserControl, IBrowser browser)
         {

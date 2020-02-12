@@ -5,8 +5,8 @@ namespace Korot
 {
     public partial class frmError : Form
     {
-        string Error = "";
-        public frmError(string error)
+        Exception Error;
+        public frmError(Exception error)
         {
             Error = error;
             InitializeComponent();
@@ -14,7 +14,8 @@ namespace Korot
 
         private void frmError_Load(object sender, EventArgs e)
         {
-
+            lbErrorCode.Text = Error.Message;
+            textBox1.Text = Error.ToString();
         }
     }
 }

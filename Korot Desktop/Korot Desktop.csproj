@@ -340,7 +340,6 @@
     <None Include="Resources\yerli.png" />
     <None Include="Resources\inctab.png" />
     <None Include="Resources\home-w.png" />
-    <None Include="Resources\go-w.png" />
     <None Include="Resources\cancel-w.png" />
     <None Include="Resources\Settings-w.png" />
     <None Include="Resources\Settings.png" />
@@ -348,8 +347,6 @@
     <None Include="Resources\refresh-w.png" />
     <None Include="Resources\newwindow-w.png" />
     <None Include="Resources\newwindow.png" />
-    <None Include="Resources\newincwindow-w.png" />
-    <None Include="Resources\newincwindow.png" />
     <None Include="Resources\leftarrow-w.png" />
     <None Include="Resources\inctab-w.png" />
     <None Include="Resources\refresh.png" />
@@ -409,8 +406,6 @@
     <None Include="Resources\theme_w.png" />
     <None Include="Resources\star-on-w.png" />
     <Content Include="Source Code\Others\Korot.ico" />
-    <None Include="Resources\prxy.png" />
-    <None Include="Resources\prxy-w.png" />
     <Content Include="Resources\errorpage.html" />
     <Content Include="Resources\korotlinks.html" />
     <None Include="Resources\lockg.png" />

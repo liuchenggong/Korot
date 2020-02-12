@@ -100,7 +100,7 @@ namespace Korot
                 }
                 else if (request.Url == "korot://licenses/")
                 {
-                    return ResourceHandler.FromString(Properties.Resources.licenses);
+                    return ResourceHandler.FromString(Properties.Resources.licenses.Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.licenseTitle).Replace("§ET§", CefForm.etLicense).Replace("§K§", CefForm.kLicense).Replace("§VS§", CefForm.vsLicense).Replace("§CH§", CefForm.chLicense).Replace("§CEF§", CefForm.cefLicense).Replace("§ST§", CefForm.specialThanks));
                 }
                 else if (request.Url.StartsWith("korot://error/?e="))
                 {
