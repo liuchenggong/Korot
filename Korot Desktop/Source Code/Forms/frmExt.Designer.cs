@@ -61,7 +61,9 @@ namespace Korot
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmExt";
             this.Text = "frmExt";
+            this.Deactivate += new System.EventHandler(this.frmExt_Leave);
             this.Load += new System.EventHandler(this.FrmExt_Load);
+            this.Leave += new System.EventHandler(this.frmExt_Leave);
             this.ResumeLayout(false);
 
         }

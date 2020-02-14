@@ -42,10 +42,10 @@ namespace Korot
     public partial class frmCEF : Form
     {
         int updateProgress = 0;
-        //0 = Checking 1=UpToDate 2=UpdateAvailabe 3=Error
+        //0=Checking 1=UpToDate 2=UpdateAvailabe 3=Error
         bool isLoading = false;
         string loaduri = null;
-        bool _Incognito = false;
+        public bool _Incognito = false;
         string userName;
         string userCache;
         frmMain anaform;
@@ -844,10 +844,10 @@ namespace Korot
                 pictureBox3.BackColor = colorpicker.Color;
                 Properties.Settings.Default.BackColor = colorpicker.Color;
                 pictureBox3.BackColor = colorpicker.Color;
+                comboBox1.Text = "";
                 Properties.Settings.Default.ThemeAuthor = "";
                 Properties.Settings.Default.ThemeName = "";
                 ChangeTheme();
-                comboBox1.Text = "";
             }
 
         }
@@ -991,6 +991,12 @@ namespace Korot
 
         private void ColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (Properties.Settings.Default.BackStyle != "BACKCOLOR")
+            {
+                comboBox1.Text = "";
+                Properties.Settings.Default.ThemeAuthor = "";
+                Properties.Settings.Default.ThemeName = "";
+            }
             Properties.Settings.Default.BackStyle = "BACKCOLOR";
             textBox4.Text = usingBC;
             colorToolStripMenuItem.Checked = true;
@@ -1013,6 +1019,12 @@ namespace Korot
                                                                                             anaform.OK, anaform.Cancel, 400, 150);
             if (inputbox.ShowDialog() == DialogResult.OK)
             {
+                if (Properties.Settings.Default.BackStyle != inputbox.TextValue() + ";")
+                {
+                    comboBox1.Text = "";
+                    Properties.Settings.Default.ThemeAuthor = "";
+                    Properties.Settings.Default.ThemeName = "";
+                }
                 Properties.Settings.Default.BackStyle = inputbox.TextValue() + ";";
                 textBox4.Text = Properties.Settings.Default.BackStyle;
                 colorToolStripMenuItem.Checked = false;
@@ -1031,6 +1043,12 @@ namespace Korot
                 if (fileSize <= 131072)
                 {
                     string imageType = Path.GetExtension(filedlg.FileName).Replace(".", "");
+                    if (Properties.Settings.Default.BackStyle != "background-image: url('data:image/" + imageType + ";base64," + FileSystem2.ImageToBase64(Image.FromFile(filedlg.FileName)) + "');")
+                    {
+                        comboBox1.Text = "";
+                        Properties.Settings.Default.ThemeAuthor = "";
+                        Properties.Settings.Default.ThemeName = "";
+                    }
                     Properties.Settings.Default.BackStyle = "background-image: url('data:image/" + imageType + ";base64," + FileSystem2.ImageToBase64(Image.FromFile(filedlg.FileName)) + "');";
                     textBox4.Text = Properties.Settings.Default.BackStyle;
                     colorToolStripMenuItem.Checked = false;
@@ -1151,7 +1169,7 @@ namespace Korot
                 pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
                 Properties.Settings.Default.ThemeFile = themeFile;
                 textBox4.Text = Properties.Settings.Default.BackStyle == "BACKCOLOR" ? usingBC : Properties.Settings.Default.BackStyle;
-                label21.Text = aboutInfo.Replace("[NEWLINE]", Environment.NewLine).Replace("[THEMEAUTHOR]", Properties.Settings.Default.ThemeAuthor).Replace("[THEMENAME]", Properties.Settings.Default.ThemeName);
+                RefreshTranslation();
             }
             catch (Exception ex)
             {
@@ -1392,6 +1410,7 @@ namespace Korot
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
             chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri);
             panel1.Controls.Add(chromiumWebBrowser1);
+            chromiumWebBrowser1.ConsoleMessage += cef_consoleMessage;
             chromiumWebBrowser1.FindHandler = new FindHandler(this);
             chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this, anaform);
             chromiumWebBrowser1.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
@@ -1414,6 +1433,10 @@ namespace Korot
             {
                 SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy);
             }
+        }
+        private void cef_consoleMessage(object sender,ConsoleMessageEventArgs e)
+        {
+            Output.WriteLine(" [Korot.ConsoleMessage] Message received: [Line: " + e.Line + "Level: " + e.Level + " Source: " + e.Source + " Message:" + e.Message + "]");
         }
         public void executeStartupExtensions()
         {
@@ -1494,7 +1517,8 @@ namespace Korot
             {
                 disallowThisPageForCookieAccessToolStripMenuItem.Text = disallowCookie;
             }
-        }
+        }   
+
         public bool OnJSAlert(string url, string message)
         {
             HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSAlert.Replace("[TITLE]", this.Text).Replace("[URL]", url), message, anaform.Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
@@ -1511,6 +1535,7 @@ namespace Korot
             if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
             return true;
         }
+
 
         public bool OnJSPrompt(string url, string message, string defaultValue, out bool returnval, out string textresult)
         {
@@ -2100,6 +2125,15 @@ namespace Korot
         }
         public void RefreshTranslation()
         {
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeAuthor) && string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeName))
+            {
+                label21.Text = aboutInfo.Replace("[NEWLINE]", Environment.NewLine);
+            }
+            else
+            {
+                label21.Text = aboutInfo.Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + themeInfo.Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeAuthor) ? anon : Properties.Settings.Default.ThemeAuthor).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeName) ? noname : Properties.Settings.Default.ThemeName);
+            }
+
             if (emptyItem != null) { emptyItem.Text = this.empty; }
             comboBox3.SelectedIndex = Properties.Settings.Default.BStyleLayout;
             colorToolStripMenuItem.Checked = Properties.Settings.Default.BackStyle == "BACKCOLOR" ? true : false;
@@ -2188,6 +2222,13 @@ namespace Korot
             if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "1")
             {
                 frmExt formext = new frmExt(this, anaform, userName, fileLocation, SplittedFase[6].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"), allowWebContent);
+                formext.TopLevel = false;
+                formext.FormBorderStyle = FormBorderStyle.None;
+                formext.StartPosition = FormStartPosition.Manual;
+                formext.Location = new Point(anaform.Left + (anaform.Width - (formext.Width + 200)),anaform.Top);
+                this.Controls.Add(formext);
+                formext.Visible = true;
+                formext.BringToFront();
                 formext.Show();
             }
         }
@@ -2333,6 +2374,12 @@ namespace Korot
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (Properties.Settings.Default.BStyleLayout != comboBox3.SelectedIndex)
+            {
+                comboBox1.Text = "";
+                Properties.Settings.Default.ThemeAuthor = "";
+                Properties.Settings.Default.ThemeName = "";
+            }
             Properties.Settings.Default.BStyleLayout = comboBox3.SelectedIndex;
         }
 
@@ -2541,6 +2588,7 @@ namespace Korot
                 chromiumWebBrowser1.StopFinding(true);
                 doNotDestroyFind = false;
             }
+            LoadExt();
             Task.Run(new Action(() => getZoomLevel()));
         }
         async void getZoomLevel()
@@ -2765,6 +2813,11 @@ namespace Korot
                 Application.Exit();
 
             }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

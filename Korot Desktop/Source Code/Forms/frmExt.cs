@@ -95,22 +95,34 @@ namespace Korot
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings();
-            settings.UserAgent = "Mozilla/5.0 ( Windows NT " + GetOsVer() + "; " + Environment.OSVersion.Platform + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + Cef.ChromiumVersion + " Safari/537.36 Korot/" + Application.ProductVersion.ToString();
-            settings.CachePath = userCache;
+            settings.UserAgent = "Mozilla/5.0 ( Windows NT "
+                + GetOsVer()
+                + "; "
+                + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
+                + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
+                + Cef.ChromiumVersion
+                + " Safari/537.36 Korot/"
+                + Application.ProductVersion.ToString();
+            if (tabform._Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
+            else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
+            settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = "korot",
+                SchemeHandlerFactory = new SchemeHandlerFactory(anaform, tabform)
+            });
             // Initialize cef with the provided settings
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
-            else { chromiumWebBrowser1 = new ChromiumWebBrowser(ExtensionPopupPath); }
+            chromiumWebBrowser1 = new ChromiumWebBrowser(ExtensionPopupPath);
             this.Controls.Add(chromiumWebBrowser1);
-            chromiumWebBrowser1.Load(ExtensionPopupPath);
-            chromiumWebBrowser1.AddressChanged += cefaddresschanged;
+            chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(anaform, tabform);
             chromiumWebBrowser1.DisplayHandler = new DisplayHandler(tabform, anaform);
             chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
             chromiumWebBrowser1.LoadError += cef_onLoadError;
             chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(tabform, anaform);
             chromiumWebBrowser1.LifeSpanHandler = new BrowserLifeSpanHandler(tabform);
-            chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
             chromiumWebBrowser1.DownloadHandler = new DownloadHandler(tabform, anaform);
             chromiumWebBrowser1.JsDialogHandler = new JsHandler(tabform, anaform);
+            chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
         }
@@ -135,6 +147,12 @@ namespace Korot
                     e.Frame.LoadUrl("http://korot://error?e=" + e.ErrorText);
                 }
             }
+        }
+
+        private void frmExt_Leave(object sender, EventArgs e)
+        {
+
+            this.Close();
         }
     }
 }

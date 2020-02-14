@@ -160,7 +160,7 @@ namespace Korot
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox3 = new System.Windows.Forms.DomainUpDown();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -1415,20 +1415,17 @@ namespace Korot
             // 
             this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "None",
-            "Tile",
-            "Center",
-            "Stretch",
-            "Zoom"});
-            this.comboBox3.Location = new System.Drawing.Point(189, 93);
+            this.comboBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.comboBox3.Items.Add("None");
+            this.comboBox3.Items.Add("Tile");
+            this.comboBox3.Items.Add("Center");
+            this.comboBox3.Items.Add("Stretch");
+            this.comboBox3.Items.Add("Zoom");
+            this.comboBox3.Location = new System.Drawing.Point(189, 97);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(364, 22);
             this.comboBox3.TabIndex = 33;
-            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            this.comboBox3.SelectedItemChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // textBox4
             // 
@@ -2410,7 +2407,7 @@ namespace Korot
         private System.Windows.Forms.Label label24;
         private HaltroyFramework.HaltroySwitch hsDoNotTrack;
         private System.Windows.Forms.ToolStripMenuItem ımageFromURLToolStripMenuItem;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.DomainUpDown comboBox3;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.ToolStripMenuItem disallowThisPageForCookieAccessToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip cmsFavorite;

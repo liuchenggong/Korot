@@ -108,7 +108,7 @@ This website is not safe.
 This website is using a certificate that has errors. Which means your information (credit cards,passwords,messages...) can be stolen by unknown people in this website.
 I understand these risks.
 Korot uses Chromium by Google using CefSharp.[NEWLINE]Korot is written in C# using Visual Studio Community by Microsoft.[NEWLINE]Korot uses modified version of EasyTabs.[NEWLINE]Translation made by Haltroy.
-Licenses & Special Thanks...
+Licenses && Special Thanks...
 This extension requires these permissions.
 This extension does not require any permissions.
 Cannot install this extension.
