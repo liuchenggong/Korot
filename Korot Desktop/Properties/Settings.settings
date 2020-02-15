@@ -87,5 +87,14 @@
     <Setting Name="StartupURL" Type="System.String" Scope="User">
       <Value Profile="(Default)">korot://newtab</Value>
     </Setting>
+    <Setting Name="newTabColor" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="closeColor" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="showFav" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

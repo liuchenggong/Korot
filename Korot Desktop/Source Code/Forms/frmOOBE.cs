@@ -304,13 +304,17 @@ namespace Korot
             Directory.CreateDirectory(profilePath);
             FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf",
                                 "255" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "30" + Environment.NewLine +
-                                "144" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "BACKCOLOR" + Environment.NewLine +
-                                "0", Encoding.UTF8);
+                                    "255" + Environment.NewLine +
+                                    "255" + Environment.NewLine +
+                                    "30" + Environment.NewLine +
+                                    "144" + Environment.NewLine +
+                                    "255" + Environment.NewLine +
+                                    "BACKCOLOR" + Environment.NewLine +
+                                    "0" + Environment.NewLine +
+    "Korot Light" + Environment.NewLine +
+    "Haltroy" + Environment.NewLine +
+    "2" + Environment.NewLine +
+    "1", Encoding.UTF8);
             FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf",
                                   "0" + Environment.NewLine +
                                   "0" + Environment.NewLine +
@@ -319,7 +323,11 @@ namespace Korot
                                   "144" + Environment.NewLine +
                                   "255" + Environment.NewLine +
                                   "BACKCOLOR" + Environment.NewLine +
-                                  "0", Encoding.UTF8);
+                                  "0" + Environment.NewLine +
+    "Korot Light" + Environment.NewLine +
+    "Haltroy" + Environment.NewLine +
+    "2" + Environment.NewLine +
+    "1", Encoding.UTF8);
             SaveSettings(profilePath + "settings.ksf",
                     profilePath + "history.ksf",
                     profilePath + "favorites.ksf",

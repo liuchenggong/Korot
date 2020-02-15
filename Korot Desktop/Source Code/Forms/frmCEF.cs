@@ -90,7 +90,7 @@ namespace Korot
             string Playlist = Properties.Settings.Default.History;
             string[] SplittedFase = Playlist.Split(';');
             int Count = SplittedFase.Length - 1; ; int i = 0;
-            while (i != Count)
+            while ((i != Count) && (Count > 2))
             {
                     ListViewItem listV = new ListViewItem(SplittedFase[i].Replace(Environment.NewLine, ""));
                     listV.SubItems.Add(SplittedFase[i + 1].Replace(Environment.NewLine, ""));
@@ -281,9 +281,32 @@ namespace Korot
             string rTP, string fC, string fT, string fL, string fN, string status,string incMode,string incHelp,string incMore,
             string cdl,string allowC, string Cdl,string resetC,string resetK,string atStartup,string autodownload,string downloadFolder,
             string showNTP,string showHP,string showURL,string savetxt,string saf4d,string jsc,string jsa,
-            string LicenseTitle,string KorotLicense,string VSLicense,string ChromiumLicense,string CefSharpLicense,string EasyTabsLicense, string SpecialThanks)
+            string LicenseTitle,string KorotLicense,string VSLicense,string ChromiumLicense,string CefSharpLicense,string EasyTabsLicense, string SpecialThanks,
+            string bisNone,string bisTile,string bisCenter,string bisStretch,string bisZoom,string bsBackColor,string bsForeColor,string bsOverlayColor,
+            string ntbc,string cbc,string showFav)
         {
-        licenseTitle = LicenseTitle.Replace(Environment.NewLine, "");
+            label33.Text = showFav.Replace(Environment.NewLine, "");
+            label31.Text = ntbc.Replace(Environment.NewLine, "");
+            dudNewTab.Location = new Point(label31.Location.X + label31.Width, label31.Location.Y);
+            dudNewTab.Width = tabPage7.Width - (label31.Width + label31.Location.X + 25);
+            label32.Text = cbc.Replace(Environment.NewLine, "");
+            dudClose.Location = new Point(label32.Location.X + label32.Width, label32.Location.Y);
+            dudClose.Width = tabPage7.Width - (label32.Width + label32.Location.X + 25);
+            comboBox3.Items.Clear();
+            comboBox3.Items.Add(bisNone.Replace(Environment.NewLine, ""));
+            comboBox3.Items.Add(bisTile.Replace(Environment.NewLine, ""));
+            comboBox3.Items.Add(bisCenter.Replace(Environment.NewLine, ""));
+            comboBox3.Items.Add(bisStretch.Replace(Environment.NewLine, ""));
+            comboBox3.Items.Add(bisZoom.Replace(Environment.NewLine, ""));
+            dudNewTab.Items.Clear();
+            dudNewTab.Items.Add(bsBackColor.Replace(Environment.NewLine, ""));
+            dudNewTab.Items.Add(bsForeColor.Replace(Environment.NewLine, ""));
+            dudNewTab.Items.Add(bsOverlayColor.Replace(Environment.NewLine, ""));
+            dudClose.Items.Clear();
+            dudClose.Items.Add(bsBackColor.Replace(Environment.NewLine, ""));
+            dudClose.Items.Add(bsForeColor.Replace(Environment.NewLine, ""));
+            dudClose.Items.Add(bsOverlayColor.Replace(Environment.NewLine, ""));
+            licenseTitle = LicenseTitle.Replace(Environment.NewLine, "");
         kLicense = KorotLicense.Replace(Environment.NewLine, "");
         vsLicense = VSLicense.Replace(Environment.NewLine, "");
         chLicense = ChromiumLicense.Replace(Environment.NewLine, "");
@@ -359,6 +382,7 @@ namespace Korot
             ımageFromURLToolStripMenuItem.Text = imageFromCode.Replace(Environment.NewLine, "");
             ımageFromLocalFileToolStripMenuItem.Text = imageFromFile.Replace(Environment.NewLine, "");
             label24.Text = enablednt.Replace(Environment.NewLine, "");
+            hsFav.Location = new Point(label33.Location.X + label33.Width + 5, label33.Location.Y);
             hsDoNotTrack.Location = new Point(label24.Location.X + label24.Width + 5, label24.Location.Y);
             hsDownload.Location = new Point(label29.Location.X + label29.Width + 5, label29.Location.Y);
             hsProxy.Location = new Point(label23.Location.X + label23.Width + 5, label23.Location.Y);
@@ -555,7 +579,7 @@ namespace Korot
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                 string[] SplittedFase = Playlist.Split(token);
                 int Count = SplittedFase.Length - 1; ; int i = 0;
-                while (!(i == Count))
+                while ((i != Count) && (Count > 0))
                 {
                     languagedummy.Items.Add(SplittedFase[i].Replace(Environment.NewLine, ""));
                     i += 1;
@@ -743,7 +767,18 @@ namespace Korot
                     languagedummy.Items[215].ToString().Substring(1),
                     languagedummy.Items[216].ToString().Substring(1),
                     languagedummy.Items[217].ToString().Substring(1),
-                    languagedummy.Items[218].ToString().Substring(1));
+                    languagedummy.Items[218].ToString().Substring(1),
+                    languagedummy.Items[219].ToString().Substring(1),
+                    languagedummy.Items[220].ToString().Substring(1),
+                    languagedummy.Items[221].ToString().Substring(1),
+                    languagedummy.Items[222].ToString().Substring(1),
+                    languagedummy.Items[223].ToString().Substring(1),
+                    languagedummy.Items[224].ToString().Substring(1),
+                    languagedummy.Items[225].ToString().Substring(1),
+                    languagedummy.Items[226].ToString().Substring(1),
+                    languagedummy.Items[227].ToString().Substring(1),
+                    languagedummy.Items[228].ToString().Substring(1),
+                    languagedummy.Items[229].ToString().Substring(1));
             }
             catch (Exception ex)
             {
@@ -752,22 +787,6 @@ namespace Korot
                 Output.WriteLine(" [KOROT] Error at applying a language file : " + ex.ToString());
             }
 
-        }
-        private void OnIsBrowserInitializedChanged(object sender, EventArgs e)
-        {
-            //Get the underlying browser host wrapper
-            var browserHost = chromiumWebBrowser1.GetBrowser().GetHost();
-            var requestContext = browserHost.RequestContext;
-            string errorMessage;
-            // Browser must be initialized before getting/setting preferences
-            if (Properties.Settings.Default.DoNotTrack)
-            {
-                var success = requestContext.SetPreference("enable_do_not_track", true, out errorMessage);
-                if (!success)
-                {
-                    this.Invoke(new Action(() => Output.WriteLine(" [KOROT] Unable to set preference enable_do_not_track errorMessage: " + errorMessage)));
-                }
-            }
         }
         public void RefreshLangList()
         {
@@ -913,7 +932,7 @@ namespace Korot
             string Playlist = Properties.Settings.Default.DowloadHistory;
             string[] SplittedFase = Playlist.Split(';');
             int Count = SplittedFase.Length - 1; ; int i = 0;
-            while (!(i == Count))
+            while ((i != Count) && (Count > 3))
             {
                     ListViewItem listV = new ListViewItem();
                     listV.Text = SplittedFase[i].Replace(Environment.NewLine, "");
@@ -1152,6 +1171,8 @@ namespace Korot
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                 string Playlist3 = FileSystem2.ReadFile(themeFile, Encoding.UTF8);
                 string[] SplittedFase3 = Playlist3.Split(token);
+                if (!(SplittedFase3.Length < 12)) 
+                { 
                 int backR = Convert.ToInt32(SplittedFase3[0].Replace(Environment.NewLine, ""));
                 int backG = Convert.ToInt32(SplittedFase3[1].Replace(Environment.NewLine, ""));
                 int backB = Convert.ToInt32(SplittedFase3[2].Replace(Environment.NewLine, ""));
@@ -1165,11 +1186,15 @@ namespace Korot
                 Properties.Settings.Default.BStyleLayout = Convert.ToInt32(SplittedFase3[7].Replace(Environment.NewLine, ""));
                 Properties.Settings.Default.ThemeName = SplittedFase3[8].Substring(1).Replace(Environment.NewLine, "");
                 Properties.Settings.Default.ThemeAuthor = SplittedFase3[9].Substring(1).Replace(Environment.NewLine, "");
+                Properties.Settings.Default.newTabColor = Convert.ToInt32(SplittedFase3[10].Substring(1).Replace(Environment.NewLine, ""));
+                Properties.Settings.Default.closeColor = Convert.ToInt32(SplittedFase3[11].Substring(1).Replace(Environment.NewLine, ""));
                 pictureBox3.BackColor = Properties.Settings.Default.BackColor;
                 pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
                 Properties.Settings.Default.ThemeFile = themeFile;
                 textBox4.Text = Properties.Settings.Default.BackStyle == "BACKCOLOR" ? usingBC : Properties.Settings.Default.BackStyle;
-                RefreshTranslation();
+                    ChangeTheme();
+                    RefreshTranslation();
+                }
             }
             catch (Exception ex)
             {
@@ -1190,7 +1215,9 @@ namespace Korot
     "BACKCOLOR" + Environment.NewLine +
     "0" + Environment.NewLine +
     "Korot Light" + Environment.NewLine +
-    "Haltroy";
+    "Haltroy" + Environment.NewLine +
+    "2" + Environment.NewLine +
+    "1";
                         FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
 
                     }
@@ -1413,7 +1440,6 @@ namespace Korot
             chromiumWebBrowser1.ConsoleMessage += cef_consoleMessage;
             chromiumWebBrowser1.FindHandler = new FindHandler(this);
             chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this, anaform);
-            chromiumWebBrowser1.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
             chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(anaform, this);
             chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this, anaform);
             chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
@@ -1549,6 +1575,23 @@ namespace Korot
         {
             anaform.Invoke(new Action(() => { anaform.CreateTab(url); anaform.SelectedTabIndex = anaform.Tabs.Count - 1; }));
         }
+        bool isFavMenuHidden = false;
+        void showFavMenu()
+        {
+            panel2.Height += mFavorites.Height;
+            tabControl1.Height -= mFavorites.Height;
+            tabControl1.Top += mFavorites.Height;
+            mFavorites.Visible = true;
+            isFavMenuHidden = false;
+        }
+        void hideFavMenu()
+        {
+            panel2.Height -= mFavorites.Height;
+            tabControl1.Height += mFavorites.Height;
+            tabControl1.Top -= mFavorites.Height;
+            mFavorites.Visible = false;
+            isFavMenuHidden = true;
+        }
         ToolStripMenuItem selectedFavorite = null;
         public void RefreshFavorites()
         {
@@ -1556,7 +1599,7 @@ namespace Korot
                 string Playlist = Properties.Settings.Default.Favorites;
                 string[] SplittedFase = Playlist.Split(';');
                 int Count = SplittedFase.Length - 1; ; int i = 0;
-                while (!(i == Count))
+                while ((i != Count) && (Count >= 2))
                 {
                     ToolStripMenuItem miFavorite = new ToolStripMenuItem();
                     miFavorite.Tag = SplittedFase[i].Replace(Environment.NewLine, "");
@@ -1565,6 +1608,13 @@ namespace Korot
                     mFavorites.Items.Add(miFavorite);
 					i += 2;
                 }
+            if (mFavorites.Items.Count < 1)
+            {
+                if (!isFavMenuHidden) hideFavMenu();
+            }else
+            {
+                if (Properties.Settings.Default.showFav) { if (isFavMenuHidden) showFavMenu(); } else { if (!isFavMenuHidden) hideFavMenu(); }
+            }
         }
         private void miFavorite_MouseDown(object sender,MouseEventArgs e)
         {
@@ -1947,6 +1997,10 @@ namespace Korot
                 toolStripTextBox1.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 20, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 20));
                 comboBox3.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 20, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 20));
                 comboBox3.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                dudClose.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 20, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 20));
+                dudClose.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                dudNewTab.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 20, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 20));
+                dudNewTab.ForeColor = Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsProfiles.BackColor = Properties.Settings.Default.BackColor;
                 cmsHamburger.BackColor = Properties.Settings.Default.BackColor;
                 cmsPrivacy.BackColor = Properties.Settings.Default.BackColor;
@@ -2133,7 +2187,9 @@ namespace Korot
             {
                 label21.Text = aboutInfo.Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + themeInfo.Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeAuthor) ? anon : Properties.Settings.Default.ThemeAuthor).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeName) ? noname : Properties.Settings.Default.ThemeName);
             }
-
+            hsFav.Checked = Properties.Settings.Default.showFav;
+            dudClose.SelectedIndex = Properties.Settings.Default.closeColor;
+            dudNewTab.SelectedIndex = Properties.Settings.Default.newTabColor;
             if (emptyItem != null) { emptyItem.Text = this.empty; }
             comboBox3.SelectedIndex = Properties.Settings.Default.BStyleLayout;
             colorToolStripMenuItem.Checked = Properties.Settings.Default.BackStyle == "BACKCOLOR" ? true : false;
@@ -2814,10 +2870,34 @@ namespace Korot
 
             }
         }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
+        private void dudNewTab_SelectedItemChanged(object sender, EventArgs e)
         {
+            if (Properties.Settings.Default.newTabColor != dudNewTab.SelectedIndex)
+            {
+                comboBox1.Text = "";
+                Properties.Settings.Default.ThemeAuthor = "";
+                Properties.Settings.Default.ThemeName = "";
+            }
+            Properties.Settings.Default.newTabColor = dudNewTab.SelectedIndex;
+            ChangeTheme();
+        }
 
+        private void dudClose_SelectedItemChanged(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.closeColor != dudClose.SelectedIndex)
+            {
+                comboBox1.Text = "";
+                Properties.Settings.Default.ThemeAuthor = "";
+                Properties.Settings.Default.ThemeName = "";
+            }
+            Properties.Settings.Default.closeColor = dudClose.SelectedIndex;
+            ChangeTheme();
+        }
+
+        private void hsFav_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.showFav = hsFav.Checked;
+            RefreshFavorites();
         }
     }
 }

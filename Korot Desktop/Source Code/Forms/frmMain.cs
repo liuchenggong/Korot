@@ -125,7 +125,9 @@ namespace Korot
                                     "BACKCOLOR" + Environment.NewLine +
                                     "0" + Environment.NewLine +
     "Korot Light" + Environment.NewLine +
-    "Haltroy";
+    "Haltroy" + Environment.NewLine +
+    "2" + Environment.NewLine +
+    "1";
                     FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
 
                 }
@@ -140,7 +142,9 @@ namespace Korot
                                     "BACKCOLOR" + Environment.NewLine +
                                     "0" + Environment.NewLine +
     "Korot Dark" + Environment.NewLine +
-    "Haltroy";
+    "Haltroy" + Environment.NewLine +
+    "2" + Environment.NewLine +
+    "1";
                     FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
 
                 }
@@ -285,7 +289,9 @@ namespace Korot
                                     "BACKCOLOR" + Environment.NewLine +
                                     "0" + Environment.NewLine +
     "Korot Light" + Environment.NewLine +
-    "Haltroy";
+    "Haltroy" + Environment.NewLine +
+    "2" + Environment.NewLine +
+    "1";
                     FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
                 }
                 if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf"))
@@ -299,7 +305,9 @@ namespace Korot
                     "BACKCOLOR" + Environment.NewLine +
                     "0" + Environment.NewLine +
     "Korot Dark" + Environment.NewLine +
-    "Haltroy";
+    "Haltroy" + Environment.NewLine +
+    "2" + Environment.NewLine +
+    "1";
                     FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
                 }
                 if (File.Exists(profilePath + "settings.ksf") &&

@@ -359,5 +359,41 @@ namespace Korot.Properties {
                 this["StartupURL"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int newTabColor {
+            get {
+                return ((int)(this["newTabColor"]));
+            }
+            set {
+                this["newTabColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int closeColor {
+            get {
+                return ((int)(this["closeColor"]));
+            }
+            set {
+                this["closeColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool showFav {
+            get {
+                return ((bool)(this["showFav"]));
+            }
+            set {
+                this["showFav"] = value;
+            }
+        }
     }
 }
