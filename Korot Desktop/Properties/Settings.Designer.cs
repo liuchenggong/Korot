@@ -395,5 +395,29 @@ namespace Korot.Properties {
                 this["showFav"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool allowUnknownResources {
+            get {
+                return ((bool)(this["allowUnknownResources"]));
+            }
+            set {
+                this["allowUnknownResources"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool dontshowUResource {
+            get {
+                return ((bool)(this["dontshowUResource"]));
+            }
+            set {
+                this["dontshowUResource"] = value;
+            }
+        }
     }
 }

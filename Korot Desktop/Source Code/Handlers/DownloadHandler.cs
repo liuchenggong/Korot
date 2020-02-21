@@ -21,6 +21,7 @@
 //SOFTWARE.
 using CefSharp;
 using System;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Korot
@@ -34,19 +35,40 @@ namespace Korot
             ActiveForm = activeForm;
             aNaFRM = anaform;
         }
+        public static bool ValidHaltroyWebsite(string s)
+        {
+            string Pattern = @"(?:http\:\/\/haltroy\.com)|(?:https\:\/\/haltroy\.com)";
+            Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return Rgx.IsMatch(s.Substring(0, 19));
+        }
         public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IBeforeDownloadCallback callback)
         {
             if (downloadItem.SuggestedFileName.ToLower().EndsWith(".kef"))
             {
-                callback.Continue(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName, false);
-                ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
+                if (Properties.Settings.Default.allowUnknownResources)
+                {
+                    callback.Continue(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName, false);
+                    ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
+                }
+                else
+                {
+                    if (ValidHaltroyWebsite(downloadItem.OriginalUrl))
+                    {
+                        callback.Continue(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName, false);
+                        ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
+                    }
+                    else
+                    {
+                        callback.Dispose();
+                    }
+                }
             }
             else
             {
-                if (Properties.Settings.Default.useDownloadFolder) 
+                if (Properties.Settings.Default.useDownloadFolder)
                 {
                     callback.Continue(Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName, false);
-                    ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
+                    ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
                 }
                 else
                 {
@@ -54,7 +76,7 @@ namespace Korot
                     if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                     {
                         callback.Continue(saveFileDialog1.FileName, false);
-                        ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
+                        ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
                     }
                 }
             }

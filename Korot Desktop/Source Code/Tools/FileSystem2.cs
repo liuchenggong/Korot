@@ -55,11 +55,11 @@ namespace Korot
         }
         public static bool WriteFile(string fileLocation, string input, Encoding encode)
         {
-
-            if (!File.Exists(fileLocation))
+            if (File.Exists(fileLocation))
             {
-                File.Create(fileLocation).Dispose();
+                File.Delete(fileLocation);
             }
+            File.Create(fileLocation).Dispose();
             var writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
             writer.Write(encode.GetBytes(input), 0, encode.GetBytes(input).Length);
             writer.Close();
@@ -67,11 +67,11 @@ namespace Korot
         }
         public static bool WriteFile(string fileLocation, byte[] input)
         {
-
-            if (!File.Exists(fileLocation))
+            if (File.Exists(fileLocation))
             {
-                File.Create(fileLocation).Dispose();
+                File.Delete(fileLocation);
             }
+            File.Create(fileLocation).Dispose();
             var writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
             writer.Write(input, 0, input.Length);
             writer.Close();

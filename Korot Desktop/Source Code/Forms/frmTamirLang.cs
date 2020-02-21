@@ -24,7 +24,7 @@ namespace Korot
             WriteToConsole("Starting Self-Repair...");
             FixDefaultLanguage();
             WriteToConsole("Self-Repair done.");
-            string args = argus.ToString().Replace(Application.ExecutablePath,"");
+            string args = argus.ToString().Replace(Application.ExecutablePath, "");
             Process.Start(Application.ExecutablePath, args);
             Application.Exit();
         }

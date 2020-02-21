@@ -28,7 +28,7 @@ namespace Korot
             ForegroundColor = ForeColor;
             OverlayLayerColor = OverlayColor;
             drawBackgroundColor = drawback;
-            this._inactiveRightSideShadowImage = IsBright(BackColor) ? ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 20), LowerBrightnessIfNeeded(BackColor.G, 20), LowerBrightnessIfNeeded(BackColor.B, 20))) : ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 20, 255), MoreBrightnessIfNeeded(BackColor.G, 20, 255), MoreBrightnessIfNeeded(BackColor.B, 20, 255)));
+            _inactiveRightSideShadowImage = IsBright(BackColor) ? ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 20), LowerBrightnessIfNeeded(BackColor.G, 20), LowerBrightnessIfNeeded(BackColor.B, 20))) : ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 20, 255), MoreBrightnessIfNeeded(BackColor.G, 20, 255), MoreBrightnessIfNeeded(BackColor.B, 20, 255)));
             // Initialize the various images to use during rendering
             _activeLeftSideImage = IsBright(BackColor) ? ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 30), LowerBrightnessIfNeeded(BackColor.G, 30), LowerBrightnessIfNeeded(BackColor.B, 30))) : ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 30, 255), MoreBrightnessIfNeeded(BackColor.G, 30, 255), MoreBrightnessIfNeeded(BackColor.B, 30, 255)));
             _activeRightSideImage = IsBright(BackColor) ? ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 30), LowerBrightnessIfNeeded(BackColor.G, 30), LowerBrightnessIfNeeded(BackColor.B, 30))) : ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 30, 255), MoreBrightnessIfNeeded(BackColor.G, 30, 255), MoreBrightnessIfNeeded(BackColor.B, 30, 255)));
@@ -47,7 +47,8 @@ namespace Korot
             {
                 _closeButtonImage = ColorReplace(Resources.KorotClose, 50, Color.White, OverlayColor);
                 _closeButtonHoverImage = IsBright(OverlayColor) ? ColorReplace(Resources.KorotClose, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(OverlayColor.R, 20), LowerBrightnessIfNeeded(OverlayColor.G, 20), LowerBrightnessIfNeeded(OverlayColor.B, 20))) : ColorReplace(Resources.KorotClose, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(OverlayColor.R, 20, 255), MoreBrightnessIfNeeded(OverlayColor.G, 20, 255), MoreBrightnessIfNeeded(OverlayColor.B, 20, 255)));
-            }else
+            }
+            else
             {
                 Properties.Settings.Default.closeColor = 1;
                 _closeButtonImage = ColorReplace(Resources.KorotClose, 50, Color.White, ForeColor);
@@ -65,11 +66,13 @@ namespace Korot
             {
                 _addButtonImage = new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, ForeColor));
                 _addButtonHoverImage = IsBright(ForeColor) ? new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(ForeColor.R, 20), LowerBrightnessIfNeeded(ForeColor.G, 20), LowerBrightnessIfNeeded(ForeColor.B, 20)))) : new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(ForeColor.R, 20, 255), MoreBrightnessIfNeeded(ForeColor.G, 20, 255), MoreBrightnessIfNeeded(ForeColor.B, 20, 255)))); _inactiveLeftSideImage = IsBright(ForeColor) ? ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(ForeColor.R, 20), LowerBrightnessIfNeeded(ForeColor.G, 20), LowerBrightnessIfNeeded(ForeColor.B, 20))) : ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(ForeColor.R, 20, 255), MoreBrightnessIfNeeded(ForeColor.G, 20, 255), MoreBrightnessIfNeeded(ForeColor.B, 20, 255)));
-            }else if (Properties.Settings.Default.newTabColor == 2)
+            }
+            else if (Properties.Settings.Default.newTabColor == 2)
             {
                 _addButtonImage = new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, OverlayColor));
                 _addButtonHoverImage = IsBright(OverlayColor) ? new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(OverlayColor.R, 20), LowerBrightnessIfNeeded(OverlayColor.G, 20), LowerBrightnessIfNeeded(OverlayColor.B, 20)))) : new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(OverlayColor.R, 20, 255), MoreBrightnessIfNeeded(OverlayColor.G, 20, 255), MoreBrightnessIfNeeded(OverlayColor.B, 20, 255)))); _inactiveLeftSideImage = IsBright(OverlayColor) ? ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(OverlayColor.R, 20), LowerBrightnessIfNeeded(OverlayColor.G, 20), LowerBrightnessIfNeeded(OverlayColor.B, 20))) : ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(OverlayColor.R, 20, 255), MoreBrightnessIfNeeded(OverlayColor.G, 20, 255), MoreBrightnessIfNeeded(OverlayColor.B, 20, 255)));
-            }else
+            }
+            else
             {
                 Properties.Settings.Default.newTabColor = 1;
                 _addButtonImage = new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, ForeColor));
@@ -97,7 +100,7 @@ namespace Korot
                 _inactiveLeftSideImage = IsBright(BackColor) ? ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 20), LowerBrightnessIfNeeded(BackColor.G, 20), LowerBrightnessIfNeeded(BackColor.B, 20))) : ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 20, 255), MoreBrightnessIfNeeded(BackColor.G, 20, 255), MoreBrightnessIfNeeded(BackColor.B, 20, 255)));
                 _inactiveRightSideImage = IsBright(BackColor) ? ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 20), LowerBrightnessIfNeeded(BackColor.G, 20), LowerBrightnessIfNeeded(BackColor.B, 20))) : ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 20, 255), MoreBrightnessIfNeeded(BackColor.G, 20, 255), MoreBrightnessIfNeeded(BackColor.B, 20, 255)));
                 _inactiveCenterImage = IsBright(BackColor) ? ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 20), LowerBrightnessIfNeeded(BackColor.G, 20), LowerBrightnessIfNeeded(BackColor.B, 20))) : ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 20, 255), MoreBrightnessIfNeeded(BackColor.G, 20, 255), MoreBrightnessIfNeeded(BackColor.B, 20, 255)));
-                this._inactiveRightSideShadowImage = IsBright(BackColor) ? ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 20), LowerBrightnessIfNeeded(BackColor.G, 20), LowerBrightnessIfNeeded(BackColor.B, 20))) : ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 20, 255), MoreBrightnessIfNeeded(BackColor.G, 20, 255), MoreBrightnessIfNeeded(BackColor.B, 20, 255)));
+                _inactiveRightSideShadowImage = IsBright(BackColor) ? ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 20), LowerBrightnessIfNeeded(BackColor.G, 20), LowerBrightnessIfNeeded(BackColor.B, 20))) : ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 20, 255), MoreBrightnessIfNeeded(BackColor.G, 20, 255), MoreBrightnessIfNeeded(BackColor.B, 20, 255)));
                 _activeLeftSideImage = IsBright(BackColor) ? ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 30), LowerBrightnessIfNeeded(BackColor.G, 30), LowerBrightnessIfNeeded(BackColor.B, 30))) : ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 30, 255), MoreBrightnessIfNeeded(BackColor.G, 30, 255), MoreBrightnessIfNeeded(BackColor.B, 30, 255)));
                 _activeRightSideImage = IsBright(BackColor) ? ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 30), LowerBrightnessIfNeeded(BackColor.G, 30), LowerBrightnessIfNeeded(BackColor.B, 30))) : ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 30, 255), MoreBrightnessIfNeeded(BackColor.G, 30, 255), MoreBrightnessIfNeeded(BackColor.B, 30, 255)));
                 _activeCenterImage = IsBright(BackColor) ? ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 30), LowerBrightnessIfNeeded(BackColor.G, 30), LowerBrightnessIfNeeded(BackColor.B, 30))) : ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 30, 255), MoreBrightnessIfNeeded(BackColor.G, 30, 255), MoreBrightnessIfNeeded(BackColor.B, 30, 255)));
@@ -113,8 +116,9 @@ namespace Korot
                     _addButtonHoverImage = IsBright(BackColor) ? new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 20), LowerBrightnessIfNeeded(BackColor.G, 20), LowerBrightnessIfNeeded(BackColor.B, 20)))) : new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 20, 255), MoreBrightnessIfNeeded(BackColor.G, 20, 255), MoreBrightnessIfNeeded(BackColor.B, 20, 255)))); _inactiveLeftSideImage = IsBright(BackColor) ? ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(BackColor.R, 20), LowerBrightnessIfNeeded(BackColor.G, 20), LowerBrightnessIfNeeded(BackColor.B, 20))) : ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(BackColor.R, 20, 255), MoreBrightnessIfNeeded(BackColor.G, 20, 255), MoreBrightnessIfNeeded(BackColor.B, 20, 255)));
                 }
             }
-            if (ForeColor != _ForeColor) { 
-                _ForeColor = ForeColor; 
+            if (ForeColor != _ForeColor)
+            {
+                _ForeColor = ForeColor;
                 ForegroundColor = ForeColor;
                 if (Properties.Settings.Default.closeColor == 1)
                 {
@@ -142,6 +146,7 @@ namespace Korot
                     _addButtonHoverImage = IsBright(OverlayColor) ? new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(OverlayColor.R, 20), LowerBrightnessIfNeeded(OverlayColor.G, 20), LowerBrightnessIfNeeded(OverlayColor.B, 20)))) : new Bitmap(ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(OverlayColor.R, 20, 255), MoreBrightnessIfNeeded(OverlayColor.G, 20, 255), MoreBrightnessIfNeeded(OverlayColor.B, 20, 255)))); _inactiveLeftSideImage = IsBright(OverlayColor) ? ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, LowerBrightnessIfNeeded(OverlayColor.R, 20), LowerBrightnessIfNeeded(OverlayColor.G, 20), LowerBrightnessIfNeeded(OverlayColor.B, 20))) : ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, MoreBrightnessIfNeeded(OverlayColor.R, 20, 255), MoreBrightnessIfNeeded(OverlayColor.G, 20, 255), MoreBrightnessIfNeeded(OverlayColor.B, 20, 255)));
                 }
             }
+
 
         }
         public void ChangeBackImage(Image BackImage)

@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -57,6 +58,22 @@ namespace Korot
             label2.Text = StatusType.Replace("[PERC]", "0").Replace("[CURRENT]", "0").Replace("[TOTAL]", "0");
 
         }
+        private static int Brightness(System.Drawing.Color c)
+        {
+            return (int)Math.Sqrt(
+               c.R * c.R * .241 +
+               c.G * c.G * .691 +
+               c.B * c.B * .068);
+        }
+        private static int GerekiyorsaAzalt(int defaultint, int azaltma)
+        {
+            return defaultint > azaltma ? defaultint - 20 : defaultint;
+        }
+
+        private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır)
+        {
+            return defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             string info = new WebClient().DownloadString("https://haltroy.com/Updater/Korot.htupdate");
@@ -68,6 +85,10 @@ namespace Korot
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\");
             pictureBox1.Width = 0;
             WebC.DownloadFileAsync(new Uri(downloadUrl), downloadloc);
+            this.BackColor = Properties.Settings.Default.BackColor;
+            this.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            panel1.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 20, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 20));
+            pictureBox1.BackColor = Properties.Settings.Default.OverlayColor;
         }
         private void WebC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {

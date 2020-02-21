@@ -45,6 +45,7 @@ namespace Korot
         const int keyF = 0x46;
         const int keyN = 0x4E;
         const int keyS = 0x53;
+        const int VK_F11 = 0x7A;
         const int VK_SNAPSHOT = 0x2C;
 
         public KeyboardHandler(frmCEF FrmCEF, frmMain FrmMain)
@@ -81,6 +82,14 @@ namespace Korot
             {
                 isKeyboardShortcut = true;
                 _frmCEF.Invoke(new Action(() => _frmCEF.retrieveKey(3)));
+                //_frmCEF.Invoke(new Action(() => { _frmCEF.tabform_KeyDown(chromiumWebBrowser, new KeyEventArgs(Keys.BrowserStop)); }));
+
+                return true;
+            }
+            else if (windowsKeyCode == VK_F11)
+            {
+                isKeyboardShortcut = true;
+                _frmCEF.Invoke(new Action(() => _frmCEF.retrieveKey(5)));
                 //_frmCEF.Invoke(new Action(() => { _frmCEF.tabform_KeyDown(chromiumWebBrowser, new KeyEventArgs(Keys.BrowserStop)); }));
 
                 return true;

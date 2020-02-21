@@ -331,36 +331,61 @@ namespace Korot
             SaveSettings(profilePath + "settings.ksf",
                     profilePath + "history.ksf",
                     profilePath + "favorites.ksf",
-                    profilePath + "download.ksf");
+                    profilePath + "download.ksf",
+                    profilePath + "cookieDisallow.ksf");
             Properties.Settings.Default.Save();
             allowClose = true;
             Process.Start(Application.ExecutablePath);
             Application.Exit();
         }
-        void SaveSettings(string settingFile, string historyFile, string favoritesFile, string downloadHistory)
+        void SaveSettings(string settingFile, string historyFile, string favoritesFile, string downloadHistory, string disCookieFile)
         {
-            try
-            {
-                // Settings
-                string settingsString = Properties.Settings.Default.Homepage + Environment.NewLine +
-                Properties.Settings.Default.SearchURL + Environment.NewLine +
-                (Properties.Settings.Default.downloadOpen ? "1" : "0") + Environment.NewLine +
-                (Properties.Settings.Default.downloadClose ? "1" : "0") + Environment.NewLine +
-                Properties.Settings.Default.ThemeFile + Environment.NewLine +
-                (Properties.Settings.Default.DoNotTrack ? "1" : "0") + Environment.NewLine;
-                FileSystem2.WriteFile(settingFile, settingsString, Encoding.UTF8);
-                // History
-                FileSystem2.WriteFile(historyFile, Properties.Settings.Default.History, Encoding.UTF8);
-                // Favorites
-                FileSystem2.WriteFile(favoritesFile, Properties.Settings.Default.Favorites, Encoding.UTF8);
+            // Settings
 
-                // Download
-                FileSystem2.WriteFile(downloadHistory, Properties.Settings.Default.DowloadHistory, Encoding.UTF8);
-            }
-            catch (Exception ex)
+            string settingsText = Properties.Settings.Default.Homepage + ";";
+
+            settingsText += Properties.Settings.Default.SearchURL + ";";
+
+            settingsText += (Properties.Settings.Default.downloadOpen ? "1" : "0") + ";";
+
+            settingsText += (Properties.Settings.Default.downloadClose ? "1" : "0") + ";";
+
+            settingsText += Properties.Settings.Default.ThemeFile + ";";
+
+            settingsText += (Properties.Settings.Default.DoNotTrack ? "1" : "0") + ";";
+
+            settingsText += Properties.Settings.Default.LangFile + ";";
+
+            settingsText += (Properties.Settings.Default.rememberLastProxy ? "1" : "0") + ";";
+
+            settingsText += Properties.Settings.Default.LastProxy + ";";
+
+            settingsText += Properties.Settings.Default.DownloadFolder + ";";
+
+            settingsText += (Properties.Settings.Default.useDownloadFolder ? "1" : "0") + ";";
+
+            settingsText += Properties.Settings.Default.StartupURL + ";";
+
+            settingsText += (Properties.Settings.Default.showFav ? "1" : "0") + ";";
+
+            settingsText += (Properties.Settings.Default.allowUnknownResources ? "1" : "0") + ";";
+
+            settingsText += (Properties.Settings.Default.dontshowUResource ? "1" : "0") + ";";
+
+            FileSystem2.WriteFile(settingFile, settingsText, Encoding.UTF8);
+            string cookieList = "";
+            foreach (String x in Properties.Settings.Default.CookieDisallowList)
             {
-                Console.WriteLine("Error at saving settings(" + settingFile + ") : " + ex.ToString());
+                cookieList += x + Environment.NewLine;
             }
+            FileSystem2.WriteFile(disCookieFile, cookieList, Encoding.UTF8);
+            // History
+            FileSystem2.WriteFile(historyFile, Properties.Settings.Default.History, Encoding.UTF8);
+            // Favorites
+            FileSystem2.WriteFile(favoritesFile, Properties.Settings.Default.Favorites, Encoding.UTF8);
+
+            // Download
+            FileSystem2.WriteFile(downloadHistory, Properties.Settings.Default.DowloadHistory, Encoding.UTF8);
         }
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {

@@ -21,7 +21,6 @@
 //SOFTWARE.
 using CefSharp;
 using System;
-using System.Windows.Forms;
 
 namespace Korot
 {
@@ -51,28 +50,31 @@ namespace Korot
 
         public bool OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage)
         {
-           if (dialogType == CefJsDialogType.Alert)
+            if (dialogType == CefJsDialogType.Alert)
             {
                 Cefform.Invoke(new Action(() => Cefform.OnJSAlert(originUrl, messageText)));
                 return true;
-            }else if (dialogType == CefJsDialogType.Confirm)
+            }
+            else if (dialogType == CefJsDialogType.Confirm)
             {
                 bool value = false;
-                Cefform.Invoke(new Action(() => Cefform.OnJSConfirm(originUrl,messageText,out value)));
+                Cefform.Invoke(new Action(() => Cefform.OnJSConfirm(originUrl, messageText, out value)));
                 callback.Continue(value);
                 return true;
             }
-            else if(dialogType == CefJsDialogType.Prompt){
+            else if (dialogType == CefJsDialogType.Prompt)
+            {
                 bool value = false;
                 string result = null;
-                Cefform.Invoke(new Action(() => Cefform.OnJSPrompt(originUrl, messageText,defaultPromptText, out value,out result)));
+                Cefform.Invoke(new Action(() => Cefform.OnJSPrompt(originUrl, messageText, defaultPromptText, out value, out result)));
                 callback.Continue(value, result);
                 return true;
-            }else
+            }
+            else
             {
                 return false;
             }
-                
+
         }
 
 

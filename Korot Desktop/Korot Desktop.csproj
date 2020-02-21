@@ -405,6 +405,8 @@
     <None Include="Resources\theme.png" />
     <None Include="Resources\theme_w.png" />
     <None Include="Resources\star-on-w.png" />
+    <None Include="Resources\lang.png" />
+    <None Include="Resources\lang-w.png" />
     <Content Include="Source Code\Others\Korot.ico" />
     <Content Include="Resources\errorpage.html" />
     <Content Include="Resources\korotlinks.html" />

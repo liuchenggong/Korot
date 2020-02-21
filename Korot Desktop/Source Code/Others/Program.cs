@@ -75,7 +75,7 @@ namespace Korot
                             if (x == Application.ExecutablePath || x == "-oobe" || x == "-update") { }
                             else if (x == "-incognito")
                             {
-                                testApp.Tabs.Add(new TitleBarTab(testApp){Content = new frmCEF(testApp, true, "korot://incognito", Properties.Settings.Default.LastUser) { }});
+                                testApp.Tabs.Add(new TitleBarTab(testApp) { Content = new frmCEF(testApp, true, "korot://incognito", Properties.Settings.Default.LastUser) { } });
                             }
                             else if (x == "-debug" && !isIncognito)
                             {
@@ -84,8 +84,17 @@ namespace Korot
                             }
                             else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
                             {
-                                Application.Run(new frmInstallExt(x));
-                                appStarted = true;
+                                if (Properties.Settings.Default.allowUnknownResources)
+                                {
+                                    Application.Run(new frmInstallExt(x));
+                                    appStarted = true;
+                                }
+                                else
+                                {
+                                    frmError form = new frmError(new InvalidOperationException(x + " could not be installed because \"Allow Unknown Resources\" was disabled. You can enable it from the settings page. Enabling this may be dangerous and Haltroy does not going to take responsibility for this."));
+                                    Application.Run(form);
+                                    appStarted = true;
+                                }
                                 return;
                             }
                             else
@@ -115,6 +124,6 @@ namespace Korot
                 frmError form = new frmError(ex);
                 if (!appStarted) { Application.Run(form); } else { form.Show(); }
             }
-            }
         }
     }
+}

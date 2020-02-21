@@ -442,6 +442,10 @@ namespace Korot
             {
                 return;
             }
+            if (_parentWindow.FormBorderStyle == FormBorderStyle.None)
+            {
+                return;
+            }
 
             Point screenCoordinates = _parentWindow.PointToScreen(_parentWindow.ClientRectangle.Location);
 

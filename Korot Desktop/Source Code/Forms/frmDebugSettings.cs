@@ -126,10 +126,7 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             int selected = lbCookie.SelectedIndex; lbCookie.Items.Clear(); foreach (String x in Properties.Settings.Default.CookieDisallowList) { lbCookie.Items.Add(x); }
-            try { lbCookie.SelectedIndex = selected; }
-            catch
-            {
-            }
+            if (selected < lbCookie.Items.Count) { lbCookie.SelectedIndex = selected; }
             tbHomepage.Text = Properties.Settings.Default.Homepage;
             tbThemeName.Text = Properties.Settings.Default.ThemeName;
             tbThemeAuthor.Text = Properties.Settings.Default.ThemeAuthor;
@@ -156,6 +153,10 @@ namespace Korot
             tbDownload.Text = Properties.Settings.Default.DownloadFolder;
             tbStartup.Text = Properties.Settings.Default.StartupURL;
             cbDownload.Checked = Properties.Settings.Default.useDownloadFolder;
+            numericUpDown1.Value = Properties.Settings.Default.newTabColor;
+            numericUpDown2.Value = Properties.Settings.Default.closeColor;
+            checkBox1.Checked = Properties.Settings.Default.showFav;
+            checkBox2.Checked = Properties.Settings.Default.allowUnknownResources;
         }
 
         private void pbBack_Click(object sender, EventArgs e)
@@ -215,6 +216,26 @@ namespace Korot
         private void tbDownload_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.DownloadFolder = tbDownload.Text;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.newTabColor = Convert.ToInt32(numericUpDown1.Value);
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.closeColor = Convert.ToInt32(numericUpDown2.Value);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.showFav = checkBox1.Checked;
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.allowUnknownResources = checkBox2.Checked;
         }
     }
 }

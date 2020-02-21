@@ -37,13 +37,12 @@ namespace Korot
         {
             if (!Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address))
             {
-                try
+                if (!Cefform.IsDisposed)
                 {
                     Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
                     Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
                     if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pictureBox2.Image = Properties.Resources.locko)); }
                 }
-                catch { } //Probably catches while closing the program
             }
             return !Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address);
         }
@@ -52,13 +51,12 @@ namespace Korot
         {
             if (!Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address))
             {
-                try
+                if (!Cefform.IsDisposed)
                 {
                     Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
                     Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
                     if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pictureBox2.Image = Properties.Resources.locko)); }
                 }
-                catch { } //Probably catches while closing the program
             }
             return !Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address);
         }
