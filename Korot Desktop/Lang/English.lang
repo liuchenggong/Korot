@@ -40,8 +40,7 @@ Downloads
 Background Color : 
 Overlay Color : 
 Korot - Downloading
-Open this file after download
-Close this after download
+Open files after download:
 Open
 To
 Date
@@ -228,7 +227,11 @@ Overlay Color
 New Tab Button Color:
 Close Button Color:
 Show Favorites Menu:
-Allowing Unknown Resources may allow installation of malicious extensions.[NEWLINE]Do you wish to continue?
+Allowing Unknown Resources may allow installation of malicious extensions.
 Allow Unknown Resources:
 Security
 Security...
+((empty))
+Clean Log Data
+Title
+URL

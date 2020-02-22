@@ -75,6 +75,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox1.Size = new System.Drawing.Size(325, 65);
             this.textBox1.TabIndex = 1;
             // 
@@ -88,6 +89,7 @@
             this.lbErrorCode.Multiline = true;
             this.lbErrorCode.Name = "lbErrorCode";
             this.lbErrorCode.ReadOnly = true;
+            this.lbErrorCode.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.lbErrorCode.Size = new System.Drawing.Size(325, 65);
             this.lbErrorCode.TabIndex = 1;
             // 

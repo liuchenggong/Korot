@@ -29,9 +29,6 @@
     <Setting Name="downloadOpen" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="downloadClose" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="LangFile" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -48,7 +45,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ThemeFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Korot Light.ktf</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="BackStyle" Type="System.String" Scope="User">
       <Value Profile="(Default)">BACKCOLOR</Value>
@@ -91,7 +88,7 @@
       <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="closeColor" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="showFav" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -99,8 +96,9 @@
     <Setting Name="allowUnknownResources" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="dontshowUResource" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="registeredExtensions" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

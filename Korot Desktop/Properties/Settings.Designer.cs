@@ -133,18 +133,6 @@ namespace Korot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool downloadClose {
-            get {
-                return ((bool)(this["downloadClose"]));
-            }
-            set {
-                this["downloadClose"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string LangFile {
             get {
@@ -205,7 +193,7 @@ namespace Korot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Korot Light.ktf")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ThemeFile {
             get {
                 return ((string)(this["ThemeFile"]));
@@ -374,7 +362,7 @@ namespace Korot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public int closeColor {
             get {
                 return ((int)(this["closeColor"]));
@@ -410,13 +398,14 @@ namespace Korot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool dontshowUResource {
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+        public global::System.Collections.Specialized.StringCollection registeredExtensions {
             get {
-                return ((bool)(this["dontshowUResource"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["registeredExtensions"]));
             }
             set {
-                this["dontshowUResource"] = value;
+                this["registeredExtensions"] = value;
             }
         }
     }

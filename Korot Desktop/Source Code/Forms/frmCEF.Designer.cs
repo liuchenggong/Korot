@@ -133,8 +133,6 @@ namespace Korot
             this.tpCef = new System.Windows.Forms.TabPage();
             this.tpCert = new System.Windows.Forms.TabPage();
             this.tpSettings = new System.Windows.Forms.TabPage();
-            this.button17 = new System.Windows.Forms.Button();
-            this.label29 = new System.Windows.Forms.Label();
             this.btSecurity = new System.Windows.Forms.Button();
             this.btCookie = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
@@ -142,11 +140,8 @@ namespace Korot
             this.label33 = new System.Windows.Forms.Label();
             this.lbSettings = new System.Windows.Forms.Label();
             this.hsFav = new HaltroyFramework.HaltroySwitch();
-            this.hsDownload = new HaltroyFramework.HaltroySwitch();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.label30 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.tbFolder = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.tbStartup = new System.Windows.Forms.TextBox();
@@ -195,6 +190,13 @@ namespace Korot
             this.openFileİnExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeSelectedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.hsOpen = new HaltroyFramework.HaltroySwitch();
+            this.hsDownload = new HaltroyFramework.HaltroySwitch();
+            this.tbFolder = new System.Windows.Forms.TextBox();
+            this.btDownloadFolder = new System.Windows.Forms.Button();
+            this.lbDownloadFolder = new System.Windows.Forms.Label();
+            this.lbOpen = new System.Windows.Forms.Label();
+            this.lbAutoDownload = new System.Windows.Forms.Label();
             this.tpAbout = new System.Windows.Forms.TabPage();
             this.button18 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
@@ -217,7 +219,9 @@ namespace Korot
             this.button16 = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
             this.tpSecurity = new System.Windows.Forms.TabPage();
+            this.btCleanLog = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
+            this.lbURinfo = new System.Windows.Forms.Label();
             this.lbUResources = new System.Windows.Forms.Label();
             this.lbDNT = new System.Windows.Forms.Label();
             this.hsUnknown = new HaltroyFramework.HaltroySwitch();
@@ -1094,8 +1098,6 @@ namespace Korot
             // 
             // tpSettings
             // 
-            this.tpSettings.Controls.Add(this.button17);
-            this.tpSettings.Controls.Add(this.label29);
             this.tpSettings.Controls.Add(this.btSecurity);
             this.tpSettings.Controls.Add(this.btCookie);
             this.tpSettings.Controls.Add(this.button13);
@@ -1103,11 +1105,8 @@ namespace Korot
             this.tpSettings.Controls.Add(this.label33);
             this.tpSettings.Controls.Add(this.lbSettings);
             this.tpSettings.Controls.Add(this.hsFav);
-            this.tpSettings.Controls.Add(this.hsDownload);
             this.tpSettings.Controls.Add(this.radioButton1);
-            this.tpSettings.Controls.Add(this.label30);
             this.tpSettings.Controls.Add(this.label11);
-            this.tpSettings.Controls.Add(this.tbFolder);
             this.tpSettings.Controls.Add(this.label9);
             this.tpSettings.Controls.Add(this.textBox2);
             this.tpSettings.Controls.Add(this.tbStartup);
@@ -1118,33 +1117,6 @@ namespace Korot
             this.tpSettings.TabIndex = 2;
             this.tpSettings.Text = "tabPage3";
             this.tpSettings.UseVisualStyleBackColor = true;
-            // 
-            // button17
-            // 
-            this.button17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button17.AutoSize = true;
-            this.button17.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button17.FlatAppearance.BorderSize = 0;
-            this.button17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button17.Location = new System.Drawing.Point(525, 269);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(29, 24);
-            this.button17.TabIndex = 37;
-            this.button17.Text = "...";
-            this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.button17_Click);
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.BackColor = System.Drawing.Color.Transparent;
-            this.label29.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.label29.Location = new System.Drawing.Point(13, 251);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(156, 14);
-            this.label29.TabIndex = 36;
-            this.label29.Tag = "";
-            this.label29.Text = "Auto-download to a folder:";
             // 
             // btSecurity
             // 
@@ -1235,16 +1207,6 @@ namespace Korot
             this.hsFav.TabIndex = 28;
             this.hsFav.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsFav_CheckedChanged);
             // 
-            // hsDownload
-            // 
-            this.hsDownload.Location = new System.Drawing.Point(177, 248);
-            this.hsDownload.Name = "hsDownload";
-            this.hsDownload.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsDownload.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsDownload.Size = new System.Drawing.Size(50, 19);
-            this.hsDownload.TabIndex = 28;
-            this.hsDownload.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsDownload_CheckedChanged);
-            // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
@@ -1259,17 +1221,6 @@ namespace Korot
             this.radioButton1.UseVisualStyleBackColor = false;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
             // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.BackColor = System.Drawing.Color.Transparent;
-            this.label30.Location = new System.Drawing.Point(13, 275);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(139, 14);
-            this.label30.TabIndex = 17;
-            this.label30.Tag = "";
-            this.label30.Text = "Download to this folder:";
-            // 
             // label11
             // 
             this.label11.BackColor = System.Drawing.Color.Transparent;
@@ -1279,17 +1230,6 @@ namespace Korot
             this.label11.TabIndex = 17;
             this.label11.Tag = "";
             this.label11.Text = "Home Page :";
-            // 
-            // tbFolder
-            // 
-            this.tbFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFolder.Location = new System.Drawing.Point(158, 272);
-            this.tbFolder.Name = "tbFolder";
-            this.tbFolder.Size = new System.Drawing.Size(365, 22);
-            this.tbFolder.TabIndex = 18;
-            this.tbFolder.Tag = "";
-            this.tbFolder.TextChanged += new System.EventHandler(this.tbFolder_TextChanged);
             // 
             // label9
             // 
@@ -1551,7 +1491,7 @@ namespace Korot
             this.label15.AutoSize = true;
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label15.Location = new System.Drawing.Point(21, 243);
+            this.label15.Location = new System.Drawing.Point(16, 243);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(71, 17);
             this.label15.TabIndex = 25;
@@ -1595,9 +1535,9 @@ namespace Korot
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 14;
-            this.listBox2.Location = new System.Drawing.Point(21, 272);
+            this.listBox2.Location = new System.Drawing.Point(15, 272);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(533, 102);
+            this.listBox2.Size = new System.Drawing.Size(539, 116);
             this.listBox2.TabIndex = 31;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
@@ -1714,6 +1654,13 @@ namespace Korot
             this.tpDownload.Controls.Add(this.button8);
             this.tpDownload.Controls.Add(this.label6);
             this.tpDownload.Controls.Add(this.hlvDownload);
+            this.tpDownload.Controls.Add(this.hsOpen);
+            this.tpDownload.Controls.Add(this.hsDownload);
+            this.tpDownload.Controls.Add(this.tbFolder);
+            this.tpDownload.Controls.Add(this.btDownloadFolder);
+            this.tpDownload.Controls.Add(this.lbDownloadFolder);
+            this.tpDownload.Controls.Add(this.lbOpen);
+            this.tpDownload.Controls.Add(this.lbAutoDownload);
             this.tpDownload.Location = new System.Drawing.Point(4, 23);
             this.tpDownload.Name = "tpDownload";
             this.tpDownload.Size = new System.Drawing.Size(568, 408);
@@ -1761,10 +1708,10 @@ namespace Korot
             this.hlvDownload.ForeColor = System.Drawing.Color.Black;
             this.hlvDownload.FullRowSelect = true;
             this.hlvDownload.HideSelection = false;
-            this.hlvDownload.Location = new System.Drawing.Point(6, 34);
+            this.hlvDownload.Location = new System.Drawing.Point(15, 111);
             this.hlvDownload.MultiSelect = false;
             this.hlvDownload.Name = "hlvDownload";
-            this.hlvDownload.Size = new System.Drawing.Size(551, 355);
+            this.hlvDownload.Size = new System.Drawing.Size(536, 282);
             this.hlvDownload.TabIndex = 1;
             this.hlvDownload.UseCompatibleStateImageBehavior = false;
             this.hlvDownload.View = System.Windows.Forms.View.Details;
@@ -1839,6 +1786,87 @@ namespace Korot
             this.clearToolStripMenuItem2.Size = new System.Drawing.Size(274, 22);
             this.clearToolStripMenuItem2.Text = "Clear";
             this.clearToolStripMenuItem2.Click += new System.EventHandler(this.ClearToolStripMenuItem2_Click);
+            // 
+            // hsOpen
+            // 
+            this.hsOpen.Location = new System.Drawing.Point(168, 34);
+            this.hsOpen.Name = "hsOpen";
+            this.hsOpen.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsOpen.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsOpen.Size = new System.Drawing.Size(50, 19);
+            this.hsOpen.TabIndex = 28;
+            this.hsOpen.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsOpen_CheckedChanged);
+            // 
+            // hsDownload
+            // 
+            this.hsDownload.Location = new System.Drawing.Point(174, 59);
+            this.hsDownload.Name = "hsDownload";
+            this.hsDownload.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsDownload.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsDownload.Size = new System.Drawing.Size(50, 19);
+            this.hsDownload.TabIndex = 28;
+            this.hsDownload.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsDownload_CheckedChanged);
+            // 
+            // tbFolder
+            // 
+            this.tbFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbFolder.Location = new System.Drawing.Point(155, 83);
+            this.tbFolder.Name = "tbFolder";
+            this.tbFolder.Size = new System.Drawing.Size(365, 22);
+            this.tbFolder.TabIndex = 18;
+            this.tbFolder.Tag = "";
+            this.tbFolder.TextChanged += new System.EventHandler(this.tbFolder_TextChanged);
+            // 
+            // btDownloadFolder
+            // 
+            this.btDownloadFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btDownloadFolder.AutoSize = true;
+            this.btDownloadFolder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btDownloadFolder.FlatAppearance.BorderSize = 0;
+            this.btDownloadFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btDownloadFolder.Location = new System.Drawing.Point(522, 80);
+            this.btDownloadFolder.Name = "btDownloadFolder";
+            this.btDownloadFolder.Size = new System.Drawing.Size(29, 24);
+            this.btDownloadFolder.TabIndex = 37;
+            this.btDownloadFolder.Text = "...";
+            this.btDownloadFolder.UseVisualStyleBackColor = true;
+            this.btDownloadFolder.Click += new System.EventHandler(this.button17_Click);
+            // 
+            // lbDownloadFolder
+            // 
+            this.lbDownloadFolder.AutoSize = true;
+            this.lbDownloadFolder.BackColor = System.Drawing.Color.Transparent;
+            this.lbDownloadFolder.Location = new System.Drawing.Point(10, 86);
+            this.lbDownloadFolder.Name = "lbDownloadFolder";
+            this.lbDownloadFolder.Size = new System.Drawing.Size(139, 14);
+            this.lbDownloadFolder.TabIndex = 17;
+            this.lbDownloadFolder.Tag = "";
+            this.lbDownloadFolder.Text = "Download to this folder:";
+            // 
+            // lbOpen
+            // 
+            this.lbOpen.AutoSize = true;
+            this.lbOpen.BackColor = System.Drawing.Color.Transparent;
+            this.lbOpen.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.lbOpen.Location = new System.Drawing.Point(10, 38);
+            this.lbOpen.Name = "lbOpen";
+            this.lbOpen.Size = new System.Drawing.Size(152, 14);
+            this.lbOpen.TabIndex = 36;
+            this.lbOpen.Tag = "";
+            this.lbOpen.Text = "Open files after download:";
+            // 
+            // lbAutoDownload
+            // 
+            this.lbAutoDownload.AutoSize = true;
+            this.lbAutoDownload.BackColor = System.Drawing.Color.Transparent;
+            this.lbAutoDownload.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.lbAutoDownload.Location = new System.Drawing.Point(10, 62);
+            this.lbAutoDownload.Name = "lbAutoDownload";
+            this.lbAutoDownload.Size = new System.Drawing.Size(156, 14);
+            this.lbAutoDownload.TabIndex = 36;
+            this.lbAutoDownload.Tag = "";
+            this.lbAutoDownload.Text = "Auto-download to a folder:";
             // 
             // tpAbout
             // 
@@ -2104,7 +2132,9 @@ namespace Korot
             // 
             // tpSecurity
             // 
+            this.tpSecurity.Controls.Add(this.btCleanLog);
             this.tpSecurity.Controls.Add(this.button19);
+            this.tpSecurity.Controls.Add(this.lbURinfo);
             this.tpSecurity.Controls.Add(this.lbUResources);
             this.tpSecurity.Controls.Add(this.lbDNT);
             this.tpSecurity.Controls.Add(this.hsUnknown);
@@ -2118,6 +2148,22 @@ namespace Korot
             this.tpSecurity.TabIndex = 8;
             this.tpSecurity.Text = "tabPage9";
             this.tpSecurity.UseVisualStyleBackColor = true;
+            // 
+            // btCleanLog
+            // 
+            this.btCleanLog.AutoSize = true;
+            this.btCleanLog.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btCleanLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btCleanLog.FlatAppearance.BorderSize = 0;
+            this.btCleanLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btCleanLog.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.btCleanLog.Location = new System.Drawing.Point(16, 164);
+            this.btCleanLog.Name = "btCleanLog";
+            this.btCleanLog.Size = new System.Drawing.Size(111, 27);
+            this.btCleanLog.TabIndex = 37;
+            this.btCleanLog.Text = "Clean Log Data";
+            this.btCleanLog.UseVisualStyleBackColor = false;
+            this.btCleanLog.Click += new System.EventHandler(this.btCleanLog_Click);
             // 
             // button19
             // 
@@ -2133,6 +2179,18 @@ namespace Korot
             this.button19.TabIndex = 35;
             this.button19.UseVisualStyleBackColor = false;
             this.button19.Click += new System.EventHandler(this.button16_Click);
+            // 
+            // lbURinfo
+            // 
+            this.lbURinfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbURinfo.AutoSize = true;
+            this.lbURinfo.BackColor = System.Drawing.Color.Transparent;
+            this.lbURinfo.Location = new System.Drawing.Point(15, 134);
+            this.lbURinfo.Name = "lbURinfo";
+            this.lbURinfo.Size = new System.Drawing.Size(44, 14);
+            this.lbURinfo.TabIndex = 29;
+            this.lbURinfo.Text = "[INFO]";
             // 
             // lbUResources
             // 
@@ -2379,7 +2437,7 @@ namespace Korot
             this.cmsBStyle.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsBStyle.ShowCheckMargin = true;
             this.cmsBStyle.ShowImageMargin = false;
-            this.cmsBStyle.Size = new System.Drawing.Size(189, 92);
+            this.cmsBStyle.Size = new System.Drawing.Size(189, 70);
             this.cmsBStyle.Opening += new System.ComponentModel.CancelEventHandler(this.cmsBStyle_Opening);
             // 
             // colorToolStripMenuItem
@@ -2908,10 +2966,10 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem1;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.TextBox tbStartup;
-        private System.Windows.Forms.Button button17;
-        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Button btDownloadFolder;
+        private System.Windows.Forms.Label lbAutoDownload;
         private HaltroyFramework.HaltroySwitch hsDownload;
-        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label lbDownloadFolder;
         private System.Windows.Forms.TextBox tbFolder;
         private System.Windows.Forms.ContextMenuStrip cmsStartup;
         private System.Windows.Forms.ToolStripMenuItem showNewTabPageToolStripMenuItem;
@@ -2960,5 +3018,9 @@ namespace Korot
         public System.Windows.Forms.Button button15;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Button btSecurity;
+        private System.Windows.Forms.Label lbURinfo;
+        private System.Windows.Forms.Button btCleanLog;
+        private HaltroyFramework.HaltroySwitch hsOpen;
+        private System.Windows.Forms.Label lbOpen;
     }
 }

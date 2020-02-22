@@ -40,8 +40,7 @@ Kaynağı Görüntüle
 Arkaplan rengi : 
 Tema Rengi : 
 Korot - İndiriyor
-İndirme bitince dosyayı aç
-İndirme bitince pencereyi kapat
+İndirme bitince dosyaları aç:
 Aç
 Hedef
 Tarih
@@ -228,7 +227,11 @@ Tema Rengi
 Yeni sekme butonu rengi:
 Sekme kapatma butonu rengi:
 Favoriler menüsünü göster:
-Bu seçeneği etkinleştirmek, sıkıntılı eklentilerin eklenmesine izin verir.[NEWLINE]Devam etmek istediğine emin misiniz?
+"Bilinmeyen kaynaklara izin ver" seçeneğini etkinleştirmek, sıkıntılı eklentilerin eklenmesine izin verir.
 Bilinmeyen kaynaklara izin ver:
 Güvenlik
 Güvenlik...
+((boş))
+Çıkış dosyalarını temizle
+Başlık
+URL

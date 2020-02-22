@@ -59,7 +59,20 @@ namespace Korot
                     }
                     else
                     {
-                        callback.Dispose();
+                        if (Properties.Settings.Default.useDownloadFolder)
+                        {
+                            callback.Continue(Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName, false);
+                            ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
+                        }
+                        else
+                        {
+                            SaveFileDialog saveFileDialog1 = new SaveFileDialog() { Filter = ActiveForm.allFiles + "|*.*", FilterIndex = 2, RestoreDirectory = true, FileName = downloadItem.SuggestedFileName };
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                callback.Continue(saveFileDialog1.FileName, false);
+                                ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
+                            }
+                        }
                     }
                 }
             }

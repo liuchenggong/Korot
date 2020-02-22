@@ -53,6 +53,7 @@ namespace Korot
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDebugSettings));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -65,6 +66,8 @@ namespace Korot
             this.tbSession = new System.Windows.Forms.TextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.lbCookie = new System.Windows.Forms.ListBox();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.lbExt = new System.Windows.Forms.ListBox();
             this.label12 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
@@ -75,7 +78,6 @@ namespace Korot
             this.label21 = new System.Windows.Forms.Label();
             this.pbOverlay = new System.Windows.Forms.PictureBox();
             this.pbBack = new System.Windows.Forms.PictureBox();
-            this.cbClose = new System.Windows.Forms.CheckBox();
             this.cbDNT = new System.Windows.Forms.CheckBox();
             this.cbDownload = new System.Windows.Forms.CheckBox();
             this.cbProxy = new System.Windows.Forms.CheckBox();
@@ -115,7 +117,6 @@ namespace Korot
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -124,6 +125,7 @@ namespace Korot
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nStyle)).BeginInit();
@@ -164,7 +166,6 @@ namespace Korot
             this.tabPage1.Controls.Add(this.label21);
             this.tabPage1.Controls.Add(this.pbOverlay);
             this.tabPage1.Controls.Add(this.pbBack);
-            this.tabPage1.Controls.Add(this.cbClose);
             this.tabPage1.Controls.Add(this.cbDNT);
             this.tabPage1.Controls.Add(this.cbDownload);
             this.tabPage1.Controls.Add(this.cbProxy);
@@ -199,6 +200,17 @@ namespace Korot
             this.tabPage1.Text = "Settings Report";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(360, 352);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(154, 17);
+            this.checkBox2.TabIndex = 36;
+            this.checkBox2.Text = "Allow Unknown Resources";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
@@ -220,8 +232,10 @@ namespace Korot
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage6);
+            this.tabControl2.Controls.Add(this.tabPage8);
             this.tabControl2.Location = new System.Drawing.Point(15, 465);
             this.tabControl2.MinimumSize = new System.Drawing.Size(503, 114);
+            this.tabControl2.Multiline = true;
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(503, 145);
@@ -251,10 +265,10 @@ namespace Korot
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.tbHistory);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 40);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(495, 119);
+            this.tabPage3.Size = new System.Drawing.Size(495, 101);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "History";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -265,17 +279,17 @@ namespace Korot
             this.tbHistory.Location = new System.Drawing.Point(3, 3);
             this.tbHistory.Multiline = true;
             this.tbHistory.Name = "tbHistory";
-            this.tbHistory.Size = new System.Drawing.Size(489, 113);
+            this.tbHistory.Size = new System.Drawing.Size(489, 95);
             this.tbHistory.TabIndex = 1;
             this.tbHistory.TextChanged += new System.EventHandler(this.tbHistory_TextChanged);
             // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.tbDownloads);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 40);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(495, 119);
+            this.tabPage4.Size = new System.Drawing.Size(495, 101);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "Downloads";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -286,17 +300,17 @@ namespace Korot
             this.tbDownloads.Location = new System.Drawing.Point(3, 3);
             this.tbDownloads.Multiline = true;
             this.tbDownloads.Name = "tbDownloads";
-            this.tbDownloads.Size = new System.Drawing.Size(489, 113);
+            this.tbDownloads.Size = new System.Drawing.Size(489, 95);
             this.tbDownloads.TabIndex = 1;
             this.tbDownloads.TextChanged += new System.EventHandler(this.tbDownloads_TextChanged);
             // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.tbSession);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Location = new System.Drawing.Point(4, 40);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(495, 119);
+            this.tabPage5.Size = new System.Drawing.Size(495, 101);
             this.tabPage5.TabIndex = 3;
             this.tabPage5.Text = "Last Session";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -307,17 +321,17 @@ namespace Korot
             this.tbSession.Location = new System.Drawing.Point(3, 3);
             this.tbSession.Multiline = true;
             this.tbSession.Name = "tbSession";
-            this.tbSession.Size = new System.Drawing.Size(489, 113);
+            this.tbSession.Size = new System.Drawing.Size(489, 95);
             this.tbSession.TabIndex = 1;
             this.tbSession.TextChanged += new System.EventHandler(this.tbSession_TextChanged);
             // 
             // tabPage6
             // 
             this.tabPage6.Controls.Add(this.lbCookie);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Location = new System.Drawing.Point(4, 40);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(495, 119);
+            this.tabPage6.Size = new System.Drawing.Size(495, 101);
             this.tabPage6.TabIndex = 4;
             this.tabPage6.Text = "Cookie Disallow";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -328,9 +342,30 @@ namespace Korot
             this.lbCookie.FormattingEnabled = true;
             this.lbCookie.Location = new System.Drawing.Point(3, 3);
             this.lbCookie.Name = "lbCookie";
-            this.lbCookie.Size = new System.Drawing.Size(489, 113);
+            this.lbCookie.Size = new System.Drawing.Size(489, 95);
             this.lbCookie.TabIndex = 1;
             this.lbCookie.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbCookie_MouseClick);
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.lbExt);
+            this.tabPage8.Location = new System.Drawing.Point(4, 40);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(495, 101);
+            this.tabPage8.TabIndex = 5;
+            this.tabPage8.Text = "Registered Extensions";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // lbExt
+            // 
+            this.lbExt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbExt.FormattingEnabled = true;
+            this.lbExt.Location = new System.Drawing.Point(3, 3);
+            this.lbExt.Name = "lbExt";
+            this.lbExt.Size = new System.Drawing.Size(489, 95);
+            this.lbExt.TabIndex = 2;
+            this.lbExt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbExt_MouseClick);
             // 
             // label12
             // 
@@ -445,21 +480,10 @@ namespace Korot
             this.pbBack.Tag = "";
             this.pbBack.Click += new System.EventHandler(this.pbBack_Click);
             // 
-            // cbClose
-            // 
-            this.cbClose.AutoSize = true;
-            this.cbClose.Location = new System.Drawing.Point(157, 133);
-            this.cbClose.Name = "cbClose";
-            this.cbClose.Size = new System.Drawing.Size(169, 17);
-            this.cbClose.TabIndex = 4;
-            this.cbClose.Text = "Close download when finished";
-            this.cbClose.UseVisualStyleBackColor = true;
-            this.cbClose.CheckedChanged += new System.EventHandler(this.cbClose_CheckedChanged);
-            // 
             // cbDNT
             // 
             this.cbDNT.AutoSize = true;
-            this.cbDNT.Location = new System.Drawing.Point(332, 133);
+            this.cbDNT.Location = new System.Drawing.Point(146, 133);
             this.cbDNT.Name = "cbDNT";
             this.cbDNT.Size = new System.Drawing.Size(85, 17);
             this.cbDNT.TabIndex = 4;
@@ -876,17 +900,6 @@ namespace Korot
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(360, 352);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(154, 17);
-            this.checkBox2.TabIndex = 36;
-            this.checkBox2.Text = "Allow Unknown Resources";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
-            // 
             // frmDebugSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -912,6 +925,7 @@ namespace Korot
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
+            this.tabPage8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nStyle)).EndInit();
@@ -944,7 +958,6 @@ namespace Korot
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbSE;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox cbClose;
         private System.Windows.Forms.CheckBox cbOpen;
         private System.Windows.Forms.TextBox tbLang;
         private System.Windows.Forms.Label label8;
@@ -997,5 +1010,7 @@ namespace Korot
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.ListBox lbExt;
     }
 }

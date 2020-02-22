@@ -82,7 +82,7 @@ namespace Korot
                                 frmDebugSettings frmDebug = new frmDebugSettings();
                                 frmDebug.Show();
                             }
-                            else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
+                            else if (x.ToLower().EndsWith(".kef"))
                             {
                                 if (Properties.Settings.Default.allowUnknownResources)
                                 {
@@ -96,6 +96,11 @@ namespace Korot
                                     appStarted = true;
                                 }
                                 return;
+                            }
+                            else if (x.ToLower().EndsWith(".ktf"))
+                            {
+                                Application.Run(new frmInstallExt(x));
+                                appStarted = true;
                             }
                             else
                             {

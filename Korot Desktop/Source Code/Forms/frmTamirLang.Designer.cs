@@ -44,6 +44,7 @@
             this.lbConsole.Multiline = true;
             this.lbConsole.Name = "lbConsole";
             this.lbConsole.ReadOnly = true;
+            this.lbConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.lbConsole.Size = new System.Drawing.Size(325, 193);
             this.lbConsole.TabIndex = 4;
             // 

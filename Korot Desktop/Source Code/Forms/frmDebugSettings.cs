@@ -66,11 +66,6 @@ namespace Korot
             Properties.Settings.Default.downloadOpen = cbOpen.Checked;
         }
 
-        private void cbClose_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.downloadClose = cbClose.Checked;
-        }
-
         private void cbDNT_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.DoNotTrack = cbDNT.Checked;
@@ -121,12 +116,21 @@ namespace Korot
             Properties.Settings.Default.LastSessionURIs = tbSession.Text;
         }
 
-        private void lbCookie_MouseClick(object sender, MouseEventArgs e) { if (lbCookie.SelectedItem != null && e.Button == MouseButtons.Right) { Properties.Settings.Default.CookieDisallowList.Remove(lbCookie.SelectedItem.ToString()); timer1_Tick(sender, null); } }
+        private void lbCookie_MouseClick(object sender, MouseEventArgs e)
+        { 
+            if (lbCookie.SelectedItem != null && e.Button == MouseButtons.Right)
+            {
+                Properties.Settings.Default.CookieDisallowList.Remove(lbCookie.SelectedItem.ToString());
+                timer1_Tick(sender, null); 
+            } 
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             int selected = lbCookie.SelectedIndex; lbCookie.Items.Clear(); foreach (String x in Properties.Settings.Default.CookieDisallowList) { lbCookie.Items.Add(x); }
             if (selected < lbCookie.Items.Count) { lbCookie.SelectedIndex = selected; }
+            int selected2 = lbExt.SelectedIndex; lbExt.Items.Clear(); foreach (String x in Properties.Settings.Default.registeredExtensions) { lbExt.Items.Add(x); }
+            if (selected2 < lbExt.Items.Count) { lbExt.SelectedIndex = selected2; }
             tbHomepage.Text = Properties.Settings.Default.Homepage;
             tbThemeName.Text = Properties.Settings.Default.ThemeName;
             tbThemeAuthor.Text = Properties.Settings.Default.ThemeAuthor;
@@ -136,7 +140,6 @@ namespace Korot
             nH.Value = Properties.Settings.Default.WindowSizeH;
             tbSE.Text = Properties.Settings.Default.SearchURL;
             cbOpen.Checked = Properties.Settings.Default.downloadOpen;
-            cbClose.Checked = Properties.Settings.Default.downloadClose;
             cbDNT.Checked = Properties.Settings.Default.DoNotTrack;
             tbLang.Text = Properties.Settings.Default.LangFile;
             nStyle.Value = Properties.Settings.Default.BStyleLayout;
@@ -236,6 +239,15 @@ namespace Korot
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.allowUnknownResources = checkBox2.Checked;
+        }
+
+        private void lbExt_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (lbExt.SelectedItem != null && e.Button == MouseButtons.Right)
+            {
+                Properties.Settings.Default.registeredExtensions.Remove(lbExt.SelectedItem.ToString());
+                timer1_Tick(sender, null);
+            }
         }
     }
 }

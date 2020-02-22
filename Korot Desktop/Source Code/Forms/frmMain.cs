@@ -139,23 +139,21 @@ namespace Korot
             string Playlist = FileSystem2.ReadFile(settingFile, Encoding.UTF8);
             char[] token = new char[] { ';' };
             string[] SplittedFase = Playlist.Split(token);
-            if (SplittedFase.Length >= 15)
+            if (SplittedFase.Length >= 13)
             {
                 Properties.Settings.Default.Homepage = SplittedFase[0].Replace(Environment.NewLine, "");
                 Properties.Settings.Default.SearchURL = SplittedFase[1].Replace(Environment.NewLine, "");
                 Properties.Settings.Default.downloadOpen = SplittedFase[2].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.downloadClose = SplittedFase[3].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.ThemeFile = SplittedFase[4].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.DoNotTrack = SplittedFase[5].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.LangFile = SplittedFase[6].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.rememberLastProxy = SplittedFase[7].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.LastProxy = SplittedFase[8].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.DownloadFolder = SplittedFase[9].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.useDownloadFolder = SplittedFase[10].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.StartupURL = SplittedFase[11].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.showFav = SplittedFase[12].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.allowUnknownResources = SplittedFase[13].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.dontshowUResource = SplittedFase[14].Replace(Environment.NewLine, "") == "1";
+                Properties.Settings.Default.ThemeFile = SplittedFase[3].Replace(Environment.NewLine, "");
+                Properties.Settings.Default.DoNotTrack = SplittedFase[4].Replace(Environment.NewLine, "") == "1";
+                Properties.Settings.Default.LangFile = SplittedFase[5].Replace(Environment.NewLine, "");
+                Properties.Settings.Default.rememberLastProxy = SplittedFase[6].Replace(Environment.NewLine, "") == "1";
+                Properties.Settings.Default.LastProxy = SplittedFase[7].Replace(Environment.NewLine, "");
+                Properties.Settings.Default.DownloadFolder = SplittedFase[8].Replace(Environment.NewLine, "");
+                Properties.Settings.Default.useDownloadFolder = SplittedFase[9].Replace(Environment.NewLine, "") == "1";
+                Properties.Settings.Default.StartupURL = SplittedFase[10].Replace(Environment.NewLine, "");
+                Properties.Settings.Default.showFav = SplittedFase[11].Replace(Environment.NewLine, "") == "1";
+                Properties.Settings.Default.allowUnknownResources = SplittedFase[12].Replace(Environment.NewLine, "") == "1";
             }
             else
             {
@@ -196,7 +194,6 @@ namespace Korot
 
             settingsText += (Properties.Settings.Default.downloadOpen ? "1" : "0") + ";";
 
-            settingsText += (Properties.Settings.Default.downloadClose ? "1" : "0") + ";";
 
             settingsText += Properties.Settings.Default.ThemeFile + ";";
 
@@ -217,8 +214,6 @@ namespace Korot
             settingsText += (Properties.Settings.Default.showFav ? "1" : "0") + ";";
 
             settingsText += (Properties.Settings.Default.allowUnknownResources ? "1" : "0") + ";";
-
-            settingsText += (Properties.Settings.Default.dontshowUResource ? "1" : "0") + ";";
 
             FileSystem2.WriteFile(settingFile, settingsText, Encoding.UTF8);
             string cookieList = "";
