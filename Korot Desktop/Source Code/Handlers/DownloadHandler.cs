@@ -21,6 +21,7 @@
 //SOFTWARE.
 using CefSharp;
 using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -47,30 +48,42 @@ namespace Korot
             {
                 if (Properties.Settings.Default.allowUnknownResources)
                 {
+                    if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName))
+                    {
+                        File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName);
+                    }
+                    downloadItem.FullPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName;
                     callback.Continue(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName, false);
-                    ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
+                    ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
                 }
                 else
                 {
                     if (ValidHaltroyWebsite(downloadItem.OriginalUrl))
                     {
+                        if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName))
+                        {
+                            File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName);
+                        }
+                        downloadItem.FullPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName;
                         callback.Continue(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName, false);
-                        ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
+                        ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
                     }
                     else
                     {
                         if (Properties.Settings.Default.useDownloadFolder)
                         {
+                            downloadItem.FullPath = Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName;
                             callback.Continue(Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName, false);
-                            ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
+                            ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
                         }
                         else
                         {
                             SaveFileDialog saveFileDialog1 = new SaveFileDialog() { Filter = ActiveForm.allFiles + "|*.*", FilterIndex = 2, RestoreDirectory = true, FileName = downloadItem.SuggestedFileName };
                             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                             {
+                                downloadItem.FullPath = saveFileDialog1.FileName;
                                 callback.Continue(saveFileDialog1.FileName, false);
-                                ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
+                                ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
                             }
                         }
                     }
@@ -80,20 +93,21 @@ namespace Korot
             {
                 if (Properties.Settings.Default.useDownloadFolder)
                 {
+                    downloadItem.FullPath = Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName;
                     callback.Continue(Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName, false);
-                    ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
+                    ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
                 }
                 else
                 {
                     SaveFileDialog saveFileDialog1 = new SaveFileDialog() { Filter = ActiveForm.allFiles + "|*.*", FilterIndex = 2, RestoreDirectory = true, FileName = downloadItem.SuggestedFileName };
                     if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                     {
+                        downloadItem.FullPath = saveFileDialog1.FileName;
                         callback.Continue(saveFileDialog1.FileName, false);
-                        ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 3));
+                        ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
                     }
                 }
             }
-            browser.GoBack();
         }
 
         public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)
@@ -108,18 +122,14 @@ namespace Korot
             }
             if (downloadItem.IsComplete)
             {
-                aNaFRM.CurrentDownloads.Remove(downloadItem);
+                if (downloadItem.FullPath.ToLower().EndsWith(".kef") || downloadItem.FullPath.ToLower().EndsWith(".ktf"))
+                {
+                    frmInstallExt ınstallExt = new frmInstallExt(downloadItem.FullPath);
+                    ınstallExt.Show();
+                }
                 Properties.Settings.Default.DowloadHistory += "✓;" + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + downloadItem.Url + ";" + downloadItem.FullPath + ";";
-
-                if (downloadItem.SuggestedFileName.ToLower().EndsWith(".kef"))
-                {
-                    frmInstallExt installExt = new frmInstallExt(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName);
-                    installExt.Show();
-                }
-                else
-                {
-                    ActiveForm.Invoke(new Action(() => ActiveForm.RefreshDownloadList()));
-                }
+                aNaFRM.CurrentDownloads.Remove(downloadItem);
+                ActiveForm.Invoke(new Action(() => ActiveForm.RefreshDownloadList()));
             }
 
         }

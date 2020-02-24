@@ -42,9 +42,7 @@ namespace Korot
                 if (!File.Exists(Properties.Settings.Default.LangFile)) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
                 if (!File.Exists(Application.StartupPath + "\\Lang\\English.lang"))
                 {
-                    Output.WriteLine(" [Korot] LANG_FATAL_ERROR: \"English.lang\" not found." + Environment.NewLine + " [Korot] Running Language Repair module.");
-                    Application.Run(new frmTamirLang(args));
-                    appStarted = true;
+                    Tools.FixDefaultLanguage();
                 }
                 else
                 {

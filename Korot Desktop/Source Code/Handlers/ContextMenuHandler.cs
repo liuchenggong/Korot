@@ -20,13 +20,22 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using CefSharp;
-using System;
 using System.Windows.Forms;
 
 namespace Korot
 {
     internal class ContextMenuHandler : IContextMenuHandler
     {
+
+        private const int ShowDevTools = 26501;
+        private const int CloseDevTools = 26502;
+        private const int SaveImageAs = 26503;
+        private const int SaveLinkAs = 26505;
+        private const int CopyLinkAddress = 26506;
+        private const int OpenLinkInNewTab = 26507;
+        private const int SeacrhOrOpenSelectedInNewTab = 40007;
+        private const int RefreshTab = 40008;
+        private const int OpenImageInNewTab = 26508;
         frmCEF ActiveForm;
         frmMain anafrm;
 
@@ -38,78 +47,87 @@ namespace Korot
         {
             model.Clear();
             lastSelText = parameters.SelectionText;
-            ActiveForm.Invoke(new Action(() =>
-            {
-                ActiveForm.cmsCef.Show(Cursor.Position);
-                ActiveForm.tsSep1.Visible = false;
-                ActiveForm.tsSep2.Visible = false;
-                ActiveForm.openLinkInNewTabToolStripMenuItem.Visible = false;
-                ActiveForm.copyLinkAddressToolStripMenuItem.Visible = false;
-                ActiveForm.openImageInNewTabToolStripMenuItem.Visible = false;
-                ActiveForm.saveImageAsToolStripMenuItem.Visible = false;
-                ActiveForm.pasteToolStripMenuItem.Visible = false;
-                ActiveForm.copyToolStripMenuItem.Visible = false;
-                ActiveForm.searchOrOpenSelectedInNewTabToolStripMenuItem.Visible = false;
-                ActiveForm.cutToolStripMenuItem.Visible = false;
-                ActiveForm.undoToolStripMenuItem.Visible = false;
-                ActiveForm.redoToolStripMenuItem.Visible = false;
-                ActiveForm.deleteToolStripMenuItem.Visible = false;
-            }));
+            model.AddItem(CefMenuCommand.Back, ActiveForm.goBack);
+            model.AddItem(CefMenuCommand.Forward, ActiveForm.goForward);
+            model.AddItem((CefMenuCommand)RefreshTab, ActiveForm.refresh);
+            model.AddItem(CefMenuCommand.ReloadNoCache, ActiveForm.refreshNoCache);
+            model.AddItem(CefMenuCommand.StopLoad, ActiveForm.stop);
+            model.AddItem(CefMenuCommand.SelectAll, ActiveForm.selectAll);
+            model.AddSeparator();
             if (parameters.LinkUrl != "")
             {
-                ActiveForm.Invoke(new Action(() =>
-                {
-                    ActiveForm.tsSep1.Visible = true;
-                    ActiveForm.openLinkInNewTabToolStripMenuItem.Tag = parameters.LinkUrl;
-                    ActiveForm.copyLinkAddressToolStripMenuItem.Tag = parameters.LinkUrl;
-                    ActiveForm.openLinkInNewTabToolStripMenuItem.Visible = true;
-                    ActiveForm.copyLinkAddressToolStripMenuItem.Visible = true;
-                }));
+                model.AddItem((CefMenuCommand)OpenLinkInNewTab, ActiveForm.openLinkInNewTab);
+                model.AddItem((CefMenuCommand)CopyLinkAddress, ActiveForm.copyLink);
             }
             if (parameters.HasImageContents && parameters.SourceUrl.Length > 0)
             {
-                ActiveForm.Invoke(new Action(() =>
-                {
-                    ActiveForm.tsSep1.Visible = true;
-                    ActiveForm.openImageInNewTabToolStripMenuItem.Tag = parameters.SourceUrl;
-                    ActiveForm.saveImageAsToolStripMenuItem.Tag = parameters.SourceUrl;
-                    ActiveForm.openImageInNewTabToolStripMenuItem.Visible = true;
-                    ActiveForm.saveImageAsToolStripMenuItem.Visible = true;
-                }));
+                model.AddItem((CefMenuCommand)OpenImageInNewTab, ActiveForm.openImageInNewTab);
+                model.AddItem((CefMenuCommand)SaveImageAs, ActiveForm.saveImageAs);
+                model.AddSeparator();
             }
             if (parameters.IsEditable)
             {
-                ActiveForm.Invoke(new Action(() =>
-                {
-                    ActiveForm.tsSep2.Visible = true;
-                    ActiveForm.pasteToolStripMenuItem.Visible = true;
-                }));
+                model.AddItem(CefMenuCommand.Paste, ActiveForm.paste);
             }
             if (parameters.SelectionText != "")
             {
-                ActiveForm.Invoke(new Action(() =>
-                {
-                    ActiveForm.tsSep2.Visible = true;
-                    ActiveForm.copyToolStripMenuItem.Visible = true;
-                    ActiveForm.searchOrOpenSelectedInNewTabToolStripMenuItem.Tag = parameters.SelectionText;
-                    ActiveForm.searchOrOpenSelectedInNewTabToolStripMenuItem.Visible = true;
-                }));
+                model.AddItem(CefMenuCommand.Copy, ActiveForm.copy);
                 if (parameters.IsEditable)
                 {
-                    ActiveForm.Invoke(new Action(() =>
-                    {
-                        ActiveForm.tsSep2.Visible = true;
-                        ActiveForm.cutToolStripMenuItem.Visible = true;
-                        ActiveForm.undoToolStripMenuItem.Visible = true;
-                        ActiveForm.redoToolStripMenuItem.Visible = true;
-                        ActiveForm.deleteToolStripMenuItem.Visible = true;
-                    }));
+                    model.AddItem(CefMenuCommand.Cut, ActiveForm.cut);
+
+                    model.AddItem(CefMenuCommand.Undo, ActiveForm.undo);
+                    model.AddItem(CefMenuCommand.Redo, ActiveForm.redo);
+                    model.AddItem(CefMenuCommand.Delete, ActiveForm.delete);
                 }
+                model.AddItem((CefMenuCommand)SeacrhOrOpenSelectedInNewTab, ActiveForm.SearchOrOpenSelectedInNewTab);
+                model.AddSeparator();
             }
+            model.AddItem(CefMenuCommand.Print, ActiveForm.print);
+            model.AddItem((CefMenuCommand)ShowDevTools, ActiveForm.developerTools);
+            model.AddItem(CefMenuCommand.ViewSource, ActiveForm.viewSource);
         }
 
-        public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags) { return false; }
+        public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
+        {
+            int id = (int)commandId;
+            if (id == ShowDevTools)
+            {
+                browser.ShowDevTools();
+            }
+            if (id == CloseDevTools)
+            {
+                browser.CloseDevTools();
+            }
+            if (id == SaveImageAs)
+            {
+                browser.GetHost().StartDownload(parameters.SourceUrl);
+            }
+            if (id == SaveLinkAs)
+            {
+                browser.GetHost().StartDownload(parameters.LinkUrl);
+            }
+            if (id == OpenLinkInNewTab)
+            {
+                browserControl.GetMainFrame().ExecuteJavaScriptAsync("window.open('" + parameters.LinkUrl + "')");
+            }
+            if (id == CopyLinkAddress)
+            {
+                Clipboard.SetText(parameters.LinkUrl);
+            }
+            if (id == OpenImageInNewTab)
+            {
+                browserControl.GetMainFrame().ExecuteJavaScriptAsync("window.open('" + parameters.SourceUrl + "')");
+            }
+            if (id == SeacrhOrOpenSelectedInNewTab)
+            {
+                browserControl.GetMainFrame().ExecuteJavaScriptAsync("window.open('" + parameters.SelectionText + "')");
+            }
+            return false;
+        }
+
         public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame) { }
+
         public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback) { return false; }
     }
 }

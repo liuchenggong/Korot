@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Korot
@@ -52,9 +51,6 @@ namespace Korot
             TabRenderer = tabRenderer;
             Icon = Properties.Resources.KorotIcon;
             InitializeComponent();
-            this.MinimumSize = new System.Drawing.Size(660, 340);
-            this.Size = new Size(Properties.Settings.Default.WindowSizeW, Properties.Settings.Default.WindowSizeH);
-            this.Location = new Point(Properties.Settings.Default.WindowPosX, Properties.Settings.Default.WindowPosY);
         }
         public void removeThisDownloadItem(DownloadItem removeItem)
         {
@@ -73,182 +69,21 @@ namespace Korot
             }
             removeDownloads.Clear();
         }
-        private static int Brightness(Color c)
-        {
-            return (int)Math.Sqrt(
-               c.R * c.R * .241 +
-               c.G * c.G * .691 +
-               c.B * c.B * .068);
-        }
-        private static int GerekiyorsaAzalt(int defaultint, int azaltma)
-        {
-            return defaultint > azaltma ? defaultint - 20 : defaultint;
-        }
 
-        private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır)
-        {
-            return defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
-        }
 
         void PrintImages()
         {
             this.MinimumSize = new System.Drawing.Size(660, 340);
             this.BackColor = Properties.Settings.Default.BackColor;
-            this.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-        }
-        void createThemes()
-        {
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf"))
-            {
-                string newTheme = "255" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "30" + Environment.NewLine +
-                                "144" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "BACKCOLOR" + Environment.NewLine +
-                                "0" + Environment.NewLine +
-"Korot Light" + Environment.NewLine +
-"Haltroy" + Environment.NewLine +
-"2" + Environment.NewLine +
-"1";
-                FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
-
-            }
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf"))
-            {
-                string newTheme = "0" + Environment.NewLine +
-                                "0" + Environment.NewLine +
-                                "0" + Environment.NewLine +
-                                "30" + Environment.NewLine +
-                                "144" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "BACKCOLOR" + Environment.NewLine +
-                                "0" + Environment.NewLine +
-"Korot Dark" + Environment.NewLine +
-"Haltroy" + Environment.NewLine +
-"2" + Environment.NewLine +
-"1";
-                FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
-
-            }
-        }
-        void LoadSettings(string settingFile, string historyFile, string favoritesFile, string downloadHistory, string disCookieFile)
-        {
-            // Settings
-            string Playlist = FileSystem2.ReadFile(settingFile, Encoding.UTF8);
-            char[] token = new char[] { ';' };
-            string[] SplittedFase = Playlist.Split(token);
-            if (SplittedFase.Length >= 13)
-            {
-                Properties.Settings.Default.Homepage = SplittedFase[0].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.SearchURL = SplittedFase[1].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.downloadOpen = SplittedFase[2].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.ThemeFile = SplittedFase[3].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.DoNotTrack = SplittedFase[4].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.LangFile = SplittedFase[5].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.rememberLastProxy = SplittedFase[6].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.LastProxy = SplittedFase[7].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.DownloadFolder = SplittedFase[8].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.useDownloadFolder = SplittedFase[9].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.StartupURL = SplittedFase[10].Replace(Environment.NewLine, "");
-                Properties.Settings.Default.showFav = SplittedFase[11].Replace(Environment.NewLine, "") == "1";
-                Properties.Settings.Default.allowUnknownResources = SplittedFase[12].Replace(Environment.NewLine, "") == "1";
-            }
-            else
-            {
-                Console.WriteLine("Error at reading settings(" + settingFile + ") : [Lines: " + SplittedFase.Length + "]");
-                SaveSettings(settingFile, historyFile, favoritesFile, downloadHistory, disCookieFile);
-                return;
-            }
-            Properties.Settings.Default.CookieDisallowList.Clear();
-            string Playlist2 = FileSystem2.ReadFile(disCookieFile, Encoding.UTF8);
-            char[] token2 = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SplittedFase2 = Playlist2.Split(token2);
-            int Count = SplittedFase2.Length - 1; ; int i = 0;
-            while ((i != Count) && (Count >= 1))
-            {
-                Properties.Settings.Default.CookieDisallowList.Add(SplittedFase2[i].Replace(Environment.NewLine, ""));
-                i += 1;
-            }
-            if (Properties.Settings.Default.ThemeFile == null || !File.Exists(Properties.Settings.Default.ThemeFile))
-            {
-                Properties.Settings.Default.ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf";
-            }
-            createThemes();
-            // History
-            Properties.Settings.Default.History = FileSystem2.ReadFile(historyFile, Encoding.UTF8);
-            // Favorites
-            Properties.Settings.Default.Favorites = FileSystem2.ReadFile(favoritesFile, Encoding.UTF8);
-            // Downloads
-            Properties.Settings.Default.DowloadHistory = FileSystem2.ReadFile(downloadHistory, Encoding.UTF8);
-
-        }
-        void SaveSettings(string settingFile, string historyFile, string favoritesFile, string downloadHistory, string disCookieFile)
-        {
-            // Settings
-
-            string settingsText = Properties.Settings.Default.Homepage + ";";
-
-            settingsText += Properties.Settings.Default.SearchURL + ";";
-
-            settingsText += (Properties.Settings.Default.downloadOpen ? "1" : "0") + ";";
-
-
-            settingsText += Properties.Settings.Default.ThemeFile + ";";
-
-            settingsText += (Properties.Settings.Default.DoNotTrack ? "1" : "0") + ";";
-
-            settingsText += Properties.Settings.Default.LangFile + ";";
-
-            settingsText += (Properties.Settings.Default.rememberLastProxy ? "1" : "0") + ";";
-
-            settingsText += Properties.Settings.Default.LastProxy + ";";
-
-            settingsText += Properties.Settings.Default.DownloadFolder + ";";
-
-            settingsText += (Properties.Settings.Default.useDownloadFolder ? "1" : "0") + ";";
-
-            settingsText += Properties.Settings.Default.StartupURL + ";";
-
-            settingsText += (Properties.Settings.Default.showFav ? "1" : "0") + ";";
-
-            settingsText += (Properties.Settings.Default.allowUnknownResources ? "1" : "0") + ";";
-
-            FileSystem2.WriteFile(settingFile, settingsText, Encoding.UTF8);
-            string cookieList = "";
-            foreach (String x in Properties.Settings.Default.CookieDisallowList)
-            {
-                cookieList += x + Environment.NewLine;
-            }
-            FileSystem2.WriteFile(disCookieFile, cookieList, Encoding.UTF8);
-            // History
-            FileSystem2.WriteFile(historyFile, Properties.Settings.Default.History, Encoding.UTF8);
-            // Favorites
-            FileSystem2.WriteFile(favoritesFile, Properties.Settings.Default.Favorites, Encoding.UTF8);
-
-            // Download
-            FileSystem2.WriteFile(downloadHistory, Properties.Settings.Default.DowloadHistory, Encoding.UTF8);
+            this.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
         }
 
-        public bool IsDirectoryEmpty(string path)
-        {
-            try
-            {
-                if (Directory.GetDirectories(path).Length > 0) { return false; } else { return true; }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(" [KOROT] IsDirectoryEmpty Error : " + ex.ToString());
-                return true;
-            }
-        }
         public void SwitchProfile(string profilename)
         {
             Properties.Settings.Default.LastUser = profilename;
             if (!isIncognito) { Properties.Settings.Default.Save(); }
             Process.Start(Application.ExecutablePath);
-            this.Close();
+            Application.Exit();
         }
         public void DeleteProfile(string profilename)
         {
@@ -258,7 +93,7 @@ namespace Korot
             Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profilename + "\\", true);
             if (!isIncognito) { Properties.Settings.Default.Save(); }
             Process.Start(Application.ExecutablePath);
-            this.Close();
+            Application.Exit();
         }
         public void NewProfile()
         {
@@ -314,22 +149,16 @@ namespace Korot
             if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
             {
-                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\"); }
-                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"); }
-                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\"); }
-                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\"); }
-                if (IsDirectoryEmpty(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
-                if (!(Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"))) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
                 profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\";
                 if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
-                createThemes();
+                Tools.createThemes();
                 if (File.Exists(profilePath + "settings.ksf") &&
                         File.Exists(profilePath + "history.ksf") &&
                         File.Exists(profilePath + "favorites.ksf") &&
                         File.Exists(profilePath + "download.ksf") &&
                         File.Exists(profilePath + "cookieDisallow.ksf"))
                 {
-                    LoadSettings(profilePath + "settings.ksf",
+                    Tools.LoadSettings(profilePath + "settings.ksf",
                         profilePath + "history.ksf",
                         profilePath + "favorites.ksf",
                         profilePath + "download.ksf",
@@ -337,7 +166,7 @@ namespace Korot
                 }
                 else
                 {
-                    SaveSettings(profilePath + "settings.ksf",
+                    Tools.SaveSettings(profilePath + "settings.ksf",
                         profilePath + "history.ksf",
                         profilePath + "favorites.ksf",
                         profilePath + "download.ksf",
@@ -362,6 +191,16 @@ namespace Korot
             }
 
             SessionLogger.Start();
+            this.MinimumSize = new System.Drawing.Size(660, 340);
+            this.MaximizedBounds = Screen.GetWorkingArea(this);
+            if (Properties.Settings.Default.windowState == 0) { this.WindowState = FormWindowState.Normal; }
+            else if (Properties.Settings.Default.windowState == 1) { this.WindowState = FormWindowState.Maximized; }
+            else if (Properties.Settings.Default.windowState == 2) { this.WindowState = FormWindowState.Minimized; }
+            else
+            { Properties.Settings.Default.windowState = 0; this.WindowState = FormWindowState.Normal; }
+            this.Size = new Size(Properties.Settings.Default.WindowSizeW, Properties.Settings.Default.WindowSizeH);
+            this.Location = new Point(Properties.Settings.Default.WindowPosX, Properties.Settings.Default.WindowPosY);
+
         }
 
         public void ReadSession(string Session)
@@ -420,14 +259,27 @@ namespace Korot
             PrintImages();
         }
         public bool isFullScreen = false;
+        public bool wasMaximized = false;
         public void Fullscreenmode(bool fullscreen)
         {
-            isFullScreen = fullscreen;
-            this.MaximizedBounds = Screen.FromHandle(this.Handle).Bounds;
+            if (fullscreen)
+            {
+                wasMaximized = this.WindowState == FormWindowState.Maximized;
+                this.WindowState = FormWindowState.Maximized;
+                this.MaximizedBounds = Screen.FromHandle(this.Handle).Bounds;
+                isFullScreen = true;
+            }
+            else
+            {
+                if (!wasMaximized)
+                {
+                    this.WindowState = FormWindowState.Normal;
+                }
+                this.MaximizedBounds = Screen.GetWorkingArea(this);
+                isFullScreen = false;
+            }
             this.FormBorderStyle = fullscreen ? FormBorderStyle.None : FormBorderStyle.Sizable;
-            this.WindowState = fullscreen ? FormWindowState.Maximized : FormWindowState.Normal;
         }
-
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -437,6 +289,9 @@ namespace Korot
                 Korot.Properties.Settings.Default.WindowPosY = this.Location.Y;
                 Korot.Properties.Settings.Default.WindowSizeH = this.Size.Height;
                 Korot.Properties.Settings.Default.WindowSizeW = this.Size.Width;
+                if (this.WindowState == FormWindowState.Normal) { Properties.Settings.Default.windowState = 0; }
+                else if (this.WindowState == FormWindowState.Maximized) { Properties.Settings.Default.windowState = 1; }
+                else if (this.WindowState == FormWindowState.Minimized) { Properties.Settings.Default.windowState = 2; }
                 if (e.CloseReason != CloseReason.None || e.CloseReason != CloseReason.WindowsShutDown || e.CloseReason != CloseReason.TaskManagerClosing)
                 {
                     Korot.Properties.Settings.Default.LastSessionURIs = "";
@@ -451,7 +306,7 @@ namespace Korot
                 }
                 if (!isIncognito) { Properties.Settings.Default.Save(); }
                 if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\")) { } else { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
-                SaveSettings(
+                Tools.SaveSettings(
                     Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\settings.ksf",
                     Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\history.ksf",
                     Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\favorites.ksf",

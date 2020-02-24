@@ -117,12 +117,12 @@ namespace Korot
         }
 
         private void lbCookie_MouseClick(object sender, MouseEventArgs e)
-        { 
+        {
             if (lbCookie.SelectedItem != null && e.Button == MouseButtons.Right)
             {
                 Properties.Settings.Default.CookieDisallowList.Remove(lbCookie.SelectedItem.ToString());
-                timer1_Tick(sender, null); 
-            } 
+                timer1_Tick(sender, null);
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)

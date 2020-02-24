@@ -76,6 +76,8 @@ namespace Korot
             this.caseSensitiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.extensionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsExt = new System.Windows.Forms.ToolStripSeparator();
+            this.tsWebStore = new System.Windows.Forms.ToolStripMenuItem();
             this.DefaultProxyts = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.newWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -152,6 +154,7 @@ namespace Korot
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.pbStore = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -198,7 +201,6 @@ namespace Korot
             this.lbOpen = new System.Windows.Forms.Label();
             this.lbAutoDownload = new System.Windows.Forms.Label();
             this.tpAbout = new System.Windows.Forms.TabPage();
-            this.button18 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.lbUpdateStatus = new System.Windows.Forms.Label();
@@ -225,6 +227,7 @@ namespace Korot
             this.lbUResources = new System.Windows.Forms.Label();
             this.lbDNT = new System.Windows.Forms.Label();
             this.hsUnknown = new HaltroyFramework.HaltroySwitch();
+            this.button18 = new System.Windows.Forms.Button();
             this.hsDoNotTrack = new HaltroyFramework.HaltroySwitch();
             this.lbSecurity = new System.Windows.Forms.Label();
             this.lbLastProxy = new System.Windows.Forms.Label();
@@ -259,30 +262,6 @@ namespace Korot
             this.showNewTabPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsCef = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.forwardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshNoCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.openLinkInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyLinkAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openImageInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveImageAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSep2 = new System.Windows.Forms.ToolStripSeparator();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSep3 = new System.Windows.Forms.ToolStripSeparator();
-            this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showDevToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewSourceToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -298,6 +277,7 @@ namespace Korot
             this.tpCert.SuspendLayout();
             this.tpSettings.SuspendLayout();
             this.tpTheme.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbStore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tpHistory.SuspendLayout();
@@ -314,7 +294,6 @@ namespace Korot
             this.cmsBStyle.SuspendLayout();
             this.cmsIncognito.SuspendLayout();
             this.cmsStartup.SuspendLayout();
-            this.cmsCef.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbAddress
@@ -571,7 +550,6 @@ namespace Korot
             // 
             // toolStripTextBox1
             // 
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.MaxLength = 2147483647;
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(220, 23);
@@ -611,10 +589,26 @@ namespace Korot
             // 
             // extensionToolStripMenuItem1
             // 
+            this.extensionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsExt,
+            this.tsWebStore});
             this.extensionToolStripMenuItem1.Image = global::Korot.Properties.Resources.ext;
             this.extensionToolStripMenuItem1.Name = "extensionToolStripMenuItem1";
             this.extensionToolStripMenuItem1.Size = new System.Drawing.Size(280, 22);
             this.extensionToolStripMenuItem1.Text = "Extensions";
+            // 
+            // tsExt
+            // 
+            this.tsExt.Name = "tsExt";
+            this.tsExt.Size = new System.Drawing.Size(125, 6);
+            // 
+            // tsWebStore
+            // 
+            this.tsWebStore.Image = global::Korot.Properties.Resources.store;
+            this.tsWebStore.Name = "tsWebStore";
+            this.tsWebStore.Size = new System.Drawing.Size(128, 22);
+            this.tsWebStore.Text = "Web Store";
+            this.tsWebStore.Click += new System.EventHandler(this.tsWebStore_Click);
             // 
             // DefaultProxyts
             // 
@@ -1284,6 +1278,7 @@ namespace Korot
             this.tpTheme.Controls.Add(this.label32);
             this.tpTheme.Controls.Add(this.label31);
             this.tpTheme.Controls.Add(this.label12);
+            this.tpTheme.Controls.Add(this.pbStore);
             this.tpTheme.Controls.Add(this.pictureBox3);
             this.tpTheme.Controls.Add(this.pictureBox4);
             this.tpTheme.Controls.Add(this.label14);
@@ -1367,6 +1362,19 @@ namespace Korot
             this.label12.TabIndex = 25;
             this.label12.Tag = "";
             this.label12.Text = "Background Image :";
+            // 
+            // pbStore
+            // 
+            this.pbStore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbStore.Image = global::Korot.Properties.Resources.store;
+            this.pbStore.Location = new System.Drawing.Point(531, 243);
+            this.pbStore.Name = "pbStore";
+            this.pbStore.Size = new System.Drawing.Size(23, 23);
+            this.pbStore.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbStore.TabIndex = 27;
+            this.pbStore.TabStop = false;
+            this.pbStore.Tag = "";
+            this.pbStore.Click += new System.EventHandler(this.pictureBox6_Click);
             // 
             // pictureBox3
             // 
@@ -1601,9 +1609,12 @@ namespace Korot
             this.hlvHistory.ContextMenuStrip = this.cmsHistory;
             this.hlvHistory.ForeColor = System.Drawing.Color.Black;
             this.hlvHistory.FullRowSelect = true;
+            this.hlvHistory.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.hlvHistory.HeaderForeColor = System.Drawing.Color.Black;
             this.hlvHistory.HideSelection = false;
             this.hlvHistory.Location = new System.Drawing.Point(7, 38);
             this.hlvHistory.Name = "hlvHistory";
+            this.hlvHistory.OwnerDraw = true;
             this.hlvHistory.Size = new System.Drawing.Size(549, 351);
             this.hlvHistory.TabIndex = 0;
             this.hlvHistory.UseCompatibleStateImageBehavior = false;
@@ -1707,10 +1718,13 @@ namespace Korot
             this.hlvDownload.ContextMenuStrip = this.cmsDownload;
             this.hlvDownload.ForeColor = System.Drawing.Color.Black;
             this.hlvDownload.FullRowSelect = true;
+            this.hlvDownload.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.hlvDownload.HeaderForeColor = System.Drawing.Color.Black;
             this.hlvDownload.HideSelection = false;
             this.hlvDownload.Location = new System.Drawing.Point(15, 111);
             this.hlvDownload.MultiSelect = false;
             this.hlvDownload.Name = "hlvDownload";
+            this.hlvDownload.OwnerDraw = true;
             this.hlvDownload.Size = new System.Drawing.Size(536, 282);
             this.hlvDownload.TabIndex = 1;
             this.hlvDownload.UseCompatibleStateImageBehavior = false;
@@ -1872,7 +1886,6 @@ namespace Korot
             // 
             this.tpAbout.AutoScroll = true;
             this.tpAbout.BackColor = System.Drawing.Color.White;
-            this.tpAbout.Controls.Add(this.button18);
             this.tpAbout.Controls.Add(this.button14);
             this.tpAbout.Controls.Add(this.label22);
             this.tpAbout.Controls.Add(this.lbUpdateStatus);
@@ -1891,21 +1904,6 @@ namespace Korot
             this.tpAbout.Size = new System.Drawing.Size(568, 408);
             this.tpAbout.TabIndex = 5;
             this.tpAbout.Text = "About";
-            // 
-            // button18
-            // 
-            this.button18.AutoSize = true;
-            this.button18.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button18.FlatAppearance.BorderSize = 0;
-            this.button18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button18.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.button18.Location = new System.Drawing.Point(18, 192);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(102, 27);
-            this.button18.TabIndex = 37;
-            this.button18.Text = "Reset Korot...";
-            this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // button14
             // 
@@ -2138,6 +2136,7 @@ namespace Korot
             this.tpSecurity.Controls.Add(this.lbUResources);
             this.tpSecurity.Controls.Add(this.lbDNT);
             this.tpSecurity.Controls.Add(this.hsUnknown);
+            this.tpSecurity.Controls.Add(this.button18);
             this.tpSecurity.Controls.Add(this.hsDoNotTrack);
             this.tpSecurity.Controls.Add(this.lbSecurity);
             this.tpSecurity.Controls.Add(this.lbLastProxy);
@@ -2221,6 +2220,22 @@ namespace Korot
             this.hsUnknown.Size = new System.Drawing.Size(50, 18);
             this.hsUnknown.TabIndex = 28;
             this.hsUnknown.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsUnknown_CheckedChanged);
+            // 
+            // button18
+            // 
+            this.button18.AutoSize = true;
+            this.button18.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.button18.FlatAppearance.BorderSize = 0;
+            this.button18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button18.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.button18.Location = new System.Drawing.Point(16, 197);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(102, 27);
+            this.button18.TabIndex = 37;
+            this.button18.Text = "Reset Korot...";
+            this.button18.UseVisualStyleBackColor = false;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // hsDoNotTrack
             // 
@@ -2438,7 +2453,6 @@ namespace Korot
             this.cmsBStyle.ShowCheckMargin = true;
             this.cmsBStyle.ShowImageMargin = false;
             this.cmsBStyle.Size = new System.Drawing.Size(189, 70);
-            this.cmsBStyle.Opening += new System.ComponentModel.CancelEventHandler(this.cmsBStyle_Opening);
             // 
             // colorToolStripMenuItem
             // 
@@ -2534,192 +2548,6 @@ namespace Korot
             this.showAWebsiteToolStripMenuItem.Text = "Show a website";
             this.showAWebsiteToolStripMenuItem.Click += new System.EventHandler(this.showAWebsiteToolStripMenuItem_Click);
             // 
-            // cmsCef
-            // 
-            this.cmsCef.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.backToolStripMenuItem,
-            this.forwardToolStripMenuItem,
-            this.refreshToolStripMenuItem,
-            this.refreshNoCacheToolStripMenuItem,
-            this.stopToolStripMenuItem,
-            this.selectAllToolStripMenuItem,
-            this.tsSep1,
-            this.openLinkInNewTabToolStripMenuItem,
-            this.copyLinkAddressToolStripMenuItem,
-            this.openImageInNewTabToolStripMenuItem,
-            this.saveImageAsToolStripMenuItem,
-            this.tsSep2,
-            this.pasteToolStripMenuItem,
-            this.cutToolStripMenuItem,
-            this.copyToolStripMenuItem,
-            this.undoToolStripMenuItem,
-            this.redoToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem,
-            this.tsSep3,
-            this.printToolStripMenuItem,
-            this.showDevToolsToolStripMenuItem,
-            this.viewSourceToolsToolStripMenuItem});
-            this.cmsCef.Name = "cmsCef";
-            this.cmsCef.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsCef.ShowImageMargin = false;
-            this.cmsCef.Size = new System.Drawing.Size(241, 462);
-            // 
-            // backToolStripMenuItem
-            // 
-            this.backToolStripMenuItem.Name = "backToolStripMenuItem";
-            this.backToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.backToolStripMenuItem.Text = "Back";
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
-            // 
-            // forwardToolStripMenuItem
-            // 
-            this.forwardToolStripMenuItem.Name = "forwardToolStripMenuItem";
-            this.forwardToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.forwardToolStripMenuItem.Text = "Forward";
-            this.forwardToolStripMenuItem.Click += new System.EventHandler(this.forwardToolStripMenuItem_Click);
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
-            // 
-            // refreshNoCacheToolStripMenuItem
-            // 
-            this.refreshNoCacheToolStripMenuItem.Name = "refreshNoCacheToolStripMenuItem";
-            this.refreshNoCacheToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.refreshNoCacheToolStripMenuItem.Text = "Refresh (No Cache)";
-            this.refreshNoCacheToolStripMenuItem.Click += new System.EventHandler(this.refreshNoCacheToolStripMenuItem_Click);
-            // 
-            // stopToolStripMenuItem
-            // 
-            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.stopToolStripMenuItem.Text = "Stop";
-            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
-            // 
-            // selectAllToolStripMenuItem
-            // 
-            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.selectAllToolStripMenuItem.Text = "Select All";
-            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
-            // 
-            // tsSep1
-            // 
-            this.tsSep1.Name = "tsSep1";
-            this.tsSep1.Size = new System.Drawing.Size(237, 6);
-            // 
-            // openLinkInNewTabToolStripMenuItem
-            // 
-            this.openLinkInNewTabToolStripMenuItem.Name = "openLinkInNewTabToolStripMenuItem";
-            this.openLinkInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.openLinkInNewTabToolStripMenuItem.Text = "Open Link In New Tab";
-            this.openLinkInNewTabToolStripMenuItem.Click += new System.EventHandler(this.openLinkInNewTabToolStripMenuItem_Click);
-            // 
-            // copyLinkAddressToolStripMenuItem
-            // 
-            this.copyLinkAddressToolStripMenuItem.Name = "copyLinkAddressToolStripMenuItem";
-            this.copyLinkAddressToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.copyLinkAddressToolStripMenuItem.Text = "Copy Link Address";
-            this.copyLinkAddressToolStripMenuItem.Click += new System.EventHandler(this.copyLinkAddressToolStripMenuItem_Click);
-            // 
-            // openImageInNewTabToolStripMenuItem
-            // 
-            this.openImageInNewTabToolStripMenuItem.Name = "openImageInNewTabToolStripMenuItem";
-            this.openImageInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.openImageInNewTabToolStripMenuItem.Text = "Open Image In New Tab";
-            this.openImageInNewTabToolStripMenuItem.Click += new System.EventHandler(this.openImageInNewTabToolStripMenuItem_Click);
-            // 
-            // saveImageAsToolStripMenuItem
-            // 
-            this.saveImageAsToolStripMenuItem.Name = "saveImageAsToolStripMenuItem";
-            this.saveImageAsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.saveImageAsToolStripMenuItem.Text = "Save Image As...";
-            this.saveImageAsToolStripMenuItem.Click += new System.EventHandler(this.saveImageAsToolStripMenuItem_Click);
-            // 
-            // tsSep2
-            // 
-            this.tsSep2.Name = "tsSep2";
-            this.tsSep2.Size = new System.Drawing.Size(237, 6);
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.pasteToolStripMenuItem.Text = "Paste";
-            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
-            // 
-            // cutToolStripMenuItem
-            // 
-            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.cutToolStripMenuItem.Text = "Cut";
-            this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.copyToolStripMenuItem.Text = "Copy";
-            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
-            // 
-            // undoToolStripMenuItem
-            // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.undoToolStripMenuItem.Text = "Undo";
-            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
-            // 
-            // redoToolStripMenuItem
-            // 
-            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.redoToolStripMenuItem.Text = "Redo";
-            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            // 
-            // searchOrOpenSelectedInNewTabToolStripMenuItem
-            // 
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem.Name = "searchOrOpenSelectedInNewTabToolStripMenuItem";
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem.Text = "Search Or Open Selected In New Tab";
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem.Click += new System.EventHandler(this.seacrhOrOpenSelectedInNewTabToolStripMenuItem_Click);
-            // 
-            // tsSep3
-            // 
-            this.tsSep3.Name = "tsSep3";
-            this.tsSep3.Size = new System.Drawing.Size(237, 6);
-            // 
-            // printToolStripMenuItem
-            // 
-            this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.printToolStripMenuItem.Text = "Print";
-            this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
-            // 
-            // showDevToolsToolStripMenuItem
-            // 
-            this.showDevToolsToolStripMenuItem.Name = "showDevToolsToolStripMenuItem";
-            this.showDevToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.showDevToolsToolStripMenuItem.Text = "Show Dev Tools";
-            this.showDevToolsToolStripMenuItem.Click += new System.EventHandler(this.showDevToolsToolStripMenuItem_Click);
-            // 
-            // viewSourceToolsToolStripMenuItem
-            // 
-            this.viewSourceToolsToolStripMenuItem.Name = "viewSourceToolsToolStripMenuItem";
-            this.viewSourceToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.viewSourceToolsToolStripMenuItem.Text = "View Source";
-            this.viewSourceToolsToolStripMenuItem.Click += new System.EventHandler(this.viewSourceToolsToolStripMenuItem_Click);
-            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -2762,6 +2590,7 @@ namespace Korot
             this.tpSettings.PerformLayout();
             this.tpTheme.ResumeLayout(false);
             this.tpTheme.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbStore)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tpHistory.ResumeLayout(false);
@@ -2784,7 +2613,6 @@ namespace Korot
             this.cmsBStyle.ResumeLayout(false);
             this.cmsIncognito.ResumeLayout(false);
             this.cmsStartup.ResumeLayout(false);
-            this.cmsCef.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2986,30 +2814,6 @@ namespace Korot
         private System.Windows.Forms.Label lbUResources;
         private HaltroyFramework.HaltroySwitch hsUnknown;
         private System.Windows.Forms.ToolStripMenuItem tsFullscreen;
-        public System.Windows.Forms.ContextMenuStrip cmsCef;
-        public System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem forwardToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem refreshNoCacheToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem openLinkInNewTabToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem copyLinkAddressToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem openImageInNewTabToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem saveImageAsToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem searchOrOpenSelectedInNewTabToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem showDevToolsToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem viewSourceToolsToolStripMenuItem;
-        public System.Windows.Forms.ToolStripSeparator tsSep1;
-        public System.Windows.Forms.ToolStripSeparator tsSep2;
-        public System.Windows.Forms.ToolStripSeparator tsSep3;
         private System.Windows.Forms.TabPage tpSecurity;
         public System.Windows.Forms.Button button19;
         private System.Windows.Forms.Label lbSecurity;
@@ -3022,5 +2826,8 @@ namespace Korot
         private System.Windows.Forms.Button btCleanLog;
         private HaltroyFramework.HaltroySwitch hsOpen;
         private System.Windows.Forms.Label lbOpen;
+        private System.Windows.Forms.ToolStripSeparator tsExt;
+        private System.Windows.Forms.ToolStripMenuItem tsWebStore;
+        private System.Windows.Forms.PictureBox pbStore;
     }
 }
