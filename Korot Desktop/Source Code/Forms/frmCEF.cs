@@ -135,6 +135,11 @@ namespace Korot
             }
         }
         #region "Translate"
+        public string copyImage = "Copy Image";
+        public string openLinkInNewWindow = "Open Link in a New Window";
+        public string openLinkInNewIncWindow = "Open Link in a New Incognito Window";
+        public string copyImageAddress = "Copy Image Address";
+        public string saveLinkAs = "Save Link as...";
         public string goBack = "Go Back";
         public string goForward = "Go Forward";
         public string refresh = "Refresh";
@@ -289,8 +294,13 @@ namespace Korot
             string LicenseTitle, string KorotLicense, string VSLicense, string ChromiumLicense, string CefSharpLicense, string EasyTabsLicense, string SpecialThanks,
             string bisNone, string bisTile, string bisCenter, string bisStretch, string bisZoom, string bsBackColor, string bsForeColor, string bsOverlayColor,
             string ntbc, string cbc, string showFav, string uresmessage, string allowUR, string security, string securityButton, string emptExt, string cLog,
-            string title, string url, string webStore)
+            string title, string url, string webStore, string cimage, string olianw,string olianiw,string cia,string sla)
         {
+            copyImage = cimage.Replace(Environment.NewLine, "");
+            openLinkInNewWindow = olianw.Replace(Environment.NewLine, "");
+            openLinkInNewIncWindow = olianiw.Replace(Environment.NewLine, "");
+            copyImageAddress = cia.Replace(Environment.NewLine, "");
+            saveLinkAs = sla.Replace(Environment.NewLine, "");
             tsWebStore.Text = webStore.Replace(Environment.NewLine, "");
             if (emptyItem != null) { emptyItem.Text = emptExt.Replace(Environment.NewLine, ""); }
             btCleanLog.Text = cLog.Replace(Environment.NewLine, "");
@@ -485,6 +495,9 @@ namespace Korot
             historyToolStripMenuItem.Text = historytxt.Replace(Environment.NewLine, "");
             label4.Text = historytxt.Replace(Environment.NewLine, "");
             label22.Text = abouttxt.Replace(Environment.NewLine, "");
+            // NEW CMS 
+
+            // OLD CMS
             goBack = gBack.Replace(Environment.NewLine, "");
             goForward = gForward.Replace(Environment.NewLine, "");
             refresh = reload.Replace(Environment.NewLine, "");
@@ -504,6 +517,7 @@ namespace Korot
             SearchOrOpenSelectedInNewTab = oossint.Replace(Environment.NewLine, "");
             developerTools = devtool.Replace(Environment.NewLine, "");
             viewSource = viewsrc.Replace(Environment.NewLine, "");
+            // END CMS
             restoreOldSessions = restoreLastSession.Replace(Environment.NewLine, "");
             label14.Text = bcolor.Replace(Environment.NewLine, "");
             enterAValidUrl = enterValidUrl.Replace(Environment.NewLine, "");
@@ -802,7 +816,12 @@ namespace Korot
                     languagedummy.Items[234].ToString().Substring(1),
                     languagedummy.Items[235].ToString().Substring(1),
                     languagedummy.Items[236].ToString().Substring(1),
-                    languagedummy.Items[237].ToString().Substring(1));
+                    languagedummy.Items[237].ToString().Substring(1),
+                    languagedummy.Items[238].ToString().Substring(1),
+                    languagedummy.Items[239].ToString().Substring(1),
+                    languagedummy.Items[240].ToString().Substring(1),
+                    languagedummy.Items[241].ToString().Substring(1),
+                    languagedummy.Items[242].ToString().Substring(1));
             }
             else
             {
@@ -1800,7 +1819,7 @@ namespace Korot
 
 
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tpCef) //CEF
             {
@@ -1820,7 +1839,7 @@ namespace Korot
 
         }
 
-        private void button3_Click(object sender, EventArgs e) { allowSwitching = true; tabControl1.SelectedTab = tpCef; chromiumWebBrowser1.Forward(); }
+        public void button3_Click(object sender, EventArgs e) { allowSwitching = true; tabControl1.SelectedTab = tpCef; chromiumWebBrowser1.Forward(); }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -2280,7 +2299,10 @@ namespace Korot
 
             onCEFTab = (tabControl1.SelectedTab == tpCef);
             ChangeTheme();
-            this.Parent.Text = this.Text;
+            if (this.Parent != null)
+            {
+                this.Parent.Text = this.Text;
+            }
             RefreshTranslation();
             if (anaform.restoremedaddy == "") { spRestorer.Visible = false; restoreLastSessionToolStripMenuItem.Visible = false; } else { spRestorer.Visible = true; restoreLastSessionToolStripMenuItem.Visible = true; }
         }

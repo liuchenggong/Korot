@@ -262,6 +262,7 @@ namespace Korot
             this.showNewTabPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -550,6 +551,7 @@ namespace Korot
             // 
             // toolStripTextBox1
             // 
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.MaxLength = 2147483647;
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(220, 23);
@@ -2547,6 +2549,7 @@ namespace Korot
             this.showAWebsiteToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.showAWebsiteToolStripMenuItem.Text = "Show a website";
             this.showAWebsiteToolStripMenuItem.Click += new System.EventHandler(this.showAWebsiteToolStripMenuItem_Click);
+            
             // 
             // frmCEF
             // 

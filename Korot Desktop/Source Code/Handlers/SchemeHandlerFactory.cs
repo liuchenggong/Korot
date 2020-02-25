@@ -34,12 +34,11 @@ namespace Korot
             anaform = _anaForm;
             CefForm = _CefForm;
         }
-        private static int Brightness(System.Drawing.Color c)
+        public static bool ValidHaltroyWebsite(string s)
         {
-            return (int)Math.Sqrt(
-               c.R * c.R * .241 +
-               c.G * c.G * .691 +
-               c.B * c.B * .068);
+            string Pattern = @"(?:http\:\/\/haltroy\.com)|(?:https\:\/\/haltroy\.com)";
+            Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return Rgx.IsMatch(s.Substring(0, 19));
         }
         public string GetBackStyle()
         {
@@ -54,7 +53,7 @@ namespace Korot
         }
         public string GetBackStyle2()
         {
-            return "background-color: rgb(" + Properties.Settings.Default.BackColor.R + " ," + Properties.Settings.Default.BackColor.G + " , " + Properties.Settings.Default.BackColor.B + "); color: " + (Brightness(Properties.Settings.Default.BackColor) < 130 ? "white" : "black") + ";";
+            return "background-color: rgb(" + Properties.Settings.Default.BackColor.R + " ," + Properties.Settings.Default.BackColor.G + " , " + Properties.Settings.Default.BackColor.B + "); color: " + (Tools.isBright(Properties.Settings.Default.BackColor) ? "black": "white") + ";";
         }
         public static bool ValidHttpURL(string s)
         {
@@ -152,6 +151,11 @@ namespace Korot
                     return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?FILE_NOT_FOUND \" />");
                 }
 
+            }
+            if (request.Url.ToLower().EndsWith(".ktf") && ValidHaltroyWebsite(request.Url))
+            {
+                browser.GetHost().StartDownload(request.Url); //didnt worked :(
+                return ResourceHandler.FromString("");
             }
             return new ResourceHandler();
         }

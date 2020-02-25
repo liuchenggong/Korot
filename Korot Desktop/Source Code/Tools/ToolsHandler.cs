@@ -29,6 +29,16 @@ namespace Korot
 {
     public class Tools
     {
+        public static Image getImageFromUrl(string url)
+        {
+                using (System.Net.WebClient webClient = new System.Net.WebClient())
+                {
+                    using (Stream stream = webClient.OpenRead(url))
+                    {
+                        return Image.FromStream(stream);
+                    }
+                }
+        }
         public static bool createThemes()
         {
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf"))
