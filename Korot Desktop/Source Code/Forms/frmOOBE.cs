@@ -117,6 +117,7 @@ namespace Korot
         }
         private void lbLang_SelectedIndexChanged(object sender, EventArgs e)
         {
+          if (lbLang.SelectedItem != null) {
             if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".lang"))
             {
                 btContinue2.Visible = false;
@@ -169,6 +170,10 @@ namespace Korot
                 pbOverlay.Location = new Point(lbOveral.Location.X + lbOveral.Width + 5, pbOverlay.Location.Y);
                 btContinue2.Visible = true;
             }
+          } else 
+          {
+            btContinue2.Visible = false;
+          } 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
