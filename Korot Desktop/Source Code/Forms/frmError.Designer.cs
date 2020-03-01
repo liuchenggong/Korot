@@ -76,7 +76,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(325, 65);
+            this.textBox1.Size = new System.Drawing.Size(537, 274);
             this.textBox1.TabIndex = 1;
             // 
             // lbErrorCode
@@ -90,7 +90,7 @@
             this.lbErrorCode.Name = "lbErrorCode";
             this.lbErrorCode.ReadOnly = true;
             this.lbErrorCode.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.lbErrorCode.Size = new System.Drawing.Size(325, 65);
+            this.lbErrorCode.Size = new System.Drawing.Size(537, 65);
             this.lbErrorCode.TabIndex = 1;
             // 
             // frmError
@@ -98,7 +98,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(352, 230);
+            this.ClientSize = new System.Drawing.Size(564, 439);
             this.Controls.Add(this.lbErrorCode);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
@@ -107,7 +107,7 @@
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(368, 269);
+            this.MinimumSize = new System.Drawing.Size(360, 270);
             this.Name = "frmError";
             this.Text = "Korot";
             this.Load += new System.EventHandler(this.frmError_Load);

@@ -218,6 +218,26 @@ namespace Korot
             this.ForeColor = isDarkMode ? Color.White : Color.Black;
             cmsSearchEngine.BackColor = isDarkMode ? Color.Black : Color.White;
             cmsSearchEngine.ForeColor = isDarkMode ? Color.White : Color.Black;
+            haltroySwitch1.BackColor = isDarkMode ? Color.Black : Color.White;
+            haltroySwitch2.BackColor = isDarkMode ? Color.Black : Color.White;
+            haltroySwitch3.BackColor = isDarkMode ? Color.Black : Color.White;
+            haltroySwitch4.BackColor = isDarkMode ? Color.Black : Color.White;
+            haltroySwitch1.ButtonColor = isDarkMode ? Color.White : Color.Black;
+            haltroySwitch2.ButtonColor = isDarkMode ? Color.White : Color.Black;
+            haltroySwitch3.ButtonColor = isDarkMode ? Color.White : Color.Black;
+            haltroySwitch4.ButtonColor = isDarkMode ? Color.White : Color.Black;
+            haltroySwitch1.BorderColor = isDarkMode ? Color.White : Color.Black;
+            haltroySwitch2.BorderColor = isDarkMode ? Color.White : Color.Black;
+            haltroySwitch3.BorderColor = isDarkMode ? Color.White : Color.Black;
+            haltroySwitch4.BorderColor = isDarkMode ? Color.White : Color.Black;
+            haltroySwitch1.ButtonHoverColor = isDarkMode ? Color.FromArgb(255,235,235,235) : Color.FromArgb(255,20,20,20);
+            haltroySwitch2.ButtonHoverColor = isDarkMode ? Color.FromArgb(255, 235, 235, 235) : Color.FromArgb(255, 20, 20, 20);
+            haltroySwitch3.ButtonHoverColor = isDarkMode ? Color.FromArgb(255, 235, 235, 235) : Color.FromArgb(255, 20, 20, 20);
+            haltroySwitch4.ButtonHoverColor = isDarkMode ? Color.FromArgb(255, 235, 235, 235) : Color.FromArgb(255, 20, 20, 20);
+            haltroySwitch1.ButtonPressedColor = isDarkMode ? Color.FromArgb(255, 215, 215, 215) : Color.FromArgb(255, 40, 40, 40);
+            haltroySwitch2.ButtonPressedColor = isDarkMode ? Color.FromArgb(255, 215, 215, 215) : Color.FromArgb(255, 40, 40, 40);
+            haltroySwitch3.ButtonPressedColor = isDarkMode ? Color.FromArgb(255, 215, 215, 215) : Color.FromArgb(255, 40, 40, 40);
+            haltroySwitch4.ButtonPressedColor = isDarkMode ? Color.FromArgb(255, 215, 215, 215) : Color.FromArgb(255, 40, 40, 40);
             foreach (TabPage x in tabControl1.TabPages)
             {
                 x.BackColor = isDarkMode ? Color.Black : Color.White;
@@ -252,7 +272,6 @@ namespace Korot
             RefreshTheme();
             rbKorotD.Checked = isDarkMode;
             rbKorotL.Checked = !isDarkMode;
-
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
             {
                 Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\", true);
@@ -263,9 +282,10 @@ namespace Korot
 
         private void button3_Click(object sender, EventArgs e)
         {
-
             allowSwitch = true;
             tabControl1.SelectedTab = tabPage2;
+            haltroySwitch1.Checked = false;
+            haltroySwitch2.Checked = false;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -335,12 +355,7 @@ namespace Korot
         private void button2_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.LastUser = textBox1.Text;
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\");
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\");
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\");
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\");
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\");
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\");
+            Tools.createFolders();
             profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\";
             Directory.CreateDirectory(profilePath);
             Tools.createThemes();

@@ -20,6 +20,8 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 
@@ -64,6 +66,26 @@ namespace Korot
             writer.Write(encode.GetBytes(input), 0, encode.GetBytes(input).Length);
             writer.Close();
             return true;
+        }
+        public static bool WriteFile(string fileLocation, Bitmap bitmap, ImageFormat format)
+        {
+            if (File.Exists(fileLocation))
+            {
+                File.Delete(fileLocation);
+            }
+            MemoryStream memoryStream = new MemoryStream();
+            bitmap.Save(memoryStream, format);
+            memoryStream.Close();
+            File.Create(fileLocation).Dispose();
+            var writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+            writer.Write(memoryStream.ToArray(), 0, Convert.ToInt32(memoryStream.Length));
+            writer.Close();
+            return true;
+        }
+        public static bool WriteFile(string fileLocation, Image image, ImageFormat format)
+        {
+            Bitmap bitmap = new Bitmap(image);
+            return WriteFile(fileLocation, bitmap, format);
         }
         public static bool WriteFile(string fileLocation, byte[] input)
         {

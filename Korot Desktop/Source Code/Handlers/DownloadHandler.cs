@@ -124,7 +124,7 @@ namespace Korot
             {
                 if (downloadItem.FullPath.ToLower().EndsWith(".kef") || downloadItem.FullPath.ToLower().EndsWith(".ktf"))
                 {
-                    frmInstallExt ınstallExt = new frmInstallExt(downloadItem.FullPath);
+                    frmInstallExt ınstallExt = new frmInstallExt(downloadItem.FullPath, Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions" + Path.GetFileNameWithoutExtension(downloadItem.FullPath)));
                     ınstallExt.Show();
                 }
                 Properties.Settings.Default.DowloadHistory += "✓;" + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + downloadItem.Url + ";" + downloadItem.FullPath + ";";

@@ -34,11 +34,13 @@ namespace Korot
         string userCache;
         frmMain anaform;
         bool allowWebContent;
+        string ExtManifestFile;
         ChromiumWebBrowser chromiumWebBrowser1;
         public frmExt(frmCEF CefForm, frmMain rmmain, string profileName, string manifestFile, string popupHTML, bool _allowWebContent)
         {
             InitializeComponent();
             tabform = CefForm;
+            ExtManifestFile = manifestFile;
             anaform = rmmain;
             userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + profileName + "\\cache\\";
             this.Text = "Korot";

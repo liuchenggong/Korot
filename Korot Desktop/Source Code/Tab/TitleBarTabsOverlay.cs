@@ -478,15 +478,14 @@ namespace Korot
                                     }
                                 }));
                     }
-
-                    Invoke(new Action(() => OnMouseMove(new MouseEventArgs(MouseButtons.None, 0, cursorPosition.X, cursorPosition.Y, 0))));
+                    if (!IsDisposed) Invoke(new Action(() => OnMouseMove(new MouseEventArgs(MouseButtons.None, 0, cursorPosition.X, cursorPosition.Y, 0))));
 
                     if (_parentForm.TabRenderer.IsTabRepositioning)
                     {
                         reRender = true;
                     }
 
-                    if (reRender)
+                    if (reRender && !IsDisposed)
                     {
                         Invoke(new Action(() => Render(cursorPosition, true)));
                     }

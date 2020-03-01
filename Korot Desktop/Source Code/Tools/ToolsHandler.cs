@@ -118,7 +118,7 @@ namespace Korot
             // History
             FileSystem2.WriteFile(historyFile, Properties.Settings.Default.History, Encoding.UTF8);
             // Favorites
-            FileSystem2.WriteFile(favoritesFile, Properties.Settings.Default.Favorites, Encoding.UTF8);
+            FileSystem2.WriteFile(favoritesFile, Properties.Settings.Default.Favorites.Replace("]","]" + Environment.NewLine), Encoding.UTF8);
 
             // Download
             FileSystem2.WriteFile(downloadHistory, Properties.Settings.Default.DowloadHistory, Encoding.UTF8);
@@ -170,7 +170,7 @@ namespace Korot
             // History
             Properties.Settings.Default.History = FileSystem2.ReadFile(historyFile, Encoding.UTF8);
             // Favorites
-            Properties.Settings.Default.Favorites = FileSystem2.ReadFile(favoritesFile, Encoding.UTF8);
+            Properties.Settings.Default.Favorites = FileSystem2.ReadFile(favoritesFile, Encoding.UTF8).Replace("]" + Environment.NewLine, "]");
             // Downloads
             Properties.Settings.Default.DowloadHistory = FileSystem2.ReadFile(downloadHistory, Encoding.UTF8);
             return true;
@@ -181,6 +181,7 @@ namespace Korot
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"); }
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\"); }
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\IconStorage\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\IconStorage\\"); }
             if (IsDirectoryEmpty(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
             if (!(Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"))) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
             return true;
@@ -211,6 +212,13 @@ namespace Korot
         public static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır)
         {
             return defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
+        }
+        public static Color TersRenk (Color c,bool reverseAlpha)
+        {
+            return Color.FromArgb(reverseAlpha ? (255 - c.A) : c.A,
+                                  255 - c.R,
+                                  255 - c.G,
+                                  255 - c.B);
         }
         public static Color ShiftBrightnessIfNeeded(Color baseColor, int value, bool shiftAlpha)
         {

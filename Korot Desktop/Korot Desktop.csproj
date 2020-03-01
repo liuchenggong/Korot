@@ -188,6 +188,12 @@
     <Compile Include="Source Code\Forms\frmInstallExt.Designer.cs">
       <DependentUpon>frmInstallExt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Forms\frmNewFav.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmNewFav.Designer.cs">
+      <DependentUpon>frmNewFav.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Forms\frmOOBE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -292,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmCEF.resx">
       <DependentUpon>frmCEF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmNewFav.resx">
+      <DependentUpon>frmNewFav.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmOOBE.resx">
       <DependentUpon>frmOOBE.cs</DependentUpon>
@@ -400,6 +409,10 @@
     <None Include="Resources\lang-w.png" />
     <None Include="Resources\store.png" />
     <None Include="Resources\store-w.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\web.png" />
+    <None Include="Resources\folder-w.png" />
+    <None Include="Resources\web-w.png" />
     <Content Include="Source Code\Others\Korot.ico" />
     <Content Include="Resources\errorpage.html" />
     <Content Include="Resources\korotlinks.html" />

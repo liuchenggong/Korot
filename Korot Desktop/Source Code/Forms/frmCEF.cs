@@ -35,7 +35,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Xml;
 
 namespace Korot
 {
@@ -55,6 +55,8 @@ namespace Korot
         bool findLast;
         string defaultProxy = null;
         public ChromiumWebBrowser chromiumWebBrowser1;
+        List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
+        List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
         // [NEWTAB]
         public frmCEF(frmMain rmmain, bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0")
         {
@@ -115,6 +117,156 @@ namespace Korot
                 }
             }
         }
+        string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\IconStorage\\";
+        public void LoadDynamicMenu()
+        {
+            mFavorites.Items.Clear();
+            favoritesNoIcon.Clear();
+            favoritesFolders.Clear();
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Favorites))
+            {
+                var stream = new MemoryStream();
+                var writer = new StreamWriter(stream);
+                writer.Write(Properties.Settings.Default.Favorites.Replace("[", "<").Replace("]", ">"));
+                writer.Flush();
+                stream.Position = 0;
+                XmlDocument document = new XmlDocument();
+                document.Load(stream);
+
+                XmlElement element = document.DocumentElement;
+
+                foreach (XmlNode node in document.FirstChild.ChildNodes)
+                {
+                    if (node.Name == "Folder")
+                    {
+                        ToolStripMenuItem menuItem = new ToolStripMenuItem();
+
+                        menuItem.Name = node.Attributes["Name"].Value;
+                        menuItem.Text = node.Attributes["Text"].Value;
+                        menuItem.Tag = "korot://folder";
+                        menuItem.MouseUp += menuStrip1_MouseUp;
+                        favoritesFolders.Add(menuItem);
+
+                        mFavorites.Items.Add(menuItem);
+                        GenerateMenusFromXML(node, (ToolStripMenuItem)mFavorites.Items[mFavorites.Items.Count - 1]);
+
+                    }
+                    else if (node.Name == "Favorite")
+                    {
+                        ToolStripMenuItem menuItem = new ToolStripMenuItem();
+
+                        menuItem.Name = node.Attributes["Name"].Value;
+                        menuItem.Text = node.Attributes["Text"].Value;
+                        menuItem.Tag = node.Attributes["Url"] == null ? null : node.Attributes["Url"].Value;
+                        if (node.Attributes["Icon"] != null)
+                        {
+                            if (File.Exists(node.Attributes["Icon"].Value.Replace("",iconStorage)))
+                            {
+                                menuItem.Image = Image.FromFile(node.Attributes["Icon"].Value.Replace("", iconStorage));
+                            }else
+                            {
+                                favoritesNoIcon.Add(menuItem);
+                            }
+                        }else
+                        {
+                            favoritesNoIcon.Add(menuItem);
+                        }
+                        menuItem.MouseUp += menuStrip1_MouseUp;
+
+                        mFavorites.Items.Add(menuItem);
+                    }
+                }
+            }else
+            {
+                Properties.Settings.Default.Favorites = "[root][/root]";
+                LoadDynamicMenu();
+            }
+            UpdateFavoriteColor();
+            updateFavoritesImages();
+        }
+        void updateFavoritesImages()
+        {
+            foreach(ToolStripMenuItem x in favoritesFolders)
+            {
+                x.Image = Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.folder : Properties.Resources.folder_w;
+            }
+            foreach (ToolStripMenuItem x in favoritesNoIcon)
+            {
+                x.Image = Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.web : Properties.Resources.web_w;
+            }
+        }
+        private void GenerateMenusFromXML(XmlNode rootNode, ToolStripMenuItem menuItem)
+        {
+            ToolStripMenuItem item = null;
+
+            foreach (XmlNode node in rootNode.ChildNodes)
+            {
+                if (node.Name == "Folder")
+                {
+                    item = new ToolStripMenuItem();
+                    item.Name = node.Attributes["Name"].Value;
+                    item.Text = node.Attributes["Text"].Value;
+                    item.Tag = "korot://folder";
+                    item.MouseUp += menuStrip1_MouseUp;
+                    favoritesFolders.Add(item);
+                    menuItem.DropDownItems.Add(item);
+
+
+                    GenerateMenusFromXML(node, (ToolStripMenuItem)menuItem.DropDownItems[menuItem.DropDownItems.Count - 1]);
+                }
+                else if (node.Name == "Favorite")
+                {
+                    item = new ToolStripMenuItem();
+                    item.Name = node.Attributes["Name"].Value;
+                    item.Text = node.Attributes["Text"].Value;
+                    item.Tag = node.Attributes["Url"] == null ? null : node.Attributes["Url"].Value;
+                    if (node.Attributes["Icon"] != null)
+                    {
+                        if (File.Exists(node.Attributes["Icon"].Value.Replace("", iconStorage)))
+                        {
+                            item.Image = Image.FromFile(node.Attributes["Icon"].Value.Replace("", iconStorage));
+                        }
+                        else
+                        {
+                            favoritesNoIcon.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        favoritesNoIcon.Add(item);
+                    }
+                    menuItem.DropDownItems.Add(item);
+
+
+                    // add an event handler to the menu item added
+                    item.MouseUp += menuStrip1_MouseUp;
+                }
+            }
+        }
+        private void menuStrip1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (((ToolStripMenuItem)sender).Tag != null)
+                {
+                    if (((ToolStripMenuItem)sender).Tag.ToString() != "korot://folder") 
+                    { 
+                    chromiumWebBrowser1.Load(((ToolStripMenuItem)sender).Tag.ToString());
+                    }
+                }
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                if (((ToolStripMenuItem)sender).Tag != null)
+                {
+                        selectedFavorite = ((ToolStripMenuItem)sender);
+                        tsopenInNewTab.Text = (((ToolStripMenuItem)sender).Tag.ToString() != "korot://folder") ? openInNewTab : openAllInNewTab;
+                    openİnNewWindowToolStripMenuItem.Text = (((ToolStripMenuItem)sender).Tag.ToString() != "korot://folder") ? openInNewWindow : openAllInNewWindow;
+                    openİnNewIncognitoWindowToolStripMenuItem.Text = (((ToolStripMenuItem)sender).Tag.ToString() != "korot://folder") ? openInNewIncWindow : openAllInNewIncWindow;
+                    cmsFavorite.Show(MousePosition);
+                }
+            }
+        }
         public void FindUpdate(int identifier, int count, int activeMatchOrdinal, bool finalUpdate)
         {
             findIdentifier = identifier;
@@ -135,6 +287,19 @@ namespace Korot
             }
         }
         #region "Translate"
+        public string openInNewWindow = "Open in New Window";
+        public string openAllInNewWindow = "Open All in New Window(s)";
+        public string openInNewIncWindow = "Open in New Incognito Window";
+        public string openAllInNewIncWindow = "Open All in New Incognito Window(s)";
+        public string openInNewTab = "Open in New Tab";
+        public string openAllInNewTab = "Open All in New Tab(s)";
+        public string newFavorite = "New Favorite";
+        public string nametd = "Name :";
+        public string urltd = "Url : ";
+        public string add = "Add";
+        public string newFolder = "New Folder";
+        public string defaultFolderName = "New Folder";
+        public string folderInfo = "Please enter a name for new Folder.";
         public string copyImage = "Copy Image";
         public string openLinkInNewWindow = "Open Link in a New Window";
         public string openLinkInNewIncWindow = "Open Link in a New Incognito Window";
@@ -294,8 +459,24 @@ namespace Korot
             string LicenseTitle, string KorotLicense, string VSLicense, string ChromiumLicense, string CefSharpLicense, string EasyTabsLicense, string SpecialThanks,
             string bisNone, string bisTile, string bisCenter, string bisStretch, string bisZoom, string bsBackColor, string bsForeColor, string bsOverlayColor,
             string ntbc, string cbc, string showFav, string uresmessage, string allowUR, string security, string securityButton, string emptExt, string cLog,
-            string title, string url, string webStore, string cimage, string olianw,string olianiw,string cia,string sla)
+            string title, string url, string webStore, string cimage, string olianw,string olianiw,string cia,string sla,
+            string nf,string ntd,string uritd,string addd,string nfo,string dnfo,string nfi,string oaiant,
+            string oinw,string oainw,string oiniw,string oainiw,string nf3d)
         {
+            openInNewWindow = oinw.Replace(Environment.NewLine, "");
+            openAllInNewWindow = oainw.Replace(Environment.NewLine, "");
+            openInNewIncWindow = oiniw.Replace(Environment.NewLine, "");
+            openAllInNewIncWindow = oainiw.Replace(Environment.NewLine, "");
+            openAllInNewTab = oaiant.Replace(Environment.NewLine, "");
+            newFavorite = nf.Replace(Environment.NewLine, "");
+            nametd = ntd.Replace(Environment.NewLine, "");
+            urltd = uritd.Replace(Environment.NewLine, "");
+            add = addd.Replace(Environment.NewLine, "");
+            newFavoriteToolStripMenuItem.Text = nf3d.Replace(Environment.NewLine, "");
+            newFolderToolStripMenuItem.Text = nfo.Replace(Environment.NewLine, "");
+            newFolder = nfo.Replace(Environment.NewLine, "");
+            defaultFolderName = dnfo.Replace(Environment.NewLine, "");
+            folderInfo = nfi.Replace(Environment.NewLine, "");
             copyImage = cimage.Replace(Environment.NewLine, "");
             openLinkInNewWindow = olianw.Replace(Environment.NewLine, "");
             openLinkInNewIncWindow = olianiw.Replace(Environment.NewLine, "");
@@ -534,7 +715,7 @@ namespace Korot
             lbOpen.Text = otad.Replace(Environment.NewLine, "");
             open = _open.Replace(Environment.NewLine, "");
             openLinkİnNewTabToolStripMenuItem.Text = olint.Replace(Environment.NewLine, "");
-            openInNewTab.Text = ont.Replace(Environment.NewLine, "");
+            openInNewTab = ont.Replace(Environment.NewLine, "");
             removeSelectedTSMI.Text = rstxt.Replace(Environment.NewLine, "");
             clearTSMI.Text = cleartxt.Replace(Environment.NewLine, "");
             openFileToolStripMenuItem.Text = openfile.Replace(Environment.NewLine, "");
@@ -821,7 +1002,20 @@ namespace Korot
                     languagedummy.Items[239].ToString().Substring(1),
                     languagedummy.Items[240].ToString().Substring(1),
                     languagedummy.Items[241].ToString().Substring(1),
-                    languagedummy.Items[242].ToString().Substring(1));
+                    languagedummy.Items[242].ToString().Substring(1),
+                    languagedummy.Items[243].ToString().Substring(1),
+                    languagedummy.Items[244].ToString().Substring(1),
+                    languagedummy.Items[245].ToString().Substring(1),
+                    languagedummy.Items[246].ToString().Substring(1),
+                    languagedummy.Items[247].ToString().Substring(1),
+                    languagedummy.Items[248].ToString().Substring(1),
+                    languagedummy.Items[249].ToString().Substring(1),
+                    languagedummy.Items[250].ToString().Substring(1),
+                    languagedummy.Items[251].ToString().Substring(1),
+                    languagedummy.Items[252].ToString().Substring(1),
+                    languagedummy.Items[253].ToString().Substring(1),
+                    languagedummy.Items[254].ToString().Substring(1),
+                    languagedummy.Items[255].ToString().Substring(1));
             }
             else
             {
@@ -1086,8 +1280,7 @@ namespace Korot
             filedlg.Multiselect = false;
             if (filedlg.ShowDialog() == DialogResult.OK)
             {
-                int fileSize = Convert.ToInt32(new FileInfo(filedlg.FileName).Length);
-                if (fileSize <= 131072)
+                if (FileSystem2.ImageToBase64(Image.FromFile(filedlg.FileName)).Length <= 131072)
                 {
                     string imageType = Path.GetExtension(filedlg.FileName).Replace(".", "");
                     Properties.Settings.Default.BackStyle = "background-image: url('data:image/" + imageType + ";base64," + FileSystem2.ImageToBase64(Image.FromFile(filedlg.FileName)) + "');";
@@ -1683,18 +1876,7 @@ namespace Korot
         public void RefreshFavorites()
         {
             mFavorites.Items.Clear();
-            string Playlist = Properties.Settings.Default.Favorites;
-            string[] SplittedFase = Playlist.Split(';');
-            int Count = SplittedFase.Length - 1; ; int i = 0;
-            while ((i != Count) && (Count >= 2))
-            {
-                ToolStripMenuItem miFavorite = new ToolStripMenuItem();
-                miFavorite.Tag = SplittedFase[i].Replace(Environment.NewLine, "");
-                miFavorite.Text = SplittedFase[i + 1].Replace(Environment.NewLine, "");
-                miFavorite.MouseDown += miFavorite_MouseDown;
-                mFavorites.Items.Add(miFavorite);
-                i += 2;
-            }
+            LoadDynamicMenu();
             if (mFavorites.Items.Count < 1)
             {
                 if (!isFavMenuHidden)
@@ -1854,15 +2036,13 @@ namespace Korot
         private void cef_AddressChanged(object sender, AddressChangedEventArgs e)
         {
             this.Invoke(new Action(() => tbAddress.Text = e.Address));
-            if (Properties.Settings.Default.Favorites.Contains(e.Address))
+            if (isPageFavorited(chromiumWebBrowser1.Address))
             {
-                isLoadedPageFavroited = true;
                 button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.star_on_w : Properties.Resources.star_on;
             }
             else
             {
                 button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
-                isLoadedPageFavroited = false;
             }
             if (!ValidHttpURL(e.Address))
             {
@@ -2039,7 +2219,35 @@ namespace Korot
                 return FileSystem2.Base64ToImage(string.Concat(justB64Code.Reverse().Skip(3).Reverse()));
             }
         }
-
+        void ChangeThemeForMenuItems(ToolStripMenuItem item)
+        {
+            item.BackColor = Properties.Settings.Default.BackColor;
+            item.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            item.DropDown.BackColor = Properties.Settings.Default.BackColor;
+            item.DropDown.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            foreach(ToolStripMenuItem x in item.DropDownItems)
+            {
+                ChangeThemeForMenuDDItems(x.DropDown);
+            }
+        }
+        void ChangeThemeForMenuDDItems(ToolStripDropDown itemDD)
+        {
+            itemDD.BackColor = Properties.Settings.Default.BackColor;
+            itemDD.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            foreach (ToolStripMenuItem x in itemDD.Items)
+            {
+                x.BackColor = Properties.Settings.Default.BackColor;
+                x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                ChangeThemeForMenuDDItems(x.DropDown);
+            }
+        }
+        void UpdateFavoriteColor()
+        {
+            foreach (ToolStripMenuItem y in mFavorites.Items)
+            {
+                ChangeThemeForMenuItems(y);
+            }
+        }
         private Color oldBackColor;
         private Color oldOverlayColor;
         private string oldStyle;
@@ -2058,6 +2266,8 @@ namespace Korot
             }
             if (Properties.Settings.Default.BackColor != oldBackColor)
             {
+                UpdateFavoriteColor();
+                updateFavoritesImages();
                 cmsFavorite.BackColor = Properties.Settings.Default.BackColor;
                 cmsIncognito.BackColor = Properties.Settings.Default.BackColor;
                 oldBackColor = Properties.Settings.Default.BackColor;
@@ -2097,35 +2307,35 @@ namespace Korot
                 hlvDownload.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 lbLang.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 hsDownload.BackColor = Properties.Settings.Default.BackColor;
-                hsDownload.ButtonColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsDownload.BorderColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsDownload.ButtonHoverColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
-                hsDownload.ButtonPressedColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false);
+                hsDownload.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false),false);
+                hsDownload.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsDownload.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
+                hsDownload.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
                 hsDoNotTrack.BackColor = Properties.Settings.Default.BackColor;
-                hsDoNotTrack.ButtonColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsDoNotTrack.BorderColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsDoNotTrack.ButtonHoverColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
-                hsDoNotTrack.ButtonPressedColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false);
+                hsDoNotTrack.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsDoNotTrack.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsDoNotTrack.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
+                hsDoNotTrack.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
                 hsProxy.BackColor = Properties.Settings.Default.BackColor;
-                hsProxy.ButtonColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsProxy.BorderColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsProxy.ButtonHoverColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
-                hsProxy.ButtonPressedColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false);
+                hsProxy.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsProxy.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsProxy.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
+                hsProxy.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
                 hsUnknown.BackColor = Properties.Settings.Default.BackColor;
-                hsUnknown.ButtonColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsUnknown.BorderColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsUnknown.ButtonHoverColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
-                hsUnknown.ButtonPressedColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false);
+                hsUnknown.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsUnknown.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsUnknown.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
+                hsUnknown.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
                 hsFav.BackColor = Properties.Settings.Default.BackColor;
-                hsFav.ButtonColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsFav.BorderColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsFav.ButtonHoverColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
-                hsFav.ButtonPressedColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false);
+                hsFav.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsFav.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsFav.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
+                hsFav.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
                 hsOpen.BackColor = Properties.Settings.Default.BackColor;
-                hsOpen.ButtonColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsOpen.BorderColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hsOpen.ButtonHoverColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
-                hsOpen.ButtonPressedColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false);
+                hsOpen.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsOpen.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsOpen.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
+                hsOpen.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
 
                 hlvHistory.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 lbLang.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
@@ -2182,7 +2392,7 @@ namespace Korot
                 cmsPrivacy.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 extensionToolStripMenuItem1.DropDown.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 textBox4.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                if (isLoadedPageFavroited) { button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
+                if (isPageFavorited(chromiumWebBrowser1.Address)) { button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
                 mFavorites.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 settingsToolStripMenuItem.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.Settings : Properties.Resources.Settings_w;
                 newWindowToolStripMenuItem.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.newwindow : Properties.Resources.newwindow_w;
@@ -2311,23 +2521,56 @@ namespace Korot
         {
             chromiumWebBrowser1.Load(((ToolStripMenuItem)sender).Tag.ToString());
         }
-        bool isLoadedPageFavroited = false;
+        private bool isPageFavorited(string url)
+        {
+            return Properties.Settings.Default.Favorites.Contains("Url=\"" + url +"\"");
+        }
+        public void removeFavorite(string url)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(Properties.Settings.Default.Favorites.Replace("[", "<").Replace("]", ">"));
+            writer.Flush();
+            stream.Position = 0;
+            XmlDocument document = new XmlDocument();
+            document.Load(stream);
+            XmlNodeList nodes = document.SelectNodes("//element[@Url='" + url + "']");
+            for (int i = nodes.Count - 1; i >= 0; i--)
+            {
+                nodes[i].ParentNode.RemoveChild(nodes[i]);
+            }
+            Properties.Settings.Default.Favorites = document.OuterXml.Replace("<","[").Replace(">", "]");
+            LoadDynamicMenu();
+        }
+        public void removeFavoriteWithName(string name)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(Properties.Settings.Default.Favorites.Replace("[", "<").Replace("]", ">"));
+            writer.Flush();
+            stream.Position = 0;
+            XmlDocument document = new XmlDocument();
+            document.Load(stream);
+            XmlNodeList nodes = document.SelectNodes("//element[@Name='" + name + "']");
+            for (int i = nodes.Count - 1; i >= 0; i--)
+            {
+                nodes[i].ParentNode.RemoveChild(nodes[i]);
+            }
+            Properties.Settings.Default.Favorites = document.OuterXml.Replace("<", "[").Replace(">", "]");
+            LoadDynamicMenu();
+        }
 
         private void Button7_Click(object sender, EventArgs e)
         {
-            if (isLoadedPageFavroited)
+            if (isPageFavorited(chromiumWebBrowser1.Address))
             {
-                Properties.Settings.Default.Favorites = Properties.Settings.Default.Favorites.Replace(chromiumWebBrowser1.Address + ";", "");
-                Properties.Settings.Default.Favorites = Properties.Settings.Default.Favorites.Replace(this.Text + ";", "");
+                removeFavorite(chromiumWebBrowser1.Address);
                 button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
-                isLoadedPageFavroited = false;
             }
             else
             {
-                Properties.Settings.Default.Favorites += (chromiumWebBrowser1.Address + ";");
-                Properties.Settings.Default.Favorites += (this.Text + ";");
-                button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.star_on_w : Properties.Resources.star_on;
-                isLoadedPageFavroited = true;
+                frmNewFav newFav = new frmNewFav(this.Text, chromiumWebBrowser1.Address, this,anaform);
+                newFav.ShowDialog();
             }
             RefreshFavorites();
         }
@@ -2669,34 +2912,45 @@ namespace Korot
         {
             if (selectedFavorite != null)
             {
-                Output.WriteLine(" Selected Favorite URL : " + selectedFavorite.Tag.ToString());
-                NewTab(selectedFavorite.Tag.ToString());
-            }
-            else
-            {
-                Output.WriteLine(" Selected Favorite URL was null ");
+                if (selectedFavorite.Tag !=null)
+                {
+                    if (selectedFavorite.Tag.ToString() != "korot://folder")
+                    {
+                        NewTab(selectedFavorite.Tag.ToString());
+                    }else
+                    {
+                        foreach(ToolStripItem item in selectedFavorite.DropDown.Items)
+                        {
+                            if (item.Tag.ToString() != "korot://folder") { NewTab(item.Tag.ToString()); }
+                        }
+                    }
+                }
             }
         }
-
         private void removeSelectedTSMI_Click(object sender, EventArgs e)
         {
             if (selectedFavorite != null)
             {
                 if (selectedFavorite.Tag.ToString() == chromiumWebBrowser1.Address)
                 {
-                    isLoadedPageFavroited = false;
                     button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
                 }
-                Properties.Settings.Default.Favorites = Properties.Settings.Default.Favorites.Replace(selectedFavorite.Tag.ToString() + ";" + selectedFavorite.Text + ";", "");
+                if (selectedFavorite.Tag.ToString() != "korot://folder")
+                {
+                    removeFavorite(selectedFavorite.Tag.ToString());
+                }
+                else
+                {
+                    removeFavoriteWithName(selectedFavorite.Name);
+                }
                 RefreshFavorites();
             }
         }
 
         private void clearTSMI_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Favorites = "";
+            Properties.Settings.Default.Favorites = "[root][/root]";
             button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
-            isLoadedPageFavroited = false;
             RefreshFavorites();
         }
 
@@ -2714,12 +2968,40 @@ namespace Korot
             if (selectedFavorite == null)
             {
                 removeSelectedTSMI.Enabled = false;
-                openInNewTab.Enabled = false;
+                tsopenInNewTab.Enabled = false;
+                openİnNewWindowToolStripMenuItem.Enabled = false;
+                openİnNewIncognitoWindowToolStripMenuItem.Enabled = false;
+                tsSepFav.Visible = false;
+                removeSelectedTSMI.Visible = false;
+                tsopenInNewTab.Visible = false;
+                openİnNewWindowToolStripMenuItem.Visible = false;
+                openİnNewIncognitoWindowToolStripMenuItem.Visible = false;
             }
             else
             {
+                if (selectedFavorite.Tag != null)
+                {
+                    if (selectedFavorite.Tag.ToString() == "korot://folder")
+                    {
+                        tsopenInNewTab.Text = openAllInNewTab;
+                        openİnNewIncognitoWindowToolStripMenuItem.Text = openAllInNewIncWindow;
+                        openİnNewWindowToolStripMenuItem.Text = openAllInNewWindow;
+                    }else
+                    {
+                        tsopenInNewTab.Text = openInNewTab;
+                        openİnNewIncognitoWindowToolStripMenuItem.Text = openInNewIncWindow;
+                        openİnNewWindowToolStripMenuItem.Text = openInNewWindow;
+                    }
+                }
                 removeSelectedTSMI.Enabled = !_Incognito;
-                openInNewTab.Enabled = !_Incognito;
+                tsopenInNewTab.Enabled = true;
+                openİnNewWindowToolStripMenuItem.Enabled = true;
+                openİnNewIncognitoWindowToolStripMenuItem.Enabled = true;
+                tsSepFav.Visible = true;
+                removeSelectedTSMI.Visible = !_Incognito;
+                tsopenInNewTab.Visible = true;
+                openİnNewWindowToolStripMenuItem.Visible = true;
+                openİnNewIncognitoWindowToolStripMenuItem.Visible = true;
             }
         }
         public void takeScreenShot()
@@ -3143,6 +3425,60 @@ namespace Korot
         private void pictureBox6_Click(object sender, EventArgs e)
         {
             NewTab("https://haltroy.com/store/Korot/Themes/index.html");
+        }
+
+        private void newFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmNewFav newFav = new frmNewFav(defaultFolderName, "korot://folder", this, anaform);
+            newFav.ShowDialog();
+        }
+
+        private void newFavoriteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmNewFav newFav = new frmNewFav("", "", this, anaform);
+            newFav.ShowDialog();
+        }
+
+        private void openİnNewWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (selectedFavorite != null)
+            {
+                if (selectedFavorite.Tag != null)
+                {
+                    if (selectedFavorite.Tag.ToString() != "korot://folder")
+                    {
+                        Process.Start(Application.ExecutablePath,selectedFavorite.Tag.ToString());
+                    }
+                    else
+                    {
+                        foreach (ToolStripItem item in selectedFavorite.DropDown.Items)
+                        {
+                            if (item.Tag.ToString() != "korot://folder") { Process.Start(Application.ExecutablePath, item.Tag.ToString()); }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void openİnNewIncognitoWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (selectedFavorite != null)
+            {
+                if (selectedFavorite.Tag != null)
+                {
+                    if (selectedFavorite.Tag.ToString() != "korot://folder")
+                    {
+                        Process.Start(Application.ExecutablePath, "-incognito" + selectedFavorite.Tag.ToString());
+                    }
+                    else
+                    {
+                        foreach (ToolStripItem item in selectedFavorite.DropDown.Items)
+                        {
+                            if (item.Tag.ToString() != "korot://folder") { Process.Start(Application.ExecutablePath, "-incognito" + item.Tag.ToString()); }
+                        }
+                    }
+                }
+            }
         }
     }
 }
