@@ -108,6 +108,13 @@ namespace Korot
                     }
                 }
             }
+            if (chromiumWebBrowser.CanGoBack == false)
+            {
+                ActiveForm.Invoke(new Action(() => ActiveForm.Close()));
+            }else
+            {
+                chromiumWebBrowser.Back();
+            }
         }
 
         public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)

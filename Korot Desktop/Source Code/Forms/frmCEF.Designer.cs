@@ -341,9 +341,9 @@ namespace Korot
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox2.ContextMenuStrip = this.cmsPrivacy;
             this.pictureBox2.Image = global::Korot.Properties.Resources.lockg;
-            this.pictureBox2.Location = new System.Drawing.Point(118, 4);
+            this.pictureBox2.Location = new System.Drawing.Point(116, 4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox2.Size = new System.Drawing.Size(25, 25);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
@@ -432,7 +432,7 @@ namespace Korot
             this.pictureBox1.Image = global::Korot.Properties.Resources.inctab;
             this.pictureBox1.Location = new System.Drawing.Point(444, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox1.Size = new System.Drawing.Size(25, 25);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
@@ -557,7 +557,6 @@ namespace Korot
             // 
             // toolStripTextBox1
             // 
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.MaxLength = 2147483647;
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(220, 23);
@@ -868,7 +867,7 @@ namespace Korot
             this.cmsFavorite.Name = "cmsFavorite";
             this.cmsFavorite.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsFavorite.ShowImageMargin = false;
-            this.cmsFavorite.Size = new System.Drawing.Size(220, 192);
+            this.cmsFavorite.Size = new System.Drawing.Size(220, 170);
             this.cmsFavorite.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.cmsFavorite_Closing);
             this.cmsFavorite.Opening += new System.ComponentModel.CancelEventHandler(this.cmsFavorite_Opening);
             this.cmsFavorite.Opened += new System.EventHandler(this.cmsFavorite_Opened);
@@ -1664,10 +1663,10 @@ namespace Korot
             this.hlvHistory.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.hlvHistory.HeaderForeColor = System.Drawing.Color.Black;
             this.hlvHistory.HideSelection = false;
-            this.hlvHistory.Location = new System.Drawing.Point(7, 38);
+            this.hlvHistory.Location = new System.Drawing.Point(13, 38);
             this.hlvHistory.Name = "hlvHistory";
             this.hlvHistory.OwnerDraw = true;
-            this.hlvHistory.Size = new System.Drawing.Size(549, 351);
+            this.hlvHistory.Size = new System.Drawing.Size(540, 351);
             this.hlvHistory.TabIndex = 0;
             this.hlvHistory.UseCompatibleStateImageBehavior = false;
             this.hlvHistory.View = System.Windows.Forms.View.Details;

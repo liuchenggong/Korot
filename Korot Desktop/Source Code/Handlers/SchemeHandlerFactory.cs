@@ -29,6 +29,9 @@ namespace Korot
     {
         frmMain anaform;
         frmCEF CefForm;
+        public bool isExt = false;
+        public string extKEM;
+        public frmExt extForm;
         public SchemeHandlerFactory(frmMain _anaForm, frmCEF _CefForm)
         {
             anaform = _anaForm;
@@ -146,16 +149,52 @@ namespace Korot
                 {
                     return ResourceHandler.FromString(Properties.Resources.korotlinks);
                 }
+                else if (request.Url == "korot://refresh/")
+                {
+                    if(isExt)
+                    {
+                        if (!string.IsNullOrWhiteSpace(extKEM) && extForm != null)
+                        {
+                            CefForm.Invoke(new Action(() => CefForm.applyExtension(extKEM)));
+                            extForm.Invoke(new Action(() => extForm.Close()));
+                            return ResourceHandler.FromString("");
+                        }else
+                        {
+                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=ARGUMENT_NOT_FOUND \" />");
+
+                        }
+                    }
+                    else
+                    {
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=NOT_KOROT_PAGE \" />");
+                    }
+                }
+                else if (request.Url == "korot://folder/" || request.Url == "korot://root/")
+                {
+                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=NOT_KOROT_PAGE \" />");
+                }
                 else
                 {
-                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?FILE_NOT_FOUND \" />");
+                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=FILE_NOT_FOUND \" />");
                 }
 
             }
-            if (request.Url.ToLower().EndsWith(".ktf") && ValidHaltroyWebsite(request.Url))
+            if (request.Url.ToLower().EndsWith(".ktf"))
             {
-                browser.GetHost().StartDownload(request.Url); //didnt worked :(
-                return ResourceHandler.FromString("");
+                if (Properties.Settings.Default.allowUnknownResources) 
+                {
+                    browser.GetHost().StartDownload(request.Url); 
+                    return ResourceHandler.FromString("");
+                }
+                else 
+                {
+                    if (ValidHaltroyWebsite(request.Url)) 
+                    {
+                        browser.GetHost().StartDownload(request.Url); //didnt worked :(
+                        return ResourceHandler.FromString("");
+                    }
+                }
+
             }
             return new ResourceHandler();
         }

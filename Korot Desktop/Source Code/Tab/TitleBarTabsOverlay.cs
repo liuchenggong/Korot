@@ -558,7 +558,7 @@ namespace Korot
                         }
                     }
 
-                    Invoke(new Action(() => OnMouseUp(new MouseEventArgs(MouseButtons.Left, 1, Cursor.Position.X, Cursor.Position.Y, 0))));
+                   if(!IsDisposed) Invoke(new Action(() => OnMouseUp(new MouseEventArgs(MouseButtons.Left, 1, Cursor.Position.X, Cursor.Position.Y, 0))));
                 }
             }
         }

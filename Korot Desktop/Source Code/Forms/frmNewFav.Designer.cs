@@ -164,9 +164,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmNewFav";
             this.Text = "New Favorite";
-            this.Deactivate += new System.EventHandler(this.frmNewFav_Leave);
             this.Load += new System.EventHandler(this.frmNewFav_Load);
-            this.Leave += new System.EventHandler(this.frmNewFav_Leave);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

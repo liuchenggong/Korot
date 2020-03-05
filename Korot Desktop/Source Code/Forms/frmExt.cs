@@ -110,7 +110,13 @@ namespace Korot
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = "korot",
-                SchemeHandlerFactory = new SchemeHandlerFactory(anaform, tabform)
+                SchemeHandlerFactory = new SchemeHandlerFactory(anaform, tabform) 
+                {
+                    extKEM = ExtManifestFile,
+                    isExt = true,
+                    extForm= this
+                }
+                
             });
             // Initialize cef with the provided settings
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }

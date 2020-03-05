@@ -29,6 +29,14 @@ namespace Korot
 {
     public class Tools
     {
+        public static Color HexToColor(String hexString)
+        {
+            return ColorTranslator.FromHtml(hexString);
+        }
+        public static string ColorToHex(Color color)
+        {
+            return ColorTranslator.ToHtml(Color.FromArgb(color.ToArgb()));
+        }
         public static Image getImageFromUrl(string url)
         {
                 using (System.Net.WebClient webClient = new System.Net.WebClient())
@@ -43,35 +51,29 @@ namespace Korot
         {
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf"))
             {
-                string newTheme = "255" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "255" + Environment.NewLine +
-                                "30" + Environment.NewLine +
-                                "144" + Environment.NewLine +
-                                "255" + Environment.NewLine +
+                string newTheme = "#ffffff" + Environment.NewLine +
+                                "#1e90ff" + Environment.NewLine +
                                 "BACKCOLOR" + Environment.NewLine +
                                 "0" + Environment.NewLine +
-"Korot Light" + Environment.NewLine +
-"Haltroy" + Environment.NewLine +
-"2" + Environment.NewLine +
-"1";
+                                "2" + Environment.NewLine +
+                                "1" + Environment.NewLine +
+                                "Korot Light" + Environment.NewLine +
+                                "Haltroy" + Environment.NewLine +
+                                "1.0.0.0";
                 FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
 
             }
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf"))
             {
-                string newTheme = "0" + Environment.NewLine +
-                                "0" + Environment.NewLine +
-                                "0" + Environment.NewLine +
-                                "30" + Environment.NewLine +
-                                "144" + Environment.NewLine +
-                                "255" + Environment.NewLine +
+                string newTheme = "#000000" + Environment.NewLine +
+                                "#1e90ff" + Environment.NewLine +
                                 "BACKCOLOR" + Environment.NewLine +
                                 "0" + Environment.NewLine +
-"Korot Dark" + Environment.NewLine +
-"Haltroy" + Environment.NewLine +
-"2" + Environment.NewLine +
-"1";
+                                "2" + Environment.NewLine +
+                                "1" + Environment.NewLine +
+                                "Korot Dark" + Environment.NewLine +
+                                "Haltroy" + Environment.NewLine +
+                                "1.0.0.0";
                 FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
 
             }

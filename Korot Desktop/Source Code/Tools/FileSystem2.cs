@@ -53,10 +53,16 @@ namespace Korot
             string result = sr.ReadToEnd();
             sr.Close();
             return result;
+        }
+        public static Stream ReadFile(string fileLocation)
+        {
+            FileStream fs = new FileStream(fileLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            return fs; 
 
         }
         public static bool WriteFile(string fileLocation, string input, Encoding encode)
         {
+            if (!Directory.Exists(new FileInfo(fileLocation).DirectoryName)) { Directory.CreateDirectory(new FileInfo(fileLocation).DirectoryName); }
             if (File.Exists(fileLocation))
             {
                 File.Delete(fileLocation);
@@ -69,16 +75,19 @@ namespace Korot
         }
         public static bool WriteFile(string fileLocation, Bitmap bitmap, ImageFormat format)
         {
+            if (!Directory.Exists(new FileInfo(fileLocation).DirectoryName)) { Directory.CreateDirectory(new FileInfo(fileLocation).DirectoryName); }
             if (File.Exists(fileLocation))
             {
                 File.Delete(fileLocation);
             }
-            MemoryStream memoryStream = new MemoryStream();
-            bitmap.Save(memoryStream, format);
-            memoryStream.Close();
+            File.Create(fileLocation).Dispose();
             File.Create(fileLocation).Dispose();
             var writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+            MemoryStream memoryStream = new MemoryStream();
+            bitmap.Save(memoryStream, format);
+            //memoryStream.CopyTo(writer);
             writer.Write(memoryStream.ToArray(), 0, Convert.ToInt32(memoryStream.Length));
+            memoryStream.Close();
             writer.Close();
             return true;
         }
@@ -89,6 +98,7 @@ namespace Korot
         }
         public static bool WriteFile(string fileLocation, byte[] input)
         {
+            if (!Directory.Exists(new FileInfo(fileLocation).DirectoryName)) { Directory.CreateDirectory(new FileInfo(fileLocation).DirectoryName); }
             if (File.Exists(fileLocation))
             {
                 File.Delete(fileLocation);

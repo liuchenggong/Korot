@@ -116,7 +116,6 @@ namespace Korot
                 }
             }
         }
-        private void frmNewFav_Leave(object sender, EventArgs e) => this.Close();
 
         private void label3_Click(object sender, EventArgs e) => this.Close();
 
@@ -224,6 +223,8 @@ namespace Korot
             }
             return xmlNode;
         }
+        string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\IconStorage\\";
+
         private void button2_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBox1.Text) && string.IsNullOrWhiteSpace(textBox2.Text)) { }
@@ -232,8 +233,11 @@ namespace Korot
                 newFolder.Name = textBox1.Text.Replace(" ","").Replace(Environment.NewLine,"");
                 newFolder.Text = textBox1.Text;
                 newFolder.ToolTipText = textBox2.Text;
-                FileSystem2.WriteFile("{ICONSTORAGE}" + newFolder.Name + ".png", Cefform.Icon.ToBitmap(), ImageFormat.Png);
-                newFolder.Tag = "{ICONSTORAGE}" + newFolder.Name + ".png";
+                if (textBox2.Text != "korot://folder")
+                {
+                    FileSystem2.WriteFile(iconStorage + newFolder.Name + ".png", Cefform.Icon.ToBitmap(), ImageFormat.Png);
+                    newFolder.Tag = "{ICONSTORAGE}" + newFolder.Name + ".png";
+                }
                 treeView1.SelectedNode.Nodes.Add(newFolder);
                 TreeViewToXml(treeView1);
                 Output.WriteLine(Properties.Settings.Default.Favorites);
