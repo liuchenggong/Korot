@@ -305,6 +305,7 @@ namespace Korot
             }
         }
         #region "Translate"
+        public string ubuntuLicense = "Ubuntu Font License";
         public string newProfileInfo = "Please enter a name for the new profile.It should not contain: ";
         public string Yes = "Yes";
         public string No = "No";
@@ -487,8 +488,9 @@ namespace Korot
             string ntbc, string cbc, string showFav, string uresmessage, string allowUR, string security, string securityButton, string emptExt, string cLog,
             string title, string url, string webStore, string cimage, string olianw, string olianiw, string cia, string sla,
             string nf, string ntd, string uritd, string addd, string nfo, string dnfo, string nfi, string oaiant,
-            string oinw, string oainw, string oiniw, string oainiw, string nf3d, string fullScreen, string ktu, string keu, string uinfo)
+            string oinw, string oainw, string oiniw, string oainiw, string nf3d, string fullScreen, string ktu, string keu, string uinfo,string ulicense)
         {
+            ubuntuLicense = ulicense.Replace(Environment.NewLine, "");
             tsFullscreen.Text = fullScreen.Replace(Environment.NewLine, "");
             updateTitleTheme = ktu.Replace(Environment.NewLine, "");
             updateTitleExt = keu.Replace(Environment.NewLine, "");
@@ -1043,7 +1045,8 @@ namespace Korot
                     languagedummy.Items[257].ToString().Substring(1),
                     languagedummy.Items[258].ToString().Substring(1),
                     languagedummy.Items[259].ToString().Substring(1),
-                    languagedummy.Items[260].ToString().Substring(1));
+                    languagedummy.Items[260].ToString().Substring(1),
+                    languagedummy.Items[261].ToString().Substring(1));
             }
             else
             {
