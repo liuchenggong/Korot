@@ -30,7 +30,6 @@ namespace Korot
     public class KeyboardHandler : IKeyboardHandler
     {
         frmCEF _frmCEF;
-        frmMain _frmMain;
         const int VK_CONTROL = 0x11;
         const int VK_UP = 0x26;
         const int VK_DOWN = 0x28;
@@ -48,10 +47,9 @@ namespace Korot
         const int VK_F11 = 0x7A;
         const int VK_SNAPSHOT = 0x2C;
 
-        public KeyboardHandler(frmCEF FrmCEF, frmMain FrmMain)
+        public KeyboardHandler(frmCEF FrmCEF)
         {
             _frmCEF = FrmCEF;
-            _frmMain = FrmMain;
         }
         public bool OnPreKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut)
         {

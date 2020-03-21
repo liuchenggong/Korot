@@ -36,13 +36,6 @@ namespace Korot
         public List<string> CancelledDownloads = new List<string>();
         public bool isIncognito = false;
         public KorotTabRenderer tabRenderer;
-        public string newincwindow = "New Incognito Window";
-        public string newwindow = "New  Window";
-        public string Yes = "Yes";
-        public string No = "No";
-        public string OK = "OK";
-        public string Cancel = "Cancel";
-        public string newProfileInfo = "Please enter a name for the new profile.It should not contain: ";
         public frmMain()
         {
 
@@ -51,6 +44,10 @@ namespace Korot
             TabRenderer = tabRenderer;
             Icon = Properties.Resources.KorotIcon;
             InitializeComponent();
+            foreach (Control x in this.Controls)
+            {
+                try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
+            }
         }
         public void removeThisDownloadItem(DownloadItem removeItem)
         {
@@ -78,39 +75,7 @@ namespace Korot
             this.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
         }
 
-        public void SwitchProfile(string profilename)
-        {
-            Properties.Settings.Default.LastUser = profilename;
-            if (!isIncognito) { Properties.Settings.Default.Save(); }
-            Process.Start(Application.ExecutablePath);
-            Application.Exit();
-        }
-        public void DeleteProfile(string profilename)
-        {
-            Properties.Settings.Default.LastUser = new DirectoryInfo(Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")[0]).Name;
-            if (!isIncognito) { Properties.Settings.Default.Save(); }
-            frmCEF obj = (frmCEF)Application.OpenForms["frmCEF"]; obj.Close(); CefSharp.Cef.Shutdown();
-            Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profilename + "\\", true);
-            if (!isIncognito) { Properties.Settings.Default.Save(); }
-            Process.Start(Application.ExecutablePath);
-            Application.Exit();
-        }
-        public void NewProfile()
-        {
-            HaltroyFramework.HaltroyInputBox newprof = new HaltroyFramework.HaltroyInputBox("Korot", newProfileInfo + Environment.NewLine + "/ \\ : ? * |", this.Icon, "", Properties.Settings.Default.BackColor, Properties.Settings.Default.OverlayColor, OK, Cancel, 400, 150);
-            DialogResult diagres = newprof.ShowDialog();
-            if (diagres == DialogResult.OK)
-            {
-                if (newprof.textBox1.Text.Contains("/") || newprof.textBox1.Text.Contains("\\") || newprof.textBox1.Text.Contains(":") || newprof.textBox1.Text.Contains("?") || newprof.textBox1.Text.Contains("*") || newprof.textBox1.Text.Contains("|"))
-                { NewProfile(); }
-                else
-                {
-                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + newprof.textBox1.Text);
-                    SwitchProfile(newprof.TextValue());
-                }
-            }
 
-        }
         public string restoremedaddy = "";
         string profilePath;
         private void frmMain_Load(object sender, EventArgs e)
@@ -242,7 +207,7 @@ namespace Korot
             if (!Directory.Exists(profilePath) && profilePath != null) { Directory.CreateDirectory(profilePath); }
             TitleBarTab newTab = new TitleBarTab(this)
             {
-                Content = new frmCEF(this, isIncognito, url, Properties.Settings.Default.LastUser)
+                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser)
             };
             this.Tabs.Add(newTab);
         }
@@ -251,7 +216,7 @@ namespace Korot
             if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
             return new TitleBarTab(this)
             {
-                Content = new frmCEF(this, isIncognito, "korot://newtab", Properties.Settings.Default.LastUser)
+                Content = new frmCEF(isIncognito, "korot://newtab", Properties.Settings.Default.LastUser)
             };
         }
         private void timer1_Tick(object sender, EventArgs e)

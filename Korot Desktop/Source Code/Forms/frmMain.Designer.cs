@@ -75,7 +75,7 @@ namespace Korot
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(663, 339);
             this.Name = "frmMain";
-            this.Text = "Korot Beta";
+            this.Text = "Korot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.SizeChanged += new System.EventHandler(this.frmMain_Resize);

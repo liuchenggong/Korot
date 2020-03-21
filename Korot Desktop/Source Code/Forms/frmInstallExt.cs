@@ -50,11 +50,15 @@ namespace Korot
         string ext = "Extension";
         string theme = "Theme";
         bool silentInstall = false;
-        public frmInstallExt(string installFrom,bool silent = false)
+        public frmInstallExt(string installFrom, bool silent = false)
         {
             ExtFile = installFrom;
             silentInstall = silent;
             InitializeComponent();
+            foreach (Control x in this.Controls)
+            {
+                try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
+            }
         }
         private static int Brightness(System.Drawing.Color c)
         {
@@ -135,7 +139,8 @@ namespace Korot
         async void StartupEXT()
         {
             await Task.Run(() =>
-            {if (!silentInstall)
+            {
+                if (!silentInstall)
                 {
                     label3.Invoke(new Action(() => label3.Text = ext));
                     string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + generateRandomText() + "\\";
@@ -156,7 +161,8 @@ namespace Korot
                         tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
                         textBox1.Invoke(new Action(() => textBox1.Text = fileSizeError));
                     }
-                }else
+                }
+                else
                 {
                     label3.Invoke(new Action(() => label3.Text = ext));
                     string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + generateRandomText() + "\\";
@@ -317,7 +323,8 @@ namespace Korot
                     textBox1.Text = reqEmpty.Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", SplittedFase.Length.ToString());
                     return;
                 }
-            }else
+            }
+            else
             {
                 string Playlist = FileSystem2.ReadFile(fileLocation, Encoding.UTF8);
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
@@ -419,7 +426,7 @@ namespace Korot
                         }
                         lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
                         i = 5;
-                        this.Invoke(new Action(() => button1_Click(null,null)));
+                        this.Invoke(new Action(() => button1_Click(null, null)));
                     }
                     else
                     {
@@ -463,7 +470,8 @@ namespace Korot
                 lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
                 allowSwitch = true;
                 tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage2));
-            }else
+            }
+            else
             {
                 string Playlist = FileSystem2.ReadFile(fileLocation, Encoding.UTF8);
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };

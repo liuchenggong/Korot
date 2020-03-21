@@ -26,11 +26,13 @@ namespace Korot
 {
     class CookieAccessFilter : ICookieAccessFilter
     {
-        frmMain anaform;
         frmCEF Cefform;
-        public CookieAccessFilter(frmMain _anaform, frmCEF _Cefform)
+        public frmMain anaform()
         {
-            anaform = _anaform;
+            return ((frmMain)Cefform.ParentTabs);
+        }
+        public CookieAccessFilter(frmCEF _Cefform)
+        {
             Cefform = _Cefform;
         }
         public bool CanSaveCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, Cookie cookie)

@@ -478,7 +478,10 @@ namespace Korot
                                     }
                                 }));
                     }
-                    if (!IsDisposed) Invoke(new Action(() => OnMouseMove(new MouseEventArgs(MouseButtons.None, 0, cursorPosition.X, cursorPosition.Y, 0))));
+                    if (!IsDisposed)
+                    {
+                        Invoke(new Action(() => OnMouseMove(new MouseEventArgs(MouseButtons.None, 0, cursorPosition.X, cursorPosition.Y, 0))));
+                    }
 
                     if (_parentForm.TabRenderer.IsTabRepositioning)
                     {
@@ -558,7 +561,10 @@ namespace Korot
                         }
                     }
 
-                   if(!IsDisposed) Invoke(new Action(() => OnMouseUp(new MouseEventArgs(MouseButtons.Left, 1, Cursor.Position.X, Cursor.Position.Y, 0))));
+                    if (!IsDisposed)
+                    {
+                        Invoke(new Action(() => OnMouseUp(new MouseEventArgs(MouseButtons.Left, 1, Cursor.Position.X, Cursor.Position.Y, 0))));
+                    }
                 }
             }
         }

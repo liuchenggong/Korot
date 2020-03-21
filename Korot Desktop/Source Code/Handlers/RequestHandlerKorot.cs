@@ -29,11 +29,13 @@ namespace Korot
 {
     class RequestHandlerKorot : IRequestHandler
     {
-        frmMain anaform;
-        frmCEF cefform;
-        public RequestHandlerKorot(frmMain _frmMain, frmCEF _frmCEF)
+        public frmMain anaform()
         {
-            anaform = _frmMain;
+            return ((frmMain)cefform.ParentTabs);
+        }
+        frmCEF cefform;
+        public RequestHandlerKorot(frmCEF _frmCEF)
+        {
             cefform = _frmCEF;
         }
 
@@ -58,7 +60,7 @@ namespace Korot
 
         public IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
         {
-            return new ResReqHandler(anaform, cefform);
+            return new ResReqHandler(cefform);
         }
 
         public bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
@@ -112,7 +114,7 @@ namespace Korot
         {
             if (userGesture)
             {
-                anaform.Invoke(new Action(() => anaform.CreateTab(targetUrl)));
+                anaform().Invoke(new Action(() => anaform().CreateTab(targetUrl)));
                 return true;
             }
             else { return false; }
@@ -127,8 +129,8 @@ namespace Korot
 
         public void OnRenderProcessTerminated(IWebBrowser chromiumWebBrowser, IBrowser browser, CefTerminationStatus status)
         {
-            anaform.Invoke(new Action(() => anaform.Hide()));
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", cefform.renderProcessDies, anaform.Icon, MessageBoxButtons.OK, Properties.Settings.Default.BackColor, anaform.Yes, anaform.No, anaform.OK, anaform.Cancel, 390, 140);
+            anaform().Invoke(new Action(() => anaform().Hide()));
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", cefform.renderProcessDies, anaform().Icon, MessageBoxButtons.OK, Properties.Settings.Default.BackColor, cefform.Yes, cefform.No, cefform.OK, cefform.Cancel, 390, 140);
             if (mesaj.ShowDialog() == DialogResult.OK || mesaj.ShowDialog() == DialogResult.Cancel)
             {
                 Application.Exit();

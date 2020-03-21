@@ -27,16 +27,18 @@ namespace Korot
 {
     class ResReqHandler : IResourceRequestHandler
     {
-        frmMain anaform;
-        frmCEF Cefform;
-        public ResReqHandler(frmMain _anaform, frmCEF _Cefform)
+        public frmMain anaform()
         {
-            anaform = _anaform;
+            return ((frmMain)Cefform.ParentTabs);
+        }
+        frmCEF Cefform;
+        public ResReqHandler(frmCEF _Cefform)
+        {
             Cefform = _Cefform;
         }
         public ICookieAccessFilter GetCookieAccessFilter(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)
         {
-            return new CookieAccessFilter(anaform, Cefform);
+            return new CookieAccessFilter(Cefform);
         }
 
         public IResourceHandler GetResourceHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)

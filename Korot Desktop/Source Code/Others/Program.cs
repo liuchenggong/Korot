@@ -73,7 +73,7 @@ namespace Korot
                             if (x == Application.ExecutablePath || x == "-oobe" || x == "-update") { }
                             else if (x == "-incognito")
                             {
-                                testApp.Tabs.Add(new TitleBarTab(testApp) { Content = new frmCEF(testApp, true, "korot://incognito", Properties.Settings.Default.LastUser) { } });
+                                testApp.Tabs.Add(new TitleBarTab(testApp) { Content = new frmCEF(true, "korot://incognito", Properties.Settings.Default.LastUser) { } });
                             }
                             else if (x == "-debug" && !isIncognito)
                             {
@@ -110,7 +110,7 @@ namespace Korot
                             testApp.Tabs.Add(
     new TitleBarTab(testApp)
     {
-        Content = new frmCEF(testApp, isIncognito, Properties.Settings.Default.StartupURL, Properties.Settings.Default.LastUser) { }
+        Content = new frmCEF(isIncognito, Properties.Settings.Default.StartupURL, Properties.Settings.Default.LastUser) { }
     });
                         }
                         testApp.SelectedTabIndex = 0;

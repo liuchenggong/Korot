@@ -1,13 +1,28 @@
-﻿    using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿//MIT License
+//
+//Copyright (c) 2020 Eren "Haltroy" Kanat
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -18,14 +33,20 @@ namespace Korot
         string favName;
         string favUrl;
         frmCEF Cefform;
-        frmMain anaform;
-        public frmNewFav(string name,string url, frmCEF _frmCef,frmMain _frmMain)
+        public frmMain anaform()
         {
-            anaform = _frmMain;
+            return ((frmMain)Cefform.ParentTabs);
+        }
+        public frmNewFav(string name, string url, frmCEF _frmCef)
+        {
             Cefform = _frmCef;
             favName = name;
             favUrl = url;
             InitializeComponent();
+            foreach (Control x in this.Controls)
+            {
+                try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
+            }
         }
         public void LoadDynamicMenu()
         {
@@ -33,48 +54,48 @@ namespace Korot
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Favorites))
             {
                 var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(Properties.Settings.Default.Favorites.Replace("[", "<").Replace("]", ">"));
-            writer.Flush();
-            stream.Position = 0;
-            XmlDocument document = new XmlDocument();
-            document.Load(stream);
+                var writer = new StreamWriter(stream);
+                writer.Write(Properties.Settings.Default.Favorites.Replace("[", "<").Replace("]", ">"));
+                writer.Flush();
+                stream.Position = 0;
+                XmlDocument document = new XmlDocument();
+                document.Load(stream);
 
-            XmlElement element = document.DocumentElement;
-            TreeNode rootNode = new TreeNode();
-            rootNode.Name = "root";
-            rootNode.Text = "Root";
-            rootNode.ToolTipText = "korot://root";
-            treeView1.Nodes.Add(rootNode);
+                XmlElement element = document.DocumentElement;
+                TreeNode rootNode = new TreeNode();
+                rootNode.Name = "root";
+                rootNode.Text = "Root";
+                rootNode.ToolTipText = "korot://root";
+                treeView1.Nodes.Add(rootNode);
 
-            foreach (XmlNode node in document.FirstChild.ChildNodes)
-            {
-                if (node.Name == "Folder")
+                foreach (XmlNode node in document.FirstChild.ChildNodes)
                 {
-                    TreeNode menuItem = new TreeNode();
+                    if (node.Name == "Folder")
+                    {
+                        TreeNode menuItem = new TreeNode();
 
                         menuItem.Name = node.Attributes["Name"].Value;
                         menuItem.Text = node.Attributes["Text"].Value;
                         menuItem.ToolTipText = "korot://folder";
 
-                    rootNode.Nodes.Add(menuItem);
-                    GenerateMenusFromXML(node, menuItem);
+                        rootNode.Nodes.Add(menuItem);
+                        GenerateMenusFromXML(node, menuItem);
 
-                }
-                else if (node.Name == "Favorite")
-                {
-                    TreeNode menuItem = new TreeNode();
+                    }
+                    else if (node.Name == "Favorite")
+                    {
+                        TreeNode menuItem = new TreeNode();
 
-                    menuItem.Name = node.Attributes["Name"].Value;
-                    menuItem.Text = node.Attributes["Text"].Value;
+                        menuItem.Name = node.Attributes["Name"].Value;
+                        menuItem.Text = node.Attributes["Text"].Value;
                         menuItem.Tag = node.Attributes["Icon"] != null ? node.Attributes["Icon"].Value : "";
                         menuItem.ToolTipText = node.Attributes["Url"] == null ? null : node.Attributes["Url"].Value;
 
-                    rootNode.Nodes.Add(menuItem);
+                        rootNode.Nodes.Add(menuItem);
+                    }
                 }
+                treeView1.ExpandAll();
             }
-            treeView1.ExpandAll();
-        }
             else
             {
                 Properties.Settings.Default.Favorites = "[root][/root]";
@@ -97,7 +118,9 @@ namespace Korot
                     menuItem.Nodes.Add(item);
 
                     if (node.Attributes["FormLocation"] != null)
+                    {
                         item.ToolTipText = node.Attributes["FormLocation"].Value;
+                    }
 
                     GenerateMenusFromXML(node, item);
                 }
@@ -112,12 +135,17 @@ namespace Korot
                     menuItem.Nodes.Add(item);
 
                     if (node.Attributes["FormLocation"] != null)
+                    {
                         item.ToolTipText = node.Attributes["FormLocation"].Value;
+                    }
                 }
             }
         }
 
-        private void label3_Click(object sender, EventArgs e) => this.Close();
+        private void label3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
         private void frmNewFav_Load(object sender, EventArgs e)
         {
@@ -156,9 +184,8 @@ namespace Korot
                                                                                                     Cefform.Icon,
                                                                                                     Cefform.defaultFolderName,
                                                                                                     Properties.Settings.Default.BackColor,
-                                                                                                    Properties.Settings.Default.OverlayColor,
-                                                                                                    anaform.OK,
-                                                                                                    anaform.Cancel,
+                                                                                                    Cefform.OK,
+                                                                                                    Cefform.Cancel,
                                                                                                     400,
                                                                                                     150);
             if (haltroyInputBox.ShowDialog() == DialogResult.OK)
@@ -167,11 +194,12 @@ namespace Korot
                 {
                     TreeNode newFolder = new TreeNode();
                     newFolder.Text = haltroyInputBox.TextValue();
-                    newFolder.Name = haltroyInputBox.TextValue().Replace(" ","").Replace(Environment.NewLine, "");
+                    newFolder.Name = haltroyInputBox.TextValue().Replace(" ", "").Replace(Environment.NewLine, "");
                     newFolder.ToolTipText = "korot://folder";
                     treeView1.SelectedNode.Nodes.Add(newFolder);
                     treeView1.ExpandAll();
-                }else
+                }
+                else
                 {
                     button1_Click(sender, e);
                 }
@@ -182,17 +210,17 @@ namespace Korot
         {
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.AppendChild(XmlRecursiveExport(xmlDocument.DocumentElement, treeView.Nodes, xmlDocument));
-            Properties.Settings.Default.Favorites = xmlDocument.OuterXml.Replace("<","[").Replace(">", "]");
+            Properties.Settings.Default.Favorites = xmlDocument.OuterXml.Replace("<", "[").Replace(">", "]");
 
         }
-        private XmlNode XmlRecursiveExport(XmlNode nodeElement, TreeNodeCollection treeNodeCollection , XmlDocument xmlDocument)
+        private XmlNode XmlRecursiveExport(XmlNode nodeElement, TreeNodeCollection treeNodeCollection, XmlDocument xmlDocument)
         {
             XmlNode xmlNode = null;
             foreach (TreeNode treeNode in treeNodeCollection)
             {
-               if (treeNode.ToolTipText !=null) 
+                if (treeNode.ToolTipText != null)
                 {
-                    if (treeNode.ToolTipText.ToString() == "korot://root") 
+                    if (treeNode.ToolTipText.ToString() == "korot://root")
                     {
                         xmlNode = xmlDocument.CreateElement("root");
                         XmlRecursiveExport(xmlNode, treeNode.Nodes, xmlDocument);
@@ -212,7 +240,9 @@ namespace Korot
                         xmlNode.Attributes["Icon"].Value = treeNode.Tag == null ? "" : treeNode.Tag.ToString();
 
                         if (nodeElement != null)
+                        {
                             nodeElement.AppendChild(xmlNode);
+                        }
 
                         if (treeNode.Nodes.Count > 0)
                         {
@@ -228,9 +258,10 @@ namespace Korot
         private void button2_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBox1.Text) && string.IsNullOrWhiteSpace(textBox2.Text)) { }
-            else{
+            else
+            {
                 TreeNode newFolder = new TreeNode();
-                newFolder.Name = textBox1.Text.Replace(" ","").Replace(Environment.NewLine,"");
+                newFolder.Name = textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, "");
                 newFolder.Text = textBox1.Text;
                 newFolder.ToolTipText = textBox2.Text;
                 if (textBox2.Text != "korot://folder")

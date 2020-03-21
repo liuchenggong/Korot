@@ -44,6 +44,10 @@ namespace Korot
             this.TopMost = true;
             WebC.DownloadProgressChanged += WebC_DownloadProgressChanged;
             WebC.DownloadFileCompleted += WebC_DownloadFileAsyncCompleted;
+            foreach (Control x in this.Controls)
+            {
+                try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
+            }
         }
         void RefreshTranslate()
         {

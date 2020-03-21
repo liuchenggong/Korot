@@ -307,7 +307,7 @@ namespace Korot
             this.tbAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbAddress.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.tbAddress.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.tbAddress.Location = new System.Drawing.Point(140, 4);
             this.tbAddress.MaxLength = 2147483647;
             this.tbAddress.Name = "tbAddress";
@@ -367,7 +367,7 @@ namespace Korot
             // 
             // safeStatusToolStripMenuItem
             // 
-            this.safeStatusToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.safeStatusToolStripMenuItem.Font = new System.Drawing.Font("Ubuntu", 12F);
             this.safeStatusToolStripMenuItem.Name = "safeStatusToolStripMenuItem";
             this.safeStatusToolStripMenuItem.ShortcutKeyDisplayString = "X";
             this.safeStatusToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
@@ -557,6 +557,7 @@ namespace Korot
             // 
             // toolStripTextBox1
             // 
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.toolStripTextBox1.MaxLength = 2147483647;
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(220, 23);
@@ -940,7 +941,7 @@ namespace Korot
             // lErrorTitle2Text
             // 
             this.lErrorTitle2Text.AutoSize = true;
-            this.lErrorTitle2Text.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lErrorTitle2Text.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.lErrorTitle2Text.Location = new System.Drawing.Point(8, 165);
             this.lErrorTitle2Text.Name = "lErrorTitle2Text";
             this.lErrorTitle2Text.Size = new System.Drawing.Size(393, 68);
@@ -949,7 +950,7 @@ namespace Korot
             // lErrorTitle1Text
             // 
             this.lErrorTitle1Text.AutoSize = true;
-            this.lErrorTitle1Text.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lErrorTitle1Text.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.lErrorTitle1Text.Location = new System.Drawing.Point(8, 63);
             this.lErrorTitle1Text.Name = "lErrorTitle1Text";
             this.lErrorTitle1Text.Size = new System.Drawing.Size(510, 68);
@@ -958,7 +959,7 @@ namespace Korot
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.label1.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.label1.Location = new System.Drawing.Point(7, 251);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(117, 25);
@@ -967,7 +968,7 @@ namespace Korot
             // lErrorTitle2
             // 
             this.lErrorTitle2.AutoSize = true;
-            this.lErrorTitle2.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.lErrorTitle2.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.lErrorTitle2.Location = new System.Drawing.Point(6, 140);
             this.lErrorTitle2.Name = "lErrorTitle2";
             this.lErrorTitle2.Size = new System.Drawing.Size(157, 25);
@@ -976,7 +977,7 @@ namespace Korot
             // lErrorTitle1
             // 
             this.lErrorTitle1.AutoSize = true;
-            this.lErrorTitle1.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.lErrorTitle1.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.lErrorTitle1.Location = new System.Drawing.Point(6, 38);
             this.lErrorTitle1.Name = "lErrorTitle1";
             this.lErrorTitle1.Size = new System.Drawing.Size(432, 25);
@@ -985,7 +986,7 @@ namespace Korot
             // lErrorTitle
             // 
             this.lErrorTitle.AutoSize = true;
-            this.lErrorTitle.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lErrorTitle.Font = new System.Drawing.Font("Ubuntu", 20F);
             this.lErrorTitle.Location = new System.Drawing.Point(6, 7);
             this.lErrorTitle.Name = "lErrorTitle";
             this.lErrorTitle.Size = new System.Drawing.Size(319, 31);
@@ -1089,7 +1090,7 @@ namespace Korot
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.label7.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.label7.Location = new System.Drawing.Point(14, 17);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(128, 28);
@@ -1170,7 +1171,7 @@ namespace Korot
             this.btSecurity.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btSecurity.FlatAppearance.BorderSize = 0;
             this.btSecurity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btSecurity.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btSecurity.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.btSecurity.Location = new System.Drawing.Point(13, 159);
             this.btSecurity.Name = "btSecurity";
             this.btSecurity.Size = new System.Drawing.Size(76, 29);
@@ -1186,7 +1187,7 @@ namespace Korot
             this.btCookie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btCookie.FlatAppearance.BorderSize = 0;
             this.btCookie.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCookie.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btCookie.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.btCookie.Location = new System.Drawing.Point(13, 126);
             this.btCookie.Name = "btCookie";
             this.btCookie.Size = new System.Drawing.Size(149, 29);
@@ -1234,7 +1235,7 @@ namespace Korot
             // lbSettings
             // 
             this.lbSettings.AutoSize = true;
-            this.lbSettings.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.lbSettings.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.lbSettings.Location = new System.Drawing.Point(8, 6);
             this.lbSettings.Name = "lbSettings";
             this.lbSettings.Size = new System.Drawing.Size(83, 28);
@@ -1246,8 +1247,8 @@ namespace Korot
             this.hsFav.Checked = true;
             this.hsFav.Location = new System.Drawing.Point(144, 193);
             this.hsFav.Name = "hsFav";
-            this.hsFav.OffFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsFav.OnFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsFav.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsFav.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsFav.Size = new System.Drawing.Size(50, 19);
             this.hsFav.TabIndex = 28;
             this.hsFav.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsFav_CheckedChanged);
@@ -1370,7 +1371,7 @@ namespace Korot
             // 
             this.label25.AutoSize = true;
             this.label25.BackColor = System.Drawing.Color.Transparent;
-            this.label25.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label25.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label25.Location = new System.Drawing.Point(18, 95);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(151, 17);
@@ -1382,7 +1383,7 @@ namespace Korot
             // 
             this.label32.AutoSize = true;
             this.label32.BackColor = System.Drawing.Color.Transparent;
-            this.label32.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label32.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label32.Location = new System.Drawing.Point(16, 192);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(120, 17);
@@ -1394,7 +1395,7 @@ namespace Korot
             // 
             this.label31.AutoSize = true;
             this.label31.BackColor = System.Drawing.Color.Transparent;
-            this.label31.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label31.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label31.Location = new System.Drawing.Point(16, 164);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(139, 17);
@@ -1406,7 +1407,7 @@ namespace Korot
             // 
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Transparent;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label12.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label12.Location = new System.Drawing.Point(17, 132);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(124, 17);
@@ -1453,7 +1454,7 @@ namespace Korot
             // 
             this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label14.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label14.Location = new System.Drawing.Point(17, 41);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(124, 17);
@@ -1465,7 +1466,7 @@ namespace Korot
             // 
             this.label16.AutoSize = true;
             this.label16.BackColor = System.Drawing.Color.Transparent;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label16.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label16.Location = new System.Drawing.Point(17, 67);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(93, 17);
@@ -1537,7 +1538,7 @@ namespace Korot
             // 
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label13.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label13.Location = new System.Drawing.Point(17, 217);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(97, 17);
@@ -1549,7 +1550,7 @@ namespace Korot
             // 
             this.label15.AutoSize = true;
             this.label15.BackColor = System.Drawing.Color.Transparent;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label15.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label15.Location = new System.Drawing.Point(16, 243);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(64, 17);
@@ -1564,7 +1565,7 @@ namespace Korot
             this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.comboBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.comboBox1.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.comboBox1.Location = new System.Drawing.Point(130, 214);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(376, 25);
@@ -1603,7 +1604,7 @@ namespace Korot
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.label26.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.label26.Location = new System.Drawing.Point(15, 6);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(70, 28);
@@ -1640,7 +1641,7 @@ namespace Korot
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.label4.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.label4.Location = new System.Drawing.Point(8, 6);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 28);
@@ -1665,6 +1666,7 @@ namespace Korot
             this.hlvHistory.HideSelection = false;
             this.hlvHistory.Location = new System.Drawing.Point(13, 38);
             this.hlvHistory.Name = "hlvHistory";
+            this.hlvHistory.OverlayColor = System.Drawing.Color.DodgerBlue;
             this.hlvHistory.OwnerDraw = true;
             this.hlvHistory.Size = new System.Drawing.Size(540, 351);
             this.hlvHistory.TabIndex = 0;
@@ -1748,7 +1750,7 @@ namespace Korot
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.label6.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.label6.Location = new System.Drawing.Point(8, 6);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(110, 28);
@@ -1775,6 +1777,7 @@ namespace Korot
             this.hlvDownload.Location = new System.Drawing.Point(15, 111);
             this.hlvDownload.MultiSelect = false;
             this.hlvDownload.Name = "hlvDownload";
+            this.hlvDownload.OverlayColor = System.Drawing.Color.DodgerBlue;
             this.hlvDownload.OwnerDraw = true;
             this.hlvDownload.Size = new System.Drawing.Size(536, 282);
             this.hlvDownload.TabIndex = 1;
@@ -1856,8 +1859,8 @@ namespace Korot
             // 
             this.hsOpen.Location = new System.Drawing.Point(168, 34);
             this.hsOpen.Name = "hsOpen";
-            this.hsOpen.OffFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsOpen.OnFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsOpen.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsOpen.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsOpen.Size = new System.Drawing.Size(50, 19);
             this.hsOpen.TabIndex = 28;
             this.hsOpen.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsOpen_CheckedChanged);
@@ -1866,8 +1869,8 @@ namespace Korot
             // 
             this.hsDownload.Location = new System.Drawing.Point(174, 59);
             this.hsDownload.Name = "hsDownload";
-            this.hsDownload.OffFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsDownload.OnFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsDownload.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsDownload.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsDownload.Size = new System.Drawing.Size(50, 19);
             this.hsDownload.TabIndex = 28;
             this.hsDownload.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsDownload_CheckedChanged);
@@ -1913,7 +1916,7 @@ namespace Korot
             // 
             this.lbOpen.AutoSize = true;
             this.lbOpen.BackColor = System.Drawing.Color.Transparent;
-            this.lbOpen.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lbOpen.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.lbOpen.Location = new System.Drawing.Point(10, 38);
             this.lbOpen.Name = "lbOpen";
             this.lbOpen.Size = new System.Drawing.Size(146, 15);
@@ -1925,7 +1928,7 @@ namespace Korot
             // 
             this.lbAutoDownload.AutoSize = true;
             this.lbAutoDownload.BackColor = System.Drawing.Color.Transparent;
-            this.lbAutoDownload.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lbAutoDownload.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.lbAutoDownload.Location = new System.Drawing.Point(10, 62);
             this.lbAutoDownload.Name = "lbAutoDownload";
             this.lbAutoDownload.Size = new System.Drawing.Size(151, 15);
@@ -1974,7 +1977,7 @@ namespace Korot
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.label22.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.label22.Location = new System.Drawing.Point(8, 6);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(67, 28);
@@ -1985,7 +1988,7 @@ namespace Korot
             // 
             this.lbUpdateStatus.BackColor = System.Drawing.Color.Transparent;
             this.lbUpdateStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbUpdateStatus.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lbUpdateStatus.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.lbUpdateStatus.Location = new System.Drawing.Point(3, 325);
             this.lbUpdateStatus.Name = "lbUpdateStatus";
             this.lbUpdateStatus.Size = new System.Drawing.Size(562, 17);
@@ -2051,7 +2054,7 @@ namespace Korot
             // 
             this.label17.AutoSize = true;
             this.label17.BackColor = System.Drawing.Color.Transparent;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label17.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label17.Location = new System.Drawing.Point(171, 64);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(41, 17);
@@ -2062,7 +2065,7 @@ namespace Korot
             // 
             this.label18.AutoSize = true;
             this.label18.BackColor = System.Drawing.Color.Transparent;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label18.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label18.Location = new System.Drawing.Point(171, 40);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(50, 17);
@@ -2073,18 +2076,19 @@ namespace Korot
             // 
             this.label20.AutoSize = true;
             this.label20.BackColor = System.Drawing.Color.Transparent;
-            this.label20.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label20.Font = new System.Drawing.Font("Ubuntu", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label20.Location = new System.Drawing.Point(71, 82);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(77, 28);
             this.label20.TabIndex = 1;
             this.label20.Text = "Haltroy";
+            this.label20.MouseClick += new System.Windows.Forms.MouseEventHandler(this.label20_MouseClick);
             // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.BackColor = System.Drawing.Color.Transparent;
-            this.label19.Font = new System.Drawing.Font("Segoe UI", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label19.Font = new System.Drawing.Font("Ubuntu", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label19.Location = new System.Drawing.Point(64, 40);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(98, 45);
@@ -2172,7 +2176,7 @@ namespace Korot
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.label27.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.label27.Location = new System.Drawing.Point(9, 4);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(185, 28);
@@ -2206,7 +2210,7 @@ namespace Korot
             this.btCleanLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btCleanLog.FlatAppearance.BorderSize = 0;
             this.btCleanLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCleanLog.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btCleanLog.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.btCleanLog.Location = new System.Drawing.Point(16, 164);
             this.btCleanLog.Name = "btCleanLog";
             this.btCleanLog.Size = new System.Drawing.Size(113, 29);
@@ -2266,8 +2270,8 @@ namespace Korot
             // 
             this.hsUnknown.Location = new System.Drawing.Point(170, 107);
             this.hsUnknown.Name = "hsUnknown";
-            this.hsUnknown.OffFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsUnknown.OnFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsUnknown.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsUnknown.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsUnknown.Size = new System.Drawing.Size(50, 18);
             this.hsUnknown.TabIndex = 28;
             this.hsUnknown.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsUnknown_CheckedChanged);
@@ -2279,7 +2283,7 @@ namespace Korot
             this.button18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.button18.FlatAppearance.BorderSize = 0;
             this.button18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button18.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.button18.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.button18.Location = new System.Drawing.Point(16, 197);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(99, 29);
@@ -2292,8 +2296,8 @@ namespace Korot
             // 
             this.hsDoNotTrack.Location = new System.Drawing.Point(136, 54);
             this.hsDoNotTrack.Name = "hsDoNotTrack";
-            this.hsDoNotTrack.OffFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsDoNotTrack.OnFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsDoNotTrack.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsDoNotTrack.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsDoNotTrack.Size = new System.Drawing.Size(50, 19);
             this.hsDoNotTrack.TabIndex = 28;
             this.hsDoNotTrack.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsDoNotTrack_CheckedChanged);
@@ -2301,7 +2305,7 @@ namespace Korot
             // lbSecurity
             // 
             this.lbSecurity.AutoSize = true;
-            this.lbSecurity.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.lbSecurity.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.lbSecurity.Location = new System.Drawing.Point(11, 10);
             this.lbSecurity.Name = "lbSecurity";
             this.lbSecurity.Size = new System.Drawing.Size(82, 28);
@@ -2322,8 +2326,8 @@ namespace Korot
             // 
             this.hsProxy.Location = new System.Drawing.Point(170, 80);
             this.hsProxy.Name = "hsProxy";
-            this.hsProxy.OffFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsProxy.OnFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsProxy.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsProxy.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsProxy.Size = new System.Drawing.Size(50, 19);
             this.hsProxy.TabIndex = 28;
             this.hsProxy.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsProxy_CheckedChanged);
@@ -2358,7 +2362,7 @@ namespace Korot
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.label24.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.label24.Location = new System.Drawing.Point(11, 10);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(97, 28);
@@ -2546,7 +2550,7 @@ namespace Korot
             // 
             // ıncognitoModeToolStripMenuItem
             // 
-            this.ıncognitoModeToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.ıncognitoModeToolStripMenuItem.Font = new System.Drawing.Font("Ubuntu", 12F);
             this.ıncognitoModeToolStripMenuItem.Name = "ıncognitoModeToolStripMenuItem";
             this.ıncognitoModeToolStripMenuItem.ShortcutKeyDisplayString = "X";
             this.ıncognitoModeToolStripMenuItem.Size = new System.Drawing.Size(268, 26);
@@ -2607,7 +2611,7 @@ namespace Korot
             this.ClientSize = new System.Drawing.Size(562, 460);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tabControl1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

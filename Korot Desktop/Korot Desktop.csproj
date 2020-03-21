@@ -83,8 +83,8 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HaltroyFramework, Version=0.0.1.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HaltroyFramework.0.0.1.7-alpha\lib\net45\HaltroyFramework.dll</HintPath>
+    <Reference Include="HaltroyFramework, Version=0.0.1.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HaltroyFramework.0.0.1.9-alpha\lib\net45\HaltroyFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic">
       <Private>True</Private>
@@ -201,9 +201,16 @@
       <DependentUpon>frmOOBE.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Filters\CookieAccessFilter.cs" />
+    <Compile Include="Source Code\Forms\frmUpdateExt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmUpdateExt.Designer.cs">
+      <DependentUpon>frmUpdateExt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Handlers\FindHandler.cs" />
     <Compile Include="Source Code\Handlers\KeyboardHandler.cs" />
     <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
+    <Compile Include="Source Code\Others\ProfileManagement.cs" />
     <Compile Include="Source Code\Tab\BaseTabRenderer.cs" />
     <Compile Include="Source Code\Tab\DisplayType.cs" />
     <Compile Include="Source Code\Tab\KorotTabRenderer.cs" />
@@ -305,6 +312,9 @@
     <EmbeddedResource Include="Source Code\Forms\frmOOBE.resx">
       <DependentUpon>frmOOBE.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmUpdateExt.resx">
+      <DependentUpon>frmUpdateExt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Tab\TitleBarTabs.resx">
       <DependentUpon>TitleBarTabs.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -327,6 +337,48 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="ubuntu\Ubuntu-B.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\Ubuntu-BI.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\Ubuntu-C.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\Ubuntu-L.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\Ubuntu-LI.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\Ubuntu-M.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\Ubuntu-MI.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\Ubuntu-R.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\Ubuntu-RI.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\Ubuntu-Th.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\UbuntuMono-B.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\UbuntuMono-BI.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\UbuntuMono-R.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ubuntu\UbuntuMono-RI.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source Code\Others\App.config" />
@@ -383,6 +435,27 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ubuntu\CONTRIBUTING.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ubuntu\copyright.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ubuntu\FONTLOG.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ubuntu\LICENCE-FAQ.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ubuntu\LICENCE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ubuntu\README.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ubuntu\TRADEMARKS.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\KorotIcon.ico" />
     <None Include="Resources\licenses.html" />
     <None Include="Resources\1.png" />

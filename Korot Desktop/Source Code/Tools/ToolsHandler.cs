@@ -39,13 +39,13 @@ namespace Korot
         }
         public static Image getImageFromUrl(string url)
         {
-                using (System.Net.WebClient webClient = new System.Net.WebClient())
+            using (System.Net.WebClient webClient = new System.Net.WebClient())
+            {
+                using (Stream stream = webClient.OpenRead(url))
                 {
-                    using (Stream stream = webClient.OpenRead(url))
-                    {
-                        return Image.FromStream(stream);
-                    }
+                    return Image.FromStream(stream);
                 }
+            }
         }
         public static bool createThemes()
         {
@@ -59,7 +59,7 @@ namespace Korot
                                 "1" + Environment.NewLine +
                                 "Korot Light" + Environment.NewLine +
                                 "Haltroy" + Environment.NewLine +
-                                "1.0.0.0";
+                                "1.0.0.0" + Environment.NewLine + "1";
                 FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
 
             }
@@ -73,7 +73,7 @@ namespace Korot
                                 "1" + Environment.NewLine +
                                 "Korot Dark" + Environment.NewLine +
                                 "Haltroy" + Environment.NewLine +
-                                "1.0.0.0";
+                                "1.0.0.0" + Environment.NewLine + "1";
                 FileSystem2.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
 
             }
@@ -120,7 +120,7 @@ namespace Korot
             // History
             FileSystem2.WriteFile(historyFile, Properties.Settings.Default.History, Encoding.UTF8);
             // Favorites
-            FileSystem2.WriteFile(favoritesFile, Properties.Settings.Default.Favorites.Replace("]","]" + Environment.NewLine), Encoding.UTF8);
+            FileSystem2.WriteFile(favoritesFile, Properties.Settings.Default.Favorites.Replace("]", "]" + Environment.NewLine), Encoding.UTF8);
 
             // Download
             FileSystem2.WriteFile(downloadHistory, Properties.Settings.Default.DowloadHistory, Encoding.UTF8);
@@ -215,7 +215,7 @@ namespace Korot
         {
             return defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
         }
-        public static Color TersRenk (Color c,bool reverseAlpha)
+        public static Color TersRenk(Color c, bool reverseAlpha)
         {
             return Color.FromArgb(reverseAlpha ? (255 - c.A) : c.A,
                                   255 - c.R,

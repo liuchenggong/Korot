@@ -31,11 +31,13 @@ namespace Korot
     class DisplayHandler : IDisplayHandler
     {
         frmCEF CEFform;
-        frmMain aNaFRM;
-        public DisplayHandler(frmCEF tabform, frmMain anaform)
+        public frmMain anaform()
+        {
+            return ((frmMain)CEFform.ParentTabs);
+        }
+        public DisplayHandler(frmCEF tabform)
         {
             CEFform = tabform;
-            aNaFRM = anaform;
         }
         public void OnAddressChanged(IWebBrowser chromiumWebBrowser, AddressChangedEventArgs addressChangedArgs)
         {
@@ -74,7 +76,7 @@ namespace Korot
 
         public void OnFullscreenModeChange(IWebBrowser chromiumWebBrowser, IBrowser browser, bool fullscreen)
         {
-            aNaFRM.Invoke(new Action(() => aNaFRM.Fullscreenmode(fullscreen)));
+            anaform().Invoke(new Action(() => anaform().Fullscreenmode(fullscreen)));
 
         }
 

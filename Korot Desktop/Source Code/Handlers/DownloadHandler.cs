@@ -30,11 +30,13 @@ namespace Korot
     public class DownloadHandler : IDownloadHandler
     {
         frmCEF ActiveForm;
-        frmMain aNaFRM;
-        public DownloadHandler(frmCEF activeForm, frmMain anaform)
+        public frmMain anaform()
+        {
+            return ((frmMain)ActiveForm.ParentTabs);
+        }
+        public DownloadHandler(frmCEF activeForm)
         {
             ActiveForm = activeForm;
-            aNaFRM = anaform;
         }
         public static bool ValidHaltroyWebsite(string s)
         {
@@ -111,7 +113,8 @@ namespace Korot
             if (chromiumWebBrowser.CanGoBack == false)
             {
                 ActiveForm.Invoke(new Action(() => ActiveForm.Close()));
-            }else
+            }
+            else
             {
                 chromiumWebBrowser.Back();
             }
@@ -119,12 +122,12 @@ namespace Korot
 
         public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)
         {
-            aNaFRM.Invoke(new Action(() => aNaFRM.removeThisDownloadItem(downloadItem)));
-            aNaFRM.CurrentDownloads.Add(downloadItem);
-            if (aNaFRM.CancelledDownloads.Contains(downloadItem.Url)) { aNaFRM.removeThisDownloadItem(downloadItem); aNaFRM.CurrentDownloads.Remove(downloadItem); downloadItem.IsCancelled = true; callback.Cancel(); }
+            anaform().Invoke(new Action(() => anaform().removeThisDownloadItem(downloadItem)));
+            anaform().CurrentDownloads.Add(downloadItem);
+            if (anaform().CancelledDownloads.Contains(downloadItem.Url)) { anaform().removeThisDownloadItem(downloadItem); anaform().CurrentDownloads.Remove(downloadItem); downloadItem.IsCancelled = true; callback.Cancel(); }
             if (downloadItem.IsCancelled)
             {
-                aNaFRM.CurrentDownloads.Remove(downloadItem);
+                anaform().CurrentDownloads.Remove(downloadItem);
                 Properties.Settings.Default.DowloadHistory += "X;" + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + downloadItem.FullPath + ";" + downloadItem.Url + ";";
             }
             if (downloadItem.IsComplete)
@@ -135,7 +138,7 @@ namespace Korot
                     ınstallExt.Show();
                 }
                 Properties.Settings.Default.DowloadHistory += "✓;" + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + downloadItem.Url + ";" + downloadItem.FullPath + ";";
-                aNaFRM.CurrentDownloads.Remove(downloadItem);
+                anaform().CurrentDownloads.Remove(downloadItem);
                 ActiveForm.Invoke(new Action(() => ActiveForm.RefreshDownloadList()));
             }
 

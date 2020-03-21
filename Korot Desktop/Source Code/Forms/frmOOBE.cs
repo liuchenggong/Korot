@@ -35,6 +35,10 @@ namespace Korot
         public frmOOBE()
         {
             InitializeComponent();
+            foreach (Control x in this.Controls)
+            {
+                try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
+            }
         }
         bool allowSwitch = false;
         public string customSearchNote = "(Note: Searched text will be put after the url)";
@@ -117,63 +121,65 @@ namespace Korot
         }
         private void lbLang_SelectedIndexChanged(object sender, EventArgs e)
         {
-          if (lbLang.SelectedItem != null) {
-            if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".lang"))
+            if (lbLang.SelectedItem != null)
             {
-                btContinue2.Visible = false;
+                if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".lang"))
+                {
+                    btContinue2.Visible = false;
+                }
+                else
+                {
+                    Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
+                    string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+                    char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+                    string[] SplittedFase = Playlist.Split(token);
+                    this.Text = SplittedFase[142].Substring(1).Replace(Environment.NewLine, "");
+                    btContinue.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
+                    btContinue1.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
+                    btContinue2.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
+                    btBack.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
+                    btBack1.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
+                    btBack2.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
+                    btFinal.Text = SplittedFase[156].Substring(1).Replace(Environment.NewLine, "");
+                    lbInfoTheme.Text = SplittedFase[152].Substring(1).Replace(Environment.NewLine, "");
+                    lbInfoSettings.Text = SplittedFase[152].Substring(1).Replace(Environment.NewLine, "");
+                    lbWelcome.Text = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
+                    lbProfile.Text = SplittedFase[145].Substring(1).Replace(Environment.NewLine, "");
+                    lbNotContain.Text = SplittedFase[146].Substring(1).Replace(Environment.NewLine, "");
+                    lbProfileInfo.Text = SplittedFase[147].Substring(1).Replace(Environment.NewLine, "");
+                    lbWelcomeSetting.Text = SplittedFase[148].Substring(1).Replace(Environment.NewLine, "");
+                    lbWelcomeTheme.Text = SplittedFase[149].Substring(1).Replace(Environment.NewLine, "");
+                    lbHomePage.Text = SplittedFase[11].Substring(1).Replace(Environment.NewLine, "");
+                    lbNewTab.Text = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
+                    rbKorotL.Text = SplittedFase[153].Substring(1).Replace(Environment.NewLine, "");
+                    rbKorotD.Text = SplittedFase[154].Substring(1).Replace(Environment.NewLine, "");
+                    rbCustom.Text = SplittedFase[155].Substring(1).Replace(Environment.NewLine, "");
+                    lbBack.Text = SplittedFase[39].Substring(1).Replace(Environment.NewLine, "");
+                    lbOveral.Text = SplittedFase[40].Substring(1).Replace(Environment.NewLine, "");
+                    lbSE.Text = SplittedFase[12].Substring(1).Replace(Environment.NewLine, "");
+                    lbDNT.Text = SplittedFase[129].Substring(1).Replace(Environment.NewLine, "");
+                    Yes = SplittedFase[83].Substring(1).Replace(Environment.NewLine, "");
+                    No = SplittedFase[84].Substring(1).Replace(Environment.NewLine, "");
+                    OK = SplittedFase[85].Substring(1).Replace(Environment.NewLine, "");
+                    Cancel = SplittedFase[86].Substring(1).Replace(Environment.NewLine, "");
+                    customSearchMessage = SplittedFase[5].Substring(1).Replace(Environment.NewLine, "");
+                    customSearchNote = SplittedFase[6].Substring(1).Replace(Environment.NewLine, "");
+                    customToolStripMenuItem.Text = SplittedFase[14].Substring(1).Replace(Environment.NewLine, "");
+                    closeMessage = SplittedFase[157].Substring(1).Replace(Environment.NewLine, "");
+                    lbSettings.Text = SplittedFase[9].Substring(1).Replace(Environment.NewLine, "");
+                    lbThemes.Text = SplittedFase[13].Substring(1).Replace(Environment.NewLine, "");
+                    textBox3.Width = this.Width - (50 + lbSE.Width);
+                    textBox3.Location = new Point(lbSE.Width + lbSE.Location.X + 5, textBox3.Location.Y);
+                    haltroySwitch4.Location = new Point(lbDNT.Location.X + 5 + lbDNT.Width, haltroySwitch4.Location.Y);
+                    pbBack.Location = new Point(lbBack.Location.X + lbBack.Width + 5, pbBack.Location.Y);
+                    pbOverlay.Location = new Point(lbOveral.Location.X + lbOveral.Width + 5, pbOverlay.Location.Y);
+                    btContinue2.Visible = true;
+                }
             }
             else
             {
-                Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
-                string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
-                char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-                string[] SplittedFase = Playlist.Split(token);
-                this.Text = SplittedFase[142].Substring(1).Replace(Environment.NewLine, "");
-                btContinue.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
-                btContinue1.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
-                btContinue2.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
-                btBack.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
-                btBack1.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
-                btBack2.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
-                btFinal.Text = SplittedFase[156].Substring(1).Replace(Environment.NewLine, "");
-                lbInfoTheme.Text = SplittedFase[152].Substring(1).Replace(Environment.NewLine, "");
-                lbInfoSettings.Text = SplittedFase[152].Substring(1).Replace(Environment.NewLine, "");
-                lbWelcome.Text = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
-                lbProfile.Text = SplittedFase[145].Substring(1).Replace(Environment.NewLine, "");
-                lbNotContain.Text = SplittedFase[146].Substring(1).Replace(Environment.NewLine, "");
-                lbProfileInfo.Text = SplittedFase[147].Substring(1).Replace(Environment.NewLine, "");
-                lbWelcomeSetting.Text = SplittedFase[148].Substring(1).Replace(Environment.NewLine, "");
-                lbWelcomeTheme.Text = SplittedFase[149].Substring(1).Replace(Environment.NewLine, "");
-                lbHomePage.Text = SplittedFase[11].Substring(1).Replace(Environment.NewLine, "");
-                lbNewTab.Text = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
-                rbKorotL.Text = SplittedFase[153].Substring(1).Replace(Environment.NewLine, "");
-                rbKorotD.Text = SplittedFase[154].Substring(1).Replace(Environment.NewLine, "");
-                rbCustom.Text = SplittedFase[155].Substring(1).Replace(Environment.NewLine, "");
-                lbBack.Text = SplittedFase[39].Substring(1).Replace(Environment.NewLine, "");
-                lbOveral.Text = SplittedFase[40].Substring(1).Replace(Environment.NewLine, "");
-                lbSE.Text = SplittedFase[12].Substring(1).Replace(Environment.NewLine, "");
-                lbDNT.Text = SplittedFase[129].Substring(1).Replace(Environment.NewLine, "");
-                Yes = SplittedFase[83].Substring(1).Replace(Environment.NewLine, "");
-                No = SplittedFase[84].Substring(1).Replace(Environment.NewLine, "");
-                OK = SplittedFase[85].Substring(1).Replace(Environment.NewLine, "");
-                Cancel = SplittedFase[86].Substring(1).Replace(Environment.NewLine, "");
-                customSearchMessage = SplittedFase[5].Substring(1).Replace(Environment.NewLine, "");
-                customSearchNote = SplittedFase[6].Substring(1).Replace(Environment.NewLine, "");
-                customToolStripMenuItem.Text = SplittedFase[14].Substring(1).Replace(Environment.NewLine, "");
-                closeMessage = SplittedFase[157].Substring(1).Replace(Environment.NewLine, "");
-                lbSettings.Text = SplittedFase[9].Substring(1).Replace(Environment.NewLine, "");
-                lbThemes.Text = SplittedFase[13].Substring(1).Replace(Environment.NewLine, "");
-                textBox3.Width = this.Width - (50 + lbSE.Width);
-                textBox3.Location = new Point(lbSE.Width + lbSE.Location.X + 5, textBox3.Location.Y);
-                haltroySwitch4.Location = new Point(lbDNT.Location.X + 5 + lbDNT.Width, haltroySwitch4.Location.Y);
-                pbBack.Location = new Point(lbBack.Location.X + lbBack.Width + 5, pbBack.Location.Y);
-                pbOverlay.Location = new Point(lbOveral.Location.X + lbOveral.Width + 5, pbOverlay.Location.Y);
-                btContinue2.Visible = true;
+                btContinue2.Visible = false;
             }
-          } else 
-          {
-            btContinue2.Visible = false;
-          } 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -230,7 +236,7 @@ namespace Korot
             haltroySwitch2.BorderColor = isDarkMode ? Color.White : Color.Black;
             haltroySwitch3.BorderColor = isDarkMode ? Color.White : Color.Black;
             haltroySwitch4.BorderColor = isDarkMode ? Color.White : Color.Black;
-            haltroySwitch1.ButtonHoverColor = isDarkMode ? Color.FromArgb(255,235,235,235) : Color.FromArgb(255,20,20,20);
+            haltroySwitch1.ButtonHoverColor = isDarkMode ? Color.FromArgb(255, 235, 235, 235) : Color.FromArgb(255, 20, 20, 20);
             haltroySwitch2.ButtonHoverColor = isDarkMode ? Color.FromArgb(255, 235, 235, 235) : Color.FromArgb(255, 20, 20, 20);
             haltroySwitch3.ButtonHoverColor = isDarkMode ? Color.FromArgb(255, 235, 235, 235) : Color.FromArgb(255, 20, 20, 20);
             haltroySwitch4.ButtonHoverColor = isDarkMode ? Color.FromArgb(255, 235, 235, 235) : Color.FromArgb(255, 20, 20, 20);
@@ -442,7 +448,6 @@ namespace Korot
                 this.Icon,
                 "",
                 isDarkMode ? Color.Black : Color.White,
-                pbOverlay.BackColor,
                 OK,
                 Cancel,
                 400,

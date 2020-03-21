@@ -57,7 +57,7 @@ namespace Korot
         public static Stream ReadFile(string fileLocation)
         {
             FileStream fs = new FileStream(fileLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            return fs; 
+            return fs;
 
         }
         public static bool WriteFile(string fileLocation, string input, Encoding encode)

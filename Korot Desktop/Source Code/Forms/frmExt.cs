@@ -12,6 +12,7 @@
 //The above copyright notice and this permission notice shall be included in all
 //copies or substantial portions of the Software.
 //
+
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,16 +33,16 @@ namespace Korot
         string ExtensionPopupPath;
         frmCEF tabform;
         string userCache;
-        frmMain anaform;
+        //frmMain anaform;
         bool allowWebContent;
         string ExtManifestFile;
         ChromiumWebBrowser chromiumWebBrowser1;
-        public frmExt(frmCEF CefForm, frmMain rmmain, string profileName, string manifestFile, string popupHTML, bool _allowWebContent)
+        public frmExt(frmCEF CefForm, string profileName, string manifestFile, string popupHTML, bool _allowWebContent)
         {
             InitializeComponent();
             tabform = CefForm;
             ExtManifestFile = manifestFile;
-            anaform = rmmain;
+            //anaform = rmmain;
             userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + profileName + "\\cache\\";
             this.Text = "Korot";
             allowWebContent = _allowWebContent;
@@ -110,26 +111,26 @@ namespace Korot
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = "korot",
-                SchemeHandlerFactory = new SchemeHandlerFactory(anaform, tabform) 
+                SchemeHandlerFactory = new SchemeHandlerFactory(tabform)
                 {
                     extKEM = ExtManifestFile,
                     isExt = true,
-                    extForm= this
+                    extForm = this
                 }
-                
+
             });
             // Initialize cef with the provided settings
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
             chromiumWebBrowser1 = new ChromiumWebBrowser(ExtensionPopupPath);
             this.Controls.Add(chromiumWebBrowser1);
-            chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(anaform, tabform);
-            chromiumWebBrowser1.DisplayHandler = new DisplayHandler(tabform, anaform);
+            chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(tabform);
+            chromiumWebBrowser1.DisplayHandler = new DisplayHandler(tabform);
             chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
             chromiumWebBrowser1.LoadError += cef_onLoadError;
-            chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(tabform, anaform);
+            chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(tabform);
             chromiumWebBrowser1.LifeSpanHandler = new BrowserLifeSpanHandler(tabform);
-            chromiumWebBrowser1.DownloadHandler = new DownloadHandler(tabform, anaform);
-            chromiumWebBrowser1.JsDialogHandler = new JsHandler(tabform, anaform);
+            chromiumWebBrowser1.DownloadHandler = new DownloadHandler(tabform);
+            chromiumWebBrowser1.JsDialogHandler = new JsHandler(tabform);
             chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();

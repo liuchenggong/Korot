@@ -27,14 +27,16 @@ namespace Korot
 {
     class SchemeHandlerFactory : ISchemeHandlerFactory
     {
-        frmMain anaform;
+        public frmMain anaform()
+        {
+            return ((frmMain)CefForm.ParentTabs);
+        }
         frmCEF CefForm;
         public bool isExt = false;
         public string extKEM;
         public frmExt extForm;
-        public SchemeHandlerFactory(frmMain _anaForm, frmCEF _CefForm)
+        public SchemeHandlerFactory(frmCEF _CefForm)
         {
-            anaform = _anaForm;
             CefForm = _CefForm;
         }
         public static bool ValidHaltroyWebsite(string s)
@@ -56,7 +58,7 @@ namespace Korot
         }
         public string GetBackStyle2()
         {
-            return "background-color: rgb(" + Properties.Settings.Default.BackColor.R + " ," + Properties.Settings.Default.BackColor.G + " , " + Properties.Settings.Default.BackColor.B + "); color: " + (Tools.isBright(Properties.Settings.Default.BackColor) ? "black": "white") + ";";
+            return "background-color: rgb(" + Properties.Settings.Default.BackColor.R + " ," + Properties.Settings.Default.BackColor.G + " , " + Properties.Settings.Default.BackColor.B + "); color: " + (Tools.isBright(Properties.Settings.Default.BackColor) ? "black" : "white") + ";";
         }
         public static bool ValidHttpURL(string s)
         {
@@ -151,14 +153,15 @@ namespace Korot
                 }
                 else if (request.Url == "korot://refresh/")
                 {
-                    if(isExt)
+                    if (isExt)
                     {
                         if (!string.IsNullOrWhiteSpace(extKEM) && extForm != null)
                         {
                             CefForm.Invoke(new Action(() => CefForm.applyExtension(extKEM)));
                             extForm.Invoke(new Action(() => extForm.Close()));
                             return ResourceHandler.FromString("");
-                        }else
+                        }
+                        else
                         {
                             return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=ARGUMENT_NOT_FOUND \" />");
 
@@ -181,14 +184,14 @@ namespace Korot
             }
             if (request.Url.ToLower().EndsWith(".ktf"))
             {
-                if (Properties.Settings.Default.allowUnknownResources) 
+                if (Properties.Settings.Default.allowUnknownResources)
                 {
-                    browser.GetHost().StartDownload(request.Url); 
+                    browser.GetHost().StartDownload(request.Url);
                     return ResourceHandler.FromString("");
                 }
-                else 
+                else
                 {
-                    if (ValidHaltroyWebsite(request.Url)) 
+                    if (ValidHaltroyWebsite(request.Url))
                     {
                         browser.GetHost().StartDownload(request.Url); //didnt worked :(
                         return ResourceHandler.FromString("");
