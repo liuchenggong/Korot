@@ -149,32 +149,9 @@ namespace Korot
 
         private void frmNewFav_Load(object sender, EventArgs e)
         {
-            this.Text = Cefform.newFavorite;
-            button2.Text = Cefform.add;
-            button1.Text = Cefform.newFolder;
-            label1.Text = Cefform.nametd;
-            label2.Text = Cefform.urltd;
-            textBox1.Text = favName;
-            textBox2.Text = favUrl;
+
             LoadDynamicMenu();
-            this.BackColor = Properties.Settings.Default.BackColor;
-            this.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            button1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            button1.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            button2.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            button2.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            //button3.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            //button3.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            textBox1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            textBox1.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            textBox2.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            textBox2.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            treeView1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            treeView1.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            textBox1.Location = new Point(label1.Location.X + label1.Width, label1.Location.Y);
-            textBox1.Width = this.Width - (label1.Width + 50);
-            textBox2.Location = new Point(label2.Location.X + label2.Width, label2.Location.Y);
-            textBox2.Width = this.Width - (label2.Width + 50);
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -325,6 +302,35 @@ namespace Korot
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             treeView1_NodeMouseClick(sender, null);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.Text = Cefform.newFavorite;
+            button2.Text = Cefform.add;
+            button1.Text = Cefform.newFolder;
+            label1.Text = Cefform.nametd;
+            label2.Text = Cefform.urltd;
+            textBox1.Text = favName;
+            textBox2.Text = favUrl;
+            this.BackColor = Properties.Settings.Default.BackColor;
+            this.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            button1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            button1.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            button2.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            button2.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            //button3.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            //button3.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            textBox1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            textBox1.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            textBox2.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            textBox2.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            treeView1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            treeView1.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            textBox1.Location = new Point(label1.Location.X + label1.Width, label1.Location.Y);
+            textBox1.Width = this.Width - (label1.Width + 50);
+            textBox2.Location = new Point(label2.Location.X + label2.Width, label2.Location.Y);
+            textBox2.Width = this.Width - (label2.Width + 50);
         }
     }
 }

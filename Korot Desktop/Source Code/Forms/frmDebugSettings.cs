@@ -160,6 +160,14 @@ namespace Korot
             numericUpDown2.Value = Properties.Settings.Default.closeColor;
             checkBox1.Checked = Properties.Settings.Default.showFav;
             checkBox2.Checked = Properties.Settings.Default.allowUnknownResources;
+            checkBox3.Checked = Properties.Settings.Default.dismissUpdate;
+            checkBox4.Checked = Properties.Settings.Default.alreadyUpdatedExt;
+            checkBox5.Checked = Properties.Settings.Default.alreadyUpdatedThemes;
+            numericUpDown3.Value = Properties.Settings.Default.windowState;
+            checkBox6.Checked = Properties.Settings.Default.disableLangErrors;
+            textBox1.Text = Properties.Settings.Default.KorotErrorTitle;
+            textBox2.Text = Properties.Settings.Default.KorotErrorDesc;
+            textBox3.Text = Properties.Settings.Default.KorotErrorTI;
         }
 
         private void pbBack_Click(object sender, EventArgs e)
@@ -248,6 +256,46 @@ namespace Korot
                 Properties.Settings.Default.registeredExtensions.Remove(lbExt.SelectedItem.ToString());
                 timer1_Tick(sender, null);
             }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.dismissUpdate = checkBox3.Checked;
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.alreadyUpdatedExt = checkBox4.Checked;
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.alreadyUpdatedThemes = checkBox5.Checked;
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.windowState = Convert.ToInt32(numericUpDown3.Value);
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.disableLangErrors = checkBox6.Checked;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.KorotErrorTitle = textBox1.Text;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.KorotErrorDesc = textBox2.Text;
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.KorotErrorTI = textBox3.Text;
         }
     }
 }

@@ -1,0 +1,270 @@
+Gizli Mod
+Korot - Güncelleme
+Güncelleme bulundu.Güncellemek ister misiniz?
+Güncelleme sırasında hata.
+Yeni Sekme
+(Not: Aranan yazı bu adresin sonuna eklenir.)
+Kişisel Arama Motoru adresini yazın
+Yeni Pencere
+Yeni Gizli Pencere
+Ayarlar
+Geçmiş
+Ana sayfa:
+Arama Motoru:
+Tema
+Özel
+Seçileni Sil
+Arkaplan Düzeni:
+Temizle
+Hakkında
+Geriye Git
+İleriye git
+Yenile
+Yenile (Çerezsiz)
+Dur
+Hepsini Seç
+Bağlantıyı Yeni Sekmede Aç
+Bağlantı Adresini Kopyala
+Resmi Kaydet
+Resmi Yeni Sekmede Aç
+Yapıştır
+Kopyala
+Kes
+Geri Al
+İleri Al
+Sil
+Seçileni Ara/Git
+Geliştirici Araçları
+Kaynağı Görüntüle
+İndirmeler
+Arkaplan rengi : 
+Tema Rengi : 
+Korot - İndiriyor
+İndirme bitince dosyaları aç:
+Aç
+Hedef
+Tarih
+Kaynak
+Kaynak : 
+Hedef : 
+Korot - Hata
+Hakkında
+Tema Adı :
+Kaydet
+Varsayılan proxy ayarına sıfırla
+Temalar : 
+Yeni sekmede aç
+Dosyayı Aç
+Dosyayı içeren klasörü aç
+Bu sayfada ara
+Büyük/küçük duyarlı
+"Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"
+"Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"
+Web'te arayın veya URL girin
+Korot bu ekranı görünütüleyemiyor.
+Bu sebeplerden olabilir:
+URL doğru olmayabilir.
+Adresteki web sayfası çok meşgul veya yanıt vermiyor.
+Makineniz Internet'e bağlı değil veya bağlantı çok yavaş.
+Antivirüs programı bu siteyi veya bu tarayıcıyı virüs olarak algıladı.
+Önerimiz:
+Adresteki yazım hatalarına dikkat ederek tekrar yazın. 
+Makinenizi Internet'e bağlayın.
+Bir süre sonra tekrar deneyin. 
+Antivürüs programını geçici olarak kapatın veya bu tarayıcıyı güvenilir listesine alın.
+Ara
+Şuna Geç:
+Yeni Profil
+Bu profili sil
+"[TEXT]" adresine git
+Web'te ara : "[TEXT]" 
+Lütfen geçerli bir URL girin.
+Lütfen yeni profil için ad giriniz.Şunları içermemelidir: 
+Önceki oturumu yükle
+Evet
+Hayır
+Tamam
+İptal
+Güncelleme bulundu.
+Güncellemeler aranıyor...
+Korot'unuz güncel.
+Güncellemeleri Ara
+Güncellemeyi Kur
+Güncelleme indiriliyor ve kuruluyor...
+[PERC]% | [TOTAL] KB'dan [CURRENT] KB indirildi.
+Temalar
+Bu temayı uygulamak istediğinizden emin misiniz?
+Bu tema dosyası bozulmuş veya bu sürüm ile uyumlu değil.
+Sertifika Hata Detayları
+Güvenli Değil
+Bu websitesi hatalı bir sertifika kullanıyor.
+Güvenli
+Bu websitesi hatasız bir sertifika kullanıyor.
+Sertifika hatasını görüntüle
+Bu website çerezleri kullanıyor.
+Bu website çerezleri kullanmıyor.
+Bu website güvenli değil.
+Bu websitesi hatalı bir sertifika kullanıyor. Bu da bazı bilgileriniz (kredi kartı,şifreler,mesajlar...) tanınmayan kişiler tarafından çalınabilir kılıyor.
+Bu riskleri anlıyorum.
+Korot, CefSharp kullanarak Google tarafından yapılan Chromium'u kullanıyor.[NEWLINE]Korot, Microsoft tarafından Visual Studio Community kullanılarak C# dilinde yazılmıştır.[NEWLINE]Korot, EasyTabs'in değiştirilmiş sürümünü kullanır.[NEWLINE]Korot, Dalton Maag && Canonical Ltd. tarafından yapılmış olan Ubuntu fontunu kullanır.[NEWLINE]Çeviri Haltroy tarafından yapılmıştır.
+Lisanslar && Özel Teşekkürler...
+Bu eklenti şu izinleri istiyor.
+Bu eklenti bir izin istemiyor.
+Bu eklenti yüklenemez.
+Yükleniyor...
+Eski dosyalar siliniyor...
+Eski dosyalar silindi.
+Klasör oluşturuluyor...
+Klasör oluşturuldu.Dosyalar aktarılıyor...
+Yüklendi.
+Kapat
+Yükle
+Hazırlanıyor...
+Otomatik yüklenme
+Bu eklenti, websitesi yükelndiğinde otomatik başlatılır.
+Web içeriğine erişim
+Bu eklenti, parolalar ve kredi kartı bilgileri gibi web site içeriklerine erişebilir.
+Çevrimiçi dosyalar
+Bu eklenti, yere olmayan web dosyalarını kullanıyor. Bu biraz veri tüketebilir.
+([REQ]) değeri sadece "1" veya "0" olabilir.[NEWLINE] [FILE] dosyasında[NEWLINE] [LINE] satırında
+DoNotTrack'ı Etkinleştir:
+Bazı dosyalar, dosya limitlerini aşıyor. Lütfen detaylı bilgi için https://github.com/Haltroy/Korot/issues/27 adresine bakın.
+Lütfen bekleyiniz...
+Arkaplan rengini kullan
+Arkaplan rengi kullanılıyor
+Bir base64 kodunu kullan
+Yerel bir görüntüyü kullan
+Resim Dosyası
+Tüm Dosyalar
+Arkaplan resmi seçin...
+Arkaplan Resmi Düzeni:
+Yüklemek istiyor musunuz?
+Eklenti
+Korot Kurulumu
+Devam et
+Korot'a Hoşgeldiniz!
+Lütfen profiliniz için bir isim yazın:
+Bunları içermemelidir:
+Daha sonra yeni bir profil oluşturabilir,profil silebilir veya o profile geçebilirsiniz.
+3-nokta menüsündeki Temalar seçeneğinden yeni temalar olışturabilir, temalar uygulayabilir ve değiştirebilirsiniz..[NEWLINE][NEWLINE]Üstelik tema listesinin sağ üst kısmında bulunan poşet ikonuna tıklayarak web mağazasından tema yükleyebilirsiniz.
+Profil menüsünden yeni profiller oluşturabilşr, profilinizi silebilir ve profiller arasından geçiş yapabilirsiniz.[NEWLINE][NEWLINE]Her profilin çerezleri, geçmişi, ayarları vb. kendisine özgüdür.
+Geriye git
+Bitirmek için lütfen aşağıdaki "Bitir" butonuna basın.[NEWLINE]Geriye gitmek için lütfen aşağıdaki "Geriye git" butonuna basın.
+3-nokta menüsünden eklentilere erişebilirsiniz.[NEWLINE][NEWLINE]"Web Store" seçeneğine dokunarak yeni eklentileri yükleyebilirsiniz.
+Hayırlı Olsun
+Profiller
+Devam etmek için lütfen aşağıdaki "Devam et" butonuna basın.[NEWLINE]Geriye gitmek için lütfen aşağıdaki "Geriye git" butonuna basın.
+Kurulumu bitir ve Korot'u başlat.
+Kurulum bitmeden önce kapatmak istediğinizden emin misiniz?
+Bu sayfanın çerez iznini kapat
+Bu sayfanın çerez iznini aç
+Gizli Mod
+Gizli Moddasınız!
+Korot şunları yapmaz:
+Geçmişi ve indirmeleri kaydetme
+Çerezleri, form detaylarını ve oturumları kaydetme
+Ayaraları kaydetme
+Fakat aktiviteniz şunlara görünebilir:
+Websiteler
+Yerel Internet sahibiniz ve Internet servis sağlayıcınız
+İzleyenler
+Yazdır
+HTML Dosyası
+Ekran görüntüsü al
+Sayfayı kaydet
+Yakınlaştır
+Yakınlaştırmayı Sıfırla
+Uzaklaştır
+Lütfen geçerli bir base64 kodu giriniz.
+Oluşturucu işlem sonlandırıldı. Korot bu işlem olmadan çalışamaz. Uygulamayı kapatmak için Tamam butonuna basın.
+İncelenmemiş İçerik
+Korot, bu temanın içeriğini otomatik olarak algılamaz. Sonuç olarak, bu tema epileptik ve/ya kullanım için uygun olmayan içerik içerebilir.
+Eklentiler
+[THEMENAME] teması [THEMEAUTHOR] tarafından yapılmıştır.
+bilinmeyen birisi
+Adı bilinmeyen Korot
+Sonrakini bul
+Proxy ayarını hatırla:
+Seçili: 
+Toplam: 
+(Sonuncu)
+Arama yapılmıyor veya sonuç yok
+Bazı gereksinimler eksik.[NEWLINE] [FILE] dosyasında [NEWLINE] [LINE] satırında.
+Durum
+Gizli Mod
+Bu oturum kaydedilmeyecektir.
+Daha fazla bilgi için buraya tıklayın.
+Çerez Yasak Listesi
+Seçilenin yasağını kaldır
+Çerez Yasak Listesi...
+Korot'u sıfırlamak istediğinizden emin misiniz?[NEWLINE](Tüm kişisel bilgileriniz kaybolucak. Bu bilgiler profiller, ayarlar, indirmeler, çerezler vb. içerir.)
+Korot'u sıfırla...
+Başlangıçta:
+Bir klasöre otomatik olarak indir:
+Bu klasöre indir:
+Yeni Sekme sayfasını göster
+Ana sayfayı göster
+Bir adrese git
+Kaydet
+İndirmeler için bir klasör seçin.
+[TITLE] sayfasından onay:
+[TITLE] sayfasından bir mesaj:
+Lisanslar & Özel Teşekkür Sayfası
+Korot Lisansı
+Microsoft Visual Studio 2019 Community Lisansı
+Chromium Lisansı
+CefSharp Lisansı
+EasyTabs Lisansı
+Özel Teşekkürler...
+Hiçbiri
+Desen
+Ortala
+Genişlet
+Büyüt
+Arkaplan rengi
+Yazı rengi
+Tema Rengi
+Yeni sekme butonu rengi:
+Sekme kapatma butonu rengi:
+Favoriler menüsünü göster:
+"Bilinmeyen kaynaklara izin ver" seçeneğini etkinleştirmek, sıkıntılı eklentilerin eklenmesine izin verir.
+Bilinmeyen kaynaklara izin ver:
+Güvenlik
+Güvenlik...
+((boş))
+Çıkış dosyalarını temizle
+Başlık
+URL
+Web Mağazası
+Resmi kopyala
+Bağlantıyı yeni pencerede aç
+Bağlantıyı yeni gizli pencerede aç
+Resim bağlantısını kopyala
+Bağlantıyı farklı kaydet...
+Yeni Favori
+Ad :
+Url :
+Ekle...
+Yeni Klasör...
+Yeni Klasör
+Lütfen yeni klasör için bir ad giriniz.
+Hepsini yeni sekmede aç
+Yeni pencerede aç
+Hepsini yeni pencere(ler)de aç
+Yeni gizli pencerede aç
+Hepsini yeni gizli pencere(ler)de aç
+Yeni Favori...
+0.5.3.0
+Tam Ekran
+Korot Tema Güncelleyicisi
+Korot Eklenti Güncelleyicisi
+[NAME] güncelleniyor...[NEWLINE]Lütfen bekleyin...
+Ubuntu Font Lisansı
+Korot bir problem ile karşılaştı ve hata verdi.
+Korot kurulumunuz güvende fakat anlık olarak Korot çalışamaz durumda.[NEWLINE]Eğer bu sıklıkla oluyorsa lütfen GitHub'dan bir issue oluşturmaktan çekinmeyin.
+Teknik Bilgiler:
+Kuruluyor...
+Artık hazırsınız.
+Ok tuşlarını kullanarak ipucular arasında gezebilirsiniz.
+Devam etmek için lütfen aşağıdaki "Devam et" butonuna basın.
+Bir Dil seçiniz...

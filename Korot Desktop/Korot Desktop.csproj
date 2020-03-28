@@ -12,7 +12,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Korot</RootNamespace>
     <AssemblyName>Korot</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -47,6 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <LargeAddressAware>true</LargeAddressAware>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\Release\x86\</OutputPath>
@@ -58,6 +59,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <LargeAddressAware>true</LargeAddressAware>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Source Code\Others\Korot.ico</ApplicationIcon>
@@ -81,13 +83,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <Optimize>true</Optimize>
+    <LargeAddressAware>true</LargeAddressAware>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HaltroyFramework, Version=0.0.1.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HaltroyFramework.0.0.1.9-alpha\lib\net45\HaltroyFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualBasic">
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -96,58 +96,55 @@
       <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PresentationFramework">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Core">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.IO.Compression">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.IO.Compression.FileSystem">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Management">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Security">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Speech">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml.Linq">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Data">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Deployment">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Net.Http">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Windows.Forms">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Win32Interop.Dwmapi, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Win32Interop.Dwmapi.1.0.1\lib\Win32Interop.Dwmapi.dll</HintPath>
@@ -165,7 +162,7 @@
       <HintPath>..\packages\Win32Interop.Uxtheme.1.0.1\lib\Win32Interop.Uxtheme.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -210,7 +207,11 @@
     <Compile Include="Source Code\Handlers\FindHandler.cs" />
     <Compile Include="Source Code\Handlers\KeyboardHandler.cs" />
     <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
+    <Compile Include="Source Code\Others\DevToolsContainerControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Source Code\Others\ProfileManagement.cs" />
+    <Compile Include="Source Code\Others\UACControl.cs" />
     <Compile Include="Source Code\Tab\BaseTabRenderer.cs" />
     <Compile Include="Source Code\Tab\DisplayType.cs" />
     <Compile Include="Source Code\Tab\KorotTabRenderer.cs" />
@@ -323,7 +324,7 @@
     <None Include="Lang\English.lang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Lang\Turkish.lang">
+    <None Include="Lang\Türkçe.lang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -435,6 +436,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\tip-anaekran.png" />
+    <None Include="Resources\tip-ext.png" />
+    <None Include="Resources\tip-profil.png" />
+    <None Include="Resources\tip-tema.png" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -514,7 +519,13 @@
     <Error Condition="!Exists('..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets'))" />
     <Error Condition="!Exists('..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.props'))" />
     <Error Condition="!Exists('..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets'))" />
+    <Error Condition="!Exists('..\packages\LargeAddressAware.1.0.4\build\LargeAddressAware.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LargeAddressAware.1.0.4\build\LargeAddressAware.targets'))" />
   </Target>
   <Import Project="..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets')" />
   <Import Project="..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\LargeAddressAware.1.0.4\build\LargeAddressAware.targets" Condition="Exists('..\packages\LargeAddressAware.1.0.4\build\LargeAddressAware.targets')" />
 </Project>

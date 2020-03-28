@@ -146,14 +146,14 @@ Welcome to Korot!
 Please enter a name for your profile:
 Should not contain these:
 You can create new profiles, delete profiles or switch to them later.
-I want to edit some settings.
-I want to change to a theme or create new.
+You can apply, change or save themes from 3-dot menu -> Themes.[NEWLINE][NEWLINE]You can also download and install new themes by clicking bag icon on right top of theme list.
+You can create, delete or switch to multiple profiles from the profiles menu.[NEWLINE][NEWLINE]Each profile has its own cookies, settings, history, etc.
 Go Back
-Use new tab page as homepage
-You can change these settings later.
-Use Korot Light theme.
-Use Korot Dark theme.
-Use a custom theme.
+To finish, please press the "Finish" button below.[NEWLINE]To go back, please press the "Go Back" button below.
+You can use extensions from 3-dot menu.[NEWLINE][NEWLINE]You can also download and install new extensions from "Web Store".
+With Best Wishes
+Profiles
+To continue, please press the "Continue" button below.[NEWLINE]To go back, please press the "Go Back" button below.
 Finish installation and open Korot.
 The installation is not completed yet. Do you still want to close this?
 Disallow this page for cookie access
@@ -254,9 +254,17 @@ Open All in New Window(s)
 Open in New Incognito Window
 Open All in New Incognito Window(s)
 New Favorite...
-0.5.2.0
+0.5.3.0
 Full Screen
 Korot Theme Updater
 Korot Extension Updater
 Updating [NAME]...[NEWLINE]Please wait...
 Ubuntu Font License
+Korot ran into a problem and crashed.
+Your Korot installation is safe but Korot cannot continue at this point.[NEWLINE]If this happens frequently, feel free to open issues on GitHub.
+Techical Information:
+Installing...
+You're good to go.
+Use arrow keys to see tips.
+To continue, please press the "Continue" button below.
+Choose a language...

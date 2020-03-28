@@ -20,6 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -34,6 +35,10 @@ namespace Korot
         [STAThread]
         static void Main(string[] args)
         {
+            Properties.Settings.Default.dismissUpdate = false;
+            Properties.Settings.Default.alreadyUpdatedThemes = false;
+            Properties.Settings.Default.alreadyUpdatedExt = false;
+            Properties.Settings.Default.disableLangErrors = false;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             bool appStarted = false;
@@ -52,8 +57,18 @@ namespace Korot
                     }
                     if (args.Contains("-update"))
                     {
-                        Application.Run(new Form1());
-                        appStarted = true;
+                        if (UACControl.IsProcessElevated)
+                        {
+                            Application.Run(new Form1());
+                            appStarted = true;
+                        }else
+                        {
+                            ProcessStartInfo startInfo = new ProcessStartInfo(Application.ExecutablePath); //cmd is the application you are trying to start
+                            startInfo.Verb = "runas"; // This will set it to run as an administrator
+                            startInfo.Arguments = "-update"; // arguments to pass to the application that is being started
+                            Process.Start(startInfo);
+                            Application.Exit();
+                        }
                         return;
                     }
                     else if (args.Contains("-oobe") || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))

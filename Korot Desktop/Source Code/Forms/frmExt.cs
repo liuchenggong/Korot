@@ -62,21 +62,7 @@ namespace Korot
 
             return new Uri(p).IsFile;
         }
-        private static ManagementObject GetMngObj(string className)
-        {
-            var wmi = new ManagementClass(className);
-
-            foreach (var o in wmi.GetInstances())
-            {
-                var mo = (ManagementObject)o;
-                if (mo != null)
-                {
-                    return mo;
-                }
-            }
-
-            return null;
-        }
+        
         private void cefaddresschanged(object sender, AddressChangedEventArgs e)
         {
             if (!allowWebContent)
@@ -92,14 +78,13 @@ namespace Korot
                 }
             }
         }
-        public static string GetOsVer() { try { ManagementObject mo = GetMngObj("Win32_OperatingSystem"); if (null == mo) { return string.Empty; } return mo["Version"] as string; } catch { return string.Empty; } }
 
         private void FrmExt_Load(object sender, EventArgs e) { }
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings();
-            settings.UserAgent = "Mozilla/5.0 ( Windows NT "
-                + GetOsVer()
+            settings.UserAgent = "Mozilla/5.0 ( Windows "
+                + Tools.getOSInfo()
                 + "; "
                 + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
                 + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"

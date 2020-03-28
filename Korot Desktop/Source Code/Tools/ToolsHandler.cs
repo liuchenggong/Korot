@@ -29,6 +29,65 @@ namespace Korot
 {
     public class Tools
     {
+        public static string getOSInfo()
+        {
+            string fullName = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+            //We only need the version number or name like 7,Vista,10
+            //Remove any other unnecesary thing.
+            fullName = fullName.Replace("Microsoft Windows", "")
+                .Replace(" (PRODUCT) RED", "")
+                .Replace(" Business", "")
+                .Replace(" Education", "")
+                .Replace(" Embedded", "")
+                .Replace(" Enterprise LTSC", "")
+                .Replace(" Enterprise", "")
+                .Replace(" Home Basic", "")
+                .Replace(" Home Premium", "")
+                .Replace(" Home", "")
+                .Replace(" Insider", "")
+                .Replace(" IoT Core", "")
+                .Replace(" IoT", "")
+                .Replace(" KN", "")
+                .Replace(" Media Center 2002", "")
+                .Replace(" Media Center 2004", "")
+                .Replace(" Media Center 2005", "")
+                .Replace(" Mobile Enterprise", "")
+                .Replace(" Mobile", "")
+                .Replace(" N", "")
+                .Replace(" Pro Education", "")
+                .Replace(" Pro for Workstations", "")
+                .Replace(" Professional x64", "")
+                .Replace(" Professional", "")
+                .Replace(" Pro", "")
+                .Replace(" Signature Edition", "")
+                .Replace(" Single Language", "")
+                .Replace(" Starter", "")
+                .Replace(" S", "")
+                .Replace(" Tablet PC", "")
+                .Replace(" Team", "")
+                .Replace(" Ultimate", "")
+                .Replace(" VL", "")
+                .Replace(" X", "")
+                .Replace(" with Bing", "")
+                .Replace(" ", "");
+            string versionNumber;
+            switch(fullName)
+            {
+                case "XP":
+                    versionNumber = "5.1";
+                    break;
+                case "Vista":
+                    versionNumber = "6.0";
+                    break;
+                case "7":
+                    versionNumber = "6.1";
+                    break;
+                default:
+                    versionNumber = fullName;
+                    break;
+            }
+            return "NT " + fullName;
+        }
         public static Color HexToColor(String hexString)
         {
             return ColorTranslator.FromHtml(hexString);

@@ -263,14 +263,17 @@ namespace Korot
         {
             showTooltipTimer.Stop();
 
-            if (_parentForm.InvokeRequired)
+            if (!_parentForm.IsDisposed || _parentForm.IsClosing)
             {
-                _parentForm.Invoke(new Action(() =>
+                if (_parentForm.InvokeRequired)
                 {
-                    _parentForm.Tooltip.Hide(_parentForm);
-                }));
-            }
 
+                    _parentForm.Invoke(new Action(() =>
+                    {
+                        _parentForm.Tooltip.Hide(_parentForm);
+                    }));
+                }
+            
             else
             {
                 try
@@ -278,6 +281,7 @@ namespace Korot
                     _parentForm.Tooltip.Hide(_parentForm);
                 }
                 catch { }
+            }
             }
         }
 
@@ -478,7 +482,7 @@ namespace Korot
                                     }
                                 }));
                     }
-                    if (!IsDisposed)
+                    if (IsDisposed || _parentForm.IsDisposed) { }else
                     {
                         Invoke(new Action(() => OnMouseMove(new MouseEventArgs(MouseButtons.None, 0, cursorPosition.X, cursorPosition.Y, 0))));
                     }

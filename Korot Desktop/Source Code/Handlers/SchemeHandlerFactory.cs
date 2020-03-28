@@ -56,6 +56,10 @@ namespace Korot
                 return Properties.Settings.Default.BackStyle;
             }
         }
+        public string GetOverlay()
+        {
+            return "color: rgb(" + Properties.Settings.Default.OverlayColor.R + " ," + Properties.Settings.Default.OverlayColor.G + " , " + Properties.Settings.Default.OverlayColor.B + ");";
+        }
         public string GetBackStyle2()
         {
             return "background-color: rgb(" + Properties.Settings.Default.BackColor.R + " ," + Properties.Settings.Default.BackColor.G + " , " + Properties.Settings.Default.BackColor.B + "); color: " + (Tools.isBright(Properties.Settings.Default.BackColor) ? "black" : "white") + ";";
@@ -104,12 +108,12 @@ namespace Korot
                 }
                 else if (request.Url == "korot://licenses/")
                 {
-                    return ResourceHandler.FromString(Properties.Resources.licenses.Replace("§BACKSTYLE§", GetBackStyle()).Replace("§UF§", CefForm.ubuntuLicense).Replace("§TITLE§", CefForm.licenseTitle).Replace("§ET§", CefForm.etLicense).Replace("§K§", CefForm.kLicense).Replace("§VS§", CefForm.vsLicense).Replace("§CH§", CefForm.chLicense).Replace("§CEF§", CefForm.cefLicense).Replace("§ST§", CefForm.specialThanks));
+                    return ResourceHandler.FromString(Properties.Resources.licenses.Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§UF§", CefForm.ubuntuLicense).Replace("§TITLE§", CefForm.licenseTitle).Replace("§ET§", CefForm.etLicense).Replace("§K§", CefForm.kLicense).Replace("§VS§", CefForm.vsLicense).Replace("§CH§", CefForm.chLicense).Replace("§CEF§", CefForm.cefLicense).Replace("§ST§", CefForm.specialThanks));
                 }
                 else if (request.Url.StartsWith("korot://error/?e="))
                 {
                     string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
-                    return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.ErrorPageTitle).Replace("§KT§", CefForm.KT).Replace("§ET§", CefForm.ET).Replace("§E1§", CefForm.E1).Replace("§E2§", CefForm.E2).Replace("§E3§", CefForm.E3).Replace("§E4§", CefForm.E4).Replace("§RT§", CefForm.RT).Replace("§R1§", CefForm.R1).Replace("§R2§", CefForm.R2).Replace("§R3§", CefForm.R3).Replace("§R4§", CefForm.R4).Replace("§ERROR§", x));
+                    return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§OVERLAY§",GetOverlay()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.ErrorPageTitle).Replace("§KT§", CefForm.KT).Replace("§ET§", CefForm.ET).Replace("§E1§", CefForm.E1).Replace("§E2§", CefForm.E2).Replace("§E3§", CefForm.E3).Replace("§E4§", CefForm.E4).Replace("§RT§", CefForm.RT).Replace("§R1§", CefForm.R1).Replace("§R2§", CefForm.R2).Replace("§R3§", CefForm.R3).Replace("§R4§", CefForm.R4).Replace("§ERROR§", x));
                 }
                 else if (request.Url == "korot://dad/")
                 {
@@ -149,7 +153,7 @@ namespace Korot
                 }
                 else if (request.Url == "korot://links/")
                 {
-                    return ResourceHandler.FromString(Properties.Resources.korotlinks);
+                    return ResourceHandler.FromString(Properties.Resources.korotlinks.Replace("§BACKSTYLE2§", GetBackStyle2()));
                 }
                 else if (request.Url == "korot://refresh/")
                 {

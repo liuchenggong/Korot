@@ -53,71 +53,70 @@ namespace Korot
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOOBE));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lbCont = new System.Windows.Forms.Label();
             this.btContinue2 = new System.Windows.Forms.Button();
             this.lbLang = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lbContinueBack = new System.Windows.Forms.Label();
             this.btBack = new System.Windows.Forms.Button();
             this.btContinue = new System.Windows.Forms.Button();
-            this.haltroySwitch2 = new HaltroyFramework.HaltroySwitch();
-            this.haltroySwitch1 = new HaltroyFramework.HaltroySwitch();
-            this.lbWelcomeTheme = new System.Windows.Forms.Label();
-            this.lbWelcomeSetting = new System.Windows.Forms.Label();
             this.lbProfileInfo = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lbBanned = new System.Windows.Forms.Label();
             this.lbNotContain = new System.Windows.Forms.Label();
             this.lbProfile = new System.Windows.Forms.Label();
             this.lbWelcome = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.lbInfoSettings = new System.Windows.Forms.Label();
-            this.btBack1 = new System.Windows.Forms.Button();
-            this.btContinue1 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.haltroySwitch4 = new HaltroyFramework.HaltroySwitch();
-            this.haltroySwitch3 = new HaltroyFramework.HaltroySwitch();
-            this.lbNewTab = new System.Windows.Forms.Label();
-            this.lbDNT = new System.Windows.Forms.Label();
-            this.lbSE = new System.Windows.Forms.Label();
-            this.lbHomePage = new System.Windows.Forms.Label();
-            this.lbSettings = new System.Windows.Forms.Label();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lbBack = new System.Windows.Forms.Label();
-            this.pbBack = new System.Windows.Forms.PictureBox();
-            this.pbOverlay = new System.Windows.Forms.PictureBox();
-            this.lbOveral = new System.Windows.Forms.Label();
-            this.lbInfoTheme = new System.Windows.Forms.Label();
-            this.btBack2 = new System.Windows.Forms.Button();
-            this.rbCustom = new System.Windows.Forms.RadioButton();
-            this.rbKorotD = new System.Windows.Forms.RadioButton();
-            this.rbKorotL = new System.Windows.Forms.RadioButton();
-            this.btFinal = new System.Windows.Forms.Button();
-            this.lbThemes = new System.Windows.Forms.Label();
-            this.cmsSearchEngine = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.googleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.yandexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.yaaniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.duckDuckGoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.baiduToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.wolframalphaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aOLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.yahooToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.askToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ınternetArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lbTipTitle = new System.Windows.Forms.Label();
+            this.pbNext = new System.Windows.Forms.PictureBox();
+            this.pbPrev = new System.Windows.Forms.PictureBox();
+            this.lbArrowKey = new System.Windows.Forms.Label();
+            this.lbFinishBack = new System.Windows.Forms.Label();
+            this.btBack1 = new System.Windows.Forms.Button();
+            this.btFinish = new System.Windows.Forms.Button();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tbTip1 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lbTip1 = new System.Windows.Forms.Label();
+            this.tbTip2 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lbTip2 = new System.Windows.Forms.Label();
+            this.tbTip3 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.lbTip3 = new System.Windows.Forms.Label();
+            this.tbTipF = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.lbTipF = new System.Windows.Forms.Label();
+            this.tmrLang = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbOverlay)).BeginInit();
-            this.cmsSearchEngine.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNext)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPrev)).BeginInit();
+            this.tabControl2.SuspendLayout();
+            this.tbTip1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tbTip2.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.tbTip3.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.tbTipF.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -128,7 +127,6 @@ namespace Korot
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(-10, -28);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
@@ -139,6 +137,7 @@ namespace Korot
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lbCont);
             this.tabPage1.Controls.Add(this.btContinue2);
             this.tabPage1.Controls.Add(this.lbLang);
             this.tabPage1.Controls.Add(this.label2);
@@ -150,6 +149,18 @@ namespace Korot
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lbCont
+            // 
+            this.lbCont.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbCont.Font = new System.Drawing.Font("Tahoma", 11F);
+            this.lbCont.Location = new System.Drawing.Point(4, 411);
+            this.lbCont.Name = "lbCont";
+            this.lbCont.Size = new System.Drawing.Size(611, 23);
+            this.lbCont.TabIndex = 6;
+            this.lbCont.Text = "To continue, please press the \"Continue\" button below.";
+            this.lbCont.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btContinue2
             // 
@@ -178,8 +189,9 @@ namespace Korot
             this.lbLang.Location = new System.Drawing.Point(10, 46);
             this.lbLang.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lbLang.Name = "lbLang";
-            this.lbLang.Size = new System.Drawing.Size(605, 368);
+            this.lbLang.Size = new System.Drawing.Size(605, 355);
             this.lbLang.TabIndex = 4;
+            this.lbLang.Click += new System.EventHandler(this.lbLang_Click);
             this.lbLang.SelectedIndexChanged += new System.EventHandler(this.lbLang_SelectedIndexChanged);
             this.lbLang.DoubleClick += new System.EventHandler(this.lbLang_DoubleClick);
             // 
@@ -196,15 +208,12 @@ namespace Korot
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.lbContinueBack);
             this.tabPage2.Controls.Add(this.btBack);
             this.tabPage2.Controls.Add(this.btContinue);
-            this.tabPage2.Controls.Add(this.haltroySwitch2);
-            this.tabPage2.Controls.Add(this.haltroySwitch1);
-            this.tabPage2.Controls.Add(this.lbWelcomeTheme);
-            this.tabPage2.Controls.Add(this.lbWelcomeSetting);
             this.tabPage2.Controls.Add(this.lbProfileInfo);
             this.tabPage2.Controls.Add(this.textBox1);
-            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Controls.Add(this.lbBanned);
             this.tabPage2.Controls.Add(this.lbNotContain);
             this.tabPage2.Controls.Add(this.lbProfile);
             this.tabPage2.Controls.Add(this.lbWelcome);
@@ -216,6 +225,19 @@ namespace Korot
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lbContinueBack
+            // 
+            this.lbContinueBack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbContinueBack.Font = new System.Drawing.Font("Tahoma", 11F);
+            this.lbContinueBack.Location = new System.Drawing.Point(6, 356);
+            this.lbContinueBack.Name = "lbContinueBack";
+            this.lbContinueBack.Size = new System.Drawing.Size(611, 51);
+            this.lbContinueBack.TabIndex = 19;
+            this.lbContinueBack.Text = "To continue, please press the \"Continue\" button below.\r\nTo go back, please press " +
+    "\"Go Back\" button below.";
+            this.lbContinueBack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btBack
             // 
@@ -252,48 +274,6 @@ namespace Korot
             this.btContinue.Visible = false;
             this.btContinue.Click += new System.EventHandler(this.button4_Click);
             // 
-            // haltroySwitch2
-            // 
-            this.haltroySwitch2.Checked = true;
-            this.haltroySwitch2.Location = new System.Drawing.Point(25, 293);
-            this.haltroySwitch2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.haltroySwitch2.Name = "haltroySwitch2";
-            this.haltroySwitch2.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.haltroySwitch2.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.haltroySwitch2.Size = new System.Drawing.Size(50, 23);
-            this.haltroySwitch2.TabIndex = 15;
-            this.haltroySwitch2.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.haltroySwitch2_CheckedChanged);
-            // 
-            // haltroySwitch1
-            // 
-            this.haltroySwitch1.Checked = true;
-            this.haltroySwitch1.Location = new System.Drawing.Point(25, 263);
-            this.haltroySwitch1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.haltroySwitch1.Name = "haltroySwitch1";
-            this.haltroySwitch1.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.haltroySwitch1.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.haltroySwitch1.Size = new System.Drawing.Size(50, 23);
-            this.haltroySwitch1.TabIndex = 16;
-            this.haltroySwitch1.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.haltroySwitch1_CheckedChanged);
-            // 
-            // lbWelcomeTheme
-            // 
-            this.lbWelcomeTheme.AutoSize = true;
-            this.lbWelcomeTheme.Location = new System.Drawing.Point(81, 297);
-            this.lbWelcomeTheme.Name = "lbWelcomeTheme";
-            this.lbWelcomeTheme.Size = new System.Drawing.Size(218, 13);
-            this.lbWelcomeTheme.TabIndex = 12;
-            this.lbWelcomeTheme.Text = "I want to change to a theme or create new.";
-            // 
-            // lbWelcomeSetting
-            // 
-            this.lbWelcomeSetting.AutoSize = true;
-            this.lbWelcomeSetting.Location = new System.Drawing.Point(81, 267);
-            this.lbWelcomeSetting.Name = "lbWelcomeSetting";
-            this.lbWelcomeSetting.Size = new System.Drawing.Size(145, 13);
-            this.lbWelcomeSetting.TabIndex = 13;
-            this.lbWelcomeSetting.Text = "I want to edit some settings.";
-            // 
             // lbProfileInfo
             // 
             this.lbProfileInfo.AutoSize = true;
@@ -312,14 +292,14 @@ namespace Korot
             this.textBox1.TabIndex = 11;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // label6
+            // lbBanned
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(502, 190);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(81, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "\\ / : * ?  \" < > |";
+            this.lbBanned.AutoSize = true;
+            this.lbBanned.Location = new System.Drawing.Point(154, 190);
+            this.lbBanned.Name = "lbBanned";
+            this.lbBanned.Size = new System.Drawing.Size(81, 13);
+            this.lbBanned.TabIndex = 8;
+            this.lbBanned.Text = "\\ / : * ?  \" < > |";
             // 
             // lbNotContain
             // 
@@ -352,36 +332,111 @@ namespace Korot
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.lbInfoSettings);
+            this.tabPage3.Controls.Add(this.panel4);
+            this.tabPage3.Controls.Add(this.panel3);
+            this.tabPage3.Controls.Add(this.panel2);
+            this.tabPage3.Controls.Add(this.panel1);
+            this.tabPage3.Controls.Add(this.pbNext);
+            this.tabPage3.Controls.Add(this.pbPrev);
+            this.tabPage3.Controls.Add(this.lbArrowKey);
+            this.tabPage3.Controls.Add(this.lbFinishBack);
             this.tabPage3.Controls.Add(this.btBack1);
-            this.tabPage3.Controls.Add(this.btContinue1);
-            this.tabPage3.Controls.Add(this.textBox3);
-            this.tabPage3.Controls.Add(this.textBox2);
-            this.tabPage3.Controls.Add(this.haltroySwitch4);
-            this.tabPage3.Controls.Add(this.haltroySwitch3);
-            this.tabPage3.Controls.Add(this.lbNewTab);
-            this.tabPage3.Controls.Add(this.lbDNT);
-            this.tabPage3.Controls.Add(this.lbSE);
-            this.tabPage3.Controls.Add(this.lbHomePage);
-            this.tabPage3.Controls.Add(this.lbSettings);
+            this.tabPage3.Controls.Add(this.btFinish);
+            this.tabPage3.Controls.Add(this.tabControl2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage3.Size = new System.Drawing.Size(621, 461);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // lbInfoSettings
+            // panel4
             // 
-            this.lbInfoSettings.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbInfoSettings.Location = new System.Drawing.Point(3, 395);
-            this.lbInfoSettings.Name = "lbInfoSettings";
-            this.lbInfoSettings.Size = new System.Drawing.Size(615, 16);
-            this.lbInfoSettings.TabIndex = 9;
-            this.lbInfoSettings.Text = "You can change these settings later.";
-            this.lbInfoSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.panel4.Location = new System.Drawing.Point(542, 71);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(10, 251);
+            this.panel4.TabIndex = 26;
+            // 
+            // panel3
+            // 
+            this.panel3.Location = new System.Drawing.Point(74, 71);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(10, 251);
+            this.panel3.TabIndex = 25;
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(74, 296);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(478, 26);
+            this.panel2.TabIndex = 24;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lbTipTitle);
+            this.panel1.Location = new System.Drawing.Point(74, 18);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(478, 58);
+            this.panel1.TabIndex = 23;
+            // 
+            // lbTipTitle
+            // 
+            this.lbTipTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbTipTitle.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold);
+            this.lbTipTitle.Location = new System.Drawing.Point(0, 0);
+            this.lbTipTitle.Name = "lbTipTitle";
+            this.lbTipTitle.Size = new System.Drawing.Size(478, 58);
+            this.lbTipTitle.TabIndex = 0;
+            this.lbTipTitle.Text = "Extensions";
+            this.lbTipTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pbNext
+            // 
+            this.pbNext.Image = global::Korot.Properties.Resources.rightarrow;
+            this.pbNext.Location = new System.Drawing.Point(558, 167);
+            this.pbNext.Name = "pbNext";
+            this.pbNext.Size = new System.Drawing.Size(50, 50);
+            this.pbNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbNext.TabIndex = 22;
+            this.pbNext.TabStop = false;
+            this.pbNext.Click += new System.EventHandler(this.pbNext_Click);
+            // 
+            // pbPrev
+            // 
+            this.pbPrev.Image = global::Korot.Properties.Resources.leftarrow;
+            this.pbPrev.Location = new System.Drawing.Point(18, 167);
+            this.pbPrev.Name = "pbPrev";
+            this.pbPrev.Size = new System.Drawing.Size(50, 50);
+            this.pbPrev.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbPrev.TabIndex = 22;
+            this.pbPrev.TabStop = false;
+            this.pbPrev.Visible = false;
+            this.pbPrev.Click += new System.EventHandler(this.pbPrev_Click);
+            // 
+            // lbArrowKey
+            // 
+            this.lbArrowKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbArrowKey.Font = new System.Drawing.Font("Tahoma", 11F);
+            this.lbArrowKey.Location = new System.Drawing.Point(7, 331);
+            this.lbArrowKey.Name = "lbArrowKey";
+            this.lbArrowKey.Size = new System.Drawing.Size(607, 26);
+            this.lbArrowKey.TabIndex = 21;
+            this.lbArrowKey.Text = "Use arrow keys to see tips.";
+            this.lbArrowKey.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbFinishBack
+            // 
+            this.lbFinishBack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbFinishBack.Font = new System.Drawing.Font("Tahoma", 11F);
+            this.lbFinishBack.Location = new System.Drawing.Point(3, 360);
+            this.lbFinishBack.Name = "lbFinishBack";
+            this.lbFinishBack.Size = new System.Drawing.Size(611, 51);
+            this.lbFinishBack.TabIndex = 21;
+            this.lbFinishBack.Text = "To finish, please press the \"Finish Installation\" button below.\r\nTo go back, plea" +
+    "se press \"Go Back\" button below.";
+            this.lbFinishBack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btBack1
             // 
@@ -391,422 +446,245 @@ namespace Korot
             this.btBack1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btBack1.FlatAppearance.BorderSize = 0;
             this.btBack1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btBack1.Location = new System.Drawing.Point(3, 411);
+            this.btBack1.Location = new System.Drawing.Point(0, 415);
             this.btBack1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btBack1.Name = "btBack1";
-            this.btBack1.Size = new System.Drawing.Size(615, 23);
-            this.btBack1.TabIndex = 19;
+            this.btBack1.Size = new System.Drawing.Size(621, 23);
+            this.btBack1.TabIndex = 20;
             this.btBack1.Text = "Go Back";
             this.btBack1.UseVisualStyleBackColor = false;
-            this.btBack1.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // btContinue1
-            // 
-            this.btContinue1.AutoSize = true;
-            this.btContinue1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btContinue1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btContinue1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btContinue1.FlatAppearance.BorderSize = 0;
-            this.btContinue1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btContinue1.Location = new System.Drawing.Point(3, 434);
-            this.btContinue1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btContinue1.Name = "btContinue1";
-            this.btContinue1.Size = new System.Drawing.Size(615, 23);
-            this.btContinue1.TabIndex = 18;
-            this.btContinue1.Text = "Continue";
-            this.btContinue1.UseVisualStyleBackColor = false;
-            this.btContinue1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(119, 172);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(482, 21);
-            this.textBox3.TabIndex = 15;
-            this.textBox3.Text = "https://www.google.com/search?q=";
-            this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(21, 131);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(580, 21);
-            this.textBox2.TabIndex = 14;
-            this.textBox2.Text = "korot://newtab";
-            this.textBox2.Visible = false;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            // 
-            // haltroySwitch4
-            // 
-            this.haltroySwitch4.Location = new System.Drawing.Point(145, 209);
-            this.haltroySwitch4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.haltroySwitch4.Name = "haltroySwitch4";
-            this.haltroySwitch4.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.haltroySwitch4.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.haltroySwitch4.Size = new System.Drawing.Size(50, 23);
-            this.haltroySwitch4.TabIndex = 12;
-            this.haltroySwitch4.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.haltroySwitch4_CheckedChanged);
-            // 
-            // haltroySwitch3
-            // 
-            this.haltroySwitch3.Checked = true;
-            this.haltroySwitch3.Location = new System.Drawing.Point(21, 99);
-            this.haltroySwitch3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.haltroySwitch3.Name = "haltroySwitch3";
-            this.haltroySwitch3.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.haltroySwitch3.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.haltroySwitch3.Size = new System.Drawing.Size(50, 23);
-            this.haltroySwitch3.TabIndex = 13;
-            this.haltroySwitch3.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.haltroySwitch3_CheckedChanged);
-            // 
-            // lbNewTab
-            // 
-            this.lbNewTab.AutoSize = true;
-            this.lbNewTab.Location = new System.Drawing.Point(77, 103);
-            this.lbNewTab.Name = "lbNewTab";
-            this.lbNewTab.Size = new System.Drawing.Size(161, 13);
-            this.lbNewTab.TabIndex = 8;
-            this.lbNewTab.Text = "Use new tab page as homepage";
-            // 
-            // lbDNT
-            // 
-            this.lbDNT.AutoSize = true;
-            this.lbDNT.Font = new System.Drawing.Font("Tahoma", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbDNT.Location = new System.Drawing.Point(18, 212);
-            this.lbDNT.Name = "lbDNT";
-            this.lbDNT.Size = new System.Drawing.Size(121, 16);
-            this.lbDNT.TabIndex = 9;
-            this.lbDNT.Text = "Enable DoNotTrack:";
-            // 
-            // lbSE
-            // 
-            this.lbSE.AutoSize = true;
-            this.lbSE.Font = new System.Drawing.Font("Tahoma", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbSE.Location = new System.Drawing.Point(18, 173);
-            this.lbSE.Name = "lbSE";
-            this.lbSE.Size = new System.Drawing.Size(95, 16);
-            this.lbSE.TabIndex = 10;
-            this.lbSE.Text = "Search Engine:";
-            // 
-            // lbHomePage
-            // 
-            this.lbHomePage.AutoSize = true;
-            this.lbHomePage.Font = new System.Drawing.Font("Tahoma", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbHomePage.Location = new System.Drawing.Point(18, 67);
-            this.lbHomePage.Name = "lbHomePage";
-            this.lbHomePage.Size = new System.Drawing.Size(78, 16);
-            this.lbHomePage.TabIndex = 11;
-            this.lbHomePage.Text = "Home Page:";
-            // 
-            // lbSettings
-            // 
-            this.lbSettings.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lbSettings.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbSettings.Location = new System.Drawing.Point(3, 4);
-            this.lbSettings.Name = "lbSettings";
-            this.lbSettings.Size = new System.Drawing.Size(615, 48);
-            this.lbSettings.TabIndex = 7;
-            this.lbSettings.Text = "Settings";
-            this.lbSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.panel1);
-            this.tabPage4.Controls.Add(this.lbInfoTheme);
-            this.tabPage4.Controls.Add(this.btBack2);
-            this.tabPage4.Controls.Add(this.rbCustom);
-            this.tabPage4.Controls.Add(this.rbKorotD);
-            this.tabPage4.Controls.Add(this.rbKorotL);
-            this.tabPage4.Controls.Add(this.btFinal);
-            this.tabPage4.Controls.Add(this.lbThemes);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage4.Size = new System.Drawing.Size(621, 461);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lbBack);
-            this.panel1.Controls.Add(this.pbBack);
-            this.panel1.Controls.Add(this.pbOverlay);
-            this.panel1.Controls.Add(this.lbOveral);
-            this.panel1.Location = new System.Drawing.Point(8, 173);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(613, 74);
-            this.panel1.TabIndex = 44;
-            this.panel1.Visible = false;
-            // 
-            // lbBack
-            // 
-            this.lbBack.AutoSize = true;
-            this.lbBack.BackColor = System.Drawing.Color.Transparent;
-            this.lbBack.Font = new System.Drawing.Font("Tahoma", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbBack.Location = new System.Drawing.Point(6, 8);
-            this.lbBack.Name = "lbBack";
-            this.lbBack.Size = new System.Drawing.Size(121, 16);
-            this.lbBack.TabIndex = 36;
-            this.lbBack.Tag = "";
-            this.lbBack.Text = "Background Color : ";
-            // 
-            // pbBack
-            // 
-            this.pbBack.BackColor = System.Drawing.Color.White;
-            this.pbBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbBack.Location = new System.Drawing.Point(133, 4);
-            this.pbBack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pbBack.Name = "pbBack";
-            this.pbBack.Size = new System.Drawing.Size(23, 25);
-            this.pbBack.TabIndex = 38;
-            this.pbBack.TabStop = false;
-            this.pbBack.Tag = "";
-            this.pbBack.Click += new System.EventHandler(this.pbBack_Click);
-            // 
-            // pbOverlay
-            // 
-            this.pbOverlay.BackColor = System.Drawing.Color.DodgerBlue;
-            this.pbOverlay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbOverlay.Location = new System.Drawing.Point(104, 35);
-            this.pbOverlay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pbOverlay.Name = "pbOverlay";
-            this.pbOverlay.Size = new System.Drawing.Size(23, 25);
-            this.pbOverlay.TabIndex = 39;
-            this.pbOverlay.TabStop = false;
-            this.pbOverlay.Tag = "";
-            this.pbOverlay.Click += new System.EventHandler(this.pbOverlay_Click);
-            // 
-            // lbOveral
-            // 
-            this.lbOveral.AutoSize = true;
-            this.lbOveral.BackColor = System.Drawing.Color.Transparent;
-            this.lbOveral.Font = new System.Drawing.Font("Tahoma", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbOveral.Location = new System.Drawing.Point(6, 39);
-            this.lbOveral.Name = "lbOveral";
-            this.lbOveral.Size = new System.Drawing.Size(92, 16);
-            this.lbOveral.TabIndex = 37;
-            this.lbOveral.Tag = "";
-            this.lbOveral.Text = "Overal Color : ";
-            // 
-            // lbInfoTheme
-            // 
-            this.lbInfoTheme.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbInfoTheme.Location = new System.Drawing.Point(3, 395);
-            this.lbInfoTheme.Name = "lbInfoTheme";
-            this.lbInfoTheme.Size = new System.Drawing.Size(615, 16);
-            this.lbInfoTheme.TabIndex = 43;
-            this.lbInfoTheme.Text = "You can change these settings later.";
-            this.lbInfoTheme.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btBack2
-            // 
-            this.btBack2.AutoSize = true;
-            this.btBack2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btBack2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btBack2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btBack2.FlatAppearance.BorderSize = 0;
-            this.btBack2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btBack2.Location = new System.Drawing.Point(3, 411);
-            this.btBack2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btBack2.Name = "btBack2";
-            this.btBack2.Size = new System.Drawing.Size(615, 23);
-            this.btBack2.TabIndex = 42;
-            this.btBack2.Text = "Go Back";
-            this.btBack2.UseVisualStyleBackColor = false;
-            this.btBack2.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // rbCustom
-            // 
-            this.rbCustom.AutoSize = true;
-            this.rbCustom.Location = new System.Drawing.Point(8, 146);
-            this.rbCustom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rbCustom.Name = "rbCustom";
-            this.rbCustom.Size = new System.Drawing.Size(117, 17);
-            this.rbCustom.TabIndex = 22;
-            this.rbCustom.Text = "Use custom theme.";
-            this.rbCustom.UseVisualStyleBackColor = true;
-            this.rbCustom.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
-            // 
-            // rbKorotD
-            // 
-            this.rbKorotD.AutoSize = true;
-            this.rbKorotD.Location = new System.Drawing.Point(8, 118);
-            this.rbKorotD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rbKorotD.Name = "rbKorotD";
-            this.rbKorotD.Size = new System.Drawing.Size(134, 17);
-            this.rbKorotD.TabIndex = 22;
-            this.rbKorotD.Text = "Use Korot Dark theme.";
-            this.rbKorotD.UseVisualStyleBackColor = true;
-            this.rbKorotD.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // rbKorotL
-            // 
-            this.rbKorotL.AutoSize = true;
-            this.rbKorotL.Checked = true;
-            this.rbKorotL.Location = new System.Drawing.Point(8, 90);
-            this.rbKorotL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rbKorotL.Name = "rbKorotL";
-            this.rbKorotL.Size = new System.Drawing.Size(135, 17);
-            this.rbKorotL.TabIndex = 22;
-            this.rbKorotL.TabStop = true;
-            this.rbKorotL.Text = "Use Korot Light theme.";
-            this.rbKorotL.UseVisualStyleBackColor = true;
-            this.rbKorotL.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
-            // btFinal
-            // 
-            this.btFinal.AutoSize = true;
-            this.btFinal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btFinal.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btFinal.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btFinal.FlatAppearance.BorderSize = 0;
-            this.btFinal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btFinal.Location = new System.Drawing.Point(3, 434);
-            this.btFinal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btFinal.Name = "btFinal";
-            this.btFinal.Size = new System.Drawing.Size(615, 23);
-            this.btFinal.TabIndex = 21;
-            this.btFinal.Text = "Finish installation and open Korot.";
-            this.btFinal.UseVisualStyleBackColor = false;
-            this.btFinal.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // lbThemes
-            // 
-            this.lbThemes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lbThemes.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbThemes.Location = new System.Drawing.Point(3, 4);
-            this.lbThemes.Name = "lbThemes";
-            this.lbThemes.Size = new System.Drawing.Size(615, 48);
-            this.lbThemes.TabIndex = 19;
-            this.lbThemes.Text = "Theme";
-            this.lbThemes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cmsSearchEngine
-            // 
-            this.cmsSearchEngine.Font = new System.Drawing.Font("Tahoma", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.cmsSearchEngine.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.googleToolStripMenuItem,
-            this.yandexToolStripMenuItem,
-            this.bingToolStripMenuItem,
-            this.yaaniToolStripMenuItem,
-            this.duckDuckGoToolStripMenuItem,
-            this.baiduToolStripMenuItem,
-            this.wolframalphaToolStripMenuItem,
-            this.aOLToolStripMenuItem,
-            this.yahooToolStripMenuItem,
-            this.askToolStripMenuItem,
-            this.ınternetArchiveToolStripMenuItem,
-            this.customToolStripMenuItem});
-            this.cmsSearchEngine.Name = "contextMenuStrip2";
-            this.cmsSearchEngine.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsSearchEngine.ShowImageMargin = false;
-            this.cmsSearchEngine.Size = new System.Drawing.Size(140, 268);
-            // 
-            // googleToolStripMenuItem
-            // 
-            this.googleToolStripMenuItem.Name = "googleToolStripMenuItem";
-            this.googleToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.googleToolStripMenuItem.Tag = "https://www.google.com/search?q=";
-            this.googleToolStripMenuItem.Text = "Google";
-            this.googleToolStripMenuItem.Click += new System.EventHandler(this.SearchEngineSelection_Click);
-            // 
-            // yandexToolStripMenuItem
-            // 
-            this.yandexToolStripMenuItem.Name = "yandexToolStripMenuItem";
-            this.yandexToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.yandexToolStripMenuItem.Tag = "https://yandex.com.tr/search/?lr=103873&text=";
-            this.yandexToolStripMenuItem.Text = "Yandex";
-            this.yandexToolStripMenuItem.Click += new System.EventHandler(this.SearchEngineSelection_Click);
-            // 
-            // bingToolStripMenuItem
-            // 
-            this.bingToolStripMenuItem.Name = "bingToolStripMenuItem";
-            this.bingToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.bingToolStripMenuItem.Tag = "https://www.bing.com/search?q=";
-            this.bingToolStripMenuItem.Text = "Bing";
-            this.bingToolStripMenuItem.Click += new System.EventHandler(this.SearchEngineSelection_Click);
-            // 
-            // yaaniToolStripMenuItem
-            // 
-            this.yaaniToolStripMenuItem.Name = "yaaniToolStripMenuItem";
-            this.yaaniToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.yaaniToolStripMenuItem.Tag = "https://www.yaani.com/#q=";
-            this.yaaniToolStripMenuItem.Text = "Yaani";
-            this.yaaniToolStripMenuItem.Click += new System.EventHandler(this.SearchEngineSelection_Click);
-            // 
-            // duckDuckGoToolStripMenuItem
-            // 
-            this.duckDuckGoToolStripMenuItem.Name = "duckDuckGoToolStripMenuItem";
-            this.duckDuckGoToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.duckDuckGoToolStripMenuItem.Tag = "https://duckduckgo.com/?q=";
-            this.duckDuckGoToolStripMenuItem.Text = "DuckDuckGo";
-            this.duckDuckGoToolStripMenuItem.Click += new System.EventHandler(this.SearchEngineSelection_Click);
-            // 
-            // baiduToolStripMenuItem
-            // 
-            this.baiduToolStripMenuItem.Name = "baiduToolStripMenuItem";
-            this.baiduToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.baiduToolStripMenuItem.Tag = "https://www.baidu.com/s?&wd=";
-            this.baiduToolStripMenuItem.Text = "Baidu";
-            this.baiduToolStripMenuItem.Click += new System.EventHandler(this.SearchEngineSelection_Click);
-            // 
-            // wolframalphaToolStripMenuItem
-            // 
-            this.wolframalphaToolStripMenuItem.Name = "wolframalphaToolStripMenuItem";
-            this.wolframalphaToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.wolframalphaToolStripMenuItem.Tag = "https://www.wolframalpha.com/input/?i=";
-            this.wolframalphaToolStripMenuItem.Text = "Wolframalpha";
-            this.wolframalphaToolStripMenuItem.Click += new System.EventHandler(this.SearchEngineSelection_Click);
-            // 
-            // aOLToolStripMenuItem
-            // 
-            this.aOLToolStripMenuItem.Name = "aOLToolStripMenuItem";
-            this.aOLToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.aOLToolStripMenuItem.Tag = "https://search.aol.com/aol/search?&q=";
-            this.aOLToolStripMenuItem.Text = "AOL";
-            this.aOLToolStripMenuItem.Click += new System.EventHandler(this.SearchEngineSelection_Click);
-            // 
-            // yahooToolStripMenuItem
-            // 
-            this.yahooToolStripMenuItem.Name = "yahooToolStripMenuItem";
-            this.yahooToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.yahooToolStripMenuItem.Tag = "https://search.yahoo.com/search?p=";
-            this.yahooToolStripMenuItem.Text = "Yahoo";
-            this.yahooToolStripMenuItem.Click += new System.EventHandler(this.SearchEngineSelection_Click);
-            // 
-            // askToolStripMenuItem
-            // 
-            this.askToolStripMenuItem.Name = "askToolStripMenuItem";
-            this.askToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.askToolStripMenuItem.Tag = "https://www.ask.com/web?q=";
-            this.askToolStripMenuItem.Text = "Ask";
-            this.askToolStripMenuItem.Click += new System.EventHandler(this.SearchEngineSelection_Click);
-            // 
-            // ınternetArchiveToolStripMenuItem
-            // 
-            this.ınternetArchiveToolStripMenuItem.Name = "ınternetArchiveToolStripMenuItem";
-            this.ınternetArchiveToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.ınternetArchiveToolStripMenuItem.Tag = "https://web.archive.org/web/*/";
-            this.ınternetArchiveToolStripMenuItem.Text = "Internet Archive";
-            this.ınternetArchiveToolStripMenuItem.Click += new System.EventHandler(this.SearchEngineSelection_Click);
-            // 
-            // customToolStripMenuItem
-            // 
-            this.customToolStripMenuItem.Name = "customToolStripMenuItem";
-            this.customToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.customToolStripMenuItem.Text = "Custom";
-            this.customToolStripMenuItem.Click += new System.EventHandler(this.customToolStripMenuItem_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 2000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.btBack1.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // btFinish
+            // 
+            this.btFinish.AutoSize = true;
+            this.btFinish.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btFinish.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btFinish.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btFinish.FlatAppearance.BorderSize = 0;
+            this.btFinish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btFinish.Location = new System.Drawing.Point(0, 438);
+            this.btFinish.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btFinish.Name = "btFinish";
+            this.btFinish.Size = new System.Drawing.Size(621, 23);
+            this.btFinish.TabIndex = 18;
+            this.btFinish.Text = "Finish Installation";
+            this.btFinish.UseVisualStyleBackColor = false;
+            this.btFinish.Visible = false;
+            this.btFinish.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tbTip1);
+            this.tabControl2.Controls.Add(this.tbTip2);
+            this.tabControl2.Controls.Add(this.tbTip3);
+            this.tabControl2.Controls.Add(this.tbTipF);
+            this.tabControl2.Location = new System.Drawing.Point(74, 49);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(478, 252);
+            this.tabControl2.TabIndex = 0;
+            this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged);
+            // 
+            // tbTip1
+            // 
+            this.tbTip1.BackColor = System.Drawing.Color.White;
+            this.tbTip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbTip1.Controls.Add(this.tableLayoutPanel1);
+            this.tbTip1.Location = new System.Drawing.Point(4, 22);
+            this.tbTip1.Name = "tbTip1";
+            this.tbTip1.Padding = new System.Windows.Forms.Padding(3);
+            this.tbTip1.Size = new System.Drawing.Size(470, 226);
+            this.tbTip1.TabIndex = 0;
+            this.tbTip1.Text = "Extensions";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lbTip1, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(464, 220);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = global::Korot.Properties.Resources.tip_ext;
+            this.pictureBox1.Location = new System.Drawing.Point(235, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(226, 214);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
+            // lbTip1
+            // 
+            this.lbTip1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbTip1.Font = new System.Drawing.Font("Tahoma", 11F);
+            this.lbTip1.Location = new System.Drawing.Point(3, 0);
+            this.lbTip1.Name = "lbTip1";
+            this.lbTip1.Size = new System.Drawing.Size(226, 220);
+            this.lbTip1.TabIndex = 0;
+            this.lbTip1.Text = "You can use extensions from 3-dot menu.\r\n\r\nYou can also download and install new " +
+    "extensions from \"Web Store\".";
+            this.lbTip1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbTip2
+            // 
+            this.tbTip2.Controls.Add(this.tableLayoutPanel2);
+            this.tbTip2.Location = new System.Drawing.Point(4, 22);
+            this.tbTip2.Name = "tbTip2";
+            this.tbTip2.Padding = new System.Windows.Forms.Padding(3);
+            this.tbTip2.Size = new System.Drawing.Size(470, 226);
+            this.tbTip2.TabIndex = 1;
+            this.tbTip2.Text = "Themes";
+            this.tbTip2.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox2, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lbTip2, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(464, 220);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox2.Image = global::Korot.Properties.Resources.tip_tema;
+            this.pictureBox2.Location = new System.Drawing.Point(235, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(226, 214);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 3;
+            this.pictureBox2.TabStop = false;
+            // 
+            // lbTip2
+            // 
+            this.lbTip2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbTip2.Font = new System.Drawing.Font("Tahoma", 11F);
+            this.lbTip2.Location = new System.Drawing.Point(3, 0);
+            this.lbTip2.Name = "lbTip2";
+            this.lbTip2.Size = new System.Drawing.Size(226, 220);
+            this.lbTip2.TabIndex = 2;
+            this.lbTip2.Text = "You can apply, change or save themes from 3-dot menu -> Themes.\r\n\r\nYou can also d" +
+    "ownload and install new themes by clicking bag icon on right top of theme list.";
+            this.lbTip2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbTip3
+            // 
+            this.tbTip3.Controls.Add(this.tableLayoutPanel3);
+            this.tbTip3.Location = new System.Drawing.Point(4, 22);
+            this.tbTip3.Name = "tbTip3";
+            this.tbTip3.Size = new System.Drawing.Size(470, 226);
+            this.tbTip3.TabIndex = 2;
+            this.tbTip3.Text = "Profiles";
+            this.tbTip3.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.pictureBox3, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.lbTip3, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(470, 226);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox3.Image = global::Korot.Properties.Resources.tip_profil;
+            this.pictureBox3.Location = new System.Drawing.Point(238, 3);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(229, 220);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
+            // 
+            // lbTip3
+            // 
+            this.lbTip3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbTip3.Font = new System.Drawing.Font("Tahoma", 11F);
+            this.lbTip3.Location = new System.Drawing.Point(3, 0);
+            this.lbTip3.Name = "lbTip3";
+            this.lbTip3.Size = new System.Drawing.Size(229, 226);
+            this.lbTip3.TabIndex = 2;
+            this.lbTip3.Text = "You can create, delete or switch to multiple profiles from the profiles menu.\r\n\r\n" +
+    "Each profile has its own cookies, settings, history, etc.";
+            this.lbTip3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbTipF
+            // 
+            this.tbTipF.Controls.Add(this.tableLayoutPanel4);
+            this.tbTipF.Location = new System.Drawing.Point(4, 22);
+            this.tbTipF.Name = "tbTipF";
+            this.tbTipF.Size = new System.Drawing.Size(470, 226);
+            this.tbTipF.TabIndex = 4;
+            this.tbTipF.Text = "With Best Wishes";
+            this.tbTipF.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.pictureBox4, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.lbTipF, 0, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(470, 226);
+            this.tableLayoutPanel4.TabIndex = 0;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox4.Image = global::Korot.Properties.Resources.tip_anaekran;
+            this.pictureBox4.Location = new System.Drawing.Point(238, 3);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(229, 220);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 3;
+            this.pictureBox4.TabStop = false;
+            // 
+            // lbTipF
+            // 
+            this.lbTipF.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbTipF.Font = new System.Drawing.Font("Tahoma", 11F);
+            this.lbTipF.Location = new System.Drawing.Point(3, 0);
+            this.lbTipF.Name = "lbTipF";
+            this.lbTipF.Size = new System.Drawing.Size(229, 226);
+            this.lbTipF.TabIndex = 2;
+            this.lbTipF.Text = "You\'re good to go.";
+            this.lbTipF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tmrLang
+            // 
+            this.tmrLang.Enabled = true;
+            this.tmrLang.Interval = 10000;
+            this.tmrLang.Tick += new System.EventHandler(this.tmrLang_Tick);
             // 
             // frmOOBE
             // 
@@ -826,7 +704,6 @@ namespace Korot
             this.Text = "Korot Installation";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmOOBE_FormClosing);
             this.Load += new System.EventHandler(this.frmOOBE_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmOOBE_KeyDown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -834,13 +711,22 @@ namespace Korot
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBack)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbOverlay)).EndInit();
-            this.cmsSearchEngine.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbNext)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPrev)).EndInit();
+            this.tabControl2.ResumeLayout(false);
+            this.tbTip1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tbTip2.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.tbTip3.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.tbTipF.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -850,60 +736,48 @@ namespace Korot
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Button btContinue2;
         private System.Windows.Forms.ListBox lbLang;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btContinue;
-        private System.Windows.Forms.Label lbWelcomeTheme;
-        private System.Windows.Forms.Label lbWelcomeSetting;
         private System.Windows.Forms.Label lbProfileInfo;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbBanned;
         private System.Windows.Forms.Label lbNotContain;
         private System.Windows.Forms.Label lbProfile;
         private System.Windows.Forms.Label lbWelcome;
-        private System.Windows.Forms.Button btContinue1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private HaltroyFramework.HaltroySwitch haltroySwitch4;
-        private HaltroyFramework.HaltroySwitch haltroySwitch3;
-        private System.Windows.Forms.Label lbNewTab;
-        private System.Windows.Forms.Label lbInfoSettings;
-        private System.Windows.Forms.Label lbDNT;
-        private System.Windows.Forms.Label lbSE;
-        private System.Windows.Forms.Label lbHomePage;
-        private System.Windows.Forms.Label lbSettings;
-        private System.Windows.Forms.Button btFinal;
-        private System.Windows.Forms.Label lbThemes;
-        private System.Windows.Forms.RadioButton rbCustom;
-        private System.Windows.Forms.RadioButton rbKorotD;
-        private System.Windows.Forms.RadioButton rbKorotL;
-        private HaltroyFramework.HaltroySwitch haltroySwitch2;
-        private HaltroyFramework.HaltroySwitch haltroySwitch1;
-        private System.Windows.Forms.Label lbBack;
-        private System.Windows.Forms.Label lbOveral;
-        private System.Windows.Forms.PictureBox pbOverlay;
-        private System.Windows.Forms.PictureBox pbBack;
-        private System.Windows.Forms.ContextMenuStrip cmsSearchEngine;
-        private System.Windows.Forms.ToolStripMenuItem googleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem yandexToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem yaaniToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem duckDuckGoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem baiduToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem wolframalphaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aOLToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem yahooToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem askToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ınternetArchiveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem;
         private System.Windows.Forms.Button btBack;
-        private System.Windows.Forms.Button btBack1;
-        private System.Windows.Forms.Button btBack2;
-        private System.Windows.Forms.Label lbInfoTheme;
+        private System.Windows.Forms.Label lbCont;
+        private System.Windows.Forms.Label lbContinueBack;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button btFinish;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tbTip1;
+        private System.Windows.Forms.TabPage tbTip2;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lbTipTitle;
+        private System.Windows.Forms.PictureBox pbNext;
+        private System.Windows.Forms.PictureBox pbPrev;
+        private System.Windows.Forms.Label lbFinishBack;
+        private System.Windows.Forms.Button btBack1;
+        private System.Windows.Forms.Label lbArrowKey;
+        private System.Windows.Forms.TabPage tbTip3;
+        private System.Windows.Forms.TabPage tbTipF;
+        private System.Windows.Forms.Label lbTip1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label lbTip2;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Label lbTip3;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Label lbTipF;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Timer tmrLang;
     }
 }

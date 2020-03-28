@@ -53,7 +53,7 @@ namespace Korot
         {
             if (!Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address))
             {
-                if (!Cefform.IsDisposed)
+                if ((!Cefform.IsDisposed) || !Cefform.closing)
                 {
                     Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
                     Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));

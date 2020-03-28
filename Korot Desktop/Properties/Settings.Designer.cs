@@ -12,7 +12,7 @@ namespace Korot.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -229,7 +229,7 @@ namespace Korot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool DoNotTrack {
             get {
                 return ((bool)(this["DoNotTrack"]));
@@ -418,6 +418,91 @@ namespace Korot.Properties {
             }
             set {
                 this["windowState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool dismissUpdate {
+            get {
+                return ((bool)(this["dismissUpdate"]));
+            }
+            set {
+                this["dismissUpdate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool alreadyUpdatedExt {
+            get {
+                return ((bool)(this["alreadyUpdatedExt"]));
+            }
+            set {
+                this["alreadyUpdatedExt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool alreadyUpdatedThemes {
+            get {
+                return ((bool)(this["alreadyUpdatedThemes"]));
+            }
+            set {
+                this["alreadyUpdatedThemes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Korot ran into a problem and crashed.")]
+        public string KorotErrorTitle {
+            get {
+                return ((string)(this["KorotErrorTitle"]));
+            }
+            set {
+                this["KorotErrorTitle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Your Korot installation is safe but Korot cannot continue at this point.[NEWLINE]" +
+            "If this happens frequently, feel free to open issues on GitHub.")]
+        public string KorotErrorDesc {
+            get {
+                return ((string)(this["KorotErrorDesc"]));
+            }
+            set {
+                this["KorotErrorDesc"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Techical Information:")]
+        public string KorotErrorTI {
+            get {
+                return ((string)(this["KorotErrorTI"]));
+            }
+            set {
+                this["KorotErrorTI"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool disableLangErrors {
+            get {
+                return ((bool)(this["disableLangErrors"]));
+            }
+            set {
+                this["disableLangErrors"] = value;
             }
         }
     }

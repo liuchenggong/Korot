@@ -257,6 +257,13 @@ namespace Korot
                 if (this.WindowState == FormWindowState.Normal) { Properties.Settings.Default.windowState = 0; }
                 else if (this.WindowState == FormWindowState.Maximized) { Properties.Settings.Default.windowState = 1; }
                 else if (this.WindowState == FormWindowState.Minimized) { Properties.Settings.Default.windowState = 2; }
+                Korot.Properties.Settings.Default.dismissUpdate = false;
+                Korot.Properties.Settings.Default.alreadyUpdatedThemes = false;
+                Korot.Properties.Settings.Default.alreadyUpdatedExt = false;
+                Properties.Settings.Default.disableLangErrors = false;
+                if (this.WindowState == FormWindowState.Normal) { Properties.Settings.Default.windowState = 0; }
+                else if (this.WindowState == FormWindowState.Maximized) { Properties.Settings.Default.windowState = 1; }
+                else if (this.WindowState == FormWindowState.Minimized) { Properties.Settings.Default.windowState = 2; }
                 if (e.CloseReason != CloseReason.None || e.CloseReason != CloseReason.WindowsShutDown || e.CloseReason != CloseReason.TaskManagerClosing)
                 {
                     Korot.Properties.Settings.Default.LastSessionURIs = "";

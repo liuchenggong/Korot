@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmError));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.lbErrorCode = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -47,20 +49,23 @@
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.Location = new System.Drawing.Point(12, 93);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(328, 26);
+            this.label2.Size = new System.Drawing.Size(451, 44);
             this.label2.TabIndex = 0;
             this.label2.Text = "Your Korot installation is safe but Korot cannot continue at this point.\r\nIf this" +
     " happens frequently, feel free to open issues on GitHub.";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label3.Location = new System.Drawing.Point(12, 137);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(106, 13);
+            this.label3.Size = new System.Drawing.Size(127, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "Techical Information:";
             // 
@@ -71,12 +76,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.textBox1.ForeColor = System.Drawing.Color.Black;
-            this.textBox1.Location = new System.Drawing.Point(15, 153);
+            this.textBox1.Location = new System.Drawing.Point(12, 153);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(537, 274);
+            this.textBox1.Size = new System.Drawing.Size(448, 274);
             this.textBox1.TabIndex = 1;
             // 
             // lbErrorCode
@@ -90,15 +95,20 @@
             this.lbErrorCode.Name = "lbErrorCode";
             this.lbErrorCode.ReadOnly = true;
             this.lbErrorCode.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.lbErrorCode.Size = new System.Drawing.Size(537, 65);
+            this.lbErrorCode.Size = new System.Drawing.Size(448, 65);
             this.lbErrorCode.TabIndex = 1;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // frmError
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(564, 439);
+            this.ClientSize = new System.Drawing.Size(475, 439);
             this.Controls.Add(this.lbErrorCode);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
@@ -109,6 +119,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(360, 270);
             this.Name = "frmError";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Korot";
             this.Load += new System.EventHandler(this.frmError_Load);
             this.ResumeLayout(false);
@@ -123,5 +134,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox lbErrorCode;
+        private System.Windows.Forms.Timer timer1;
     }
 }

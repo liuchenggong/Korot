@@ -74,10 +74,7 @@ namespace Korot
         }
         private void frmUpdateExt_Load(object sender, EventArgs e)
         {
-            this.BackColor = Properties.Settings.Default.BackColor;
-            this.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            panel2.BackColor = Properties.Settings.Default.OverlayColor;
-            panel1.BackColor = Properties.Settings.Default.BackColor;
+
             this.Hide();
             if (!isTheme) { readKEM(); } else { readKTF(); }
         }
@@ -134,6 +131,14 @@ namespace Korot
         {
             this.Show();
             downloadFile();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.BackColor = Properties.Settings.Default.BackColor;
+            this.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            panel2.BackColor = Properties.Settings.Default.OverlayColor;
+            panel1.BackColor = Properties.Settings.Default.BackColor;
         }
     }
 }

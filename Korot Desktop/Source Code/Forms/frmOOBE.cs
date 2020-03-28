@@ -49,7 +49,6 @@ namespace Korot
         public string closeMessage = "The installation is not completed yet. Do you still want to close this?";
         public string OK = "OK";
         public string Cancel = "Cancel";
-        public bool isDarkMode;
 
         void ResetSettings()
         {
@@ -70,7 +69,7 @@ namespace Korot
             Properties.Settings.Default.ThemeFile = "";
             Properties.Settings.Default.BackStyle = "BACKCOLOR";
             Properties.Settings.Default.LastSessionURIs = "";
-            Properties.Settings.Default.DoNotTrack = false;
+            Properties.Settings.Default.DoNotTrack = true;
             Properties.Settings.Default.BStyleLayout = 0;
             Properties.Settings.Default.CookieDisallowList.Clear();
             Properties.Settings.Default.ThemeName = "";
@@ -88,27 +87,7 @@ namespace Korot
         }
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         { if (allowSwitch) { allowSwitch = false; e.Cancel = false; } else { e.Cancel = true; } }
-        private void DetectDarkMode()
-        {
-            RegistryKey baseRegistryKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
-            RegistryKey subRegistryKey = baseRegistryKey.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", RegistryKeyPermissionCheck.ReadSubTree);
-            if (subRegistryKey != null)
-            {
-                object value64 = subRegistryKey.GetValue("AppsUseLightTheme");
-                if (value64 != null)
-                {
-                    baseRegistryKey.Close();
-                    subRegistryKey.Close();
-                    isDarkMode = value64.ToString() == "0" ? true : false;
-                }
-                subRegistryKey.Close();
-            }
-            baseRegistryKey.Close();
-        }
-        private bool DetectIsDarkMode()
-        {
-            return RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64).OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", RegistryKeyPermissionCheck.ReadSubTree).GetValue("AppsUseLightTheme").ToString() == "0" ? true : false;
-        }
+
         public void RefreshLangList()
         {
             int savedValue = lbLang.SelectedIndex;
@@ -135,45 +114,38 @@ namespace Korot
                     string[] SplittedFase = Playlist.Split(token);
                     this.Text = SplittedFase[142].Substring(1).Replace(Environment.NewLine, "");
                     btContinue.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
-                    btContinue1.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
                     btContinue2.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
                     btBack.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
                     btBack1.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
-                    btBack2.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
-                    btFinal.Text = SplittedFase[156].Substring(1).Replace(Environment.NewLine, "");
-                    lbInfoTheme.Text = SplittedFase[152].Substring(1).Replace(Environment.NewLine, "");
-                    lbInfoSettings.Text = SplittedFase[152].Substring(1).Replace(Environment.NewLine, "");
+                    btFinish.Text = SplittedFase[156].Substring(1).Replace(Environment.NewLine, "");
+                    lbTip1.Text = SplittedFase[152].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
                     lbWelcome.Text = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
                     lbProfile.Text = SplittedFase[145].Substring(1).Replace(Environment.NewLine, "");
                     lbNotContain.Text = SplittedFase[146].Substring(1).Replace(Environment.NewLine, "");
                     lbProfileInfo.Text = SplittedFase[147].Substring(1).Replace(Environment.NewLine, "");
-                    lbWelcomeSetting.Text = SplittedFase[148].Substring(1).Replace(Environment.NewLine, "");
-                    lbWelcomeTheme.Text = SplittedFase[149].Substring(1).Replace(Environment.NewLine, "");
-                    lbHomePage.Text = SplittedFase[11].Substring(1).Replace(Environment.NewLine, "");
-                    lbNewTab.Text = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
-                    rbKorotL.Text = SplittedFase[153].Substring(1).Replace(Environment.NewLine, "");
-                    rbKorotD.Text = SplittedFase[154].Substring(1).Replace(Environment.NewLine, "");
-                    rbCustom.Text = SplittedFase[155].Substring(1).Replace(Environment.NewLine, "");
-                    lbBack.Text = SplittedFase[39].Substring(1).Replace(Environment.NewLine, "");
-                    lbOveral.Text = SplittedFase[40].Substring(1).Replace(Environment.NewLine, "");
-                    lbSE.Text = SplittedFase[12].Substring(1).Replace(Environment.NewLine, "");
-                    lbDNT.Text = SplittedFase[129].Substring(1).Replace(Environment.NewLine, "");
+                    tbTip2.Text = SplittedFase[94].Substring(1).Replace(Environment.NewLine, "");
+                    tbTip1.Text = SplittedFase[181].Substring(1).Replace(Environment.NewLine, "");
+                    lbTipTitle.Text = SplittedFase[181].Substring(1).Replace(Environment.NewLine, "");
+                    lbTip2.Text = SplittedFase[148].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]",Environment.NewLine);
+                    lbTip3.Text = SplittedFase[149].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
+                    tbTipF.Text = SplittedFase[153].Substring(1).Replace(Environment.NewLine, "");
+                    tbTip3.Text = SplittedFase[154].Substring(1).Replace(Environment.NewLine, "");
+                    lbTipF.Text = SplittedFase[266].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
+                    label2.Text = SplittedFase[269].Substring(1).Replace(Environment.NewLine, "");
+                    lbCont.Text = SplittedFase[268].Substring(1).Replace(Environment.NewLine, "");
+                    lbArrowKey.Text = SplittedFase[267].Substring(1).Replace(Environment.NewLine, "");
+                    lbContinueBack.Text = SplittedFase[155].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
+                    lbFinishBack.Text = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
                     Yes = SplittedFase[83].Substring(1).Replace(Environment.NewLine, "");
                     No = SplittedFase[84].Substring(1).Replace(Environment.NewLine, "");
                     OK = SplittedFase[85].Substring(1).Replace(Environment.NewLine, "");
                     Cancel = SplittedFase[86].Substring(1).Replace(Environment.NewLine, "");
                     customSearchMessage = SplittedFase[5].Substring(1).Replace(Environment.NewLine, "");
                     customSearchNote = SplittedFase[6].Substring(1).Replace(Environment.NewLine, "");
-                    customToolStripMenuItem.Text = SplittedFase[14].Substring(1).Replace(Environment.NewLine, "");
                     closeMessage = SplittedFase[157].Substring(1).Replace(Environment.NewLine, "");
-                    lbSettings.Text = SplittedFase[9].Substring(1).Replace(Environment.NewLine, "");
-                    lbThemes.Text = SplittedFase[13].Substring(1).Replace(Environment.NewLine, "");
-                    textBox3.Width = this.Width - (50 + lbSE.Width);
-                    textBox3.Location = new Point(lbSE.Width + lbSE.Location.X + 5, textBox3.Location.Y);
-                    haltroySwitch4.Location = new Point(lbDNT.Location.X + 5 + lbDNT.Width, haltroySwitch4.Location.Y);
-                    pbBack.Location = new Point(lbBack.Location.X + lbBack.Width + 5, pbBack.Location.Y);
-                    pbOverlay.Location = new Point(lbOveral.Location.X + lbOveral.Width + 5, pbOverlay.Location.Y);
+                    lbBanned.Location = new Point(lbNotContain.Location.X + 5 + lbNotContain.Width, lbNotContain.Location.Y);
                     btContinue2.Visible = true;
+
                 }
             }
             else
@@ -187,97 +159,9 @@ namespace Korot
             textBox1.Text = textBox1.Text.Replace("/", "").Replace("\\", "").Replace("\"", "").Replace(":", "").Replace("?", "").Replace("*", "").Replace("<", "").Replace(">", "").Replace("|", "");
             if (textBox1.Text.Length < 3) { btContinue.Visible = false; } else { btContinue.Visible = true; }
         }
-        private void haltroySwitch1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!haltroySwitch1.Checked && !haltroySwitch2.Checked)
-            {
-                btContinue.Text = btFinal.Text;
-            }
-            else
-            {
-                btContinue.Text = btContinue2.Text;
-            }
-        }
 
-        private void haltroySwitch2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!haltroySwitch1.Checked && !haltroySwitch2.Checked)
-            {
-                btContinue.Text = btFinal.Text;
-            }
-            else
-            {
-                btContinue.Text = btContinue2.Text;
-            }
-            if (!haltroySwitch2.Checked)
-            {
-                btContinue1.Text = btFinal.Text;
-            }
-            else
-            {
-                btContinue1.Text = btContinue2.Text;
-            }
-        }
-        private void RefreshTheme()
-        {
-            this.BackColor = isDarkMode ? Color.Black : Color.White;
-            this.ForeColor = isDarkMode ? Color.White : Color.Black;
-            cmsSearchEngine.BackColor = isDarkMode ? Color.Black : Color.White;
-            cmsSearchEngine.ForeColor = isDarkMode ? Color.White : Color.Black;
-            haltroySwitch1.BackColor = isDarkMode ? Color.Black : Color.White;
-            haltroySwitch2.BackColor = isDarkMode ? Color.Black : Color.White;
-            haltroySwitch3.BackColor = isDarkMode ? Color.Black : Color.White;
-            haltroySwitch4.BackColor = isDarkMode ? Color.Black : Color.White;
-            haltroySwitch1.ButtonColor = isDarkMode ? Color.White : Color.Black;
-            haltroySwitch2.ButtonColor = isDarkMode ? Color.White : Color.Black;
-            haltroySwitch3.ButtonColor = isDarkMode ? Color.White : Color.Black;
-            haltroySwitch4.ButtonColor = isDarkMode ? Color.White : Color.Black;
-            haltroySwitch1.BorderColor = isDarkMode ? Color.White : Color.Black;
-            haltroySwitch2.BorderColor = isDarkMode ? Color.White : Color.Black;
-            haltroySwitch3.BorderColor = isDarkMode ? Color.White : Color.Black;
-            haltroySwitch4.BorderColor = isDarkMode ? Color.White : Color.Black;
-            haltroySwitch1.ButtonHoverColor = isDarkMode ? Color.FromArgb(255, 235, 235, 235) : Color.FromArgb(255, 20, 20, 20);
-            haltroySwitch2.ButtonHoverColor = isDarkMode ? Color.FromArgb(255, 235, 235, 235) : Color.FromArgb(255, 20, 20, 20);
-            haltroySwitch3.ButtonHoverColor = isDarkMode ? Color.FromArgb(255, 235, 235, 235) : Color.FromArgb(255, 20, 20, 20);
-            haltroySwitch4.ButtonHoverColor = isDarkMode ? Color.FromArgb(255, 235, 235, 235) : Color.FromArgb(255, 20, 20, 20);
-            haltroySwitch1.ButtonPressedColor = isDarkMode ? Color.FromArgb(255, 215, 215, 215) : Color.FromArgb(255, 40, 40, 40);
-            haltroySwitch2.ButtonPressedColor = isDarkMode ? Color.FromArgb(255, 215, 215, 215) : Color.FromArgb(255, 40, 40, 40);
-            haltroySwitch3.ButtonPressedColor = isDarkMode ? Color.FromArgb(255, 215, 215, 215) : Color.FromArgb(255, 40, 40, 40);
-            haltroySwitch4.ButtonPressedColor = isDarkMode ? Color.FromArgb(255, 215, 215, 215) : Color.FromArgb(255, 40, 40, 40);
-            foreach (TabPage x in tabControl1.TabPages)
-            {
-                x.BackColor = isDarkMode ? Color.Black : Color.White;
-                x.ForeColor = isDarkMode ? Color.White : Color.Black;
-            }
-            textBox1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-            btContinue.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-            btContinue1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-            btContinue2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-            btFinal.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-            btBack.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-            btBack1.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-            btBack2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-            lbLang.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-            textBox2.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-            textBox3.BackColor = isDarkMode ? Color.FromArgb(255, 20, 20, 20) : Color.FromArgb(255, 245, 245, 245);
-            textBox1.ForeColor = isDarkMode ? Color.White : Color.Black;
-            btContinue.ForeColor = isDarkMode ? Color.White : Color.Black;
-            btContinue1.ForeColor = isDarkMode ? Color.White : Color.Black;
-            btContinue2.ForeColor = isDarkMode ? Color.White : Color.Black;
-            btFinal.ForeColor = isDarkMode ? Color.White : Color.Black;
-            btBack.ForeColor = isDarkMode ? Color.White : Color.Black;
-            btBack1.ForeColor = isDarkMode ? Color.White : Color.Black;
-            btBack2.ForeColor = isDarkMode ? Color.White : Color.Black;
-            lbLang.ForeColor = isDarkMode ? Color.White : Color.Black;
-            textBox2.ForeColor = isDarkMode ? Color.White : Color.Black;
-            textBox3.ForeColor = isDarkMode ? Color.White : Color.Black;
-        }
         private void frmOOBE_Load(object sender, EventArgs e)
         {
-            try { DetectDarkMode(); } catch { isDarkMode = false; }
-            RefreshTheme();
-            rbKorotD.Checked = isDarkMode;
-            rbKorotL.Checked = !isDarkMode;
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
             {
                 Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\", true);
@@ -288,10 +172,10 @@ namespace Korot
 
         private void button3_Click(object sender, EventArgs e)
         {
+            tmrLang.Stop();
+            tabControl2.SelectedTab = tbTip1;
             allowSwitch = true;
             tabControl1.SelectedTab = tabPage2;
-            haltroySwitch1.Checked = false;
-            haltroySwitch2.Checked = false;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -300,52 +184,13 @@ namespace Korot
             tabControl1.SelectedTab = tabPage1;
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            allowSwitch = true;
-            tabControl1.SelectedTab = tabPage2;
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            allowSwitch = true;
-            tabControl1.SelectedTab = haltroySwitch1.Checked ? tabPage3 : tabPage2;
-        }
 
         private void button4_Click(object sender, EventArgs e)
         {
-
-            if (haltroySwitch1.Checked)
-            {
-                allowSwitch = true;
-                tabControl1.SelectedTab = tabPage3;
-            }
-            else
-            {
-                if (haltroySwitch2.Checked)
-                {
-                    allowSwitch = true;
-                    tabControl1.SelectedTab = tabPage4;
-                }
-                else
-                {
-                    button2_Click(btContinue, e);
-                }
-            }
+            allowSwitch = true;
+            tabControl1.SelectedTab = tabPage3;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (haltroySwitch2.Checked)
-            {
-                allowSwitch = true;
-                tabControl1.SelectedTab = tabPage4;
-            }
-            else
-            {
-                button2_Click(btContinue1, e);
-            }
-        }
         public bool IsDirectoryEmpty(string path)
         {
             try
@@ -375,134 +220,12 @@ namespace Korot
             Process.Start(Application.ExecutablePath);
             Application.Exit();
         }
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbKorotL.Checked)
-            {
-                panel1.Visible = false;
-                rbKorotD.Checked = false;
-                rbCustom.Checked = false;
-                Properties.Settings.Default.ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf";
-            }
-
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbKorotD.Checked)
-            {
-                panel1.Visible = false;
-                rbKorotL.Checked = false;
-                rbCustom.Checked = false;
-                Properties.Settings.Default.ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Dark.ktf";
-            }
-        }
-
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbCustom.Checked)
-            {
-                panel1.Visible = true;
-                rbKorotD.Checked = false;
-                rbKorotL.Checked = false;
-                Properties.Settings.Default.ThemeFile = "";
-            }
-        }
-
-        private void haltroySwitch3_CheckedChanged(object sender, EventArgs e)
-        {
-            textBox2.Visible = !haltroySwitch3.Checked;
-            if (haltroySwitch3.Checked)
-            {
-                textBox2.Text = "korot://newtab";
-                Properties.Settings.Default.Homepage = "korot://newtab";
-            }
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.Homepage = textBox2.Text;
-        }
-
-        private void textBox3_Click(object sender, EventArgs e)
-        {
-            cmsSearchEngine.Show(textBox3, 0, 0);
-        }
-        private void SearchEngineSelection_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.SearchURL = ((ToolStripMenuItem)sender).Tag.ToString();
-            textBox3.Text = Properties.Settings.Default.SearchURL;
-        }
-        public static bool ValidHttpURL(string s)
-        {
-            string Pattern = @"^(?:about\:\/\/)|(?:about\:\/\/)|(?:file\:\/\/)|(?:https\:\/\/)|(?:korot\:\/\/)|(?:http:\/\/)|(?:\:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$";
-            Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            Regex Rgx2 = new Regex(@"\b(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            return Rgx2.IsMatch(s) || Rgx.IsMatch(s);
-        }
-        private void customToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox(
-                customSearchNote,
-                customSearchMessage,
-                this.Icon,
-                "",
-                isDarkMode ? Color.Black : Color.White,
-                OK,
-                Cancel,
-                400,
-                150);
-            DialogResult diagres = inputb.ShowDialog();
-            if (diagres == DialogResult.OK)
-            {
-                if (ValidHttpURL(inputb.TextValue()) && !inputb.TextValue().StartsWith("korot://") && !inputb.TextValue().StartsWith("file://") && !inputb.TextValue().StartsWith("about"))
-                {
-                    Properties.Settings.Default.SearchURL = inputb.TextValue();
-                    textBox3.Text = Properties.Settings.Default.SearchURL;
-                }
-                else
-                {
-                    customToolStripMenuItem_Click(null, null);
-                }
-            }
-        }
-
-        private void pbBack_Click(object sender, EventArgs e)
-        {
-            ColorDialog colorpicker = new ColorDialog();
-            colorpicker.AnyColor = true;
-            colorpicker.AllowFullOpen = true;
-            colorpicker.FullOpen = true;
-            if (colorpicker.ShowDialog() == DialogResult.OK)
-            {
-                pbBack.BackColor = colorpicker.Color;
-                Properties.Settings.Default.BackColor = colorpicker.Color;
-            }
-        }
-
-        private void pbOverlay_Click(object sender, EventArgs e)
-        {
-            ColorDialog colorpicker = new ColorDialog();
-            colorpicker.AnyColor = true;
-            colorpicker.AllowFullOpen = true;
-            colorpicker.FullOpen = true;
-            if (colorpicker.ShowDialog() == DialogResult.OK)
-            {
-                pbOverlay.BackColor = colorpicker.Color;
-                Properties.Settings.Default.OverlayColor = colorpicker.Color;
-            }
-        }
-
-        private void haltroySwitch4_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.DoNotTrack = haltroySwitch4.Checked;
-        }
 
         private void frmOOBE_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!allowClose)
             {
-                HaltroyFramework.HaltroyMsgBox msgBox = new HaltroyFramework.HaltroyMsgBox(this.Text, closeMessage, this.Icon, MessageBoxButtons.YesNo, isDarkMode ? Color.Black : Color.White, Yes, No, OK, Cancel, 390, 140);
+                HaltroyFramework.HaltroyMsgBox msgBox = new HaltroyFramework.HaltroyMsgBox(this.Text, closeMessage, this.Icon, MessageBoxButtons.YesNo, Color.White, Yes, No, OK, Cancel, 390, 140);
                 if (msgBox.ShowDialog() == DialogResult.Yes)
                 {
                     e.Cancel = false;
@@ -517,44 +240,96 @@ namespace Korot
 
         private void lbLang_DoubleClick(object sender, EventArgs e)
         {
-            if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".lang"))
+            if (lbLang.SelectedItem != null)
             {
+                if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".lang"))
+                {
 
+                }
+                else
+                {
+                    lbLang_SelectedIndexChanged(sender, e);
+                    button3_Click(sender, e);
+                    tmrLang.Stop();
+                }
             }
-            else
-            {
-                button3_Click(sender, e);
-            }
+
         }
 
-        private void frmOOBE_KeyDown(object sender, KeyEventArgs e)
+        private void pbPrev_Click(object sender, EventArgs e)
         {
-            if (e.KeyData == Keys.F2)
+            if (tabControl2.SelectedTab != tbTip1)
             {
-                isDarkMode = true;
-                timer1.Stop();
-                RefreshTheme();
+                if (tabControl2.SelectedTab == tbTip2)
+                {
+                    tabControl2.SelectedTab = tbTip1;
+                }
+                else if (tabControl2.SelectedTab == tbTip3)
+                {
+                    tabControl2.SelectedTab = tbTip2;
+                }
+                else if (tabControl2.SelectedTab == tbTipF)
+                {
+                    tabControl2.SelectedTab = tbTip3;
+                }
             }
-            else if (e.KeyData == Keys.F3)
-            {
-                isDarkMode = false;
-                timer1.Stop();
-                RefreshTheme();
-            }
+            pbNext.Visible = tabControl2.SelectedIndex != (tabControl2.TabCount - 1);
+            pbPrev.Visible = tabControl2.SelectedIndex != 0;
+            btFinish.Visible = tabControl2.SelectedTab == tbTipF;
+            lbTipTitle.Text = tabControl2.SelectedTab.Text;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void pbNext_Click(object sender, EventArgs e)
         {
-            try
+            if (tabControl2.SelectedTab != tbTipF)
             {
-                isDarkMode = DetectIsDarkMode();
-                RefreshTheme();
+                if (tabControl2.SelectedTab == tbTip1)
+                {
+                    tabControl2.SelectedTab = tbTip2;
+                }
+                else if (tabControl2.SelectedTab == tbTip2)
+                {
+                    tabControl2.SelectedTab = tbTip3;
+                }
+                else if (tabControl2.SelectedTab == tbTip3)
+                {
+                    tabControl2.SelectedTab = tbTipF;
+                }
             }
-            catch
+            lbTipTitle.Text = tabControl2.SelectedTab.Text;
+            pbNext.Visible = tabControl2.SelectedIndex != (tabControl2.TabCount - 1);
+            pbPrev.Visible = tabControl2.SelectedIndex != 0;
+            btFinish.Visible = tabControl2.SelectedTab == tbTipF;
+        }
+        
+        private void lbLang_Click(object sender, EventArgs e)
+        {
+            if (lbLang.SelectedItem != null)
             {
-                isDarkMode = false;
-                RefreshTheme();
+                if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".lang"))
+                {
+
+                }
+                else
+                {
+                    lbLang_SelectedIndexChanged(sender, e);
+                    tmrLang.Stop();
+                }
             }
+
+        }
+
+        private void tmrLang_Tick(object sender, EventArgs e)
+        {
+            lbLang.SelectedIndex = lbLang.SelectedIndex == lbLang.Items.Count - 1 ? 0 : lbLang.SelectedIndex + 1;
+        }
+
+        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lbTipTitle.Text = tabControl2.SelectedTab.Text;
+            pbNext.Visible = tabControl2.SelectedIndex != (tabControl2.TabCount - 1);
+            pbPrev.Visible = tabControl2.SelectedIndex != 0;
+            btFinish.Visible = tabControl2.SelectedTab == tbTipF;
         }
     }
 }

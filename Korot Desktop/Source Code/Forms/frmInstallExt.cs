@@ -69,55 +69,7 @@ namespace Korot
         }
         private void frmInstallExt_Load(object sender, EventArgs e)
         {
-            this.BackColor = Properties.Settings.Default.BackColor;
-            this.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            pictureBox1.BackColor = Properties.Settings.Default.OverlayColor;
-            tabPage1.BackColor = Properties.Settings.Default.BackColor;
-            tabPage1.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            tabPage2.BackColor = Properties.Settings.Default.BackColor;
-            tabPage2.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            tabPage3.BackColor = Properties.Settings.Default.BackColor;
-            tabPage3.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            panel1.BackColor = Properties.Settings.Default.BackColor;
-            tabPage4.BackColor = Properties.Settings.Default.BackColor;
-            tabPage4.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            panel1.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            pictureBox7.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._1_w : Properties.Resources._1;
-            pictureBox2.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._2_w : Properties.Resources._2;
-            pictureBox5.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._3_w : Properties.Resources._3;
-            string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SplittedFase = Playlist.Split(token);
-            noPermission = SplittedFase[111].Substring(1).Replace(Environment.NewLine, "");
-            Initializing = SplittedFase[121].Substring(1).Replace(Environment.NewLine, "");
-            installed = SplittedFase[118].Substring(1).Replace(Environment.NewLine, "");
-            dc = SplittedFase[117].Substring(1).Replace(Environment.NewLine, "");
-            cd = SplittedFase[116].Substring(1).Replace(Environment.NewLine, "");
-            rof2 = SplittedFase[115].Substring(1).Replace(Environment.NewLine, "");
-            rof1 = SplittedFase[114].Substring(1).Replace(Environment.NewLine, "");
-            installing = SplittedFase[112].Substring(1).Replace(Environment.NewLine, "");
-            label9.Text = SplittedFase[110].Substring(1).Replace(Environment.NewLine, "");
-            label15.Text = SplittedFase[122].Substring(1).Replace(Environment.NewLine, "");
-            label16.Text = SplittedFase[123].Substring(1).Replace(Environment.NewLine, "");
-            label5.Text = SplittedFase[124].Substring(1).Replace(Environment.NewLine, "");
-            label10.Text = SplittedFase[125].Substring(1).Replace(Environment.NewLine, "");
-            label7.Text = SplittedFase[126].Substring(1).Replace(Environment.NewLine, "");
-            label14.Text = SplittedFase[127].Substring(1).Replace(Environment.NewLine, "");
-            button1.Text = SplittedFase[120].Substring(1).Replace(Environment.NewLine, "");
-            button2.Text = SplittedFase[86].Substring(1).Replace(Environment.NewLine, "");
-            button3.Text = SplittedFase[119].Substring(1).Replace(Environment.NewLine, "");
-            button4.Text = SplittedFase[119].Substring(1).Replace(Environment.NewLine, "");
-            label8.Text = SplittedFase[113].Substring(1).Replace(Environment.NewLine, "");
-            label6.Text = SplittedFase[112].Substring(1).Replace(Environment.NewLine, "");
-            reqError = SplittedFase[128].Substring(1).Replace(Environment.NewLine, "");
-            fileSizeError = SplittedFase[130].Substring(1).Replace(Environment.NewLine, "");
-            label1.Text = SplittedFase[131].Substring(1).Replace(Environment.NewLine, "");
-            label2.Text = SplittedFase[140].Substring(1).Replace(Environment.NewLine, "");
-            ext = SplittedFase[141].Substring(1).Replace(Environment.NewLine, "");
-            theme = SplittedFase[13].Substring(1).Replace(Environment.NewLine, "");
-            label4.Text = SplittedFase[179].Substring(1).Replace(Environment.NewLine, "");
-            label12.Text = SplittedFase[180].Substring(1).Replace(Environment.NewLine, "");
-            reqEmpty = SplittedFase[191].Substring(1).Replace(Environment.NewLine, "");
+            
             allowSwitch = true;
             tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage4));
             if (silentInstall) { this.Hide(); }
@@ -615,5 +567,57 @@ namespace Korot
             });
         }
 
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            this.BackColor = Properties.Settings.Default.BackColor;
+            this.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            pictureBox1.BackColor = Properties.Settings.Default.OverlayColor;
+            tabPage1.BackColor = Properties.Settings.Default.BackColor;
+            tabPage1.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            tabPage2.BackColor = Properties.Settings.Default.BackColor;
+            tabPage2.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            tabPage3.BackColor = Properties.Settings.Default.BackColor;
+            tabPage3.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            panel1.BackColor = Properties.Settings.Default.BackColor;
+            tabPage4.BackColor = Properties.Settings.Default.BackColor;
+            tabPage4.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            panel1.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            pictureBox7.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._1_w : Properties.Resources._1;
+            pictureBox2.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._2_w : Properties.Resources._2;
+            pictureBox5.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._3_w : Properties.Resources._3;
+            string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+            string[] SplittedFase = Playlist.Split(token);
+            noPermission = SplittedFase[111].Substring(1).Replace(Environment.NewLine, "");
+            Initializing = SplittedFase[121].Substring(1).Replace(Environment.NewLine, "");
+            installed = SplittedFase[118].Substring(1).Replace(Environment.NewLine, "");
+            dc = SplittedFase[117].Substring(1).Replace(Environment.NewLine, "");
+            cd = SplittedFase[116].Substring(1).Replace(Environment.NewLine, "");
+            rof2 = SplittedFase[115].Substring(1).Replace(Environment.NewLine, "");
+            rof1 = SplittedFase[114].Substring(1).Replace(Environment.NewLine, "");
+            installing = SplittedFase[112].Substring(1).Replace(Environment.NewLine, "");
+            label9.Text = SplittedFase[110].Substring(1).Replace(Environment.NewLine, "");
+            label15.Text = SplittedFase[122].Substring(1).Replace(Environment.NewLine, "");
+            label16.Text = SplittedFase[123].Substring(1).Replace(Environment.NewLine, "");
+            label5.Text = SplittedFase[124].Substring(1).Replace(Environment.NewLine, "");
+            label10.Text = SplittedFase[125].Substring(1).Replace(Environment.NewLine, "");
+            label7.Text = SplittedFase[126].Substring(1).Replace(Environment.NewLine, "");
+            label14.Text = SplittedFase[127].Substring(1).Replace(Environment.NewLine, "");
+            button1.Text = SplittedFase[120].Substring(1).Replace(Environment.NewLine, "");
+            button2.Text = SplittedFase[86].Substring(1).Replace(Environment.NewLine, "");
+            button3.Text = SplittedFase[119].Substring(1).Replace(Environment.NewLine, "");
+            button4.Text = SplittedFase[119].Substring(1).Replace(Environment.NewLine, "");
+            label8.Text = SplittedFase[113].Substring(1).Replace(Environment.NewLine, "");
+            label6.Text = SplittedFase[112].Substring(1).Replace(Environment.NewLine, "");
+            reqError = SplittedFase[128].Substring(1).Replace(Environment.NewLine, "");
+            fileSizeError = SplittedFase[130].Substring(1).Replace(Environment.NewLine, "");
+            label1.Text = SplittedFase[131].Substring(1).Replace(Environment.NewLine, "");
+            label2.Text = SplittedFase[140].Substring(1).Replace(Environment.NewLine, "");
+            ext = SplittedFase[141].Substring(1).Replace(Environment.NewLine, "");
+            theme = SplittedFase[13].Substring(1).Replace(Environment.NewLine, "");
+            label4.Text = SplittedFase[179].Substring(1).Replace(Environment.NewLine, "");
+            label12.Text = SplittedFase[180].Substring(1).Replace(Environment.NewLine, "");
+            reqEmpty = SplittedFase[191].Substring(1).Replace(Environment.NewLine, "");
+        }
     }
 }

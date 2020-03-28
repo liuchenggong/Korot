@@ -54,7 +54,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="DoNotTrack" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="BStyleLayout" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -102,6 +102,27 @@
     </Setting>
     <Setting Name="windowState" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="dismissUpdate" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="alreadyUpdatedExt" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="alreadyUpdatedThemes" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="KorotErrorTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Korot ran into a problem and crashed.</Value>
+    </Setting>
+    <Setting Name="KorotErrorDesc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Your Korot installation is safe but Korot cannot continue at this point.[NEWLINE]If this happens frequently, feel free to open issues on GitHub.</Value>
+    </Setting>
+    <Setting Name="KorotErrorTI" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Techical Information:</Value>
+    </Setting>
+    <Setting Name="disableLangErrors" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

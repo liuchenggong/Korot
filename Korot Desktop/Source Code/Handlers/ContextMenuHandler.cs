@@ -462,7 +462,7 @@ namespace Korot
 
         private void showDevToolsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            chromiumWebBrowser1.ShowDevTools();
+            ActiveForm.Invoke(new Action(() => ActiveForm.showDevTools()));
         }
 
         private void viewSourceToolsToolStripMenuItem_Click(object sender, EventArgs e)

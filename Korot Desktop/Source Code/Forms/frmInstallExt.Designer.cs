@@ -96,6 +96,7 @@ namespace Korot
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -609,6 +610,11 @@ namespace Korot
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // frmInstallExt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -702,5 +708,6 @@ namespace Korot
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Timer timer2;
     }
 }
