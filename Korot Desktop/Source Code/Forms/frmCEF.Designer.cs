@@ -263,6 +263,8 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tsEmptyExt = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsEmptyProfile = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -591,6 +593,7 @@ namespace Korot
             // extensionToolStripMenuItem1
             // 
             this.extensionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsEmptyExt,
             this.tsExt,
             this.tsWebStore});
             this.extensionToolStripMenuItem1.Image = global::Korot.Properties.Resources.ext;
@@ -601,13 +604,13 @@ namespace Korot
             // tsExt
             // 
             this.tsExt.Name = "tsExt";
-            this.tsExt.Size = new System.Drawing.Size(135, 6);
+            this.tsExt.Size = new System.Drawing.Size(177, 6);
             // 
             // tsWebStore
             // 
             this.tsWebStore.Image = global::Korot.Properties.Resources.store;
             this.tsWebStore.Name = "tsWebStore";
-            this.tsWebStore.Size = new System.Drawing.Size(138, 22);
+            this.tsWebStore.Size = new System.Drawing.Size(180, 22);
             this.tsWebStore.Text = "Web Store";
             this.tsWebStore.Click += new System.EventHandler(this.tsWebStore_Click);
             // 
@@ -794,14 +797,14 @@ namespace Korot
             this.cmsProfiles.Name = "cmsProfiles";
             this.cmsProfiles.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsProfiles.ShowImageMargin = false;
-            this.cmsProfiles.Size = new System.Drawing.Size(131, 70);
+            this.cmsProfiles.Size = new System.Drawing.Size(156, 92);
             // 
             // profilenameToolStripMenuItem
             // 
             this.profilenameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteThisProfileToolStripMenuItem});
             this.profilenameToolStripMenuItem.Name = "profilenameToolStripMenuItem";
-            this.profilenameToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.profilenameToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.profilenameToolStripMenuItem.Text = "[profilename]";
             // 
             // deleteThisProfileToolStripMenuItem
@@ -813,14 +816,16 @@ namespace Korot
             // 
             // switchToToolStripMenuItem
             // 
+            this.switchToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsEmptyProfile});
             this.switchToToolStripMenuItem.Name = "switchToToolStripMenuItem";
-            this.switchToToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.switchToToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.switchToToolStripMenuItem.Text = "Switch to:";
             // 
             // newProfileToolStripMenuItem
             // 
             this.newProfileToolStripMenuItem.Name = "newProfileToolStripMenuItem";
-            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.newProfileToolStripMenuItem.Text = "New Profile";
             this.newProfileToolStripMenuItem.Click += new System.EventHandler(this.NewProfileToolStripMenuItem_Click);
             // 
@@ -2532,6 +2537,20 @@ namespace Korot
             this.panel1.TabIndex = 0;
             this.panel1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
             // 
+            // tsEmptyExt
+            // 
+            this.tsEmptyExt.Enabled = false;
+            this.tsEmptyExt.Name = "tsEmptyExt";
+            this.tsEmptyExt.Size = new System.Drawing.Size(180, 22);
+            this.tsEmptyExt.Text = "(empty)";
+            // 
+            // tsEmptyProfile
+            // 
+            this.tsEmptyProfile.Enabled = false;
+            this.tsEmptyProfile.Name = "tsEmptyProfile";
+            this.tsEmptyProfile.Size = new System.Drawing.Size(180, 22);
+            this.tsEmptyProfile.Text = "(empty)";
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -2813,5 +2832,7 @@ namespace Korot
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel pCEF;
+        private System.Windows.Forms.ToolStripMenuItem tsEmptyExt;
+        private System.Windows.Forms.ToolStripMenuItem tsEmptyProfile;
     }
 }

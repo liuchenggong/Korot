@@ -47,6 +47,7 @@ namespace Korot
         string loaduri = null;
         public bool _Incognito = false;
         string userName;
+        string profilePath;
         string userCache;
 #pragma warning disable IDE0052 //(we don't need this for now but we might need this later)
         int findIdentifier;
@@ -68,6 +69,7 @@ namespace Korot
             loaduri = loadurl;
             _Incognito = isIncognito;
             userName = profileName;
+            profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profileName + "\\";
             userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profileName + "\\cache\\";
             InitializeComponent();
             InitializeChromium();
@@ -425,7 +427,6 @@ namespace Korot
         public string Search = "Search";
         public string run = "Run";
         public string startatstarup = "Run at startup";
-        public string empty = "(empty)";
         public ListBox languagedummy = new ListBox();
         public string ErrorPageTitle = "Korot - Error";
         public string MonthNames = "\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"";
@@ -518,7 +519,8 @@ namespace Korot
             copyImageAddress = cia.Replace(Environment.NewLine, "");
             saveLinkAs = sla.Replace(Environment.NewLine, "");
             tsWebStore.Text = webStore.Replace(Environment.NewLine, "");
-            if (emptyItem != null) { emptyItem.Text = emptExt.Replace(Environment.NewLine, ""); }
+            tsEmptyExt.Text = emptExt.Replace(Environment.NewLine, "");
+            tsEmptyProfile.Text = emptExt.Replace(Environment.NewLine, "");
             btCleanLog.Text = cLog.Replace(Environment.NewLine, "");
             lbUResources.Text = allowUR.Replace(Environment.NewLine, "");
             lbURinfo.Text = uresmessage.Replace(Environment.NewLine, "");
@@ -2702,10 +2704,22 @@ namespace Korot
             switchToToolStripMenuItem.DropDownItems.Clear();
             foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\"))
             {
-                ToolStripMenuItem profileItem = new ToolStripMenuItem();
-                profileItem.Text = new DirectoryInfo(x).Name;
-                profileItem.Click += ProfilesToolStripMenuItem_Click;
-                switchToToolStripMenuItem.DropDownItems.Add(profileItem);
+                if (x != profilePath)
+                {
+                    DirectoryInfo info = new DirectoryInfo(x);
+                    if (info.Name == userName) { }
+                    else
+                    {
+                        ToolStripMenuItem profileItem = new ToolStripMenuItem();
+                        profileItem.Text = info.Name;
+                        profileItem.Click += ProfilesToolStripMenuItem_Click;
+                        switchToToolStripMenuItem.DropDownItems.Add(profileItem);
+                    }
+                }
+            }
+            if (switchToToolStripMenuItem.DropDownItems.Count == 0)
+            {
+                switchToToolStripMenuItem.DropDownItems.Add(tsEmptyProfile);
             }
         }
         public void RefreshSizes()
@@ -2758,7 +2772,6 @@ namespace Korot
             hsFav.Checked = Properties.Settings.Default.showFav;
             dudClose.SelectedIndex = Properties.Settings.Default.closeColor;
             dudNewTab.SelectedIndex = Properties.Settings.Default.newTabColor;
-            if (emptyItem != null) { emptyItem.Text = this.empty; }
             comboBox3.SelectedIndex = Properties.Settings.Default.BStyleLayout;
             colorToolStripMenuItem.Checked = Properties.Settings.Default.BackStyle == "BACKCOLOR" ? true : false;
             switchToToolStripMenuItem.Text = this.switchTo;
@@ -2946,16 +2959,11 @@ namespace Korot
             }
             if (extensionToolStripMenuItem1.DropDownItems.Count == 0)
             {
-                ToolStripMenuItem emptylol = new ToolStripMenuItem();
-                emptyItem = emptylol;
-                emptylol.Text = this.empty;
-                emptylol.Enabled = false;
-                extensionToolStripMenuItem1.DropDown.Items.Add(emptylol);
+                extensionToolStripMenuItem1.DropDown.Items.Add(tsEmptyExt);
             }
             extensionToolStripMenuItem1.DropDown.Items.Add(tsExt);
             extensionToolStripMenuItem1.DropDown.Items.Add(tsWebStore);
         }
-        ToolStripMenuItem emptyItem;
 
         private void TmrSlower_Tick(object sender, EventArgs e)
         {
