@@ -2376,7 +2376,10 @@ namespace Korot
         private string oldStyle;
         void ChangeTheme()
         {
-            if (anaform() != null) anaform().tabRenderer.ChangeColors(Properties.Settings.Default.BackColor, Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White, Properties.Settings.Default.OverlayColor);
+            if (anaform() != null) { 
+                anaform().tabRenderer.ChangeColors(Properties.Settings.Default.BackColor, Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White, Properties.Settings.Default.OverlayColor);
+                anaform().Update();
+            }
             if (Properties.Settings.Default.OverlayColor != oldOverlayColor)
             {
                 oldOverlayColor = Properties.Settings.Default.OverlayColor;
