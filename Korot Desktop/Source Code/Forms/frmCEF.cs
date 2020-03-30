@@ -529,23 +529,26 @@ namespace Korot
 
             label32.Text = cbc.Replace(Environment.NewLine, "");
 
+            int cb3Index = comboBox3.SelectedIndex;
             comboBox3.Items.Clear();
             comboBox3.Items.Add(bisNone.Replace(Environment.NewLine, ""));
             comboBox3.Items.Add(bisTile.Replace(Environment.NewLine, ""));
             comboBox3.Items.Add(bisCenter.Replace(Environment.NewLine, ""));
             comboBox3.Items.Add(bisStretch.Replace(Environment.NewLine, ""));
             comboBox3.Items.Add(bisZoom.Replace(Environment.NewLine, ""));
-            comboBox3.SelectedIndex = comboBox3.SelectedIndex;
+            comboBox3.SelectedIndex = cb3Index;
+            int dNTIndex = dudNewTab.SelectedIndex;
             dudNewTab.Items.Clear();
             dudNewTab.Items.Add(bsBackColor.Replace(Environment.NewLine, ""));
             dudNewTab.Items.Add(bsForeColor.Replace(Environment.NewLine, ""));
             dudNewTab.Items.Add(bsOverlayColor.Replace(Environment.NewLine, ""));
-            dudNewTab.SelectedIndex = dudNewTab.SelectedIndex;
+            dudNewTab.SelectedIndex = dNTIndex;
+            int dCIndex = dudClose.SelectedIndex;
             dudClose.Items.Clear();
             dudClose.Items.Add(bsBackColor.Replace(Environment.NewLine, ""));
             dudClose.Items.Add(bsForeColor.Replace(Environment.NewLine, ""));
             dudClose.Items.Add(bsOverlayColor.Replace(Environment.NewLine, ""));
-            dudClose.SelectedIndex = dudClose.SelectedIndex;
+            dudClose.SelectedIndex = dCIndex;
             licenseTitle = LicenseTitle.Replace(Environment.NewLine, "");
             kLicense = KorotLicense.Replace(Environment.NewLine, "");
             vsLicense = VSLicense.Replace(Environment.NewLine, "");
@@ -939,7 +942,7 @@ namespace Korot
                     languagedummy.Items[108].ToString().Substring(1),
                     languagedummy.Items[109].ToString().Substring(1),
                     languagedummy.Items[129].ToString().Substring(1),
-                    languagedummy.Items[130].ToString().Substring(1),
+                    languagedummy.Items[132].ToString().Substring(1),
                     languagedummy.Items[133].ToString().Substring(1),
                     languagedummy.Items[134].ToString().Substring(1),
                     languagedummy.Items[135].ToString().Substring(1),

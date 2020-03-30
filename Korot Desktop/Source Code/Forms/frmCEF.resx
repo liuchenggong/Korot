@@ -157,7 +157,7 @@
     <value>342, 8</value>
   </metadata>
   <metadata name="cmsBStyle.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>450, 9</value>
+    <value>480, 4</value>
   </metadata>
   <metadata name="tmrRefresher.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>667, 8</value>

@@ -76,6 +76,7 @@ namespace Korot
             this.caseSensitiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.extensionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsEmptyExt = new System.Windows.Forms.ToolStripMenuItem();
             this.tsExt = new System.Windows.Forms.ToolStripSeparator();
             this.tsWebStore = new System.Windows.Forms.ToolStripMenuItem();
             this.DefaultProxyts = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,6 +106,7 @@ namespace Korot
             this.profilenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteThisProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsEmptyProfile = new System.Windows.Forms.ToolStripMenuItem();
             this.newProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button2 = new System.Windows.Forms.Button();
             this.cmsFavorite = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -175,9 +177,9 @@ namespace Korot
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.dudClose = new System.Windows.Forms.DomainUpDown();
-            this.dudNewTab = new System.Windows.Forms.DomainUpDown();
-            this.comboBox3 = new System.Windows.Forms.DomainUpDown();
+            this.dudClose = new System.Windows.Forms.ComboBox();
+            this.dudNewTab = new System.Windows.Forms.ComboBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -263,8 +265,6 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tsEmptyExt = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsEmptyProfile = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.cmsPrivacy.SuspendLayout();
@@ -601,16 +601,23 @@ namespace Korot
             this.extensionToolStripMenuItem1.Size = new System.Drawing.Size(288, 22);
             this.extensionToolStripMenuItem1.Text = "Extensions";
             // 
+            // tsEmptyExt
+            // 
+            this.tsEmptyExt.Enabled = false;
+            this.tsEmptyExt.Name = "tsEmptyExt";
+            this.tsEmptyExt.Size = new System.Drawing.Size(138, 22);
+            this.tsEmptyExt.Text = "(empty)";
+            // 
             // tsExt
             // 
             this.tsExt.Name = "tsExt";
-            this.tsExt.Size = new System.Drawing.Size(177, 6);
+            this.tsExt.Size = new System.Drawing.Size(135, 6);
             // 
             // tsWebStore
             // 
             this.tsWebStore.Image = global::Korot.Properties.Resources.store;
             this.tsWebStore.Name = "tsWebStore";
-            this.tsWebStore.Size = new System.Drawing.Size(180, 22);
+            this.tsWebStore.Size = new System.Drawing.Size(138, 22);
             this.tsWebStore.Text = "Web Store";
             this.tsWebStore.Click += new System.EventHandler(this.tsWebStore_Click);
             // 
@@ -797,14 +804,14 @@ namespace Korot
             this.cmsProfiles.Name = "cmsProfiles";
             this.cmsProfiles.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsProfiles.ShowImageMargin = false;
-            this.cmsProfiles.Size = new System.Drawing.Size(156, 92);
+            this.cmsProfiles.Size = new System.Drawing.Size(131, 70);
             // 
             // profilenameToolStripMenuItem
             // 
             this.profilenameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteThisProfileToolStripMenuItem});
             this.profilenameToolStripMenuItem.Name = "profilenameToolStripMenuItem";
-            this.profilenameToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.profilenameToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.profilenameToolStripMenuItem.Text = "[profilename]";
             // 
             // deleteThisProfileToolStripMenuItem
@@ -819,13 +826,20 @@ namespace Korot
             this.switchToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsEmptyProfile});
             this.switchToToolStripMenuItem.Name = "switchToToolStripMenuItem";
-            this.switchToToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.switchToToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.switchToToolStripMenuItem.Text = "Switch to:";
+            // 
+            // tsEmptyProfile
+            // 
+            this.tsEmptyProfile.Enabled = false;
+            this.tsEmptyProfile.Name = "tsEmptyProfile";
+            this.tsEmptyProfile.Size = new System.Drawing.Size(123, 22);
+            this.tsEmptyProfile.Text = "(empty)";
             // 
             // newProfileToolStripMenuItem
             // 
             this.newProfileToolStripMenuItem.Name = "newProfileToolStripMenuItem";
-            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.newProfileToolStripMenuItem.Text = "New Profile";
             this.newProfileToolStripMenuItem.Click += new System.EventHandler(this.NewProfileToolStripMenuItem_Click);
             // 
@@ -1494,7 +1508,7 @@ namespace Korot
             this.label25.AutoSize = true;
             this.label25.BackColor = System.Drawing.Color.Transparent;
             this.label25.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label25.Location = new System.Drawing.Point(18, 95);
+            this.label25.Location = new System.Drawing.Point(18, 99);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(158, 17);
             this.label25.TabIndex = 25;
@@ -1506,7 +1520,7 @@ namespace Korot
             this.label32.AutoSize = true;
             this.label32.BackColor = System.Drawing.Color.Transparent;
             this.label32.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label32.Location = new System.Drawing.Point(16, 192);
+            this.label32.Location = new System.Drawing.Point(18, 193);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(128, 17);
             this.label32.TabIndex = 25;
@@ -1518,7 +1532,7 @@ namespace Korot
             this.label31.AutoSize = true;
             this.label31.BackColor = System.Drawing.Color.Transparent;
             this.label31.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label31.Location = new System.Drawing.Point(16, 164);
+            this.label31.Location = new System.Drawing.Point(18, 162);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(143, 17);
             this.label31.TabIndex = 25;
@@ -1541,7 +1555,7 @@ namespace Korot
             // 
             this.pbStore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbStore.Image = global::Korot.Properties.Resources.store;
-            this.pbStore.Location = new System.Drawing.Point(523, 243);
+            this.pbStore.Location = new System.Drawing.Point(523, 249);
             this.pbStore.Name = "pbStore";
             this.pbStore.Size = new System.Drawing.Size(23, 23);
             this.pbStore.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1577,7 +1591,7 @@ namespace Korot
             this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.Transparent;
             this.label14.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label14.Location = new System.Drawing.Point(17, 41);
+            this.label14.Location = new System.Drawing.Point(18, 38);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(126, 17);
             this.label14.TabIndex = 25;
@@ -1589,7 +1603,7 @@ namespace Korot
             this.label16.AutoSize = true;
             this.label16.BackColor = System.Drawing.Color.Transparent;
             this.label16.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label16.Location = new System.Drawing.Point(17, 67);
+            this.label16.Location = new System.Drawing.Point(18, 67);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(95, 17);
             this.label16.TabIndex = 26;
@@ -1600,47 +1614,53 @@ namespace Korot
             // 
             this.dudClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dudClose.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dudClose.Items.Add("Back Color");
-            this.dudClose.Items.Add("Fore Color");
-            this.dudClose.Items.Add("Overlay Color");
+            this.dudClose.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dudClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.dudClose.Items.AddRange(new object[] {
+            "Back Color",
+            "Fore Color",
+            "Overlay Color"});
             this.dudClose.Location = new System.Drawing.Point(151, 191);
             this.dudClose.Name = "dudClose";
-            this.dudClose.Size = new System.Drawing.Size(402, 21);
+            this.dudClose.Size = new System.Drawing.Size(402, 24);
             this.dudClose.TabIndex = 33;
-            this.dudClose.SelectedItemChanged += new System.EventHandler(this.dudClose_SelectedItemChanged);
+            this.dudClose.SelectedIndexChanged += new System.EventHandler(this.dudClose_SelectedItemChanged);
             this.dudClose.TextChanged += new System.EventHandler(this.dudClose_SelectedItemChanged);
             // 
             // dudNewTab
             // 
             this.dudNewTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dudNewTab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dudNewTab.Items.Add("Back Color");
-            this.dudNewTab.Items.Add("Fore Color");
-            this.dudNewTab.Items.Add("Overlay Color");
-            this.dudNewTab.Location = new System.Drawing.Point(172, 163);
+            this.dudNewTab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dudNewTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.dudNewTab.Items.AddRange(new object[] {
+            "Back Color",
+            "Fore Color",
+            "Overlay Color"});
+            this.dudNewTab.Location = new System.Drawing.Point(172, 160);
             this.dudNewTab.Name = "dudNewTab";
-            this.dudNewTab.Size = new System.Drawing.Size(381, 21);
+            this.dudNewTab.Size = new System.Drawing.Size(381, 24);
             this.dudNewTab.TabIndex = 33;
-            this.dudNewTab.SelectedItemChanged += new System.EventHandler(this.dudNewTab_SelectedItemChanged);
+            this.dudNewTab.SelectedIndexChanged += new System.EventHandler(this.dudNewTab_SelectedItemChanged);
             this.dudNewTab.TextChanged += new System.EventHandler(this.dudNewTab_SelectedItemChanged);
             // 
             // comboBox3
             // 
             this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.comboBox3.Items.Add("None");
-            this.comboBox3.Items.Add("Tile");
-            this.comboBox3.Items.Add("Center");
-            this.comboBox3.Items.Add("Stretch");
-            this.comboBox3.Items.Add("Zoom");
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox3.Items.AddRange(new object[] {
+            "None",
+            "Tile",
+            "Center",
+            "Stretch",
+            "Zoom"});
             this.comboBox3.Location = new System.Drawing.Point(189, 97);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(364, 21);
+            this.comboBox3.Size = new System.Drawing.Size(364, 24);
             this.comboBox3.TabIndex = 33;
-            this.comboBox3.SelectedItemChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             this.comboBox3.TextChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // textBox4
@@ -1661,7 +1681,7 @@ namespace Korot
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label13.Location = new System.Drawing.Point(17, 217);
+            this.label13.Location = new System.Drawing.Point(17, 224);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(97, 17);
             this.label13.TabIndex = 25;
@@ -1673,7 +1693,7 @@ namespace Korot
             this.label15.AutoSize = true;
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label15.Location = new System.Drawing.Point(16, 243);
+            this.label15.Location = new System.Drawing.Point(17, 252);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(65, 17);
             this.label15.TabIndex = 25;
@@ -1688,7 +1708,7 @@ namespace Korot
             this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBox1.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.comboBox1.Location = new System.Drawing.Point(130, 214);
+            this.comboBox1.Location = new System.Drawing.Point(130, 221);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(376, 25);
             this.comboBox1.TabIndex = 1;
@@ -1701,7 +1721,7 @@ namespace Korot
             this.button12.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button12.FlatAppearance.BorderSize = 0;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(511, 213);
+            this.button12.Location = new System.Drawing.Point(511, 220);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(42, 26);
             this.button12.TabIndex = 30;
@@ -1717,9 +1737,9 @@ namespace Korot
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(20, 272);
+            this.listBox2.Location = new System.Drawing.Point(20, 275);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(526, 100);
+            this.listBox2.Size = new System.Drawing.Size(526, 116);
             this.listBox2.TabIndex = 31;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
@@ -2430,7 +2450,7 @@ namespace Korot
             this.cmsBStyle.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsBStyle.ShowCheckMargin = true;
             this.cmsBStyle.ShowImageMargin = false;
-            this.cmsBStyle.Size = new System.Drawing.Size(199, 70);
+            this.cmsBStyle.Size = new System.Drawing.Size(199, 92);
             // 
             // colorToolStripMenuItem
             // 
@@ -2452,7 +2472,7 @@ namespace Korot
             this.ımageFromURLToolStripMenuItem.Name = "ımageFromURLToolStripMenuItem";
             this.ımageFromURLToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.ımageFromURLToolStripMenuItem.Text = "Image from Code";
-            this.ımageFromURLToolStripMenuItem.Click += new System.EventHandler(this.FromLocalFileToolStripMenuItem_Click);
+            this.ımageFromURLToolStripMenuItem.Click += new System.EventHandler(this.FromURLToolStripMenuItem_Click);
             // 
             // tmrRefresher
             // 
@@ -2536,20 +2556,6 @@ namespace Korot
             this.panel1.Size = new System.Drawing.Size(562, 400);
             this.panel1.TabIndex = 0;
             this.panel1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
-            // 
-            // tsEmptyExt
-            // 
-            this.tsEmptyExt.Enabled = false;
-            this.tsEmptyExt.Name = "tsEmptyExt";
-            this.tsEmptyExt.Size = new System.Drawing.Size(180, 22);
-            this.tsEmptyExt.Text = "(empty)";
-            // 
-            // tsEmptyProfile
-            // 
-            this.tsEmptyProfile.Enabled = false;
-            this.tsEmptyProfile.Name = "tsEmptyProfile";
-            this.tsEmptyProfile.Size = new System.Drawing.Size(180, 22);
-            this.tsEmptyProfile.Text = "(empty)";
             // 
             // frmCEF
             // 
@@ -2732,7 +2738,7 @@ namespace Korot
         private System.Windows.Forms.Label lbDNT;
         private HaltroyFramework.HaltroySwitch hsDoNotTrack;
         private System.Windows.Forms.ToolStripMenuItem ımageFromURLToolStripMenuItem;
-        private System.Windows.Forms.DomainUpDown comboBox3;
+        private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.ToolStripMenuItem disallowThisPageForCookieAccessToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip cmsFavorite;
@@ -2807,8 +2813,8 @@ namespace Korot
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.DomainUpDown dudClose;
-        private System.Windows.Forms.DomainUpDown dudNewTab;
+        private System.Windows.Forms.ComboBox dudClose;
+        private System.Windows.Forms.ComboBox dudNewTab;
         private System.Windows.Forms.Label label33;
         private HaltroyFramework.HaltroySwitch hsFav;
         private System.Windows.Forms.Label lbUResources;
