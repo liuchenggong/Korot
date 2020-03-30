@@ -25,13 +25,14 @@ using System.Text.RegularExpressions;
 
 namespace Korot
 {
-    class SchemeHandlerFactory : ISchemeHandlerFactory
+    internal class SchemeHandlerFactory : ISchemeHandlerFactory
     {
         public frmMain anaform()
         {
             return ((frmMain)CefForm.ParentTabs);
         }
-        frmCEF CefForm;
+
+        private readonly frmCEF CefForm;
         public bool isExt = false;
         public string extKEM;
         public frmExt extForm;
@@ -113,7 +114,7 @@ namespace Korot
                 else if (request.Url.StartsWith("korot://error/?e="))
                 {
                     string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
-                    return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§OVERLAY§",GetOverlay()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.ErrorPageTitle).Replace("§KT§", CefForm.KT).Replace("§ET§", CefForm.ET).Replace("§E1§", CefForm.E1).Replace("§E2§", CefForm.E2).Replace("§E3§", CefForm.E3).Replace("§E4§", CefForm.E4).Replace("§RT§", CefForm.RT).Replace("§R1§", CefForm.R1).Replace("§R2§", CefForm.R2).Replace("§R3§", CefForm.R3).Replace("§R4§", CefForm.R4).Replace("§ERROR§", x));
+                    return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§OVERLAY§", GetOverlay()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.ErrorPageTitle).Replace("§KT§", CefForm.KT).Replace("§ET§", CefForm.ET).Replace("§E1§", CefForm.E1).Replace("§E2§", CefForm.E2).Replace("§E3§", CefForm.E3).Replace("§E4§", CefForm.E4).Replace("§RT§", CefForm.RT).Replace("§R1§", CefForm.R1).Replace("§R2§", CefForm.R2).Replace("§R3§", CefForm.R3).Replace("§R4§", CefForm.R4).Replace("§ERROR§", x));
                 }
                 else if (request.Url == "korot://dad/")
                 {

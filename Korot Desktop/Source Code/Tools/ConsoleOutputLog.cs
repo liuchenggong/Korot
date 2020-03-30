@@ -78,8 +78,10 @@ namespace Korot
             string filePath = Path.Combine(LogDirPath, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")) + ".txt";
             try
             {
-                SW = new StreamWriter(filePath);
-                SW.AutoFlush = true;
+                SW = new StreamWriter(filePath)
+                {
+                    AutoFlush = true
+                };
             }
             catch (UnauthorizedAccessException ex)
             {

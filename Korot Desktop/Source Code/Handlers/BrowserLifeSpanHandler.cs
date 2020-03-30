@@ -28,7 +28,7 @@ namespace Korot
 {
     public class BrowserLifeSpanHandler : ILifeSpanHandler
     {
-        frmCEF tabform;
+        private readonly frmCEF tabform;
         public BrowserLifeSpanHandler(frmCEF tabf)
         {
             tabform = tabf;
@@ -48,12 +48,12 @@ namespace Korot
 
         public bool DoClose(IWebBrowser browserControl, IBrowser browser)
         {
-            var windowHandle = browser.GetHost().GetWindowHandle();
-            var webBrowser = (ChromiumWebBrowser)browserControl;
+            IntPtr windowHandle = browser.GetHost().GetWindowHandle();
+            ChromiumWebBrowser webBrowser = (ChromiumWebBrowser)browserControl;
 
             if (browser.MainFrame.Url.Equals("devtools://devtools/devtools_app.html"))
             {
-                var parentControl = Control.FromChildHandle(windowHandle);
+                Control parentControl = Control.FromChildHandle(windowHandle);
 
                 //If the windowHandle doesn't have a matching WinForms control
                 //then we assume it's hosted by a native popup window (the default)
@@ -73,22 +73,22 @@ namespace Korot
                 return true;
             }
 
-                //If browser is disposed or the handle has been released then we don't
-                //need to remove the tab (likely removed from menu)
-                if (!webBrowser.IsDisposed && webBrowser.IsHandleCreated)
+            //If browser is disposed or the handle has been released then we don't
+            //need to remove the tab (likely removed from menu)
+            if (!webBrowser.IsDisposed && webBrowser.IsHandleCreated)
+            {
+                webBrowser.Invoke(new Action(() =>
                 {
-                    webBrowser.Invoke(new Action(() =>
+                    if (webBrowser.FindForm() is frmCEF owner)
                     {
-                        if (webBrowser.FindForm() is frmCEF owner)
-                        {
-                            owner.Close();
+                        owner.Close();
                             //owner.RemoveTab(windowHandle);
                         }
-                    }));
-                }
+                }));
+            }
 
-                //return true here to handle closing yourself (no WM_CLOSE will be sent).
-                return true;
+            //return true here to handle closing yourself (no WM_CLOSE will be sent).
+            return true;
         }
 
         public void OnBeforeClose(IWebBrowser browserControl, IBrowser browser)

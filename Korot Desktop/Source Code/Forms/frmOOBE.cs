@@ -19,13 +19,11 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
-using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Korot
@@ -35,22 +33,23 @@ namespace Korot
         public frmOOBE()
         {
             InitializeComponent();
-            foreach (Control x in this.Controls)
+            foreach (Control x in Controls)
             {
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
         }
-        bool allowSwitch = false;
+
+        private bool allowSwitch = false;
         public string customSearchNote = "(Note: Searched text will be put after the url)";
         public string customSearchMessage = "Write Custom Search Url";
-        string profilePath;
+        private string profilePath;
         public string Yes = "Yes";
         public string No = "No";
         public string closeMessage = "The installation is not completed yet. Do you still want to close this?";
         public string OK = "OK";
         public string Cancel = "Cancel";
 
-        void ResetSettings()
+        private void ResetSettings()
         {
             Properties.Settings.Default.Homepage = "korot://newtab";
             Properties.Settings.Default.History = "";
@@ -112,7 +111,7 @@ namespace Korot
                     string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
                     char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                     string[] SplittedFase = Playlist.Split(token);
-                    this.Text = SplittedFase[142].Substring(1).Replace(Environment.NewLine, "");
+                    Text = SplittedFase[142].Substring(1).Replace(Environment.NewLine, "");
                     btContinue.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
                     btContinue2.Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
                     btBack.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "");
@@ -126,7 +125,7 @@ namespace Korot
                     tbTip2.Text = SplittedFase[94].Substring(1).Replace(Environment.NewLine, "");
                     tbTip1.Text = SplittedFase[181].Substring(1).Replace(Environment.NewLine, "");
                     lbTipTitle.Text = SplittedFase[181].Substring(1).Replace(Environment.NewLine, "");
-                    lbTip2.Text = SplittedFase[148].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]",Environment.NewLine);
+                    lbTip2.Text = SplittedFase[148].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
                     lbTip3.Text = SplittedFase[149].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
                     tbTipF.Text = SplittedFase[153].Substring(1).Replace(Environment.NewLine, "");
                     tbTip3.Text = SplittedFase[154].Substring(1).Replace(Environment.NewLine, "");
@@ -202,7 +201,8 @@ namespace Korot
                 return true;
             }
         }
-        bool allowClose = false;
+
+        private bool allowClose = false;
         private void button2_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.LastUser = textBox1.Text;
@@ -225,7 +225,7 @@ namespace Korot
         {
             if (!allowClose)
             {
-                HaltroyFramework.HaltroyMsgBox msgBox = new HaltroyFramework.HaltroyMsgBox(this.Text, closeMessage, this.Icon, MessageBoxButtons.YesNo, Color.White, Yes, No, OK, Cancel, 390, 140);
+                HaltroyFramework.HaltroyMsgBox msgBox = new HaltroyFramework.HaltroyMsgBox(Text, closeMessage, Icon, MessageBoxButtons.YesNo, Color.White, Yes, No, OK, Cancel, 390, 140);
                 if (msgBox.ShowDialog() == DialogResult.Yes)
                 {
                     e.Cancel = false;
@@ -301,7 +301,7 @@ namespace Korot
             pbPrev.Visible = tabControl2.SelectedIndex != 0;
             btFinish.Visible = tabControl2.SelectedTab == tbTipF;
         }
-        
+
         private void lbLang_Click(object sender, EventArgs e)
         {
             if (lbLang.SelectedItem != null)

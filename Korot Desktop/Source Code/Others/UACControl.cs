@@ -1,25 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Principal;
-using System.Runtime.InteropServices;
-using Microsoft.Win32;
-using System.Diagnostics;
+﻿using System.Security.Principal;
 
 namespace Korot
 {
-    class UACControl
+    internal class UACControl
     {
-        public static bool IsProcessElevated
-        {
-            get
-            {
-                    return new WindowsPrincipal
+        public static bool IsProcessElevated => new WindowsPrincipal
                         (WindowsIdentity.GetCurrent()).IsInRole
                         (WindowsBuiltInRole.Administrator);
-            }
-        }
     }
 }

@@ -44,7 +44,7 @@ namespace Korot
             TabRenderer = tabRenderer;
             Icon = Properties.Resources.KorotIcon;
             InitializeComponent();
-            foreach (Control x in this.Controls)
+            foreach (Control x in Controls)
             {
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
@@ -67,20 +67,19 @@ namespace Korot
             removeDownloads.Clear();
         }
 
-
-        void PrintImages()
+        private void PrintImages()
         {
-            this.MinimumSize = new System.Drawing.Size(660, 340);
-            this.BackColor = Properties.Settings.Default.BackColor;
-            this.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            MinimumSize = new System.Drawing.Size(660, 340);
+            BackColor = Properties.Settings.Default.BackColor;
+            ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
         }
 
 
         public string restoremedaddy = "";
-        string profilePath;
+        private string profilePath;
         private void frmMain_Load(object sender, EventArgs e)
         {
-            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             if (DateTime.Now.ToString("MM") == "03" & DateTime.Now.ToString("dd") == "11")
             {
                 Output.WriteLine("Happy " + (DateTime.Now.Year - 2001) + "th Birthday Dad!");
@@ -139,10 +138,10 @@ namespace Korot
                 }
             }
             else
-            { Process.Start(Application.ExecutablePath, "-oobe"); this.Close(); }
+            { Process.Start(Application.ExecutablePath, "-oobe"); Close(); }
 
-            this.Location = new Point(Korot.Properties.Settings.Default.WindowPosX, Korot.Properties.Settings.Default.WindowPosY);
-            this.Size = new Size(Korot.Properties.Settings.Default.WindowSizeW, Korot.Properties.Settings.Default.WindowSizeH);
+            Location = new Point(Korot.Properties.Settings.Default.WindowPosX, Korot.Properties.Settings.Default.WindowPosY);
+            Size = new Size(Korot.Properties.Settings.Default.WindowSizeW, Korot.Properties.Settings.Default.WindowSizeH);
             PrintImages();
             if (Properties.Settings.Default.LangFile == null) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
 
@@ -156,15 +155,15 @@ namespace Korot
             }
 
             SessionLogger.Start();
-            this.MinimumSize = new System.Drawing.Size(660, 340);
-            this.MaximizedBounds = Screen.GetWorkingArea(this);
-            if (Properties.Settings.Default.windowState == 0) { this.WindowState = FormWindowState.Normal; }
-            else if (Properties.Settings.Default.windowState == 1) { this.WindowState = FormWindowState.Maximized; }
-            else if (Properties.Settings.Default.windowState == 2) { this.WindowState = FormWindowState.Minimized; }
+            MinimumSize = new System.Drawing.Size(660, 340);
+            MaximizedBounds = Screen.GetWorkingArea(this);
+            if (Properties.Settings.Default.windowState == 0) { WindowState = FormWindowState.Normal; }
+            else if (Properties.Settings.Default.windowState == 1) { WindowState = FormWindowState.Maximized; }
+            else if (Properties.Settings.Default.windowState == 2) { WindowState = FormWindowState.Minimized; }
             else
-            { Properties.Settings.Default.windowState = 0; this.WindowState = FormWindowState.Normal; }
-            this.Size = new Size(Properties.Settings.Default.WindowSizeW, Properties.Settings.Default.WindowSizeH);
-            this.Location = new Point(Properties.Settings.Default.WindowPosX, Properties.Settings.Default.WindowPosY);
+            { Properties.Settings.Default.windowState = 0; WindowState = FormWindowState.Normal; }
+            Size = new Size(Properties.Settings.Default.WindowSizeW, Properties.Settings.Default.WindowSizeH);
+            Location = new Point(Properties.Settings.Default.WindowPosX, Properties.Settings.Default.WindowPosY);
 
         }
 
@@ -196,7 +195,7 @@ namespace Korot
         public void WriteCurrentSession()
         {
             string CurrentSessionURIs = null;
-            foreach (TitleBarTab x in this.Tabs)
+            foreach (TitleBarTab x in Tabs)
             {
                 CurrentSessionURIs += ((frmCEF)x.Content).chromiumWebBrowser1.Address + ";";
             }
@@ -209,7 +208,7 @@ namespace Korot
             {
                 Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser)
             };
-            this.Tabs.Add(newTab);
+            Tabs.Add(newTab);
         }
         public override TitleBarTab CreateTab()
         {
@@ -229,41 +228,41 @@ namespace Korot
         {
             if (fullscreen)
             {
-                wasMaximized = this.WindowState == FormWindowState.Maximized;
-                this.WindowState = FormWindowState.Maximized;
-                this.MaximizedBounds = Screen.FromHandle(this.Handle).Bounds;
+                wasMaximized = WindowState == FormWindowState.Maximized;
+                WindowState = FormWindowState.Maximized;
+                MaximizedBounds = Screen.FromHandle(Handle).Bounds;
                 isFullScreen = true;
             }
             else
             {
                 if (!wasMaximized)
                 {
-                    this.WindowState = FormWindowState.Normal;
+                    WindowState = FormWindowState.Normal;
                 }
-                this.MaximizedBounds = Screen.GetWorkingArea(this);
+                MaximizedBounds = Screen.GetWorkingArea(this);
                 isFullScreen = false;
             }
-            this.FormBorderStyle = fullscreen ? FormBorderStyle.None : FormBorderStyle.Sizable;
+            FormBorderStyle = fullscreen ? FormBorderStyle.None : FormBorderStyle.Sizable;
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!isIncognito)
             {
-                Korot.Properties.Settings.Default.WindowPosX = this.Location.X;
-                Korot.Properties.Settings.Default.WindowPosY = this.Location.Y;
-                Korot.Properties.Settings.Default.WindowSizeH = this.Size.Height;
-                Korot.Properties.Settings.Default.WindowSizeW = this.Size.Width;
-                if (this.WindowState == FormWindowState.Normal) { Properties.Settings.Default.windowState = 0; }
-                else if (this.WindowState == FormWindowState.Maximized) { Properties.Settings.Default.windowState = 1; }
-                else if (this.WindowState == FormWindowState.Minimized) { Properties.Settings.Default.windowState = 2; }
+                Korot.Properties.Settings.Default.WindowPosX = Location.X;
+                Korot.Properties.Settings.Default.WindowPosY = Location.Y;
+                Korot.Properties.Settings.Default.WindowSizeH = Size.Height;
+                Korot.Properties.Settings.Default.WindowSizeW = Size.Width;
+                if (WindowState == FormWindowState.Normal) { Properties.Settings.Default.windowState = 0; }
+                else if (WindowState == FormWindowState.Maximized) { Properties.Settings.Default.windowState = 1; }
+                else if (WindowState == FormWindowState.Minimized) { Properties.Settings.Default.windowState = 2; }
                 Korot.Properties.Settings.Default.dismissUpdate = false;
                 Korot.Properties.Settings.Default.alreadyUpdatedThemes = false;
                 Korot.Properties.Settings.Default.alreadyUpdatedExt = false;
                 Properties.Settings.Default.disableLangErrors = false;
-                if (this.WindowState == FormWindowState.Normal) { Properties.Settings.Default.windowState = 0; }
-                else if (this.WindowState == FormWindowState.Maximized) { Properties.Settings.Default.windowState = 1; }
-                else if (this.WindowState == FormWindowState.Minimized) { Properties.Settings.Default.windowState = 2; }
+                if (WindowState == FormWindowState.Normal) { Properties.Settings.Default.windowState = 0; }
+                else if (WindowState == FormWindowState.Maximized) { Properties.Settings.Default.windowState = 1; }
+                else if (WindowState == FormWindowState.Minimized) { Properties.Settings.Default.windowState = 2; }
                 if (e.CloseReason != CloseReason.None || e.CloseReason != CloseReason.WindowsShutDown || e.CloseReason != CloseReason.TaskManagerClosing)
                 {
                     Korot.Properties.Settings.Default.LastSessionURIs = "";
@@ -271,7 +270,7 @@ namespace Korot
                 else
                 {
                     Korot.Properties.Settings.Default.LastSessionURIs = "";
-                    foreach (TitleBarTab x in this.Tabs)
+                    foreach (TitleBarTab x in Tabs)
                     {
                         Korot.Properties.Settings.Default.LastSessionURIs += ((frmCEF)x.Content).chromiumWebBrowser1.Address + ";";
                     }
@@ -294,7 +293,7 @@ namespace Korot
 
         private void frmMain_Resize(object sender, EventArgs e)
         {
-            foreach (TitleBarTab x in this.Tabs)
+            foreach (TitleBarTab x in Tabs)
             {
                 ((frmCEF)x.Content).Invoke(new Action(() => ((frmCEF)x.Content).FrmCEF_SizeChanged(null, null)));
             }

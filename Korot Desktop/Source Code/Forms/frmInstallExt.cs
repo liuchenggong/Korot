@@ -32,30 +32,30 @@ namespace Korot
 {
     public partial class frmInstallExt : Form
     {
-        bool requires1;
-        bool requires3;
-        bool allowSwitch = false;
-        string ExtFile;
-        string noPermission = "This extension does not require any permissions but:";
-        string Initializing = "Initializing...";
-        string installed = "Installed.";
-        string dc = "Directory created. Moving files and folders...";
-        string cd = "Creating directory...";
-        string rof2 = "Removed old files.";
-        string rof1 = "Removing old files...";
-        string installing = "Installing...";
-        string reqError = "Requirement ([REQ]) can only get \"1\" or \"0\" values." + Environment.NewLine + " at [FILE] line [LINE]";
-        string reqEmpty = "Some requirements are missing." + Environment.NewLine + " at [FILE] line [LINE]";
-        string fileSizeError = "Some files are above the file size limits. Please go to https://github.com/Haltroy/Korot/issues/27 for more info.";
-        string ext = "Extension";
-        string theme = "Theme";
-        bool silentInstall = false;
+        private bool requires1;
+        private bool requires3;
+        private bool allowSwitch = false;
+        private string ExtFile;
+        private string noPermission = "This extension does not require any permissions but:";
+        private string Initializing = "Initializing...";
+        private string installed = "Installed.";
+        private string dc = "Directory created. Moving files and folders...";
+        private string cd = "Creating directory...";
+        private string rof2 = "Removed old files.";
+        private string rof1 = "Removing old files...";
+        private string installing = "Installing...";
+        private string reqError = "Requirement ([REQ]) can only get \"1\" or \"0\" values." + Environment.NewLine + " at [FILE] line [LINE]";
+        private string reqEmpty = "Some requirements are missing." + Environment.NewLine + " at [FILE] line [LINE]";
+        private string fileSizeError = "Some files are above the file size limits. Please go to https://github.com/Haltroy/Korot/issues/27 for more info.";
+        private string ext = "Extension";
+        private string theme = "Theme";
+        private readonly bool silentInstall = false;
         public frmInstallExt(string installFrom, bool silent = false)
         {
             ExtFile = installFrom;
             silentInstall = silent;
             InitializeComponent();
-            foreach (Control x in this.Controls)
+            foreach (Control x in Controls)
             {
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
@@ -69,13 +69,14 @@ namespace Korot
         }
         private void frmInstallExt_Load(object sender, EventArgs e)
         {
-            
+
             allowSwitch = true;
             tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage4));
-            if (silentInstall) { this.Hide(); }
+            if (silentInstall) { Hide(); }
             if (ExtFile.ToLower().EndsWith(".kef")) { StartupEXT(); } else if (ExtFile.ToLower().EndsWith(".ktf")) { StartupTF(); }
         }
-        string generateRandomText()
+
+        private string generateRandomText()
         {
             StringBuilder builder = new StringBuilder();
             Enumerable
@@ -88,7 +89,8 @@ namespace Korot
                 .ToList().ForEach(e => builder.Append(e));
             return builder.ToString().Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
         }
-        async void StartupEXT()
+
+        private async void StartupEXT()
         {
             await Task.Run(() =>
             {
@@ -105,7 +107,7 @@ namespace Korot
                     ExtFile = tempFolder + "ext.kem";
                     if (new FileInfo(ExtFile).Length < 1048576)
                     {
-                        this.Invoke(new Action(() => ReadKEM(ExtFile)));
+                        Invoke(new Action(() => ReadKEM(ExtFile)));
                     }
                     else
                     {
@@ -127,24 +129,26 @@ namespace Korot
                     ExtFile = tempFolder + "ext.kem";
                     if (new FileInfo(ExtFile).Length < 1048576)
                     {
-                        this.Invoke(new Action(() => ReadKEM(ExtFile)));
+                        Invoke(new Action(() => ReadKEM(ExtFile)));
                     }
                     else
                     {
-                        this.Invoke(new Action(() => this.Close()));
+                        Invoke(new Action(() => Close()));
                     }
                 }
             });
         }
-        async void StartupTF()
+
+        private async void StartupTF()
         {
             await Task.Run(() =>
             {
                 label3.Invoke(new Action(() => label3.Text = theme));
-                this.Invoke(new Action(() => ReadKTF(ExtFile)));
+                Invoke(new Action(() => ReadKTF(ExtFile)));
             });
         }
-        void ReadKEM(string fileLocation)
+
+        private void ReadKEM(string fileLocation)
         {
             if (!silentInstall)
             {
@@ -311,7 +315,7 @@ namespace Korot
                         }
                         else
                         {
-                            this.Close();
+                            Close();
                             return;
                         }
                         //ExtReq - onlineFiles
@@ -325,7 +329,7 @@ namespace Korot
                         }
                         else
                         {
-                            this.Close();
+                            Close();
                             return;
                         }
                         //ExtReq - showPopupMenu
@@ -339,7 +343,7 @@ namespace Korot
                         }
                         else
                         {
-                            this.Close();
+                            Close();
                             return;
                         }
                         //ExtReq - activateScript
@@ -353,7 +357,7 @@ namespace Korot
                         }
                         else
                         {
-                            this.Close();
+                            Close();
                             return;
                         }
                         //ExtReq - hasProxy
@@ -367,7 +371,7 @@ namespace Korot
                         }
                         else
                         {
-                            this.Close();
+                            Close();
                             return;
                         }
                         panel6.Visible = requires1;
@@ -378,22 +382,23 @@ namespace Korot
                         }
                         lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
                         i = 5;
-                        this.Invoke(new Action(() => button1_Click(null, null)));
+                        Invoke(new Action(() => button1_Click(null, null)));
                     }
                     else
                     {
-                        this.Close();
+                        Close();
                         return;
                     }
                 }
                 else
                 {
-                    this.Close();
+                    Close();
                     return;
                 }
             }
         }
-        void ReadKTF(string fileLocation)
+
+        private void ReadKTF(string fileLocation)
         {
             if (!silentInstall)
             {
@@ -442,7 +447,7 @@ namespace Korot
                 panel3.Visible = false;
                 if (SplittedFase[6].Substring(0).Replace(Environment.NewLine, "").Length > 131072)
                 {
-                    this.Close();
+                    Close();
                     return;
                 }
                 lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
@@ -461,17 +466,17 @@ namespace Korot
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -480,7 +485,8 @@ namespace Korot
             tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage3));
             timer1.Start();
         }
-        int i = 0;
+
+        private int i = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
             i += 1;
@@ -498,20 +504,22 @@ namespace Korot
                 timer1.Stop();
             }
         }
-        void button3Mode(bool ev)
+
+        private void button3Mode(bool ev)
         {
             button3.Visible = ev;
             button3.Enabled = ev;
         }
-        string korotExtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions";
-        string korotThemeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes";
-        string extCodeName;
+
+        private readonly string korotExtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions";
+        private readonly string korotThemeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes";
+        private string extCodeName;
         private async void installKEM()
         {
             await Task.Run(() =>
             {
                 extCodeName = (lbAuthor.Text + "." + lbName.Text).Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
-                this.Invoke(new Action(() => button3Mode(false)));
+                Invoke(new Action(() => button3Mode(false)));
                 lbStatus.Invoke(new Action(() => lbStatus.Text = installing));
                 pbStatus.Invoke(new Action(() => pbStatus.Width = 45));
                 if (Directory.Exists(korotExtDirectory + "\\" + extCodeName))
@@ -525,24 +533,24 @@ namespace Korot
                 Directory.CreateDirectory(korotExtDirectory + "\\" + extCodeName);
                 pbStatus.Invoke(new Action(() => pbStatus.Width = 180));
                 lbStatus.Invoke(new Action(() => lbStatus.Text = dc));
-                foreach (String x in Directory.GetFiles(new FileInfo(ExtFile).DirectoryName + " \\"))
+                foreach (string x in Directory.GetFiles(new FileInfo(ExtFile).DirectoryName + " \\"))
                 {
                     File.Copy(x, korotExtDirectory + "\\" + extCodeName + "\\" + new FileInfo(x).Name);
                 }
-                foreach (String x in Directory.GetDirectories(new FileInfo(ExtFile).DirectoryName + " \\"))
+                foreach (string x in Directory.GetDirectories(new FileInfo(ExtFile).DirectoryName + " \\"))
                 {
                     Directory.Move(x, korotExtDirectory + "\\" + extCodeName + "\\" + new DirectoryInfo(x).Name);
                 }
                 lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
                 label8.Invoke(new Action(() => label8.Text = installed));
-                this.Invoke(new Action(() => button3Mode(true)));
+                Invoke(new Action(() => button3Mode(true)));
                 panel2.Invoke(new Action(() => panel2.Visible = false));
                 pbStatus.Invoke(new Action(() => pbStatus.Width = 300));
                 Properties.Settings.Default.registeredExtensions.Add(extCodeName);
                 Properties.Settings.Default.Save();
                 if (silentInstall)
                 {
-                    this.Invoke(new Action(() => this.Close()));
+                    Invoke(new Action(() => Close()));
                 }
             });
         }
@@ -550,27 +558,27 @@ namespace Korot
         {
             await Task.Run(() =>
             {
-                this.Invoke(new Action(() => button3Mode(false)));
+                Invoke(new Action(() => button3Mode(false)));
                 lbStatus.Invoke(new Action(() => lbStatus.Text = installing));
                 pbStatus.Invoke(new Action(() => pbStatus.Width = 90));
                 string fileName = new FileInfo(ExtFile).Name;
                 File.Copy(ExtFile, korotThemeDirectory + fileName);
                 lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
                 label8.Invoke(new Action(() => label8.Text = installed));
-                this.Invoke(new Action(() => button3Mode(true)));
+                Invoke(new Action(() => button3Mode(true)));
                 panel2.Invoke(new Action(() => panel2.Visible = false));
                 pbStatus.Invoke(new Action(() => pbStatus.Width = 300));
                 if (silentInstall)
                 {
-                    this.Invoke(new Action(() => this.Close()));
+                    Invoke(new Action(() => Close()));
                 }
             });
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            this.BackColor = Properties.Settings.Default.BackColor;
-            this.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            BackColor = Properties.Settings.Default.BackColor;
+            ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
             pictureBox1.BackColor = Properties.Settings.Default.OverlayColor;
             tabPage1.BackColor = Properties.Settings.Default.BackColor;
             tabPage1.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;

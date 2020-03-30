@@ -4,9 +4,9 @@ using System;
 
 namespace Korot
 {
-    class FindHandler : IFindHandler
+    internal class FindHandler : IFindHandler
     {
-        frmCEF _frmCEF;
+        private readonly frmCEF _frmCEF;
         public FindHandler(frmCEF _frmCef)
         {
             _frmCEF = _frmCef;

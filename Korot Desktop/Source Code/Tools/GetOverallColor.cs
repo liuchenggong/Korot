@@ -84,7 +84,7 @@ namespace Korot
             // note that there are those who argue that a
             // .NET Generic Dictionary is never guaranteed
             // to be sorted by methods like this
-            var dctSortedByValueHighToLow = dctColorIncidence.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            Dictionary<int, int> dctSortedByValueHighToLow = dctColorIncidence.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
             // this should be replaced with some elegant Linq ?
             foreach (KeyValuePair<int, int> kvp in dctSortedByValueHighToLow.Take(10))

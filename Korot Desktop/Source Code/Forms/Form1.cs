@@ -35,28 +35,29 @@ namespace Korot
 {
     public partial class Form1 : Form
     {
-        string UpdateURL = "https://github.com/Haltroy/Korot/releases/download/[LATEST]/Korot-Full-[ARCH].zip";
-        string InstallerURL = "http://bit.ly/KorotSetup";
-        string downloadUrl;
-        string fileName = "";
-        int UpdateType; //0 = zip 1 = installer
-        string downloadFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\update";
-        WebClient WebC = new WebClient();
-        string StatusType;
-        string installingTxt;
-        string installStatus;
+        private string UpdateURL = "https://github.com/Haltroy/Korot/releases/download/[LATEST]/Korot-Full-[ARCH].zip";
+        private readonly string InstallerURL = "http://bit.ly/KorotSetup";
+        private string downloadUrl;
+        private string fileName = "";
+        private int UpdateType; //0 = zip 1 = installer
+        private readonly string downloadFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\update";
+        private readonly WebClient WebC = new WebClient();
+        private string StatusType;
+        private string installingTxt;
+        private string installStatus;
         public Form1()
         {
             InitializeComponent();
             WebC.DownloadStringCompleted += WebC_DownloadStringCompleted;
             WebC.DownloadProgressChanged += WebC_DownloadProgressChanged;
             WebC.DownloadFileCompleted += WebC_DownloadFileAsyncCompleted;
-            foreach (Control x in this.Controls)
+            foreach (Control x in Controls)
             {
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
         }
-        void RefreshTranslate()
+
+        private void RefreshTranslate()
         {
             if (!File.Exists(Properties.Settings.Default.LangFile)) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
             string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
@@ -64,7 +65,7 @@ namespace Korot
             string[] SplittedFase = Playlist.Split(token);
             StatusType = SplittedFase[93].Substring(1).Replace(Environment.NewLine, "");
             installStatus = SplittedFase[92].Substring(1).Replace(Environment.NewLine, "");
-            this.Text = SplittedFase[1].Substring(1).Replace(Environment.NewLine, "");
+            Text = SplittedFase[1].Substring(1).Replace(Environment.NewLine, "");
             installingTxt = SplittedFase[265].Substring(1).Replace(Environment.NewLine, "");
             label1.Text = installStatus;
             label2.Text = StatusType.Replace("[PERC]", "0").Replace("[CURRENT]", "0").Replace("[TOTAL]", "0");
@@ -98,7 +99,7 @@ namespace Korot
             label2.Text = StatusType.Replace("[PERC]", e.ProgressPercentage.ToString()).Replace("[CURRENT]", (e.BytesReceived / 1024).ToString()).Replace("[TOTAL]", (e.TotalBytesToReceive / 1024).ToString());
             label1.Text = installStatus;
         }
-        private void WebC_DownloadStringCompleted (object sender, DownloadStringCompletedEventArgs e)
+        private void WebC_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Error != null || e.Cancelled)
             {
@@ -110,7 +111,7 @@ namespace Korot
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                 string[] SplittedFase3 = e.Result.Split(token);
                 bool requireCompleteUpgrade = SplittedFase3[1].Trim().Replace(Environment.NewLine, "") == "1";
-                string nv = SplittedFase3[0].Replace(Environment.NewLine,"");
+                string nv = SplittedFase3[0].Replace(Environment.NewLine, "");
                 string minmv = SplittedFase3[2].Replace(Environment.NewLine, "");
                 UpdateURL = SplittedFase3[3].Replace(Environment.NewLine, "");
                 string arch = Environment.Is64BitProcess ? "x64" : "x86";
@@ -121,19 +122,21 @@ namespace Korot
                     UpdateType = 2;
                     fileName = ".exe";
                     downloadUrl = InstallerURL;
-                }else
+                }
+                else
                 {
                     if (current > MinVersion)
                     {
                         UpdateType = 0;
                         fileName = ".hup";
                         downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", nv);
-                    }else
+                    }
+                    else
                     {
-                            UpdateType = 1;
-                            fileName = ".exe";
-                            downloadUrl = InstallerURL;
-                      
+                        UpdateType = 1;
+                        fileName = ".exe";
+                        downloadUrl = InstallerURL;
+
                     }
                 }
                 if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\")) { Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\", true); }
@@ -142,14 +145,15 @@ namespace Korot
                 WebC.DownloadFileAsync(new Uri(downloadUrl), downloadFolder + fileName);
             }
         }
-        void RecursiveBackup(string folderName,string backupFolderName)
+
+        private void RecursiveBackup(string folderName, string backupFolderName)
         {
-            foreach (String x in Directory.GetFiles(folderName))
+            foreach (string x in Directory.GetFiles(folderName))
             {
                 FileInfo info = new FileInfo(x);
                 File.Move(x, backupFolderName + (backupFolderName.EndsWith("\\") ? "" : "\\") + info.Name);
             }
-            foreach (String x in Directory.GetDirectories(folderName))
+            foreach (string x in Directory.GetDirectories(folderName))
             {
                 DirectoryInfo info = new DirectoryInfo(x);
                 if (Directory.Exists(backupFolderName + (backupFolderName.EndsWith("\\") ? "" : "\\") + info.Name))
@@ -160,21 +164,24 @@ namespace Korot
                 //RecursiveBackup(x, backupFolderName + (backupFolderName.EndsWith("\\") ? "" : "\\") + info.Name);
             }
         }
-        string backupFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateBackup\\";
-        async void GetBackup()
+
+        private readonly string backupFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateBackup\\";
+
+        private async void GetBackup()
         {
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 if (Directory.Exists(backupFolder))
                 {
-                    Directory.Delete(backupFolder,true);
+                    Directory.Delete(backupFolder, true);
                 }
                 Directory.CreateDirectory(backupFolder);
                 RecursiveBackup(Application.StartupPath, backupFolder);
-                    //Directory.Delete(Application.StartupPath, true);
-                    //Directory.CreateDirectory(Application.StartupPath);
+                //Directory.Delete(Application.StartupPath, true);
+                //Directory.CreateDirectory(Application.StartupPath);
                 try
                 {
-                    ZipFile.ExtractToDirectory(downloadFolder + fileName, Application.StartupPath,Encoding.UTF8);
+                    ZipFile.ExtractToDirectory(downloadFolder + fileName, Application.StartupPath, Encoding.UTF8);
                     Restart();
                 }
                 catch (Exception ex)
@@ -182,21 +189,24 @@ namespace Korot
                     Console.WriteLine(" [Korot.Updater] Error while Extracting: " + ex.ToString());
                     ReturnBackup();
                 }
-                
+
             });
         }
-        async void ReturnBackup()
+
+        private async void ReturnBackup()
         {
-            await Task.Run(() => {
-                if (Directory.Exists(Application.StartupPath)){Directory.Delete(Application.StartupPath, true);}
+            await Task.Run(() =>
+            {
+                if (Directory.Exists(Application.StartupPath)) { Directory.Delete(Application.StartupPath, true); }
                 Directory.CreateDirectory(Application.StartupPath);
                 //Directory.Move(backupFolder, Application.StartupPath);
-                foreach (String x in Directory.GetDirectories(backupFolder)){ DirectoryInfo current = new DirectoryInfo(x);Directory.Move(x, Application.StartupPath + current.Name + "\\");}
-                foreach (String x in Directory.GetFiles(backupFolder)){FileInfo current = new FileInfo(x);File.Move(x, Application.StartupPath + current.Name);}
+                foreach (string x in Directory.GetDirectories(backupFolder)) { DirectoryInfo current = new DirectoryInfo(x); Directory.Move(x, Application.StartupPath + current.Name + "\\"); }
+                foreach (string x in Directory.GetFiles(backupFolder)) { FileInfo current = new FileInfo(x); File.Move(x, Application.StartupPath + current.Name); }
                 Restart();
             });
         }
-        void Restart()
+
+        private void Restart()
         {
             Process.Start(Application.ExecutablePath, "https://github.com/Haltroy/Korot/releases");
             allowClose = true;
@@ -224,15 +234,18 @@ namespace Korot
                     allowClose = true;
                     Process.Start(downloadFolder + fileName);
                     Application.Exit();
-                }else
+                }
+                else
                 {
                     label2.Text = installingTxt;
                     GetBackup();
                 }
             }
         }
-        bool allowClose = false;
-        void OtherInstances()
+
+        private bool allowClose = false;
+
+        private void OtherInstances()
         {
             try
             {
@@ -267,8 +280,8 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             OtherInstances();
-            this.BackColor = Properties.Settings.Default.BackColor;
-            this.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            BackColor = Properties.Settings.Default.BackColor;
+            ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
             panel1.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 20, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 20));
             pictureBox1.BackColor = Properties.Settings.Default.OverlayColor;
 

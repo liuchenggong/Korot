@@ -24,7 +24,7 @@ using System.Runtime.InteropServices;
 
 namespace Korot
 {
-    class WindowsMessageHelper
+    internal class WindowsMessageHelper
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);

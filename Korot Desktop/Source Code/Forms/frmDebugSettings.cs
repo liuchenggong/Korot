@@ -127,9 +127,9 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            int selected = lbCookie.SelectedIndex; lbCookie.Items.Clear(); foreach (String x in Properties.Settings.Default.CookieDisallowList) { lbCookie.Items.Add(x); }
+            int selected = lbCookie.SelectedIndex; lbCookie.Items.Clear(); foreach (string x in Properties.Settings.Default.CookieDisallowList) { lbCookie.Items.Add(x); }
             if (selected < lbCookie.Items.Count) { lbCookie.SelectedIndex = selected; }
-            int selected2 = lbExt.SelectedIndex; lbExt.Items.Clear(); foreach (String x in Properties.Settings.Default.registeredExtensions) { lbExt.Items.Add(x); }
+            int selected2 = lbExt.SelectedIndex; lbExt.Items.Clear(); foreach (string x in Properties.Settings.Default.registeredExtensions) { lbExt.Items.Add(x); }
             if (selected2 < lbExt.Items.Count) { lbExt.SelectedIndex = selected2; }
             tbHomepage.Text = Properties.Settings.Default.Homepage;
             tbThemeName.Text = Properties.Settings.Default.ThemeName;

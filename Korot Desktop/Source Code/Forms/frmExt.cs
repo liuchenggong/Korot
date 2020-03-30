@@ -23,20 +23,20 @@
 using CefSharp;
 using CefSharp.WinForms;
 using System;
-using System.Management;
 using System.Windows.Forms;
 
 namespace Korot
 {
     public partial class frmExt : Form
     {
-        string ExtensionPopupPath;
-        frmCEF tabform;
-        string userCache;
+        private readonly string ExtensionPopupPath;
+        private readonly frmCEF tabform;
+        private readonly string userCache;
+
         //frmMain anaform;
-        bool allowWebContent;
-        string ExtManifestFile;
-        ChromiumWebBrowser chromiumWebBrowser1;
+        private readonly bool allowWebContent;
+        private readonly string ExtManifestFile;
+        private ChromiumWebBrowser chromiumWebBrowser1;
         public frmExt(frmCEF CefForm, string profileName, string manifestFile, string popupHTML, bool _allowWebContent)
         {
             InitializeComponent();
@@ -44,7 +44,7 @@ namespace Korot
             ExtManifestFile = manifestFile;
             //anaform = rmmain;
             userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + profileName + "\\cache\\";
-            this.Text = "Korot";
+            Text = "Korot";
             allowWebContent = _allowWebContent;
             ExtensionPopupPath = popupHTML;
             InitializeChromium();
@@ -62,7 +62,7 @@ namespace Korot
 
             return new Uri(p).IsFile;
         }
-        
+
         private void cefaddresschanged(object sender, AddressChangedEventArgs e)
         {
             if (!allowWebContent)
@@ -82,15 +82,17 @@ namespace Korot
         private void FrmExt_Load(object sender, EventArgs e) { }
         public void InitializeChromium()
         {
-            CefSettings settings = new CefSettings();
-            settings.UserAgent = "Mozilla/5.0 ( Windows "
+            CefSettings settings = new CefSettings
+            {
+                UserAgent = "Mozilla/5.0 ( Windows "
                 + Tools.getOSInfo()
                 + "; "
                 + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
                 + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
                 + Cef.ChromiumVersion
                 + " Safari/537.36 Korot/"
-                + Application.ProductVersion.ToString();
+                + Application.ProductVersion.ToString()
+            };
             if (tabform._Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
             else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
             settings.RegisterScheme(new CefCustomScheme
@@ -107,7 +109,7 @@ namespace Korot
             // Initialize cef with the provided settings
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
             chromiumWebBrowser1 = new ChromiumWebBrowser(ExtensionPopupPath);
-            this.Controls.Add(chromiumWebBrowser1);
+            Controls.Add(chromiumWebBrowser1);
             chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(tabform);
             chromiumWebBrowser1.DisplayHandler = new DisplayHandler(tabform);
             chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
@@ -122,7 +124,7 @@ namespace Korot
         }
         private void cef_TitleChanged(object sender, TitleChangedEventArgs e)
         {
-            this.Invoke(new Action(() => this.Text = e.Title));
+            Invoke(new Action(() => Text = e.Title));
         }
         private void cef_onLoadError(object sender, LoadErrorEventArgs e)
         {
@@ -146,7 +148,7 @@ namespace Korot
         private void frmExt_Leave(object sender, EventArgs e)
         {
 
-            this.Close();
+            Close();
         }
     }
 }

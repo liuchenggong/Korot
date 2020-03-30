@@ -41,28 +41,29 @@ namespace Korot
     public partial class frmCEF : Form
     {
         public bool closing;
-        int updateProgress = 0;
+        private int updateProgress = 0;
+
         //0=Checking 1=UpToDate 2=UpdateAvailabe 3=Error
-        bool isLoading = false;
-        string loaduri = null;
+        private bool isLoading = false;
+        private readonly string loaduri = null;
         public bool _Incognito = false;
-        string userName;
-        string profilePath;
-        string userCache;
+        private readonly string userName;
+        private readonly string profilePath;
+        private readonly string userCache;
 #pragma warning disable IDE0052 //(we don't need this for now but we might need this later)
-        int findIdentifier;
-#pragma warning restore IDE0052 
-        int findTotal;
-        int findCurrent;
-        bool findLast;
-        string defaultProxy = null;
+        private int findIdentifier;
+#pragma warning restore IDE0052
+        private int findTotal;
+        private int findCurrent;
+        private bool findLast;
+        private readonly string defaultProxy = null;
         public ChromiumWebBrowser chromiumWebBrowser1;
-        List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
-        List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
+        private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
+        private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
         // [NEWTAB]
         public frmMain anaform()
         {
-            return ((frmMain)this.ParentTabs);
+            return ((frmMain)ParentTabs);
         }
         public frmCEF(bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0")
         {
@@ -74,7 +75,7 @@ namespace Korot
             InitializeComponent();
             InitializeChromium();
             updateExtensions();
-            foreach (Control x in this.Controls)
+            foreach (Control x in Controls)
             {
                 try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
@@ -91,7 +92,8 @@ namespace Korot
                 if (Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy)) { SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy); }
             }
         }
-        void RefreshHistory()
+
+        private void RefreshHistory()
         {
             int selectedValue = hlvHistory.SelectedIndices.Count > 0 ? hlvHistory.SelectedIndices[0] : 0;
             ListViewItem scroll = hlvHistory.TopItem;
@@ -125,7 +127,8 @@ namespace Korot
             }
             hlvHistory.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
-        string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\IconStorage\\";
+
+        private readonly string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\IconStorage\\";
         public void LoadDynamicMenu()
         {
             mFavorites.Items.Clear();
@@ -133,8 +136,8 @@ namespace Korot
             favoritesFolders.Clear();
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Favorites))
             {
-                var stream = new MemoryStream();
-                var writer = new StreamWriter(stream);
+                MemoryStream stream = new MemoryStream();
+                StreamWriter writer = new StreamWriter(stream);
                 writer.Write(Properties.Settings.Default.Favorites.Replace("[", "<").Replace("]", ">"));
                 writer.Flush();
                 stream.Position = 0;
@@ -147,11 +150,12 @@ namespace Korot
                 {
                     if (node.Name == "Folder")
                     {
-                        ToolStripMenuItem menuItem = new ToolStripMenuItem();
-
-                        menuItem.Name = node.Attributes["Name"].Value;
-                        menuItem.Text = node.Attributes["Text"].Value;
-                        menuItem.Tag = "korot://folder";
+                        ToolStripMenuItem menuItem = new ToolStripMenuItem
+                        {
+                            Name = node.Attributes["Name"].Value,
+                            Text = node.Attributes["Text"].Value,
+                            Tag = "korot://folder"
+                        };
                         menuItem.MouseUp += menuStrip1_MouseUp;
                         menuItem.DropDown.RenderMode = ToolStripRenderMode.Professional;
                         favoritesFolders.Add(menuItem);
@@ -162,10 +166,11 @@ namespace Korot
                     }
                     else if (node.Name == "Favorite")
                     {
-                        ToolStripMenuItem menuItem = new ToolStripMenuItem();
-
-                        menuItem.Name = node.Attributes["Name"].Value;
-                        menuItem.Text = node.Attributes["Text"].Value;
+                        ToolStripMenuItem menuItem = new ToolStripMenuItem
+                        {
+                            Name = node.Attributes["Name"].Value,
+                            Text = node.Attributes["Text"].Value
+                        };
                         menuItem.DropDown.RenderMode = ToolStripRenderMode.Professional;
                         menuItem.Tag = node.Attributes["Url"] == null ? null : node.Attributes["Url"].Value;
                         if (node.Attributes["Icon"] != null)
@@ -199,7 +204,8 @@ namespace Korot
             UpdateFavoriteColor();
             updateFavoritesImages();
         }
-        void updateFavoritesImages()
+
+        private void updateFavoritesImages()
         {
             foreach (ToolStripMenuItem x in favoritesFolders)
             {
@@ -218,10 +224,12 @@ namespace Korot
             {
                 if (node.Name == "Folder")
                 {
-                    item = new ToolStripMenuItem();
-                    item.Name = node.Attributes["Name"].Value;
-                    item.Text = node.Attributes["Text"].Value;
-                    item.Tag = "korot://folder";
+                    item = new ToolStripMenuItem
+                    {
+                        Name = node.Attributes["Name"].Value,
+                        Text = node.Attributes["Text"].Value,
+                        Tag = "korot://folder"
+                    };
                     item.DropDown.RenderMode = ToolStripRenderMode.Professional;
                     item.MouseUp += menuStrip1_MouseUp;
                     favoritesFolders.Add(item);
@@ -232,9 +240,11 @@ namespace Korot
                 }
                 else if (node.Name == "Favorite")
                 {
-                    item = new ToolStripMenuItem();
-                    item.Name = node.Attributes["Name"].Value;
-                    item.Text = node.Attributes["Text"].Value;
+                    item = new ToolStripMenuItem
+                    {
+                        Name = node.Attributes["Name"].Value,
+                        Text = node.Attributes["Text"].Value
+                    };
                     item.DropDown.RenderMode = ToolStripRenderMode.Professional;
                     item.Tag = node.Attributes["Url"] == null ? null : node.Attributes["Url"].Value;
                     if (node.Attributes["Icon"] != null)
@@ -297,7 +307,7 @@ namespace Korot
         {
             if (listBox2.SelectedItem != null)
             {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, this.Icon, MessageBoxButtons.YesNoCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
+                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, Icon, MessageBoxButtons.YesNoCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
                     LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\" + listBox2.SelectedItem.ToString());
@@ -454,7 +464,7 @@ namespace Korot
         public string anon = "an unknown person";
         public string noname = "This unknown";
         #endregion
-        void SetLanguage(string privatemodetxt, string updatetitletxt, string updatemessagetxt, string updateerrortxt,
+        private void SetLanguage(string privatemodetxt, string updatetitletxt, string updatemessagetxt, string updateerrortxt,
                          string CreateTabtext, string csnote, string cse, string nw, string niw, string settingstxt,
                          string historytxt, string hptxt, string setxt, string themetxt, string customtxt, string rstxt,
                          string backstyle, string cleartxt, string AboutText, string gBack, string gForward,
@@ -488,8 +498,8 @@ namespace Korot
             string ntbc, string cbc, string showFav, string uresmessage, string allowUR, string security, string securityButton, string emptExt, string cLog,
             string title, string url, string webStore, string cimage, string olianw, string olianiw, string cia, string sla,
             string nf, string ntd, string uritd, string addd, string nfo, string dnfo, string nfi, string oaiant,
-            string oinw, string oainw, string oiniw, string oainiw, string nf3d, string fullScreen, string ktu, string keu, string uinfo,string ulicense,
-            string errorTitle,string errorDesc,string errorTI)
+            string oinw, string oainw, string oiniw, string oainiw, string nf3d, string fullScreen, string ktu, string keu, string uinfo, string ulicense,
+            string errorTitle, string errorDesc, string errorTI)
         {
             Properties.Settings.Default.KorotErrorTitle = errorTitle.Replace(Environment.NewLine, "");
             Properties.Settings.Default.KorotErrorDesc = errorDesc.Replace(Environment.NewLine, "");
@@ -808,7 +818,7 @@ namespace Korot
                 }
                 else
                 {
-                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", "This language file is made for an older version of Korot. This can cause some problems. Do you wish to proceed?", this.Icon, MessageBoxButtons.YesNoCancel, Properties.Settings.Default.BackColor, "Yes", "No", "OK", "Cancel", 390, 140);
+                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", "This language file is made for an older version of Korot. This can cause some problems. Do you wish to proceed?", Icon, MessageBoxButtons.YesNoCancel, Properties.Settings.Default.BackColor, "Yes", "No", "OK", "Cancel", 390, 140);
                     if (mesaj.ShowDialog() == DialogResult.Yes)
                     {
                         Properties.Settings.Default.disableLangErrors = true;
@@ -1056,7 +1066,7 @@ namespace Korot
             }
             else
             {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ErrorPageTitle, "This file does not suitable for this version of Korot.Please ask the creator of this language to update." + Environment.NewLine + " Error : Missing Line" + "[ Line Count: " + languagedummy.Items.Count + "]", this.Icon, MessageBoxButtons.OK, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
+                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ErrorPageTitle, "This file does not suitable for this version of Korot.Please ask the creator of this language to update." + Environment.NewLine + " Error : Missing Line" + "[ Line Count: " + languagedummy.Items.Count + "]", Icon, MessageBoxButtons.OK, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
                 DialogResult diyalog = mesaj.ShowDialog();
                 Output.WriteLine(" [KOROT] Error at applying a language file : [ Line Count: " + languagedummy.Items.Count + "]");
             }
@@ -1073,7 +1083,7 @@ namespace Korot
         }
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox(customSearchNote, customSearchMessage, this.Icon, Properties.Settings.Default.SearchURL, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150);
+            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox(customSearchNote, customSearchMessage, Icon, Properties.Settings.Default.SearchURL, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150);
             DialogResult diagres = inputb.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -1125,10 +1135,12 @@ namespace Korot
 
         private void PictureBox3_Click(object sender, EventArgs e)
         {
-            ColorDialog colorpicker = new ColorDialog();
-            colorpicker.AnyColor = true;
-            colorpicker.AllowFullOpen = true;
-            colorpicker.FullOpen = true;
+            ColorDialog colorpicker = new ColorDialog
+            {
+                AnyColor = true,
+                AllowFullOpen = true,
+                FullOpen = true
+            };
             if (colorpicker.ShowDialog() == DialogResult.OK)
             {
                 pictureBox3.BackColor = colorpicker.Color;
@@ -1141,10 +1153,12 @@ namespace Korot
 
         private void PictureBox4_Click(object sender, EventArgs e)
         {
-            ColorDialog colorpicker = new ColorDialog();
-            colorpicker.AnyColor = true;
-            colorpicker.AllowFullOpen = true;
-            colorpicker.FullOpen = true;
+            ColorDialog colorpicker = new ColorDialog
+            {
+                AnyColor = true,
+                AllowFullOpen = true,
+                FullOpen = true
+            };
             if (colorpicker.ShowDialog() == DialogResult.OK)
             {
                 pictureBox4.BackColor = colorpicker.Color;
@@ -1190,8 +1204,10 @@ namespace Korot
             {
                 foreach (DownloadItem item in anaform().CurrentDownloads)
                 {
-                    ListViewItem listV = new ListViewItem();
-                    listV.Text = item.PercentComplete + "%";
+                    ListViewItem listV = new ListViewItem
+                    {
+                        Text = item.PercentComplete + "%"
+                    };
                     listV.SubItems.Add(DateTime.Now.ToString("dd/MM/yy hh:mm:ss"));
                     listV.SubItems.Add(item.FullPath);
                     listV.SubItems.Add(item.Url);
@@ -1203,8 +1219,10 @@ namespace Korot
             int Count = SplittedFase.Length - 1; ; int i = 0;
             while ((i != Count) && (Count > 3))
             {
-                ListViewItem listV = new ListViewItem();
-                listV.Text = SplittedFase[i].Replace(Environment.NewLine, "");
+                ListViewItem listV = new ListViewItem
+                {
+                    Text = SplittedFase[i].Replace(Environment.NewLine, "")
+                };
                 listV.SubItems.Add(SplittedFase[i + 1].Replace(Environment.NewLine, ""));
                 listV.SubItems.Add(SplittedFase[i + 2].Replace(Environment.NewLine, ""));
                 listV.SubItems.Add(SplittedFase[i + 3].Replace(Environment.NewLine, ""));
@@ -1296,7 +1314,7 @@ namespace Korot
         {
             HaltroyFramework.HaltroyInputBox inputbox = new HaltroyFramework.HaltroyInputBox("Korot",
                                                                                             enterAValidCode,
-                                                                                            this.Icon,
+                                                                                            Icon,
                                                                                             "",
                                                                                             Properties.Settings.Default.BackColor,
                                                                                             OK, Cancel, 400, 150);
@@ -1311,10 +1329,12 @@ namespace Korot
 
         private void FromLocalFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog filedlg = new OpenFileDialog();
-            filedlg.Filter = imageFiles + "|*.jpg;*.png;*.bmp;*.jpeg;*.jfif;*.gif;*.apng;*.ico;*.svg;*.webp|" + allFiles + "|*.*";
-            filedlg.Title = selectBackImage;
-            filedlg.Multiselect = false;
+            OpenFileDialog filedlg = new OpenFileDialog
+            {
+                Filter = imageFiles + "|*.jpg;*.png;*.bmp;*.jpeg;*.jfif;*.gif;*.apng;*.ico;*.svg;*.webp|" + allFiles + "|*.*",
+                Title = selectBackImage,
+                Multiselect = false
+            };
             if (filedlg.ShowDialog() == DialogResult.OK)
             {
                 if (FileSystem2.ImageToBase64(Image.FromFile(filedlg.FileName)).Length <= 131072)
@@ -1411,7 +1431,8 @@ namespace Korot
         {
             NewTab("https://haltroy.com/Korot.html");
         }
-        void checkIfDefaultTheme()
+
+        private void checkIfDefaultTheme()
         {
             if (pictureBox3.BackColor == themeDefaultBackColor &&
                 pictureBox4.BackColor == themeDefaultOverlayColor &&
@@ -1432,15 +1453,16 @@ namespace Korot
                 Properties.Settings.Default.ThemeName = "";
             }
         }
-        string themeOwner;
-        string themeName;
-        string appliedTheme;
-        Color themeDefaultBackColor;
-        Color themeDefaultOverlayColor;
-        string themeDefaultBackstyle;
-        int themeDefaultLayout;
-        int themeDefaultNTC;
-        int themeDefaultCBC;
+
+        private string themeOwner;
+        private string themeName;
+        private string appliedTheme;
+        private Color themeDefaultBackColor;
+        private Color themeDefaultOverlayColor;
+        private string themeDefaultBackstyle;
+        private int themeDefaultLayout;
+        private int themeDefaultNTC;
+        private int themeDefaultCBC;
         public void LoadTheme(string themeFile)
         {
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
@@ -1487,7 +1509,7 @@ namespace Korot
                 }
                 HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ErrorPageTitle,
                                                                                           ErrorTheme,
-                                                                                          this.Icon,
+                                                                                          Icon,
                                                                                           MessageBoxButtons.OK,
                                                                                           Properties.Settings.Default.BackColor,
                                                                                           Yes, No, OK, Cancel, 390, 140);
@@ -1503,7 +1525,7 @@ namespace Korot
             int savedValue = listBox2.SelectedIndex;
             int scroll = listBox2.TopIndex;
             listBox2.Items.Clear();
-            foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"))
+            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\"))
             {
                 if (x.EndsWith(".ktf", StringComparison.OrdinalIgnoreCase))
                 {
@@ -1550,7 +1572,7 @@ namespace Korot
             refreshThemeList();
         }
 
-        WebClient UpdateWebC = new WebClient();
+        private readonly WebClient UpdateWebC = new WebClient();
         public void Updater()
         {
             UpdateWebC.DownloadStringCompleted += Updater_DownloadStringCompleted;
@@ -1558,7 +1580,8 @@ namespace Korot
             UpdateWebC.DownloadStringAsync(new Uri("https://haltroy.com/Update/Korot.htupdate"));
             updateProgress = 0;
         }
-        bool alreadyCheckedForUpdatesOnce = false;
+
+        private bool alreadyCheckedForUpdatesOnce = false;
         private void updater_checking(object sender, DownloadProgressChangedEventArgs e)
         {
             lbUpdateStatus.Text = checking;
@@ -1579,7 +1602,8 @@ namespace Korot
                 UpdateResult(e.Result);
             }
         }
-        void UpdateResult(String info)
+
+        private void UpdateResult(string info)
         {
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase3 = info.Split(token);
@@ -1604,7 +1628,7 @@ namespace Korot
                     HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
                         updateTitle,
                         updateMessage,
-                        this.Icon,
+                        Icon,
                         MessageBoxButtons.YesNo,
                         Properties.Settings.Default.BackColor,
                         Yes,
@@ -1639,45 +1663,49 @@ namespace Korot
                 lbUpdateStatus.Text = uptodate;
             }
         }
-        Font CreateFont(string fontFile, float size, FontStyle style)
+
+        private Font CreateFont(string fontFile, float size, FontStyle style)
         {
-            using (var pfc = new PrivateFontCollection())
+            using (PrivateFontCollection pfc = new PrivateFontCollection())
             {
                 pfc.AddFontFile(fontFile);
-                using (var fontFamily = new FontFamily(pfc.Families[0].Name, pfc))
+                using (FontFamily fontFamily = new FontFamily(pfc.Families[0].Name, pfc))
                 {
                     return new Font(fontFamily, size, style);
                 }
             }
         }
         public TitleBarTabs ParentTabs => (ParentForm as TitleBarTabs);
-        async private void SetProxy(ChromiumWebBrowser cwb, string Address)
+        private async void SetProxy(ChromiumWebBrowser cwb, string Address)
         {
             if (Address == null) { }
             else
             {
                 await Cef.UIThreadTaskFactory.StartNew(delegate
                 {
-                    var rc = cwb.GetBrowser().GetHost().RequestContext;
-                    var v = new Dictionary<string, object>();
-                    v["mode"] = "fixed_servers";
-                    v["server"] = Address;
-                    string error;
-                    bool success = rc.SetPreference("proxy", v, out error);
+                    IRequestContext rc = cwb.GetBrowser().GetHost().RequestContext;
+                    Dictionary<string, object> v = new Dictionary<string, object>
+                    {
+                        ["mode"] = "fixed_servers",
+                        ["server"] = Address
+                    };
+                    bool success = rc.SetPreference("proxy", v, out string error);
                 });
             }
         }
         public void InitializeChromium()
         {
-            CefSettings settings = new CefSettings();
-            settings.UserAgent = "Mozilla/5.0 ( Windows "
+            CefSettings settings = new CefSettings
+            {
+                UserAgent = "Mozilla/5.0 ( Windows "
                 + Tools.getOSInfo()
                 + "; "
                 + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
                 + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
                 + Cef.ChromiumVersion
                 + " Safari/537.36 Korot/"
-                + Application.ProductVersion.ToString();
+                + Application.ProductVersion.ToString()
+            };
             if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
             else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
             settings.RegisterScheme(new CefCustomScheme
@@ -1728,7 +1756,7 @@ namespace Korot
             if (Properties.Settings.Default.alreadyUpdatedExt) { return; }
             if (Properties.Settings.Default.allowUnknownResources)
             {
-                foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\", "*.*", SearchOption.AllDirectories))
+                foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\", "*.*", SearchOption.AllDirectories))
                 {
                     if (x.EndsWith("\\ext.kem", StringComparison.CurrentCultureIgnoreCase))
                     {
@@ -1737,8 +1765,10 @@ namespace Korot
                         string[] SplittedFase = Playlist.Split(token);
                         if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(5, 1) == "1")
                         {
-                            frmUpdateExt extUpdate = new frmUpdateExt(x, false);
-                            extUpdate.Text = updateTitleExt;
+                            frmUpdateExt extUpdate = new frmUpdateExt(x, false)
+                            {
+                                Text = updateTitleExt
+                            };
                             extUpdate.label1.Text = updateExtInfo
     .Replace("[NAME]", SplittedFase[0].Substring(0).Replace(Environment.NewLine, ""))
     .Replace("[NEWLINE]", Environment.NewLine);
@@ -1750,7 +1780,7 @@ namespace Korot
             }
             else
             {
-                foreach (String y in Properties.Settings.Default.registeredExtensions)
+                foreach (string y in Properties.Settings.Default.registeredExtensions)
                 {
                     string x = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         + "\\Korot\\Extensions\\"
@@ -1761,8 +1791,10 @@ namespace Korot
                     string[] SplittedFase = Playlist.Split(token);
                     if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(5, 1) == "1")
                     {
-                        frmUpdateExt extUpdate = new frmUpdateExt(x, false);
-                        extUpdate.Text = updateTitleExt;
+                        frmUpdateExt extUpdate = new frmUpdateExt(x, false)
+                        {
+                            Text = updateTitleExt
+                        };
                         extUpdate.label1.Text = updateExtInfo
                             .Replace("[NAME]", SplittedFase[0].Substring(0).Replace(Environment.NewLine, ""))
                             .Replace("[NEWLINE]", Environment.NewLine);
@@ -1776,7 +1808,7 @@ namespace Korot
         public void updateThemes()
         {
             if (Properties.Settings.Default.alreadyUpdatedThemes) { return; }
-            foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\", "*.*", SearchOption.AllDirectories))
+            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\", "*.*", SearchOption.AllDirectories))
             {
                 if (x.EndsWith(".ktf", StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -1785,8 +1817,10 @@ namespace Korot
                     string[] SplittedFase = Playlist.Split(token);
                     if (SplittedFase[9].Substring(1).Replace(Environment.NewLine, "") == "1")
                     {
-                        frmUpdateExt extUpdate = new frmUpdateExt(x, true);
-                        extUpdate.Text = updateTitleTheme;
+                        frmUpdateExt extUpdate = new frmUpdateExt(x, true)
+                        {
+                            Text = updateTitleTheme
+                        };
                         extUpdate.label1.Text = updateExtInfo
 .Replace("[NAME]", SplittedFase[0].Substring(0).Replace(Environment.NewLine, ""))
 .Replace("[NEWLINE]", Environment.NewLine);
@@ -1803,7 +1837,7 @@ namespace Korot
         {
             if (Properties.Settings.Default.allowUnknownResources)
             {
-                foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\", "*.*", SearchOption.AllDirectories))
+                foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\", "*.*", SearchOption.AllDirectories))
                 {
                     if (x.EndsWith("\\ext.kem", StringComparison.CurrentCultureIgnoreCase))
                     {
@@ -1819,7 +1853,7 @@ namespace Korot
             }
             else
             {
-                foreach (String y in Properties.Settings.Default.registeredExtensions)
+                foreach (string y in Properties.Settings.Default.registeredExtensions)
                 {
                     string x = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         + "\\Korot\\Extensions\\"
@@ -1839,7 +1873,7 @@ namespace Korot
         {
             if (Properties.Settings.Default.allowUnknownResources)
             {
-                foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\", "*.*", SearchOption.AllDirectories))
+                foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\", "*.*", SearchOption.AllDirectories))
                 {
                     if (x.EndsWith("\\ext.kem", StringComparison.CurrentCultureIgnoreCase))
                     {
@@ -1858,7 +1892,7 @@ namespace Korot
             }
             else
             {
-                foreach (String y in Properties.Settings.Default.registeredExtensions)
+                foreach (string y in Properties.Settings.Default.registeredExtensions)
                 {
                     string x = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         + "\\Korot\\Extensions\\"
@@ -1892,11 +1926,11 @@ namespace Korot
                 certError = false;
                 cookieUsage = false;
                 pictureBox2.Invoke(new Action(() => pictureBox2.Image = Properties.Resources.lockg));
-                this.Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Tag = null));
-                this.Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Visible = false));
-                this.Invoke(new Action(() => safeStatusToolStripMenuItem.Text = this.CertificateOKTitle));
-                this.Invoke(new Action(() => ınfoToolStripMenuItem.Text = this.CertificateOK));
-                this.Invoke(new Action(() => cookieInfoToolStripMenuItem.Text = this.notUsesCookies));
+                Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Tag = null));
+                Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Visible = false));
+                Invoke(new Action(() => safeStatusToolStripMenuItem.Text = CertificateOKTitle));
+                Invoke(new Action(() => ınfoToolStripMenuItem.Text = CertificateOK));
+                Invoke(new Action(() => cookieInfoToolStripMenuItem.Text = notUsesCookies));
                 if (Tools.Brightness(Properties.Settings.Default.BackColor) > 130)
                 {
                     button2.Image = Korot.Properties.Resources.cancel;
@@ -1908,7 +1942,7 @@ namespace Korot
                 if (_Incognito) { }
                 else
                 {
-                    this.Invoke(new Action(() => Korot.Properties.Settings.Default.History += DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + this.Text + ";" + (tbAddress.Text) + ";"));
+                    Invoke(new Action(() => Korot.Properties.Settings.Default.History += DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + Text + ";" + (tbAddress.Text) + ";"));
 
                 }
                 executeBackgroundExtensions();
@@ -1945,8 +1979,10 @@ namespace Korot
 
         public bool OnJSAlert(string url, string message)
         {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSAlert.Replace("[TITLE]", this.Text).Replace("[URL]", url), message, anaform().Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
-            mesaj.StartPosition = FormStartPosition.CenterParent;
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSAlert.Replace("[TITLE]", Text).Replace("[URL]", url), message, anaform().Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140)
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
             mesaj.ShowDialog();
             return true;
         }
@@ -1954,8 +1990,10 @@ namespace Korot
 
         public bool OnJSConfirm(string url, string message, out bool returnval)
         {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSConfirm.Replace("[TITLE]", this.Text).Replace("[URL]", url), message, anaform().Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
-            mesaj.StartPosition = FormStartPosition.CenterParent;
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSConfirm.Replace("[TITLE]", Text).Replace("[URL]", url), message, anaform().Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140)
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
             if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
             return true;
         }
@@ -1963,8 +2001,10 @@ namespace Korot
 
         public bool OnJSPrompt(string url, string message, string defaultValue, out bool returnval, out string textresult)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox(url, message, anaform().Icon, defaultValue, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150);
-            mesaj.StartPosition = FormStartPosition.CenterParent;
+            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox(url, message, anaform().Icon, defaultValue, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150)
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
             if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
             textresult = mesaj.TextValue();
             return true;
@@ -1973,8 +2013,10 @@ namespace Korot
         {
             anaform().Invoke(new Action(() => { anaform().CreateTab(url); anaform().SelectedTabIndex = anaform().Tabs.Count - 1; }));
         }
-        bool isFavMenuHidden = false;
-        void showFavMenu()
+
+        private bool isFavMenuHidden = false;
+
+        private void showFavMenu()
         {
             panel2.Height += mFavorites.Height;
             tabControl1.Height -= mFavorites.Height;
@@ -1982,7 +2024,8 @@ namespace Korot
             mFavorites.Visible = true;
             isFavMenuHidden = false;
         }
-        void hideFavMenu()
+
+        private void hideFavMenu()
         {
             panel2.Height -= mFavorites.Height;
             tabControl1.Height += mFavorites.Height;
@@ -1990,7 +2033,8 @@ namespace Korot
             mFavorites.Visible = false;
             isFavMenuHidden = true;
         }
-        ToolStripMenuItem selectedFavorite = null;
+
+        private ToolStripMenuItem selectedFavorite = null;
         public void RefreshFavorites()
         {
             mFavorites.Items.Clear();
@@ -2135,7 +2179,7 @@ namespace Korot
                      || tabControl1.SelectedTab == tpHistory
                      || tabControl1.SelectedTab == tpDownload
                      || tabControl1.SelectedTab == tpAbout
-                     || tabControl1.SelectedTab == tpTheme ) //Menu
+                     || tabControl1.SelectedTab == tpTheme) //Menu
             {
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpCef;
@@ -2157,7 +2201,7 @@ namespace Korot
         }
         private void cef_AddressChanged(object sender, AddressChangedEventArgs e)
         {
-            this.Invoke(new Action(() => tbAddress.Text = e.Address));
+            Invoke(new Action(() => tbAddress.Text = e.Address));
             if (isPageFavorited(chromiumWebBrowser1.Address))
             {
                 button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.star_on_w : Properties.Resources.star_on;
@@ -2199,13 +2243,13 @@ namespace Korot
         {
             if (e.Title.Length < 101)
             {
-                this.Invoke(new Action(() => this.Text = e.Title));
+                Invoke(new Action(() => Text = e.Title));
             }
             else
             {
-                this.Invoke(new Action(() => this.Text = e.Title.Substring(0, 100)));
+                Invoke(new Action(() => Text = e.Title.Substring(0, 100)));
             }
-            this.Parent.Invoke(new Action(() => this.Parent.Text = this.Text));
+            Parent.Invoke(new Action(() => Parent.Text = Text));
         }
 
         public void showHideSearchMenu()
@@ -2345,7 +2389,8 @@ namespace Korot
                 return FileSystem2.Base64ToImage(string.Concat(justB64Code.Reverse().Skip(3).Reverse()));
             }
         }
-        void ChangeThemeForMenuItems(ToolStripMenuItem item)
+
+        private void ChangeThemeForMenuItems(ToolStripMenuItem item)
         {
             item.BackColor = Properties.Settings.Default.BackColor;
             item.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
@@ -2356,7 +2401,8 @@ namespace Korot
                 ChangeThemeForMenuDDItems(x.DropDown);
             }
         }
-        void ChangeThemeForMenuDDItems(ToolStripDropDown itemDD)
+
+        private void ChangeThemeForMenuDDItems(ToolStripDropDown itemDD)
         {
             itemDD.BackColor = Properties.Settings.Default.BackColor;
             itemDD.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
@@ -2367,7 +2413,8 @@ namespace Korot
                 ChangeThemeForMenuDDItems(x.DropDown);
             }
         }
-        void UpdateFavoriteColor()
+
+        private void UpdateFavoriteColor()
         {
             foreach (ToolStripMenuItem y in mFavorites.Items)
             {
@@ -2377,9 +2424,11 @@ namespace Korot
         private Color oldBackColor;
         private Color oldOverlayColor;
         private string oldStyle;
-        void ChangeTheme()
+
+        private void ChangeTheme()
         {
-            if (anaform() != null) { 
+            if (anaform() != null)
+            {
                 anaform().tabRenderer.ChangeColors(Properties.Settings.Default.BackColor, Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White, Properties.Settings.Default.OverlayColor);
                 anaform().Update();
             }
@@ -2504,7 +2553,7 @@ namespace Korot
                 cmsHamburger.BackColor = Properties.Settings.Default.BackColor;
                 cmsPrivacy.BackColor = Properties.Settings.Default.BackColor;
                 label2.BackColor = Properties.Settings.Default.BackColor;
-                this.BackColor = Properties.Settings.Default.BackColor;
+                BackColor = Properties.Settings.Default.BackColor;
                 extensionToolStripMenuItem1.DropDown.BackColor = Properties.Settings.Default.BackColor;
                 aboutToolStripMenuItem.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.about_w : Properties.Resources.about;
                 downloadsToolStripMenuItem.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.download_w : Properties.Resources.download;
@@ -2513,7 +2562,7 @@ namespace Korot
                 tbAddress.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsHamburger.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsProfiles.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                this.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 label2.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 toolStripTextBox1.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsPrivacy.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
@@ -2604,14 +2653,15 @@ namespace Korot
                 foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Zoom; }
             }
         }
-        double websiteprogress;
+
+        private double websiteprogress;
         public void ChangeProgress(double value)
         {
-            if (value == 1) { websiteprogress = value; pbProgress.Width = this.Width; }
+            if (value == 1) { websiteprogress = value; pbProgress.Width = Width; }
             else
             {
                 websiteprogress = value;
-                pbProgress.Width = Convert.ToInt32(Convert.ToDouble(this.Width / 100) * Convert.ToDouble(value * 100));
+                pbProgress.Width = Convert.ToInt32(Convert.ToDouble(Width / 100) * Convert.ToDouble(value * 100));
             }
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -2619,7 +2669,7 @@ namespace Korot
 
             if (chromiumWebBrowser1.IsDisposed)
             {
-                this.Close();
+                Close();
             }
 
             if (findLast)
@@ -2637,9 +2687,9 @@ namespace Korot
 
             onCEFTab = (tabControl1.SelectedTab == tpCef);
             ChangeTheme();
-            if (this.Parent != null)
+            if (Parent != null)
             {
-                this.Parent.Text = this.Text;
+                Parent.Text = Text;
             }
             RefreshTranslation();
             if (anaform() != null)
@@ -2658,8 +2708,8 @@ namespace Korot
         }
         public void removeFavorite(string url)
         {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
             writer.Write(Properties.Settings.Default.Favorites.Replace("[", "<").Replace("]", ">"));
             writer.Flush();
             stream.Position = 0;
@@ -2675,8 +2725,8 @@ namespace Korot
         }
         public void removeFavoriteWithName(string name)
         {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
             writer.Write(Properties.Settings.Default.Favorites.Replace("[", "<").Replace("]", ">"));
             writer.Flush();
             stream.Position = 0;
@@ -2700,12 +2750,13 @@ namespace Korot
             }
             else
             {
-                frmNewFav newFav = new frmNewFav(this.Text, chromiumWebBrowser1.Address, this);
+                frmNewFav newFav = new frmNewFav(Text, chromiumWebBrowser1.Address, this);
                 newFav.ShowDialog();
             }
             RefreshFavorites();
         }
-        void RefreshProfiles()
+
+        private void RefreshProfiles()
         {
             switchToToolStripMenuItem.DropDownItems.Clear();
             foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\"))
@@ -2716,8 +2767,10 @@ namespace Korot
                     if (info.Name == userName) { }
                     else
                     {
-                        ToolStripMenuItem profileItem = new ToolStripMenuItem();
-                        profileItem.Text = info.Name;
+                        ToolStripMenuItem profileItem = new ToolStripMenuItem
+                        {
+                            Text = info.Name
+                        };
                         profileItem.Click += ProfilesToolStripMenuItem_Click;
                         switchToToolStripMenuItem.DropDownItems.Add(profileItem);
                     }
@@ -2758,7 +2811,7 @@ namespace Korot
             button12.Location = new Point(comboBox1.Location.X + comboBox1.Width, button12.Location.Y);
             tbHomepage.Location = new Point(lbHomepage.Location.X + lbHomepage.Width + 5, tbHomepage.Location.Y);
             tbHomepage.Width = tpSettings.Width - (lbHomepage.Location.X + lbHomepage.Width + 25);
-            radioButton1.Location = new Point(tbHomepage.Location.X,tbHomepage.Location.Y + tbHomepage.Height + 5);
+            radioButton1.Location = new Point(tbHomepage.Location.X, tbHomepage.Location.Y + tbHomepage.Height + 5);
             tbSearchEngine.Location = new Point(lbSearchEngine.Location.X + lbSearchEngine.Width + 5, tbSearchEngine.Location.Y);
             tbSearchEngine.Width = tpSettings.Width - (lbSearchEngine.Location.X + lbSearchEngine.Width + 25);
         }
@@ -2780,29 +2833,29 @@ namespace Korot
             dudNewTab.SelectedIndex = Properties.Settings.Default.newTabColor;
             comboBox3.SelectedIndex = Properties.Settings.Default.BStyleLayout;
             colorToolStripMenuItem.Checked = Properties.Settings.Default.BackStyle == "BACKCOLOR" ? true : false;
-            switchToToolStripMenuItem.Text = this.switchTo;
-            newProfileToolStripMenuItem.Text = this.newprofile;
-            deleteThisProfileToolStripMenuItem.Text = this.deleteProfile;
-            showCertificateErrorsToolStripMenuItem.Text = this.showCertError;
+            switchToToolStripMenuItem.Text = switchTo;
+            newProfileToolStripMenuItem.Text = newprofile;
+            deleteThisProfileToolStripMenuItem.Text = deleteProfile;
+            showCertificateErrorsToolStripMenuItem.Text = showCertError;
             textBox4.Text = Properties.Settings.Default.BackStyle == "BACKCOLOR" ? usingBC : Properties.Settings.Default.BackStyle;
             if (certError)
             {
-                safeStatusToolStripMenuItem.Text = this.CertificateErrorTitle;
-                ınfoToolStripMenuItem.Text = this.CertificateError;
+                safeStatusToolStripMenuItem.Text = CertificateErrorTitle;
+                ınfoToolStripMenuItem.Text = CertificateError;
             }
             else
             {
-                safeStatusToolStripMenuItem.Text = this.CertificateOKTitle;
-                ınfoToolStripMenuItem.Text = this.CertificateOK;
+                safeStatusToolStripMenuItem.Text = CertificateOKTitle;
+                ınfoToolStripMenuItem.Text = CertificateOK;
             }
-            if (cookieUsage) { cookieInfoToolStripMenuItem.Text = this.usesCookies; } else { cookieInfoToolStripMenuItem.Text = this.notUsesCookies; }
-            label7.Text = this.CertErrorPageTitle;
-            label8.Text = this.CertErrorPageMessage;
-            button10.Text = this.CertErrorPageButton;
-            newWindowToolStripMenuItem.Text = this.newWindow;
-            newIncognitoWindowToolStripMenuItem.Text = this.newincognitoWindow;
-            settingsToolStripMenuItem.Text = this.settingstitle;
-            restoreLastSessionToolStripMenuItem.Text = this.restoreOldSessions;
+            if (cookieUsage) { cookieInfoToolStripMenuItem.Text = usesCookies; } else { cookieInfoToolStripMenuItem.Text = notUsesCookies; }
+            label7.Text = CertErrorPageTitle;
+            label8.Text = CertErrorPageMessage;
+            button10.Text = CertErrorPageButton;
+            newWindowToolStripMenuItem.Text = newWindow;
+            newIncognitoWindowToolStripMenuItem.Text = newincognitoWindow;
+            settingsToolStripMenuItem.Text = settingstitle;
+            restoreLastSessionToolStripMenuItem.Text = restoreOldSessions;
             if (Properties.Settings.Default.StartupURL.ToLower() == "korot://newtab")
             {
                 tbStartup.Text = showNewTabPageToolStripMenuItem.Text;
@@ -2866,13 +2919,15 @@ namespace Korot
                 if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "1") { allowWebContent = true; }
                 if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "1")
                 {
-                    frmExt formext = new frmExt(this, userName, fileLocation, SplittedFase[6].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"), allowWebContent);
-                    formext.TopLevel = false;
-                    formext.FormBorderStyle = FormBorderStyle.None;
-                    formext.StartPosition = FormStartPosition.Manual;
-                    formext.Size = new Size(Convert.ToInt32(SplittedFase[10].Substring(1).Replace(Environment.NewLine, "")), Convert.ToInt32(SplittedFase[9].Substring(1).Replace(Environment.NewLine, "")));
+                    frmExt formext = new frmExt(this, userName, fileLocation, SplittedFase[6].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"), allowWebContent)
+                    {
+                        TopLevel = false,
+                        FormBorderStyle = FormBorderStyle.None,
+                        StartPosition = FormStartPosition.Manual,
+                        Size = new Size(Convert.ToInt32(SplittedFase[10].Substring(1).Replace(Environment.NewLine, "")), Convert.ToInt32(SplittedFase[9].Substring(1).Replace(Environment.NewLine, "")))
+                    };
                     formext.Location = new Point(anaform().Left + (anaform().Width - (formext.Width + 200)), anaform().Top);
-                    this.Controls.Add(formext);
+                    Controls.Add(formext);
                     formext.Visible = true;
                     formext.BringToFront();
                     formext.Show();
@@ -2886,7 +2941,10 @@ namespace Korot
         }
         public void showDevTools()
         {
-            if (chromiumWebBrowser1.IsHandleCreated) chromiumWebBrowser1.GetBrowser().ShowDevTools();
+            if (chromiumWebBrowser1.IsHandleCreated)
+            {
+                chromiumWebBrowser1.GetBrowser().ShowDevTools();
+            }
         }
         public void LoadExt()
         {
@@ -2901,8 +2959,10 @@ namespace Korot
                         string Playlist = FileSystem2.ReadFile(x + "\\ext.kem", Encoding.UTF8);
                         char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                         string[] SplittedFase = Playlist.Split(token);
-                        ToolStripMenuItem extItem = new ToolStripMenuItem();
-                        extItem.Text = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
+                        ToolStripMenuItem extItem = new ToolStripMenuItem
+                        {
+                            Text = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "")
+                        };
                         if (!File.Exists(SplittedFase[3].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(x + "\\ext.kem").DirectoryName + " \\")))
                         {
                             if (Tools.Brightness(Properties.Settings.Default.BackColor) > 130) { extItem.Image = Properties.Resources.ext; }
@@ -2937,8 +2997,10 @@ namespace Korot
                         string Playlist = FileSystem2.ReadFile(x + "\\ext.kem", Encoding.UTF8);
                         char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                         string[] SplittedFase = Playlist.Split(token);
-                        ToolStripMenuItem extItem = new ToolStripMenuItem();
-                        extItem.Text = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
+                        ToolStripMenuItem extItem = new ToolStripMenuItem
+                        {
+                            Text = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "")
+                        };
                         if (!File.Exists(SplittedFase[3].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(x + "\\ext.kem").DirectoryName + " \\")))
                         {
                             if (Tools.Brightness(Properties.Settings.Default.BackColor) > 130) { extItem.Image = Properties.Resources.ext; }
@@ -3001,7 +3063,7 @@ namespace Korot
             if (showCertificateErrorsToolStripMenuItem.Tag != null)
             {
                 TextBox txtCertificate = new TextBox() { ScrollBars = ScrollBars.Both, Multiline = true, Dock = DockStyle.Fill, Text = showCertificateErrorsToolStripMenuItem.Tag.ToString() };
-                Form frmCertificate = new Form() { Icon = this.Icon, Text = this.CertificateErrorMenuTitle, FormBorderStyle = FormBorderStyle.SizableToolWindow };
+                Form frmCertificate = new Form() { Icon = Icon, Text = CertificateErrorMenuTitle, FormBorderStyle = FormBorderStyle.SizableToolWindow };
                 frmCertificate.Controls.Add(txtCertificate);
                 frmCertificate.ShowDialog();
             }
@@ -3032,8 +3094,9 @@ namespace Korot
             anaform().Invoke(new Action(() => anaform().ReadSession(anaform().restoremedaddy)));
             restoreLastSessionToolStripMenuItem.Visible = false;
         }
-        bool allowSwitching = false;
-        bool onCEFTab = true;
+
+        private bool allowSwitching = false;
+        private bool onCEFTab = true;
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
             if (allowSwitching == false) { e.Cancel = true; } else { toolStripTextBox1.Text = SearchOnPage; chromiumWebBrowser1.StopFinding(true); e.Cancel = false; allowSwitching = false; }
@@ -3221,12 +3284,12 @@ namespace Korot
             SaveFileDialog save = new SaveFileDialog()
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                FileName = this.Text + ".html",
+                FileName = Text + ".html",
                 Filter = htmlFiles + "|*.html;*.htm|" + allFiles + "|*.*"
             };
             if (save.ShowDialog() == DialogResult.OK)
             {
-                Task<String> htmlText = chromiumWebBrowser1.GetSourceAsync();
+                Task<string> htmlText = chromiumWebBrowser1.GetSourceAsync();
                 FileSystem2.WriteFile(save.FileName, htmlText.Result, Encoding.UTF8);
             }
         }
@@ -3304,7 +3367,8 @@ namespace Korot
             toolStripTextBox1.Text = searchPrev;
             toolStripTextBox_TextChanged(null, e);
         }
-        bool doNotDestroyFind = false;
+
+        private bool doNotDestroyFind = false;
         private void cmsHamburger_Opening(object sender, CancelEventArgs e)
         {
             if (!doNotDestroyFind)
@@ -3316,7 +3380,8 @@ namespace Korot
             LoadExt();
             Task.Run(new Action(() => getZoomLevel()));
         }
-        async void getZoomLevel()
+
+        private async void getZoomLevel()
         {
             await Task.Run(() =>
             {
@@ -3325,7 +3390,8 @@ namespace Korot
             });
 
         }
-        string searchPrev;
+
+        private string searchPrev;
         private void toolStripTextBox_TextChanged(object sender, EventArgs e)
         {
             if ((!string.IsNullOrEmpty(toolStripTextBox1.Text)) & toolStripTextBox1.Text != SearchOnPage)
@@ -3416,7 +3482,8 @@ namespace Korot
         {
             cmsIncognito.Close();
         }
-        bool itemClicked = false;
+
+        private bool itemClicked = false;
         private void mFavorites_MouseClick(object sender, MouseEventArgs e)
         {
             if (!itemClicked) { if (e.Button == MouseButtons.Right) { selectedFavorite = null; cmsFavorite.Show(MousePosition); } }
@@ -3433,12 +3500,13 @@ namespace Korot
             allowSwitching = true;
             tabControl1.SelectedTab = tpCookie;
         }
-        void RefreshCookies()
+
+        private void RefreshCookies()
         {
             int selectedValue = lbCookie.SelectedIndex;
             int scroll = lbCookie.TopIndex;
             lbCookie.Items.Clear();
-            foreach (String x in Properties.Settings.Default.CookieDisallowList)
+            foreach (string x in Properties.Settings.Default.CookieDisallowList)
             {
                 lbCookie.Items.Add(x);
             }
@@ -3508,7 +3576,7 @@ namespace Korot
 
         private void showAWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox("Korot", enterAValidUrl, this.Icon, Properties.Settings.Default.SearchURL, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150);
+            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox("Korot", enterAValidUrl, Icon, Properties.Settings.Default.SearchURL, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150);
             DialogResult diagres = inputb.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -3575,7 +3643,7 @@ namespace Korot
         private void btCleanLog_Click(object sender, EventArgs e)
         {
             int count = 0;
-            foreach (String x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\"))
+            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\"))
             {
                 File.Delete(x);
                 count += 1;
@@ -3651,7 +3719,8 @@ namespace Korot
                 }
             }
         }
-        bool isLeftPressed, isRightPressed = false;
+
+        private bool isLeftPressed, isRightPressed = false;
 
         private void cbLang_TextUpdate(object sender, EventArgs e)
         {

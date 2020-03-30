@@ -25,14 +25,16 @@ using System.Windows.Forms;
 
 namespace Korot
 {
-    class MyDialogHandler : IDialogHandler
+    internal class MyDialogHandler : IDialogHandler
     {
         public bool OnFileDialog(IWebBrowser chromiumWebBrowser, IBrowser browser, CefFileDialogMode mode, CefFileDialogFlags flags, string title, string defaultFilePath, List<string> acceptFilters, int selectedAcceptFilter, IFileDialogCallback callback)
         {
             if (mode == CefFileDialogMode.Open || mode == CefFileDialogMode.OpenMultiple)
             {
-                OpenFileDialog openfld = new OpenFileDialog();
-                openfld.Filter = acceptFilters.ToString();
+                OpenFileDialog openfld = new OpenFileDialog
+                {
+                    Filter = acceptFilters.ToString()
+                };
                 if (mode == CefFileDialogMode.OpenMultiple)
                 {
                     openfld.Multiselect = true;
@@ -59,13 +61,17 @@ namespace Korot
             }
             else if (mode == CefFileDialogMode.OpenFolder)
             {
-                FolderBrowserDialog openfld = new FolderBrowserDialog();
-                openfld.Description = title;
+                FolderBrowserDialog openfld = new FolderBrowserDialog
+                {
+                    Description = title
+                };
 
                 if (openfld.ShowDialog() == DialogResult.OK)
                 {
-                    List<string> returnvalue = new List<string>();
-                    returnvalue.Add(openfld.SelectedPath.ToString());
+                    List<string> returnvalue = new List<string>
+                    {
+                        openfld.SelectedPath.ToString()
+                    };
                     callback.Continue(selectedAcceptFilter, returnvalue);
                     return true;
                 }
@@ -73,10 +79,12 @@ namespace Korot
             }
             else
             {
-                SaveFileDialog savefld = new SaveFileDialog();
-                savefld.Filter = acceptFilters.ToString();
-                savefld.DefaultExt = acceptFilters[selectedAcceptFilter];
-                savefld.FileName = defaultFilePath;
+                SaveFileDialog savefld = new SaveFileDialog
+                {
+                    Filter = acceptFilters.ToString(),
+                    DefaultExt = acceptFilters[selectedAcceptFilter],
+                    FileName = defaultFilePath
+                };
                 if (savefld.ShowDialog() == DialogResult.OK)
                 {
                     List<string> returnval = new List<string>();

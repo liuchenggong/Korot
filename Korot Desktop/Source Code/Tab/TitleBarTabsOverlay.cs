@@ -171,8 +171,7 @@ namespace Korot
         {
             get
             {
-                RECT windowRectangle;
-                User32.GetWindowRect(_parentForm.Handle, out windowRectangle);
+                User32.GetWindowRect(_parentForm.Handle, out RECT windowRectangle);
 
                 return new Rectangle(
                     windowRectangle.left + SystemInformation.HorizontalResizeBorderThickness, windowRectangle.top + SystemInformation.VerticalResizeBorderThickness,
@@ -273,15 +272,15 @@ namespace Korot
                         _parentForm.Tooltip.Hide(_parentForm);
                     }));
                 }
-            
-            else
-            {
-                try
+
+                else
                 {
-                    _parentForm.Tooltip.Hide(_parentForm);
+                    try
+                    {
+                        _parentForm.Tooltip.Hide(_parentForm);
+                    }
+                    catch { }
                 }
-                catch { }
-            }
             }
         }
 
@@ -482,7 +481,8 @@ namespace Korot
                                     }
                                 }));
                     }
-                    if (IsDisposed || _parentForm.IsDisposed) { }else
+                    if (IsDisposed || _parentForm.IsDisposed) { }
+                    else
                     {
                         Invoke(new Action(() => OnMouseMove(new MouseEventArgs(MouseButtons.None, 0, cursorPosition.X, cursorPosition.Y, 0))));
                     }

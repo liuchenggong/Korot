@@ -26,7 +26,7 @@ namespace Korot
 {
     public class JsHandler : IJsDialogHandler
     {
-        frmCEF Cefform;
+        private readonly frmCEF Cefform;
         public JsHandler(frmCEF _frmCEF)
         {
             Cefform = _frmCEF;

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Korot
 {
-    class TakeScrenshot
+    internal class TakeScrenshot
     {
         public static Bitmap Snapshot(Control c)
         {
@@ -97,7 +97,7 @@ namespace Korot
         }
         public static byte[] ImageToByte2(Image img)
         {
-            using (var stream = new MemoryStream())
+            using (MemoryStream stream = new MemoryStream())
             {
                 img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
                 return stream.ToArray();

@@ -14,11 +14,11 @@ namespace Korot
     public partial class frmUpdateExt : Form
     {
         public bool isTheme = false;
-        WebClient webC = new WebClient();
-        string extKEM;
-        Version currentVersion;
-        string fileLocation;
-        string fileURL;
+        private readonly WebClient webC = new WebClient();
+        private readonly string extKEM;
+        private Version currentVersion;
+        private string fileLocation;
+        private string fileURL;
         public string infoTemp = "[PERC]% | [CURRENT] KiB downloaded out of [TOTAL] KiB.";
         public frmUpdateExt(string manifest, bool theme)
         {
@@ -26,12 +26,13 @@ namespace Korot
             extKEM = manifest;
             InitializeComponent();
             webC.DownloadStringCompleted += webC_DownloadStringComplete;
-            foreach (Control x in this.Controls)
+            foreach (Control x in Controls)
             {
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
         }
-        string generateRandomText()
+
+        private string generateRandomText()
         {
             StringBuilder builder = new StringBuilder();
             Enumerable
@@ -44,8 +45,10 @@ namespace Korot
                 .ToList().ForEach(e => builder.Append(e));
             return builder.ToString().Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
         }
-        string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\";
-        void readKEM()
+
+        private readonly string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\";
+
+        private void readKEM()
         {
             string Playlist = FileSystem2.ReadFile(extKEM, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
@@ -58,8 +61,10 @@ namespace Korot
             verLocation = "https://haltroy.com/store/Korot/Extensions/" + extAuthor + "." + extName + "/ver.txt";
             downloadString();
         }
-        string verLocation;
-        void readKTF()
+
+        private string verLocation;
+
+        private void readKTF()
         {
             string Playlist = FileSystem2.ReadFile(extKEM, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
@@ -75,17 +80,19 @@ namespace Korot
         private void frmUpdateExt_Load(object sender, EventArgs e)
         {
 
-            this.Hide();
+            Hide();
             if (!isTheme) { readKEM(); } else { readKTF(); }
         }
-        async void downloadString()
+
+        private async void downloadString()
         {
             await Task.Run(() =>
             {
                 webC.DownloadStringAsync(new Uri(verLocation));
             });
         }
-        async void downloadFile()
+
+        private async void downloadFile()
         {
             await Task.Run(() =>
             {
@@ -124,19 +131,20 @@ namespace Korot
                 webC.Dispose();
                 frmInstallExt installExt = new frmInstallExt(fileLocation, true);
                 installExt.Show();
-                this.Close();
+                Close();
             }
         }
-        void startDownload()
+
+        private void startDownload()
         {
-            this.Show();
+            Show();
             downloadFile();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.BackColor = Properties.Settings.Default.BackColor;
-            this.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            BackColor = Properties.Settings.Default.BackColor;
+            ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             panel2.BackColor = Properties.Settings.Default.OverlayColor;
             panel1.BackColor = Properties.Settings.Default.BackColor;
         }

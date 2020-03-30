@@ -49,7 +49,7 @@ namespace Korot
             dataInRead = Math.Min(dataIn.Length, dataOut.Length);
             dataOutWritten = dataInRead;
 
-            var readBytes = new byte[dataInRead];
+            byte[] readBytes = new byte[dataInRead];
             dataIn.Read(readBytes, 0, readBytes.Length);
             dataOut.Write(readBytes, 0, readBytes.Length);
 

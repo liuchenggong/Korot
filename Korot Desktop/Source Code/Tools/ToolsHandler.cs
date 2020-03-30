@@ -71,7 +71,7 @@ namespace Korot
                 .Replace(" with Bing", "")
                 .Replace(" ", "");
             string versionNumber;
-            switch(fullName)
+            switch (fullName)
             {
                 case "XP":
                     versionNumber = "5.1";
@@ -88,7 +88,7 @@ namespace Korot
             }
             return "NT " + fullName;
         }
-        public static Color HexToColor(String hexString)
+        public static Color HexToColor(string hexString)
         {
             return ColorTranslator.FromHtml(hexString);
         }
@@ -171,7 +171,7 @@ namespace Korot
 
             FileSystem2.WriteFile(settingFile, settingsText, Encoding.UTF8);
             string cookieList = "";
-            foreach (String x in Properties.Settings.Default.CookieDisallowList)
+            foreach (string x in Properties.Settings.Default.CookieDisallowList)
             {
                 cookieList += x + Environment.NewLine;
             }
@@ -267,9 +267,9 @@ namespace Korot
             Bitmap outputImage = new Bitmap(inputImage.Width, inputImage.Height);
             Graphics G = Graphics.FromImage(outputImage);
             G.DrawImage(inputImage, 0, 0);
-            for (Int32 y = 0; y < outputImage.Height; y++)
+            for (int y = 0; y < outputImage.Height; y++)
             {
-                for (Int32 x = 0; x < outputImage.Width; x++)
+                for (int x = 0; x < outputImage.Width; x++)
                 {
                     Color PixelColor = outputImage.GetPixel(x, y);
                     if (PixelColor.R > oldColor.R - tolerance && PixelColor.R < oldColor.R + tolerance && PixelColor.G > oldColor.G - tolerance && PixelColor.G < oldColor.G + tolerance && PixelColor.B > oldColor.B - tolerance && PixelColor.B < oldColor.B + tolerance)
@@ -349,9 +349,9 @@ namespace Korot
                 Bitmap inputImage = new Bitmap(input);
                 Bitmap outputImage = new Bitmap(input.Width, input.Height);
                 Bitmap textureImage = new Bitmap(texture);
-                for (Int32 y = 0; y < outputImage.Height; y++)
+                for (int y = 0; y < outputImage.Height; y++)
                 {
-                    for (Int32 x = 0; x < outputImage.Width; x++)
+                    for (int x = 0; x < outputImage.Width; x++)
                     {
                         Color PixelColor = textureImage.GetPixel(x % textureImage.Width, y % textureImage.Height);
                         Color PixelColor2 = inputImage.GetPixel(x, y);
@@ -373,9 +373,9 @@ namespace Korot
                 Bitmap inputImage = new Bitmap(input);
                 Bitmap outputImage = new Bitmap(input.Width, input.Height);
                 Bitmap textureImage = new Bitmap(original: texture, newSize: input.Size);
-                for (Int32 y = 0; y < outputImage.Height; y++)
+                for (int y = 0; y < outputImage.Height; y++)
                 {
-                    for (Int32 x = 0; x < outputImage.Width; x++)
+                    for (int x = 0; x < outputImage.Width; x++)
                     {
                         Color PixelColor = textureImage.GetPixel(x, y);
                         Color PixelColor2 = inputImage.GetPixel(x, y);

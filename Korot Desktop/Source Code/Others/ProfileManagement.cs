@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Korot
 {
-    class ProfileManagement
+    internal class ProfileManagement
     {
         public static bool SwitchProfile(string profilename, frmCEF cefform)
         {

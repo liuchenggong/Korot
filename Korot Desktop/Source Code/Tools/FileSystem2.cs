@@ -68,7 +68,7 @@ namespace Korot
                 File.Delete(fileLocation);
             }
             File.Create(fileLocation).Dispose();
-            var writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+            FileStream writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
             writer.Write(encode.GetBytes(input), 0, encode.GetBytes(input).Length);
             writer.Close();
             return true;
@@ -82,7 +82,7 @@ namespace Korot
             }
             File.Create(fileLocation).Dispose();
             File.Create(fileLocation).Dispose();
-            var writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+            FileStream writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
             MemoryStream memoryStream = new MemoryStream();
             bitmap.Save(memoryStream, format);
             //memoryStream.CopyTo(writer);
@@ -104,7 +104,7 @@ namespace Korot
                 File.Delete(fileLocation);
             }
             File.Create(fileLocation).Dispose();
-            var writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+            FileStream writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
             writer.Write(input, 0, input.Length);
             writer.Close();
             return true;

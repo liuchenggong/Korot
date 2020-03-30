@@ -24,9 +24,9 @@ using System;
 
 namespace Korot
 {
-    class CookieAccessFilter : ICookieAccessFilter
+    internal class CookieAccessFilter : ICookieAccessFilter
     {
-        frmCEF Cefform;
+        private readonly frmCEF Cefform;
         public frmMain anaform()
         {
             return ((frmMain)Cefform.ParentTabs);

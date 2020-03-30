@@ -29,7 +29,7 @@ namespace Korot
 {
     public class DownloadHandler : IDownloadHandler
     {
-        frmCEF ActiveForm;
+        private readonly frmCEF ActiveForm;
         public frmMain anaform()
         {
             return ((frmMain)ActiveForm.ParentTabs);

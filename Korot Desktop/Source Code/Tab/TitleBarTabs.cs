@@ -90,8 +90,7 @@ namespace Korot
             {
                 // This tests that the OS will support what we want to do. Will be false on Windows XP and earlier, as well as on Vista and 7 with Aero Glass 
                 // disabled.
-                bool hasComposition;
-                Dwmapi.DwmIsCompositionEnabled(out hasComposition);
+                Dwmapi.DwmIsCompositionEnabled(out bool hasComposition);
 
                 return hasComposition;
             }
@@ -865,9 +864,8 @@ namespace Korot
         /// <returns>One of the <see cref="HT" /> values, depending on where the user clicked.</returns>
         private HT HitTest(Point point, IntPtr windowHandle)
         {
-            RECT rect;
 
-            User32.GetWindowRect(windowHandle, out rect);
+            User32.GetWindowRect(windowHandle, out RECT rect);
             Rectangle area = new Rectangle(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
 
             int row = 1;

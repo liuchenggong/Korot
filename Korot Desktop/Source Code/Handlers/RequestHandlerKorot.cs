@@ -27,13 +27,14 @@ using System.Windows.Forms;
 
 namespace Korot
 {
-    class RequestHandlerKorot : IRequestHandler
+    internal class RequestHandlerKorot : IRequestHandler
     {
         public frmMain anaform()
         {
             return ((frmMain)cefform.ParentTabs);
         }
-        frmCEF cefform;
+
+        private readonly frmCEF cefform;
         public RequestHandlerKorot(frmCEF _frmCEF)
         {
             cefform = _frmCEF;
@@ -47,9 +48,9 @@ namespace Korot
                 {
                     if (originUrl.Contains("https://httpbin.org/basic-auth/"))
                     {
-                        var parts = originUrl.Split('/');
-                        var username = parts[parts.Length - 2];
-                        var password = parts[parts.Length - 1];
+                        string[] parts = originUrl.Split('/');
+                        string username = parts[parts.Length - 2];
+                        string password = parts[parts.Length - 1];
                         callback.Continue(username, password);
                     }
                 }
@@ -141,11 +142,11 @@ namespace Korot
 
         public bool OnSelectClientCertificate(IWebBrowser chromiumWebBrowser, IBrowser browser, bool isProxy, string host, int port, X509Certificate2Collection certificates, ISelectClientCertificateCallback callback)
         {
-            var control = (Control)chromiumWebBrowser;
+            Control control = (Control)chromiumWebBrowser;
 
             control.Invoke(new Action(delegate ()
             {
-                var selectedCertificateCollection = X509Certificate2UI.SelectFromCollection(certificates, "Certificates Dialog", "Select Certificate for authentication", X509SelectionFlag.SingleSelection);
+                X509Certificate2Collection selectedCertificateCollection = X509Certificate2UI.SelectFromCollection(certificates, "Certificates Dialog", "Select Certificate for authentication", X509SelectionFlag.SingleSelection);
                 if (selectedCertificateCollection.Count > 0)
                 {
                     //X509Certificate2UI.SelectFromCollection returns a collection, we've used SingleSelection, so just take the first

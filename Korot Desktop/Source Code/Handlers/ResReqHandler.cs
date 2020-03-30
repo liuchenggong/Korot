@@ -25,13 +25,14 @@ using System.IO;
 
 namespace Korot
 {
-    class ResReqHandler : IResourceRequestHandler
+    internal class ResReqHandler : IResourceRequestHandler
     {
         public frmMain anaform()
         {
             return ((frmMain)Cefform.ParentTabs);
         }
-        frmCEF Cefform;
+
+        private readonly frmCEF Cefform;
         public ResReqHandler(frmCEF _Cefform)
         {
             Cefform = _Cefform;
@@ -48,7 +49,7 @@ namespace Korot
 
         public IResponseFilter GetResourceResponseFilter(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response)
         {
-            var url = new Uri(request.Url);
+            Uri url = new Uri(request.Url);
             if (url.Scheme == "korot")
             {
                 //Only called for our customScheme
@@ -62,8 +63,7 @@ namespace Korot
 
         public CefReturnValue OnBeforeResourceLoad(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback)
         {
-            Uri url;
-            if (Uri.TryCreate(request.Url, UriKind.Absolute, out url) == false)
+            if (Uri.TryCreate(request.Url, UriKind.Absolute, out Uri url) == false)
             {
                 //If we're unable to parse the Uri then cancel the request
                 // avoid throwing any exceptions here as we're being called by unmanaged code
@@ -100,19 +100,19 @@ namespace Korot
                 {
                     if (request.Method == "POST")
                     {
-                        using (var postData = request.PostData)
+                        using (IPostData postData = request.PostData)
                         {
                             if (postData != null)
                             {
-                                var elements = postData.Elements;
+                                System.Collections.Generic.IList<IPostDataElement> elements = postData.Elements;
 
-                                var charSet = request.GetCharSet();
+                                string charSet = request.GetCharSet();
 
-                                foreach (var element in elements)
+                                foreach (IPostDataElement element in elements)
                                 {
                                     if (element.Type == PostDataElementType.Bytes)
                                     {
-                                        var body = element.GetBody(charSet);
+                                        string body = element.GetBody(charSet);
                                     }
                                 }
                             }

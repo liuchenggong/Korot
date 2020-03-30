@@ -28,9 +28,9 @@ using System.Net;
 
 namespace Korot
 {
-    class DisplayHandler : IDisplayHandler
+    internal class DisplayHandler : IDisplayHandler
     {
-        frmCEF CEFform;
+        private readonly frmCEF CEFform;
         public frmMain anaform()
         {
             return ((frmMain)CEFform.ParentTabs);
@@ -58,7 +58,7 @@ namespace Korot
         public void OnFaviconUrlChange(IWebBrowser chromiumWebBrowser, IBrowser browser, IList<string> urls)
         {
             WebClient webc = new WebClient();
-            foreach (String x in urls)
+            foreach (string x in urls)
             {
                 try
                 {

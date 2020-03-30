@@ -29,7 +29,7 @@ namespace Korot
 {
     internal class ContextMenuHandler : IContextMenuHandler
     {
-        frmCEF ActiveForm;
+        private readonly frmCEF ActiveForm;
 
         //private string lastSelText = "";
 
@@ -37,264 +37,264 @@ namespace Korot
         #region "CMS Designer"
         private void InitializeCMSComponent()
         {
-            this.cmsCef = new System.Windows.Forms.ContextMenuStrip();
-            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.forwardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshNoCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.openLinkInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyLinkAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openImageInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveImageAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSep2 = new System.Windows.Forms.ToolStripSeparator();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSep3 = new System.Windows.Forms.ToolStripSeparator();
-            this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showDevToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewSourceToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyImageTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.openLinkINWTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.openLinkINAIWTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyImageAddressTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveLinkAsTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsCef.SuspendLayout();
+            cmsCef = new System.Windows.Forms.ContextMenuStrip();
+            backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            forwardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            refreshNoCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            tsSep1 = new System.Windows.Forms.ToolStripSeparator();
+            openLinkInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            copyLinkAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            openImageInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            saveImageAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            tsSep2 = new System.Windows.Forms.ToolStripSeparator();
+            pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            searchOrOpenSelectedInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            tsSep3 = new System.Windows.Forms.ToolStripSeparator();
+            printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            showDevToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            viewSourceToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            copyImageTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            openLinkINWTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            openLinkINAIWTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            copyImageAddressTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            saveLinkAsTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            cmsCef.SuspendLayout();
             // 
             // cmsCef
             // 
-            this.cmsCef.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.backToolStripMenuItem,
-            this.forwardToolStripMenuItem,
-            this.refreshToolStripMenuItem,
-            this.refreshNoCacheToolStripMenuItem,
-            this.stopToolStripMenuItem,
-            this.selectAllToolStripMenuItem,
-            this.tsSep1,
-            this.openLinkInNewTabToolStripMenuItem,
-            this.openLinkINWTSMI,
-            this.openLinkINAIWTSMI,
-            this.saveLinkAsTSMI,
-            this.copyLinkAddressToolStripMenuItem,
-            this.copyImageTSMI,
-            this.copyImageAddressTSMI,
-            this.openImageInNewTabToolStripMenuItem,
-            this.saveImageAsToolStripMenuItem,
-            this.tsSep2,
-            this.copyToolStripMenuItem,
-            this.cutToolStripMenuItem,
-            this.pasteToolStripMenuItem,
-            this.undoToolStripMenuItem,
-            this.redoToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem,
-            this.tsSep3,
-            this.printToolStripMenuItem,
-            this.showDevToolsToolStripMenuItem,
-            this.viewSourceToolsToolStripMenuItem});
-            this.cmsCef.Name = "cmsCef";
-            this.cmsCef.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsCef.ShowImageMargin = false;
-            this.cmsCef.Size = new System.Drawing.Size(241, 484);
+            cmsCef.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            backToolStripMenuItem,
+            forwardToolStripMenuItem,
+            refreshToolStripMenuItem,
+            refreshNoCacheToolStripMenuItem,
+            stopToolStripMenuItem,
+            selectAllToolStripMenuItem,
+            tsSep1,
+            openLinkInNewTabToolStripMenuItem,
+            openLinkINWTSMI,
+            openLinkINAIWTSMI,
+            saveLinkAsTSMI,
+            copyLinkAddressToolStripMenuItem,
+            copyImageTSMI,
+            copyImageAddressTSMI,
+            openImageInNewTabToolStripMenuItem,
+            saveImageAsToolStripMenuItem,
+            tsSep2,
+            copyToolStripMenuItem,
+            cutToolStripMenuItem,
+            pasteToolStripMenuItem,
+            undoToolStripMenuItem,
+            redoToolStripMenuItem,
+            deleteToolStripMenuItem,
+            searchOrOpenSelectedInNewTabToolStripMenuItem,
+            tsSep3,
+            printToolStripMenuItem,
+            showDevToolsToolStripMenuItem,
+            viewSourceToolsToolStripMenuItem});
+            cmsCef.Name = "cmsCef";
+            cmsCef.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            cmsCef.ShowImageMargin = false;
+            cmsCef.Size = new System.Drawing.Size(241, 484);
             // 
             // backToolStripMenuItem
             // 
-            this.backToolStripMenuItem.Name = "backToolStripMenuItem";
-            this.backToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.backToolStripMenuItem.Text = ActiveForm.goBack;
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            backToolStripMenuItem.Name = "backToolStripMenuItem";
+            backToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            backToolStripMenuItem.Text = ActiveForm.goBack;
+            backToolStripMenuItem.Click += new System.EventHandler(backToolStripMenuItem_Click);
             // 
             // forwardToolStripMenuItem
             // 
-            this.forwardToolStripMenuItem.Name = "forwardToolStripMenuItem";
-            this.forwardToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.forwardToolStripMenuItem.Text = ActiveForm.goForward;
-            this.forwardToolStripMenuItem.Click += new System.EventHandler(this.forwardToolStripMenuItem_Click);
+            forwardToolStripMenuItem.Name = "forwardToolStripMenuItem";
+            forwardToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            forwardToolStripMenuItem.Text = ActiveForm.goForward;
+            forwardToolStripMenuItem.Click += new System.EventHandler(forwardToolStripMenuItem_Click);
             // 
             // refreshToolStripMenuItem
             // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.refreshToolStripMenuItem.Text = ActiveForm.refresh;
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            refreshToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            refreshToolStripMenuItem.Text = ActiveForm.refresh;
+            refreshToolStripMenuItem.Click += new System.EventHandler(refreshToolStripMenuItem_Click);
             // 
             // refreshNoCacheToolStripMenuItem
             // 
-            this.refreshNoCacheToolStripMenuItem.Name = "refreshNoCacheToolStripMenuItem";
-            this.refreshNoCacheToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.refreshNoCacheToolStripMenuItem.Text = ActiveForm.refreshNoCache;
-            this.refreshNoCacheToolStripMenuItem.Click += new System.EventHandler(this.refreshNoCacheToolStripMenuItem_Click);
+            refreshNoCacheToolStripMenuItem.Name = "refreshNoCacheToolStripMenuItem";
+            refreshNoCacheToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            refreshNoCacheToolStripMenuItem.Text = ActiveForm.refreshNoCache;
+            refreshNoCacheToolStripMenuItem.Click += new System.EventHandler(refreshNoCacheToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
-            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.stopToolStripMenuItem.Text = ActiveForm.stop;
-            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
+            stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            stopToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            stopToolStripMenuItem.Text = ActiveForm.stop;
+            stopToolStripMenuItem.Click += new System.EventHandler(stopToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem
             // 
-            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.selectAllToolStripMenuItem.Text = ActiveForm.selectAll;
-            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            selectAllToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            selectAllToolStripMenuItem.Text = ActiveForm.selectAll;
+            selectAllToolStripMenuItem.Click += new System.EventHandler(selectAllToolStripMenuItem_Click);
             // 
             // tsSep1
             // 
-            this.tsSep1.Name = "tsSep1";
-            this.tsSep1.Size = new System.Drawing.Size(237, 6);
+            tsSep1.Name = "tsSep1";
+            tsSep1.Size = new System.Drawing.Size(237, 6);
             // 
             // openLinkInNewTabToolStripMenuItem
             // 
-            this.openLinkInNewTabToolStripMenuItem.Name = "openLinkInNewTabToolStripMenuItem";
-            this.openLinkInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.openLinkInNewTabToolStripMenuItem.Text = ActiveForm.openLinkInNewTab;
-            this.openLinkInNewTabToolStripMenuItem.Click += new System.EventHandler(this.openLinkInNewTabToolStripMenuItem_Click);
+            openLinkInNewTabToolStripMenuItem.Name = "openLinkInNewTabToolStripMenuItem";
+            openLinkInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            openLinkInNewTabToolStripMenuItem.Text = ActiveForm.openLinkInNewTab;
+            openLinkInNewTabToolStripMenuItem.Click += new System.EventHandler(openLinkInNewTabToolStripMenuItem_Click);
             // 
             // copyLinkAddressToolStripMenuItem
             // 
-            this.copyLinkAddressToolStripMenuItem.Name = "copyLinkAddressToolStripMenuItem";
-            this.copyLinkAddressToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.copyLinkAddressToolStripMenuItem.Text = ActiveForm.copyLink;
-            this.copyLinkAddressToolStripMenuItem.Click += new System.EventHandler(this.copyLinkAddressToolStripMenuItem_Click);
+            copyLinkAddressToolStripMenuItem.Name = "copyLinkAddressToolStripMenuItem";
+            copyLinkAddressToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            copyLinkAddressToolStripMenuItem.Text = ActiveForm.copyLink;
+            copyLinkAddressToolStripMenuItem.Click += new System.EventHandler(copyLinkAddressToolStripMenuItem_Click);
             // 
             // openImageInNewTabToolStripMenuItem
             // 
-            this.openImageInNewTabToolStripMenuItem.Name = "openImageInNewTabToolStripMenuItem";
-            this.openImageInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.openImageInNewTabToolStripMenuItem.Text = ActiveForm.openImageInNewTab;
-            this.openImageInNewTabToolStripMenuItem.Click += new System.EventHandler(this.openImageInNewTabToolStripMenuItem_Click);
+            openImageInNewTabToolStripMenuItem.Name = "openImageInNewTabToolStripMenuItem";
+            openImageInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            openImageInNewTabToolStripMenuItem.Text = ActiveForm.openImageInNewTab;
+            openImageInNewTabToolStripMenuItem.Click += new System.EventHandler(openImageInNewTabToolStripMenuItem_Click);
             // 
             // saveImageAsToolStripMenuItem
             // 
-            this.saveImageAsToolStripMenuItem.Name = "saveImageAsToolStripMenuItem";
-            this.saveImageAsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.saveImageAsToolStripMenuItem.Text = ActiveForm.saveImageAs;
-            this.saveImageAsToolStripMenuItem.Click += new System.EventHandler(this.saveImageAsToolStripMenuItem_Click);
+            saveImageAsToolStripMenuItem.Name = "saveImageAsToolStripMenuItem";
+            saveImageAsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            saveImageAsToolStripMenuItem.Text = ActiveForm.saveImageAs;
+            saveImageAsToolStripMenuItem.Click += new System.EventHandler(saveImageAsToolStripMenuItem_Click);
             // 
             // tsSep2
             // 
-            this.tsSep2.Name = "tsSep2";
-            this.tsSep2.Size = new System.Drawing.Size(237, 6);
+            tsSep2.Name = "tsSep2";
+            tsSep2.Size = new System.Drawing.Size(237, 6);
             // 
             // pasteToolStripMenuItem
             // 
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.pasteToolStripMenuItem.Text = ActiveForm.paste;
-            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+            pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            pasteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            pasteToolStripMenuItem.Text = ActiveForm.paste;
+            pasteToolStripMenuItem.Click += new System.EventHandler(pasteToolStripMenuItem_Click);
             // 
             // cutToolStripMenuItem
             // 
-            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.cutToolStripMenuItem.Text = ActiveForm.cut;
-            this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
+            cutToolStripMenuItem.Name = "cutToolStripMenuItem";
+            cutToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            cutToolStripMenuItem.Text = ActiveForm.cut;
+            cutToolStripMenuItem.Click += new System.EventHandler(cutToolStripMenuItem_Click);
             // 
             // saveLinkAsTSMI
             // 
-            this.saveLinkAsTSMI.Name = "saveLinkAsTSMI";
-            this.saveLinkAsTSMI.Size = new System.Drawing.Size(240, 22);
-            this.saveLinkAsTSMI.Text = ActiveForm.saveLinkAs;
-            this.saveLinkAsTSMI.Click += new System.EventHandler(this.saveLinkAs);
+            saveLinkAsTSMI.Name = "saveLinkAsTSMI";
+            saveLinkAsTSMI.Size = new System.Drawing.Size(240, 22);
+            saveLinkAsTSMI.Text = ActiveForm.saveLinkAs;
+            saveLinkAsTSMI.Click += new System.EventHandler(saveLinkAs);
             //
             // copyImageTSMI
             // 
-            this.copyImageTSMI.Name = "copyImageTSMI";
-            this.copyImageTSMI.Size = new System.Drawing.Size(240, 22);
-            this.copyImageTSMI.Text = ActiveForm.copyImage;
-            this.copyImageTSMI.Click += new System.EventHandler(this.copyImage);
+            copyImageTSMI.Name = "copyImageTSMI";
+            copyImageTSMI.Size = new System.Drawing.Size(240, 22);
+            copyImageTSMI.Text = ActiveForm.copyImage;
+            copyImageTSMI.Click += new System.EventHandler(copyImage);
             //
             // copyImageAddressTSMI
             //
-            this.copyImageAddressTSMI.Name = "copyImageAddressTSMI";
-            this.copyImageAddressTSMI.Size = new System.Drawing.Size(240, 22);
-            this.copyImageAddressTSMI.Text = ActiveForm.copyImageAddress;
-            this.copyImageAddressTSMI.Click += new System.EventHandler(this.copyImageAddress);
+            copyImageAddressTSMI.Name = "copyImageAddressTSMI";
+            copyImageAddressTSMI.Size = new System.Drawing.Size(240, 22);
+            copyImageAddressTSMI.Text = ActiveForm.copyImageAddress;
+            copyImageAddressTSMI.Click += new System.EventHandler(copyImageAddress);
             //
             // openLinkINWTSMI
             //
-            this.openLinkINWTSMI.Name = "openLinkINWTSMI";
-            this.openLinkINWTSMI.Size = new System.Drawing.Size(240, 22);
-            this.openLinkINWTSMI.Text = ActiveForm.openLinkInNewWindow;
-            this.openLinkINWTSMI.Click += new System.EventHandler(this.openLinkInANewWindow);
+            openLinkINWTSMI.Name = "openLinkINWTSMI";
+            openLinkINWTSMI.Size = new System.Drawing.Size(240, 22);
+            openLinkINWTSMI.Text = ActiveForm.openLinkInNewWindow;
+            openLinkINWTSMI.Click += new System.EventHandler(openLinkInANewWindow);
             //
             // openLinkINWTSMI
             //
-            this.openLinkINAIWTSMI.Name = "openLinkINAIWTSMI";
-            this.openLinkINAIWTSMI.Size = new System.Drawing.Size(240, 22);
-            this.openLinkINAIWTSMI.Text = ActiveForm.openLinkInNewIncWindow;
-            this.openLinkINAIWTSMI.Click += new System.EventHandler(this.openLinkInANewIncognitoWindow);
+            openLinkINAIWTSMI.Name = "openLinkINAIWTSMI";
+            openLinkINAIWTSMI.Size = new System.Drawing.Size(240, 22);
+            openLinkINAIWTSMI.Text = ActiveForm.openLinkInNewIncWindow;
+            openLinkINAIWTSMI.Click += new System.EventHandler(openLinkInANewIncognitoWindow);
             // 
             // copyToolStripMenuItem
             // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.copyToolStripMenuItem.Text = ActiveForm.copy;
-            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            copyToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            copyToolStripMenuItem.Text = ActiveForm.copy;
+            copyToolStripMenuItem.Click += new System.EventHandler(copyToolStripMenuItem_Click);
             // 
             // undoToolStripMenuItem
             // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.undoToolStripMenuItem.Text = ActiveForm.undo;
-            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            undoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            undoToolStripMenuItem.Text = ActiveForm.undo;
+            undoToolStripMenuItem.Click += new System.EventHandler(undoToolStripMenuItem_Click);
             // 
             // redoToolStripMenuItem
             // 
-            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.redoToolStripMenuItem.Text = ActiveForm.redo;
-            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
+            redoToolStripMenuItem.Name = "redoToolStripMenuItem";
+            redoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            redoToolStripMenuItem.Text = ActiveForm.redo;
+            redoToolStripMenuItem.Click += new System.EventHandler(redoToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.deleteToolStripMenuItem.Text = ActiveForm.delete;
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            deleteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            deleteToolStripMenuItem.Text = ActiveForm.delete;
+            deleteToolStripMenuItem.Click += new System.EventHandler(deleteToolStripMenuItem_Click);
             // 
             // searchOrOpenSelectedInNewTabToolStripMenuItem
             // 
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem.Name = "searchOrOpenSelectedInNewTabToolStripMenuItem";
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem.Text = ActiveForm.SearchOrOpenSelectedInNewTab;
-            this.searchOrOpenSelectedInNewTabToolStripMenuItem.Click += new System.EventHandler(this.seacrhOrOpenSelectedInNewTabToolStripMenuItem_Click);
+            searchOrOpenSelectedInNewTabToolStripMenuItem.Name = "searchOrOpenSelectedInNewTabToolStripMenuItem";
+            searchOrOpenSelectedInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            searchOrOpenSelectedInNewTabToolStripMenuItem.Text = ActiveForm.SearchOrOpenSelectedInNewTab;
+            searchOrOpenSelectedInNewTabToolStripMenuItem.Click += new System.EventHandler(seacrhOrOpenSelectedInNewTabToolStripMenuItem_Click);
             // 
             // tsSep3
             // 
-            this.tsSep3.Name = "tsSep3";
-            this.tsSep3.Size = new System.Drawing.Size(237, 6);
+            tsSep3.Name = "tsSep3";
+            tsSep3.Size = new System.Drawing.Size(237, 6);
             // 
             // printToolStripMenuItem
             // 
-            this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.printToolStripMenuItem.Text = ActiveForm.print;
-            this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
+            printToolStripMenuItem.Name = "printToolStripMenuItem";
+            printToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            printToolStripMenuItem.Text = ActiveForm.print;
+            printToolStripMenuItem.Click += new System.EventHandler(printToolStripMenuItem_Click);
             // 
             // showDevToolsToolStripMenuItem
             // 
-            this.showDevToolsToolStripMenuItem.Name = "showDevToolsToolStripMenuItem";
-            this.showDevToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.showDevToolsToolStripMenuItem.Text = ActiveForm.developerTools;
-            this.showDevToolsToolStripMenuItem.Click += new System.EventHandler(this.showDevToolsToolStripMenuItem_Click);
+            showDevToolsToolStripMenuItem.Name = "showDevToolsToolStripMenuItem";
+            showDevToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            showDevToolsToolStripMenuItem.Text = ActiveForm.developerTools;
+            showDevToolsToolStripMenuItem.Click += new System.EventHandler(showDevToolsToolStripMenuItem_Click);
             // 
             // viewSourceToolsToolStripMenuItem
             // 
-            this.viewSourceToolsToolStripMenuItem.Name = "viewSourceToolsToolStripMenuItem";
-            this.viewSourceToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.viewSourceToolsToolStripMenuItem.Text = ActiveForm.viewSource;
-            this.viewSourceToolsToolStripMenuItem.Click += new System.EventHandler(this.viewSourceToolsToolStripMenuItem_Click);
+            viewSourceToolsToolStripMenuItem.Name = "viewSourceToolsToolStripMenuItem";
+            viewSourceToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            viewSourceToolsToolStripMenuItem.Text = ActiveForm.viewSource;
+            viewSourceToolsToolStripMenuItem.Click += new System.EventHandler(viewSourceToolsToolStripMenuItem_Click);
             //
-            this.cmsCef.ResumeLayout(false);
+            cmsCef.ResumeLayout(false);
             foreach (ToolStripItem x in cmsCef.Items)
             {
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
@@ -375,7 +375,8 @@ namespace Korot
         public string SourceURL = "";
         public bool isEditable = false;
         public string SelectedText = "";
-        void NewTab(string url)
+
+        private void NewTab(string url)
         {
             ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(url)));
         }

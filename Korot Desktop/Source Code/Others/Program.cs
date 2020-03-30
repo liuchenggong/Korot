@@ -27,13 +27,13 @@ using System.Windows.Forms;
 
 namespace Korot
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// Uygulamanın ana girdi noktası.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Properties.Settings.Default.dismissUpdate = false;
             Properties.Settings.Default.alreadyUpdatedThemes = false;
@@ -61,11 +61,14 @@ namespace Korot
                         {
                             Application.Run(new Form1());
                             appStarted = true;
-                        }else
+                        }
+                        else
                         {
-                            ProcessStartInfo startInfo = new ProcessStartInfo(Application.ExecutablePath); //cmd is the application you are trying to start
-                            startInfo.Verb = "runas"; // This will set it to run as an administrator
-                            startInfo.Arguments = "-update"; // arguments to pass to the application that is being started
+                            ProcessStartInfo startInfo = new ProcessStartInfo(Application.ExecutablePath)
+                            {
+                                Verb = "runas", // This will set it to run as an administrator
+                                Arguments = "-update" // arguments to pass to the application that is being started
+                            }; //cmd is the application you are trying to start
                             Process.Start(startInfo);
                             Application.Exit();
                         }
@@ -79,8 +82,10 @@ namespace Korot
                     }
                     else
                     {
-                        frmMain testApp = new frmMain();
-                        testApp.isIncognito = args.Contains("-incognito");
+                        frmMain testApp = new frmMain
+                        {
+                            isIncognito = args.Contains("-incognito")
+                        };
                         bool isIncognito = args.Contains("-incognito");
                         if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
                         foreach (string x in args)

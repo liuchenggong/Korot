@@ -29,23 +29,23 @@ namespace Korot
 {
     public class KeyboardHandler : IKeyboardHandler
     {
-        frmCEF _frmCEF;
-        const int VK_CONTROL = 0x11;
-        const int VK_UP = 0x26;
-        const int VK_DOWN = 0x28;
-        const int VK_BROWSER_BACK = 0xA6;
-        const int VK_BROWSER_FORWARD = 0xA7;
-        const int VK_BROWSER_REFRESH = 0xA8;
-        const int VK_BROWSER_STOP = 0xA9;
-        const int VK_BROWSER_SEARCH = 0xAA;
-        const int VK_BROWSER_HOME = 0xAC;
-        const int VK_PRIOR = 0x21;
-        const int VK_NEXT = 0x22;
-        const int keyF = 0x46;
-        const int keyN = 0x4E;
-        const int keyS = 0x53;
-        const int VK_F11 = 0x7A;
-        const int VK_SNAPSHOT = 0x2C;
+        private readonly frmCEF _frmCEF;
+        private const int VK_CONTROL = 0x11;
+        private const int VK_UP = 0x26;
+        private const int VK_DOWN = 0x28;
+        private const int VK_BROWSER_BACK = 0xA6;
+        private const int VK_BROWSER_FORWARD = 0xA7;
+        private const int VK_BROWSER_REFRESH = 0xA8;
+        private const int VK_BROWSER_STOP = 0xA9;
+        private const int VK_BROWSER_SEARCH = 0xAA;
+        private const int VK_BROWSER_HOME = 0xAC;
+        private const int VK_PRIOR = 0x21;
+        private const int VK_NEXT = 0x22;
+        private const int keyF = 0x46;
+        private const int keyN = 0x4E;
+        private const int keyS = 0x53;
+        private const int VK_F11 = 0x7A;
+        private const int VK_SNAPSHOT = 0x2C;
 
         public KeyboardHandler(frmCEF FrmCEF)
         {
