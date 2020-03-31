@@ -82,8 +82,8 @@ namespace Korot
                     if (webBrowser.FindForm() is frmCEF owner)
                     {
                         owner.Close();
-                            //owner.RemoveTab(windowHandle);
-                        }
+                        //owner.RemoveTab(windowHandle);
+                    }
                 }));
             }
 

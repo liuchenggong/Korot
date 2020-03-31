@@ -437,7 +437,6 @@ namespace Korot
         public string Search = "Search";
         public string run = "Run";
         public string startatstarup = "Run at startup";
-        public ListBox languagedummy = new ListBox();
         public string ErrorPageTitle = "Korot - Error";
         public string MonthNames = "\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"";
         public string DayNames = "\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"";
@@ -463,356 +462,30 @@ namespace Korot
         public string themeInfo = "[THEMENAME] theme made by [THEMEAUTHOR].";
         public string anon = "an unknown person";
         public string noname = "This unknown";
-        #endregion
-        private void SetLanguage(string privatemodetxt, string updatetitletxt, string updatemessagetxt, string updateerrortxt,
-                         string CreateTabtext, string csnote, string cse, string nw, string niw, string settingstxt,
-                         string historytxt, string hptxt, string setxt, string themetxt, string customtxt, string rstxt,
-                         string backstyle, string cleartxt, string AboutText, string gBack, string gForward,
-                         string reload, string reloadnoc, string stoop, string selectal, string olint, string cl,
-                         string sia, string oint, string pastetxt, string copytxt, string cuttxt, string undotxt,
-                         string redotxt, string deletetxt, string oossint, string devtool, string viewsrc,
-                         string downloadsstring, string bcolor, string ocolor, string korotdown, string otad,
-                         string _open, string tarih, string kaynak, string hedef, string kaynak2nokta,
-                         string hedef2nokta, string titleErrorPage, string abouttxt, string themename, string save,
-                         string defaultproxysetting, string themes, string ont, string openfile,
-                         string openfolder, string SearchOnCurrentPage, string CaseSensitivity, string DayName,
-                         string MonthName, string searchhelp, string kt, string et, string e1, string e2, string e3,
-                         string e4, string rt, string r1, string r2, string r3, string r4, string searchtxt,
-                         string SwitchTo, string newProfile, string delProfile, string goToURL, string searchURL,
-                         string enterValidUrl, string newProfInfo, string restoreLastSession, string yes, string no,
-                         string ok, string cancel, string updateava, string checkmessage, string upToDate,
-                         string checkbutton, string installbutton, string installstatus, string statustype,
-                         string themeTitle, string themeMessage, string themeError, string cemt, string cet, string ce,
-                         string cokt, string cok, string sce, string uc, string nuc, string cept, string cepm,
-                         string cepb, string aboutkorot, string licenses, string enablednt, string useBackColor,
-                         string _usingBackColor, string imageFromCode, string imageFromFile, string iFiles, string aFiles,
-                         string selectABI, string backStyleLay, string dca, string aca, string ititle, string ititle0, string ititle1
-            , string it1m1, string it1m2, string it1m3, string ititle2, string it2m1, string it2m2, string it2m3, string _print,
-            string hFile, string takeSS, string savePage, string zoomIn, string resetZoom, string zoomOut, string validCode,
-            string renderProcessIsKil, string extensionstxt, string themeInfoTXT, string anan, string naname, string fNext,
-            string rTP, string fC, string fT, string fL, string fN, string status, string incMode, string incHelp, string incMore,
-            string cdl, string allowC, string Cdl, string resetC, string resetK, string atStartup, string autodownload, string downloadFolder,
-            string showNTP, string showHP, string showURL, string savetxt, string saf4d, string jsc, string jsa,
-            string LicenseTitle, string KorotLicense, string VSLicense, string ChromiumLicense, string CefSharpLicense, string EasyTabsLicense, string SpecialThanks,
-            string bisNone, string bisTile, string bisCenter, string bisStretch, string bisZoom, string bsBackColor, string bsForeColor, string bsOverlayColor,
-            string ntbc, string cbc, string showFav, string uresmessage, string allowUR, string security, string securityButton, string emptExt, string cLog,
-            string title, string url, string webStore, string cimage, string olianw, string olianiw, string cia, string sla,
-            string nf, string ntd, string uritd, string addd, string nfo, string dnfo, string nfi, string oaiant,
-            string oinw, string oainw, string oiniw, string oainiw, string nf3d, string fullScreen, string ktu, string keu, string uinfo, string ulicense,
-            string errorTitle, string errorDesc, string errorTI)
-        {
-            Properties.Settings.Default.KorotErrorTitle = errorTitle.Replace(Environment.NewLine, "");
-            Properties.Settings.Default.KorotErrorDesc = errorDesc.Replace(Environment.NewLine, "");
-            Properties.Settings.Default.KorotErrorTI = errorTI.Replace(Environment.NewLine, "");
-            ubuntuLicense = ulicense.Replace(Environment.NewLine, "");
-            tsFullscreen.Text = fullScreen.Replace(Environment.NewLine, "");
-            updateTitleTheme = ktu.Replace(Environment.NewLine, "");
-            updateTitleExt = keu.Replace(Environment.NewLine, "");
-            updateExtInfo = uinfo.Replace(Environment.NewLine, "");
-            openInNewWindow = oinw.Replace(Environment.NewLine, "");
-            openAllInNewWindow = oainw.Replace(Environment.NewLine, "");
-            openInNewIncWindow = oiniw.Replace(Environment.NewLine, "");
-            openAllInNewIncWindow = oainiw.Replace(Environment.NewLine, "");
-            openAllInNewTab = oaiant.Replace(Environment.NewLine, "");
-            newFavorite = nf.Replace(Environment.NewLine, "");
-            nametd = ntd.Replace(Environment.NewLine, "");
-            urltd = uritd.Replace(Environment.NewLine, "");
-            add = addd.Replace(Environment.NewLine, "");
-            newFavoriteToolStripMenuItem.Text = nf3d.Replace(Environment.NewLine, "");
-            newFolderToolStripMenuItem.Text = nfo.Replace(Environment.NewLine, "");
-            newFolder = nfo.Replace(Environment.NewLine, "");
-            defaultFolderName = dnfo.Replace(Environment.NewLine, "");
-            folderInfo = nfi.Replace(Environment.NewLine, "");
-            copyImage = cimage.Replace(Environment.NewLine, "");
-            openLinkInNewWindow = olianw.Replace(Environment.NewLine, "");
-            openLinkInNewIncWindow = olianiw.Replace(Environment.NewLine, "");
-            copyImageAddress = cia.Replace(Environment.NewLine, "");
-            saveLinkAs = sla.Replace(Environment.NewLine, "");
-            tsWebStore.Text = webStore.Replace(Environment.NewLine, "");
-            tsEmptyExt.Text = emptExt.Replace(Environment.NewLine, "");
-            tsEmptyProfile.Text = emptExt.Replace(Environment.NewLine, "");
-            btCleanLog.Text = cLog.Replace(Environment.NewLine, "");
-            lbUResources.Text = allowUR.Replace(Environment.NewLine, "");
-            lbURinfo.Text = uresmessage.Replace(Environment.NewLine, "");
-            label33.Text = showFav.Replace(Environment.NewLine, "");
-            label31.Text = ntbc.Replace(Environment.NewLine, "");
 
-            label32.Text = cbc.Replace(Environment.NewLine, "");
 
-            int cb3Index = comboBox3.SelectedIndex;
-            comboBox3.Items.Clear();
-            comboBox3.Items.Add(bisNone.Replace(Environment.NewLine, ""));
-            comboBox3.Items.Add(bisTile.Replace(Environment.NewLine, ""));
-            comboBox3.Items.Add(bisCenter.Replace(Environment.NewLine, ""));
-            comboBox3.Items.Add(bisStretch.Replace(Environment.NewLine, ""));
-            comboBox3.Items.Add(bisZoom.Replace(Environment.NewLine, ""));
-            comboBox3.SelectedIndex = cb3Index;
-            int dNTIndex = dudNewTab.SelectedIndex;
-            dudNewTab.Items.Clear();
-            dudNewTab.Items.Add(bsBackColor.Replace(Environment.NewLine, ""));
-            dudNewTab.Items.Add(bsForeColor.Replace(Environment.NewLine, ""));
-            dudNewTab.Items.Add(bsOverlayColor.Replace(Environment.NewLine, ""));
-            dudNewTab.SelectedIndex = dNTIndex;
-            int dCIndex = dudClose.SelectedIndex;
-            dudClose.Items.Clear();
-            dudClose.Items.Add(bsBackColor.Replace(Environment.NewLine, ""));
-            dudClose.Items.Add(bsForeColor.Replace(Environment.NewLine, ""));
-            dudClose.Items.Add(bsOverlayColor.Replace(Environment.NewLine, ""));
-            dudClose.SelectedIndex = dCIndex;
-            licenseTitle = LicenseTitle.Replace(Environment.NewLine, "");
-            kLicense = KorotLicense.Replace(Environment.NewLine, "");
-            vsLicense = VSLicense.Replace(Environment.NewLine, "");
-            chLicense = ChromiumLicense.Replace(Environment.NewLine, "");
-            cefLicense = CefSharpLicense.Replace(Environment.NewLine, "");
-            etLicense = EasyTabsLicense.Replace(Environment.NewLine, "");
-            specialThanks = SpecialThanks.Replace(Environment.NewLine, "");
-            JSAlert = jsa.Replace(Environment.NewLine, "");
-            JSConfirm = jsc.Replace(Environment.NewLine, "");
-            selectAFolder = saf4d.Replace(Environment.NewLine, "");
-            button12.Text = savetxt.Replace(Environment.NewLine, "");
-            showNewTabPageToolStripMenuItem.Text = showNTP.Replace(Environment.NewLine, "");
-            showHomepageToolStripMenuItem.Text = showHP.Replace(Environment.NewLine, "");
-            showAWebsiteToolStripMenuItem.Text = showURL.Replace(Environment.NewLine, "");
-            lbDownloadFolder.Text = downloadFolder.Replace(Environment.NewLine, "");
-            lbAutoDownload.Text = autodownload.Replace(Environment.NewLine, "");
-            label28.Text = atStartup.Replace(Environment.NewLine, "");
-            button18.Text = resetK.Replace(Environment.NewLine, "");
-            resetConfirm = resetC.Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-            label27.Text = cdl.Replace(Environment.NewLine, "");
-            allowSelectedToolStripMenuItem.Text = allowC.Replace(Environment.NewLine, "");
-            clearToolStripMenuItem1.Text = cleartxt.Replace(Environment.NewLine, "");
-            btCookie.Text = Cdl.Replace(Environment.NewLine, "");
-            ıncognitoModeToolStripMenuItem.Text = incMode.Replace(Environment.NewLine, "");
-            thisSessionİsNotGoingToBeSavedToolStripMenuItem.Text = incHelp.Replace(Environment.NewLine, "");
-            clickHereToLearnMoreToolStripMenuItem.Text = incMore.Replace(Environment.NewLine, "");
-            chStatus.Text = status.Replace(Environment.NewLine, "");
-            lbLastProxy.Text = rTP.Replace(Environment.NewLine, "");
-            findC = fC.Replace(Environment.NewLine, "");
-            findT = fT.Replace(Environment.NewLine, "");
-            findL = fL.Replace(Environment.NewLine, "");
-            noSearch = fN.Replace(Environment.NewLine, "");
-            tsSearchNext.Text = fNext.Replace(Environment.NewLine, "");
-            anon = anan.Replace(Environment.NewLine, "");
-            noname = naname.Replace(Environment.NewLine, "");
-            themeInfo = themeInfoTXT.Replace(Environment.NewLine, "");
-            extensionToolStripMenuItem1.Text = extensionstxt.Replace(Environment.NewLine, "");
-            renderProcessDies = renderProcessIsKil.Replace(Environment.NewLine, "");
-            enterAValidCode = validCode.Replace(Environment.NewLine, "");
-            zoomInToolStripMenuItem.Text = zoomIn.Replace(Environment.NewLine, "");
-            resetZoomToolStripMenuItem.Text = resetZoom.Replace(Environment.NewLine, "");
-            zoomOutToolStripMenuItem.Text = zoomOut.Replace(Environment.NewLine, "");
-            htmlFiles = hFile.Replace(Environment.NewLine, "");
-            takeAScreenshotToolStripMenuItem.Text = takeSS.Replace(Environment.NewLine, "");
-            saveThisPageToolStripMenuItem.Text = savePage.Replace(Environment.NewLine, "");
-            print = _print.Replace(Environment.NewLine, "");
-            IncognitoT = ititle.Replace(Environment.NewLine, "");
-            IncognitoTitle = ititle0.Replace(Environment.NewLine, "");
-            IncognitoTitle1 = ititle1.Replace(Environment.NewLine, "");
-            IncognitoT1M1 = it1m1.Replace(Environment.NewLine, "");
-            IncognitoT1M2 = it1m2.Replace(Environment.NewLine, "");
-            IncognitoT1M3 = it1m3.Replace(Environment.NewLine, "");
-            IncognitoTitle2 = ititle2.Replace(Environment.NewLine, "");
-            IncognitoT2M1 = it2m1.Replace(Environment.NewLine, "");
-            IncognitoT2M2 = it2m2.Replace(Environment.NewLine, "");
-            IncognitoT2M3 = it2m3.Replace(Environment.NewLine, "");
-            disallowCookie = dca.Replace(Environment.NewLine, "");
-            allowCookie = aca.Replace(Environment.NewLine, "");
-            if (Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser1.Address))
-            {
-                disallowThisPageForCookieAccessToolStripMenuItem.Text = allowCookie;
-            }
-            else
-            {
-                disallowThisPageForCookieAccessToolStripMenuItem.Text = disallowCookie;
-            }
-            label25.Text = backStyleLay.Replace(Environment.NewLine, "");
-            imageFiles = iFiles.Replace(Environment.NewLine, "");
-            allFiles = aFiles.Replace(Environment.NewLine, "");
-            selectBackImage = selectABI.Replace(Environment.NewLine, "");
-            colorToolStripMenuItem.Text = useBackColor.Replace(Environment.NewLine, "");
-            usingBC = _usingBackColor.Replace(Environment.NewLine, "");
-            ımageFromURLToolStripMenuItem.Text = imageFromCode.Replace(Environment.NewLine, "");
-            ımageFromLocalFileToolStripMenuItem.Text = imageFromFile.Replace(Environment.NewLine, "");
-            lbDNT.Text = enablednt.Replace(Environment.NewLine, "");
-
-            aboutInfo = aboutkorot.Replace(Environment.NewLine, "");
-            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeAuthor) && string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeName))
-            {
-                label21.Text = aboutInfo.Replace("[NEWLINE]", Environment.NewLine);
-            }
-            else
-            {
-                label21.Text = aboutInfo.Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + themeInfo.Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeAuthor) ? anon : Properties.Settings.Default.ThemeAuthor).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeName) ? noname : Properties.Settings.Default.ThemeName);
-            }
-            linkLabel1.Text = licenses.Replace(Environment.NewLine, "");
-
-            lbSettings.Text = settingstxt.Replace(Environment.NewLine, "");
-            CertErrorPageButton = cepb.Replace(Environment.NewLine, "");
-            CertErrorPageMessage = cepm.Replace(Environment.NewLine, "");
-            CertErrorPageTitle = cept.Replace(Environment.NewLine, "");
-            usesCookies = uc.Replace(Environment.NewLine, "");
-            notUsesCookies = nuc.Replace(Environment.NewLine, "");
-            showCertError = sce.Replace(Environment.NewLine, "");
-            CertificateErrorMenuTitle = cemt.Replace(Environment.NewLine, "");
-            CertificateErrorTitle = cet.Replace(Environment.NewLine, "");
-            CertificateError = ce.Replace(Environment.NewLine, "");
-            CertificateOKTitle = cokt.Replace(Environment.NewLine, "");
-            CertificateOK = cok.Replace(Environment.NewLine, "");
-            ErrorTheme = themeError.Replace(Environment.NewLine, "");
-            ThemeMessage = themeMessage.Replace(Environment.NewLine, "");
-            btUpdater.Text = checkbutton.Replace(Environment.NewLine, "");
-            btInstall.Text = installbutton.Replace(Environment.NewLine, "");
-            checking = checkmessage.Replace(Environment.NewLine, "");
-            uptodate = upToDate.Replace(Environment.NewLine, "");
-            installStatus = installstatus.Replace(Environment.NewLine, "");
-            StatusType = statustype.Replace(Environment.NewLine, "");
-            radioButton1.Text = CreateTabtext.Replace(Environment.NewLine, "");
-            if (updateProgress == 0)
-            {
-                lbUpdateStatus.Text = checkmessage.Replace(Environment.NewLine, "");
-            }
-            else if (updateProgress == 1)
-            {
-                lbUpdateStatus.Text = upToDate.Replace(Environment.NewLine, "");
-            }
-            else if (updateProgress == 2)
-            {
-                lbUpdateStatus.Text = updateava.Replace(Environment.NewLine, "");
-            }
-            else if (updateProgress == 3)
-            {
-                lbUpdateStatus.Text = updateerrortxt.Replace(Environment.NewLine, "");
-            }
-            updateavailable = updateava;
-            privatemode = privatemodetxt.Replace(Environment.NewLine, "");
-            updateTitle = updatetitletxt.Replace(Environment.NewLine, "");
-            updateMessage = updatemessagetxt.Replace(Environment.NewLine, "");
-            updateError = updateerrortxt.Replace(Environment.NewLine, "");
-            NewTabtitle = CreateTabtext.Replace(Environment.NewLine, "");
-            customSearchNote = csnote.Replace(Environment.NewLine, "");
-            customSearchMessage = cse.Replace(Environment.NewLine, "");
-            label12.Text = backstyle.Replace(Environment.NewLine, "");
-
-            newWindow = nw.Replace(Environment.NewLine, "");
-            newincognitoWindow = niw.Replace(Environment.NewLine, "");
-            label6.Text = downloadsstring.Replace(Environment.NewLine, "");
-            downloadsToolStripMenuItem.Text = downloadsstring.Replace(Environment.NewLine, "");
-            aboutToolStripMenuItem.Text = AboutText.Replace(Environment.NewLine, "");
-            lbHomepage.Text = hptxt.Replace(Environment.NewLine, "");
-            SearchOnPage = SearchOnCurrentPage.Replace(Environment.NewLine, "");
-            label26.Text = themetxt.Replace(Environment.NewLine, "");
-            tsThemes.Text = themeTitle.Replace(Environment.NewLine, "");
-            caseSensitiveToolStripMenuItem.Text = CaseSensitivity.Replace(Environment.NewLine, "");
-            customToolStripMenuItem.Text = customtxt.Replace(Environment.NewLine, "");
-            removeSelectedToolStripMenuItem.Text = rstxt.Replace(Environment.NewLine, "");
-            clearToolStripMenuItem.Text = cleartxt.Replace(Environment.NewLine, "");
-            settingstitle = settingstxt.Replace(Environment.NewLine, "");
-            historyToolStripMenuItem.Text = historytxt.Replace(Environment.NewLine, "");
-            label4.Text = historytxt.Replace(Environment.NewLine, "");
-            label22.Text = abouttxt.Replace(Environment.NewLine, "");
-            goBack = gBack.Replace(Environment.NewLine, "");
-            goForward = gForward.Replace(Environment.NewLine, "");
-            refresh = reload.Replace(Environment.NewLine, "");
-            refreshNoCache = reloadnoc.Replace(Environment.NewLine, "");
-            stop = stoop.Replace(Environment.NewLine, "");
-            selectAll = selectal.Replace(Environment.NewLine, "");
-            openLinkInNewTab = olint.Replace(Environment.NewLine, "");
-            copyLink = cl.Replace(Environment.NewLine, "");
-            saveImageAs = sia.Replace(Environment.NewLine, "");
-            openImageInNewTab = oint.Replace(Environment.NewLine, "");
-            paste = pastetxt.Replace(Environment.NewLine, "");
-            copy = copytxt.Replace(Environment.NewLine, "");
-            cut = cuttxt.Replace(Environment.NewLine, "");
-            undo = undotxt.Replace(Environment.NewLine, "");
-            redo = redotxt.Replace(Environment.NewLine, "");
-            delete = deletetxt.Replace(Environment.NewLine, "");
-            SearchOrOpenSelectedInNewTab = oossint.Replace(Environment.NewLine, "");
-            developerTools = devtool.Replace(Environment.NewLine, "");
-            viewSource = viewsrc.Replace(Environment.NewLine, "");
-            restoreOldSessions = restoreLastSession.Replace(Environment.NewLine, "");
-            label14.Text = bcolor.Replace(Environment.NewLine, "");
-            enterAValidUrl = enterValidUrl.Replace(Environment.NewLine, "");
-            label16.Text = ocolor.Replace(Environment.NewLine, "");
-            chDate.Text = kaynak.Replace(Environment.NewLine, "");
-            chDateHistory.Text = kaynak.Replace(Environment.NewLine, "");
-            chTitle.Text = title.Replace(Environment.NewLine, "");
-            chURL.Text = url.Replace(Environment.NewLine, "");
-            fromtwodot = kaynak2nokta.Replace(Environment.NewLine, "");
-            chFrom.Text = hedef.Replace(Environment.NewLine, "");
-            totwodot = hedef2nokta.Replace(Environment.NewLine, "");
-            korotdownloading = korotdown.Replace(Environment.NewLine, "");
-            chTo.Text = tarih.Replace(Environment.NewLine, "");
-            lbOpen.Text = otad.Replace(Environment.NewLine, "");
-            open = _open.Replace(Environment.NewLine, "");
-            openLinkİnNewTabToolStripMenuItem.Text = olint.Replace(Environment.NewLine, "");
-            openInNewTab = ont.Replace(Environment.NewLine, "");
-            removeSelectedTSMI.Text = rstxt.Replace(Environment.NewLine, "");
-            clearTSMI.Text = cleartxt.Replace(Environment.NewLine, "");
-            openFileToolStripMenuItem.Text = openfile.Replace(Environment.NewLine, "");
-            openFileİnExplorerToolStripMenuItem.Text = openfolder.Replace(Environment.NewLine, "");
-            removeSelectedToolStripMenuItem1.Text = rstxt.Replace(Environment.NewLine, "");
-            clearToolStripMenuItem2.Text = cleartxt.Replace(Environment.NewLine, "");
-            DefaultProxyts.Text = defaultproxysetting.Replace(Environment.NewLine, "");
-            label13.Text = themename.Replace(Environment.NewLine, "");
-            Yes = yes.Replace(Environment.NewLine, "");
-            No = no.Replace(Environment.NewLine, "");
-            OK = ok.Replace(Environment.NewLine, "");
-            Cancel = cancel.Replace(Environment.NewLine, "");
-            button10.Text = save.Replace(Environment.NewLine, "");
-            label15.Text = themes.Replace(Environment.NewLine, "");
-            SearchOnWeb = searchURL.Replace(Environment.NewLine, "");
-            goTotxt = goToURL.Replace(Environment.NewLine, "");
-            newProfileInfo = newProfInfo.Replace(Environment.NewLine, "");
-            lbSearchEngine.Text = setxt.Replace(Environment.NewLine, "");
-            MonthNames = MonthName.Replace(Environment.NewLine, "");
-            DayNames = DayName.Replace(Environment.NewLine, "");
-            SearchHelpText = searchhelp.Replace(Environment.NewLine, "");
-            ErrorPageTitle = titleErrorPage.Replace(Environment.NewLine, "");
-            KT = kt.Replace(Environment.NewLine, "");
-            ET = et.Replace(Environment.NewLine, "");
-            E1 = e1.Replace(Environment.NewLine, "");
-            E2 = e2.Replace(Environment.NewLine, "");
-            E3 = e3.Replace(Environment.NewLine, "");
-            E4 = e4.Replace(Environment.NewLine, "");
-            RT = rt.Replace(Environment.NewLine, "");
-            R1 = r1.Replace(Environment.NewLine, "");
-            R2 = r2.Replace(Environment.NewLine, "");
-            R3 = r3.Replace(Environment.NewLine, "");
-            R4 = r4.Replace(Environment.NewLine, "");
-            Search = searchtxt.Replace(Environment.NewLine, "");
-            newprofile = newProfile.Replace(Environment.NewLine, "");
-            switchTo = SwitchTo.Replace(Environment.NewLine, "");
-            deleteProfile = delProfile.Replace(Environment.NewLine, "");
-            RefreshTranslation();
-            RefreshSizes();
-        }
         private void dummyCMS_Opening(object sender, CancelEventArgs e)
         {
             Process.Start(Application.StartupPath + "//Lang//");
         }
         public void LoadLangFromFile(string fileLocation)
         {
-            languagedummy.Items.Clear();
             string Playlist = FileSystem2.ReadFile(fileLocation, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SplittedFase = Playlist.Split(token);
-            int Count = SplittedFase.Length - 1; ; int i = 0;
-            while ((i != Count) && (Count > 0))
+            string[] SF = Playlist.Split(token);
+
+            while (SF.Length != 300)
             {
-                languagedummy.Items.Add(SplittedFase[i].Replace(Environment.NewLine, ""));
-                i += 1;
+                Array.Resize<string>(ref SF, SF.Length + 1);
+                SF[SF.Length - 1] = "mmisingno";
             }
-            while (languagedummy.Items.Count < 512)
-            {
-                languagedummy.Items.Add("mmissingno"); //funny reference please laugh or my mom is going to beat me
-            }
-            Version langVersion = new Version(languagedummy.Items[256].ToString().Replace(Environment.NewLine, "") != "mmissingno" ? languagedummy.Items[256].ToString().Replace(Environment.NewLine, "") : "0.0.0.0");
+            Version langVersion = new Version(SF[0].ToString().Replace(Environment.NewLine, "") != "mmissingno" ? SF[0].ToString().Replace(Environment.NewLine, "") : "0.0.0.0");
             Version current = new Version(Application.ProductVersion);
             if (langVersion < current)
             {
                 if (Properties.Settings.Default.disableLangErrors)
                 {
-                    ReadLangFileFromTemp();
+                    ReadLangFileFromTemp(SF);
                     Properties.Settings.Default.LangFile = fileLocation;
                     if (!_Incognito) { Properties.Settings.Default.Save(); }
                 }
@@ -822,7 +495,7 @@ namespace Korot
                     if (mesaj.ShowDialog() == DialogResult.Yes)
                     {
                         Properties.Settings.Default.disableLangErrors = true;
-                        ReadLangFileFromTemp();
+                        ReadLangFileFromTemp(SF);
                         Properties.Settings.Default.LangFile = fileLocation;
                         if (!_Incognito) { Properties.Settings.Default.Save(); }
 
@@ -831,244 +504,300 @@ namespace Korot
             }
             else
             {
-                ReadLangFileFromTemp();
+                ReadLangFileFromTemp(SF);
                 Properties.Settings.Default.LangFile = fileLocation;
                 if (!_Incognito) { Properties.Settings.Default.Save(); }
             }
         }
-        public void ReadLangFileFromTemp()
+        public void ReadLangFileFromTemp(string[] SplittedFase)
         {
-            if (!(languagedummy.Items.Count < 230))
+            if (SplittedFase.Length >= 269)
             {
-                SetLanguage(
-                    languagedummy.Items[0].ToString().Substring(1),
-                    languagedummy.Items[1].ToString().Substring(1),
-                    languagedummy.Items[2].ToString().Substring(1),
-                    languagedummy.Items[3].ToString().Substring(1),
-                    languagedummy.Items[4].ToString().Substring(1),
-                    languagedummy.Items[5].ToString().Substring(1),
-                    languagedummy.Items[6].ToString().Substring(1),
-                    languagedummy.Items[7].ToString().Substring(1),
-                    languagedummy.Items[8].ToString().Substring(1),
-                    languagedummy.Items[9].ToString().Substring(1),
-                    languagedummy.Items[10].ToString().Substring(1),
-                    languagedummy.Items[11].ToString().Substring(1),
-                    languagedummy.Items[12].ToString().Substring(1),
-                    languagedummy.Items[13].ToString().Substring(1),
-                    languagedummy.Items[14].ToString().Substring(1),
-                    languagedummy.Items[15].ToString().Substring(1),
-                    languagedummy.Items[16].ToString().Substring(1),
-                    languagedummy.Items[17].ToString().Substring(1),
-                    languagedummy.Items[18].ToString().Substring(1),
-                    languagedummy.Items[19].ToString().Substring(1),
-                    languagedummy.Items[20].ToString().Substring(1),
-                    languagedummy.Items[21].ToString().Substring(1),
-                    languagedummy.Items[22].ToString().Substring(1),
-                    languagedummy.Items[23].ToString().Substring(1),
-                    languagedummy.Items[24].ToString().Substring(1),
-                    languagedummy.Items[25].ToString().Substring(1),
-                    languagedummy.Items[26].ToString().Substring(1),
-                    languagedummy.Items[27].ToString().Substring(1),
-                    languagedummy.Items[28].ToString().Substring(1),
-                    languagedummy.Items[29].ToString().Substring(1),
-                    languagedummy.Items[30].ToString().Substring(1),
-                    languagedummy.Items[31].ToString().Substring(1),
-                    languagedummy.Items[32].ToString().Substring(1),
-                    languagedummy.Items[33].ToString().Substring(1),
-                    languagedummy.Items[34].ToString().Substring(1),
-                    languagedummy.Items[35].ToString().Substring(1),
-                    languagedummy.Items[36].ToString().Substring(1),
-                    languagedummy.Items[37].ToString().Substring(1),
-                    languagedummy.Items[38].ToString().Substring(1),
-                    languagedummy.Items[39].ToString().Substring(1),
-                    languagedummy.Items[40].ToString().Substring(1),
-                    languagedummy.Items[41].ToString().Substring(1),
-                    languagedummy.Items[42].ToString().Substring(1),
-                    languagedummy.Items[43].ToString().Substring(1),
-                    languagedummy.Items[44].ToString().Substring(1),
-                    languagedummy.Items[45].ToString().Substring(1),
-                    languagedummy.Items[46].ToString().Substring(1),
-                    languagedummy.Items[47].ToString().Substring(1),
-                    languagedummy.Items[48].ToString().Substring(1),
-                    languagedummy.Items[49].ToString().Substring(1),
-                    languagedummy.Items[50].ToString().Substring(1),
-                    languagedummy.Items[51].ToString().Substring(1),
-                    languagedummy.Items[52].ToString().Substring(1),
-                    languagedummy.Items[53].ToString().Substring(1),
-                    languagedummy.Items[54].ToString().Substring(1),
-                    languagedummy.Items[55].ToString().Substring(1),
-                    languagedummy.Items[56].ToString().Substring(1),
-                    languagedummy.Items[57].ToString().Substring(1),
-                    languagedummy.Items[58].ToString().Substring(1),
-                    languagedummy.Items[59].ToString().Substring(1),
-                    languagedummy.Items[60].ToString().Substring(1),
-                    languagedummy.Items[61].ToString().Substring(1),
-                    languagedummy.Items[62].ToString().Substring(1),
-                    languagedummy.Items[63].ToString().Substring(1),
-                    languagedummy.Items[64].ToString().Substring(1),
-                    languagedummy.Items[65].ToString().Substring(1),
-                    languagedummy.Items[66].ToString().Substring(1),
-                    languagedummy.Items[67].ToString().Substring(1),
-                    languagedummy.Items[68].ToString().Substring(1),
-                    languagedummy.Items[69].ToString().Substring(1),
-                    languagedummy.Items[70].ToString().Substring(1),
-                    languagedummy.Items[71].ToString().Substring(1),
-                    languagedummy.Items[72].ToString().Substring(1),
-                    languagedummy.Items[73].ToString().Substring(1),
-                    languagedummy.Items[74].ToString().Substring(1),
-                    languagedummy.Items[75].ToString().Substring(1),
-                    languagedummy.Items[76].ToString().Substring(1),
-                    languagedummy.Items[77].ToString().Substring(1),
-                    languagedummy.Items[78].ToString().Substring(1),
-                    languagedummy.Items[79].ToString().Substring(1),
-                    languagedummy.Items[80].ToString().Substring(1),
-                    languagedummy.Items[81].ToString().Substring(1),
-                    languagedummy.Items[82].ToString().Substring(1),
-                    languagedummy.Items[83].ToString().Substring(1),
-                    languagedummy.Items[84].ToString().Substring(1),
-                    languagedummy.Items[85].ToString().Substring(1),
-                    languagedummy.Items[86].ToString().Substring(1),
-                    languagedummy.Items[87].ToString().Substring(1),
-                    languagedummy.Items[88].ToString().Substring(1),
-                    languagedummy.Items[89].ToString().Substring(1),
-                    languagedummy.Items[90].ToString().Substring(1),
-                    languagedummy.Items[91].ToString().Substring(1),
-                    languagedummy.Items[92].ToString().Substring(1),
-                    languagedummy.Items[93].ToString().Substring(1),
-                    languagedummy.Items[94].ToString().Substring(1),
-                    languagedummy.Items[95].ToString().Substring(1),
-                    languagedummy.Items[96].ToString().Substring(1),
-                    languagedummy.Items[97].ToString().Substring(1),
-                    languagedummy.Items[98].ToString().Substring(1),
-                    languagedummy.Items[99].ToString().Substring(1),
-                    languagedummy.Items[100].ToString().Substring(1),
-                    languagedummy.Items[101].ToString().Substring(1),
-                    languagedummy.Items[102].ToString().Substring(1),
-                    languagedummy.Items[103].ToString().Substring(1),
-                    languagedummy.Items[104].ToString().Substring(1),
-                    languagedummy.Items[105].ToString().Substring(1),
-                    languagedummy.Items[106].ToString().Substring(1),
-                    languagedummy.Items[107].ToString().Substring(1),
-                    languagedummy.Items[108].ToString().Substring(1),
-                    languagedummy.Items[109].ToString().Substring(1),
-                    languagedummy.Items[129].ToString().Substring(1),
-                    languagedummy.Items[132].ToString().Substring(1),
-                    languagedummy.Items[133].ToString().Substring(1),
-                    languagedummy.Items[134].ToString().Substring(1),
-                    languagedummy.Items[135].ToString().Substring(1),
-                    languagedummy.Items[136].ToString().Substring(1),
-                    languagedummy.Items[137].ToString().Substring(1),
-                    languagedummy.Items[138].ToString().Substring(1),
-                    languagedummy.Items[139].ToString().Substring(1),
-                    languagedummy.Items[158].ToString().Substring(1),
-                    languagedummy.Items[159].ToString().Substring(1),
-                    languagedummy.Items[160].ToString().Substring(1),
-                    languagedummy.Items[161].ToString().Substring(1),
-                    languagedummy.Items[162].ToString().Substring(1),
-                    languagedummy.Items[163].ToString().Substring(1),
-                    languagedummy.Items[164].ToString().Substring(1),
-                    languagedummy.Items[165].ToString().Substring(1),
-                    languagedummy.Items[166].ToString().Substring(1),
-                    languagedummy.Items[167].ToString().Substring(1),
-                    languagedummy.Items[168].ToString().Substring(1),
-                    languagedummy.Items[169].ToString().Substring(1),
-                    languagedummy.Items[170].ToString().Substring(1),
-                    languagedummy.Items[171].ToString().Substring(1),
-                    languagedummy.Items[172].ToString().Substring(1),
-                    languagedummy.Items[173].ToString().Substring(1),
-                    languagedummy.Items[174].ToString().Substring(1),
-                    languagedummy.Items[175].ToString().Substring(1),
-                    languagedummy.Items[176].ToString().Substring(1),
-                    languagedummy.Items[177].ToString().Substring(1),
-                    languagedummy.Items[178].ToString().Substring(1),
-                    languagedummy.Items[181].ToString().Substring(1),
-                    languagedummy.Items[182].ToString().Substring(1),
-                    languagedummy.Items[183].ToString().Substring(1),
-                    languagedummy.Items[184].ToString().Substring(1),
-                    languagedummy.Items[185].ToString().Substring(1),
-                    languagedummy.Items[186].ToString().Substring(1),
-                    languagedummy.Items[187].ToString().Substring(1),
-                    languagedummy.Items[188].ToString().Substring(1),
-                    languagedummy.Items[189].ToString().Substring(1),
-                    languagedummy.Items[190].ToString().Substring(1),
-                    languagedummy.Items[192].ToString().Substring(1),
-                    languagedummy.Items[193].ToString().Substring(1),
-                    languagedummy.Items[194].ToString().Substring(1),
-                    languagedummy.Items[195].ToString().Substring(1),
-                    languagedummy.Items[196].ToString().Substring(1),
-                    languagedummy.Items[197].ToString().Substring(1),
-                    languagedummy.Items[198].ToString().Substring(1),
-                    languagedummy.Items[199].ToString().Substring(1),
-                    languagedummy.Items[200].ToString().Substring(1),
-                    languagedummy.Items[201].ToString().Substring(1),
-                    languagedummy.Items[202].ToString().Substring(1),
-                    languagedummy.Items[203].ToString().Substring(1),
-                    languagedummy.Items[204].ToString().Substring(1),
-                    languagedummy.Items[205].ToString().Substring(1),
-                    languagedummy.Items[206].ToString().Substring(1),
-                    languagedummy.Items[207].ToString().Substring(1),
-                    languagedummy.Items[208].ToString().Substring(1),
-                    languagedummy.Items[209].ToString().Substring(1),
-                    languagedummy.Items[210].ToString().Substring(1),
-                    languagedummy.Items[211].ToString().Substring(1),
-                    languagedummy.Items[212].ToString().Substring(1),
-                    languagedummy.Items[213].ToString().Substring(1),
-                    languagedummy.Items[214].ToString().Substring(1),
-                    languagedummy.Items[215].ToString().Substring(1),
-                    languagedummy.Items[216].ToString().Substring(1),
-                    languagedummy.Items[217].ToString().Substring(1),
-                    languagedummy.Items[218].ToString().Substring(1),
-                    languagedummy.Items[219].ToString().Substring(1),
-                    languagedummy.Items[220].ToString().Substring(1),
-                    languagedummy.Items[221].ToString().Substring(1),
-                    languagedummy.Items[222].ToString().Substring(1),
-                    languagedummy.Items[223].ToString().Substring(1),
-                    languagedummy.Items[224].ToString().Substring(1),
-                    languagedummy.Items[225].ToString().Substring(1),
-                    languagedummy.Items[226].ToString().Substring(1),
-                    languagedummy.Items[227].ToString().Substring(1),
-                    languagedummy.Items[228].ToString().Substring(1),
-                    languagedummy.Items[229].ToString().Substring(1),
-                    languagedummy.Items[230].ToString().Substring(1),
-                    languagedummy.Items[231].ToString().Substring(1),
-                    languagedummy.Items[232].ToString().Substring(1),
-                    languagedummy.Items[233].ToString().Substring(1),
-                    languagedummy.Items[234].ToString().Substring(1),
-                    languagedummy.Items[235].ToString().Substring(1),
-                    languagedummy.Items[236].ToString().Substring(1),
-                    languagedummy.Items[237].ToString().Substring(1),
-                    languagedummy.Items[238].ToString().Substring(1),
-                    languagedummy.Items[239].ToString().Substring(1),
-                    languagedummy.Items[240].ToString().Substring(1),
-                    languagedummy.Items[241].ToString().Substring(1),
-                    languagedummy.Items[242].ToString().Substring(1),
-                    languagedummy.Items[243].ToString().Substring(1),
-                    languagedummy.Items[244].ToString().Substring(1),
-                    languagedummy.Items[245].ToString().Substring(1),
-                    languagedummy.Items[246].ToString().Substring(1),
-                    languagedummy.Items[247].ToString().Substring(1),
-                    languagedummy.Items[248].ToString().Substring(1),
-                    languagedummy.Items[249].ToString().Substring(1),
-                    languagedummy.Items[250].ToString().Substring(1),
-                    languagedummy.Items[251].ToString().Substring(1),
-                    languagedummy.Items[252].ToString().Substring(1),
-                    languagedummy.Items[253].ToString().Substring(1),
-                    languagedummy.Items[254].ToString().Substring(1),
-                    languagedummy.Items[255].ToString().Substring(1),
-                    languagedummy.Items[257].ToString().Substring(1),
-                    languagedummy.Items[258].ToString().Substring(1),
-                    languagedummy.Items[259].ToString().Substring(1),
-                    languagedummy.Items[260].ToString().Substring(1),
-                    languagedummy.Items[261].ToString().Substring(1),
-                    languagedummy.Items[262].ToString().Substring(1),
-                    languagedummy.Items[263].ToString().Substring(1),
-                    languagedummy.Items[264].ToString().Substring(1));
+                Properties.Settings.Default.KorotErrorTitle = SplittedFase[262].Substring(1).Replace(Environment.NewLine, "");
+                Properties.Settings.Default.KorotErrorDesc = SplittedFase[263].Substring(1).Replace(Environment.NewLine, "");
+                Properties.Settings.Default.KorotErrorTI = SplittedFase[264].Substring(1).Replace(Environment.NewLine, ""); ;
+                ubuntuLicense = SplittedFase[261].Substring(1).Replace(Environment.NewLine, "");
+                tsFullscreen.Text = SplittedFase[257].Substring(1).Replace(Environment.NewLine, "");
+                updateTitleTheme = SplittedFase[258].Substring(1).Replace(Environment.NewLine, "");
+                updateTitleExt = SplittedFase[259].Substring(1).Replace(Environment.NewLine, "");
+                updateExtInfo = SplittedFase[260].Substring(1).Replace(Environment.NewLine, "");
+                openInNewWindow = SplittedFase[251 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openAllInNewWindow = SplittedFase[252 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openInNewIncWindow = SplittedFase[253 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openAllInNewIncWindow = SplittedFase[254 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openAllInNewTab = SplittedFase[250 + 1].Substring(1).Replace(Environment.NewLine, "");
+                newFavorite = SplittedFase[243 + 1].Substring(1).Replace(Environment.NewLine, "");
+                nametd = SplittedFase[244 + 1].Substring(1).Replace(Environment.NewLine, "");
+                urltd = SplittedFase[245 + 1].Substring(1).Replace(Environment.NewLine, "");
+                add = SplittedFase[246 + 1].Substring(1).Replace(Environment.NewLine, "");
+                newFavoriteToolStripMenuItem.Text = SplittedFase[255 + 1].Substring(1).Replace(Environment.NewLine, "");
+                newFolderToolStripMenuItem.Text = SplittedFase[247 + 1].Substring(1).Replace(Environment.NewLine, "");
+                newFolder = SplittedFase[247 + 1].Substring(1).Replace(Environment.NewLine, "");
+                defaultFolderName = SplittedFase[248 + 1].Substring(1).Replace(Environment.NewLine, "");
+                folderInfo = SplittedFase[249 + 1].Substring(1).Replace(Environment.NewLine, "");
+                copyImage = SplittedFase[238 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openLinkInNewWindow = SplittedFase[239 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openLinkInNewIncWindow = SplittedFase[240 + 1].Substring(1).Replace(Environment.NewLine, "");
+                copyImageAddress = SplittedFase[241 + 1].Substring(1).Replace(Environment.NewLine, "");
+                saveLinkAs = SplittedFase[242 + 1].Substring(1).Replace(Environment.NewLine, "");
+                tsWebStore.Text = SplittedFase[237 + 1].Substring(1).Replace(Environment.NewLine, "");
+                tsEmptyExt.Text = SplittedFase[233 + 1].Substring(1).Replace(Environment.NewLine, "");
+                tsEmptyProfile.Text = SplittedFase[233 + 1].Substring(1).Replace(Environment.NewLine, "");
+                btCleanLog.Text = SplittedFase[234 + 1].Substring(1).Replace(Environment.NewLine, "");
+                lbUResources.Text = SplittedFase[230 + 1].Substring(1).Replace(Environment.NewLine, "");
+                lbURinfo.Text = SplittedFase[229 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label33.Text = SplittedFase[228 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label31.Text = SplittedFase[226 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label32.Text = SplittedFase[227 + 1].Substring(1).Replace(Environment.NewLine, "");
+                int cb3Index = comboBox3.SelectedIndex;
+                comboBox3.Items.Clear();
+                comboBox3.Items.Add(SplittedFase[218 + 1].Substring(1).Replace(Environment.NewLine, ""));
+                comboBox3.Items.Add(SplittedFase[219 + 1].Substring(1).Replace(Environment.NewLine, ""));
+                comboBox3.Items.Add(SplittedFase[220 + 1].Substring(1).Replace(Environment.NewLine, ""));
+                comboBox3.Items.Add(SplittedFase[221 + 1].Substring(1).Replace(Environment.NewLine, ""));
+                comboBox3.Items.Add(SplittedFase[222 + 1].Substring(1).Replace(Environment.NewLine, ""));
+                comboBox3.SelectedIndex = cb3Index;
+                int dNTIndex = dudNewTab.SelectedIndex;
+                dudNewTab.Items.Clear();
+                dudNewTab.Items.Add(SplittedFase[223 + 1].Substring(1).Replace(Environment.NewLine, ""));
+                dudNewTab.Items.Add(SplittedFase[224 + 1].Substring(1).Replace(Environment.NewLine, ""));
+                dudNewTab.Items.Add(SplittedFase[225 + 1].Substring(1).Replace(Environment.NewLine, ""));
+                dudNewTab.SelectedIndex = dNTIndex;
+                int dCIndex = dudClose.SelectedIndex;
+                dudClose.Items.Clear();
+                dudClose.Items.Add(SplittedFase[223 + 1].Substring(1).Replace(Environment.NewLine, ""));
+                dudClose.Items.Add(SplittedFase[224 + 1].Substring(1).Replace(Environment.NewLine, ""));
+                dudClose.Items.Add(SplittedFase[225 + 1].Substring(1).Replace(Environment.NewLine, ""));
+                dudClose.SelectedIndex = dCIndex;
+                licenseTitle = SplittedFase[211 + 1].Substring(1).Replace(Environment.NewLine, "");
+                kLicense = SplittedFase[212 + 1].Substring(1).Replace(Environment.NewLine, "");
+                vsLicense = SplittedFase[213 + 1].Substring(1).Replace(Environment.NewLine, "");
+                chLicense = SplittedFase[214 + 1].Substring(1).Replace(Environment.NewLine, "");
+                cefLicense = SplittedFase[215 + 1].Substring(1).Replace(Environment.NewLine, "");
+                etLicense = SplittedFase[216 + 1].Substring(1).Replace(Environment.NewLine, "");
+                specialThanks = SplittedFase[217 + 1].Substring(1).Replace(Environment.NewLine, "");
+                JSAlert = SplittedFase[210 + 1].Substring(1).Replace(Environment.NewLine, "");
+                JSConfirm = SplittedFase[209 + 1].Substring(1).Replace(Environment.NewLine, "");
+                selectAFolder = SplittedFase[208 + 1].Substring(1).Replace(Environment.NewLine, "");
+                button12.Text = SplittedFase[207 + 1].Substring(1).Replace(Environment.NewLine, "");
+                showNewTabPageToolStripMenuItem.Text = SplittedFase[204 + 1].Substring(1).Replace(Environment.NewLine, "");
+                showHomepageToolStripMenuItem.Text = SplittedFase[205 + 1].Substring(1).Replace(Environment.NewLine, "");
+                showAWebsiteToolStripMenuItem.Text = SplittedFase[206 + 1].Substring(1).Replace(Environment.NewLine, "");
+                lbDownloadFolder.Text = SplittedFase[203 + 1].Substring(1).Replace(Environment.NewLine, "");
+                lbAutoDownload.Text = SplittedFase[202 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label28.Text = SplittedFase[201 + 1].Substring(1).Replace(Environment.NewLine, "");
+                button18.Text = SplittedFase[200 + 1].Substring(1).Replace(Environment.NewLine, "");
+                resetConfirm = SplittedFase[199 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label27.Text = SplittedFase[196 + 1].Substring(1).Replace(Environment.NewLine, "");
+                allowSelectedToolStripMenuItem.Text = SplittedFase[197 + 1].Substring(1).Replace(Environment.NewLine, "");
+                clearToolStripMenuItem1.Text = SplittedFase[17 + 1].Substring(1).Replace(Environment.NewLine, "");
+                btCookie.Text = SplittedFase[198 + 1].Substring(1).Replace(Environment.NewLine, "");
+                ıncognitoModeToolStripMenuItem.Text = SplittedFase[193 + 1].Substring(1).Replace(Environment.NewLine, "");
+                thisSessionİsNotGoingToBeSavedToolStripMenuItem.Text = SplittedFase[194 + 1].Substring(1).Replace(Environment.NewLine, "");
+                clickHereToLearnMoreToolStripMenuItem.Text = SplittedFase[195 + 1].Substring(1).Replace(Environment.NewLine, "");
+                chStatus.Text = SplittedFase[192 + 1].Substring(1).Replace(Environment.NewLine, "");
+                lbLastProxy.Text = SplittedFase[186 + 1].Substring(1).Replace(Environment.NewLine, "");
+                findC = SplittedFase[187 + 1].Substring(1).Replace(Environment.NewLine, "");
+                findT = SplittedFase[188 + 1].Substring(1).Replace(Environment.NewLine, "");
+                findL = SplittedFase[189 + 1].Substring(1).Replace(Environment.NewLine, "");
+                noSearch = SplittedFase[190 + 1].Substring(1).Replace(Environment.NewLine, "");
+                tsSearchNext.Text = SplittedFase[185 + 1].Substring(1).Replace(Environment.NewLine, "");
+                anon = SplittedFase[183 + 1].Substring(1).Replace(Environment.NewLine, "");
+                noname = SplittedFase[184 + 1].Substring(1).Replace(Environment.NewLine, "");
+                themeInfo = SplittedFase[182 + 1].Substring(1).Replace(Environment.NewLine, "");
+                extensionToolStripMenuItem1.Text = SplittedFase[181 + 1].Substring(1).Replace(Environment.NewLine, "");
+                renderProcessDies = SplittedFase[178 + 1].Substring(1).Replace(Environment.NewLine, "");
+                enterAValidCode = SplittedFase[177 + 1].Substring(1).Replace(Environment.NewLine, "");
+                zoomInToolStripMenuItem.Text = SplittedFase[174 + 1].Substring(1).Replace(Environment.NewLine, "");
+                resetZoomToolStripMenuItem.Text = SplittedFase[175 + 1].Substring(1).Replace(Environment.NewLine, "");
+                zoomOutToolStripMenuItem.Text = SplittedFase[176 + 1].Substring(1).Replace(Environment.NewLine, "");
+                htmlFiles = SplittedFase[171 + 1].Substring(1).Replace(Environment.NewLine, "");
+                takeAScreenshotToolStripMenuItem.Text = SplittedFase[172 + 1].Substring(1).Replace(Environment.NewLine, "");
+                saveThisPageToolStripMenuItem.Text = SplittedFase[173 + 1].Substring(1).Replace(Environment.NewLine, "");
+                print = SplittedFase[170 + 1].Substring(1).Replace(Environment.NewLine, "");
+                IncognitoT = SplittedFase[160 + 1].Substring(1).Replace(Environment.NewLine, "");
+                IncognitoTitle = SplittedFase[160 + 1].Substring(1).Replace(Environment.NewLine, "");
+                IncognitoTitle1 = SplittedFase[161 + 1].Substring(1).Replace(Environment.NewLine, "");
+                IncognitoT1M1 = SplittedFase[163 + 1].Substring(1).Replace(Environment.NewLine, "");
+                IncognitoT1M2 = SplittedFase[164 + 1].Substring(1).Replace(Environment.NewLine, "");
+                IncognitoT1M3 = SplittedFase[165 + 1].Substring(1).Replace(Environment.NewLine, "");
+                IncognitoTitle2 = SplittedFase[166 + 1].Substring(1).Replace(Environment.NewLine, "");
+                IncognitoT2M1 = SplittedFase[167 + 1].Substring(1).Replace(Environment.NewLine, "");
+                IncognitoT2M2 = SplittedFase[168 + 1].Substring(1).Replace(Environment.NewLine, "");
+                IncognitoT2M3 = SplittedFase[169 + 1].Substring(1).Replace(Environment.NewLine, "");
+                disallowCookie = SplittedFase[158 + 1].Substring(1).Replace(Environment.NewLine, "");
+                allowCookie = SplittedFase[159 + 1].Substring(1).Replace(Environment.NewLine, "");
+                if (Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser1.Address))
+                {
+                    disallowThisPageForCookieAccessToolStripMenuItem.Text = SplittedFase[158 + 1].Substring(1).Replace(Environment.NewLine, "");
+                }
+                else
+                {
+                    disallowThisPageForCookieAccessToolStripMenuItem.Text = SplittedFase[159 + 1].Substring(1).Replace(Environment.NewLine, "");
+                }
+                label25.Text = SplittedFase[139 + 1].Substring(1).Replace(Environment.NewLine, "");
+                imageFiles = SplittedFase[136 + 1].Substring(1).Replace(Environment.NewLine, "");
+                allFiles = SplittedFase[137 + 1].Substring(1).Replace(Environment.NewLine, "");
+                selectBackImage = SplittedFase[138 + 1].Substring(1).Replace(Environment.NewLine, "");
+                colorToolStripMenuItem.Text = SplittedFase[132 + 1].Substring(1).Replace(Environment.NewLine, "");
+                usingBC = SplittedFase[133 + 1].Substring(1).Replace(Environment.NewLine, "");
+                ımageFromURLToolStripMenuItem.Text = SplittedFase[134 + 1].Substring(1).Replace(Environment.NewLine, "");
+                ımageFromLocalFileToolStripMenuItem.Text = SplittedFase[135 + 1].Substring(1).Replace(Environment.NewLine, "");
+                lbDNT.Text = SplittedFase[129 + 1].Substring(1).Replace(Environment.NewLine, "");
+                aboutInfo = SplittedFase[108 + 1].Substring(1).Replace(Environment.NewLine, "");
+                if (string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeAuthor) && string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeName))
+                {
+                    label21.Text = SplittedFase[108 + 1].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
+                }
+                else
+                {
+                    label21.Text = SplittedFase[108 + 1].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + SplittedFase[182 + 1].Substring(1).Replace(Environment.NewLine, "").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeAuthor) ? anon : Properties.Settings.Default.ThemeAuthor).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Properties.Settings.Default.ThemeName) ? noname : Properties.Settings.Default.ThemeName);
+                }
+                linkLabel1.Text = SplittedFase[109 + 1].Substring(1).Replace(Environment.NewLine, "");
+                lbSettings.Text = SplittedFase[9 + 1].Substring(1).Replace(Environment.NewLine, "");
+                CertErrorPageButton = SplittedFase[107 + 1].Substring(1).Replace(Environment.NewLine, "");
+                CertErrorPageMessage = SplittedFase[106 + 1].Substring(1).Replace(Environment.NewLine, "");
+                CertErrorPageTitle = SplittedFase[105 + 1].Substring(1).Replace(Environment.NewLine, "");
+                usesCookies = SplittedFase[103 + 1].Substring(1).Replace(Environment.NewLine, "");
+                notUsesCookies = SplittedFase[104 + 1].Substring(1).Replace(Environment.NewLine, "");
+                showCertError = SplittedFase[102 + 1].Substring(1).Replace(Environment.NewLine, "");
+                CertificateErrorMenuTitle = SplittedFase[97 + 1].Substring(1).Replace(Environment.NewLine, "");
+                CertificateErrorTitle = SplittedFase[98 + 1].Substring(1).Replace(Environment.NewLine, "");
+                CertificateError = SplittedFase[99 + 1].Substring(1).Replace(Environment.NewLine, "");
+                CertificateOKTitle = SplittedFase[100 + 1].Substring(1).Replace(Environment.NewLine, "");
+                CertificateOK = SplittedFase[101 + 1].Substring(1).Replace(Environment.NewLine, "");
+                ErrorTheme = SplittedFase[96 + 1].Substring(1).Replace(Environment.NewLine, "");
+                ThemeMessage = SplittedFase[95 + 1].Substring(1).Replace(Environment.NewLine, "");
+                btUpdater.Text = SplittedFase[90 + 1].Substring(1).Replace(Environment.NewLine, "");
+                btInstall.Text = SplittedFase[91 + 1].Substring(1).Replace(Environment.NewLine, "");
+                checking = SplittedFase[88 + 1].Substring(1).Replace(Environment.NewLine, "");
+                uptodate = SplittedFase[89 + 1].Substring(1).Replace(Environment.NewLine, "");
+                installStatus = SplittedFase[92 + 1].Substring(1).Replace(Environment.NewLine, "");
+                StatusType = SplittedFase[93 + 1].Substring(1).Replace(Environment.NewLine, "");
+                radioButton1.Text = SplittedFase[4 + 1].Substring(1).Replace(Environment.NewLine, "");
+                if (updateProgress == 0)
+                {
+                    lbUpdateStatus.Text = SplittedFase[88 + 1].Substring(1).Replace(Environment.NewLine, "");
+                }
+                else if (updateProgress == 1)
+                {
+                    lbUpdateStatus.Text = SplittedFase[89 + 1].Substring(1).Replace(Environment.NewLine, "");
+                }
+                else if (updateProgress == 2)
+                {
+                    lbUpdateStatus.Text = SplittedFase[87 + 1].Substring(1).Replace(Environment.NewLine, "");
+                }
+                else if (updateProgress == 3)
+                {
+                    lbUpdateStatus.Text = SplittedFase[3 + 1].Substring(1).Replace(Environment.NewLine, "");
+                }
+                updateavailable = SplittedFase[87 + 1].Substring(1).Replace(Environment.NewLine, ""); ;
+                privatemode = SplittedFase[0 + 1].Substring(1).Replace(Environment.NewLine, "");
+                updateTitle = SplittedFase[1 + 1].Substring(1).Replace(Environment.NewLine, "");
+                updateMessage = SplittedFase[2 + 1].Substring(1).Replace(Environment.NewLine, "");
+                updateError = SplittedFase[3 + 1].Substring(1).Replace(Environment.NewLine, "");
+                NewTabtitle = SplittedFase[4 + 1].Substring(1).Replace(Environment.NewLine, "");
+                customSearchNote = SplittedFase[5 + 1].Substring(1).Replace(Environment.NewLine, "");
+                customSearchMessage = SplittedFase[6 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label12.Text = SplittedFase[16 + 1].Substring(1).Replace(Environment.NewLine, "");
+                newWindow = SplittedFase[7 + 1].Substring(1).Replace(Environment.NewLine, "");
+                newincognitoWindow = SplittedFase[8 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label6.Text = SplittedFase[38 + 1].Substring(1).Replace(Environment.NewLine, "");
+                downloadsToolStripMenuItem.Text = SplittedFase[38 + 1].Substring(1).Replace(Environment.NewLine, "");
+                aboutToolStripMenuItem.Text = SplittedFase[18 + 1].Substring(1).Replace(Environment.NewLine, "");
+                lbHomepage.Text = SplittedFase[11 + 1].Substring(1).Replace(Environment.NewLine, "");
+                SearchOnPage = SplittedFase[58 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label26.Text = SplittedFase[13 + 1].Substring(1).Replace(Environment.NewLine, "");
+                tsThemes.Text = SplittedFase[94 + 1].Substring(1).Replace(Environment.NewLine, "");
+                caseSensitiveToolStripMenuItem.Text = SplittedFase[59 + 1].Substring(1).Replace(Environment.NewLine, "");
+                customToolStripMenuItem.Text = SplittedFase[14 + 1].Substring(1).Replace(Environment.NewLine, "");
+                removeSelectedToolStripMenuItem.Text = SplittedFase[15 + 1].Substring(1).Replace(Environment.NewLine, "");
+                clearToolStripMenuItem.Text = SplittedFase[17 + 1].Substring(1).Replace(Environment.NewLine, "");
+                settingstitle = SplittedFase[9 + 1].Substring(1).Replace(Environment.NewLine, "");
+                historyToolStripMenuItem.Text = SplittedFase[10 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label4.Text = SplittedFase[10 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label22.Text = SplittedFase[50 + 1].Substring(1).Replace(Environment.NewLine, "");
+                goBack = SplittedFase[19 + 1].Substring(1).Replace(Environment.NewLine, "");
+                goForward = SplittedFase[20 + 1].Substring(1).Replace(Environment.NewLine, "");
+                refresh = SplittedFase[21 + 1].Substring(1).Replace(Environment.NewLine, "");
+                refreshNoCache = SplittedFase[22 + 1].Substring(1).Replace(Environment.NewLine, "");
+                stop = SplittedFase[23 + 1].Substring(1).Replace(Environment.NewLine, "");
+                selectAll = SplittedFase[24 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openLinkInNewTab = SplittedFase[25 + 1].Substring(1).Replace(Environment.NewLine, "");
+                copyLink = SplittedFase[26 + 1].Substring(1).Replace(Environment.NewLine, "");
+                saveImageAs = SplittedFase[27 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openImageInNewTab = SplittedFase[28 + 1].Substring(1).Replace(Environment.NewLine, "");
+                paste = SplittedFase[29 + 1].Substring(1).Replace(Environment.NewLine, "");
+                copy = SplittedFase[30 + 1].Substring(1).Replace(Environment.NewLine, "");
+                cut = SplittedFase[31 + 1].Substring(1).Replace(Environment.NewLine, "");
+                undo = SplittedFase[32 + 1].Substring(1).Replace(Environment.NewLine, "");
+                redo = SplittedFase[33 + 1].Substring(1).Replace(Environment.NewLine, "");
+                delete = SplittedFase[34 + 1].Substring(1).Replace(Environment.NewLine, "");
+                SearchOrOpenSelectedInNewTab = SplittedFase[35 + 1].Substring(1).Replace(Environment.NewLine, "");
+                developerTools = SplittedFase[36 + 1].Substring(1).Replace(Environment.NewLine, "");
+                viewSource = SplittedFase[37 + 1].Substring(1).Replace(Environment.NewLine, "");
+                restoreOldSessions = SplittedFase[82 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label14.Text = SplittedFase[39 + 1].Substring(1).Replace(Environment.NewLine, "");
+                enterAValidUrl = SplittedFase[80 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label16.Text = SplittedFase[40 + 1].Substring(1).Replace(Environment.NewLine, "");
+                chDate.Text = SplittedFase[45 + 1].Substring(1).Replace(Environment.NewLine, "");
+                chDateHistory.Text = SplittedFase[45 + 1].Substring(1).Replace(Environment.NewLine, "");
+                chTitle.Text = SplittedFase[235 + 1].Substring(1).Replace(Environment.NewLine, "");
+                chURL.Text = SplittedFase[236 + 1].Substring(1).Replace(Environment.NewLine, "");
+                fromtwodot = SplittedFase[47 + 1].Substring(1).Replace(Environment.NewLine, "");
+                chFrom.Text = SplittedFase[46 + 1].Substring(1).Replace(Environment.NewLine, "");
+                totwodot = SplittedFase[48 + 1].Substring(1).Replace(Environment.NewLine, "");
+                korotdownloading = SplittedFase[41 + 1].Substring(1).Replace(Environment.NewLine, "");
+                chTo.Text = SplittedFase[44 + 1].Substring(1).Replace(Environment.NewLine, "");
+                lbOpen.Text = SplittedFase[42 + 1].Substring(1).Replace(Environment.NewLine, "");
+                open = SplittedFase[43 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openLinkİnNewTabToolStripMenuItem.Text = SplittedFase[25 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openInNewTab = SplittedFase[55 + 1].Substring(1).Replace(Environment.NewLine, "");
+                removeSelectedTSMI.Text = SplittedFase[15 + 1].Substring(1).Replace(Environment.NewLine, "");
+                clearTSMI.Text = SplittedFase[17 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openFileToolStripMenuItem.Text = SplittedFase[56 + 1].Substring(1).Replace(Environment.NewLine, "");
+                openFileİnExplorerToolStripMenuItem.Text = SplittedFase[57 + 1].Substring(1).Replace(Environment.NewLine, "");
+                removeSelectedToolStripMenuItem1.Text = SplittedFase[15 + 1].Substring(1).Replace(Environment.NewLine, "");
+                clearToolStripMenuItem2.Text = SplittedFase[17 + 1].Substring(1).Replace(Environment.NewLine, "");
+                DefaultProxyts.Text = SplittedFase[53 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label13.Text = SplittedFase[51 + 1].Substring(1).Replace(Environment.NewLine, "");
+                Yes = SplittedFase[83 + 1].Substring(1).Replace(Environment.NewLine, "");
+                No = SplittedFase[84 + 1].Substring(1).Replace(Environment.NewLine, "");
+                OK = SplittedFase[85 + 1].Substring(1).Replace(Environment.NewLine, "");
+                Cancel = SplittedFase[86 + 1].Substring(1).Replace(Environment.NewLine, "");
+                button10.Text = SplittedFase[52 + 1].Substring(1).Replace(Environment.NewLine, "");
+                label15.Text = SplittedFase[54 + 1].Substring(1).Replace(Environment.NewLine, "");
+                SearchOnWeb = SplittedFase[79 + 1].Substring(1).Replace(Environment.NewLine, "");
+                goTotxt = SplittedFase[78 + 1].Substring(1).Replace(Environment.NewLine, "");
+                newProfileInfo = SplittedFase[81 + 1].Substring(1).Replace(Environment.NewLine, "");
+                lbSearchEngine.Text = SplittedFase[12 + 1].Substring(1).Replace(Environment.NewLine, "");
+                MonthNames = SplittedFase[61 + 1].Substring(1).Replace(Environment.NewLine, "");
+                DayNames = SplittedFase[60 + 1].Substring(1).Replace(Environment.NewLine, "");
+                SearchHelpText = SplittedFase[62 + 1].Substring(1).Replace(Environment.NewLine, "");
+                ErrorPageTitle = SplittedFase[49 + 1].Substring(1).Replace(Environment.NewLine, "");
+                KT = SplittedFase[63 + 1].Substring(1).Replace(Environment.NewLine, "");
+                ET = SplittedFase[64 + 1].Substring(1).Replace(Environment.NewLine, "");
+                E1 = SplittedFase[65 + 1].Substring(1).Replace(Environment.NewLine, "");
+                E2 = SplittedFase[66 + 1].Substring(1).Replace(Environment.NewLine, "");
+                E3 = SplittedFase[67 + 1].Substring(1).Replace(Environment.NewLine, "");
+                E4 = SplittedFase[68 + 1].Substring(1).Replace(Environment.NewLine, "");
+                RT = SplittedFase[69 + 1].Substring(1).Replace(Environment.NewLine, "");
+                R1 = SplittedFase[70 + 1].Substring(1).Replace(Environment.NewLine, "");
+                R2 = SplittedFase[71 + 1].Substring(1).Replace(Environment.NewLine, "");
+                R3 = SplittedFase[72 + 1].Substring(1).Replace(Environment.NewLine, "");
+                R4 = SplittedFase[73 + 1].Substring(1).Replace(Environment.NewLine, "");
+                Search = SplittedFase[74 + 1].Substring(1).Replace(Environment.NewLine, "");
+                newprofile = SplittedFase[76 + 1].Substring(1).Replace(Environment.NewLine, "");
+                switchTo = SplittedFase[75 + 1].Substring(1).Replace(Environment.NewLine, "");
+                deleteProfile = SplittedFase[77 + 1].Substring(1).Replace(Environment.NewLine, "");
+                RefreshTranslation();
+                RefreshSizes();
             }
             else
             {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ErrorPageTitle, "This file does not suitable for this version of Korot.Please ask the creator of this language to update." + Environment.NewLine + " Error : Missing Line" + "[ Line Count: " + languagedummy.Items.Count + "]", Icon, MessageBoxButtons.OK, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
+                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ErrorPageTitle, "This file does not suitable for this version of Korot.Please ask the creator of this language to update." + Environment.NewLine + " Error : Missing Line" + "[ Line Count: " + SplittedFase.Length + "]", Icon, MessageBoxButtons.OK, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
                 DialogResult diyalog = mesaj.ShowDialog();
-                Output.WriteLine(" [KOROT] Error at applying a language file : [ Line Count: " + languagedummy.Items.Count + "]");
+                Output.WriteLine(" [KOROT] Error at applying a language file : [ Line Count: " + SplittedFase.Length + "]");
             }
 
         }
@@ -1081,6 +810,7 @@ namespace Korot
             }
             cbLang.Text = Path.GetFileNameWithoutExtension(Properties.Settings.Default.LangFile);
         }
+        #endregion
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox(customSearchNote, customSearchMessage, Icon, Properties.Settings.Default.SearchURL, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150);
@@ -2443,13 +2173,17 @@ namespace Korot
                 hsUnknown.OverlayColor = Properties.Settings.Default.OverlayColor;
                 hlvDownload.OverlayColor = Properties.Settings.Default.OverlayColor;
                 hlvHistory.OverlayColor = Properties.Settings.Default.OverlayColor;
+                Console.WriteLine(chromiumWebBrowser1.Address);
+                if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
             }
             if (Properties.Settings.Default.BackColor != oldBackColor)
             {
                 UpdateFavoriteColor();
                 updateFavoritesImages();
+                if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
                 cmsFavorite.BackColor = Properties.Settings.Default.BackColor;
                 cmsIncognito.BackColor = Properties.Settings.Default.BackColor;
+                Console.WriteLine(chromiumWebBrowser1.Address);
                 oldBackColor = Properties.Settings.Default.BackColor;
                 cmsIncognito.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 cmsFavorite.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
@@ -2513,7 +2247,6 @@ namespace Korot
                 hsOpen.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
                 hsOpen.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
                 hsOpen.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
-
                 hlvHistory.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 cbLang.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 cmsHistory.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
@@ -2588,7 +2321,6 @@ namespace Korot
                 cmsBStyle.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsCookie.BackColor = Properties.Settings.Default.BackColor;
                 cmsCookie.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-
                 switchToToolStripMenuItem.DropDown.BackColor = Properties.Settings.Default.BackColor; switchToToolStripMenuItem.DropDown.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 foreach (ToolStripItem x in cmsProfiles.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (ToolStripItem x in extensionToolStripMenuItem1.DropDownItems) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }

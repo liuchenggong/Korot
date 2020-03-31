@@ -114,7 +114,7 @@ namespace Korot
                     _addButtonImage = new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, BackColor));
                     _addButtonHoverImage = Tools.isBright(BackColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255)))); _inactiveLeftSideImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255)));
                 }
-                _parentWindow._overlay.Render(true);
+                 if (_parentWindow._overlay != null) _parentWindow._overlay.Render(true);
             }
             if (ForeColor != _ForeColor)
             {
@@ -130,7 +130,7 @@ namespace Korot
                     _addButtonImage = new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, ForeColor));
                     _addButtonHoverImage = Tools.isBright(ForeColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255)))); _inactiveLeftSideImage = Tools.isBright(ForeColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255)));
                 }
-                _parentWindow._overlay.Render(true);
+                if (_parentWindow._overlay != null) _parentWindow._overlay.Render(true);
             }
             if (OverlayColor != _OverlayColor)
             {
@@ -146,7 +146,7 @@ namespace Korot
                     _addButtonImage = new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, OverlayColor));
                     _addButtonHoverImage = Tools.isBright(OverlayColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(OverlayColor.R, 20), Tools.GerekiyorsaAzalt(OverlayColor.G, 20), Tools.GerekiyorsaAzalt(OverlayColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(OverlayColor.R, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.G, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.B, 20, 255)))); _inactiveLeftSideImage = Tools.isBright(OverlayColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(OverlayColor.R, 20), Tools.GerekiyorsaAzalt(OverlayColor.G, 20), Tools.GerekiyorsaAzalt(OverlayColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(OverlayColor.R, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.G, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.B, 20, 255)));
                 }
-                _parentWindow._overlay.Render(true);
+                if (_parentWindow._overlay != null) _parentWindow._overlay.Render(true);
             }
 
         }
