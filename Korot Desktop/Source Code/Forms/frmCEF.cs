@@ -1794,6 +1794,59 @@ namespace Korot
                 }
             }
         }
+        void EasterEggs()
+        {
+            Random random = new Random();
+            int randomNumber = random.Next(0, 100);
+            if (randomNumber == 6)
+            {
+                lbKorot.Text = "Another Chromium-based web browser";
+            }
+            else if (randomNumber == 17)
+            {
+                lbKorot.Text = "StoneBrowser";
+            }
+            else if (randomNumber == 45)
+            {
+                lbKorot.Text = "null";
+            }
+            else if (randomNumber == 71)
+            {
+                lbKorot.Text = "web browser made by retarded";
+            }
+            else if (randomNumber == 3)
+            {
+                lbKorot.Text = "web browser designed to lag and eat ram";
+            }
+            else if (randomNumber == 9)
+            {
+                lbKorot.Text = "korot";
+            }
+            else if (randomNumber == 35)
+            {
+                lbKorot.Text = "StoneHomepage";
+            }
+            else if (randomNumber == 48)
+            {
+                lbKorot.Text = "ZStone";
+            }
+            else if (randomNumber == 7)
+            {
+                Random random2 = new Random();
+                int randomNumber2 = random2.Next(1, 2);
+                lbKorot.Text = (randomNumber2 == 1 ? "Pell" : "Kolme") + " Browser";
+            }
+            else if (randomNumber == 33)
+            {
+                Random random2 = new Random();
+                int randomNumber2 = random2.Next(1, 2);
+                lbKorot.Text = (randomNumber2 == 1 ? "Webtroy" : "Ninova");
+            }
+            else
+            {
+                lbKorot.Text = "Korot";
+            }
+        }
         private void miFavorite_MouseDown(object sender, MouseEventArgs e)
         {
             itemClicked = true;
@@ -1829,8 +1882,7 @@ namespace Korot
             refreshThemeList();
             ChangeTheme();
             RefreshDownloadList();
-            label18.Text = Application.ProductVersion.ToString();
-            label17.Visible = Environment.Is64BitProcess;
+            lbVersion.Text = Application.ProductVersion.ToString() + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
             RefreshFavorites();
             LoadExt();
             RefreshProfiles();
@@ -1839,6 +1891,7 @@ namespace Korot
             showCertificateErrorsToolStripMenuItem.Text = showCertError;
             chromiumWebBrowser1.Select();
             hsDoNotTrack.Checked = Properties.Settings.Default.DoNotTrack;
+            EasterEggs();
             RefreshTranslation();
             RefreshSizes();
             if (_Incognito)
@@ -2173,17 +2226,15 @@ namespace Korot
                 hsUnknown.OverlayColor = Properties.Settings.Default.OverlayColor;
                 hlvDownload.OverlayColor = Properties.Settings.Default.OverlayColor;
                 hlvHistory.OverlayColor = Properties.Settings.Default.OverlayColor;
-                Console.WriteLine(chromiumWebBrowser1.Address);
                 if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
             }
             if (Properties.Settings.Default.BackColor != oldBackColor)
             {
                 UpdateFavoriteColor();
                 updateFavoritesImages();
-                if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                if (chromiumWebBrowser1.Address.StartsWith("korot:")) {  chromiumWebBrowser1.Reload(); }
                 cmsFavorite.BackColor = Properties.Settings.Default.BackColor;
                 cmsIncognito.BackColor = Properties.Settings.Default.BackColor;
-                Console.WriteLine(chromiumWebBrowser1.Address);
                 oldBackColor = Properties.Settings.Default.BackColor;
                 cmsIncognito.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 cmsFavorite.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
@@ -2515,6 +2566,7 @@ namespace Korot
         }
         public void RefreshSizes()
         {
+            lbVersion.Location = new Point(lbKorot.Location.X + lbKorot.Width, lbVersion.Location.Y);
             dudClose.Location = new Point(label32.Location.X + label32.Width, dudClose.Location.Y);
             dudClose.Width = tpTheme.Width - (label32.Width + label32.Location.X + 25);
             dudNewTab.Location = new Point(label31.Location.X + label31.Width, dudNewTab.Location.Y);

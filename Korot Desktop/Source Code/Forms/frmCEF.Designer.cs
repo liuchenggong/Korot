@@ -226,10 +226,9 @@ namespace Korot
             this.btUpdater = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label21 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
+            this.lbVersion = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
+            this.lbKorot = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.tpCookie = new System.Windows.Forms.TabPage();
             this.lbCookie = new System.Windows.Forms.ListBox();
@@ -2089,10 +2088,9 @@ namespace Korot
             this.tpAbout.Controls.Add(this.btUpdater);
             this.tpAbout.Controls.Add(this.linkLabel1);
             this.tpAbout.Controls.Add(this.label21);
-            this.tpAbout.Controls.Add(this.label17);
-            this.tpAbout.Controls.Add(this.label18);
+            this.tpAbout.Controls.Add(this.lbVersion);
             this.tpAbout.Controls.Add(this.label20);
-            this.tpAbout.Controls.Add(this.label19);
+            this.tpAbout.Controls.Add(this.lbKorot);
             this.tpAbout.Controls.Add(this.pictureBox5);
             this.tpAbout.Location = new System.Drawing.Point(4, 25);
             this.tpAbout.Name = "tpAbout";
@@ -2192,27 +2190,16 @@ namespace Korot
             this.label21.Text = "Korot uses Chromium by Google using CefSharp.\r\nKorot is written in C# using Visua" +
     "l Studio Community by Microsoft.\r\nKorot uses modified version of EasyTabs.";
             // 
-            // label17
+            // lbVersion
             // 
-            this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.Color.Transparent;
-            this.label17.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label17.Location = new System.Drawing.Point(171, 64);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(42, 17);
-            this.label17.TabIndex = 1;
-            this.label17.Text = "64 bit";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.BackColor = System.Drawing.Color.Transparent;
-            this.label18.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label18.Location = new System.Drawing.Point(171, 40);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(52, 17);
-            this.label18.TabIndex = 1;
-            this.label18.Text = "version";
+            this.lbVersion.AutoSize = true;
+            this.lbVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lbVersion.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbVersion.Location = new System.Drawing.Point(171, 40);
+            this.lbVersion.Name = "lbVersion";
+            this.lbVersion.Size = new System.Drawing.Size(52, 17);
+            this.lbVersion.TabIndex = 1;
+            this.lbVersion.Text = "version";
             // 
             // label20
             // 
@@ -2226,16 +2213,16 @@ namespace Korot
             this.label20.Text = "Haltroy";
             this.label20.MouseClick += new System.Windows.Forms.MouseEventHandler(this.label20_MouseClick);
             // 
-            // label19
+            // lbKorot
             // 
-            this.label19.AutoSize = true;
-            this.label19.BackColor = System.Drawing.Color.Transparent;
-            this.label19.Font = new System.Drawing.Font("Ubuntu", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label19.Location = new System.Drawing.Point(64, 40);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(101, 40);
-            this.label19.TabIndex = 1;
-            this.label19.Text = "Korot";
+            this.lbKorot.AutoSize = true;
+            this.lbKorot.BackColor = System.Drawing.Color.Transparent;
+            this.lbKorot.Font = new System.Drawing.Font("Ubuntu", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbKorot.Location = new System.Drawing.Point(64, 40);
+            this.lbKorot.Name = "lbKorot";
+            this.lbKorot.Size = new System.Drawing.Size(101, 40);
+            this.lbKorot.TabIndex = 1;
+            this.lbKorot.Text = "Korot";
             // 
             // pictureBox5
             // 
@@ -2450,7 +2437,7 @@ namespace Korot
             this.cmsBStyle.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsBStyle.ShowCheckMargin = true;
             this.cmsBStyle.ShowImageMargin = false;
-            this.cmsBStyle.Size = new System.Drawing.Size(199, 92);
+            this.cmsBStyle.Size = new System.Drawing.Size(199, 70);
             // 
             // colorToolStripMenuItem
             // 
@@ -2700,9 +2687,8 @@ namespace Korot
         private System.Windows.Forms.Button btInstall;
         private System.Windows.Forms.Button btUpdater;
         private System.Windows.Forms.Label lbUpdateStatus;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label lbVersion;
+        private System.Windows.Forms.Label lbKorot;
         private System.Windows.Forms.ContextMenuStrip cmsHistory;
         private System.Windows.Forms.ToolStripMenuItem removeSelectedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;

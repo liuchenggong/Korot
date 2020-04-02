@@ -92,7 +92,7 @@ namespace Korot
             }
             else if (DateTime.Now.ToString("MM") == "06" & DateTime.Now.ToString("dd") == "09")
             {
-                List<string> KorotNameHistory = new List<string>() { "StoneHomepage (not browser) (First code written by Haltroy)", "StoneBrowser (Trident) (First ever program written by Haltroy)", "ZStone (Trident)", "Pell Browser (Trident)", "Kolme Browser (Trident)", "Ninova (Gecko)", "Webtroy (Gecko,CEF)", "Korot (CEF)", "Korot (Boron)" };
+                List<string> KorotNameHistory = new List<string>() { "StoneHomepage (not browser) (First code written by Haltroy)", "StoneBrowser (Trident) (First ever program written by Haltroy)", "ZStone (Trident)", "Pell Browser (Trident)", "Kolme Browser (Trident)", "Ninova (Gecko)", "Webtroy (Gecko,CEF)", "Korot (CEF)" };
                 Output.WriteLine("I'm " + (DateTime.Now.Year - 2017) + " years old now!");
                 Output.WriteLine("Here's a quick history about me:");
                 foreach (string x in KorotNameHistory)

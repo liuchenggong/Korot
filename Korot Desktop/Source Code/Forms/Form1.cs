@@ -197,18 +197,32 @@ namespace Korot
         {
             await Task.Run(() =>
             {
-                if (Directory.Exists(Application.StartupPath)) { Directory.Delete(Application.StartupPath, true); }
                 Directory.CreateDirectory(Application.StartupPath);
-                //Directory.Move(backupFolder, Application.StartupPath);
-                foreach (string x in Directory.GetDirectories(backupFolder)) { DirectoryInfo current = new DirectoryInfo(x); Directory.Move(x, Application.StartupPath + current.Name + "\\"); }
-                foreach (string x in Directory.GetFiles(backupFolder)) { FileInfo current = new FileInfo(x); File.Move(x, Application.StartupPath + current.Name); }
+                foreach (string x in Directory.GetDirectories(backupFolder)) 
+                {
+                    DirectoryInfo current = new DirectoryInfo(x); 
+                    if (Directory.Exists(Application.StartupPath + current.Name + "\\"))
+                    {
+                        Directory.Delete(Application.StartupPath + current.Name + "\\", true);
+                    }
+                    Directory.Move(x, Application.StartupPath + current.Name + "\\"); 
+                }
+                foreach (string x in Directory.GetFiles(backupFolder)) 
+                {
+                    FileInfo current = new FileInfo(x);
+                    if (File.Exists(Application.StartupPath + current.Name)) 
+                    {
+                        File.Delete(Application.StartupPath + current.Name); 
+                    }
+                    File.Move(x, Application.StartupPath + current.Name); 
+                }
                 Restart();
             });
         }
 
-        private void Restart()
+        private void Restart(bool notUpdated = false)
         {
-            Process.Start(Application.ExecutablePath, "https://github.com/Haltroy/Korot/releases");
+            Process.Start(Application.ExecutablePath, notUpdated ? "" : "https://github.com/Haltroy/Korot/releases");
             allowClose = true;
             Application.Exit();
         }

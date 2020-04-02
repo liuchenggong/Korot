@@ -24,6 +24,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using CefSharp;
 
 namespace Korot
 {
@@ -35,6 +36,7 @@ namespace Korot
         [STAThread]
         private static void Main(string[] args)
         {
+            Cef.EnableHighDPISupport();
             Properties.Settings.Default.dismissUpdate = false;
             Properties.Settings.Default.alreadyUpdatedThemes = false;
             Properties.Settings.Default.alreadyUpdatedExt = false;
