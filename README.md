@@ -3,7 +3,7 @@ An advanced Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy'
 
 Latest Stable Version: [`0.5.4.0`](https://github.com/Haltroy/Korot/releases/tag/0.5.4.0).
 
-Latest Dev Version: [`0.6.0.0`](https://github.com/Haltroy/Korot/releases/tag/0.6.0.0-pre1).
+Latest Dev Version: `0.6.0.0`.
 
 
 ## Features:
@@ -19,3 +19,10 @@ Latest Dev Version: [`0.6.0.0`](https://github.com/Haltroy/Korot/releases/tag/0.
  - Page screnshot, Save page & Zoom feature
  - Keyboard Shortcuts
  
+ ### Release Branches
+
+ | Branch                                                               | CEF Version | VC++ Version | .Net Version | Status |
+|----------------------------------------------------------------------|------|------|-------|-----------------|
+| [`master`](https://github.com/haltroy/korot)                      | 79 | 2015 | 4.8 | Development     |
+| [`0.5.4.0`](https://github.com/Haltroy/Korot/tree/0.5.4.0) | 79 | 2015 | 4.8 | **Release**     |
+| `0.5.3.0` and lower | -79 | 2015 | 4.5.2 | Unsupported     |
