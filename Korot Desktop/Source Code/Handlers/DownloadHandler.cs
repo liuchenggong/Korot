@@ -116,7 +116,7 @@ namespace Korot
             }
             else
             {
-                chromiumWebBrowser.Back();
+                ActiveForm.Invoke(new Action(() => ActiveForm.GoBack()));
             }
         }
 

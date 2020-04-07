@@ -139,6 +139,8 @@ namespace Korot
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpCef = new System.Windows.Forms.TabPage();
+            this.lbURL = new System.Windows.Forms.ListBox();
+            this.lbTitle = new System.Windows.Forms.ListBox();
             this.pCEF = new System.Windows.Forms.Panel();
             this.tpCert = new System.Windows.Forms.TabPage();
             this.tpSettings = new System.Windows.Forms.TabPage();
@@ -275,6 +277,7 @@ namespace Korot
             this.pnlCert.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpCef.SuspendLayout();
+            this.pCEF.SuspendLayout();
             this.tpCert.SuspendLayout();
             this.tpSettings.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -1121,9 +1124,36 @@ namespace Korot
             this.tpCef.Text = "tabPage1";
             this.tpCef.UseVisualStyleBackColor = true;
             // 
+            // lbURL
+            // 
+            this.lbURL.BackColor = System.Drawing.Color.Black;
+            this.lbURL.ForeColor = System.Drawing.Color.Black;
+            this.lbURL.FormattingEnabled = true;
+            this.lbURL.ItemHeight = 16;
+            this.lbURL.Location = new System.Drawing.Point(140, 64);
+            this.lbURL.Name = "lbURL";
+            this.lbURL.Size = new System.Drawing.Size(34, 20);
+            this.lbURL.TabIndex = 0;
+            this.lbURL.Visible = false;
+            this.lbURL.SelectedIndexChanged += new System.EventHandler(this.lbURL_SelectedIndexChanged);
+            // 
+            // lbTitle
+            // 
+            this.lbTitle.BackColor = System.Drawing.Color.Black;
+            this.lbTitle.ForeColor = System.Drawing.Color.Black;
+            this.lbTitle.FormattingEnabled = true;
+            this.lbTitle.ItemHeight = 16;
+            this.lbTitle.Location = new System.Drawing.Point(337, 64);
+            this.lbTitle.Name = "lbTitle";
+            this.lbTitle.Size = new System.Drawing.Size(46, 20);
+            this.lbTitle.TabIndex = 1;
+            this.lbTitle.Visible = false;
+            // 
             // pCEF
             // 
             this.pCEF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pCEF.Controls.Add(this.lbTitle);
+            this.pCEF.Controls.Add(this.lbURL);
             this.pCEF.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCEF.Location = new System.Drawing.Point(3, 3);
             this.pCEF.Name = "pCEF";
@@ -2581,6 +2611,7 @@ namespace Korot
             this.pnlCert.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tpCef.ResumeLayout(false);
+            this.pCEF.ResumeLayout(false);
             this.tpCert.ResumeLayout(false);
             this.tpSettings.ResumeLayout(false);
             this.tpSettings.PerformLayout();
@@ -2826,5 +2857,7 @@ namespace Korot
         private System.Windows.Forms.Panel pCEF;
         private System.Windows.Forms.ToolStripMenuItem tsEmptyExt;
         private System.Windows.Forms.ToolStripMenuItem tsEmptyProfile;
+        private System.Windows.Forms.ListBox lbURL;
+        private System.Windows.Forms.ListBox lbTitle;
     }
 }

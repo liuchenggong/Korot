@@ -63,22 +63,6 @@ namespace Korot
             return new Uri(p).IsFile;
         }
 
-        private void cefaddresschanged(object sender, AddressChangedEventArgs e)
-        {
-            if (!allowWebContent)
-            {
-                if (IsLocalPath(e.Address))
-                {
-
-                }
-                else
-                {
-                    tabform.Invoke(new Action(() => tabform.NewTab(e.Address)));
-                    e.Browser.GoBack();
-                }
-            }
-        }
-
         private void FrmExt_Load(object sender, EventArgs e) { }
         public void InitializeChromium()
         {

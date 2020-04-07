@@ -1687,8 +1687,8 @@ namespace Korot
             {
                 if (!e.Browser.IsDisposed)
                 {
-                    button1.Invoke(new Action(() => button1.Enabled = e.CanGoBack));
-                    button3.Invoke(new Action(() => button3.Enabled = e.CanGoForward));
+                    button1.Invoke(new Action(() => button1.Enabled = canGoBack()));
+                    button3.Invoke(new Action(() => button3.Enabled = canGoForward()));
                 }
                 else
                 {
@@ -1933,28 +1933,33 @@ namespace Korot
             string urlLower = tbAddress.Text.ToLower();
             if (ValidHttpURL(urlLower))
             {
-                chromiumWebBrowser1.Load(urlLower);
+                redirectTo(urlLower,this.Text);
             }
 
             else
             {
-                chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + urlLower);
+                redirectTo(Properties.Settings.Default.SearchURL + urlLower, this.Text);
                 button1.Enabled = true;
 
             }
         }
-
+        public void GoBack()
+        {
+            lbURL.SelectedIndex = lbURL.SelectedIndex == 0 ? 0 : lbURL.SelectedIndex - 1;
+            lbTitle.SelectedIndex = lbURL.SelectedIndex;
+        }
 
 
         public void button1_Click(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tpCef) //CEF
             {
-                chromiumWebBrowser1.Back();
+                GoBack();
+                //chromiumWebBrowser1.Back();
             }
             else if (tabControl1.SelectedTab == tpCert) //Certificate Error Menu
             {
-                chromiumWebBrowser1.Back();
+                GoBack();
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpCef;
             }
@@ -1970,7 +1975,13 @@ namespace Korot
 
         }
 
-        public void button3_Click(object sender, EventArgs e) { allowSwitching = true; tabControl1.SelectedTab = tpCef; chromiumWebBrowser1.Forward(); }
+        public void button3_Click(object sender, EventArgs e) 
+        { 
+            allowSwitching = true; 
+            tabControl1.SelectedTab = tpCef;
+            lbURL.SelectedIndex = lbURL.SelectedIndex == lbURL.Items.Count -1 ? lbURL.SelectedIndex : lbURL.SelectedIndex + 1;
+            lbTitle.SelectedIndex = lbURL.SelectedIndex;
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -1997,28 +2008,34 @@ namespace Korot
             {
                 chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + e.Address);
             }
+            if (lbURL.Items.Count != 0)
+            {
+                if (e.Address != lbURL.Items[lbURL.Items.Count - 1].ToString())
+                {
+                    this.Invoke(new Action(() => redirectTo(e.Address,this.Text)));
+                }
+            }
         }
         private void cef_onLoadError(object sender, LoadErrorEventArgs e)
         {
-            if (e == null) //User Asked
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                chromiumWebBrowser1.Load("korot://error/?e=TEST");
-            }
-            else
-            {
-                if (e.Frame.IsMain)
-                {
-                    chromiumWebBrowser1.Load("korot://error/?e=" + e.ErrorText);
-                }
-                else
-                {
-                    e.Frame.LoadUrl("korot://error/?e=" + e.ErrorText);
-                }
-            }
-            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
-            {
-                chromiumWebBrowser1.Back();
-            }
+             if (e == null) //User Asked
+             {
+                 chromiumWebBrowser1.Load("korot://error/?e=TEST");
+             }
+             else
+             {
+                 if (e.Frame.IsMain)
+                 {
+                     chromiumWebBrowser1.Load("korot://error/?e=" + e.ErrorText);
+                 }
+                 else
+                 {
+                     e.Frame.LoadUrl("korot://error/?e=" + e.ErrorText);
+                 }
+             }
+            } 
         }
 
 
@@ -2032,7 +2049,15 @@ namespace Korot
             {
                 Invoke(new Action(() => Text = e.Title.Substring(0, 100)));
             }
-            Parent.Invoke(new Action(() => Parent.Text = Text));
+            this.Invoke(new Action(() => { 
+            int si = lbTitle.SelectedIndex;
+                if (si != -1)
+                {
+                    lbTitle.Items.RemoveAt(si);
+                    lbTitle.Items.Insert(si, e.Title);
+                    lbTitle.SelectedIndex = si;
+                }
+            }));
         }
 
         public void showHideSearchMenu()
@@ -2077,7 +2102,20 @@ namespace Korot
                 tsFullscreen_Click(null, null);
             }
         }
-        private void button5_Click(object sender, EventArgs e) { allowSwitching = true; tabControl1.SelectedTab = tpCef; chromiumWebBrowser1.Load(Properties.Settings.Default.Homepage); }
+        private void button5_Click(object sender, EventArgs e) 
+        {
+            allowSwitching = true; 
+            tabControl1.SelectedTab = tpCef;
+            redirectTo(Properties.Settings.Default.Homepage,this.Text);
+        }
+        public bool canGoForward()
+        {
+            return lbURL.SelectedIndex != lbURL.Items.Count - 1;
+        }
+        public bool canGoBack()
+        {
+            return lbURL.SelectedIndex != 0;
+        }
 
         public bool isControlKeyPressed = false;
         public void tabform_KeyDown(object sender, KeyEventArgs e)
@@ -3517,6 +3555,61 @@ namespace Korot
         private void frmCEF_FormClosing(object sender, FormClosingEventArgs e)
         {
             closing = true;
+        }
+        public void redirectTo(string url,string title)
+        {
+            if (bypassThisDeletion) 
+            {
+                bypassThisDeletion = false;
+            }
+            else
+            {
+                if (lbURL.SelectedIndex != -1)
+                {
+                    if (lbURL.Items[lbURL.SelectedIndex].ToString() != url)
+                    {
+                        bypassThisIndexChange = true;
+                        int selectedItem = lbURL.SelectedIndex;
+                        if (lbURL.Items.Count != 0)
+                        {
+                            while (lbURL.Items.Count - 1 != selectedItem)
+                            {
+                                lbURL.Items.RemoveAt(selectedItem + 1);
+                            }
+                            while (lbTitle.Items.Count - 1 != selectedItem)
+                            {
+                                lbTitle.Items.RemoveAt(selectedItem + 1);
+                            }
+                        }
+                        lbURL.Items.Add(url);
+                        lbTitle.Items.Add(title);
+                        lbURL.SelectedIndex = lbURL.Items.Count - 1;
+                        lbTitle.SelectedIndex = lbURL.SelectedIndex;
+                        return;
+                    }
+                }else 
+                {
+                    lbURL.Items.Add(url);
+                    lbTitle.Items.Add(title);
+                    lbURL.SelectedIndex = lbURL.Items.Count - 1;
+                    lbTitle.SelectedIndex = lbURL.SelectedIndex;
+                }
+            }
+        }
+        bool bypassThisIndexChange = false;
+        bool bypassThisDeletion = false;
+        public bool indexChanged = false;
+        private void lbURL_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lbTitle.SelectedIndex = lbURL.SelectedIndex;
+            if (bypassThisIndexChange) { bypassThisIndexChange = false;} else
+            {
+                bypassThisDeletion = true;
+                indexChanged = true;
+                chromiumWebBrowser1.Load(lbURL.SelectedItem.ToString());
+            }
+            button1.Visible = lbURL.SelectedIndex != 0;
+            button3.Visible = lbURL.SelectedIndex != lbURL.Items.Count -1;
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

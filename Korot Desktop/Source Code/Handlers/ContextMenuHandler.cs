@@ -504,13 +504,17 @@ namespace Korot
 
         public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
         {
-            model.Clear();
-            showCMS(parameters.LinkUrl,
-                                    parameters.SourceUrl,
-                                    parameters.SelectionText,
-                                    parameters.HasImageContents,
-                                    parameters.IsEditable,
-                                    browserControl);
+
+           if(!parameters.IsPepperMenu)
+            {
+                model.Clear();
+                showCMS(parameters.LinkUrl,
+                        parameters.SourceUrl,
+                        parameters.SelectionText,
+                        parameters.HasImageContents,
+                        parameters.IsEditable,
+                        browserControl);
+            }
         }
 
 
