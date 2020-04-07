@@ -19,10 +19,10 @@ Latest Dev Version: `0.6.0.0`.
  - Page screnshot, Save page & Zoom feature
  - Keyboard Shortcuts
  
- ### Release Branches
+ ## Release Branches
 
- | Branch                                                               | CEF Version | VC++ Version | .Net Version | Status |
-|----------------------------------------------------------------------|------|------|-------|-----------------|
-| [`master`](https://github.com/haltroy/korot)                      | 79 | 2015 | 4.8 | Development     |
-| [`0.5.4.0`](https://github.com/Haltroy/Korot/tree/0.5.4.0) | 79 | 2015 | 4.8 | **Release**     |
-| `0.5.3.0` and lower | -79 | 2015 | 4.5.2 | Unsupported     |
+ | Branch                                                              | CEF Version | VC++ Version | .Net | Status | Release Time |
+|----------------------------------------------------------------------|------|------|-------|-----------------|-------------------|
+| [`master`](https://github.com/haltroy/korot)                      | 79+ | 2015 | Framework 4.8 | Development     | Scheduled to ~23.4.2020 |
+| [`0.5.4.0`](https://github.com/Haltroy/Korot/tree/0.5.4.0) | 79 | 2015 | Framework 4.8 | **Release**     | 03.4.2020 |
+| `0.5.3.0` and lower | 7-9 | 2015 | Framework 4.5.2 | Unsupported     | Before 03.4.2020 |
