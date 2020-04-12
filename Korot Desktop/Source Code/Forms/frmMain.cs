@@ -25,7 +25,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Korot
 {
@@ -36,6 +38,7 @@ namespace Korot
         public List<string> CancelledDownloads = new List<string>();
         public bool isIncognito = false;
         public KorotTabRenderer tabRenderer;
+        public CollectionManagement colman;
         public frmMain()
         {
 
@@ -73,9 +76,7 @@ namespace Korot
             BackColor = Properties.Settings.Default.BackColor;
             ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
         }
-
-
-        public string restoremedaddy = "";
+        public string OldSessions;
         private string profilePath;
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -136,6 +137,11 @@ namespace Korot
                         profilePath + "download.ksf",
                         profilePath + "cookieDisallow.ksf");
                 }
+                if (!File.Exists(profilePath + "collections.kcf"))
+                {
+                    FileSystem2.WriteFile(profilePath + "collections.kcf", "[root][/root]", Encoding.UTF8);
+                }
+                colman.readCollections(profilePath + "collections.kcf");
             }
             else
             { Process.Start(Application.ExecutablePath, "-oobe"); Close(); }
@@ -144,16 +150,13 @@ namespace Korot
             Size = new Size(Korot.Properties.Settings.Default.WindowSizeW, Korot.Properties.Settings.Default.WindowSizeH);
             PrintImages();
             if (Properties.Settings.Default.LangFile == null) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
-
-            if (Properties.Settings.Default.LastSessionURIs == "")
+            if (Properties.Settings.Default.autoRestoreSessions)
             {
-                restoremedaddy = "";
-            }
-            else
+                ReadSession(Properties.Settings.Default.LastSessionURIs);
+            }else
             {
-                restoremedaddy = Properties.Settings.Default.LastSessionURIs;
+                OldSessions = Properties.Settings.Default.LastSessionURIs;
             }
-
             SessionLogger.Start();
             MinimumSize = new System.Drawing.Size(660, 340);
             MaximizedBounds = Screen.GetWorkingArea(this);
@@ -169,13 +172,36 @@ namespace Korot
 
         public void ReadSession(string Session)
         {
-            string[] SplittedFase = Session.Split(';');
-            int Count = SplittedFase.Length - 1; ; int i = 0;
-            while (!(i == Count))
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(Session.Replace("[", "<").Replace("]", ">"));
+            writer.Flush();
+            stream.Position = 0;
+            XmlDocument document = new XmlDocument();
+            document.Load(stream);
+            foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                CreateTab(SplittedFase[i].Replace(Environment.NewLine, ""));
-                i += 1;
+                frmCEF cefform = new frmCEF(isIncognito, "korot://newtab", Properties.Settings.Default.LastUser);
+                cefform.lbURL.Items.Clear();
+                cefform.lbTitle.Items.Clear();
+                string[] SplittedFase = node.Attributes["Content"].Value.Split(';');
+                int Count = SplittedFase.Length - 1; ; int i = 0;
+                while (!(i == Count))
+                {
+                    cefform.lbURL.Items.Add(SplittedFase[i]);
+                    i += 1;
+                    cefform.lbTitle.Items.Add(SplittedFase[i]);
+                    i += 1;
+                }
+                cefform.lbURL.SelectedIndex = Convert.ToInt32(node.Attributes["Index"].Value);
+                cefform.lbTitle.SelectedIndex = Convert.ToInt32(node.Attributes["Index"].Value);
+                TitleBarTab tab = new TitleBarTab(this)
+                {
+                    Content = cefform
+                };
+                Tabs.Add(tab);
             }
+
         }
         public void WriteSessions(string Session)
         {
@@ -188,34 +214,64 @@ namespace Korot
             {
             }
         }
-        public void ReadLatestCurrentSession()
-        {
-            ReadSession(Properties.Settings.Default.LastSessionURIs);
-        }
         public void WriteCurrentSession()
         {
-            string CurrentSessionURIs = null;
+            string CurrentSessionURIs = "[root]";
             foreach (TitleBarTab x in Tabs)
             {
-                CurrentSessionURIs += ((frmCEF)x.Content).chromiumWebBrowser1.Address + ";";
+                frmCEF cefform = (frmCEF)x.Content;
+                string text = "";
+                int i = 0; int Count = cefform.lbURL.Items.Count - 1;
+                if (cefform.lbURL.Items.Count > 0)
+                {
+                    while (i != Count)
+                    {
+                        text += cefform.lbURL.Items[i].ToString() +
+                            ";" +
+                            cefform.lbTitle.Items[i].ToString() +
+                            ";";
+                        i += 1;
+                    }
+                }
+                CurrentSessionURIs += "[Session Index=\"" + cefform.lbURL.SelectedIndex + "\" Content=\"" + text + "\" /]";
             }
+            CurrentSessionURIs += "[/root]";
             WriteSessions(CurrentSessionURIs);
+        }
+        public bool closing = false;
+        public void CreateTab(TitleBarTab referenceTab,string url = "korot://newtab")
+        {
+            if (!Directory.Exists(profilePath) && profilePath != null) { Directory.CreateDirectory(profilePath); }
+            TitleBarTab newTab = new TitleBarTab(this)
+            {
+                BackColor = referenceTab.BackColor,
+                useDefaultBackColor = referenceTab.useDefaultBackColor,
+                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { colManager = colman, }
+            };
+            Tabs.Insert(Tabs.IndexOf(referenceTab) + 1, newTab);
+            SelectedTabIndex = Tabs.IndexOf(referenceTab) + 1;
+            //Tabs.Add(newTab);
         }
         public void CreateTab(string url = "korot://newtab")
         {
             if (!Directory.Exists(profilePath) && profilePath != null) { Directory.CreateDirectory(profilePath); }
             TitleBarTab newTab = new TitleBarTab(this)
             {
-                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser)
+                BackColor = Properties.Settings.Default.BackColor,
+                useDefaultBackColor = true,
+                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { colManager = colman,}
             };
             Tabs.Add(newTab);
+            SelectedTabIndex = Tabs.Count -1 ;
         }
         public override TitleBarTab CreateTab()
         {
             if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
             return new TitleBarTab(this)
             {
-                Content = new frmCEF(isIncognito, "korot://newtab", Properties.Settings.Default.LastUser)
+                BackColor = Properties.Settings.Default.BackColor,
+                useDefaultBackColor = true,
+                Content = new frmCEF(isIncognito, "korot://newtab", Properties.Settings.Default.LastUser) { colManager = colman, }
             };
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -247,6 +303,7 @@ namespace Korot
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            closing = true;
             if (!isIncognito)
             {
                 Korot.Properties.Settings.Default.WindowPosX = Location.X;
@@ -263,17 +320,31 @@ namespace Korot
                 if (WindowState == FormWindowState.Normal) { Properties.Settings.Default.windowState = 0; }
                 else if (WindowState == FormWindowState.Maximized) { Properties.Settings.Default.windowState = 1; }
                 else if (WindowState == FormWindowState.Minimized) { Properties.Settings.Default.windowState = 2; }
+                colman.writeCollections(profilePath + "collections.kcf");
                 if (e.CloseReason != CloseReason.None || e.CloseReason != CloseReason.WindowsShutDown || e.CloseReason != CloseReason.TaskManagerClosing)
                 {
                     Korot.Properties.Settings.Default.LastSessionURIs = "";
                 }
                 else
                 {
-                    Korot.Properties.Settings.Default.LastSessionURIs = "";
+                    Korot.Properties.Settings.Default.LastSessionURIs = "[root]";
                     foreach (TitleBarTab x in Tabs)
                     {
-                        Korot.Properties.Settings.Default.LastSessionURIs += ((frmCEF)x.Content).chromiumWebBrowser1.Address + ";";
+                        frmCEF cefform = (frmCEF)x.Content;
+                        string text = "";
+                        int i = 0; int Count = cefform.lbURL.Items.Count - 1;
+                        while (i != Count)
+                        {
+                            text += cefform.lbURL.Items[i].ToString() +
+                                ";" + 
+                                cefform.lbTitle.Items[i].ToString() + 
+                                ";";
+                            i += 1;
+                        }
+                        Korot.Properties.Settings.Default.LastSessionURIs += "[Session Index=\"" + cefform.lbURL.SelectedIndex + "\" Content=\"" + text + "\" /]";
                     }
+                    Korot.Properties.Settings.Default.LastSessionURIs += "[/root]";
+
                 }
                 if (!isIncognito) { Properties.Settings.Default.Save(); }
                 if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\")) { } else { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }

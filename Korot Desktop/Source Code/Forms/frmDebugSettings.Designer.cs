@@ -133,6 +133,7 @@ namespace Korot
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -209,6 +210,7 @@ namespace Korot
             // 
             // tabPage11
             // 
+            this.tabPage11.Controls.Add(this.checkBox7);
             this.tabPage11.Controls.Add(this.checkBox2);
             this.tabPage11.Controls.Add(this.label2);
             this.tabPage11.Controls.Add(this.checkBox1);
@@ -1118,6 +1120,17 @@ namespace Korot
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(277, 172);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(133, 17);
+            this.checkBox7.TabIndex = 36;
+            this.checkBox7.Text = "Auto-Restore Sessions";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
+            // 
             // frmDebugSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1255,5 +1268,6 @@ namespace Korot
         private System.Windows.Forms.TabPage tabPage11;
         private System.Windows.Forms.TabPage tabPage12;
         private System.Windows.Forms.TabPage tabPage13;
+        private System.Windows.Forms.CheckBox checkBox7;
     }
 }

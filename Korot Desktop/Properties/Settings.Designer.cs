@@ -505,5 +505,17 @@ namespace Korot.Properties {
                 this["disableLangErrors"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool autoRestoreSessions {
+            get {
+                return ((bool)(this["autoRestoreSessions"]));
+            }
+            set {
+                this["autoRestoreSessions"] = value;
+            }
+        }
     }
 }

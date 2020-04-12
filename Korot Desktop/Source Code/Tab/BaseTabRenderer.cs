@@ -489,7 +489,7 @@ namespace Korot
                 graphicsContext.DrawRectangle(new Pen(BackgroundColor, _parentWindow.Width), offset.X, offset.Y, _parentWindow.Width, TabHeight);
             }
 
-            if (_background != null)
+            if (_background != null && drawBackgroundColor)
             {
                 graphicsContext.DrawImage(_background, offset.X, offset.Y, _parentWindow.Width, TabHeight);
 
@@ -623,7 +623,6 @@ namespace Korot
                         : _addButtonImage.Height, GraphicsUnit.Pixel);
             }
         }
-
         /// <summary>Internal method for rendering an individual <paramref name="tab" /> to the screen.</summary>
         /// <param name="graphicsContext">Graphics context to use when rendering the tab.</param>
         /// <param name="tab">Individual tab that we are to render.</param>
@@ -638,24 +637,26 @@ namespace Korot
             {
                 return;
             }
+            Color thisTabBack = tab.BackColor;
+            Color thisTabForeColor = tab.useDefaultBackColor ? (Tools.isBright(BackgroundColor) ? Color.Black : Color.White) : (Tools.isBright(tab.BackColor) ? Color.Black : Color.White);
 
             // If we need to redraw the tab image
             if (tab.TabImage == null)
             {
                 // We render the tab to an internal property so that we don't necessarily have to redraw it in every rendering pass, only if its width or 
                 // status have changed
-                tab.TabImage = new Bitmap(area.Width <= 0 ? 1 : area.Width, tabCenterImage.Height <= 0 ? 1 : tabCenterImage.Height);
+                tab.TabImage = new Bitmap(area.Width <= 0 ? 1 : area.Width,30);
 
                 using (Graphics tabGraphicsContext = Graphics.FromImage(tab.TabImage))
                 {
                     // Draw the left, center, and right portions of the tab
 
-                    tabGraphicsContext.DrawImage(tabLeftImage, new Rectangle(0, 0, tabLeftImage.Width, tabLeftImage.Height), 0, 0, tabLeftImage.Width, tabLeftImage.Height, GraphicsUnit.Pixel);
-
-                    tabGraphicsContext.DrawImage(tabCenterImage, new Rectangle(tabLeftImage.Width, 0, _tabContentWidth, tabCenterImage.Height), 0, 0, _tabContentWidth, tabCenterImage.Height, GraphicsUnit.Pixel);
-
-                    tabGraphicsContext.DrawImage(tabRightImage, new Rectangle(tabLeftImage.Width + _tabContentWidth, 0, tabRightImage.Width, tabRightImage.Height), 0, 0, tabRightImage.Width, tabRightImage.Height, GraphicsUnit.Pixel);
-
+                    //tabGraphicsContext.DrawImage(tabLeftImage, new Rectangle(0, 0, tabLeftImage.Width, tabLeftImage.Height), 0, 0, tabLeftImage.Width, tabLeftImage.Height, GraphicsUnit.Pixel);
+                    tabGraphicsContext.DrawRectangle(new Pen(tab.useDefaultBackColor ? BackgroundColor : thisTabBack, tabLeftImage.Width), new Rectangle(0, 0, tabLeftImage.Width, 30));
+                    //tabGraphicsContext.DrawImage(tabCenterImage, new Rectangle(tabLeftImage.Width, 0, _tabContentWidth, tabCenterImage.Height), 0, 0, _tabContentWidth, tabCenterImage.Height, GraphicsUnit.Pixel);
+                    tabGraphicsContext.DrawRectangle(new Pen(tab.useDefaultBackColor ? BackgroundColor : thisTabBack, tabCenterImage.Width), new Rectangle(tabLeftImage.Width, 0, _tabContentWidth, 30));
+                    //tabGraphicsContext.DrawImage(tabRightImage, new Rectangle(tabLeftImage.Width + _tabContentWidth, 0, tabRightImage.Width, tabRightImage.Height), 0, 0, tabRightImage.Width, tabRightImage.Height, GraphicsUnit.Pixel);
+                    tabGraphicsContext.DrawRectangle(new Pen(tab.useDefaultBackColor ? BackgroundColor : thisTabBack, tabRightImage.Width), new Rectangle(tabLeftImage.Width + _tabContentWidth, 0, tabRightImage.Width, 30));
                     // Draw the close button
                     if (tab.ShowCloseButton)
                     {
@@ -704,7 +705,7 @@ namespace Korot
                     : 0))
             {
                 graphicsContext.DrawString(
-                    tab.Caption, SystemFonts.CaptionFont, new SolidBrush(ForegroundColor),
+                    tab.Caption, SystemFonts.CaptionFont, new SolidBrush(thisTabForeColor),
                     new Rectangle(
                         area.X + OverlapWidth + CaptionMarginLeft + (tab.Content.ShowIcon
                             ? IconMarginLeft +

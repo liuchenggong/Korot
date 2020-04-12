@@ -32,20 +32,6 @@ namespace Korot
             }
         }
 
-        private string generateRandomText()
-        {
-            StringBuilder builder = new StringBuilder();
-            Enumerable
-               .Range(65, 26)
-                .Select(e => ((char)e).ToString())
-                .Concat(Enumerable.Range(97, 26).Select(e => ((char)e).ToString()))
-                .Concat(Enumerable.Range(0, 10).Select(e => e.ToString()))
-                .OrderBy(e => Guid.NewGuid())
-                .Take(11)
-                .ToList().ForEach(e => builder.Append(e));
-            return builder.ToString().Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
-        }
-
         private readonly string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\";
 
         private void readKEM()
@@ -57,7 +43,7 @@ namespace Korot
             string extName = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
             string extAuthor = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
             fileURL = "https://haltroy.com/store/Korot/Extensions/" + extAuthor + "." + extName + "/" + extAuthor + "." + extName + ".kef";
-            fileLocation = tempPath + generateRandomText() + "\\" + extAuthor + "." + extName + ".kef";
+            fileLocation = tempPath + Tools.generateRandomText() + "\\" + extAuthor + "." + extName + ".kef";
             verLocation = "https://haltroy.com/store/Korot/Extensions/" + extAuthor + "." + extName + "/ver.txt";
             downloadString();
         }
@@ -73,7 +59,7 @@ namespace Korot
             string extName = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
             string extAuthor = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
             fileURL = "https://haltroy.com/store/Korot/Themes/" + extAuthor + "." + extName + "/" + extAuthor + "." + extName + ".ktf";
-            fileLocation = tempPath + generateRandomText() + "\\" + extAuthor + "." + extName + ".ktf";
+            fileLocation = tempPath + Tools.generateRandomText() + "\\" + extAuthor + "." + extName + ".ktf";
             verLocation = "https://haltroy.com/store/Korot/Themes/" + extAuthor + "." + extName + "/ver.txt";
             downloadString();
         }

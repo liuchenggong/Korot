@@ -60,6 +60,7 @@ namespace Korot
         public ChromiumWebBrowser chromiumWebBrowser1;
         private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
         private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
+        public CollectionManagement colManager;
         // [NEWTAB]
         public frmMain anaform()
         {
@@ -75,6 +76,16 @@ namespace Korot
             InitializeComponent();
             InitializeChromium();
             updateExtensions();
+
+            frmCollection collectionManager = new frmCollection(this);
+            collectionManager.TopLevel = false;
+            collectionManager.FormBorderStyle = FormBorderStyle.None;
+            collectionManager.Dock = DockStyle.Fill;
+            collectionManager.Visible = true;
+            ColMan = collectionManager;
+            collectionManager.Show();
+            panel3.Controls.Add(collectionManager);
+
             foreach (Control x in Controls)
             {
                 try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
@@ -462,7 +473,49 @@ namespace Korot
         public string themeInfo = "[THEMENAME] theme made by [THEMEAUTHOR].";
         public string anon = "an unknown person";
         public string noname = "This unknown";
-
+        public string text = "Text";
+        public string image = "Image";
+        public string link = "Link";
+        //Editor
+        public string catCommon = "Common";
+        public string catText = "Text-based";
+        public string catOnline = "Online";
+        public string catPicture = "Picture";
+        public string TitleID = "ID: ";
+        public string TitleBackColor = "BackColor: ";
+        public string TitleText = "Text: ";
+        public string TitleFont = "Font: ";
+        public string TitleSize = "FontSize: ";
+        public string TitleProp = "FontProperties: ";
+        public string TitleRegular = "Regular";
+        public string TitleBold = "Bold";
+        public string TitleItalic = "Italic";
+        public string TitleUnderline = "Underline";
+        public string TitleStrikeout = "Strikeout";
+        public string TitleForeColor = "ForeColor: ";
+        public string TitleSource = "Source: ";
+        public string TitleWidth = "Width: ";
+        public string TitleHeight = "Height: ";
+        public string TitleDone = "Done";
+        public string TitleEditItem = "Edit Item";
+        //Collection Manager
+        public string newColInfo = "Enter a name for new collection";
+        public string newColName = "New Collection";
+        public string importColInfo = "Enter code for new collection";
+        public string delColInfo = "Do you really want to delete $?";
+        public string clearColInfo = "Do you really want to delete all?";
+        public string okToClipboard = "Press OK to copy to clipboard.";
+        public string newCollection = "New Collection";
+        public string deleteCollection = "Delete this collection";
+        public string clearCollection = "Clear";
+        public string importCollection = "Import";
+        public string exportCollection = "Export";
+        public string deleteItem = "Delete this item";
+        public string exportItem = "Export this item";
+        public string editItem = "Edit this item";
+        public string addToCollection = "Add to Collection";
+        public string titleBackInfo = "Click the rectangle on top to change color.";
+        public string setToDefault = "Set to Default";
 
         private void dummyCMS_Opening(object sender, CancelEventArgs e)
         {
@@ -474,7 +527,7 @@ namespace Korot
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SF = Playlist.Split(token);
 
-            while (SF.Length != 300)
+            while (SF.Length != 350)
             {
                 Array.Resize<string>(ref SF, SF.Length + 1);
                 SF[SF.Length - 1] = "mmisingno";
@@ -511,11 +564,64 @@ namespace Korot
         }
         public void ReadLangFileFromTemp(string[] SplittedFase)
         {
-            if (SplittedFase.Length >= 269)
+            if (SplittedFase.Length >= 313)
             {
+                setToDefault = SplittedFase[313].Substring(1).Replace(Environment.NewLine, "");
+                tsChangeTitleBack.Text = SplittedFase[312].Substring(1).Replace(Environment.NewLine, "");
+                titleBackInfo = SplittedFase[313].Substring(1).Replace(Environment.NewLine, "");
+                addToCollection = SplittedFase[311].Substring(1).Replace(Environment.NewLine, "");
+                newColInfo = SplittedFase[297].Substring(1).Replace(Environment.NewLine, "");
+                newColName = SplittedFase[298].Substring(1).Replace(Environment.NewLine, "");
+                importColInfo = SplittedFase[299].Substring(1).Replace(Environment.NewLine, "");
+                delColInfo = SplittedFase[300].Substring(1).Replace(Environment.NewLine, "");
+                clearColInfo = SplittedFase[301].Substring(1).Replace(Environment.NewLine, "");
+                okToClipboard = SplittedFase[302].Substring(1).Replace(Environment.NewLine, "");
+                newCollection = SplittedFase[303].Substring(1).Replace(Environment.NewLine, "");
+                deleteCollection = SplittedFase[304].Substring(1).Replace(Environment.NewLine, "");
+                clearCollection = SplittedFase[305].Substring(1).Replace(Environment.NewLine, "");
+                importCollection = SplittedFase[306].Substring(1).Replace(Environment.NewLine, "");
+                exportCollection = SplittedFase[307].Substring(1).Replace(Environment.NewLine, "");
+                deleteItem = SplittedFase[308].Substring(1).Replace(Environment.NewLine, "");
+                exportItem = SplittedFase[309].Substring(1).Replace(Environment.NewLine, "");
+                editItem = SplittedFase[310].Substring(1).Replace(Environment.NewLine, "");
+                catCommon = SplittedFase[276].Substring(1).Replace(Environment.NewLine, "");
+                catText = SplittedFase[277].Substring(1).Replace(Environment.NewLine, "");
+                catOnline = SplittedFase[278].Substring(1).Replace(Environment.NewLine, "");
+                catPicture = SplittedFase[279].Substring(1).Replace(Environment.NewLine, "");
+                TitleID = SplittedFase[280].Substring(1).Replace(Environment.NewLine, "");
+                TitleBackColor = SplittedFase[281].Substring(1).Replace(Environment.NewLine, "");
+                TitleText = SplittedFase[282].Substring(1).Replace(Environment.NewLine, "");
+                TitleFont = SplittedFase[283].Substring(1).Replace(Environment.NewLine, "");
+                TitleSize = SplittedFase[284].Substring(1).Replace(Environment.NewLine, "");
+                TitleProp = SplittedFase[285].Substring(1).Replace(Environment.NewLine, "");
+                TitleRegular = SplittedFase[286].Substring(1).Replace(Environment.NewLine, "");
+                TitleBold = SplittedFase[287].Substring(1).Replace(Environment.NewLine, "");
+                TitleItalic = SplittedFase[288].Substring(1).Replace(Environment.NewLine, "");
+                TitleUnderline = SplittedFase[289].Substring(1).Replace(Environment.NewLine, "");
+                TitleStrikeout = SplittedFase[290].Substring(1).Replace(Environment.NewLine, "");
+                TitleForeColor = SplittedFase[291].Substring(1).Replace(Environment.NewLine, "");
+                TitleSource = SplittedFase[292].Substring(1).Replace(Environment.NewLine, "");
+                TitleWidth = SplittedFase[293].Substring(1).Replace(Environment.NewLine, "");
+                TitleHeight = SplittedFase[294].Substring(1).Replace(Environment.NewLine, "");
+                TitleDone = SplittedFase[295].Substring(1).Replace(Environment.NewLine, "");
+                TitleEditItem = SplittedFase[296].Substring(1).Replace(Environment.NewLine, "");
+                image = SplittedFase[273].Substring(1).Replace(Environment.NewLine, "");
+                text = SplittedFase[274].Substring(1).Replace(Environment.NewLine, "");
+                link = SplittedFase[275].Substring(1).Replace(Environment.NewLine, "");
+                label9.Text = SplittedFase[272].Substring(1).Replace(Environment.NewLine, "");
+                tsCollections.Text = SplittedFase[272].Substring(1).Replace(Environment.NewLine, "");
+                tpCert.Text = SplittedFase[271].Substring(1).Replace(Environment.NewLine, "");
+                tpAbout.Text = SplittedFase[19].Substring(1).Replace(Environment.NewLine, "");
+                tpSettings.Text = SplittedFase[10].Substring(1).Replace(Environment.NewLine, "");
+                tpCookie.Text = SplittedFase[197].Substring(1).Replace(Environment.NewLine, "");
+                tpCollection.Text = SplittedFase[272].Substring(1).Replace(Environment.NewLine, "");
+                tpDownload.Text = SplittedFase[39].Substring(1).Replace(Environment.NewLine, "");
+                tpHistory.Text = SplittedFase[11].Substring(1).Replace(Environment.NewLine, "");
+                tpTheme.Text = SplittedFase[14].Substring(1).Replace(Environment.NewLine, "");
+                lbautoRestore.Text = SplittedFase[270].Substring(1).Replace(Environment.NewLine, "");
                 Properties.Settings.Default.KorotErrorTitle = SplittedFase[262].Substring(1).Replace(Environment.NewLine, "");
                 Properties.Settings.Default.KorotErrorDesc = SplittedFase[263].Substring(1).Replace(Environment.NewLine, "");
-                Properties.Settings.Default.KorotErrorTI = SplittedFase[264].Substring(1).Replace(Environment.NewLine, ""); ;
+                Properties.Settings.Default.KorotErrorTI = SplittedFase[264].Substring(1).Replace(Environment.NewLine, "");
                 ubuntuLicense = SplittedFase[261].Substring(1).Replace(Environment.NewLine, "");
                 tsFullscreen.Text = SplittedFase[257].Substring(1).Replace(Environment.NewLine, "");
                 updateTitleTheme = SplittedFase[258].Substring(1).Replace(Environment.NewLine, "");
@@ -1393,19 +1499,19 @@ namespace Korot
                 lbUpdateStatus.Text = uptodate;
             }
         }
-
-        private Font CreateFont(string fontFile, float size, FontStyle style)
+        public TitleBarTabs ParentTabs => (ParentForm as TitleBarTabs);
+        public TitleBarTab ParentTab
         {
-            using (PrivateFontCollection pfc = new PrivateFontCollection())
+            get
             {
-                pfc.AddFontFile(fontFile);
-                using (FontFamily fontFamily = new FontFamily(pfc.Families[0].Name, pfc))
+                List<int> tabIndexes = new List<int>();
+                foreach (TitleBarTab x in ParentTabs.Tabs)
                 {
-                    return new Font(fontFamily, size, style);
+                    if (x.Content == this) { tabIndexes.Add(ParentTabs.Tabs.IndexOf(x)); }
                 }
+                return (tabIndexes.Count > 0 ? ParentTabs.Tabs[tabIndexes[0]] : null);
             }
         }
-        public TitleBarTabs ParentTabs => (ParentForm as TitleBarTabs);
         private async void SetProxy(ChromiumWebBrowser cwb, string Address)
         {
             if (Address == null) { }
@@ -1651,59 +1757,62 @@ namespace Korot
 
         public void loadingstatechanged(object sender, LoadingStateChangedEventArgs e)
         {
-            if (e.IsLoading)
+            if (!this.IsDisposed)
             {
-                certError = false;
-                cookieUsage = false;
-                pictureBox2.Invoke(new Action(() => pictureBox2.Image = Properties.Resources.lockg));
-                Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Tag = null));
-                Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Visible = false));
-                Invoke(new Action(() => safeStatusToolStripMenuItem.Text = CertificateOKTitle));
-                Invoke(new Action(() => ınfoToolStripMenuItem.Text = CertificateOK));
-                Invoke(new Action(() => cookieInfoToolStripMenuItem.Text = notUsesCookies));
-                if (Tools.Brightness(Properties.Settings.Default.BackColor) > 130)
+                if (e.IsLoading)
                 {
-                    button2.Image = Korot.Properties.Resources.cancel;
+                    certError = false;
+                    cookieUsage = false;
+                    pictureBox2.Invoke(new Action(() => pictureBox2.Image = Properties.Resources.lockg));
+                    Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Tag = null));
+                    Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Visible = false));
+                    Invoke(new Action(() => safeStatusToolStripMenuItem.Text = CertificateOKTitle));
+                    Invoke(new Action(() => ınfoToolStripMenuItem.Text = CertificateOK));
+                    Invoke(new Action(() => cookieInfoToolStripMenuItem.Text = notUsesCookies));
+                    if (Tools.Brightness(Properties.Settings.Default.BackColor) > 130)
+                    {
+                        button2.Image = Korot.Properties.Resources.cancel;
+                    }
+                    else { button2.Image = Korot.Properties.Resources.cancel_w; }
                 }
-                else { button2.Image = Korot.Properties.Resources.cancel_w; }
-            }
-            else
-            {
-                if (_Incognito) { }
                 else
                 {
-                    Invoke(new Action(() => Korot.Properties.Settings.Default.History += DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + Text + ";" + (tbAddress.Text) + ";"));
+                    if (_Incognito) { }
+                    else
+                    {
+                        Invoke(new Action(() => Korot.Properties.Settings.Default.History += DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + Text + ";" + (tbAddress.Text) + ";"));
 
+                    }
+                    executeBackgroundExtensions();
+                    if (Tools.Brightness(Properties.Settings.Default.BackColor) > 130)
+                    {
+                        button2.Image = Korot.Properties.Resources.refresh;
+                    }
+                    else
+                    { button2.Image = Korot.Properties.Resources.refresh_w; }
                 }
-                executeBackgroundExtensions();
-                if (Tools.Brightness(Properties.Settings.Default.BackColor) > 130)
+                if (onCEFTab)
                 {
-                    button2.Image = Korot.Properties.Resources.refresh;
+                    if (!e.Browser.IsDisposed)
+                    {
+                        button1.Invoke(new Action(() => button1.Enabled = canGoBack()));
+                        button3.Invoke(new Action(() => button3.Enabled = canGoForward()));
+                    }
+                    else
+                    {
+                        button1.Invoke(new Action(() => button1.Enabled = false));
+                        button3.Invoke(new Action(() => button3.Enabled = false));
+                    }
+                }
+                isLoading = e.IsLoading;
+                if (Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser1.Address))
+                {
+                    disallowThisPageForCookieAccessToolStripMenuItem.Text = allowCookie;
                 }
                 else
-                { button2.Image = Korot.Properties.Resources.refresh_w; }
-            }
-            if (onCEFTab)
-            {
-                if (!e.Browser.IsDisposed)
                 {
-                    button1.Invoke(new Action(() => button1.Enabled = canGoBack()));
-                    button3.Invoke(new Action(() => button3.Enabled = canGoForward()));
+                    disallowThisPageForCookieAccessToolStripMenuItem.Text = disallowCookie;
                 }
-                else
-                {
-                    button1.Invoke(new Action(() => button1.Enabled = false));
-                    button3.Invoke(new Action(() => button3.Enabled = false));
-                }
-            }
-            isLoading = e.IsLoading;
-            if (Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser1.Address))
-            {
-                disallowThisPageForCookieAccessToolStripMenuItem.Text = allowCookie;
-            }
-            else
-            {
-                disallowThisPageForCookieAccessToolStripMenuItem.Text = disallowCookie;
             }
         }
 
@@ -1741,7 +1850,7 @@ namespace Korot
         }
         public void NewTab(string url)
         {
-            anaform().Invoke(new Action(() => { anaform().CreateTab(url); anaform().SelectedTabIndex = anaform().Tabs.Count - 1; }));
+            anaform().Invoke(new Action(() => { anaform().CreateTab(ParentTab,url); }));
         }
 
         private bool isFavMenuHidden = false;
@@ -1967,7 +2076,8 @@ namespace Korot
                      || tabControl1.SelectedTab == tpHistory
                      || tabControl1.SelectedTab == tpDownload
                      || tabControl1.SelectedTab == tpAbout
-                     || tabControl1.SelectedTab == tpTheme) //Menu
+                     || tabControl1.SelectedTab == tpTheme
+                     || tabControl1.SelectedTab == tpCollection) //Menu
             {
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpCef;
@@ -2041,23 +2151,35 @@ namespace Korot
 
         private void cef_TitleChanged(object sender, TitleChangedEventArgs e)
         {
-            if (e.Title.Length < 101)
-            {
-                Invoke(new Action(() => Text = e.Title));
-            }
-            else
-            {
-                Invoke(new Action(() => Text = e.Title.Substring(0, 100)));
-            }
-            this.Invoke(new Action(() => { 
-            int si = lbTitle.SelectedIndex;
-                if (si != -1)
+                this.Invoke(new Action(() =>
                 {
-                    lbTitle.Items.RemoveAt(si);
-                    lbTitle.Items.Insert(si, e.Title);
-                    lbTitle.SelectedIndex = si;
-                }
-            }));
+                    tpCef.Text = e.Title;
+                    int si = lbTitle.SelectedIndex;
+                    if (si != -1)
+                    {
+                        if (lbURL.Items[si].ToString() != chromiumWebBrowser1.Address)
+                        {
+                            if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot"))
+                            {
+                                if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot://newtab") ||
+chromiumWebBrowser1.Address.ToLower().StartsWith("korot://links") ||
+chromiumWebBrowser1.Address.ToLower().StartsWith("korot://license") ||
+chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
+                                {
+                                    lbTitle.Items.RemoveAt(si);
+                                    lbTitle.Items.Insert(si, e.Title);
+                                    lbTitle.SelectedIndex = si;
+                                }
+                            }
+                            else
+                            {
+                                lbTitle.Items.RemoveAt(si);
+                                lbTitle.Items.Insert(si, e.Title);
+                                lbTitle.SelectedIndex = si;
+                            }
+                        }
+                    }
+                }));
         }
 
         public void showHideSearchMenu()
@@ -2110,11 +2232,11 @@ namespace Korot
         }
         public bool canGoForward()
         {
-            return lbURL.SelectedIndex != lbURL.Items.Count - 1;
+            return tabControl1.SelectedTab == tpCef ? (lbURL.SelectedIndex != lbURL.Items.Count - 1) : true;
         }
         public bool canGoBack()
         {
-            return lbURL.SelectedIndex != 0;
+            return  tabControl1.SelectedTab == tpCef ? (lbURL.SelectedIndex != 0) : true;
         }
 
         public bool isControlKeyPressed = false;
@@ -2281,6 +2403,7 @@ namespace Korot
                 button13.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 tsThemes.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.theme_w : Properties.Resources.theme;
                 button6.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button15.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 button4.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 button8.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 button14.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
@@ -2306,6 +2429,11 @@ namespace Korot
                 button10.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 hlvDownload.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
                 cbLang.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                hsAutoRestore.BackColor = Properties.Settings.Default.BackColor;
+                hsAutoRestore.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsAutoRestore.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsAutoRestore.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
+                hsAutoRestore.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
                 hsDownload.BackColor = Properties.Settings.Default.BackColor;
                 hsDownload.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
                 hsDownload.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
@@ -2410,7 +2538,13 @@ namespace Korot
                 cmsBStyle.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsCookie.BackColor = Properties.Settings.Default.BackColor;
                 cmsCookie.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                cmsBack.BackColor = Properties.Settings.Default.BackColor;
+                cmsBack.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                cmsForward.BackColor = Properties.Settings.Default.BackColor;
+                cmsForward.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 switchToToolStripMenuItem.DropDown.BackColor = Properties.Settings.Default.BackColor; switchToToolStripMenuItem.DropDown.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                foreach (ToolStripItem x in cmsForward.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
+                foreach (ToolStripItem x in cmsBack.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (ToolStripItem x in cmsProfiles.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (ToolStripItem x in extensionToolStripMenuItem1.DropDownItems) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black; }
@@ -2515,8 +2649,9 @@ namespace Korot
             RefreshTranslation();
             if (anaform() != null)
             {
-                if (anaform().restoremedaddy == "") { spRestorer.Visible = false; restoreLastSessionToolStripMenuItem.Visible = false; } else { spRestorer.Visible = true; restoreLastSessionToolStripMenuItem.Visible = true; }
+                if (anaform().OldSessions == "") { spRestorer.Visible = false; restoreLastSessionToolStripMenuItem.Visible = false; } else { spRestorer.Visible = true; restoreLastSessionToolStripMenuItem.Visible = true; }
             }
+            this.Text = tabControl1.SelectedTab.Text;
         }
 
         private void TestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2609,6 +2744,7 @@ namespace Korot
             dudClose.Width = tpTheme.Width - (label32.Width + label32.Location.X + 25);
             dudNewTab.Location = new Point(label31.Location.X + label31.Width, dudNewTab.Location.Y);
             dudNewTab.Width = tpTheme.Width - (label31.Width + label31.Location.X + 25);
+            hsAutoRestore.Location = new Point(lbautoRestore.Location.X + lbautoRestore.Width + 5, hsAutoRestore.Location.Y);
             hsFav.Location = new Point(label33.Location.X + label33.Width + 5, hsFav.Location.Y);
             hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width + 5, hsDoNotTrack.Location.Y);
             hsOpen.Location = new Point(lbOpen.Location.X + lbOpen.Width + 5, hsOpen.Location.Y);
@@ -2649,6 +2785,7 @@ namespace Korot
             }
 
             hsOpen.Checked = Properties.Settings.Default.downloadOpen;
+            hsAutoRestore.Checked = Properties.Settings.Default.autoRestoreSessions;
             hsUnknown.Checked = Properties.Settings.Default.allowUnknownResources;
             hsFav.Checked = Properties.Settings.Default.showFav;
             dudClose.SelectedIndex = Properties.Settings.Default.closeColor;
@@ -2913,7 +3050,7 @@ namespace Korot
 
         private void restoreLastSessionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            anaform().Invoke(new Action(() => anaform().ReadSession(anaform().restoremedaddy)));
+            anaform().Invoke(new Action(() => anaform().ReadSession(anaform().OldSessions)));
             restoreLastSessionToolStripMenuItem.Visible = false;
         }
 
@@ -3610,6 +3747,85 @@ namespace Korot
             }
             button1.Visible = lbURL.SelectedIndex != 0;
             button3.Visible = lbURL.SelectedIndex != lbURL.Items.Count -1;
+        }
+
+        private void cmsBack_Opening(object sender, CancelEventArgs e)
+        {
+            cmsBack.Items.Clear();
+            if ((lbURL.SelectedIndex != -1) && lbURL.Items.Count > 0)
+            {
+                int i = 0;
+                while (i != lbURL.SelectedIndex)
+                {
+                    ToolStripMenuItem item = new ToolStripMenuItem();
+                    item.Text = lbTitle.Items[i].ToString();
+                    item.ShortcutKeyDisplayString = i.ToString();
+                    item.Tag = lbURL.Items[i].ToString();
+                    item.ShowShortcutKeys = false;
+                    item.Click += backfrowardItemClick;
+                    cmsBack.Items.Add(item);
+                    i += 1;
+                }
+            }
+        }
+        void backfrowardItemClick(object sender,EventArgs e)
+        {
+            int switchTo = Convert.ToInt32(((ToolStripMenuItem)sender).ShortcutKeyDisplayString);
+            lbURL.SelectedIndex = switchTo;
+        }
+
+        private void cmsForward_Opening(object sender, CancelEventArgs e)
+        {
+            cmsForward.Items.Clear();
+            if ((lbURL.SelectedIndex != -1) && lbURL.Items.Count > 0)
+            {
+                int i = lbURL.SelectedIndex +1;
+                while (i != lbURL.Items.Count -1)
+                {
+                    ToolStripMenuItem item = new ToolStripMenuItem();
+                    item.Text = lbTitle.Items[i].ToString();
+                    item.ShortcutKeyDisplayString = i.ToString();
+                    item.Tag = lbURL.Items[i].ToString();
+                    item.ShowShortcutKeys = false;
+                    item.Click += backfrowardItemClick;
+                    cmsForward.Items.Add(item);
+                    i += 1;
+                }
+            }
+        }
+
+        private void hsAutoRestore_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.autoRestoreSessions = hsAutoRestore.Checked;
+        }
+        frmCollection ColMan;
+        private void tpCollection_Enter(object sender, EventArgs e)
+        {
+            ColMan.genColList();
+        }
+
+
+        private void tsCollections_Click(object sender, EventArgs e)
+        {
+            button3.Enabled = true;
+            allowSwitching = true;
+            tabControl1.SelectedTab = tpCollection;
+        }
+
+        private void tsChangeTitleBack_Click(object sender, EventArgs e)
+        {
+            frmChangeTBTBack dialog = new frmChangeTBTBack(this);
+            switch (dialog.ShowDialog())
+            {
+                case DialogResult.OK:
+                    ParentTab.BackColor = dialog.Color;
+                    ParentTab.useDefaultBackColor = false;
+                    break;
+                case DialogResult.Abort:
+                    ParentTab.BackColor = BackColor;
+                    ParentTab.useDefaultBackColor = true;
+                    break;
+            }
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

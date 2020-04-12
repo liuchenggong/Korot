@@ -181,7 +181,22 @@ namespace Korot
                 //Directory.CreateDirectory(Application.StartupPath);
                 try
                 {
-                    ZipFile.ExtractToDirectory(downloadFolder + fileName, Application.StartupPath, Encoding.UTF8);
+                    string newVerLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateNewVer\\";
+                    if (Directory.Exists(newVerLocation)) { Directory.Delete(newVerLocation,true); } Directory.CreateDirectory(newVerLocation);
+                    ZipFile.ExtractToDirectory(downloadFolder + fileName, newVerLocation, Encoding.UTF8);
+                    foreach (String x in Directory.GetFiles(newVerLocation))
+                    {
+                        FileInfo info = new FileInfo(x);
+                        File.Move(x, Application.StartupPath + "\\" + info.Name);
+                    }
+                    foreach (String x in Directory.GetDirectories(newVerLocation))
+                    {
+                        DirectoryInfo info = new DirectoryInfo(x);
+                        if (info.Name.ToLower() != "ubuntu")
+                        {
+                            Directory.Move(x, Application.StartupPath + "\\" + info.Name);
+                        }
+                    }
                     Restart();
                 }
                 catch (Exception ex)

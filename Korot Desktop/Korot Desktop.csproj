@@ -111,6 +111,7 @@
     <Reference Include="System.Core">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.IO.Compression">
       <Private>False</Private>
     </Reference>
@@ -171,11 +172,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source Code\Filters\StreamResponseFilter.cs" />
+    <Compile Include="Source Code\Forms\frmChangeTBTBack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmChangeTBTBack.Designer.cs">
+      <DependentUpon>frmChangeTBTBack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmCollection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmCollection.Designer.cs">
+      <DependentUpon>frmCollection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Forms\frmDebugSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Source Code\Forms\frmDebugSettings.Designer.cs">
       <DependentUpon>frmDebugSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmEditCollection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmEditCollection.Designer.cs">
+      <DependentUpon>frmEditCollection.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Forms\frmError.cs">
       <SubType>Form</SubType>
@@ -211,6 +230,9 @@
     <Compile Include="Source Code\Handlers\FindHandler.cs" />
     <Compile Include="Source Code\Handlers\KeyboardHandler.cs" />
     <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
+    <Compile Include="Source Code\Others\CustomLinkLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Source Code\Others\DevToolsContainerControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -240,6 +262,7 @@
     <Compile Include="Source Code\Tab\TornTabForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Source Code\Tools\CollectionManagement.cs" />
     <Compile Include="Source Code\Tools\ConsoleOutputLog.cs" />
     <Compile Include="Source Code\Forms\Form1.cs">
       <SubType>Form</SubType>
@@ -288,8 +311,17 @@
     <EmbeddedResource Include="Source Code\Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmChangeTBTBack.resx">
+      <DependentUpon>frmChangeTBTBack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmCollection.resx">
+      <DependentUpon>frmCollection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmDebugSettings.resx">
       <DependentUpon>frmDebugSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmEditCollection.resx">
+      <DependentUpon>frmEditCollection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmError.resx">
       <DependentUpon>frmError.cs</DependentUpon>

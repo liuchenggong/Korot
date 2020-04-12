@@ -8,6 +8,34 @@ namespace Korot
     /// <summary>Wraps a <see cref="Form" /> instance (<see cref="_content" />), that represents the content that should be displayed within a tab instance.</summary>
     public class TitleBarTab
     {
+        protected Color _BackColor = Color.White;
+        /// <summary>
+        /// Gets the BackgroundColor for this tab.
+        /// </summary>
+        public Color BackColor
+        {
+            get
+            {
+                return _BackColor;
+            }set
+            {
+                _BackColor = value;
+            }
+        }
+        protected bool UseDefaultColor = true;
+        /// <summary>
+        /// This will tell to renderer that this tab uses default colors.
+        /// </summary>
+        public bool useDefaultBackColor
+        {
+            get
+            {
+                return UseDefaultColor;
+            }set
+            {
+                UseDefaultColor = value;
+            }
+        }
         /// <summary>Flag indicating whether or not this tab is active.</summary>
         protected bool _active;
 

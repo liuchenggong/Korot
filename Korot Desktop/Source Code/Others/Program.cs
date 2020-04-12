@@ -37,6 +37,7 @@ namespace Korot
         private static void Main(string[] args)
         {
             Cef.EnableHighDPISupport();
+            CollectionManagement colman = new CollectionManagement();
             Properties.Settings.Default.dismissUpdate = false;
             Properties.Settings.Default.alreadyUpdatedThemes = false;
             Properties.Settings.Default.alreadyUpdatedExt = false;
@@ -68,9 +69,9 @@ namespace Korot
                         {
                             ProcessStartInfo startInfo = new ProcessStartInfo(Application.ExecutablePath)
                             {
-                                Verb = "runas", // This will set it to run as an administrator
-                                Arguments = "-update" // arguments to pass to the application that is being started
-                            }; //cmd is the application you are trying to start
+                                Verb = "runas",
+                                Arguments = "-update" 
+                            }; 
                             Process.Start(startInfo);
                             Application.Exit();
                         }
@@ -132,10 +133,11 @@ namespace Korot
                             testApp.Tabs.Add(
     new TitleBarTab(testApp)
     {
-        Content = new frmCEF(isIncognito, Properties.Settings.Default.StartupURL, Properties.Settings.Default.LastUser) { }
-    });
+        Content = new frmCEF(isIncognito, Properties.Settings.Default.StartupURL, Properties.Settings.Default.LastUser) { colManager = colman, }
+    }) ;
                         }
                         testApp.SelectedTabIndex = 0;
+                        testApp.colman = colman;
                         TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
                         applicationContext.Start(testApp);
                         Application.Run(applicationContext);

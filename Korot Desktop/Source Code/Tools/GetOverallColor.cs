@@ -37,14 +37,19 @@ namespace Korot
         private static int pixelColor;
 
         private static Dictionary<int, int> dctColorIncidence;
+        public static Color mainColor(Bitmap bitmap)
+        {
+            GetMostUsedColor(bitmap);
+            Color c = MostUsedColor;
+            MostUsedColor = Color.Empty;
+            return c;
+        }
         public static int GetBrightnessOfImage(Bitmap bitmap)
         {
             GetMostUsedColor(bitmap);
             Color c = MostUsedColor;
-            return (int)Math.Sqrt(
-               c.R * c.R * .241 +
-               c.G * c.G * .691 +
-               c.B * c.B * .068);
+            MostUsedColor = Color.Empty;
+            return Tools.Brightness(c);
         }
 
         public static void GetMostUsedColor(Bitmap theBitMap)

@@ -23,7 +23,9 @@ using CefSharp;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Korot
 {
@@ -43,6 +45,7 @@ namespace Korot
             refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             refreshNoCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            addToCollection = new System.Windows.Forms.ToolStripMenuItem();
             selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             tsSep1 = new System.Windows.Forms.ToolStripSeparator();
             openLinkInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +80,7 @@ namespace Korot
             refreshNoCacheToolStripMenuItem,
             stopToolStripMenuItem,
             selectAllToolStripMenuItem,
+            addToCollection,
             tsSep1,
             openLinkInNewTabToolStripMenuItem,
             openLinkINWTSMI,
@@ -145,6 +149,12 @@ namespace Korot
             selectAllToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             selectAllToolStripMenuItem.Text = ActiveForm.selectAll;
             selectAllToolStripMenuItem.Click += new System.EventHandler(selectAllToolStripMenuItem_Click);
+            // 
+            // addToCollection
+            // 
+            addToCollection.Name = "addToCollection";
+            addToCollection.Size = new System.Drawing.Size(240, 22);
+            addToCollection.Text = ActiveForm.addToCollection;
             // 
             // tsSep1
             // 
@@ -306,6 +316,7 @@ namespace Korot
         public System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem refreshNoCacheToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem addToCollection;
         public System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem openLinkInNewTabToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem copyLinkAddressToolStripMenuItem;
@@ -331,17 +342,97 @@ namespace Korot
         public System.Windows.Forms.ToolStripSeparator tsSep3;
         #endregion
         #region "CMS"
+        void item_Click(object sender,EventArgs e)
+        {
+            ToolStripMenuItem item = (ToolStripMenuItem)sender;
+            if (!string.IsNullOrWhiteSpace(SelectedText))
+            {
+                string newItem = "[label ID=\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText + "\" /]";
+                int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
+                ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]",startIndex) + 1,newItem);
+                return;
+            }
+            if (!string.IsNullOrWhiteSpace(SourceURL))
+            {
+                string newItem = "[picture ID=\"" + Tools.generateRandomText() + "\" Source=\"" + SourceURL + "\" /]";
+                int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
+                ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]", startIndex) + 1, newItem);
+                return;
+            }
+            if (!string.IsNullOrWhiteSpace(LinkURL))
+            {
+                if (!string.IsNullOrWhiteSpace(SelectedText))
+                {
+                    string newItem = "[link ID =\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText + "\" Source=\"" + LinkURL + "\" /]";
+                    int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
+                    ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]", startIndex) + 1, newItem);
+                    return;
+                }
+                else
+                {
+                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + LinkURL + "\" Source=\"" + LinkURL + "\" /]";
+                    int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
+                    ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]", startIndex) + 1, newItem);
+                    return;
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(SelectedText))
+                {
+                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText + "\" Source=\"" + chromiumWebBrowser1.Address + "\" /]";
+                    int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
+                    ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]", startIndex) + 1, newItem);
+                    return;
+                }
+                else
+                {
+                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + chromiumWebBrowser1.Address + "\" Source=\"" + chromiumWebBrowser1.Address + "\" /]";
+                    int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
+                    ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]", startIndex) + 1, newItem);
+                    return;
+                }
+            }
+        }
+        void CollectionList()
+        {
+            addToCollection.DropDown.Items.Clear();
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(ActiveForm.colManager.Collections.Replace("[", "<").Replace("]", ">"));
+            writer.Flush();
+            stream.Position = 0;
+            XmlDocument document = new XmlDocument();
+            document.Load(stream);
+            foreach (XmlNode node in document.FirstChild.ChildNodes)
+            {
+                if (node.Name == "collection")
+                {
+                    ToolStripMenuItem item = new ToolStripMenuItem(node.Attributes["Text"].Value);
+                    item.Name = node.Attributes["ID"].Value;
+                    item.Tag = node.OuterXml.Replace("<", "[").Replace(">", "]");
+                    item.Click += item_Click;
+                    item.BackColor = Properties.Settings.Default.BackColor;
+                    item.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+                    addToCollection.DropDown.Items.Add(item);
+                }
+            }
+        }
         public void showCMS(string link, string source, string selected, bool hasimage, bool editable, IWebBrowser cwb)
         {
             InitializeCMSComponent();
+            currentCMS = cmsCef;
             chromiumWebBrowser1 = cwb;
             cmsCef.BackColor = Properties.Settings.Default.BackColor;
             cmsCef.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            addToCollection.DropDown.BackColor = Properties.Settings.Default.BackColor;
+            addToCollection.DropDown.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             LinkURL = link;
             hasImageContents = hasimage;
             SourceURL = source;
             isEditable = editable;
             SelectedText = selected;
+            CollectionList();
             // Links
             openLinkInNewTabToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(LinkURL);
             copyLinkAddressToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(LinkURL);
@@ -375,7 +466,7 @@ namespace Korot
         public string SourceURL = "";
         public bool isEditable = false;
         public string SelectedText = "";
-
+        public ContextMenuStrip currentCMS;
         private void NewTab(string url)
         {
             ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(url)));
@@ -501,7 +592,6 @@ namespace Korot
             ActiveForm.Invoke(new Action(() => ActiveForm.button3_Click(sender, e)));
         }
         #endregion
-
         public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
         {
 
@@ -523,7 +613,10 @@ namespace Korot
             return false;
         }
 
-        public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame) { }
+        public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame) 
+        {
+            //currentCMS.Dispose();
+        }
 
         public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback)
         {

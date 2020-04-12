@@ -76,20 +76,6 @@ namespace Korot
             if (ExtFile.ToLower().EndsWith(".kef")) { StartupEXT(); } else if (ExtFile.ToLower().EndsWith(".ktf")) { StartupTF(); }
         }
 
-        private string generateRandomText()
-        {
-            StringBuilder builder = new StringBuilder();
-            Enumerable
-               .Range(65, 26)
-                .Select(e => ((char)e).ToString())
-                .Concat(Enumerable.Range(97, 26).Select(e => ((char)e).ToString()))
-                .Concat(Enumerable.Range(0, 10).Select(e => e.ToString()))
-                .OrderBy(e => Guid.NewGuid())
-                .Take(11)
-                .ToList().ForEach(e => builder.Append(e));
-            return builder.ToString().Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
-        }
-
         private async void StartupEXT()
         {
             await Task.Run(() =>
@@ -97,7 +83,7 @@ namespace Korot
                 if (!silentInstall)
                 {
                     label3.Invoke(new Action(() => label3.Text = ext));
-                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + generateRandomText() + "\\";
+                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + Tools.generateRandomText() + "\\";
                     if (Directory.Exists(tempFolder))
                     {
                         Directory.Delete(tempFolder, true);
@@ -119,7 +105,7 @@ namespace Korot
                 else
                 {
                     label3.Invoke(new Action(() => label3.Text = ext));
-                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + generateRandomText() + "\\";
+                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + Tools.generateRandomText() + "\\";
                     if (Directory.Exists(tempFolder))
                     {
                         Directory.Delete(tempFolder, true);

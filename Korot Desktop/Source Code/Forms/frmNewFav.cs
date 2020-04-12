@@ -198,7 +198,6 @@ namespace Korot
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.AppendChild(XmlRecursiveExport(xmlDocument.DocumentElement, treeView.Nodes, xmlDocument));
             Properties.Settings.Default.Favorites = xmlDocument.OuterXml.Replace("<", "[").Replace(">", "]");
-
         }
         private XmlNode XmlRecursiveExport(XmlNode nodeElement, TreeNodeCollection treeNodeCollection, XmlDocument xmlDocument)
         {
@@ -256,7 +255,10 @@ namespace Korot
                 };
                 if (textBox2.Text != "korot://folder")
                 {
-                    FileSystem2.WriteFile(iconStorage + newFolder.Name + ".png", Cefform.Icon.ToBitmap(), ImageFormat.Png);
+                    if (!File.Exists(iconStorage + newFolder.Name + ".png"))
+                    {
+                        FileSystem2.WriteFile(iconStorage + newFolder.Name + ".png", Cefform.Icon.ToBitmap(), ImageFormat.Png);
+                    }
                     newFolder.Tag = "{ICONSTORAGE}" + newFolder.Name + ".png";
                 }
                 treeView1.SelectedNode.Nodes.Add(newFolder);

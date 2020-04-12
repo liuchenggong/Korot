@@ -168,6 +168,7 @@ namespace Korot
             textBox1.Text = Properties.Settings.Default.KorotErrorTitle;
             textBox2.Text = Properties.Settings.Default.KorotErrorDesc;
             textBox3.Text = Properties.Settings.Default.KorotErrorTI;
+            checkBox7.Checked = Properties.Settings.Default.autoRestoreSessions;
         }
 
         private void pbBack_Click(object sender, EventArgs e)
@@ -296,6 +297,11 @@ namespace Korot
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.KorotErrorTI = textBox3.Text;
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.autoRestoreSessions = checkBox7.Checked;
         }
     }
 }
