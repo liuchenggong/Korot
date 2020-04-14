@@ -22,7 +22,6 @@
 using CefSharp;
 using System;
 using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
@@ -42,21 +41,8 @@ namespace Korot
 
         public bool GetAuthCredentials(IWebBrowser chromiumWebBrowser, IBrowser browser, string originUrl, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback)
         {
-            Task.Run(() =>
-            {
-                using (callback)
-                {
-                    if (originUrl.Contains("https://httpbin.org/basic-auth/"))
-                    {
-                        string[] parts = originUrl.Split('/');
-                        string username = parts[parts.Length - 2];
-                        string password = parts[parts.Length - 1];
-                        callback.Continue(username, password);
-                    }
-                }
-            });
-
-            return true;
+            callback.Dispose();
+            return false;
         }
 
         public IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
@@ -66,30 +52,30 @@ namespace Korot
 
         public bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
         {
-                if (!(request.TransitionType == TransitionType.AutoSubFrame
-                    || request.TransitionType == TransitionType.SourceMask
-                    || request.TransitionType == TransitionType.ForwardBack
-                    || request.TransitionType == TransitionType.Reload))
+            if (!(request.TransitionType == TransitionType.AutoSubFrame
+                || request.TransitionType == TransitionType.SourceMask
+                || request.TransitionType == TransitionType.ForwardBack
+                || request.TransitionType == TransitionType.Reload))
+            {
+                if (request.Url.ToLower().StartsWith("korot"))
                 {
-                    if (request.Url.ToLower().StartsWith("korot"))
-                    {
-                        if (request.Url.ToLower().StartsWith("korot://newtab")
-                              || request.Url.ToLower().StartsWith("korot://links")
-                              || request.Url.ToLower().StartsWith("korot://license")
-                              || request.Url.ToLower().StartsWith("korot://incognito"))
-                        {
-                            cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
-                        }
-                        else
-                        {
-                            // lol no
-                        }
-                    }
-                    else
+                    if (request.Url.ToLower().StartsWith("korot://newtab")
+                          || request.Url.ToLower().StartsWith("korot://links")
+                          || request.Url.ToLower().StartsWith("korot://license")
+                          || request.Url.ToLower().StartsWith("korot://incognito"))
                     {
                         cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
                     }
+                    else
+                    {
+                        // lol no
+                    }
                 }
+                else
+                {
+                    cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
+                }
+            }
             return false;
         }
 

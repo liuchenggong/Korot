@@ -442,13 +442,13 @@ namespace Korot
                                     {
                                         _wasDragging = true;
 
-                                    // When determining if a tab has been torn from the window while dragging, we take the drop area for this window and inflate it by the
-                                    // TabTearDragDistance setting
-                                    Rectangle dragArea = TabDropArea;
+                                        // When determining if a tab has been torn from the window while dragging, we take the drop area for this window and inflate it by the
+                                        // TabTearDragDistance setting
+                                        Rectangle dragArea = TabDropArea;
                                         dragArea.Inflate(_parentForm.TabRenderer.TabTearDragDistance, _parentForm.TabRenderer.TabTearDragDistance);
 
-                                    // If the cursor is outside the tear area, tear it away from the current window
-                                    if (!dragArea.Contains(cursorPosition) && _tornTab == null)
+                                        // If the cursor is outside the tear area, tear it away from the current window
+                                        if (!dragArea.Contains(cursorPosition) && _tornTab == null)
                                         {
                                             lock (_tornTabLock)
                                             {
@@ -456,8 +456,8 @@ namespace Korot
                                                 {
                                                     _parentForm.TabRenderer.IsTabRepositioning = false;
 
-                                                // Clear the event handler subscriptions from the tab and then create a thumbnail representation of it to use when dragging
-                                                _tornTab = _parentForm.SelectedTab;
+                                                    // Clear the event handler subscriptions from the tab and then create a thumbnail representation of it to use when dragging
+                                                    _tornTab = _parentForm.SelectedTab;
                                                     _tornTab.ClearSubscriptions();
                                                     _tornTabForm = new TornTabForm(_tornTab, _parentForm.TabRenderer);
                                                 }
@@ -470,8 +470,8 @@ namespace Korot
                                                     : _parentForm.SelectedTabIndex + 1);
                                                 _parentForm.Tabs.Remove(_tornTab);
 
-                                            // If this tab was the only tab in the window, hide the parent window
-                                            if (_parentForm.Tabs.Count == 0)
+                                                // If this tab was the only tab in the window, hide the parent window
+                                                if (_parentForm.Tabs.Count == 0)
                                                 {
                                                     _parentForm.Hide();
                                                 }
@@ -529,8 +529,8 @@ namespace Korot
                                         {
                                             TitleBarTabs newWindow = (TitleBarTabs)Activator.CreateInstance(_parentForm.GetType());
 
-                                        // Set the initial window position and state properly
-                                        if (newWindow.WindowState == FormWindowState.Maximized)
+                                            // Set the initial window position and state properly
+                                            if (newWindow.WindowState == FormWindowState.Maximized)
                                             {
                                                 Screen screen = Screen.AllScreens.First(s => s.WorkingArea.Contains(Cursor.Position));
 
@@ -573,7 +573,8 @@ namespace Korot
                         }
                     }
                 }
-            }catch { }
+            }
+            catch { }
         }
 
         /// <summary>Hook callback to process <see cref="WM.WM_MOUSEMOVE" /> messages to highlight/un-highlight the close button on each tab.</summary>

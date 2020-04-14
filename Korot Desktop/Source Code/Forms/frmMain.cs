@@ -38,7 +38,7 @@ namespace Korot
         public List<string> CancelledDownloads = new List<string>();
         public bool isIncognito = false;
         public KorotTabRenderer tabRenderer;
-        public CollectionManagement colman;
+        public CollectionManager colman;
         public frmMain()
         {
 
@@ -153,7 +153,8 @@ namespace Korot
             if (Properties.Settings.Default.autoRestoreSessions)
             {
                 ReadSession(Properties.Settings.Default.LastSessionURIs);
-            }else
+            }
+            else
             {
                 OldSessions = Properties.Settings.Default.LastSessionURIs;
             }
@@ -239,7 +240,7 @@ namespace Korot
             WriteSessions(CurrentSessionURIs);
         }
         public bool closing = false;
-        public void CreateTab(TitleBarTab referenceTab,string url = "korot://newtab")
+        public void CreateTab(TitleBarTab referenceTab, string url = "korot://newtab")
         {
             if (!Directory.Exists(profilePath) && profilePath != null) { Directory.CreateDirectory(profilePath); }
             TitleBarTab newTab = new TitleBarTab(this)
@@ -259,10 +260,10 @@ namespace Korot
             {
                 BackColor = Properties.Settings.Default.BackColor,
                 useDefaultBackColor = true,
-                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { colManager = colman,}
+                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { colManager = colman, }
             };
             Tabs.Add(newTab);
-            SelectedTabIndex = Tabs.Count -1 ;
+            SelectedTabIndex = Tabs.Count - 1;
         }
         public override TitleBarTab CreateTab()
         {
@@ -336,8 +337,8 @@ namespace Korot
                         while (i != Count)
                         {
                             text += cefform.lbURL.Items[i].ToString() +
-                                ";" + 
-                                cefform.lbTitle.Items[i].ToString() + 
+                                ";" +
+                                cefform.lbTitle.Items[i].ToString() +
                                 ";";
                             i += 1;
                         }

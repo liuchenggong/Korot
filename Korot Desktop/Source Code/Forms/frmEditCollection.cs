@@ -1,21 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿//MIT License
+//
+//Copyright (c) 2020 Eren "Haltroy" Kanat
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
 {
     public partial class frmEditCollection : Form
     {
-        frmCEF cefform;
-        Control editItem;
-        frmCollection colman;
-        public frmEditCollection(frmCEF _cefform,frmCollection _colman,Control item)
+        private readonly frmCEF cefform;
+        private readonly Control editItem;
+        private readonly frmCollection colman;
+        public frmEditCollection(frmCEF _cefform, frmCollection _colman, Control item)
         {
             cefform = _cefform;
             colman = _colman;
@@ -29,7 +44,8 @@ namespace Korot
                 tbSource.Text = ((PictureBox)editItem).ImageLocation;
                 nudW.Value = editItem.Width;
                 nudH.Value = editItem.Height;
-            }else if (editItem is CustomLinkLabel)
+            }
+            else if (editItem is CustomLinkLabel)
             {
                 groupBox4.Enabled = false;
                 tbID.Text = editItem.Name;
@@ -63,93 +79,15 @@ namespace Korot
             }
             RefreshTranslations();
         }
-        public string outXML()
-        {
-            string item = "[";
-            string closetxt = "/]";
-            if (editItem is PictureBox) 
-            { 
-                item += "picture ";
-                item += "ID=\"" + tbID.Text.Trim() + "\" ";
-                item += "BackColor=\"" + Tools.ColorToHex(pbBack.BackColor) + "\" ";
-                item += "Source=\"" + tbSource.Text + "\" ";
-                item += "Width=\"" + nudW.Value + "\" ";
-                item += "Height=\"" + nudH.Value + "\" ";
-            }
-            else if(editItem is CustomLinkLabel) 
-            {
-                item += "link ";
-                item += "ID=\"" + tbID.Text.Trim() + "\" ";
-                item += "BackColor=\"" + Tools.ColorToHex(pbBack.BackColor) + "\" ";
-                item += "Text=\"" + tbText.Text + "\" ";
-                item += "Font=\"" + tbFont.Text + "\" ";
-                item += "FontSize=\"" + nudSize.Value + "\" ";
-                item += "FontProperties=\"";
-                if (rbRegular.Checked)
-                {
-                    item += "Regular\" ";
-                }else if (rbBold.Checked)
-                {
-                    item += "Bold\" ";
-                }
-                else if (rbItalic.Checked)
-                {
-                    item += "Italic\" ";
-                }
-                else if (rbUnderline.Checked)
-                {
-                    item += "Underline\" ";
-                }
-                else if (rbStrikeout.Checked)
-                {
-                    item += "Strikeout\" ";
-                }
-                item += "Source=\"" + tbSource.Text + "\" ";
-            }
-            else if (editItem is Label)
-            {
-                item += "label ";
-                item += "ID=\"" + tbID.Text.Trim() + "\" ";
-                Console.WriteLine(Tools.ColorToHex(pbBack.BackColor));
-                item += "BackColor=\"" + Tools.ColorToHex(pbBack.BackColor) + "\" ";
-                item += "ForeColor=\"" + Tools.ColorToHex(pbFore.BackColor) + "\" ";
-                item += "Text=\"" + tbText.Text + "\" ";
-                item += "Font=\"" + tbFont.Text + "\" ";
-                item += "FontSize=\"" + nudSize.Value + "\" ";
-                item += "FontProperties=\"";
-                if (rbRegular.Checked)
-                {
-                    item += "Regular\" ";
-                }
-                else if (rbBold.Checked)
-                {
-                    item += "Bold\" ";
-                }
-                else if (rbItalic.Checked)
-                {
-                    item += "Italic\" ";
-                }
-                else if (rbUnderline.Checked)
-                {
-                    item += "Underline\" ";
-                }
-                else if (rbStrikeout.Checked)
-                {
-                    item += "Strikeout\" ";
-                }
-            }
-            return item + closetxt;
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             isOK = true;
-            this.Close();
+            Close();
         }
 
         private void pbBack_Click(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog() {Color = pbBack.BackColor, AllowFullOpen = true, AnyColor = true, FullOpen = true, };
+            ColorDialog dialog = new ColorDialog() { Color = pbBack.BackColor, AllowFullOpen = true, AnyColor = true, FullOpen = true, };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 pbBack.BackColor = dialog.Color;
@@ -219,13 +157,84 @@ namespace Korot
                 rbRegular.Checked = false;
             }
         }
-        bool isOK = false;
+
+        private bool isOK = false;
         private void frmEditCollection_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (isOK)
             {
                 DialogResult = DialogResult.OK;
-                cefform.colManager.Collections = cefform.colManager.Collections.Replace(editItem.Tag.ToString(), outXML());
+                CollectionItem mainitem = cefform.colManager.GetItemFromID(editItem.Name);
+                if (editItem is CustomLinkLabel)
+                {
+                    LinkItem ti = mainitem as LinkItem;
+                    ti.ID = tbID.Text;
+                    ti.Text = tbText.Text;
+                    ti.Source = tbSource.Text;
+                    ti.BackColor = pbBack.BackColor;
+                    ti.ForeColor = pbFore.BackColor;
+                    ti.Font = tbFont.Text;
+                    ti.FontSize = Convert.ToInt32(nudSize.Value);
+                    if (rbRegular.Checked)
+                    {
+                        ti.FontProperties = FontType.Regular;
+                    }
+                    else if (rbBold.Checked)
+                    {
+                        ti.FontProperties = FontType.Bold;
+                    }
+                    else if (rbItalic.Checked)
+                    {
+                        ti.FontProperties = FontType.Italic;
+                    }
+                    else if (rbUnderline.Checked)
+                    {
+                        ti.FontProperties = FontType.Underline;
+                    }
+                    else if (rbStrikeout.Checked)
+                    {
+                        ti.FontProperties = FontType.Strikeout;
+                    }
+                }
+                else if (editItem is Label)
+                {
+                    TextItem ti = mainitem as TextItem;
+                    ti.ID = tbID.Text;
+                    ti.Text = tbText.Text;
+                    ti.BackColor = pbBack.BackColor;
+                    ti.ForeColor = pbFore.BackColor;
+                    ti.Font = tbFont.Text;
+                    ti.FontSize = Convert.ToInt32(nudSize.Value);
+                    if (rbRegular.Checked)
+                    {
+                        ti.FontProperties = FontType.Regular;
+                    }
+                    else if (rbBold.Checked)
+                    {
+                        ti.FontProperties = FontType.Bold;
+                    }
+                    else if (rbItalic.Checked)
+                    {
+                        ti.FontProperties = FontType.Italic;
+                    }
+                    else if (rbUnderline.Checked)
+                    {
+                        ti.FontProperties = FontType.Underline;
+                    }
+                    else if (rbStrikeout.Checked)
+                    {
+                        ti.FontProperties = FontType.Strikeout;
+                    }
+                }
+                else if (editItem is PictureBox)
+                {
+                    ImageItem ti = mainitem as ImageItem;
+                    ti.ID = tbID.Text;
+                    ti.Width = Convert.ToInt32(nudW.Value);
+                    ti.Height = Convert.ToInt32(nudH.Value);
+                    ti.Source = tbSource.Text;
+                    ti.BackColor = pbBack.BackColor;
+                }
                 colman.Invoke(new Action(() => colman.genColList()));
             }
             else
@@ -251,8 +260,8 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.BackColor = Properties.Settings.Default.BackColor;
-            this.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            BackColor = Properties.Settings.Default.BackColor;
+            ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             groupBox1.BackColor = Properties.Settings.Default.BackColor;
             groupBox1.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             groupBox2.BackColor = Properties.Settings.Default.BackColor;
@@ -263,7 +272,7 @@ namespace Korot
             groupBox4.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             flpProp.BackColor = Properties.Settings.Default.BackColor;
             flpProp.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            btDone.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor,20,false);
+            btDone.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
             btDone.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             bt3DOT.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
             bt3DOT.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;

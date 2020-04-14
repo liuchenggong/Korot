@@ -58,37 +58,39 @@ namespace Korot
 
         public void OnFaviconUrlChange(IWebBrowser chromiumWebBrowser, IBrowser browser, IList<string> urls)
         {
-            WebClient webc = new WebClient();
-            foreach (string x in urls)
-            {
-                try
-                {
-                    using (Stream stream = webc.OpenRead(new Uri(x)))
-                    {
-                        Bitmap bitmap = new Bitmap(stream);
-                        bitmap.SetResolution(72, 72);
-                        Icon icon = System.Drawing.Icon.FromHandle(bitmap.GetHicon());
-                        CEFform.Invoke(new Action(() => CEFform.Icon = icon));
-                    }
-                }
-                catch { continue; }
-            }
+            OnFaviconChange(chromiumWebBrowser, browser, urls);
         }
-
+        public async void OnFaviconChange(IWebBrowser chromiumWebBrowser, IBrowser browser, IList<string> urls)
+        {
+            await Task.Run(() =>
+            {
+                WebClient webc = new WebClient();
+                foreach (string x in urls)
+                {
+                    try
+                    {
+                        using (Stream stream = webc.OpenRead(new Uri(x)))
+                        {
+                            Bitmap bitmap = new Bitmap(stream);
+                            bitmap.SetResolution(72, 72);
+                            Icon icon = System.Drawing.Icon.FromHandle(bitmap.GetHicon());
+                            CEFform.Invoke(new Action(() => CEFform.Icon = icon));
+                        }
+                    }
+                    catch { continue; }
+                }
+            });
+        }
         public void OnFullscreenModeChange(IWebBrowser chromiumWebBrowser, IBrowser browser, bool fullscreen)
         {
             anaform().Invoke(new Action(() => anaform().Fullscreenmode(fullscreen)));
-
         }
 
         public void OnLoadingProgressChange(IWebBrowser chromiumWebBrowser, IBrowser browser, double progress)
         {
-            try
+            if (!CEFform.IsDisposed && !CEFform.closing && !CEFform.anaform().closing)
             {
                 CEFform.Invoke(new Action(() => CEFform.ChangeProgress(progress)));
-            }
-            catch
-            {
             }
         }
 

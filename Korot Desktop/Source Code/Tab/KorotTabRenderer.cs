@@ -1,4 +1,25 @@
-﻿using Korot.Properties;
+﻿//MIT License
+//
+//Copyright (c) 2020 Eren "Haltroy" Kanat
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+using Korot.Properties;
 using System.Drawing;
 
 namespace Korot
@@ -59,25 +80,26 @@ namespace Korot
             if (Properties.Settings.Default.newTabColor == 0)
             {
                 _addButtonImage = new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, BackColor));
-                _addButtonHoverImage = Tools.isBright(BackColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255)))); _inactiveLeftSideImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255)));
+                _addButtonHoverImage = Tools.isBright(BackColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255))));
             }
             else if (Properties.Settings.Default.newTabColor == 1)
             {
                 _addButtonImage = new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, ForeColor));
-                _addButtonHoverImage = Tools.isBright(ForeColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255)))); _inactiveLeftSideImage = Tools.isBright(ForeColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255)));
+                _addButtonHoverImage = Tools.isBright(ForeColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255))));
             }
             else if (Properties.Settings.Default.newTabColor == 2)
             {
                 _addButtonImage = new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, OverlayColor));
-                _addButtonHoverImage = Tools.isBright(OverlayColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(OverlayColor.R, 20), Tools.GerekiyorsaAzalt(OverlayColor.G, 20), Tools.GerekiyorsaAzalt(OverlayColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(OverlayColor.R, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.G, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.B, 20, 255)))); _inactiveLeftSideImage = Tools.isBright(OverlayColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(OverlayColor.R, 20), Tools.GerekiyorsaAzalt(OverlayColor.G, 20), Tools.GerekiyorsaAzalt(OverlayColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(OverlayColor.R, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.G, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.B, 20, 255)));
+                _addButtonHoverImage = Tools.isBright(OverlayColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(OverlayColor.R, 20), Tools.GerekiyorsaAzalt(OverlayColor.G, 20), Tools.GerekiyorsaAzalt(OverlayColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(OverlayColor.R, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.G, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.B, 20, 255))));
             }
             else
             {
                 Properties.Settings.Default.newTabColor = 1;
                 _addButtonImage = new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, ForeColor));
-                _addButtonHoverImage = Tools.isBright(ForeColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255)))); _inactiveLeftSideImage = Tools.isBright(ForeColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255)));
+                _addButtonHoverImage = Tools.isBright(ForeColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255))));
             }
 
+            _inactiveLeftSideImage = Tools.isBright(ForeColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255)));
             _inactiveRightSideImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20))) : Tools.ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255)));
             _inactiveCenterImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20))) : Tools.ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255)));
             // Set the various positioning properties
@@ -112,9 +134,13 @@ namespace Korot
                 if (Properties.Settings.Default.newTabColor == 0)
                 {
                     _addButtonImage = new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, BackColor));
-                    _addButtonHoverImage = Tools.isBright(BackColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255)))); _inactiveLeftSideImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255)));
+                    _addButtonHoverImage = Tools.isBright(BackColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255))));
+                    _inactiveLeftSideImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255)));
                 }
-                 if (_parentWindow._overlay != null) _parentWindow._overlay.Render(true);
+                if (_parentWindow._overlay != null)
+                {
+                    _parentWindow._overlay.Render(true);
+                }
             }
             if (ForeColor != _ForeColor)
             {
@@ -128,9 +154,13 @@ namespace Korot
                 if (Properties.Settings.Default.newTabColor == 1)
                 {
                     _addButtonImage = new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, ForeColor));
-                    _addButtonHoverImage = Tools.isBright(ForeColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255)))); _inactiveLeftSideImage = Tools.isBright(ForeColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255)));
+                    _addButtonHoverImage = Tools.isBright(ForeColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255))));
+                    _inactiveLeftSideImage = Tools.isBright(ForeColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(ForeColor.R, 20), Tools.GerekiyorsaAzalt(ForeColor.G, 20), Tools.GerekiyorsaAzalt(ForeColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(ForeColor.R, 20, 255), Tools.GerekiyorsaArttır(ForeColor.G, 20, 255), Tools.GerekiyorsaArttır(ForeColor.B, 20, 255)));
                 }
-                if (_parentWindow._overlay != null) _parentWindow._overlay.Render(true);
+                if (_parentWindow._overlay != null)
+                {
+                    _parentWindow._overlay.Render(true);
+                }
             }
             if (OverlayColor != _OverlayColor)
             {
@@ -144,9 +174,13 @@ namespace Korot
                 if (Properties.Settings.Default.newTabColor == 2)
                 {
                     _addButtonImage = new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, OverlayColor));
-                    _addButtonHoverImage = Tools.isBright(OverlayColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(OverlayColor.R, 20), Tools.GerekiyorsaAzalt(OverlayColor.G, 20), Tools.GerekiyorsaAzalt(OverlayColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(OverlayColor.R, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.G, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.B, 20, 255)))); _inactiveLeftSideImage = Tools.isBright(OverlayColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(OverlayColor.R, 20), Tools.GerekiyorsaAzalt(OverlayColor.G, 20), Tools.GerekiyorsaAzalt(OverlayColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(OverlayColor.R, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.G, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.B, 20, 255)));
+                    _addButtonHoverImage = Tools.isBright(OverlayColor) ? new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(OverlayColor.R, 20), Tools.GerekiyorsaAzalt(OverlayColor.G, 20), Tools.GerekiyorsaAzalt(OverlayColor.B, 20)))) : new Bitmap(Tools.ColorReplace(Resources.KorotAdd, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(OverlayColor.R, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.G, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.B, 20, 255))));
+                    _inactiveLeftSideImage = Tools.isBright(OverlayColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(OverlayColor.R, 20), Tools.GerekiyorsaAzalt(OverlayColor.G, 20), Tools.GerekiyorsaAzalt(OverlayColor.B, 20))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(OverlayColor.R, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.G, 20, 255), Tools.GerekiyorsaArttır(OverlayColor.B, 20, 255)));
                 }
-                if (_parentWindow._overlay != null) _parentWindow._overlay.Render(true);
+                if (_parentWindow._overlay != null)
+                {
+                    _parentWindow._overlay.Render(true);
+                }
             }
 
         }
@@ -183,6 +217,6 @@ namespace Korot
         }
 
         /// <summary>Since Korot tabs overlap, we set this property to the amount that they overlap by.</summary>
-        public override int OverlapWidth => 15;
+        public override int OverlapWidth => 10;
     }
 }

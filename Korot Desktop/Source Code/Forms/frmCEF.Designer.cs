@@ -72,6 +72,7 @@ namespace Korot
             this.takeAScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveThisPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsFullscreen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsChangeTitleBack = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.zOOMLEVELToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -274,8 +275,7 @@ namespace Korot
             this.showNewTabPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tsChangeTitleBack = new System.Windows.Forms.ToolStripMenuItem();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2.SuspendLayout();
             this.cmsHamburger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -308,7 +308,7 @@ namespace Korot
             this.cmsBStyle.SuspendLayout();
             this.cmsIncognito.SuspendLayout();
             this.cmsStartup.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbAddress
@@ -521,6 +521,13 @@ namespace Korot
             this.tsFullscreen.Size = new System.Drawing.Size(288, 22);
             this.tsFullscreen.Text = "Full Screen";
             this.tsFullscreen.Click += new System.EventHandler(this.tsFullscreen_Click);
+            // 
+            // tsChangeTitleBack
+            // 
+            this.tsChangeTitleBack.Name = "tsChangeTitleBack";
+            this.tsChangeTitleBack.Size = new System.Drawing.Size(288, 22);
+            this.tsChangeTitleBack.Text = "Change color of title";
+            this.tsChangeTitleBack.Click += new System.EventHandler(this.tsChangeTitleBack_Click);
             // 
             // toolStripSeparator7
             // 
@@ -1076,11 +1083,11 @@ namespace Korot
             // 
             // label2
             // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Location = new System.Drawing.Point(0, 382);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(560, 16);
-            this.label2.TabIndex = 9;
+            this.label2.Size = new System.Drawing.Size(0, 16);
+            this.label2.TabIndex = 0;
             // 
             // tmrSlower
             // 
@@ -1159,6 +1166,7 @@ namespace Korot
             // 
             // tpCef
             // 
+            this.tpCef.Controls.Add(this.flowLayoutPanel2);
             this.tpCef.Controls.Add(this.pCEF);
             this.tpCef.Location = new System.Drawing.Point(4, 25);
             this.tpCef.Name = "tpCef";
@@ -1183,10 +1191,10 @@ namespace Korot
             // lbTitle
             // 
             this.lbTitle.BackColor = System.Drawing.Color.Black;
-            this.lbTitle.ForeColor = System.Drawing.Color.Black;
+            this.lbTitle.ForeColor = System.Drawing.Color.White;
             this.lbTitle.FormattingEnabled = true;
             this.lbTitle.ItemHeight = 16;
-            this.lbTitle.Location = new System.Drawing.Point(337, 64);
+            this.lbTitle.Location = new System.Drawing.Point(118, 248);
             this.lbTitle.Name = "lbTitle";
             this.lbTitle.Size = new System.Drawing.Size(46, 20);
             this.lbTitle.TabIndex = 1;
@@ -1195,10 +1203,10 @@ namespace Korot
             // lbURL
             // 
             this.lbURL.BackColor = System.Drawing.Color.Black;
-            this.lbURL.ForeColor = System.Drawing.Color.Black;
+            this.lbURL.ForeColor = System.Drawing.Color.White;
             this.lbURL.FormattingEnabled = true;
             this.lbURL.ItemHeight = 16;
-            this.lbURL.Location = new System.Drawing.Point(140, 64);
+            this.lbURL.Location = new System.Drawing.Point(118, 49);
             this.lbURL.Name = "lbURL";
             this.lbURL.Size = new System.Drawing.Size(46, 20);
             this.lbURL.TabIndex = 0;
@@ -2677,23 +2685,15 @@ namespace Korot
             this.showAWebsiteToolStripMenuItem.Text = "Show a website";
             this.showAWebsiteToolStripMenuItem.Click += new System.EventHandler(this.showAWebsiteToolStripMenuItem_Click);
             // 
-            // panel1
+            // flowLayoutPanel2
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(562, 400);
-            this.panel1.TabIndex = 0;
-            this.panel1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
-            // 
-            // tsChangeTitleBack
-            // 
-            this.tsChangeTitleBack.Name = "tsChangeTitleBack";
-            this.tsChangeTitleBack.Size = new System.Drawing.Size(288, 22);
-            this.tsChangeTitleBack.Text = "Change color of title";
-            this.tsChangeTitleBack.Click += new System.EventHandler(this.tsChangeTitleBack_Click);
+            this.flowLayoutPanel2.AutoSize = true;
+            this.flowLayoutPanel2.Controls.Add(this.label2);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 387);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(562, 16);
+            this.flowLayoutPanel2.TabIndex = 1;
             // 
             // frmCEF
             // 
@@ -2732,6 +2732,7 @@ namespace Korot
             this.pnlCert.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tpCef.ResumeLayout(false);
+            this.tpCef.PerformLayout();
             this.pCEF.ResumeLayout(false);
             this.tpCert.ResumeLayout(false);
             this.tpSettings.ResumeLayout(false);
@@ -2761,7 +2762,8 @@ namespace Korot
             this.cmsBStyle.ResumeLayout(false);
             this.cmsIncognito.ResumeLayout(false);
             this.cmsStartup.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2976,7 +2978,6 @@ namespace Korot
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.ComboBox cbLang;
         private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel pCEF;
         private System.Windows.Forms.ToolStripMenuItem tsEmptyExt;
         private System.Windows.Forms.ToolStripMenuItem tsEmptyProfile;
@@ -2992,5 +2993,6 @@ namespace Korot
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ToolStripMenuItem tsCollections;
         private System.Windows.Forms.ToolStripMenuItem tsChangeTitleBack;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
     }
 }

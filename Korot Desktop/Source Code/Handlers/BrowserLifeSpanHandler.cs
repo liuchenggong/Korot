@@ -51,7 +51,7 @@ namespace Korot
             IntPtr windowHandle = browser.GetHost().GetWindowHandle();
             ChromiumWebBrowser webBrowser = (ChromiumWebBrowser)browserControl;
 
-            if (browser.MainFrame.Url.Equals("devtools://devtools/devtools_app.html"))
+            if (browser.MainFrame.Url.ToLower().StartsWith("devtools://"))
             {
                 Control parentControl = Control.FromChildHandle(windowHandle);
 

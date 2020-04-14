@@ -1,4 +1,25 @@
-﻿namespace Korot
+﻿//MIT License
+//
+//Copyright (c) 2020 Eren "Haltroy" Kanat
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+namespace Korot
 {
     partial class frmCollection
     {
@@ -45,8 +66,11 @@
             this.deleteThisİtemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportThisİtemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editThisİtemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ımportİtemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.changeCollectionIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeCollectionTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.cmsMain.SuspendLayout();
@@ -98,6 +122,8 @@
             this.cmsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newCollectionToolStripMenuItem,
             this.deleteThisCollectionsToolStripMenuItem,
+            this.changeCollectionIDToolStripMenuItem,
+            this.changeCollectionTextToolStripMenuItem,
             this.clearToolStripMenuItem,
             this.toolStripSeparator1,
             this.exportToolStripMenuItem,
@@ -105,46 +131,46 @@
             this.cmsMain.Name = "cmsMain";
             this.cmsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsMain.ShowImageMargin = false;
-            this.cmsMain.Size = new System.Drawing.Size(180, 120);
+            this.cmsMain.Size = new System.Drawing.Size(186, 186);
             this.cmsMain.Opening += new System.ComponentModel.CancelEventHandler(this.cmsMain_Opening);
             // 
             // newCollectionToolStripMenuItem
             // 
             this.newCollectionToolStripMenuItem.Name = "newCollectionToolStripMenuItem";
-            this.newCollectionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.newCollectionToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.newCollectionToolStripMenuItem.Text = "New Collection";
             this.newCollectionToolStripMenuItem.Click += new System.EventHandler(this.newCollectionToolStripMenuItem_Click);
             // 
             // deleteThisCollectionsToolStripMenuItem
             // 
             this.deleteThisCollectionsToolStripMenuItem.Name = "deleteThisCollectionsToolStripMenuItem";
-            this.deleteThisCollectionsToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.deleteThisCollectionsToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.deleteThisCollectionsToolStripMenuItem.Text = "Delete this Collection";
             this.deleteThisCollectionsToolStripMenuItem.Click += new System.EventHandler(this.deleteThisCollectionsToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(176, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(182, 6);
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // ımportToolStripMenuItem
             // 
             this.ımportToolStripMenuItem.Name = "ımportToolStripMenuItem";
-            this.ımportToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.ımportToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.ımportToolStripMenuItem.Text = "Import";
             this.ımportToolStripMenuItem.Click += new System.EventHandler(this.ımportToolStripMenuItem_Click);
             // 
@@ -156,11 +182,12 @@
             this.toolStripSeparator2,
             this.deleteThisİtemToolStripMenuItem,
             this.exportThisİtemToolStripMenuItem,
-            this.editThisİtemToolStripMenuItem});
+            this.editThisİtemToolStripMenuItem,
+            this.ımportİtemToolStripMenuItem});
             this.cmsCollection.Name = "cmsCollection";
             this.cmsCollection.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsCollection.ShowImageMargin = false;
-            this.cmsCollection.Size = new System.Drawing.Size(149, 98);
+            this.cmsCollection.Size = new System.Drawing.Size(149, 120);
             // 
             // ıTEMToolStripMenuItem
             // 
@@ -195,6 +222,13 @@
             this.editThisİtemToolStripMenuItem.Text = "Edit this item";
             this.editThisİtemToolStripMenuItem.Click += new System.EventHandler(this.editThisİtemToolStripMenuItem_Click);
             // 
+            // ımportİtemToolStripMenuItem
+            // 
+            this.ımportİtemToolStripMenuItem.Name = "ımportİtemToolStripMenuItem";
+            this.ımportİtemToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.ımportİtemToolStripMenuItem.Text = "Import item";
+            this.ımportİtemToolStripMenuItem.Click += new System.EventHandler(this.ımportİtemToolStripMenuItem_Click);
+            // 
             // timer1
             // 
             this.timer1.Enabled = true;
@@ -205,6 +239,20 @@
             this.timer2.Enabled = true;
             this.timer2.Interval = 2500;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // changeCollectionIDToolStripMenuItem
+            // 
+            this.changeCollectionIDToolStripMenuItem.Name = "changeCollectionIDToolStripMenuItem";
+            this.changeCollectionIDToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.changeCollectionIDToolStripMenuItem.Text = "Change Collection ID";
+            this.changeCollectionIDToolStripMenuItem.Click += new System.EventHandler(this.changeCollectionIDToolStripMenuItem_Click);
+            // 
+            // changeCollectionTextToolStripMenuItem
+            // 
+            this.changeCollectionTextToolStripMenuItem.Name = "changeCollectionTextToolStripMenuItem";
+            this.changeCollectionTextToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.changeCollectionTextToolStripMenuItem.Text = "Change Collection Text";
+            this.changeCollectionTextToolStripMenuItem.Click += new System.EventHandler(this.changeCollectionTextToolStripMenuItem_Click);
             // 
             // frmCollection
             // 
@@ -245,5 +293,8 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem newCollectionToolStripMenuItem;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.ToolStripMenuItem ımportİtemToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeCollectionIDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeCollectionTextToolStripMenuItem;
     }
 }

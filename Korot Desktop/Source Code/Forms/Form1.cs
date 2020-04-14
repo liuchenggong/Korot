@@ -182,14 +182,15 @@ namespace Korot
                 try
                 {
                     string newVerLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateNewVer\\";
-                    if (Directory.Exists(newVerLocation)) { Directory.Delete(newVerLocation,true); } Directory.CreateDirectory(newVerLocation);
+                    if (Directory.Exists(newVerLocation)) { Directory.Delete(newVerLocation, true); }
+                    Directory.CreateDirectory(newVerLocation);
                     ZipFile.ExtractToDirectory(downloadFolder + fileName, newVerLocation, Encoding.UTF8);
-                    foreach (String x in Directory.GetFiles(newVerLocation))
+                    foreach (string x in Directory.GetFiles(newVerLocation))
                     {
                         FileInfo info = new FileInfo(x);
                         File.Move(x, Application.StartupPath + "\\" + info.Name);
                     }
-                    foreach (String x in Directory.GetDirectories(newVerLocation))
+                    foreach (string x in Directory.GetDirectories(newVerLocation))
                     {
                         DirectoryInfo info = new DirectoryInfo(x);
                         if (info.Name.ToLower() != "ubuntu")
@@ -213,23 +214,23 @@ namespace Korot
             await Task.Run(() =>
             {
                 Directory.CreateDirectory(Application.StartupPath);
-                foreach (string x in Directory.GetDirectories(backupFolder)) 
+                foreach (string x in Directory.GetDirectories(backupFolder))
                 {
-                    DirectoryInfo current = new DirectoryInfo(x); 
+                    DirectoryInfo current = new DirectoryInfo(x);
                     if (Directory.Exists(Application.StartupPath + current.Name + "\\"))
                     {
                         Directory.Delete(Application.StartupPath + current.Name + "\\", true);
                     }
-                    Directory.Move(x, Application.StartupPath + current.Name + "\\"); 
+                    Directory.Move(x, Application.StartupPath + current.Name + "\\");
                 }
-                foreach (string x in Directory.GetFiles(backupFolder)) 
+                foreach (string x in Directory.GetFiles(backupFolder))
                 {
                     FileInfo current = new FileInfo(x);
-                    if (File.Exists(Application.StartupPath + current.Name)) 
+                    if (File.Exists(Application.StartupPath + current.Name))
                     {
-                        File.Delete(Application.StartupPath + current.Name); 
+                        File.Delete(Application.StartupPath + current.Name);
                     }
-                    File.Move(x, Application.StartupPath + current.Name); 
+                    File.Move(x, Application.StartupPath + current.Name);
                 }
                 Restart();
             });

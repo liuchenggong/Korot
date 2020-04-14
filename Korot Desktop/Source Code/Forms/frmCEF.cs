@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -60,7 +59,7 @@ namespace Korot
         public ChromiumWebBrowser chromiumWebBrowser1;
         private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
         private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
-        public CollectionManagement colManager;
+        public CollectionManager colManager;
         // [NEWTAB]
         public frmMain anaform()
         {
@@ -77,11 +76,13 @@ namespace Korot
             InitializeChromium();
             updateExtensions();
 
-            frmCollection collectionManager = new frmCollection(this);
-            collectionManager.TopLevel = false;
-            collectionManager.FormBorderStyle = FormBorderStyle.None;
-            collectionManager.Dock = DockStyle.Fill;
-            collectionManager.Visible = true;
+            frmCollection collectionManager = new frmCollection(this)
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill,
+                Visible = true
+            };
             ColMan = collectionManager;
             collectionManager.Show();
             panel3.Controls.Add(collectionManager);
@@ -498,6 +499,14 @@ namespace Korot
         public string TitleHeight = "Height: ";
         public string TitleDone = "Done";
         public string TitleEditItem = "Edit Item";
+        public string importColItem = "Import item";
+        public string importColItemInfo = "Enter a valid item code to import.";
+        public string changeColID = "Change Collection ID";
+        public string changeColIDInfo = "Enter a valid ID for this collection.";
+        public string changeColText = "Change Collection Text";
+        public string changeColTextInfo = "Enter a valid Text for this collection.";
+        public string empty = "((empty))";
+
         //Collection Manager
         public string newColInfo = "Enter a name for new collection";
         public string newColName = "New Collection";
@@ -564,9 +573,15 @@ namespace Korot
         }
         public void ReadLangFileFromTemp(string[] SplittedFase)
         {
-            if (SplittedFase.Length >= 313)
+            if (SplittedFase.Length >= 320)
             {
-                setToDefault = SplittedFase[313].Substring(1).Replace(Environment.NewLine, "");
+                changeColID = SplittedFase[317].Substring(1).Replace(Environment.NewLine, "");
+                changeColIDInfo = SplittedFase[318].Substring(1).Replace(Environment.NewLine, "");
+                changeColText = SplittedFase[319].Substring(1).Replace(Environment.NewLine, "");
+                changeColTextInfo = SplittedFase[320].Substring(1).Replace(Environment.NewLine, "");
+                importColItem = SplittedFase[316].Substring(1).Replace(Environment.NewLine, "");
+                importColItemInfo = SplittedFase[315].Substring(1).Replace(Environment.NewLine, "");
+                setToDefault = SplittedFase[314].Substring(1).Replace(Environment.NewLine, "");
                 tsChangeTitleBack.Text = SplittedFase[312].Substring(1).Replace(Environment.NewLine, "");
                 titleBackInfo = SplittedFase[313].Substring(1).Replace(Environment.NewLine, "");
                 addToCollection = SplittedFase[311].Substring(1).Replace(Environment.NewLine, "");
@@ -649,6 +664,7 @@ namespace Korot
                 tsWebStore.Text = SplittedFase[237 + 1].Substring(1).Replace(Environment.NewLine, "");
                 tsEmptyExt.Text = SplittedFase[233 + 1].Substring(1).Replace(Environment.NewLine, "");
                 tsEmptyProfile.Text = SplittedFase[233 + 1].Substring(1).Replace(Environment.NewLine, "");
+                empty = SplittedFase[233 + 1].Substring(1).Replace(Environment.NewLine, "");
                 btCleanLog.Text = SplittedFase[234 + 1].Substring(1).Replace(Environment.NewLine, "");
                 lbUResources.Text = SplittedFase[230 + 1].Substring(1).Replace(Environment.NewLine, "");
                 lbURinfo.Text = SplittedFase[229 + 1].Substring(1).Replace(Environment.NewLine, "");
@@ -1757,7 +1773,7 @@ namespace Korot
 
         public void loadingstatechanged(object sender, LoadingStateChangedEventArgs e)
         {
-            if (!this.IsDisposed)
+            if (!IsDisposed)
             {
                 if (e.IsLoading)
                 {
@@ -1850,7 +1866,7 @@ namespace Korot
         }
         public void NewTab(string url)
         {
-            anaform().Invoke(new Action(() => { anaform().CreateTab(ParentTab,url); }));
+            anaform().Invoke(new Action(() => { anaform().CreateTab(ParentTab, url); }));
         }
 
         private bool isFavMenuHidden = false;
@@ -1903,7 +1919,8 @@ namespace Korot
                 }
             }
         }
-        void EasterEggs()
+
+        private void EasterEggs()
         {
             Random random = new Random();
             int randomNumber = random.Next(0, 100);
@@ -2042,15 +2059,26 @@ namespace Korot
             string urlLower = tbAddress.Text.ToLower();
             if (ValidHttpURL(urlLower))
             {
-                redirectTo(urlLower,this.Text);
+                loadPage(urlLower, Text);
             }
 
             else
             {
-                redirectTo(Properties.Settings.Default.SearchURL + urlLower, this.Text);
-                button1.Enabled = true;
+                loadPage(Properties.Settings.Default.SearchURL + urlLower, Text);
 
             }
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            allowSwitching = true;
+            tabControl1.SelectedTab = tpCef;
+            loadPage(Properties.Settings.Default.Homepage);
+        }
+
+        private void loadPage(string url, string title = "")
+        {
+            redirectTo(url, title);
+            lbURL_SelectedIndexChanged(null, null);
         }
         public void GoBack()
         {
@@ -2085,11 +2113,11 @@ namespace Korot
 
         }
 
-        public void button3_Click(object sender, EventArgs e) 
-        { 
-            allowSwitching = true; 
+        public void button3_Click(object sender, EventArgs e)
+        {
+            allowSwitching = true;
             tabControl1.SelectedTab = tpCef;
-            lbURL.SelectedIndex = lbURL.SelectedIndex == lbURL.Items.Count -1 ? lbURL.SelectedIndex : lbURL.SelectedIndex + 1;
+            lbURL.SelectedIndex = lbURL.SelectedIndex == lbURL.Items.Count - 1 ? lbURL.SelectedIndex : lbURL.SelectedIndex + 1;
             lbTitle.SelectedIndex = lbURL.SelectedIndex;
         }
 
@@ -2122,7 +2150,7 @@ namespace Korot
             {
                 if (e.Address != lbURL.Items[lbURL.Items.Count - 1].ToString())
                 {
-                    this.Invoke(new Action(() => redirectTo(e.Address,this.Text)));
+                    Invoke(new Action(() => redirectTo(e.Address, Text)));
                 }
             }
         }
@@ -2130,56 +2158,56 @@ namespace Korot
         {
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-             if (e == null) //User Asked
-             {
-                 chromiumWebBrowser1.Load("korot://error/?e=TEST");
-             }
-             else
-             {
-                 if (e.Frame.IsMain)
-                 {
-                     chromiumWebBrowser1.Load("korot://error/?e=" + e.ErrorText);
-                 }
-                 else
-                 {
-                     e.Frame.LoadUrl("korot://error/?e=" + e.ErrorText);
-                 }
-             }
-            } 
+                if (e == null) //User Asked
+                {
+                    chromiumWebBrowser1.Load("korot://error/?e=TEST");
+                }
+                else
+                {
+                    if (e.Frame.IsMain)
+                    {
+                        chromiumWebBrowser1.Load("korot://error/?e=" + e.ErrorText);
+                    }
+                    else
+                    {
+                        e.Frame.LoadUrl("korot://error/?e=" + e.ErrorText);
+                    }
+                }
+            }
         }
 
 
         private void cef_TitleChanged(object sender, TitleChangedEventArgs e)
         {
-                this.Invoke(new Action(() =>
+            Invoke(new Action(() =>
+            {
+                tpCef.Text = e.Title;
+                int si = lbTitle.SelectedIndex;
+                if (si != -1)
                 {
-                    tpCef.Text = e.Title;
-                    int si = lbTitle.SelectedIndex;
-                    if (si != -1)
+                    if (lbURL.Items[si].ToString() != chromiumWebBrowser1.Address)
                     {
-                        if (lbURL.Items[si].ToString() != chromiumWebBrowser1.Address)
+                        if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot"))
                         {
-                            if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot"))
-                            {
-                                if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot://newtab") ||
+                            if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot://newtab") ||
 chromiumWebBrowser1.Address.ToLower().StartsWith("korot://links") ||
 chromiumWebBrowser1.Address.ToLower().StartsWith("korot://license") ||
 chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
-                                {
-                                    lbTitle.Items.RemoveAt(si);
-                                    lbTitle.Items.Insert(si, e.Title);
-                                    lbTitle.SelectedIndex = si;
-                                }
-                            }
-                            else
                             {
                                 lbTitle.Items.RemoveAt(si);
                                 lbTitle.Items.Insert(si, e.Title);
                                 lbTitle.SelectedIndex = si;
                             }
                         }
+                        else
+                        {
+                            lbTitle.Items.RemoveAt(si);
+                            lbTitle.Items.Insert(si, e.Title);
+                            lbTitle.SelectedIndex = si;
+                        }
                     }
-                }));
+                }
+            }));
         }
 
         public void showHideSearchMenu()
@@ -2224,19 +2252,14 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tsFullscreen_Click(null, null);
             }
         }
-        private void button5_Click(object sender, EventArgs e) 
-        {
-            allowSwitching = true; 
-            tabControl1.SelectedTab = tpCef;
-            redirectTo(Properties.Settings.Default.Homepage,this.Text);
-        }
+
         public bool canGoForward()
         {
             return tabControl1.SelectedTab == tpCef ? (lbURL.SelectedIndex != lbURL.Items.Count - 1) : true;
         }
         public bool canGoBack()
         {
-            return  tabControl1.SelectedTab == tpCef ? (lbURL.SelectedIndex != 0) : true;
+            return tabControl1.SelectedTab == tpCef ? (lbURL.SelectedIndex != 0) : true;
         }
 
         public bool isControlKeyPressed = false;
@@ -2392,7 +2415,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 UpdateFavoriteColor();
                 updateFavoritesImages();
-                if (chromiumWebBrowser1.Address.StartsWith("korot:")) {  chromiumWebBrowser1.Reload(); }
+                flowLayoutPanel2.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                flowLayoutPanel2.BackColor = Properties.Settings.Default.BackColor;
+                if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
                 cmsFavorite.BackColor = Properties.Settings.Default.BackColor;
                 cmsIncognito.BackColor = Properties.Settings.Default.BackColor;
                 oldBackColor = Properties.Settings.Default.BackColor;
@@ -2651,7 +2676,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 if (anaform().OldSessions == "") { spRestorer.Visible = false; restoreLastSessionToolStripMenuItem.Visible = false; } else { spRestorer.Visible = true; restoreLastSessionToolStripMenuItem.Visible = true; }
             }
-            this.Text = tabControl1.SelectedTab.Text;
+            Text = tabControl1.SelectedTab.Text;
         }
 
         private void TestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3693,9 +3718,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             closing = true;
         }
-        public void redirectTo(string url,string title)
+        public void redirectTo(string url, string title)
         {
-            if (bypassThisDeletion) 
+            if (bypassThisDeletion)
             {
                 bypassThisDeletion = false;
             }
@@ -3707,7 +3732,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     {
                         bypassThisIndexChange = true;
                         int selectedItem = lbURL.SelectedIndex;
-                        if (lbURL.Items.Count != 0)
+                        if (lbURL.Items.Count - 1 > 0)
                         {
                             while (lbURL.Items.Count - 1 != selectedItem)
                             {
@@ -3724,7 +3749,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                         lbTitle.SelectedIndex = lbURL.SelectedIndex;
                         return;
                     }
-                }else 
+                }
+                else
                 {
                     lbURL.Items.Add(url);
                     lbTitle.Items.Add(title);
@@ -3733,20 +3759,22 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 }
             }
         }
-        bool bypassThisIndexChange = false;
-        bool bypassThisDeletion = false;
+
+        private bool bypassThisIndexChange = false;
+        private bool bypassThisDeletion = false;
         public bool indexChanged = false;
         private void lbURL_SelectedIndexChanged(object sender, EventArgs e)
         {
             lbTitle.SelectedIndex = lbURL.SelectedIndex;
-            if (bypassThisIndexChange) { bypassThisIndexChange = false;} else
+            if (bypassThisIndexChange) { bypassThisIndexChange = false; }
+            else
             {
                 bypassThisDeletion = true;
                 indexChanged = true;
                 chromiumWebBrowser1.Load(lbURL.SelectedItem.ToString());
             }
             button1.Visible = lbURL.SelectedIndex != 0;
-            button3.Visible = lbURL.SelectedIndex != lbURL.Items.Count -1;
+            button3.Visible = lbURL.SelectedIndex != lbURL.Items.Count - 1;
         }
 
         private void cmsBack_Opening(object sender, CancelEventArgs e)
@@ -3757,18 +3785,21 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 int i = 0;
                 while (i != lbURL.SelectedIndex)
                 {
-                    ToolStripMenuItem item = new ToolStripMenuItem();
-                    item.Text = lbTitle.Items[i].ToString();
-                    item.ShortcutKeyDisplayString = i.ToString();
-                    item.Tag = lbURL.Items[i].ToString();
-                    item.ShowShortcutKeys = false;
+                    ToolStripMenuItem item = new ToolStripMenuItem
+                    {
+                        Text = lbTitle.Items[i].ToString(),
+                        ShortcutKeyDisplayString = i.ToString(),
+                        Tag = lbURL.Items[i].ToString(),
+                        ShowShortcutKeys = false
+                    };
                     item.Click += backfrowardItemClick;
                     cmsBack.Items.Add(item);
                     i += 1;
                 }
             }
         }
-        void backfrowardItemClick(object sender,EventArgs e)
+
+        private void backfrowardItemClick(object sender, EventArgs e)
         {
             int switchTo = Convert.ToInt32(((ToolStripMenuItem)sender).ShortcutKeyDisplayString);
             lbURL.SelectedIndex = switchTo;
@@ -3779,14 +3810,16 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             cmsForward.Items.Clear();
             if ((lbURL.SelectedIndex != -1) && lbURL.Items.Count > 0)
             {
-                int i = lbURL.SelectedIndex +1;
-                while (i != lbURL.Items.Count -1)
+                int i = lbURL.SelectedIndex + 1;
+                while (i != lbURL.Items.Count - 1)
                 {
-                    ToolStripMenuItem item = new ToolStripMenuItem();
-                    item.Text = lbTitle.Items[i].ToString();
-                    item.ShortcutKeyDisplayString = i.ToString();
-                    item.Tag = lbURL.Items[i].ToString();
-                    item.ShowShortcutKeys = false;
+                    ToolStripMenuItem item = new ToolStripMenuItem
+                    {
+                        Text = lbTitle.Items[i].ToString(),
+                        ShortcutKeyDisplayString = i.ToString(),
+                        Tag = lbURL.Items[i].ToString(),
+                        ShowShortcutKeys = false
+                    };
                     item.Click += backfrowardItemClick;
                     cmsForward.Items.Add(item);
                     i += 1;
@@ -3798,7 +3831,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             Properties.Settings.Default.autoRestoreSessions = hsAutoRestore.Checked;
         }
-        frmCollection ColMan;
+
+        private readonly frmCollection ColMan;
         private void tpCollection_Enter(object sender, EventArgs e)
         {
             ColMan.genColList();

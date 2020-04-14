@@ -14,13 +14,8 @@ namespace Korot
         /// </summary>
         public Color BackColor
         {
-            get
-            {
-                return _BackColor;
-            }set
-            {
-                _BackColor = value;
-            }
+            get => _BackColor;
+            set => _BackColor = value;
         }
         protected bool UseDefaultColor = true;
         /// <summary>
@@ -28,13 +23,8 @@ namespace Korot
         /// </summary>
         public bool useDefaultBackColor
         {
-            get
-            {
-                return UseDefaultColor;
-            }set
-            {
-                UseDefaultColor = value;
-            }
+            get => UseDefaultColor;
+            set => UseDefaultColor = value;
         }
         /// <summary>Flag indicating whether or not this tab is active.</summary>
         protected bool _active;

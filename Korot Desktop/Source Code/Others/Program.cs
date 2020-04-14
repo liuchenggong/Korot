@@ -19,12 +19,12 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
+using CefSharp;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using CefSharp;
 
 namespace Korot
 {
@@ -37,7 +37,7 @@ namespace Korot
         private static void Main(string[] args)
         {
             Cef.EnableHighDPISupport();
-            CollectionManagement colman = new CollectionManagement();
+            CollectionManager colman = new CollectionManager();
             Properties.Settings.Default.dismissUpdate = false;
             Properties.Settings.Default.alreadyUpdatedThemes = false;
             Properties.Settings.Default.alreadyUpdatedExt = false;
@@ -70,8 +70,8 @@ namespace Korot
                             ProcessStartInfo startInfo = new ProcessStartInfo(Application.ExecutablePath)
                             {
                                 Verb = "runas",
-                                Arguments = "-update" 
-                            }; 
+                                Arguments = "-update"
+                            };
                             Process.Start(startInfo);
                             Application.Exit();
                         }
@@ -134,7 +134,7 @@ namespace Korot
     new TitleBarTab(testApp)
     {
         Content = new frmCEF(isIncognito, Properties.Settings.Default.StartupURL, Properties.Settings.Default.LastUser) { colManager = colman, }
-    }) ;
+    });
                         }
                         testApp.SelectedTabIndex = 0;
                         testApp.colman = colman;

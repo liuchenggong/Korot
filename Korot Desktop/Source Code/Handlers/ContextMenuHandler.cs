@@ -23,18 +23,13 @@ using CefSharp;
 using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
-using System.Xml;
 
 namespace Korot
 {
     internal class ContextMenuHandler : IContextMenuHandler
     {
         private readonly frmCEF ActiveForm;
-
-        //private string lastSelText = "";
-
         public ContextMenuHandler(frmCEF activeform) { ActiveForm = activeform; }
         #region "CMS Designer"
         private void InitializeCMSComponent()
@@ -47,6 +42,8 @@ namespace Korot
             stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             addToCollection = new System.Windows.Forms.ToolStripMenuItem();
             selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            newCollection = new System.Windows.Forms.ToolStripMenuItem();
+            tsSepCol = new System.Windows.Forms.ToolStripSeparator();
             tsSep1 = new System.Windows.Forms.ToolStripSeparator();
             openLinkInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             copyLinkAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,6 +61,7 @@ namespace Korot
             printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             showDevToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             viewSourceToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            tsEmptyCol = new System.Windows.Forms.ToolStripMenuItem();
             copyImageTSMI = new System.Windows.Forms.ToolStripMenuItem();
             openLinkINWTSMI = new System.Windows.Forms.ToolStripMenuItem();
             openLinkINAIWTSMI = new System.Windows.Forms.ToolStripMenuItem();
@@ -153,13 +151,33 @@ namespace Korot
             // addToCollection
             // 
             addToCollection.Name = "addToCollection";
+            addToCollection.DropDown.Items.AddRange(new ToolStripItem[] { tsSepCol, newCollection });
             addToCollection.Size = new System.Drawing.Size(240, 22);
             addToCollection.Text = ActiveForm.addToCollection;
+            // 
+            // tsEmptyCol
+            // 
+            tsEmptyCol.Enabled = false;
+            tsEmptyCol.Name = "tsEmptyCol";
+            tsEmptyCol.Size = new System.Drawing.Size(240, 22);
+            tsEmptyCol.Text = ActiveForm.empty;
+            // 
+            // newCollection
+            // 
+            newCollection.Name = "newCollection";
+            newCollection.Size = new System.Drawing.Size(240, 22);
+            newCollection.Text = ActiveForm.newCollection;
+            newCollection.Click += new System.EventHandler(newCollection_Click);
             // 
             // tsSep1
             // 
             tsSep1.Name = "tsSep1";
             tsSep1.Size = new System.Drawing.Size(237, 6);
+            // 
+            // tsSepCol
+            // 
+            tsSepCol.Name = "tsSepCol";
+            tsSepCol.Size = new System.Drawing.Size(237, 6);
             // 
             // openLinkInNewTabToolStripMenuItem
             // 
@@ -317,6 +335,8 @@ namespace Korot
         public System.Windows.Forms.ToolStripMenuItem refreshNoCacheToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem addToCollection;
+        public System.Windows.Forms.ToolStripMenuItem newCollection;
+        public System.Windows.Forms.ToolStripSeparator tsSepCol;
         public System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem openLinkInNewTabToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem copyLinkAddressToolStripMenuItem;
@@ -337,42 +357,39 @@ namespace Korot
         public System.Windows.Forms.ToolStripMenuItem openLinkINAIWTSMI;
         public System.Windows.Forms.ToolStripMenuItem copyImageAddressTSMI;
         public System.Windows.Forms.ToolStripMenuItem saveLinkAsTSMI;
+        public System.Windows.Forms.ToolStripMenuItem tsEmptyCol;
         public System.Windows.Forms.ToolStripSeparator tsSep1;
         public System.Windows.Forms.ToolStripSeparator tsSep2;
         public System.Windows.Forms.ToolStripSeparator tsSep3;
         #endregion
         #region "CMS"
-        void item_Click(object sender,EventArgs e)
+        private void item_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
             if (!string.IsNullOrWhiteSpace(SelectedText))
             {
-                string newItem = "[label ID=\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText + "\" /]";
-                int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
-                ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]",startIndex) + 1,newItem);
+                string newItem = "[text ID=\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                 return;
             }
             if (!string.IsNullOrWhiteSpace(SourceURL))
             {
-                string newItem = "[picture ID=\"" + Tools.generateRandomText() + "\" Source=\"" + SourceURL + "\" /]";
-                int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
-                ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]", startIndex) + 1, newItem);
+                string newItem = "[image ID=\"" + Tools.generateRandomText() + "\" Source=\"" + SourceURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                 return;
             }
             if (!string.IsNullOrWhiteSpace(LinkURL))
             {
                 if (!string.IsNullOrWhiteSpace(SelectedText))
                 {
-                    string newItem = "[link ID =\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText + "\" Source=\"" + LinkURL + "\" /]";
-                    int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
-                    ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]", startIndex) + 1, newItem);
+                    string newItem = "[link ID =\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                    ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                     return;
                 }
                 else
                 {
-                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + LinkURL + "\" Source=\"" + LinkURL + "\" /]";
-                    int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
-                    ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]", startIndex) + 1, newItem);
+                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                    ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                     return;
                 }
             }
@@ -380,43 +397,41 @@ namespace Korot
             {
                 if (!string.IsNullOrWhiteSpace(SelectedText))
                 {
-                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText + "\" Source=\"" + chromiumWebBrowser1.Address + "\" /]";
-                    int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
-                    ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]", startIndex) + 1, newItem);
+                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + chromiumWebBrowser1.Address.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                    ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                     return;
                 }
                 else
                 {
-                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + chromiumWebBrowser1.Address + "\" Source=\"" + chromiumWebBrowser1.Address + "\" /]";
-                    int startIndex = ActiveForm.colManager.Collections.ToLower().IndexOf(item.Name.ToLower());
-                    ActiveForm.colManager.Collections = ActiveForm.colManager.Collections.Insert(ActiveForm.colManager.Collections.IndexOf("]", startIndex) + 1, newItem);
+                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + ActiveForm.Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + chromiumWebBrowser1.Address.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                    ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                     return;
                 }
             }
         }
-        void CollectionList()
+
+        private void CollectionList()
         {
             addToCollection.DropDown.Items.Clear();
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(ActiveForm.colManager.Collections.Replace("[", "<").Replace("]", ">"));
-            writer.Flush();
-            stream.Position = 0;
-            XmlDocument document = new XmlDocument();
-            document.Load(stream);
-            foreach (XmlNode node in document.FirstChild.ChildNodes)
+            foreach (Collection node in ActiveForm.colManager.Collections)
             {
-                if (node.Name == "collection")
+                ToolStripMenuItem item = new ToolStripMenuItem
                 {
-                    ToolStripMenuItem item = new ToolStripMenuItem(node.Attributes["Text"].Value);
-                    item.Name = node.Attributes["ID"].Value;
-                    item.Tag = node.OuterXml.Replace("<", "[").Replace(">", "]");
-                    item.Click += item_Click;
-                    item.BackColor = Properties.Settings.Default.BackColor;
-                    item.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-                    addToCollection.DropDown.Items.Add(item);
-                }
+                    Text = node.Text,
+                    Name = node.ID,
+                    Tag = node.outXML
+                };
+                item.Click += item_Click;
+                item.BackColor = Properties.Settings.Default.BackColor;
+                item.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+                addToCollection.DropDown.Items.Add(item);
             }
+            if (addToCollection.DropDown.Items.Count < 1)
+            {
+                addToCollection.DropDown.Items.Add(tsEmptyCol);
+            }
+            addToCollection.DropDown.Items.Add(tsSepCol);
+            addToCollection.DropDown.Items.Add(newCollection);
         }
         public void showCMS(string link, string source, string selected, bool hasimage, bool editable, IWebBrowser cwb)
         {
@@ -472,6 +487,30 @@ namespace Korot
             ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(url)));
         }
 
+        private void newCollection_Click(object sender, EventArgs e)
+        {
+            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+                                                                                         ActiveForm.newColInfo,
+                                                                                        ActiveForm.Icon,
+                                                                                         ActiveForm.newColName,
+                                                                                         Properties.Settings.Default.BackColor,
+                                                                                         ActiveForm.OK,
+                                                                                         ActiveForm.Cancel);
+            DialogResult diagres = mesaj.ShowDialog();
+            if (diagres == DialogResult.OK)
+            {
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                {
+                    Collection newCol = new Collection
+                    {
+                        ID = Tools.generateRandomText(),
+                        Text = mesaj.TextValue()
+                    };
+                    ActiveForm.colManager.Collections.Add(newCol);
+                }
+                else { newCollection_Click(sender, e); }
+            }
+        }
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             chromiumWebBrowser1.Paste();
@@ -595,7 +634,7 @@ namespace Korot
         public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
         {
 
-           if(!parameters.IsPepperMenu)
+            if (!parameters.IsPepperMenu)
             {
                 model.Clear();
                 showCMS(parameters.LinkUrl,
@@ -613,7 +652,7 @@ namespace Korot
             return false;
         }
 
-        public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame) 
+        public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame)
         {
             //currentCMS.Dispose();
         }

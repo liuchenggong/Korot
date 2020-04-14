@@ -637,26 +637,32 @@ namespace Korot
             {
                 return;
             }
-            Color thisTabBack = tab.BackColor;
-            Color thisTabForeColor = tab.useDefaultBackColor ? (Tools.isBright(BackgroundColor) ? Color.Black : Color.White) : (Tools.isBright(tab.BackColor) ? Color.Black : Color.White);
+            Color thisTabBack = tab.useDefaultBackColor ? (tab.Active ? BackgroundColor : Tools.ShiftBrightnessIfNeeded(BackgroundColor, 20, false)) : (tab.Active ? tab.BackColor : Tools.ShiftBrightnessIfNeeded(tab.BackColor, 20, false));
+            Color thisTabForeColor = Tools.isBright(thisTabBack) ? Color.Black : Color.White;
 
             // If we need to redraw the tab image
             if (tab.TabImage == null)
             {
                 // We render the tab to an internal property so that we don't necessarily have to redraw it in every rendering pass, only if its width or 
                 // status have changed
-                tab.TabImage = new Bitmap(area.Width <= 0 ? 1 : area.Width,30);
+                tab.TabImage = new Bitmap(area.Width <= 0 ? 1 : area.Width, 30);
 
                 using (Graphics tabGraphicsContext = Graphics.FromImage(tab.TabImage))
                 {
                     // Draw the left, center, and right portions of the tab
 
                     //tabGraphicsContext.DrawImage(tabLeftImage, new Rectangle(0, 0, tabLeftImage.Width, tabLeftImage.Height), 0, 0, tabLeftImage.Width, tabLeftImage.Height, GraphicsUnit.Pixel);
-                    tabGraphicsContext.DrawRectangle(new Pen(tab.useDefaultBackColor ? BackgroundColor : thisTabBack, tabLeftImage.Width), new Rectangle(0, 0, tabLeftImage.Width, 30));
+                    Rectangle leftRect = new Rectangle(0, 0, tabLeftImage.Width, 30);
+                    tabGraphicsContext.DrawRectangle(new Pen(thisTabBack), leftRect);
+                    tabGraphicsContext.FillRectangle(new SolidBrush(thisTabBack), leftRect);
                     //tabGraphicsContext.DrawImage(tabCenterImage, new Rectangle(tabLeftImage.Width, 0, _tabContentWidth, tabCenterImage.Height), 0, 0, _tabContentWidth, tabCenterImage.Height, GraphicsUnit.Pixel);
-                    tabGraphicsContext.DrawRectangle(new Pen(tab.useDefaultBackColor ? BackgroundColor : thisTabBack, tabCenterImage.Width), new Rectangle(tabLeftImage.Width, 0, _tabContentWidth, 30));
+                    Rectangle centerRect = new Rectangle(tabLeftImage.Width, 0, _tabContentWidth, 30);
+                    tabGraphicsContext.DrawRectangle(new Pen(thisTabBack), centerRect);
+                    tabGraphicsContext.FillRectangle(new SolidBrush(thisTabBack), centerRect);
                     //tabGraphicsContext.DrawImage(tabRightImage, new Rectangle(tabLeftImage.Width + _tabContentWidth, 0, tabRightImage.Width, tabRightImage.Height), 0, 0, tabRightImage.Width, tabRightImage.Height, GraphicsUnit.Pixel);
-                    tabGraphicsContext.DrawRectangle(new Pen(tab.useDefaultBackColor ? BackgroundColor : thisTabBack, tabRightImage.Width), new Rectangle(tabLeftImage.Width + _tabContentWidth, 0, tabRightImage.Width, 30));
+                    Rectangle rightRect = new Rectangle(tabLeftImage.Width + _tabContentWidth, 0, tabRightImage.Width, 30);
+                    tabGraphicsContext.DrawRectangle(new Pen(thisTabBack, TabContentWidth), rightRect);
+                    tabGraphicsContext.FillRectangle(new SolidBrush(thisTabBack), rightRect);
                     // Draw the close button
                     if (tab.ShowCloseButton)
                     {
@@ -734,9 +740,7 @@ namespace Korot
         /// <returns>The image for the left side of <paramref name="tab"/>.</returns>
         protected virtual Image GetTabLeftImage(TitleBarTab tab)
         {
-            return tab.Active
-                ? _activeLeftSideImage
-                : _inactiveLeftSideImage;
+            return tab.Active ? _activeLeftSideImage : _inactiveLeftSideImage;
         }
 
         /// <summary>
@@ -746,9 +750,7 @@ namespace Korot
         /// <returns>The image for the center of <paramref name="tab"/>.</returns>
         protected virtual Image GetTabCenterImage(TitleBarTab tab)
         {
-            return tab.Active
-                ? _activeCenterImage
-                : _inactiveCenterImage;
+            return tab.Active ? _activeCenterImage : _inactiveCenterImage;
         }
 
         /// <summary>
@@ -758,9 +760,7 @@ namespace Korot
         /// <returns>The image for the right side of <paramref name="tab"/>.</returns>
         protected virtual Image GetTabRightImage(TitleBarTab tab)
         {
-            return tab.Active
-                ? _activeRightSideImage
-                : _inactiveRightSideImage;
+            return tab.Active ? _activeRightSideImage : _inactiveRightSideImage;
         }
 
         /// <summary>

@@ -1,23 +1,36 @@
-﻿using System;
+﻿//MIT License
+//
+//Copyright (c) 2020 Eren "Haltroy" Kanat
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using System.Xml;
-using System.IO;
-using System.Net;
 
 namespace Korot
 {
     public partial class frmCollection : Form
     {
         public frmCEF cefform;
-        public frmCollection(frmCEF _cefform,int skipTo = -1)
+        public frmCollection(frmCEF _cefform, int skipTo = -1)
         {
             cefform = _cefform;
             InitializeComponent();
@@ -36,7 +49,8 @@ namespace Korot
                 tabControl1.SelectedIndex = skipTo;
             }
         }
-        void RefreshTranslation()
+
+        private void RefreshTranslation()
         {
             newCollectionToolStripMenuItem.Text = cefform.newCollection;
             deleteThisCollectionsToolStripMenuItem.Text = cefform.deleteCollection;
@@ -46,17 +60,21 @@ namespace Korot
             deleteThisİtemToolStripMenuItem.Text = cefform.deleteItem;
             exportThisİtemToolStripMenuItem.Text = cefform.deleteItem;
             editThisİtemToolStripMenuItem.Text = cefform.editItem;
+            ımportİtemToolStripMenuItem.Text = cefform.importColItem;
+            changeCollectionIDToolStripMenuItem.Text = cefform.changeColID;
+            changeCollectionTextToolStripMenuItem.Text = cefform.changeColText;
         }
-        List<Panel> titlePanels;
-        List<PictureBox> backButtons;
-        List<Control> defaultBackColor;
-        List<Control> DefaultforeColor;
-        private void back_Click(object sender,EventArgs e)
+
+        private readonly List<Panel> titlePanels;
+        private readonly List<PictureBox> backButtons;
+        private readonly List<Control> defaultBackColor;
+        private readonly List<Control> DefaultforeColor;
+        private void back_Click(object sender, EventArgs e)
         {
             allowSwitch = true;
             tabControl1.SelectedTab = tpMain;
         }
-        private void item_MouseClick(object sender,MouseEventArgs e)
+        private void item_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -72,7 +90,8 @@ namespace Korot
                 {
                     Clipboard.SetText(((Label)sender).Text);
                 }
-            }else if (e.Button == MouseButtons.Right)
+            }
+            else if (e.Button == MouseButtons.Right)
             {
                 ıTEMToolStripMenuItem.Tag = sender;
                 if (sender is PictureBox)
@@ -99,9 +118,10 @@ namespace Korot
             backButtons.Clear();
             defaultBackColor.Clear();
             DefaultforeColor.Clear();
-            generateCollectionList(cefform.colManager.Collections);
+            generateCollectionList(cefform.colManager);
         }
-        void generateCollectionList(string collections)
+
+        private void generateCollectionList(CollectionManager collections)
         {
             listView1.Items.Clear();
             tabControl1.TabPages.Clear();
@@ -110,252 +130,178 @@ namespace Korot
             backButtons.Clear();
             defaultBackColor.Clear();
             DefaultforeColor.Clear();
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(collections.Replace("[", "<").Replace("]", ">"));
-            writer.Flush();
-            stream.Position = 0;
-            XmlDocument document = new XmlDocument();
-            document.Load(stream);
-            foreach (XmlNode node in document.FirstChild.ChildNodes)
+            foreach (Collection col in collections.Collections)
             {
-                if (node.Name == "collection")
+                ListViewItem lwitem = new ListViewItem
                 {
-                    ListViewItem item = new ListViewItem(node.Attributes["Text"].Value);
-                    item.ToolTipText = node.OuterXml.Replace("<", "[").Replace(">", "]");
-                    item.Tag = tabControl1.TabPages.Count;
-                    listView1.Items.Add(item);
-                    TabPage tab = new TabPage();
-                    PictureBox pbBack = new PictureBox()
-                    {
-                        Image = Properties.Resources.leftarrow,
-                        Size = new System.Drawing.Size(30, 30),
-                        Location = new System.Drawing.Point(9, 7),
-                        SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage,
-                        Visible = true,
-                    };
-                    pbBack.Click += back_Click;
-                    backButtons.Add(pbBack);
-                    Label lbTitle = new Label()
-                    {
-                        AutoSize = true,
-                        Font = new Font("Ubuntu", 15F),
-                        Location = new System.Drawing.Point(pbBack.Location.X + pbBack.Width + 1, pbBack.Location.Y),
-                        Text = node.Attributes["Text"].Value,
-                        Visible = true,
-                    };
-                    Panel pnlTop = new Panel()
-                    {
-                        Dock = DockStyle.Top,
-                        Height = 50,
-                        Visible = true,
-                    };
-                    pnlTop.Controls.Add(pbBack);
-                    pnlTop.Controls.Add(lbTitle);
-                    titlePanels.Add(pnlTop);
-                    FlowLayoutPanel flowPanel = new FlowLayoutPanel()
-                    {
+                    Text = col.Text,
+                    Name = col.ID,
+                    ToolTipText = col.outXML,
+                    Tag = tabControl1.TabPages.Count
+                };
+                listView1.Items.Add(lwitem);
+                TabPage tab = new TabPage();
+                PictureBox pbBack = new PictureBox()
+                {
+                    Image = Properties.Resources.leftarrow,
+                    Size = new System.Drawing.Size(30, 30),
+                    Location = new System.Drawing.Point(9, 7),
+                    SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage,
+                    Visible = true,
+                };
+                pbBack.Click += back_Click;
+                backButtons.Add(pbBack);
+                Label lbTitle = new Label()
+                {
+                    AutoSize = true,
+                    Font = new Font("Ubuntu", 15F),
+                    Location = new System.Drawing.Point(pbBack.Location.X + pbBack.Width + 1, pbBack.Location.Y),
+                    Text = col.Text,
+                    Visible = true,
+                };
+                Panel pnlTop = new Panel()
+                {
+                    Dock = DockStyle.Top,
+                    Height = 50,
+                    Visible = true,
+                };
+                pnlTop.Controls.Add(pbBack);
+                pnlTop.Controls.Add(lbTitle);
+                titlePanels.Add(pnlTop);
+                FlowLayoutPanel flowPanel = new FlowLayoutPanel()
+                {
 
-                        Location = new Point(0, pnlTop.Location.Y + pnlTop.Height),
-                        Anchor = (((AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | AnchorStyles.Left) | AnchorStyles.Right),
-                        FlowDirection = FlowDirection.TopDown,
-                        Visible = true,
-                    };
-                    flowPanel.HorizontalScroll.Visible = true;
-                    flowPanel.VerticalScroll.Visible = true;
-                    tab.Controls.Add(pnlTop);
-                    tab.Controls.Add(flowPanel);
-                    foreach (XmlNode subnode in node.ChildNodes)
+                    Location = new Point(0, pnlTop.Location.Y + pnlTop.Height),
+                    Anchor = (((AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | AnchorStyles.Left) | AnchorStyles.Right),
+                    FlowDirection = FlowDirection.TopDown,
+                    Visible = true,
+                };
+                flowPanel.HorizontalScroll.Visible = true;
+                flowPanel.VerticalScroll.Visible = true;
+                tab.Controls.Add(pnlTop);
+                tab.Controls.Add(flowPanel);
+                foreach (CollectionItem item in col.CollectionItems)
+                {
+                    if (item is TextItem) //Label
                     {
-                        if (subnode.Name == "label") //Label
+                        Label newItem = new Label()
                         {
-                            try
-                            {
-                                Label newItem = new Label()
-                                {
-                                    AutoSize = true,
-                                    Tag = subnode.OuterXml.Replace("<", "[").Replace(">", "]"),
-                                    Name = subnode.Attributes["ID"].Value.Trim(),
-                                    Text = subnode.Attributes["Text"].Value,
-                                    BackColor = (subnode.Attributes["BackColor"] != null ? (subnode.Attributes["BackColor"].Value == "$" ? this.BackColor : Tools.HexToColor(subnode.Attributes["BackColor"].Value)) : this.BackColor),
-                                    ForeColor = (subnode.Attributes["ForeColor"] != null ? (subnode.Attributes["ForeColor"].Value == "$" ? this.ForeColor : Tools.HexToColor(subnode.Attributes["ForeColor"].Value)) : this.ForeColor),
-                                    Font = new Font((subnode.Attributes["Font"] != null ? subnode.Attributes["Font"].Value : "Ubuntu"), (subnode.Attributes["FontSize"] != null ? Convert.ToInt32(subnode.Attributes["FontSize"].Value) : 10F)),
-                                    Visible = true,
-                                    TabIndex = flowPanel.Controls.Count,
-                                };
-                                if (subnode.Attributes["BackColor"] != null)
-                                {
-                                    if (subnode.Attributes["BackColor"].Value == "$")
-                                    {
-                                        defaultBackColor.Add(newItem);
-                                    }
-                                }
-                                else
-                                {
-                                    defaultBackColor.Add(newItem);
-                                }
-                                if (subnode.Attributes["ForeColor"] != null)
-                                {
-                                    if (subnode.Attributes["ForeColor"].Value == "$")
-                                    {
-                                        DefaultforeColor.Add(newItem);
-                                    }
-                                }
-                                else
-                                {
-                                    DefaultforeColor.Add(newItem);
-                                }
-                                if (subnode.Attributes["FontProperties"] != null)
-                                {
-                                    if (subnode.Attributes["FontProperties"].Value == "Bold")
-                                    {
-                                        newItem.Font = new Font(newItem.Font, FontStyle.Bold);
-                                    }
-                                    else if (subnode.Attributes["FontProperties"].Value == "Italic")
-                                    {
-                                        newItem.Font = new Font(newItem.Font, FontStyle.Italic);
-                                    }
-                                    else if (subnode.Attributes["FontProperties"].Value == "Regular")
-                                    {
-                                        newItem.Font = new Font(newItem.Font, FontStyle.Regular);
-                                    }
-                                    else if (subnode.Attributes["FontProperties"].Value == "Underline")
-                                    {
-                                        newItem.Font = new Font(newItem.Font, FontStyle.Underline);
-                                    }
-                                    else if (subnode.Attributes["FontProperties"].Value == "Strikeout")
-                                    {
-                                        newItem.Font = new Font(newItem.Font, FontStyle.Strikeout);
-                                    }
-                                }
-                                newItem.MouseClick += item_MouseClick;
-                                flowPanel.Controls.Add(newItem);
-                            }
-                            catch (Exception ex)
-                            {
-                                Output.WriteLine("[Korot.Collections] Cannot add item" + subnode.OuterXml.Replace("<", "[").Replace(">", "]") + " : " + ex.ToString());
-                            }
-                        }
-                        else if (subnode.Name == "picture") //Picturebox 
+                            AutoSize = true,
+                            Tag = ((TextItem)item).outXML,
+                            Name = item.ID,
+                            Text = ((TextItem)item).Text,
+                            BackColor = item.BackColor,
+                            ForeColor = ((TextItem)item).ForeColor,
+                            Font = new Font(((TextItem)item).Font, ((TextItem)item).FontSize),
+                            Visible = true,
+                            TabIndex = flowPanel.Controls.Count,
+                        };
+                        if (item.BackColor == Color.Empty || item.BackColor == Color.Transparent)
                         {
-                            try
-                            {
-                                PictureBox newItem = new PictureBox()
-                                {
-                                    Tag = subnode.OuterXml.Replace("<", "[").Replace(">", "]"),
-                                    Name = subnode.Attributes["ID"].Value.Trim(),
-                                    ImageLocation = subnode.Attributes["Source"].Value,
-                                    BackColor = (subnode.Attributes["BackColor"] != null ? (subnode.Attributes["BackColor"].Value == "$" ? this.BackColor : Tools.HexToColor(subnode.Attributes["BackColor"].Value)) : this.BackColor),
-                                    ForeColor = (subnode.Attributes["ForeColor"] != null ? (subnode.Attributes["ForeColor"].Value == "$" ? this.ForeColor : Tools.HexToColor(subnode.Attributes["ForeColor"].Value)) : this.ForeColor),
-                                    Size = new Size(Convert.ToInt32(subnode.Attributes["Width"].Value), Convert.ToInt32(subnode.Attributes["Height"].Value)),
-                                    SizeMode = PictureBoxSizeMode.StretchImage,
-                                    Visible = true,
-                                    TabIndex = flowPanel.Controls.Count,
-                                };
-                                if (subnode.Attributes["BackColor"] != null)
-                                {
-                                    if (subnode.Attributes["BackColor"].Value == "$")
-                                    {
-                                        defaultBackColor.Add(newItem);
-                                    }
-                                }
-                                else
-                                {
-                                    defaultBackColor.Add(newItem);
-                                }
-                                newItem.MouseClick += item_MouseClick;
-                                flowPanel.Controls.Add(newItem);
-                            }
-                            catch (Exception ex)
-                            {
-                                Output.WriteLine("[Korot.Collections] Cannot add item" + subnode.OuterXml.Replace("<", "[").Replace(">", "]") + " : " + ex.ToString());
-                            }
+                            defaultBackColor.Add(newItem);
                         }
-                        else if (subnode.Name == "link") //Link
+                        if (((TextItem)item).ForeColor == Color.Empty || ((TextItem)item).ForeColor == Color.Transparent)
                         {
-                            try
-                            {
-                                CustomLinkLabel newItem = new CustomLinkLabel()
-                                {
-                                    Tag = subnode.OuterXml.Replace("<", "[").Replace(">", "]"),
-                                    Name = subnode.Attributes["ID"].Value.Trim(),
-                                    Text = subnode.Attributes["Text"].Value,
-                                    Url = subnode.Attributes["Source"].Value,
-                                    LinkArea = new LinkArea(0, subnode.Attributes["Text"].Value.Length),
-                                    AutoSize = true,
-                                    BackColor = (subnode.Attributes["BackColor"] != null ? (subnode.Attributes["BackColor"].Value == "$" ? this.BackColor : Tools.HexToColor(subnode.Attributes["BackColor"].Value)) : this.BackColor),
-                                    ActiveLinkColor = (subnode.Attributes["ForeColor"] != null ? (subnode.Attributes["ForeColor"].Value == "$" ? this.ForeColor : Tools.HexToColor(subnode.Attributes["ForeColor"].Value)) : this.ForeColor),
-                                    DisabledLinkColor = (subnode.Attributes["ForeColor"] != null ? (subnode.Attributes["ForeColor"].Value == "$" ? this.ForeColor : Tools.HexToColor(subnode.Attributes["ForeColor"].Value)) : this.ForeColor),
-                                    VisitedLinkColor = (subnode.Attributes["ForeColor"] != null ? (subnode.Attributes["ForeColor"].Value == "$" ? this.ForeColor : Tools.HexToColor(subnode.Attributes["ForeColor"].Value)) : this.ForeColor),
-                                    LinkColor = (subnode.Attributes["ForeColor"] != null ? (subnode.Attributes["ForeColor"].Value == "$" ? this.ForeColor : Tools.HexToColor(subnode.Attributes["ForeColor"].Value)) : this.ForeColor),
-                                    ForeColor = (subnode.Attributes["ForeColor"] != null ? (subnode.Attributes["ForeColor"].Value == "$" ? this.ForeColor : Tools.HexToColor(subnode.Attributes["ForeColor"].Value)) : this.ForeColor),
-                                    Font = new Font((subnode.Attributes["Font"] != null ? subnode.Attributes["Font"].Value : "Ubuntu"), (subnode.Attributes["FontSize"] != null ? Convert.ToInt32(subnode.Attributes["FontSize"].Value) : 10F)),
-                                    Visible = true,
-                                    TabIndex = flowPanel.Controls.Count,
-                                };
-                                if (subnode.Attributes["BackColor"] != null)
-                                {
-                                    if (subnode.Attributes["BackColor"].Value == "$")
-                                    {
-                                        defaultBackColor.Add(newItem);
-                                    }
-                                }
-                                else
-                                {
-                                    defaultBackColor.Add(newItem);
-                                }
-                                if (subnode.Attributes["ForeColor"] != null)
-                                {
-                                    if (subnode.Attributes["ForeColor"].Value == "$")
-                                    {
-                                        DefaultforeColor.Add(newItem);
-                                    }
-                                }
-                                else
-                                {
-                                    DefaultforeColor.Add(newItem);
-                                }
-                                if (subnode.Attributes["FontProperties"] != null)
-                                {
-                                    if (subnode.Attributes["FontProperties"].Value == "Bold")
-                                    {
-                                        newItem.Font = new Font(newItem.Font, FontStyle.Bold);
-                                    }
-                                    else if (subnode.Attributes["FontProperties"].Value == "Italic")
-                                    {
-                                        newItem.Font = new Font(newItem.Font, FontStyle.Italic);
-                                    }
-                                    else if (subnode.Attributes["FontProperties"].Value == "Regular")
-                                    {
-                                        newItem.Font = new Font(newItem.Font, FontStyle.Regular);
-                                    }
-                                    else if (subnode.Attributes["FontProperties"].Value == "Underline")
-                                    {
-                                        newItem.Font = new Font(newItem.Font, FontStyle.Underline);
-                                    }
-                                    else if (subnode.Attributes["FontProperties"].Value == "Strikeout")
-                                    {
-                                        newItem.Font = new Font(newItem.Font, FontStyle.Strikeout);
-                                    }
-                                }
-                                newItem.MouseClick += item_MouseClick;
-                                flowPanel.Controls.Add(newItem);
-                            }
-                            catch (Exception ex)
-                            {
-                                Output.WriteLine("[Korot.Collections] Cannot add item" + subnode.OuterXml.Replace("<", "[").Replace(">", "]") + " : " + ex.ToString());
-                            }
+                            DefaultforeColor.Add(newItem);
                         }
+                        if (((TextItem)item).FontProperties == FontType.Bold)
+                        {
+                            newItem.Font = new Font(newItem.Font, FontStyle.Bold);
+                        }
+                        else if (((TextItem)item).FontProperties == FontType.Italic)
+                        {
+                            newItem.Font = new Font(newItem.Font, FontStyle.Italic);
+                        }
+                        else if (((TextItem)item).FontProperties == FontType.Regular)
+                        {
+                            newItem.Font = new Font(newItem.Font, FontStyle.Regular);
+                        }
+                        else if (((TextItem)item).FontProperties == FontType.Underline)
+                        {
+                            newItem.Font = new Font(newItem.Font, FontStyle.Underline);
+                        }
+                        else if (((TextItem)item).FontProperties == FontType.Strikeout)
+                        {
+                            newItem.Font = new Font(newItem.Font, FontStyle.Strikeout);
+                        }
+                        newItem.MouseClick += item_MouseClick;
+                        flowPanel.Controls.Add(newItem);
                     }
-                    tabControl1.TabPages.Add(tab);
+                    else if (item is ImageItem) //Picturebox 
+                    {
+                        PictureBox newItem = new PictureBox()
+                        {
+                            Tag = ((ImageItem)item).outXML,
+                            Name = item.ID,
+                            ImageLocation = ((ImageItem)item).Source,
+                            BackColor = item.BackColor,
+                            Size = new Size(((ImageItem)item).Width, ((ImageItem)item).Height),
+                            SizeMode = PictureBoxSizeMode.StretchImage,
+                            Visible = true,
+                            TabIndex = flowPanel.Controls.Count,
+                        };
+                        if (item.BackColor == Color.Empty || item.BackColor == Color.Transparent)
+                        {
+                            defaultBackColor.Add(newItem);
+                        }
+                        newItem.MouseClick += item_MouseClick;
+                        flowPanel.Controls.Add(newItem);
+                    }
+                    else if (item is LinkItem) //Link
+                    {
+                        CustomLinkLabel newItem = new CustomLinkLabel()
+                        {
+                            AutoSize = true,
+                            Tag = ((LinkItem)item).outXML,
+                            Name = item.ID,
+                            Url = ((LinkItem)item).Source,
+                            Text = ((LinkItem)item).Text,
+                            BackColor = item.BackColor,
+                            ForeColor = ((LinkItem)item).ForeColor,
+                            Font = new Font(((LinkItem)item).Font, ((LinkItem)item).FontSize),
+                            Visible = true,
+                            TabIndex = flowPanel.Controls.Count,
+                        };
+                        if (item.BackColor == Color.Empty || item.BackColor == Color.Transparent)
+                        {
+                            defaultBackColor.Add(newItem);
+                        }
+                        if (((LinkItem)item).ForeColor == Color.Empty || ((LinkItem)item).ForeColor == Color.Transparent)
+                        {
+                            DefaultforeColor.Add(newItem);
+                        }
+                        if (((LinkItem)item).FontProperties == FontType.Bold)
+                        {
+                            newItem.Font = new Font(newItem.Font, FontStyle.Bold);
+                        }
+                        else if (((LinkItem)item).FontProperties == FontType.Italic)
+                        {
+                            newItem.Font = new Font(newItem.Font, FontStyle.Italic);
+                        }
+                        else if (((LinkItem)item).FontProperties == FontType.Regular)
+                        {
+                            newItem.Font = new Font(newItem.Font, FontStyle.Regular);
+                        }
+                        else if (((LinkItem)item).FontProperties == FontType.Underline)
+                        {
+                            newItem.Font = new Font(newItem.Font, FontStyle.Underline);
+                        }
+                        else if (((LinkItem)item).FontProperties == FontType.Strikeout)
+                        {
+                            newItem.Font = new Font(newItem.Font, FontStyle.Strikeout);
+                        }
+                        newItem.MouseClick += item_MouseClick;
+                        flowPanel.Controls.Add(newItem);
+                    }
                 }
+                tabControl1.TabPages.Add(tab);
             }
-
         }
-        bool allowSwitch = false;
+
+        private bool allowSwitch = false;
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (allowSwitch) { allowSwitch = false; }else { e.Cancel = true; }
+            if (allowSwitch) { allowSwitch = false; } else { e.Cancel = true; }
         }
 
         private void listView1_DoubleClick(object sender, EventArgs e)
@@ -376,7 +322,7 @@ namespace Korot
             }
             foreach (Panel x in titlePanels)
             {
-                x.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor,20,false);
+                x.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 x.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             }
             foreach (Control x in defaultBackColor)
@@ -420,10 +366,17 @@ namespace Korot
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-               cefform.colManager.Collections = cefform.colManager.Collections.Replace("[/root]", "") + "[collection ID=\"" + Tools.generateRandomText() + "\" Text=\"" + mesaj.TextValue() + "\"]" +
-                        "[/collection]" +
-                        "[/root]";
-                generateCollectionList(cefform.colManager.Collections);
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                {
+                    Collection newCol = new Collection
+                    {
+                        ID = Tools.generateRandomText(),
+                        Text = mesaj.TextValue()
+                    };
+                    cefform.colManager.Collections.Add(newCol);
+                    genColList();
+                }
+                else { newCollectionToolStripMenuItem_Click(sender, e); }
             }
         }
 
@@ -439,9 +392,13 @@ namespace Korot
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                cefform.colManager.Collections = cefform.colManager.Collections.Replace("[/root]", "") + 
-                    mesaj.TextValue() + "[/root]";
-                generateCollectionList(cefform.colManager.Collections);
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                {
+                    Collection newCol = new Collection(mesaj.TextValue());
+                    cefform.colManager.Collections.Add(newCol);
+                    genColList();
+                }
+                else { ımportToolStripMenuItem_Click(sender, e); }
             }
         }
 
@@ -461,29 +418,29 @@ namespace Korot
                     cefform.Cancel);
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
-                    cefform.colManager.Collections = cefform.colManager.Collections.Replace(listView1.SelectedItems[0].ToolTipText, "");
-                    generateCollectionList(cefform.colManager.Collections);
+                    cefform.colManager.Collections.Remove(cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name));
+                    genColList();
                 }
             }
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
-                    "Korot",
-                    cefform.clearColInfo,
-                    cefform.Icon,
-                    MessageBoxButtons.YesNoCancel,
-                    Properties.Settings.Default.BackColor,
-                    cefform.Yes,
-                    cefform.No,
-                    cefform.OK,
-                    cefform.Cancel);
-                if (mesaj.ShowDialog() == DialogResult.Yes)
-                {
-                    cefform.colManager.Collections = "[root][/root]";
-                    generateCollectionList(cefform.colManager.Collections);
-                }
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
+                "Korot",
+                cefform.clearColInfo,
+                cefform.Icon,
+                MessageBoxButtons.YesNoCancel,
+                Properties.Settings.Default.BackColor,
+                cefform.Yes,
+                cefform.No,
+                cefform.OK,
+                cefform.Cancel);
+            if (mesaj.ShowDialog() == DialogResult.Yes)
+            {
+                cefform.colManager.Collections.Clear();
+                genColList();
+            }
         }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
@@ -498,20 +455,22 @@ namespace Korot
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                Clipboard.SetText(listView1.SelectedItems[0].ToolTipText);
+                Clipboard.SetText(string.IsNullOrWhiteSpace(mesaj.TextValue()) ? listView1.SelectedItems[0].ToolTipText : mesaj.TextValue());
             }
         }
 
         private void cmsMain_Opening(object sender, CancelEventArgs e)
         {
-                exportToolStripMenuItem.Enabled = (listView1.SelectedItems.Count > 0);
-                deleteThisCollectionsToolStripMenuItem.Enabled = (listView1.SelectedItems.Count > 0);
+            exportToolStripMenuItem.Enabled = (listView1.SelectedItems.Count > 0);
+            deleteThisCollectionsToolStripMenuItem.Enabled = (listView1.SelectedItems.Count > 0);
+            changeCollectionTextToolStripMenuItem.Enabled = (listView1.SelectedItems.Count > 0);
+            changeCollectionIDToolStripMenuItem.Enabled = (listView1.SelectedItems.Count > 0);
         }
 
         private void deleteThisİtemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cefform.colManager.Collections = cefform.colManager.Collections.Replace(((Control)ıTEMToolStripMenuItem.Tag).Tag.ToString(),"");
-            generateCollectionList(cefform.colManager.Collections);
+            cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).GetItemFromID(((Control)ıTEMToolStripMenuItem.Tag).Name);
+            genColList();
         }
         private void exportThisİtemToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -525,28 +484,14 @@ namespace Korot
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                Clipboard.SetText(((Control)ıTEMToolStripMenuItem.Tag).Tag.ToString());
-            }
-        }
-
-        private void copySourceOfThisİtemToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Control pborcll = (Control)ıTEMToolStripMenuItem.Tag;
-            switch (pborcll)
-            {
-                case CustomLinkLabel _:
-                    Clipboard.SetText(((CustomLinkLabel)pborcll).Url);
-                    break;
-                case PictureBox _:
-                    Clipboard.SetText(((PictureBox)pborcll).ImageLocation);
-                    break;
+                Clipboard.SetText(string.IsNullOrWhiteSpace(mesaj.TextValue()) ? ((Control)ıTEMToolStripMenuItem.Tag).Tag.ToString() : mesaj.TextValue());
             }
         }
 
         private void editThisİtemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Control cntrl = (Control)ıTEMToolStripMenuItem.Tag;
-            frmEditCollection edit = new frmEditCollection(cefform,this, cntrl);
+            frmEditCollection edit = new frmEditCollection(cefform, this, cntrl);
             edit.ShowDialog();
         }
 
@@ -558,6 +503,69 @@ namespace Korot
         private void timer2_Tick(object sender, EventArgs e)
         {
             RefreshTranslation();
+        }
+
+        private void ımportİtemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+                                                                                         cefform.importColItemInfo,
+                                                                                         cefform.Icon,
+                                                                                         "",
+                                                                                         Properties.Settings.Default.BackColor,
+                                                                                         cefform.OK,
+                                                                                         cefform.Cancel);
+            DialogResult diagres = mesaj.ShowDialog();
+            if (diagres == DialogResult.OK)
+            {
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                {
+                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).NewItemFromCode(mesaj.TextValue());
+                    genColList();
+                }
+                else { ımportİtemToolStripMenuItem_Click(sender, e); }
+            }
+        }
+
+        private void changeCollectionIDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+                                                                                         cefform.changeColIDInfo,
+                                                                                         cefform.Icon,
+                                                                                         cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID,
+                                                                                         Properties.Settings.Default.BackColor,
+                                                                                         cefform.OK,
+                                                                                         cefform.Cancel);
+            DialogResult diagres = mesaj.ShowDialog();
+            if (diagres == DialogResult.OK)
+            {
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                {
+                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID = mesaj.TextValue();
+                    genColList();
+                }
+                else { changeCollectionIDToolStripMenuItem_Click(sender, e); }
+            }
+        }
+
+        private void changeCollectionTextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+                                                                             cefform.changeColTextInfo,
+                                                                             cefform.Icon,
+                                                                             cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text,
+                                                                             Properties.Settings.Default.BackColor,
+                                                                             cefform.OK,
+                                                                             cefform.Cancel);
+            DialogResult diagres = mesaj.ShowDialog();
+            if (diagres == DialogResult.OK)
+            {
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                {
+                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text = mesaj.TextValue();
+                    genColList();
+                }
+                else { changeCollectionTextToolStripMenuItem_Click(sender, e); }
+            }
         }
     }
 }
