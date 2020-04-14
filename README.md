@@ -25,6 +25,6 @@ Latest Dev Version: [`0.6.0.0-pre2`](https://github.com/Haltroy/Korot/releases/t
  | Branch                                                              | CEF Version | VC++ Version | .Net | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-------------------|
 | [`master`](https://github.com/haltroy/korot)                      | 79+ | 2015 | Framework 4.8 | Development     | Scheduled to ~23.4.2020 |
-| [`0.6.0.0-pre2`](https://github.com/Haltroy/Korot/tree/0.6.0.0-pre2) | 79 | 2015 | Framework 4.8 | *Latest Pre-Release*     | x.4.2020 |
+| [`0.6.0.0-pre2`](https://github.com/Haltroy/Korot/tree/0.6.0.0-pre2) | 79 | 2015 | Framework 4.8 | *Latest Pre-Release*     | 14.4.2020 |
 | [`0.5.4.0`](https://github.com/Haltroy/Korot/tree/0.5.4.0) | 79 | 2015 | Framework 4.8 | **Latest Release**     | 03.4.2020 |
 | `0.5.3.0` and lower | 7-9 | 2015 | Framework 4.5.2 | Unsupported     | Before 03.4.2020 |
