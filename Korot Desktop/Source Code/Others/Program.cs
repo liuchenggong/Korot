@@ -36,6 +36,8 @@ namespace Korot
         [STAThread]
         private static void Main(string[] args)
         {
+            bool isPreRelease = true;
+            int preVer = 3;
             Cef.EnableHighDPISupport();
             CollectionManager colman = new CollectionManager();
             Properties.Settings.Default.dismissUpdate = false;
@@ -62,7 +64,7 @@ namespace Korot
                     {
                         if (UACControl.IsProcessElevated)
                         {
-                            Application.Run(new Form1());
+                            Application.Run(new Form1() { isPreRelease = isPreRelease, preVer = preVer,});
                             appStarted = true;
                         }
                         else
@@ -87,6 +89,7 @@ namespace Korot
                     {
                         frmMain testApp = new frmMain
                         {
+                            isPreRelease = isPreRelease, preVer = preVer,
                             isIncognito = args.Contains("-incognito")
                         };
                         bool isIncognito = args.Contains("-incognito");
@@ -133,7 +136,7 @@ namespace Korot
                             testApp.Tabs.Add(
     new TitleBarTab(testApp)
     {
-        Content = new frmCEF(isIncognito, Properties.Settings.Default.StartupURL, Properties.Settings.Default.LastUser) { colManager = colman, }
+        Content = new frmCEF(isIncognito, Properties.Settings.Default.StartupURL, Properties.Settings.Default.LastUser) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, }
     });
                         }
                         testApp.SelectedTabIndex = 0;

@@ -34,14 +34,22 @@ namespace Korot
 
     public partial class frmMain : TitleBarTabs
     {
+        public bool isPreRelease = false;
+        public int preVer = 0;
         public List<DownloadItem> CurrentDownloads = new List<DownloadItem>();
         public List<string> CancelledDownloads = new List<string>();
         public bool isIncognito = false;
         public KorotTabRenderer tabRenderer;
         public CollectionManager colman;
+        public TitleBarTab settingTab = null;
+        public TitleBarTab themeTab = null;
+        public TitleBarTab historyTab = null;
+        public TitleBarTab downloadTab = null;
+        public TitleBarTab aboutTab = null;
+        public TitleBarTab cookieTab = null;
+        public TitleBarTab collectionTab = null;
         public frmMain()
         {
-
             AeroPeekEnabled = true;
             tabRenderer = new KorotTabRenderer(this, Color.Black, Color.White, Color.DodgerBlue, null, false);
             TabRenderer = tabRenderer;
@@ -247,7 +255,7 @@ namespace Korot
             {
                 BackColor = referenceTab.BackColor,
                 useDefaultBackColor = referenceTab.useDefaultBackColor,
-                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { colManager = colman, }
+                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, }
             };
             Tabs.Insert(Tabs.IndexOf(referenceTab) + 1, newTab);
             SelectedTabIndex = Tabs.IndexOf(referenceTab) + 1;
@@ -260,7 +268,7 @@ namespace Korot
             {
                 BackColor = Properties.Settings.Default.BackColor,
                 useDefaultBackColor = true,
-                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { colManager = colman, }
+                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, }
             };
             Tabs.Add(newTab);
             SelectedTabIndex = Tabs.Count - 1;
@@ -272,7 +280,7 @@ namespace Korot
             {
                 BackColor = Properties.Settings.Default.BackColor,
                 useDefaultBackColor = true,
-                Content = new frmCEF(isIncognito, "korot://newtab", Properties.Settings.Default.LastUser) { colManager = colman, }
+                Content = new frmCEF(isIncognito, "korot://newtab", Properties.Settings.Default.LastUser) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, }
             };
         }
         private void timer1_Tick(object sender, EventArgs e)

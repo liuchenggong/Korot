@@ -66,7 +66,7 @@ namespace Korot
                 {
                     if (anaform() != null)
                     {
-                        if (!(Cefform.IsDisposed) || !Cefform.closing || !Cefform.anaform().closing)
+                        if (!(Cefform.IsDisposed) || !Cefform.closing || !Cefform.anaform.closing)
                         {
                             Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
                             Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));

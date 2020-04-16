@@ -49,7 +49,7 @@ namespace Korot
         }
         public static bool NewProfile(frmCEF cefform)
         {
-            HaltroyFramework.HaltroyInputBox newprof = new HaltroyFramework.HaltroyInputBox("Korot", cefform.newProfileInfo + Environment.NewLine + "/ \\ : ? * |", cefform.anaform().Icon, "", Properties.Settings.Default.BackColor, cefform.OK, cefform.Cancel, 400, 150);
+            HaltroyFramework.HaltroyInputBox newprof = new HaltroyFramework.HaltroyInputBox("Korot", cefform.newProfileInfo + Environment.NewLine + "/ \\ : ? * |", cefform.anaform.Icon, "", Properties.Settings.Default.BackColor, cefform.OK, cefform.Cancel, 400, 150);
             DialogResult diagres = newprof.ShowDialog();
             if (diagres == DialogResult.OK)
             {

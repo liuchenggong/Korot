@@ -41,7 +41,8 @@ namespace Korot
     {
         public bool closing;
         private int updateProgress = 0;
-
+        public bool isPreRelease = false;
+        public int preVer = 0;
         //0=Checking 1=UpToDate 2=UpdateAvailabe 3=Error
         private bool isLoading = false;
         private readonly string loaduri = null;
@@ -61,9 +62,12 @@ namespace Korot
         private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
         public CollectionManager colManager;
         // [NEWTAB]
-        public frmMain anaform()
+        public frmMain anaform
         {
-            return ((frmMain)ParentTabs);
+            get
+            {
+                return ((frmMain)ParentTabs);
+            }
         }
         public frmCEF(bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0")
         {
@@ -968,7 +972,7 @@ namespace Korot
         }
         private void openmytaginnewtab(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            anaform().Invoke(new Action(() => anaform().CreateTab(((LinkLabel)sender).Tag.ToString())));
+            anaform.Invoke(new Action(() => anaform.CreateTab(((LinkLabel)sender).Tag.ToString())));
         }
         private void ClearToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -1043,9 +1047,9 @@ namespace Korot
             int selectedValue = hlvDownload.SelectedIndices.Count > 0 ? hlvDownload.SelectedIndices[0] : 0;
             ListViewItem scroll = hlvDownload.TopItem;
             hlvDownload.Items.Clear();
-            if (anaform() != null)
+            if (anaform != null)
             {
-                foreach (DownloadItem item in anaform().CurrentDownloads)
+                foreach (DownloadItem item in anaform.CurrentDownloads)
                 {
                     ListViewItem listV = new ListViewItem
                     {
@@ -1086,7 +1090,7 @@ namespace Korot
         }
         private void OpenLinkİnNewTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            anaform().Invoke(new Action(() => anaform().CreateTab(hlvDownload.SelectedItems[0].SubItems[2].Text)));
+            anaform.Invoke(new Action(() => anaform.CreateTab(hlvDownload.SelectedItems[0].SubItems[2].Text)));
         }
 
         private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1108,7 +1112,7 @@ namespace Korot
                     string x = hlvDownload.SelectedItems[0].Text + ";" + hlvDownload.SelectedItems[0].SubItems[1].Text + ";" + hlvDownload.SelectedItems[0].SubItems[2].Text + ";" + hlvDownload.SelectedItems[0].SubItems[3].Text + ";";
                     Properties.Settings.Default.DowloadHistory = Properties.Settings.Default.DowloadHistory.Replace(x, "");
                 }
-                else { anaform().CancelledDownloads.Add(hlvDownload.SelectedItems[0].SubItems[3].Text); }
+                else { anaform.CancelledDownloads.Add(hlvDownload.SelectedItems[0].SubItems[3].Text); }
                 if (!_Incognito) { Properties.Settings.Default.Save(); }
                 RefreshDownloadList();
             }
@@ -1125,7 +1129,7 @@ namespace Korot
         {
             if (hlvHistory.SelectedItems.Count > 0)
             {
-                anaform().Invoke(new Action(() => anaform().CreateTab(hlvHistory.SelectedItems[0].SubItems[2].Text)));
+                anaform.Invoke(new Action(() => anaform.CreateTab(hlvHistory.SelectedItems[0].SubItems[2].Text)));
             }
         }
 
@@ -1493,60 +1497,115 @@ namespace Korot
         {
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase3 = info.Split(token);
+            string preNo = SplittedFase3[5].Substring(1).Replace(Environment.NewLine, "");
+            string preNewest = SplittedFase3[4].Substring(1).Replace(Environment.NewLine, "") + "-pre" + preNo;
             Version newest = new Version(SplittedFase3[0].Replace(Environment.NewLine, ""));
             Version current = new Version(Application.ProductVersion);
-            if (newest > current)
+            if (isPreRelease)
             {
-                if (alreadyCheckedForUpdatesOnce || Properties.Settings.Default.dismissUpdate || _Incognito)
+                string currentPreVer = Application.ProductVersion.ToString() + "-pre" + preVer;
+                if (!string.Equals(currentPreVer,preNewest))
                 {
-                    updateProgress = 2;
-                    lbUpdateStatus.Text = updateavailable;
-                    btUpdater.Visible = true;
-                    btInstall.Visible = true;
-                }
-                else
-                {
-                    alreadyCheckedForUpdatesOnce = true;
-                    updateProgress = 2;
-                    lbUpdateStatus.Text = updateavailable;
-                    btInstall.Visible = true;
-                    btUpdater.Visible = true;
-                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
-                        updateTitle,
-                        updateMessage,
-                        Icon,
-                        MessageBoxButtons.YesNo,
-                        Properties.Settings.Default.BackColor,
-                        Yes,
-                        No,
-                        OK,
-                        Cancel,
-                        390,
-                        140);
-                    DialogResult diagres = mesaj.ShowDialog();
-                    if (diagres == DialogResult.Yes)
+                    if (alreadyCheckedForUpdatesOnce || Properties.Settings.Default.dismissUpdate || _Incognito)
                     {
-                        if (Application.OpenForms.OfType<Form1>().Count() < 1)
+                        updateProgress = 2;
+                        lbUpdateStatus.Text = updateavailable;
+                        btUpdater.Visible = true;
+                        btInstall.Visible = true;
+                    }
+                    else
+                    {
+                        alreadyCheckedForUpdatesOnce = true;
+                        updateProgress = 2;
+                        lbUpdateStatus.Text = updateavailable;
+                        btInstall.Visible = true;
+                        btUpdater.Visible = true;
+                        HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
+                            updateTitle,
+                            updateMessage,
+                            Icon,
+                            MessageBoxButtons.YesNo,
+                            Properties.Settings.Default.BackColor,
+                            Yes,
+                            No,
+                            OK,
+                            Cancel,
+                            390,
+                            140);
+                        DialogResult diagres = mesaj.ShowDialog();
+                        if (diagres == DialogResult.Yes)
                         {
-                            Process.Start(Application.ExecutablePath, "-update");
-                        }
-                        else
-                        {
-                            foreach (Form1 x in Application.OpenForms)
+                            if (Application.OpenForms.OfType<Form1>().Count() < 1)
                             {
-                                x.Focus();
+                                Process.Start(Application.ExecutablePath, "-update");
+                            }
+                            else
+                            {
+                                foreach (Form1 x in Application.OpenForms)
+                                {
+                                    x.Focus();
+                                }
                             }
                         }
+                        Properties.Settings.Default.dismissUpdate = true;
                     }
-                    Properties.Settings.Default.dismissUpdate = true;
                 }
             }
             else
             {
-                btUpdater.Visible = true;
-                btInstall.Visible = false;
-                updateProgress = 1;
-                lbUpdateStatus.Text = uptodate;
+                if (newest > current)
+                {
+                    if (alreadyCheckedForUpdatesOnce || Properties.Settings.Default.dismissUpdate || _Incognito)
+                    {
+                        updateProgress = 2;
+                        lbUpdateStatus.Text = updateavailable;
+                        btUpdater.Visible = true;
+                        btInstall.Visible = true;
+                    }
+                    else
+                    {
+                        alreadyCheckedForUpdatesOnce = true;
+                        updateProgress = 2;
+                        lbUpdateStatus.Text = updateavailable;
+                        btInstall.Visible = true;
+                        btUpdater.Visible = true;
+                        HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
+                            updateTitle,
+                            updateMessage,
+                            Icon,
+                            MessageBoxButtons.YesNo,
+                            Properties.Settings.Default.BackColor,
+                            Yes,
+                            No,
+                            OK,
+                            Cancel,
+                            390,
+                            140);
+                        DialogResult diagres = mesaj.ShowDialog();
+                        if (diagres == DialogResult.Yes)
+                        {
+                            if (Application.OpenForms.OfType<Form1>().Count() < 1)
+                            {
+                                Process.Start(Application.ExecutablePath, "-update");
+                            }
+                            else
+                            {
+                                foreach (Form1 x in Application.OpenForms)
+                                {
+                                    x.Focus();
+                                }
+                            }
+                        }
+                        Properties.Settings.Default.dismissUpdate = true;
+                    }
+                }
+                else
+                {
+                    btUpdater.Visible = true;
+                    btInstall.Visible = false;
+                    updateProgress = 1;
+                    lbUpdateStatus.Text = uptodate;
+                }
             }
         }
         public TitleBarTabs ParentTabs => (ParentForm as TitleBarTabs);
@@ -1868,7 +1927,7 @@ namespace Korot
 
         public bool OnJSAlert(string url, string message)
         {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSAlert.Replace("[TITLE]", Text).Replace("[URL]", url), message, anaform().Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140)
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSAlert.Replace("[TITLE]", Text).Replace("[URL]", url), message, anaform.Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140)
             {
                 StartPosition = FormStartPosition.CenterParent
             };
@@ -1879,7 +1938,7 @@ namespace Korot
 
         public bool OnJSConfirm(string url, string message, out bool returnval)
         {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSConfirm.Replace("[TITLE]", Text).Replace("[URL]", url), message, anaform().Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140)
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSConfirm.Replace("[TITLE]", Text).Replace("[URL]", url), message, anaform.Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140)
             {
                 StartPosition = FormStartPosition.CenterParent
             };
@@ -1890,7 +1949,7 @@ namespace Korot
 
         public bool OnJSPrompt(string url, string message, string defaultValue, out bool returnval, out string textresult)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox(url, message, anaform().Icon, defaultValue, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150)
+            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox(url, message, anaform.Icon, defaultValue, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150)
             {
                 StartPosition = FormStartPosition.CenterParent
             };
@@ -1900,7 +1959,7 @@ namespace Korot
         }
         public void NewTab(string url)
         {
-            anaform().Invoke(new Action(() => { anaform().CreateTab(ParentTab, url); }));
+            anaform.Invoke(new Action(() => { anaform.CreateTab(ParentTab, url); }));
         }
 
         private bool isFavMenuHidden = false;
@@ -2042,7 +2101,7 @@ namespace Korot
             refreshThemeList();
             ChangeTheme();
             RefreshDownloadList();
-            lbVersion.Text = Application.ProductVersion.ToString() + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
+            lbVersion.Text = Application.ProductVersion.ToString() + (isPreRelease ? "-pre" + preVer : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
             RefreshFavorites();
             LoadExt();
             RefreshProfiles();
@@ -2131,8 +2190,7 @@ namespace Korot
             else if (tabControl1.SelectedTab == tpCert) //Certificate Error Menu
             {
                 GoBack();
-                allowSwitching = true;
-                tabControl1.SelectedTab = tpCef;
+                resetPage();
             }
             else if (tabControl1.SelectedTab == tpSettings
                      || tabControl1.SelectedTab == tpHistory
@@ -2141,14 +2199,45 @@ namespace Korot
                      || tabControl1.SelectedTab == tpTheme
                      || tabControl1.SelectedTab == tpCollection) //Menu
             {
-                allowSwitching = true;
-                tabControl1.SelectedTab = tpCef;
+                resetPage();
             }
-
         }
-
+        public void resetPage()
+        {
+            if (anaform.settingTab == ParentTab)
+            {
+                anaform.settingTab = null;
+            }
+            if (anaform.themeTab == ParentTab)
+            {
+                anaform.themeTab = null;
+            }
+            if (anaform.historyTab == ParentTab)
+            {
+                anaform.historyTab = null;
+            }
+            if (anaform.downloadTab == ParentTab)
+            {
+                anaform.downloadTab = null;
+            }
+            if (anaform.cookieTab == ParentTab)
+            {
+                anaform.cookieTab = null;
+            }
+            if (anaform.aboutTab == ParentTab)
+            {
+                anaform.aboutTab = null;
+            }
+            if (anaform.collectionTab == ParentTab)
+            {
+                anaform.collectionTab = null;
+            }
+            allowSwitching = true;
+            tabControl1.SelectedTab = tpCef;
+        }
         public void button3_Click(object sender, EventArgs e)
         {
+            resetPage();
             allowSwitching = true;
             tabControl1.SelectedTab = tpCef;
             lbURL.SelectedIndex = lbURL.SelectedIndex == lbURL.Items.Count - 1 ? lbURL.SelectedIndex : lbURL.SelectedIndex + 1;
@@ -2157,8 +2246,7 @@ namespace Korot
 
         private void button2_Click(object sender, EventArgs e)
         {
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpCef;
+            resetPage();
             if (isLoading)
             {
                 chromiumWebBrowser1.Stop();
@@ -2376,7 +2464,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         public void tsFullscreen_Click(object sender, EventArgs e)
         {
-            this.Invoke(new Action(() => Fullscreenmode(!anaform().isFullScreen)));
+            this.Invoke(new Action(() => Fullscreenmode(!anaform.isFullScreen)));
         }
         private Image GetImageFromURL(string URL)
         {
@@ -2427,10 +2515,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void ChangeTheme()
         {
-            if (anaform() != null)
+            if (anaform != null)
             {
-                anaform().tabRenderer.ChangeColors(Properties.Settings.Default.BackColor, Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White, Properties.Settings.Default.OverlayColor);
-                anaform().Update();
+                anaform.tabRenderer.ChangeColors(Properties.Settings.Default.BackColor, Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White, Properties.Settings.Default.OverlayColor);
+                anaform.Update();
             }
             if (Properties.Settings.Default.OverlayColor != oldOverlayColor)
             {
@@ -2707,9 +2795,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 Parent.Text = Text;
             }
             RefreshTranslation();
-            if (anaform() != null)
+            if (anaform != null)
             {
-                if (anaform().OldSessions == "") { spRestorer.Visible = false; restoreLastSessionToolStripMenuItem.Visible = false; } else { spRestorer.Visible = true; restoreLastSessionToolStripMenuItem.Visible = true; }
+                if (anaform.OldSessions == "") { spRestorer.Visible = false; restoreLastSessionToolStripMenuItem.Visible = false; } else { spRestorer.Visible = true; restoreLastSessionToolStripMenuItem.Visible = true; }
             }
             Text = tabControl1.SelectedTab.Text;
         }
@@ -2934,7 +3022,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         public void Fullscreenmode(bool fullscreen)
         {
-            if (fullscreen != anaform().isFullScreen)
+            if (fullscreen != anaform.isFullScreen)
             {
                 if (fullscreen)
                 {
@@ -2947,7 +3035,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     tabControl1.Height -= panel2.Height;
                 }
                 panel2.Visible = !fullscreen;
-                anaform().Invoke(new Action(() => anaform().Fullscreenmode(fullscreen)));
+                anaform.Invoke(new Action(() => anaform.Fullscreenmode(fullscreen)));
             }
         }
 
@@ -3003,7 +3091,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                         StartPosition = FormStartPosition.Manual,
                         Size = new Size(Convert.ToInt32(SplittedFase[10].Substring(1).Replace(Environment.NewLine, "")), Convert.ToInt32(SplittedFase[9].Substring(1).Replace(Environment.NewLine, "")))
                     };
-                    formext.Location = new Point(anaform().Left + (anaform().Width - (formext.Width + 200)), anaform().Top);
+                    formext.Location = new Point(anaform.Left + (anaform.Width - (formext.Width + 200)), anaform.Top);
                     Controls.Add(formext);
                     formext.Visible = true;
                     formext.BringToFront();
@@ -3155,9 +3243,17 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            button3.Enabled = true;
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpSettings;
+            if (anaform.settingTab != null) 
+            {
+                anaform.SelectedTab = anaform.settingTab;
+            }
+            else
+            {
+                anaform.settingTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpSettings;
+            }
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -3168,7 +3264,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void restoreLastSessionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            anaform().Invoke(new Action(() => anaform().ReadSession(anaform().OldSessions)));
+            anaform.Invoke(new Action(() => anaform.ReadSession(anaform.OldSessions)));
             restoreLastSessionToolStripMenuItem.Visible = false;
         }
 
@@ -3178,6 +3274,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             if (allowSwitching == false) { e.Cancel = true; } else { toolStripTextBox1.Text = SearchOnPage; chromiumWebBrowser1.StopFinding(true); e.Cancel = false; allowSwitching = false; }
             onCEFTab = (tabControl1.SelectedTab == tpCef);
+            if (tabControl1.SelectedTab == tpCef || tabControl1.SelectedTab == tpCert)
+            {
+                resetPage();
+            } 
         }
 
         private void textBox4_Click(object sender, EventArgs e)
@@ -3500,16 +3600,32 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void historyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            button3.Enabled = true;
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpHistory;
+            if (anaform.historyTab != null)
+            {
+                anaform.SelectedTab = anaform.historyTab;
+            }
+            else
+            {
+                anaform.historyTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpHistory;
+            }
         }
 
         private void downloadsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            button3.Enabled = true;
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpDownload;
+            if (anaform.downloadTab != null)
+            {
+                anaform.SelectedTab = anaform.downloadTab;
+            }
+            else
+            {
+                anaform.downloadTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpDownload;
+            }
         }
         private void tsSearchNext_Click(object sender, EventArgs e)
         {
@@ -3521,9 +3637,17 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            button3.Enabled = true;
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpAbout;
+            if (anaform.aboutTab != null)
+            {
+                anaform.SelectedTab = anaform.aboutTab;
+            }
+            else
+            {
+                anaform.aboutTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpAbout;
+            }
         }
 
         private void hsProxy_CheckedChanged(object sender, EventArgs e)
@@ -3533,15 +3657,23 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void tsThemes_Click(object sender, EventArgs e)
         {
-            button3.Enabled = true;
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpTheme;
+            if (anaform.themeTab != null)
+            {
+                anaform.SelectedTab = anaform.themeTab;
+            }
+            else
+            {
+                anaform.themeTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpTheme;
+            }
         }
 
         private void clickHereToLearnMoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewTab("korot://incognito");
-            anaform().Invoke(new Action(() => anaform().SelectedTabIndex = anaform().Tabs.Count - 1));
+            anaform.Invoke(new Action(() => anaform.SelectedTabIndex = anaform.Tabs.Count - 1));
         }
 
         private void ıncognitoModeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3562,9 +3694,17 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void button15_Click(object sender, EventArgs e)
         {
-            button3.Enabled = true;
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpCookie;
+            if (anaform.cookieTab != null)
+            {
+                anaform.SelectedTab = anaform.cookieTab;
+            }
+            else
+            {
+                anaform.cookieTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpCookie;
+            }
         }
 
         private void RefreshCookies()
@@ -3600,9 +3740,17 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void button16_Click(object sender, EventArgs e)
         {
-            button3.Enabled = true;
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpSettings;
+            if (anaform.settingTab != null)
+            {
+                anaform.SelectedTab = anaform.settingTab;
+            }
+            else
+            {
+                anaform.settingTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpSettings;
+            }
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -3666,7 +3814,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void button18_Click(object sender, EventArgs e)
         {
             HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", resetConfirm,
-                                                                                      anaform().Icon,
+                                                                                      anaform.Icon,
                                                                                       MessageBoxButtons.YesNoCancel,
                                                                                       Properties.Settings.Default.BackColor,
                                                                                       Yes, No,
@@ -3910,9 +4058,17 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void tsCollections_Click(object sender, EventArgs e)
         {
-            button3.Enabled = true;
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpCollection;
+            if (anaform.collectionTab != null)
+            {
+                anaform.SelectedTab = anaform.collectionTab;
+            }
+            else
+            {
+                anaform.collectionTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpCollection;
+            }
         }
 
         private void tsChangeTitleBack_Click(object sender, EventArgs e)

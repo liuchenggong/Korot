@@ -35,6 +35,8 @@ namespace Korot
 {
     public partial class Form1 : Form
     {
+        public bool isPreRelease = false;
+        public int preVer = 0;
         private string UpdateURL = "https://github.com/Haltroy/Korot/releases/download/[LATEST]/Korot-Full-[ARCH].zip";
         private readonly string InstallerURL = "http://bit.ly/KorotSetup";
         private string downloadUrl;
@@ -110,33 +112,43 @@ namespace Korot
             {
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                 string[] SplittedFase3 = e.Result.Split(token);
-                bool requireCompleteUpgrade = SplittedFase3[1].Trim().Replace(Environment.NewLine, "") == "1";
+                bool requireCompleteUpgrade = SplittedFase3[1].Substring(1).Trim().Replace(Environment.NewLine, "") == "1";
                 string nv = SplittedFase3[0].Replace(Environment.NewLine, "");
-                string minmv = SplittedFase3[2].Replace(Environment.NewLine, "");
-                UpdateURL = SplittedFase3[3].Replace(Environment.NewLine, "");
+                string minmv = SplittedFase3[2].Substring(1).Replace(Environment.NewLine, "");
+                UpdateURL = SplittedFase3[3].Substring(1).Replace(Environment.NewLine, "");
+                string preNewest = SplittedFase3[4].Substring(1).Replace(Environment.NewLine, "") + "-pre" + SplittedFase3[5].Substring(1).Replace(Environment.NewLine, "");
                 string arch = Environment.Is64BitProcess ? "x64" : "x86";
                 Version current = new Version(Application.ProductVersion);
                 Version MinVersion = new Version(minmv);
-                if (requireCompleteUpgrade)
+                if (isPreRelease) 
                 {
-                    UpdateType = 2;
-                    fileName = ".exe";
-                    downloadUrl = InstallerURL;
+                            UpdateType = 0;
+                            fileName = ".hup";
+                            downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", preNewest);
                 }
                 else
                 {
-                    if (current > MinVersion)
+                    if (requireCompleteUpgrade)
                     {
-                        UpdateType = 0;
-                        fileName = ".hup";
-                        downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", nv);
+                        UpdateType = 2;
+                        fileName = ".exe";
+                        downloadUrl = InstallerURL;
                     }
                     else
                     {
-                        UpdateType = 1;
-                        fileName = ".exe";
-                        downloadUrl = InstallerURL;
+                        if (current > MinVersion)
+                        {
+                            UpdateType = 0;
+                            fileName = ".hup";
+                            downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", nv);
+                        }
+                        else
+                        {
+                            UpdateType = 1;
+                            fileName = ".exe";
+                            downloadUrl = InstallerURL;
 
+                        }
                     }
                 }
                 if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\")) { Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\", true); }

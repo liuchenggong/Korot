@@ -88,7 +88,7 @@ namespace Korot
 
         public void OnLoadingProgressChange(IWebBrowser chromiumWebBrowser, IBrowser browser, double progress)
         {
-            if (!CEFform.IsDisposed && !CEFform.closing && !CEFform.anaform().closing)
+            if (!CEFform.IsDisposed && !CEFform.closing && !CEFform.anaform.closing)
             {
                 CEFform.Invoke(new Action(() => CEFform.ChangeProgress(progress)));
             }
