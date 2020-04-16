@@ -291,6 +291,7 @@
     <Compile Include="Source Code\Handlers\MyDialogHandler.cs" />
     <Compile Include="Source Code\Handlers\RequestHandlerKorot.cs" />
     <Compile Include="Source Code\Handlers\SchemeHandlerFactory.cs" />
+    <Compile Include="Source Code\Tools\Taskbar.cs" />
     <Compile Include="Source Code\Tools\ToolsHandler.cs" />
     <Compile Include="Source Code\Others\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

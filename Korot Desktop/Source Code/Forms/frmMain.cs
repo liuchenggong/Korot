@@ -286,24 +286,33 @@ namespace Korot
             if (fullscreen)
             {
                 wasMaximized = WindowState == FormWindowState.Maximized;
-                WindowState = FormWindowState.Maximized;
+                WindowState = FormWindowState.Normal;
+                Taskbar.Hide();
                 MaximizedBounds = Screen.FromHandle(Handle).Bounds;
+                WindowState = FormWindowState.Maximized;
                 isFullScreen = true;
             }
             else
             {
+                Taskbar.Show();
+                MaximizedBounds = Screen.GetWorkingArea(this);
                 if (!wasMaximized)
                 {
                     WindowState = FormWindowState.Normal;
+                }else
+                {
+                    WindowState = FormWindowState.Normal;
+                    WindowState = FormWindowState.Maximized;
                 }
-                MaximizedBounds = Screen.GetWorkingArea(this);
                 isFullScreen = false;
+                
             }
             FormBorderStyle = fullscreen ? FormBorderStyle.None : FormBorderStyle.Sizable;
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Taskbar.Show();
             closing = true;
             if (!isIncognito)
             {

@@ -2376,7 +2376,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         public void tsFullscreen_Click(object sender, EventArgs e)
         {
-            anaform().Invoke(new Action(() => anaform().Fullscreenmode(!anaform().isFullScreen)));
+            this.Invoke(new Action(() => Fullscreenmode(!anaform().isFullScreen)));
         }
         private Image GetImageFromURL(string URL)
         {
@@ -2449,8 +2449,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 UpdateFavoriteColor();
                 updateFavoritesImages();
-                flowLayoutPanel2.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                flowLayoutPanel2.BackColor = Properties.Settings.Default.BackColor;
+                flpStatus.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                flpStatus.BackColor = Properties.Settings.Default.BackColor;
                 if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
                 cmsFavorite.BackColor = Properties.Settings.Default.BackColor;
                 cmsIncognito.BackColor = Properties.Settings.Default.BackColor;
@@ -2932,6 +2932,25 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             btDownloadFolder.Enabled = hsDownload.Checked;
             tbFolder.Text = Properties.Settings.Default.DownloadFolder;
         }
+        public void Fullscreenmode(bool fullscreen)
+        {
+            if (fullscreen != anaform().isFullScreen)
+            {
+                if (fullscreen)
+                {
+                    tabControl1.Location = new Point(tabControl1.Location.X, tabControl1.Location.Y - panel2.Height);
+                    tabControl1.Height += panel2.Height;
+                }
+                else
+                {
+                    tabControl1.Location = new Point(tabControl1.Location.X, tabControl1.Location.Y + panel2.Height);
+                    tabControl1.Height -= panel2.Height;
+                }
+                panel2.Visible = !fullscreen;
+                anaform().Invoke(new Action(() => anaform().Fullscreenmode(fullscreen)));
+            }
+        }
+
         private void ProfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ProfileManagement.SwitchProfile(((ToolStripMenuItem)sender).Text, this);

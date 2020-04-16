@@ -83,7 +83,7 @@ namespace Korot
         }
         public void OnFullscreenModeChange(IWebBrowser chromiumWebBrowser, IBrowser browser, bool fullscreen)
         {
-            anaform().Invoke(new Action(() => anaform().Fullscreenmode(fullscreen)));
+            CEFform.Invoke(new Action(() => CEFform.Fullscreenmode(fullscreen)));
         }
 
         public void OnLoadingProgressChange(IWebBrowser chromiumWebBrowser, IBrowser browser, double progress)
