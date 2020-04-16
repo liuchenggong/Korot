@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -84,9 +85,12 @@ namespace Korot
         /// <summary>Default constructor that initializes the <see cref="_parentWindow" /> and <see cref="ShowAddButton" /> properties.</summary>
         /// <param name="parentWindow">The parent window that this renderer instance belongs to.</param>
         /// 
+
         public Color ForegroundColor = Color.FromArgb(255, 0, 0, 0);
         public Color BackgroundColor = Color.FromArgb(255, 255, 255, 255);
         public Color OverlayLayerColor = Color.FromArgb(255, 255, 255, 255);
+        public Color AddButtonColor = Color.FromArgb(255, 255, 255, 255);
+        public Color CloseButtonColor = Color.FromArgb(255, 255, 255, 255);
         protected bool drawBackgroundColor = false;
         protected BaseTabRenderer(TitleBarTabs parentWindow)
         {
@@ -609,18 +613,18 @@ namespace Korot
                          (tabContentWidth + _activeLeftSideImage.Width + _activeRightSideImage.Width - OverlapWidth)) +
                         _activeRightSideImage.Width + AddButtonMarginLeft + offset.X,
                         AddButtonMarginTop + offset.Y, _addButtonImage.Width, _addButtonImage.Height);
-
                 bool cursorOverAddButton = IsOverAddButton(cursor);
-
-                graphicsContext.DrawImage(
-                    cursorOverAddButton
-                        ? _addButtonHoverImage
-                        : _addButtonImage, _addButtonArea, 0, 0, cursorOverAddButton
-                            ? _addButtonHoverImage.Width
-                            : _addButtonImage.Width,
-                    cursorOverAddButton
-                        ? _addButtonHoverImage.Height
-                        : _addButtonImage.Height, GraphicsUnit.Pixel);
+                Color _addButtonColor = cursorOverAddButton ? Tools.ShiftBrightnessIfNeeded(AddButtonColor, 20, false) : AddButtonColor;
+                graphicsContext.DrawString("+", new Font("Ubuntu", 25, FontStyle.Bold), new SolidBrush(_addButtonColor),_addButtonArea.X - 5,_addButtonArea.Y - 14);
+                //graphicsContext.DrawImage(
+                //                    cursorOverAddButton
+                //                        ? _addButtonHoverImage
+                //                        : _addButtonImage, _addButtonArea, 0, 0, cursorOverAddButton
+                //                            ? _addButtonHoverImage.Width
+                //                            : _addButtonImage.Width,
+                //                    cursorOverAddButton
+                //                        ? _addButtonHoverImage.Height
+                //                        : _addButtonImage.Height, GraphicsUnit.Pixel);
             }
         }
         /// <summary>Internal method for rendering an individual <paramref name="tab" /> to the screen.</summary>
@@ -674,10 +678,11 @@ namespace Korot
                             area.Width - tabRightImage.Width - CloseButtonMarginRight - closeButtonImage.Width, CloseButtonMarginTop, closeButtonImage.Width,
                             closeButtonImage.Height);
 
-                        tabGraphicsContext.DrawImage(
-                            closeButtonImage, tab.CloseButtonArea, 0, 0,
-                            closeButtonImage.Width, closeButtonImage.Height,
-                            GraphicsUnit.Pixel);
+                        tabGraphicsContext.DrawString("X", new Font("Ubuntu", 12, FontStyle.Bold), new SolidBrush(IsOverCloseButton(tab,cursor) ? Tools.ShiftBrightnessIfNeeded(CloseButtonColor,20,false): CloseButtonColor), tab.CloseButtonArea.X + 5, tab.CloseButtonArea.Y - 2);
+                        //tabGraphicsContext.DrawImage(
+                        //    closeButtonImage, tab.CloseButtonArea, 0, 0,
+                        //    closeButtonImage.Width, closeButtonImage.Height,
+                        //    GraphicsUnit.Pixel);
                     }
                 }
 
@@ -807,6 +812,65 @@ namespace Korot
 
             _parentWindow.SelectedTabIndex = dropIndex;
             _parentWindow.ResizeTabContents();
+        }
+    }
+    public static class RoundedRectangle
+    {
+        public static GraphicsPath RoundedRect(Rectangle bounds, int radius)
+        {
+            int diameter = radius * 2;
+            Size size = new Size(diameter, diameter);
+            Rectangle arc = new Rectangle(bounds.Location, size);
+            GraphicsPath path = new GraphicsPath();
+
+            if (radius == 0)
+            {
+                path.AddRectangle(bounds);
+                return path;
+            }
+
+            // top left arc  
+            path.AddArc(arc, 180, 90);
+
+            // top right arc  
+            arc.X = bounds.Right - diameter;
+            path.AddArc(arc, 270, 90);
+
+            // bottom right arc  
+            arc.Y = bounds.Bottom - diameter;
+            path.AddArc(arc, 0, 90);
+
+            // bottom left arc 
+            arc.X = bounds.Left;
+            path.AddArc(arc, 90, 90);
+
+            path.CloseFigure();
+            return path;
+        }
+        public static void DrawRoundedRectangle(this Graphics graphics, Pen pen, Rectangle bounds, int cornerRadius)
+        {
+            if (graphics == null)
+                throw new ArgumentNullException("graphics");
+            if (pen == null)
+                throw new ArgumentNullException("pen");
+
+            using (GraphicsPath path = RoundedRect(bounds, cornerRadius))
+            {
+                graphics.DrawPath(pen, path);
+            }
+        }
+
+        public static void FillRoundedRectangle(this Graphics graphics, Brush brush, Rectangle bounds, int cornerRadius)
+        {
+            if (graphics == null)
+                throw new ArgumentNullException("graphics");
+            if (brush == null)
+                throw new ArgumentNullException("brush");
+
+            using (GraphicsPath path = RoundedRect(bounds, cornerRadius))
+            {
+                graphics.FillPath(brush, path);
+            }
         }
     }
 }

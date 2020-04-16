@@ -671,26 +671,17 @@ namespace Korot
                 label33.Text = SplittedFase[228 + 1].Substring(1).Replace(Environment.NewLine, "");
                 label31.Text = SplittedFase[226 + 1].Substring(1).Replace(Environment.NewLine, "");
                 label32.Text = SplittedFase[227 + 1].Substring(1).Replace(Environment.NewLine, "");
-                int cb3Index = comboBox3.SelectedIndex;
-                comboBox3.Items.Clear();
-                comboBox3.Items.Add(SplittedFase[218 + 1].Substring(1).Replace(Environment.NewLine, ""));
-                comboBox3.Items.Add(SplittedFase[219 + 1].Substring(1).Replace(Environment.NewLine, ""));
-                comboBox3.Items.Add(SplittedFase[220 + 1].Substring(1).Replace(Environment.NewLine, ""));
-                comboBox3.Items.Add(SplittedFase[221 + 1].Substring(1).Replace(Environment.NewLine, ""));
-                comboBox3.Items.Add(SplittedFase[222 + 1].Substring(1).Replace(Environment.NewLine, ""));
-                comboBox3.SelectedIndex = cb3Index;
-                int dNTIndex = dudNewTab.SelectedIndex;
-                dudNewTab.Items.Clear();
-                dudNewTab.Items.Add(SplittedFase[223 + 1].Substring(1).Replace(Environment.NewLine, ""));
-                dudNewTab.Items.Add(SplittedFase[224 + 1].Substring(1).Replace(Environment.NewLine, ""));
-                dudNewTab.Items.Add(SplittedFase[225 + 1].Substring(1).Replace(Environment.NewLine, ""));
-                dudNewTab.SelectedIndex = dNTIndex;
-                int dCIndex = dudClose.SelectedIndex;
-                dudClose.Items.Clear();
-                dudClose.Items.Add(SplittedFase[223 + 1].Substring(1).Replace(Environment.NewLine, ""));
-                dudClose.Items.Add(SplittedFase[224 + 1].Substring(1).Replace(Environment.NewLine, ""));
-                dudClose.Items.Add(SplittedFase[225 + 1].Substring(1).Replace(Environment.NewLine, ""));
-                dudClose.SelectedIndex = dCIndex;
+                rbNone.Text = SplittedFase[218 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbTile.Text=SplittedFase[219 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbCenter.Text=SplittedFase[220 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbStretch.Text=SplittedFase[221 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbZoom.Text=SplittedFase[222 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbBackColor.Text = SplittedFase[223 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbForeColor.Text = SplittedFase[224 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbOverlayColor.Text = SplittedFase[225 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbBackColor1.Text = SplittedFase[223 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbForeColor1.Text = SplittedFase[224 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbOverlayColor1.Text = SplittedFase[225 + 1].Substring(1).Replace(Environment.NewLine, "");
                 licenseTitle = SplittedFase[211 + 1].Substring(1).Replace(Environment.NewLine, "");
                 kLicense = SplittedFase[212 + 1].Substring(1).Replace(Environment.NewLine, "");
                 vsLicense = SplittedFase[213 + 1].Substring(1).Replace(Environment.NewLine, "");
@@ -1286,17 +1277,60 @@ namespace Korot
 
         private void checkIfDefaultTheme()
         {
+            bool layoutIsDefault = false, newTabIsDefault = false, closeIsDefault = false;
+            if (themeDefaultLayout == 0)
+            {
+                layoutIsDefault = rbNone.Checked;
+            }
+            else if (themeDefaultLayout == 1)
+            {
+                layoutIsDefault = rbTile.Checked;
+            }
+            else if (themeDefaultLayout == 2)
+            {
+                layoutIsDefault = rbCenter.Checked;
+            }
+            else if (themeDefaultLayout == 3)
+            {
+                layoutIsDefault = rbStretch.Checked;
+            }
+            else if (themeDefaultLayout == 4)
+            {
+                layoutIsDefault = rbZoom.Checked;
+            }
+            if (themeDefaultNTC == 0)
+            {
+                newTabIsDefault = rbBackColor.Checked;
+            }
+            else if (themeDefaultNTC == 1)
+            {
+                newTabIsDefault = rbForeColor.Checked;
+            }
+            else if (themeDefaultNTC == 2)
+            {
+                newTabIsDefault = rbOverlayColor.Checked;
+            }
+            if (themeDefaultCBC == 0)
+            {
+                closeIsDefault = rbBackColor1.Checked;
+            }
+            else if (themeDefaultCBC == 1)
+            {
+                closeIsDefault = rbForeColor1.Checked;
+            }
+            else if (themeDefaultCBC == 2)
+            {
+                closeIsDefault = rbOverlayColor1.Checked;
+            }
             if (pictureBox3.BackColor == themeDefaultBackColor &&
                 pictureBox4.BackColor == themeDefaultOverlayColor &&
-                comboBox3.SelectedIndex == themeDefaultLayout &&
-                dudNewTab.SelectedIndex == themeDefaultNTC &&
-                dudClose.SelectedIndex == themeDefaultCBC &&
+                layoutIsDefault && newTabIsDefault && closeIsDefault &&
                 ((themeDefaultBackstyle == "BACKCOLOR" && textBox4.Text == usingBC) || textBox4.Text == themeDefaultBackstyle))
-            {
-                Properties.Settings.Default.ThemeFile = appliedTheme;
-                comboBox1.Text = themeName + ".ktf";
-                Properties.Settings.Default.ThemeAuthor = themeOwner;
-                Properties.Settings.Default.ThemeName = themeName;
+            { 
+                    Properties.Settings.Default.ThemeFile = appliedTheme;
+                    comboBox1.Text = themeName;
+                    Properties.Settings.Default.ThemeAuthor = themeOwner;
+                    Properties.Settings.Default.ThemeName = themeName;
             }
             else
             {
@@ -2518,12 +2552,13 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 cbLang.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 cbLang.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 toolStripTextBox1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                comboBox3.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                comboBox3.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                dudClose.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                dudClose.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                dudNewTab.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                dudNewTab.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                flpLayout.BackColor = Properties.Settings.Default.BackColor;
+                flpLayout.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                flpNewTab.BackColor = Properties.Settings.Default.BackColor;
+                flpNewTab.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                flpClose.BackColor = Properties.Settings.Default.BackColor;
+                flpClose.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+
                 cmsProfiles.BackColor = Properties.Settings.Default.BackColor;
                 cmsHamburger.BackColor = Properties.Settings.Default.BackColor;
                 cmsPrivacy.BackColor = Properties.Settings.Default.BackColor;
@@ -2765,10 +2800,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         public void RefreshSizes()
         {
             lbVersion.Location = new Point(lbKorot.Location.X + lbKorot.Width, lbVersion.Location.Y);
-            dudClose.Location = new Point(label32.Location.X + label32.Width, dudClose.Location.Y);
-            dudClose.Width = tpTheme.Width - (label32.Width + label32.Location.X + 25);
-            dudNewTab.Location = new Point(label31.Location.X + label31.Width, dudNewTab.Location.Y);
-            dudNewTab.Width = tpTheme.Width - (label31.Width + label31.Location.X + 25);
+            flpClose.Location = new Point(label32.Location.X + label32.Width, flpClose.Location.Y);
+            flpClose.Width = tpTheme.Width - (label32.Width + label32.Location.X + 25);
+            flpNewTab.Location = new Point(label31.Location.X + label31.Width, flpNewTab.Location.Y);
+            flpNewTab.Width = tpTheme.Width - (label31.Width + label31.Location.X + 25);
             hsAutoRestore.Location = new Point(lbautoRestore.Location.X + lbautoRestore.Width + 5, hsAutoRestore.Location.Y);
             hsFav.Location = new Point(label33.Location.X + label33.Width + 5, hsFav.Location.Y);
             hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width + 5, hsDoNotTrack.Location.Y);
@@ -2782,8 +2817,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             textBox4.Width = tpTheme.Width - (label12.Width + label12.Location.X + 25);
             tbStartup.Location = new Point(label28.Location.X + label28.Width, tbStartup.Location.Y);
             tbStartup.Width = tpSettings.Width - (label28.Width + label28.Location.X + 15);
-            comboBox3.Location = new Point(label25.Location.X + label25.Width, comboBox3.Location.Y);
-            comboBox3.Width = tpTheme.Width - (label25.Width + label25.Location.X + 25);
+            flpLayout.Location = new Point(label25.Location.X + label25.Width, flpLayout.Location.Y);
+            flpLayout.Width = tpTheme.Width - (label25.Width + label25.Location.X + 25);
             pictureBox3.Location = new Point(label14.Location.X + label14.Width, pictureBox3.Location.Y);
             pictureBox4.Location = new Point(label16.Location.X + label16.Width, pictureBox4.Location.Y);
             tbFolder.Location = new Point(lbDownloadFolder.Location.X + lbDownloadFolder.Width, tbFolder.Location.Y);
@@ -2813,9 +2848,48 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             hsAutoRestore.Checked = Properties.Settings.Default.autoRestoreSessions;
             hsUnknown.Checked = Properties.Settings.Default.allowUnknownResources;
             hsFav.Checked = Properties.Settings.Default.showFav;
-            dudClose.SelectedIndex = Properties.Settings.Default.closeColor;
-            dudNewTab.SelectedIndex = Properties.Settings.Default.newTabColor;
-            comboBox3.SelectedIndex = Properties.Settings.Default.BStyleLayout;
+            switch (Properties.Settings.Default.closeColor)
+            {
+                case 0:
+                    rbBackColor1.Checked = true;
+                    break;
+                case 1:
+                    rbForeColor1.Checked = true;
+                    break;
+                case 2:
+                    rbOverlayColor1.Checked = true;
+                    break;
+            }
+            switch (Properties.Settings.Default.newTabColor)
+            {
+                case 0:
+                    rbBackColor.Checked = true;
+                    break;
+                case 1:
+                    rbForeColor.Checked = true;
+                    break;
+                case 2:
+                    rbOverlayColor.Checked = true;
+                    break;
+            }
+            switch (Properties.Settings.Default.BStyleLayout)
+            {
+                case 0:
+                    rbNone.Checked = true;
+                    break;
+                case 1:
+                    rbTile.Checked = true;
+                    break;
+                case 2:
+                    rbCenter.Checked = true;
+                    break;
+                case 3:
+                    rbStretch.Checked = true;
+                    break;
+                case 4:
+                    rbZoom.Checked = true;
+                    break;
+            }
             colorToolStripMenuItem.Checked = Properties.Settings.Default.BackStyle == "BACKCOLOR" ? true : false;
             switchToToolStripMenuItem.Text = switchTo;
             newProfileToolStripMenuItem.Text = newprofile;
@@ -3105,17 +3179,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void hsDoNotTrack_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.DoNotTrack = hsDoNotTrack.Checked;
-        }
-
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.BStyleLayout = comboBox3.SelectedIndex;
-            checkIfDefaultTheme();
-        }
-
-        private void Button10_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void disallowThisPageForCookieAccessToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3597,19 +3660,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
             }
         }
-        private void dudNewTab_SelectedItemChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.newTabColor = dudNewTab.SelectedIndex;
-            ChangeTheme();
-            checkIfDefaultTheme();
-        }
-
-        private void dudClose_SelectedItemChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.closeColor = dudClose.SelectedIndex;
-            ChangeTheme();
-            checkIfDefaultTheme();
-        }
 
         private void hsFav_CheckedChanged(object sender, EventArgs e)
         {
@@ -3859,6 +3909,148 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     ParentTab.BackColor = BackColor;
                     ParentTab.useDefaultBackColor = true;
                     break;
+            }
+        }
+
+        private void rbNone_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbNone.Checked)
+            {
+                rbTile.Checked = false;
+                rbCenter.Checked = false;
+                rbStretch.Checked = false;
+                rbZoom.Checked = false;
+                Properties.Settings.Default.BStyleLayout = 0;
+                ChangeTheme();
+                checkIfDefaultTheme();
+            }
+        }
+
+        private void rbTile_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbTile.Checked)
+            {
+                rbNone.Checked = false;
+                rbCenter.Checked = false;
+                rbStretch.Checked = false;
+                rbZoom.Checked = false;
+                Properties.Settings.Default.BStyleLayout = 1;
+                ChangeTheme();
+                checkIfDefaultTheme();
+            }
+        }
+
+        private void rbCenter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbCenter.Checked)
+            {
+                rbTile.Checked = false;
+                rbNone.Checked = false;
+                rbStretch.Checked = false;
+                rbZoom.Checked = false;
+                Properties.Settings.Default.BStyleLayout = 2;
+                ChangeTheme();
+                checkIfDefaultTheme();
+            }
+        }
+
+        private void rbStretch_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbStretch.Checked)
+            {
+                rbTile.Checked = false;
+                rbCenter.Checked = false;
+                rbNone.Checked = false;
+                rbZoom.Checked = false;
+                Properties.Settings.Default.BStyleLayout = 3;
+                ChangeTheme();
+                checkIfDefaultTheme();
+            }
+        }
+
+        private void rbZoom_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbZoom.Checked)
+            {
+                rbTile.Checked = false;
+                rbCenter.Checked = false;
+                rbStretch.Checked = false;
+                rbNone.Checked = false;
+                Properties.Settings.Default.BStyleLayout = 4;
+                ChangeTheme();
+                checkIfDefaultTheme();
+            }
+        }
+
+        private void rbBackColor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbBackColor.Checked)
+            {
+                rbForeColor.Checked = false;
+                rbOverlayColor.Checked = false;
+                Properties.Settings.Default.newTabColor = 0;
+                ChangeTheme();
+                checkIfDefaultTheme();
+            }
+        }
+
+        private void rbForeColor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbForeColor.Checked)
+            {
+                rbBackColor.Checked = false;
+                rbOverlayColor.Checked = false;
+                Properties.Settings.Default.newTabColor = 1;
+                ChangeTheme();
+                checkIfDefaultTheme();
+            }
+        }
+
+        private void rbOverlayColor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbOverlayColor.Checked)
+            {
+                rbForeColor.Checked = false;
+                rbBackColor.Checked = false;
+                Properties.Settings.Default.newTabColor = 2;
+                ChangeTheme();
+                checkIfDefaultTheme();
+            }
+        }
+
+        private void rbBackColor1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbBackColor1.Checked)
+            {
+                rbForeColor1.Checked = false;
+                rbOverlayColor1.Checked = false;
+                Properties.Settings.Default.closeColor = 0;
+                ChangeTheme();
+                checkIfDefaultTheme();
+            }
+        }
+
+        private void rbForeColor1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbForeColor1.Checked)
+            {
+                rbBackColor1.Checked = false;
+                rbOverlayColor1.Checked = false;
+                Properties.Settings.Default.closeColor = 1;
+                ChangeTheme();
+                checkIfDefaultTheme();
+            }
+        }
+
+        private void rbOverlayColor1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbOverlayColor1.Checked)
+            {
+                rbForeColor1.Checked = false;
+                rbBackColor1.Checked = false;
+                Properties.Settings.Default.closeColor = 2;
+                ChangeTheme();
+                checkIfDefaultTheme();
             }
         }
 

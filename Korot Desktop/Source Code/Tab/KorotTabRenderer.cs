@@ -48,6 +48,30 @@ namespace Korot
             ForegroundColor = ForeColor;
             OverlayLayerColor = OverlayColor;
             drawBackgroundColor = drawback;
+            switch (Properties.Settings.Default.newTabColor)
+            {
+                case 0:
+                    AddButtonColor = BackColor;
+                    break;
+                case 1:
+                    AddButtonColor = ForeColor;
+                    break;
+                case 2:
+                    AddButtonColor = OverlayColor;
+                    break;
+            }
+            switch (Properties.Settings.Default.closeColor)
+            {
+                case 0:
+                    CloseButtonColor = BackColor;
+                    break;
+                case 1:
+                    CloseButtonColor = ForeColor;
+                    break;
+                case 2:
+                    CloseButtonColor = OverlayColor;
+                    break;
+            }
             _inactiveRightSideShadowImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 20), Tools.GerekiyorsaAzalt(BackColor.G, 20), Tools.GerekiyorsaAzalt(BackColor.B, 20))) : Tools.ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 20, 255), Tools.GerekiyorsaArttır(BackColor.G, 20, 255), Tools.GerekiyorsaArttır(BackColor.B, 20, 255)));
             // Initialize the various images to use during rendering
             _activeLeftSideImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 30), Tools.GerekiyorsaAzalt(BackColor.G, 30), Tools.GerekiyorsaAzalt(BackColor.B, 30))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 30, 255), Tools.GerekiyorsaArttır(BackColor.G, 30, 255), Tools.GerekiyorsaArttır(BackColor.B, 30, 255)));
@@ -114,6 +138,30 @@ namespace Korot
         }
         public void ChangeColors(Color BackColor, Color ForeColor, Color OverlayColor)
         {
+            switch (Properties.Settings.Default.newTabColor)
+            {
+                case 0:
+                    AddButtonColor = BackColor;
+                    break;
+                case 1:
+                    AddButtonColor = ForeColor;
+                    break;
+                case 2:
+                    AddButtonColor = OverlayColor;
+                    break;
+            }
+            switch (Properties.Settings.Default.closeColor)
+            {
+                case 0:
+                    CloseButtonColor = BackColor;
+                    break;
+                case 1:
+                    CloseButtonColor = ForeColor;
+                    break;
+                case 2:
+                    CloseButtonColor = OverlayColor;
+                    break;
+            }
             if (BackColor != _BackColor)
             {
                 _BackColor = BackColor;
@@ -125,6 +173,7 @@ namespace Korot
                 _activeLeftSideImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 30), Tools.GerekiyorsaAzalt(BackColor.G, 30), Tools.GerekiyorsaAzalt(BackColor.B, 30))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 30, 255), Tools.GerekiyorsaArttır(BackColor.G, 30, 255), Tools.GerekiyorsaArttır(BackColor.B, 30, 255)));
                 _activeRightSideImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 30), Tools.GerekiyorsaAzalt(BackColor.G, 30), Tools.GerekiyorsaAzalt(BackColor.B, 30))) : Tools.ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 30, 255), Tools.GerekiyorsaArttır(BackColor.G, 30, 255), Tools.GerekiyorsaArttır(BackColor.B, 30, 255)));
                 _activeCenterImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 30), Tools.GerekiyorsaAzalt(BackColor.G, 30), Tools.GerekiyorsaAzalt(BackColor.B, 30))) : Tools.ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 30, 255), Tools.GerekiyorsaArttır(BackColor.G, 30, 255), Tools.GerekiyorsaArttır(BackColor.B, 30, 255)));
+                
                 //_background = Tools.ColorReplace(Resources.KorotBackground, 50, Color.White, BackColor);
                 if (Properties.Settings.Default.closeColor == 0)
                 {
