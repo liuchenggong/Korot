@@ -151,6 +151,7 @@ namespace Korot
             this.MaximumSize = new System.Drawing.Size(462, 296);
             this.MinimumSize = new System.Drawing.Size(462, 296);
             this.Name = "frmChangeTBTBack";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Korot";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

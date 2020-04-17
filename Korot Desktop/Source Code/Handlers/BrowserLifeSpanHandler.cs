@@ -37,8 +37,20 @@ namespace Korot
             WindowOpenDisposition targetDisposition, bool userGesture, IPopupFeatures popupFeatures, IWindowInfo windowInfo,
             IBrowserSettings browserSettings, ref bool noJavascriptAccess, out IWebBrowser newBrowser)
         {
+            if (targetDisposition == WindowOpenDisposition.NewPopup)
+            {
+                frmPopup popup = new frmPopup(tabform, tabform.userName, targetUrl) {
+                StartPosition = FormStartPosition.Manual,
+                Location = new System.Drawing.Point(popupFeatures.X,popupFeatures.Y),
+                Width = popupFeatures.Width,
+                Height = popupFeatures.Height,
+                };
+                popup.Show();
+            }else
+            {
+                tabform.NewTab(targetUrl);
+            }
             newBrowser = null;
-            tabform.NewTab(targetUrl);
             return true;
         }
 

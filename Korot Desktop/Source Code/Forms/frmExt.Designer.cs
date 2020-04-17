@@ -60,6 +60,7 @@ namespace Korot
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmExt";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmExt";
             this.Deactivate += new System.EventHandler(this.frmExt_Leave);
             this.Load += new System.EventHandler(this.FrmExt_Load);

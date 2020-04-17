@@ -493,6 +493,7 @@ namespace Korot
             this.MaximumSize = new System.Drawing.Size(508, 541);
             this.MinimumSize = new System.Drawing.Size(508, 541);
             this.Name = "frmEditCollection";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit Item";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmEditCollection_FormClosing);
             this.groupBox1.ResumeLayout(false);

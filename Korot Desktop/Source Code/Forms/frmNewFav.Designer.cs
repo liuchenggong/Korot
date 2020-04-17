@@ -191,6 +191,7 @@ namespace Korot
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmNewFav";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "New Favorite";
             this.Load += new System.EventHandler(this.frmNewFav_Load);
             this.flowLayoutPanel1.ResumeLayout(false);

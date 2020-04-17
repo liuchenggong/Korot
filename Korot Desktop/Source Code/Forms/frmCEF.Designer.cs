@@ -143,7 +143,6 @@ namespace Korot
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpCef = new System.Windows.Forms.TabPage();
-            this.flpStatus = new System.Windows.Forms.FlowLayoutPanel();
             this.pCEF = new System.Windows.Forms.Panel();
             this.lbTitle = new System.Windows.Forms.ListBox();
             this.lbURL = new System.Windows.Forms.ListBox();
@@ -298,7 +297,6 @@ namespace Korot
             this.pnlCert.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpCef.SuspendLayout();
-            this.flpStatus.SuspendLayout();
             this.pCEF.SuspendLayout();
             this.tpCert.SuspendLayout();
             this.tpSettings.SuspendLayout();
@@ -335,7 +333,7 @@ namespace Korot
             this.tbAddress.MaxLength = 2147483647;
             this.tbAddress.Name = "tbAddress";
             this.tbAddress.Size = new System.Drawing.Size(305, 23);
-            this.tbAddress.TabIndex = 1;
+            this.tbAddress.TabIndex = 5;
             // 
             // panel2
             // 
@@ -585,6 +583,7 @@ namespace Korot
             // 
             // tsCollections
             // 
+            this.tsCollections.Image = global::Korot.Properties.Resources.collection;
             this.tsCollections.Name = "tsCollections";
             this.tsCollections.Size = new System.Drawing.Size(288, 22);
             this.tsCollections.Text = "Collections";
@@ -732,7 +731,7 @@ namespace Korot
             this.mFavorites.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
             this.mFavorites.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.mFavorites.Size = new System.Drawing.Size(560, 24);
-            this.mFavorites.TabIndex = 0;
+            this.mFavorites.TabIndex = 10;
             this.mFavorites.Text = "menuStrip1";
             this.mFavorites.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mFavorites_MouseClick);
             // 
@@ -761,7 +760,7 @@ namespace Korot
             this.button5.Location = new System.Drawing.Point(58, 0);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(30, 28);
-            this.button5.TabIndex = 4;
+            this.button5.TabIndex = 2;
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             this.button5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -777,7 +776,7 @@ namespace Korot
             this.button7.Location = new System.Drawing.Point(472, 0);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(30, 28);
-            this.button7.TabIndex = 0;
+            this.button7.TabIndex = 7;
             this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.Button7_Click);
             this.button7.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -792,7 +791,7 @@ namespace Korot
             this.button3.Location = new System.Drawing.Point(87, 0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(30, 28);
-            this.button3.TabIndex = 0;
+            this.button3.TabIndex = 3;
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             this.button3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -839,7 +838,7 @@ namespace Korot
             this.button11.Location = new System.Drawing.Point(530, 0);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(30, 28);
-            this.button11.TabIndex = 0;
+            this.button11.TabIndex = 9;
             this.button11.UseVisualStyleBackColor = false;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             this.button11.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -855,7 +854,7 @@ namespace Korot
             this.button9.Location = new System.Drawing.Point(501, 0);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(30, 28);
-            this.button9.TabIndex = 0;
+            this.button9.TabIndex = 8;
             this.button9.UseVisualStyleBackColor = false;
             this.button9.Click += new System.EventHandler(this.Button9_Click);
             this.button9.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -918,7 +917,7 @@ namespace Korot
             this.button2.Location = new System.Drawing.Point(29, 0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(30, 28);
-            this.button2.TabIndex = 0;
+            this.button2.TabIndex = 1;
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             this.button2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -1097,11 +1096,12 @@ namespace Korot
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label2.Location = new System.Drawing.Point(3, 385);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 16);
+            this.label2.Size = new System.Drawing.Size(562, 18);
             this.label2.TabIndex = 0;
+            this.label2.TextChanged += new System.EventHandler(this.label2_TextChanged);
             // 
             // tmrSlower
             // 
@@ -1132,7 +1132,7 @@ namespace Korot
             this.button10.Location = new System.Drawing.Point(20, 360);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(87, 26);
-            this.button10.TabIndex = 2;
+            this.button10.TabIndex = 0;
             this.button10.Text = "sometimes";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
@@ -1180,7 +1180,7 @@ namespace Korot
             // 
             // tpCef
             // 
-            this.tpCef.Controls.Add(this.flpStatus);
+            this.tpCef.Controls.Add(this.label2);
             this.tpCef.Controls.Add(this.pCEF);
             this.tpCef.Location = new System.Drawing.Point(4, 25);
             this.tpCef.Name = "tpCef";
@@ -1189,17 +1189,6 @@ namespace Korot
             this.tpCef.TabIndex = 0;
             this.tpCef.Text = "Korot";
             this.tpCef.UseVisualStyleBackColor = true;
-            // 
-            // flpStatus
-            // 
-            this.flpStatus.AutoSize = true;
-            this.flpStatus.Controls.Add(this.label2);
-            this.flpStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flpStatus.Location = new System.Drawing.Point(3, 387);
-            this.flpStatus.Name = "flpStatus";
-            this.flpStatus.Size = new System.Drawing.Size(562, 16);
-            this.flpStatus.TabIndex = 1;
-            this.flpStatus.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
             // 
             // pCEF
             // 
@@ -1291,7 +1280,7 @@ namespace Korot
             this.cbLang.Location = new System.Drawing.Point(76, 130);
             this.cbLang.Name = "cbLang";
             this.cbLang.Size = new System.Drawing.Size(475, 24);
-            this.cbLang.TabIndex = 39;
+            this.cbLang.TabIndex = 4;
             this.cbLang.SelectedIndexChanged += new System.EventHandler(this.cbLang_TextUpdate);
             this.cbLang.SelectionChangeCommitted += new System.EventHandler(this.cbLang_TextUpdate);
             this.cbLang.TextChanged += new System.EventHandler(this.cbLang_TextUpdate);
@@ -1319,7 +1308,7 @@ namespace Korot
             this.btCookie.Location = new System.Drawing.Point(3, 3);
             this.btCookie.Name = "btCookie";
             this.btCookie.Size = new System.Drawing.Size(150, 28);
-            this.btCookie.TabIndex = 35;
+            this.btCookie.TabIndex = 11;
             this.btCookie.Text = "Cookie Disallow List...";
             this.btCookie.UseVisualStyleBackColor = false;
             this.btCookie.Click += new System.EventHandler(this.button15_Click);
@@ -1335,7 +1324,7 @@ namespace Korot
             this.btCleanLog.Location = new System.Drawing.Point(159, 3);
             this.btCleanLog.Name = "btCleanLog";
             this.btCleanLog.Size = new System.Drawing.Size(114, 28);
-            this.btCleanLog.TabIndex = 37;
+            this.btCleanLog.TabIndex = 12;
             this.btCleanLog.Text = "Clean Log Data";
             this.btCleanLog.UseVisualStyleBackColor = false;
             this.btCleanLog.Click += new System.EventHandler(this.btCleanLog_Click);
@@ -1351,7 +1340,7 @@ namespace Korot
             this.button18.Location = new System.Drawing.Point(279, 3);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(103, 28);
-            this.button18.TabIndex = 37;
+            this.button18.TabIndex = 13;
             this.button18.Text = "Reset Korot...";
             this.button18.UseVisualStyleBackColor = false;
             this.button18.Click += new System.EventHandler(this.button18_Click);
@@ -1395,7 +1384,7 @@ namespace Korot
             this.hsUnknown.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsUnknown.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsUnknown.Size = new System.Drawing.Size(50, 18);
-            this.hsUnknown.TabIndex = 28;
+            this.hsUnknown.TabIndex = 10;
             this.hsUnknown.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsUnknown_CheckedChanged);
             // 
             // hsDoNotTrack
@@ -1405,7 +1394,7 @@ namespace Korot
             this.hsDoNotTrack.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsDoNotTrack.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsDoNotTrack.Size = new System.Drawing.Size(50, 19);
-            this.hsDoNotTrack.TabIndex = 28;
+            this.hsDoNotTrack.TabIndex = 7;
             this.hsDoNotTrack.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsDoNotTrack_CheckedChanged);
             // 
             // lbautoRestore
@@ -1435,7 +1424,7 @@ namespace Korot
             this.hsAutoRestore.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsAutoRestore.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsAutoRestore.Size = new System.Drawing.Size(50, 19);
-            this.hsAutoRestore.TabIndex = 28;
+            this.hsAutoRestore.TabIndex = 9;
             this.hsAutoRestore.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsAutoRestore_CheckedChanged);
             // 
             // hsProxy
@@ -1445,7 +1434,7 @@ namespace Korot
             this.hsProxy.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsProxy.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsProxy.Size = new System.Drawing.Size(50, 19);
-            this.hsProxy.TabIndex = 28;
+            this.hsProxy.TabIndex = 8;
             this.hsProxy.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsProxy_CheckedChanged);
             // 
             // button13
@@ -1512,7 +1501,7 @@ namespace Korot
             this.hsFav.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsFav.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsFav.Size = new System.Drawing.Size(50, 19);
-            this.hsFav.TabIndex = 28;
+            this.hsFav.TabIndex = 5;
             this.hsFav.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsFav_CheckedChanged);
             // 
             // radioButton1
@@ -1522,7 +1511,7 @@ namespace Korot
             this.radioButton1.Location = new System.Drawing.Point(91, 75);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(73, 20);
-            this.radioButton1.TabIndex = 24;
+            this.radioButton1.TabIndex = 2;
             this.radioButton1.TabStop = true;
             this.radioButton1.Tag = "";
             this.radioButton1.Text = "New Tab";
@@ -1558,7 +1547,7 @@ namespace Korot
             this.tbHomepage.Location = new System.Drawing.Point(91, 48);
             this.tbHomepage.Name = "tbHomepage";
             this.tbHomepage.Size = new System.Drawing.Size(463, 21);
-            this.tbHomepage.TabIndex = 18;
+            this.tbHomepage.TabIndex = 1;
             this.tbHomepage.Tag = "";
             this.tbHomepage.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
@@ -1570,7 +1559,7 @@ namespace Korot
             this.tbStartup.Name = "tbStartup";
             this.tbStartup.ReadOnly = true;
             this.tbStartup.Size = new System.Drawing.Size(463, 21);
-            this.tbStartup.TabIndex = 23;
+            this.tbStartup.TabIndex = 6;
             this.tbStartup.Tag = "";
             this.tbStartup.Click += new System.EventHandler(this.tbStartup_Click);
             // 
@@ -1583,7 +1572,7 @@ namespace Korot
             this.tbSearchEngine.Name = "tbSearchEngine";
             this.tbSearchEngine.ReadOnly = true;
             this.tbSearchEngine.Size = new System.Drawing.Size(442, 21);
-            this.tbSearchEngine.TabIndex = 23;
+            this.tbSearchEngine.TabIndex = 3;
             this.tbSearchEngine.Tag = "";
             this.tbSearchEngine.Click += new System.EventHandler(this.textBox3_Click);
             // 
@@ -1635,7 +1624,7 @@ namespace Korot
             this.rbBackColor1.Location = new System.Drawing.Point(3, 3);
             this.rbBackColor1.Name = "rbBackColor1";
             this.rbBackColor1.Size = new System.Drawing.Size(86, 20);
-            this.rbBackColor1.TabIndex = 0;
+            this.rbBackColor1.TabIndex = 6;
             this.rbBackColor1.TabStop = true;
             this.rbBackColor1.Text = "Back Color";
             this.rbBackColor1.UseVisualStyleBackColor = true;
@@ -1647,7 +1636,7 @@ namespace Korot
             this.rbForeColor1.Location = new System.Drawing.Point(95, 3);
             this.rbForeColor1.Name = "rbForeColor1";
             this.rbForeColor1.Size = new System.Drawing.Size(84, 20);
-            this.rbForeColor1.TabIndex = 0;
+            this.rbForeColor1.TabIndex = 6;
             this.rbForeColor1.TabStop = true;
             this.rbForeColor1.Text = "Fore Color";
             this.rbForeColor1.UseVisualStyleBackColor = true;
@@ -1659,7 +1648,7 @@ namespace Korot
             this.rbOverlayColor1.Location = new System.Drawing.Point(185, 3);
             this.rbOverlayColor1.Name = "rbOverlayColor1";
             this.rbOverlayColor1.Size = new System.Drawing.Size(99, 20);
-            this.rbOverlayColor1.TabIndex = 0;
+            this.rbOverlayColor1.TabIndex = 6;
             this.rbOverlayColor1.TabStop = true;
             this.rbOverlayColor1.Text = "Overlay Color";
             this.rbOverlayColor1.UseVisualStyleBackColor = true;
@@ -1684,7 +1673,7 @@ namespace Korot
             this.rbBackColor.Location = new System.Drawing.Point(3, 3);
             this.rbBackColor.Name = "rbBackColor";
             this.rbBackColor.Size = new System.Drawing.Size(86, 20);
-            this.rbBackColor.TabIndex = 0;
+            this.rbBackColor.TabIndex = 5;
             this.rbBackColor.TabStop = true;
             this.rbBackColor.Text = "Back Color";
             this.rbBackColor.UseVisualStyleBackColor = true;
@@ -1696,7 +1685,7 @@ namespace Korot
             this.rbForeColor.Location = new System.Drawing.Point(95, 3);
             this.rbForeColor.Name = "rbForeColor";
             this.rbForeColor.Size = new System.Drawing.Size(84, 20);
-            this.rbForeColor.TabIndex = 0;
+            this.rbForeColor.TabIndex = 5;
             this.rbForeColor.TabStop = true;
             this.rbForeColor.Text = "Fore Color";
             this.rbForeColor.UseVisualStyleBackColor = true;
@@ -1708,7 +1697,7 @@ namespace Korot
             this.rbOverlayColor.Location = new System.Drawing.Point(185, 3);
             this.rbOverlayColor.Name = "rbOverlayColor";
             this.rbOverlayColor.Size = new System.Drawing.Size(99, 20);
-            this.rbOverlayColor.TabIndex = 0;
+            this.rbOverlayColor.TabIndex = 5;
             this.rbOverlayColor.TabStop = true;
             this.rbOverlayColor.Text = "Overlay Color";
             this.rbOverlayColor.UseVisualStyleBackColor = true;
@@ -1735,7 +1724,7 @@ namespace Korot
             this.rbNone.Location = new System.Drawing.Point(3, 3);
             this.rbNone.Name = "rbNone";
             this.rbNone.Size = new System.Drawing.Size(56, 20);
-            this.rbNone.TabIndex = 0;
+            this.rbNone.TabIndex = 3;
             this.rbNone.TabStop = true;
             this.rbNone.Text = "None";
             this.rbNone.UseVisualStyleBackColor = true;
@@ -1747,7 +1736,7 @@ namespace Korot
             this.rbTile.Location = new System.Drawing.Point(65, 3);
             this.rbTile.Name = "rbTile";
             this.rbTile.Size = new System.Drawing.Size(46, 20);
-            this.rbTile.TabIndex = 0;
+            this.rbTile.TabIndex = 3;
             this.rbTile.TabStop = true;
             this.rbTile.Text = "Tile";
             this.rbTile.UseVisualStyleBackColor = true;
@@ -1759,7 +1748,7 @@ namespace Korot
             this.rbCenter.Location = new System.Drawing.Point(117, 3);
             this.rbCenter.Name = "rbCenter";
             this.rbCenter.Size = new System.Drawing.Size(66, 20);
-            this.rbCenter.TabIndex = 0;
+            this.rbCenter.TabIndex = 3;
             this.rbCenter.TabStop = true;
             this.rbCenter.Text = "Center";
             this.rbCenter.UseVisualStyleBackColor = true;
@@ -1771,7 +1760,7 @@ namespace Korot
             this.rbStretch.Location = new System.Drawing.Point(189, 3);
             this.rbStretch.Name = "rbStretch";
             this.rbStretch.Size = new System.Drawing.Size(70, 20);
-            this.rbStretch.TabIndex = 0;
+            this.rbStretch.TabIndex = 3;
             this.rbStretch.TabStop = true;
             this.rbStretch.Text = "Stretch";
             this.rbStretch.UseVisualStyleBackColor = true;
@@ -1783,7 +1772,7 @@ namespace Korot
             this.rbZoom.Location = new System.Drawing.Point(265, 3);
             this.rbZoom.Name = "rbZoom";
             this.rbZoom.Size = new System.Drawing.Size(58, 20);
-            this.rbZoom.TabIndex = 0;
+            this.rbZoom.TabIndex = 3;
             this.rbZoom.TabStop = true;
             this.rbZoom.Text = "Zoom";
             this.rbZoom.UseVisualStyleBackColor = true;
@@ -1800,7 +1789,7 @@ namespace Korot
             this.button4.Location = new System.Drawing.Point(524, 5);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(30, 28);
-            this.button4.TabIndex = 35;
+            this.button4.TabIndex = 0;
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -1920,7 +1909,7 @@ namespace Korot
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(396, 21);
-            this.textBox4.TabIndex = 32;
+            this.textBox4.TabIndex = 4;
             this.textBox4.Text = "this is a certified home classic";
             this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
             // 
@@ -1959,7 +1948,7 @@ namespace Korot
             this.comboBox1.Location = new System.Drawing.Point(130, 221);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(376, 25);
-            this.comboBox1.TabIndex = 1;
+            this.comboBox1.TabIndex = 7;
             this.comboBox1.Tag = "";
             // 
             // button12
@@ -1972,7 +1961,7 @@ namespace Korot
             this.button12.Location = new System.Drawing.Point(511, 220);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(42, 26);
-            this.button12.TabIndex = 30;
+            this.button12.TabIndex = 8;
             this.button12.Tag = "";
             this.button12.Text = "Save";
             this.button12.UseVisualStyleBackColor = true;
@@ -1988,7 +1977,7 @@ namespace Korot
             this.listBox2.Location = new System.Drawing.Point(20, 275);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(526, 116);
-            this.listBox2.TabIndex = 31;
+            this.listBox2.TabIndex = 10;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
             // label26
@@ -2024,7 +2013,7 @@ namespace Korot
             this.button6.Location = new System.Drawing.Point(524, 5);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(30, 28);
-            this.button6.TabIndex = 35;
+            this.button6.TabIndex = 0;
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2059,7 +2048,7 @@ namespace Korot
             this.hlvHistory.OverlayColor = System.Drawing.Color.DodgerBlue;
             this.hlvHistory.OwnerDraw = true;
             this.hlvHistory.Size = new System.Drawing.Size(540, 351);
-            this.hlvHistory.TabIndex = 0;
+            this.hlvHistory.TabIndex = 1;
             this.hlvHistory.UseCompatibleStateImageBehavior = false;
             this.hlvHistory.View = System.Windows.Forms.View.Details;
             this.hlvHistory.DoubleClick += new System.EventHandler(this.HlvHistory_DoubleClick);
@@ -2133,7 +2122,7 @@ namespace Korot
             this.button8.Location = new System.Drawing.Point(524, 5);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(30, 28);
-            this.button8.TabIndex = 35;
+            this.button8.TabIndex = 0;
             this.button8.UseVisualStyleBackColor = false;
             this.button8.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2170,7 +2159,7 @@ namespace Korot
             this.hlvDownload.OverlayColor = System.Drawing.Color.DodgerBlue;
             this.hlvDownload.OwnerDraw = true;
             this.hlvDownload.Size = new System.Drawing.Size(536, 282);
-            this.hlvDownload.TabIndex = 1;
+            this.hlvDownload.TabIndex = 5;
             this.hlvDownload.UseCompatibleStateImageBehavior = false;
             this.hlvDownload.View = System.Windows.Forms.View.Details;
             this.hlvDownload.DoubleClick += new System.EventHandler(this.ListView2_DoubleClick);
@@ -2252,7 +2241,7 @@ namespace Korot
             this.hsOpen.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsOpen.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsOpen.Size = new System.Drawing.Size(50, 19);
-            this.hsOpen.TabIndex = 28;
+            this.hsOpen.TabIndex = 1;
             this.hsOpen.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsOpen_CheckedChanged);
             // 
             // hsDownload
@@ -2262,7 +2251,7 @@ namespace Korot
             this.hsDownload.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsDownload.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsDownload.Size = new System.Drawing.Size(50, 19);
-            this.hsDownload.TabIndex = 28;
+            this.hsDownload.TabIndex = 2;
             this.hsDownload.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsDownload_CheckedChanged);
             // 
             // tbFolder
@@ -2272,7 +2261,7 @@ namespace Korot
             this.tbFolder.Location = new System.Drawing.Point(155, 83);
             this.tbFolder.Name = "tbFolder";
             this.tbFolder.Size = new System.Drawing.Size(365, 21);
-            this.tbFolder.TabIndex = 18;
+            this.tbFolder.TabIndex = 3;
             this.tbFolder.Tag = "";
             this.tbFolder.TextChanged += new System.EventHandler(this.tbFolder_TextChanged);
             // 
@@ -2286,7 +2275,7 @@ namespace Korot
             this.btDownloadFolder.Location = new System.Drawing.Point(524, 80);
             this.btDownloadFolder.Name = "btDownloadFolder";
             this.btDownloadFolder.Size = new System.Drawing.Size(27, 26);
-            this.btDownloadFolder.TabIndex = 37;
+            this.btDownloadFolder.TabIndex = 4;
             this.btDownloadFolder.Text = "...";
             this.btDownloadFolder.UseVisualStyleBackColor = true;
             this.btDownloadFolder.Click += new System.EventHandler(this.button17_Click);
@@ -2359,7 +2348,7 @@ namespace Korot
             this.button14.Location = new System.Drawing.Point(524, 5);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(30, 28);
-            this.button14.TabIndex = 35;
+            this.button14.TabIndex = 0;
             this.button14.UseVisualStyleBackColor = false;
             this.button14.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2411,7 +2400,7 @@ namespace Korot
             this.btUpdater.Location = new System.Drawing.Point(3, 372);
             this.btUpdater.Name = "btUpdater";
             this.btUpdater.Size = new System.Drawing.Size(562, 31);
-            this.btUpdater.TabIndex = 3;
+            this.btUpdater.TabIndex = 2;
             this.btUpdater.Text = "Check for Updates";
             this.btUpdater.UseVisualStyleBackColor = false;
             this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
@@ -2423,7 +2412,7 @@ namespace Korot
             this.linkLabel1.Location = new System.Drawing.Point(15, 172);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(161, 16);
-            this.linkLabel1.TabIndex = 5;
+            this.linkLabel1.TabIndex = 1;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Licenses && Special Thanks...";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
@@ -2509,7 +2498,7 @@ namespace Korot
             this.lbCookie.Location = new System.Drawing.Point(14, 38);
             this.lbCookie.Name = "lbCookie";
             this.lbCookie.Size = new System.Drawing.Size(540, 340);
-            this.lbCookie.TabIndex = 37;
+            this.lbCookie.TabIndex = 1;
             // 
             // cmsCookie
             // 
@@ -2547,9 +2536,9 @@ namespace Korot
             this.button16.Location = new System.Drawing.Point(524, 5);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(30, 28);
-            this.button16.TabIndex = 35;
+            this.button16.TabIndex = 0;
             this.button16.UseVisualStyleBackColor = false;
-            this.button16.Click += new System.EventHandler(this.button16_Click);
+            this.button16.Click += new System.EventHandler(this.button1_Click);
             // 
             // label27
             // 
@@ -2558,7 +2547,7 @@ namespace Korot
             this.label27.Location = new System.Drawing.Point(9, 4);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(196, 25);
-            this.label27.TabIndex = 36;
+            this.label27.TabIndex = 0;
             this.label27.Text = "Cookie Disallow List";
             // 
             // tpCollection
@@ -2582,7 +2571,7 @@ namespace Korot
             this.panel3.Location = new System.Drawing.Point(16, 41);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(537, 350);
-            this.panel3.TabIndex = 39;
+            this.panel3.TabIndex = 1;
             // 
             // button15
             // 
@@ -2595,7 +2584,7 @@ namespace Korot
             this.button15.Location = new System.Drawing.Point(523, 7);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(30, 28);
-            this.button15.TabIndex = 37;
+            this.button15.TabIndex = 0;
             this.button15.UseVisualStyleBackColor = false;
             this.button15.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2867,9 +2856,6 @@ namespace Korot
             this.pnlCert.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tpCef.ResumeLayout(false);
-            this.tpCef.PerformLayout();
-            this.flpStatus.ResumeLayout(false);
-            this.flpStatus.PerformLayout();
             this.pCEF.ResumeLayout(false);
             this.tpCert.ResumeLayout(false);
             this.tpSettings.ResumeLayout(false);
@@ -3131,7 +3117,6 @@ namespace Korot
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ToolStripMenuItem tsCollections;
         private System.Windows.Forms.ToolStripMenuItem tsChangeTitleBack;
-        private System.Windows.Forms.FlowLayoutPanel flpStatus;
         private System.Windows.Forms.FlowLayoutPanel flpClose;
         private System.Windows.Forms.RadioButton rbBackColor1;
         private System.Windows.Forms.RadioButton rbForeColor1;

@@ -625,6 +625,7 @@ namespace Korot
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmInstallExt";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Korot";
             this.Load += new System.EventHandler(this.frmInstallExt_Load);
             this.tabControl1.ResumeLayout(false);

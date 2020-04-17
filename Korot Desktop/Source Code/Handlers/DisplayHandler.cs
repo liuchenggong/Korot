@@ -40,16 +40,12 @@ namespace Korot
         {
             CEFform = tabform;
         }
-        public void OnAddressChanged(IWebBrowser chromiumWebBrowser, AddressChangedEventArgs addressChangedArgs)
-        {
-
-        }
-
-        public bool OnAutoResize(IWebBrowser chromiumWebBrowser, IBrowser browser, CefSharp.Structs.Size newSize)
-        {
-            return false;
-        }
-
+        #region "Not in use"
+        public void OnAddressChanged(IWebBrowser chromiumWebBrowser, AddressChangedEventArgs addressChangedArgs) { return; }
+        public void OnTitleChanged(IWebBrowser chromiumWebBrowser, TitleChangedEventArgs titleChangedArgs) { return; }
+        public bool OnTooltipChanged(IWebBrowser chromiumWebBrowser, ref string text) => false;
+        public bool OnAutoResize(IWebBrowser chromiumWebBrowser, IBrowser browser, CefSharp.Structs.Size newSize) => false;
+        #endregion
         public bool OnConsoleMessage(IWebBrowser chromiumWebBrowser, ConsoleMessageEventArgs consoleMessageArgs)
         {
             Output.WriteLine("[Korot.DisplayHandler.OnConsoleMessage] (" + consoleMessageArgs.Source + ") " + consoleMessageArgs.Message);
@@ -99,14 +95,5 @@ namespace Korot
             try { CEFform.Invoke(new Action(() => CEFform.ChangeStatus(statusMessageArgs.Value))); } catch { }
         }
 
-        public void OnTitleChanged(IWebBrowser chromiumWebBrowser, TitleChangedEventArgs titleChangedArgs)
-        {
-            //if you are reading this then drink some water idk but dont die
-        }
-
-        public bool OnTooltipChanged(IWebBrowser chromiumWebBrowser, ref string text)
-        {
-            return false;
-        }
     }
 }

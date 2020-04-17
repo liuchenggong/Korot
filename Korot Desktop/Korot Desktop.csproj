@@ -221,6 +221,12 @@
       <DependentUpon>frmOOBE.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Filters\CookieAccessFilter.cs" />
+    <Compile Include="Source Code\Forms\frmPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmPopup.Designer.cs">
+      <DependentUpon>frmPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Forms\frmUpdateExt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -350,6 +356,9 @@
     <EmbeddedResource Include="Source Code\Forms\frmOOBE.resx">
       <DependentUpon>frmOOBE.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmPopup.resx">
+      <DependentUpon>frmPopup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmUpdateExt.resx">
       <DependentUpon>frmUpdateExt.cs</DependentUpon>
     </EmbeddedResource>
@@ -474,6 +483,8 @@
     <None Include="Resources\tip-ext.png" />
     <None Include="Resources\tip-profil.png" />
     <None Include="Resources\tip-tema.png" />
+    <None Include="Resources\collection.png" />
+    <None Include="Resources\collection-w.png" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

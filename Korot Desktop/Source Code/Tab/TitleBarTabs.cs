@@ -330,7 +330,7 @@ namespace Korot
             Padding = new Padding(
                 Padding.Left, topPadding > 0
                     ? topPadding
-                    : 0, Padding.Right, Padding.Bottom);
+                    : Padding.Top, Padding.Right, Padding.Bottom);
 
             // Set the margins and extend the frame into the client area
             MARGINS margins = new MARGINS

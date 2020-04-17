@@ -40,6 +40,7 @@ namespace Korot
     public partial class frmCEF : Form
     {
         public bool closing;
+        public ContextMenuStrip cmsCEF = null;
         private int updateProgress = 0;
         public bool isPreRelease = false;
         public int preVer = 0;
@@ -47,7 +48,7 @@ namespace Korot
         private bool isLoading = false;
         private readonly string loaduri = null;
         public bool _Incognito = false;
-        private readonly string userName;
+        public string userName;
         private readonly string profilePath;
         private readonly string userCache;
 #pragma warning disable IDE0052 //(we don't need this for now but we might need this later)
@@ -1677,6 +1678,9 @@ namespace Korot
             chromiumWebBrowser1.AddressChanged += cef_AddressChanged;
             chromiumWebBrowser1.LoadError += cef_onLoadError;
             chromiumWebBrowser1.KeyDown += tabform_KeyDown;
+            chromiumWebBrowser1.LostFocus += cef_LostFocus;
+            chromiumWebBrowser1.Enter += cef_GotFocus;
+            chromiumWebBrowser1.GotFocus += cef_GotFocus;
             chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(this);
             chromiumWebBrowser1.LifeSpanHandler = new BrowserLifeSpanHandler(this);
             chromiumWebBrowser1.DownloadHandler = new DownloadHandler(this);
@@ -1691,6 +1695,31 @@ namespace Korot
             }
             executeStartupExtensions();
 
+        }
+        private void cef_GotFocus(object sender, EventArgs e)
+        {
+                Invoke(new Action(() => {
+                    cmsPrivacy.Hide();
+                    cmsPrivacy.Close();
+                    cmsProfiles.Hide();
+                    cmsProfiles.Close();
+                    if (!doNotDestroyFind)
+                    {
+                        cmsHamburger.Hide();
+                        cmsHamburger.Close();
+                    }
+                }));
+        }
+        private void cef_LostFocus(object sender,EventArgs e)
+        {
+            if (cmsCEF != null)
+            {
+                Invoke(new Action(() => {
+                    cmsCEF.Hide();
+                    cmsCEF.Close();
+                    cmsCEF = null;
+                }));
+            }
         }
         private void cef_consoleMessage(object sender, ConsoleMessageEventArgs e)
         {
@@ -1861,6 +1890,7 @@ namespace Korot
         public bool cookieUsage = false;
         public void ChangeStatus(string status)
         {
+
             label2.Text = status;
         }
 
@@ -2197,7 +2227,8 @@ namespace Korot
                      || tabControl1.SelectedTab == tpDownload
                      || tabControl1.SelectedTab == tpAbout
                      || tabControl1.SelectedTab == tpTheme
-                     || tabControl1.SelectedTab == tpCollection) //Menu
+                     || tabControl1.SelectedTab == tpCollection
+                     || tabControl1.SelectedTab == tpCookie) //Menu
             {
                 resetPage();
             }
@@ -2258,7 +2289,7 @@ namespace Korot
             Invoke(new Action(() => tbAddress.Text = e.Address));
             if (isPageFavorited(chromiumWebBrowser1.Address))
             {
-                button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.star_on_w : Properties.Resources.star_on;
+                button7.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on;
             }
             else
             {
@@ -2481,9 +2512,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void ChangeThemeForMenuItems(ToolStripMenuItem item)
         {
             item.BackColor = Properties.Settings.Default.BackColor;
-            item.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            item.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
             item.DropDown.BackColor = Properties.Settings.Default.BackColor;
-            item.DropDown.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            item.DropDown.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
             foreach (ToolStripMenuItem x in item.DropDownItems)
             {
                 ChangeThemeForMenuDDItems(x.DropDown);
@@ -2493,11 +2524,11 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void ChangeThemeForMenuDDItems(ToolStripDropDown itemDD)
         {
             itemDD.BackColor = Properties.Settings.Default.BackColor;
-            itemDD.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            itemDD.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
             foreach (ToolStripMenuItem x in itemDD.Items)
             {
                 x.BackColor = Properties.Settings.Default.BackColor;
-                x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                x.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 ChangeThemeForMenuDDItems(x.DropDown);
             }
         }
@@ -2537,45 +2568,46 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 UpdateFavoriteColor();
                 updateFavoritesImages();
-                flpStatus.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                flpStatus.BackColor = Properties.Settings.Default.BackColor;
+                label2.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                label2.BackColor = Properties.Settings.Default.BackColor;
                 if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
                 cmsFavorite.BackColor = Properties.Settings.Default.BackColor;
                 cmsIncognito.BackColor = Properties.Settings.Default.BackColor;
                 oldBackColor = Properties.Settings.Default.BackColor;
-                cmsIncognito.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                cmsFavorite.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                pbStore.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.store_w : Properties.Resources.store;
-                tsWebStore.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.store_w : Properties.Resources.store;
-                button13.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                tsThemes.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.theme_w : Properties.Resources.theme;
-                button6.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button15.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button4.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button8.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button14.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button16.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                cmsIncognito.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                cmsFavorite.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                tsCollections.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.collection_w : Properties.Resources.collection;
+                pbStore.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.store_w : Properties.Resources.store;
+                tsWebStore.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.store_w : Properties.Resources.store;
+                button13.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                tsThemes.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.theme_w : Properties.Resources.theme;
+                button6.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button15.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button4.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button8.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button14.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button16.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 lbSettings.BackColor = Color.Transparent;
-                lbSettings.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                lbSettings.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvDownload.BackColor = Properties.Settings.Default.BackColor;
                 hlvDownload.HeaderBackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hlvDownload.HeaderForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                hlvDownload.HeaderForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvHistory.BackColor = Properties.Settings.Default.BackColor;
                 hlvHistory.HeaderBackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                hlvHistory.HeaderForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                hlvHistory.HeaderForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 cmsDownload.BackColor = Properties.Settings.Default.BackColor;
                 cmsHistory.BackColor = Properties.Settings.Default.BackColor;
                 cmsSearchEngine.BackColor = Properties.Settings.Default.BackColor;
                 profilenameToolStripMenuItem.DropDown.BackColor = Properties.Settings.Default.BackColor;
-                profilenameToolStripMenuItem.DropDown.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                cmsDownload.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                listBox2.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                comboBox1.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                tbHomepage.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                tbSearchEngine.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                button10.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                hlvDownload.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                cbLang.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                profilenameToolStripMenuItem.DropDown.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                cmsDownload.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                listBox2.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                comboBox1.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                tbHomepage.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                tbSearchEngine.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                button10.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                hlvDownload.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                cbLang.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hsAutoRestore.BackColor = Properties.Settings.Default.BackColor;
                 hsAutoRestore.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
                 hsAutoRestore.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
@@ -2611,10 +2643,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 hsOpen.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
                 hsOpen.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
                 hsOpen.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
-                hlvHistory.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                cbLang.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                cmsHistory.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                cmsSearchEngine.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                hlvHistory.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                cbLang.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                cmsHistory.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                cmsSearchEngine.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 listBox2.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 comboBox1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 lbCookie.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
@@ -2626,9 +2658,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tbFolder.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 tbStartup.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 cmsStartup.BackColor = Properties.Settings.Default.BackColor;
-                cmsStartup.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                tbFolder.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-                tbStartup.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+                cmsStartup.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                tbFolder.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                tbStartup.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 lbURinfo.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 button18.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 btDownloadFolder.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
@@ -2653,10 +2685,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 label2.BackColor = Properties.Settings.Default.BackColor;
                 BackColor = Properties.Settings.Default.BackColor;
                 extensionToolStripMenuItem1.DropDown.BackColor = Properties.Settings.Default.BackColor;
-                aboutToolStripMenuItem.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.about_w : Properties.Resources.about;
-                downloadsToolStripMenuItem.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.download_w : Properties.Resources.download;
-                historyToolStripMenuItem.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.history_w : Properties.Resources.history;
-                pictureBox1.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.inctab_w : Properties.Resources.inctab;
+                aboutToolStripMenuItem.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.about_w : Properties.Resources.about;
+                downloadsToolStripMenuItem.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.download_w : Properties.Resources.download;
+                historyToolStripMenuItem.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.history_w : Properties.Resources.history;
+                pictureBox1.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.inctab_w : Properties.Resources.inctab;
                 tbAddress.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsHamburger.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsProfiles.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
@@ -2666,7 +2698,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 cmsPrivacy.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 extensionToolStripMenuItem1.DropDown.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 textBox4.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                if (isPageFavorited(chromiumWebBrowser1.Address)) { button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
+                if (isPageFavorited(chromiumWebBrowser1.Address)) { button7.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { button7.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
                 mFavorites.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 settingsToolStripMenuItem.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.Settings : Properties.Resources.Settings_w;
                 newWindowToolStripMenuItem.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.newwindow : Properties.Resources.newwindow_w;
@@ -2695,7 +2727,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 foreach (ToolStripItem x in cmsBack.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (ToolStripItem x in cmsProfiles.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (ToolStripItem x in extensionToolStripMenuItem1.DropDownItems) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
-                foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black; }
+                foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black; }
             }
             if (Properties.Settings.Default.BackStyle != "BACKCOLOR")
             {
@@ -3088,10 +3120,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     {
                         TopLevel = false,
                         FormBorderStyle = FormBorderStyle.None,
-                        StartPosition = FormStartPosition.Manual,
                         Size = new Size(Convert.ToInt32(SplittedFase[10].Substring(1).Replace(Environment.NewLine, "")), Convert.ToInt32(SplittedFase[9].Substring(1).Replace(Environment.NewLine, "")))
                     };
-                    formext.Location = new Point(anaform.Left + (anaform.Width - (formext.Width + 200)), anaform.Top);
                     Controls.Add(formext);
                     formext.Visible = true;
                     formext.BringToFront();
@@ -3274,10 +3304,19 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             if (allowSwitching == false) { e.Cancel = true; } else { toolStripTextBox1.Text = SearchOnPage; chromiumWebBrowser1.StopFinding(true); e.Cancel = false; allowSwitching = false; }
             onCEFTab = (tabControl1.SelectedTab == tpCef);
-            if (tabControl1.SelectedTab == tpCef || tabControl1.SelectedTab == tpCert)
+            if (tabControl1.SelectedTab == tpCef)
             {
+                cef_GotFocus(sender, e);
                 resetPage();
-            } 
+            }else if (tabControl1.SelectedTab == tpCert)
+            {
+                cef_GotFocus(sender, e);
+                cef_LostFocus(sender, e);
+                resetPage();
+            } else
+            {
+                cef_LostFocus(sender, e);
+            }
         }
 
         private void textBox4_Click(object sender, EventArgs e)
@@ -3740,17 +3779,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void button16_Click(object sender, EventArgs e)
         {
-            if (anaform.settingTab != null)
-            {
-                anaform.SelectedTab = anaform.settingTab;
-            }
-            else
-            {
-                anaform.settingTab = ParentTab;
-                button3.Enabled = true;
-                allowSwitching = true;
-                tabControl1.SelectedTab = tpSettings;
-            }
+
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -4227,6 +4256,11 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 ChangeTheme();
                 checkIfDefaultTheme();
             }
+        }
+
+        private void label2_TextChanged(object sender, EventArgs e)
+        {
+            label2.Visible = !string.IsNullOrWhiteSpace(label2.Text);
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

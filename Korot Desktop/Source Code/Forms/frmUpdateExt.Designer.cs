@@ -115,6 +115,7 @@ namespace Korot
             this.MaximumSize = new System.Drawing.Size(338, 127);
             this.MinimumSize = new System.Drawing.Size(338, 127);
             this.Name = "frmUpdateExt";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Korot Extension Updater";
             this.Load += new System.EventHandler(this.frmUpdateExt_Load);
             this.panel1.ResumeLayout(false);

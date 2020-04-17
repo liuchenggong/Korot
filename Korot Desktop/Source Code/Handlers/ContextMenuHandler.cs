@@ -476,6 +476,7 @@ namespace Korot
             // Final
             cmsCef.Show(Cursor.Position);
             cmsCef.BringToFront();
+            ActiveForm.cmsCEF = cmsCef;
         }
         public IWebBrowser chromiumWebBrowser1;
         public string LinkURL = "";
