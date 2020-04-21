@@ -44,14 +44,13 @@ namespace Korot
         private int updateProgress = 0;
         public bool isPreRelease = false;
         public int preVer = 0;
-        //0=Checking 1=UpToDate 2=UpdateAvailabe 3=Error
         private bool isLoading = false;
         private readonly string loaduri = null;
         public bool _Incognito = false;
         public string userName;
         private readonly string profilePath;
         private readonly string userCache;
-#pragma warning disable IDE0052 //(we don't need this for now but we might need this later)
+#pragma warning disable IDE0052 //(we don't need this for now)
         private int findIdentifier;
 #pragma warning restore IDE0052
         private int findTotal;
@@ -62,7 +61,6 @@ namespace Korot
         private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
         private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
         public CollectionManager colManager;
-        // [NEWTAB]
         public frmMain anaform
         {
             get
@@ -80,7 +78,15 @@ namespace Korot
             InitializeComponent();
             InitializeChromium();
             updateExtensions();
-
+            // Create new notification like this:
+            Notification newNot = new Notification() { 
+                url = "https://haltroy.com", 
+                imageUrl = "https://haltroy.com/assets/images/ht-logo-2020.png", 
+                message = "Test \n Test", 
+                title = "This is an example notification" };
+            frmNotification notifyForm = new frmNotification(this, newNot);
+            notifyForm.Show();
+            // End of example
             frmCollection collectionManager = new frmCollection(this)
             {
                 TopLevel = false,
@@ -109,7 +115,108 @@ namespace Korot
                 if (Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy)) { SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy); }
             }
         }
+        public NotificationsJSHandler eventHandler;
+        public void InitializeChromium()
+        {
+            CefSettings settings = new CefSettings
+            {
+                UserAgent = "Mozilla/5.0 ( Windows "
+                + Tools.getOSInfo()
+                + "; "
+                + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
+                + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
+                + Cef.ChromiumVersion
+                + " Safari/537.36 Korot/"
+                + Application.ProductVersion.ToString()
+            };
+            if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
+            else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
+            settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = "korot",
+                SchemeHandlerFactory = new SchemeHandlerFactory(this)
+                {
+                    extKEM = "",
+                    isExt = false,
+                    extForm = null
+                }
+            });
+            // Initialize cef with the provided settings
+            if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
+            chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri);
+            pCEF.Controls.Add(chromiumWebBrowser1);
+            chromiumWebBrowser1.ConsoleMessage += cef_consoleMessage;
+            chromiumWebBrowser1.FindHandler = new FindHandler(this);
+            chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this);
+            chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(this);
+            chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this);
+            eventHandler = new NotificationsJSHandler();
+            eventHandler.EventArrived += JavascriptEventHandlerEventArrived;
+            chromiumWebBrowser1.JavascriptObjectRepository.Register("boundEventHandler", eventHandler, true, BindingOptions.DefaultBinder);
+            //chromiumWebBrowser1.JavascriptObjectRepository.Register("boundEventHandler", eventHandler, true, BindingOptions.DefaultBinder);
+            chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
+            chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
+            chromiumWebBrowser1.AddressChanged += cef_AddressChanged;
+            chromiumWebBrowser1.LoadError += cef_onLoadError;
+            chromiumWebBrowser1.KeyDown += tabform_KeyDown;
+            chromiumWebBrowser1.LostFocus += cef_LostFocus;
+            chromiumWebBrowser1.Enter += cef_GotFocus;
+            chromiumWebBrowser1.GotFocus += cef_GotFocus;
+            chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(this);
+            chromiumWebBrowser1.LifeSpanHandler = new BrowserLifeSpanHandler(this);
+            chromiumWebBrowser1.DownloadHandler = new DownloadHandler(this);
+            chromiumWebBrowser1.JsDialogHandler = new JsHandler(this);
+            chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
+            chromiumWebBrowser1.JavascriptMessageReceived += OnBrowserJavascriptMessageReceived;
+            chromiumWebBrowser1.FrameLoadEnd += OnFrameLoadEnd;
+            chromiumWebBrowser1.MouseWheel += MouseScroll;
+            chromiumWebBrowser1.Dock = DockStyle.Fill;
+            chromiumWebBrowser1.Show();
+            if (defaultProxy != null && Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy))
+            {
+                SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy);
+            }
+            executeStartupExtensions();
 
+        }
+        public void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        {
+            if (e.Frame.IsMain)
+            {
+                //In the main frame we inject some javascript that's run on mouseUp
+                //You can hook any javascript event you like.
+                chromiumWebBrowser1.ExecuteScriptAsync(@"
+	  document.body.onmouseup = function()
+	  {
+		//CefSharp.PostMessage can be used to communicate between the browser
+		//and .Net, in this case we pass a simple string,
+		//complex objects are supported, passing a reference to Javascript methods
+		//is also supported.
+		//See https://github.com/cefsharp/CefSharp/issues/2775#issuecomment-498454221 for details
+		CefSharp.PostMessage(window.getSelection().toString());
+	  }
+	");
+            }
+        }
+
+        private void OnBrowserJavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs e)
+        {
+            var windowSelection = (string)e.Message;
+            //DO SOMETHING WITH THIS MESSAGE
+            //This event is called on a CEF Thread, to access your UI thread
+            //You can cast sender to ChromiumWebBrowser
+            //use Control.BeginInvoke/Dispatcher.BeginInvoke
+            var browser = (sender as ChromiumWebBrowser);
+            Console.WriteLine("[Korot.OnBrowserJSMessageReceived] Link=\"" + browser.Address + "\" windowSelection=\"" + windowSelection + "\"");
+
+        }
+        private void JavascriptEventHandlerEventArrived(string eventName, dynamic eventArgs)
+        {
+            var id = eventArgs.id;
+            var tagName = eventArgs.tagName;
+            var link = eventArgs.link;
+            Console.WriteLine("[Korot.JSEHEventArrived] eventName=\"" + eventName + "\" id=\"" + id + "\" tagName=\"" + tagName + "\" link=\"" + link + "\"");
+        }
         private void RefreshHistory()
         {
             int selectedValue = hlvHistory.SelectedIndices.Count > 0 ? hlvHistory.SelectedIndices[0] : 0;
@@ -1639,75 +1746,7 @@ namespace Korot
                 });
             }
         }
-        public NotificationsJSHandler eventHandler;
-        public void InitializeChromium()
-        {
-            CefSettings settings = new CefSettings
-            {
-                UserAgent = "Mozilla/5.0 ( Windows "
-                + Tools.getOSInfo()
-                + "; "
-                + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
-                + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
-                + Cef.ChromiumVersion
-                + " Safari/537.36 Korot/"
-                + Application.ProductVersion.ToString()
-            };
-            if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
-            else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
-            settings.RegisterScheme(new CefCustomScheme
-            {
-                SchemeName = "korot",
-                SchemeHandlerFactory = new SchemeHandlerFactory(this)
-                {
-                    extKEM = "",
-                    isExt = false,
-                    extForm = null
-                }
-            });
-            // Initialize cef with the provided settings
-            if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
-            chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri);
-            pCEF.Controls.Add(chromiumWebBrowser1);
-            chromiumWebBrowser1.ConsoleMessage += cef_consoleMessage;
-            chromiumWebBrowser1.FindHandler = new FindHandler(this);
-            chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this);
-            chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(this);
-            chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this);
-            eventHandler = new NotificationsJSHandler();
-            eventHandler.EventArrived += JavascriptEventHandlerEventArrived;
-            chromiumWebBrowser1.JavascriptObjectRepository.Register("boundEventHandler", eventHandler, true, BindingOptions.DefaultBinder);
-            //chromiumWebBrowser1.JavascriptObjectRepository.Register("boundEventHandler", eventHandler, true, BindingOptions.DefaultBinder);
-            chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
-            chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
-            chromiumWebBrowser1.AddressChanged += cef_AddressChanged;
-            chromiumWebBrowser1.LoadError += cef_onLoadError;
-            chromiumWebBrowser1.KeyDown += tabform_KeyDown;
-            chromiumWebBrowser1.LostFocus += cef_LostFocus;
-            chromiumWebBrowser1.Enter += cef_GotFocus;
-            chromiumWebBrowser1.GotFocus += cef_GotFocus;
-            chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(this);
-            chromiumWebBrowser1.LifeSpanHandler = new BrowserLifeSpanHandler(this);
-            chromiumWebBrowser1.DownloadHandler = new DownloadHandler(this);
-            chromiumWebBrowser1.JsDialogHandler = new JsHandler(this);
-            chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
-            chromiumWebBrowser1.MouseWheel += MouseScroll;
-            chromiumWebBrowser1.Dock = DockStyle.Fill;
-            chromiumWebBrowser1.Show();
-            if (defaultProxy != null && Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy))
-            {
-                SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy);
-            }
-            executeStartupExtensions();
-
-        }
-        private void JavascriptEventHandlerEventArrived(string eventName, dynamic eventArgs)
-        {
-                var id = eventArgs.id;
-                var tagName = eventArgs.tagName;
-                var link = eventArgs.link;
-                Console.WriteLine("[Korot.JSEHEventArrived] eventName=\"" + eventName + "\" id=\"" + id + "\" tagName=\"" + tagName + "\" link=\"" + link + "\"");
-        }
+        
         private void cef_GotFocus(object sender, EventArgs e)
         {
                 Invoke(new Action(() => {
