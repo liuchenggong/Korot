@@ -235,6 +235,7 @@
     </Compile>
     <Compile Include="Source Code\Handlers\FindHandler.cs" />
     <Compile Include="Source Code\Handlers\KeyboardHandler.cs" />
+    <Compile Include="Source Code\Handlers\NotificationsJSHandler.cs" />
     <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
     <Compile Include="Source Code\Others\CustomLinkLabel.cs">
       <SubType>Component</SubType>
@@ -485,6 +486,8 @@
     <None Include="Resources\tip-tema.png" />
     <None Include="Resources\collection.png" />
     <None Include="Resources\collection-w.png" />
+    <None Include="Resources\cefboundtext.html" />
+    <None Include="Resources\boundTest2.html" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

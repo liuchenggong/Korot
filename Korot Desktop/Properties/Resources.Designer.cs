@@ -161,6 +161,27 @@ namespace Korot.Properties {
         }
         
         /// <summary>
+        ///   &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;CefSharp Javascript Binding Demo&lt;/title&gt;
+        ///
+        ///    &lt;script type=&quot;text/javascript&quot;&gt;
+        ///        //Here we have a simple method that helps us call our bound object from an event
+        ///        //To bind multiple events to the one bound object this method should be modified
+        ///        CefSharp.RegisterEvent = async function (boundObjName, boundObjMethodName, targetObj, evtName)
+        ///        {
+        ///            a [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string boundTest2 {
+            get {
+                return ResourceManager.GetString("boundTest2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static System.Drawing.Bitmap cancel {
@@ -177,6 +198,27 @@ namespace Korot.Properties {
             get {
                 object obj = ResourceManager.GetObject("cancel_w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;CefSharp Javascript Binding Demo&lt;/title&gt;
+        ///
+        ///    &lt;script type=&quot;text/javascript&quot;&gt;
+        ///        //Here we have a simple method that helps us call our bound object from an event
+        ///        //To bind multiple events to the one bound object this method should be modified
+        ///        CefSharp.RegisterEvent = async function (boundObjName, boundObjMethodName, targetObj, evtName)
+        ///        {
+        ///            a [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string cefboundtext {
+            get {
+                return ResourceManager.GetString("cefboundtext", resourceCulture);
             }
         }
         

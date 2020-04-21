@@ -1639,6 +1639,7 @@ namespace Korot
                 });
             }
         }
+        public NotificationsJSHandler eventHandler;
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings
@@ -1673,6 +1674,10 @@ namespace Korot
             chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this);
             chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(this);
             chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this);
+            eventHandler = new NotificationsJSHandler();
+            eventHandler.EventArrived += JavascriptEventHandlerEventArrived;
+            chromiumWebBrowser1.JavascriptObjectRepository.Register("boundEventHandler", eventHandler, true, BindingOptions.DefaultBinder);
+            //chromiumWebBrowser1.JavascriptObjectRepository.Register("boundEventHandler", eventHandler, true, BindingOptions.DefaultBinder);
             chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
             chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
             chromiumWebBrowser1.AddressChanged += cef_AddressChanged;
@@ -1695,6 +1700,13 @@ namespace Korot
             }
             executeStartupExtensions();
 
+        }
+        private void JavascriptEventHandlerEventArrived(string eventName, dynamic eventArgs)
+        {
+                var id = eventArgs.id;
+                var tagName = eventArgs.tagName;
+                var link = eventArgs.link;
+                Console.WriteLine("[Korot.JSEHEventArrived] eventName=\"" + eventName + "\" id=\"" + id + "\" tagName=\"" + tagName + "\" link=\"" + link + "\"");
         }
         private void cef_GotFocus(object sender, EventArgs e)
         {
@@ -1723,7 +1735,7 @@ namespace Korot
         }
         private void cef_consoleMessage(object sender, ConsoleMessageEventArgs e)
         {
-            Output.WriteLine(" [Korot.ConsoleMessage] Message received: [Line: " + e.Line + "Level: " + e.Level + " Source: " + e.Source + " Message:" + e.Message + "]");
+            Output.WriteLine(" [Korot.ConsoleMessage] Message received: [Line: " + e.Line + " Level: " + e.Level + " Source: " + e.Source + " Message:" + e.Message + "]");
         }
         public void updateExtensions()
         {
@@ -2562,7 +2574,13 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 hsUnknown.OverlayColor = Properties.Settings.Default.OverlayColor;
                 hlvDownload.OverlayColor = Properties.Settings.Default.OverlayColor;
                 hlvHistory.OverlayColor = Properties.Settings.Default.OverlayColor;
-                if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                if (Cef.IsInitialized)
+                {
+                    if (chromiumWebBrowser1.IsBrowserInitialized)
+                    {
+                        if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                    }
+                }
             }
             if (Properties.Settings.Default.BackColor != oldBackColor)
             {
@@ -2570,7 +2588,13 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 updateFavoritesImages();
                 label2.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 label2.BackColor = Properties.Settings.Default.BackColor;
-                if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                if (Cef.IsInitialized)
+                {
+                    if (chromiumWebBrowser1.IsBrowserInitialized)
+                    {
+                        if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                    }
+                }
                 cmsFavorite.BackColor = Properties.Settings.Default.BackColor;
                 cmsIncognito.BackColor = Properties.Settings.Default.BackColor;
                 oldBackColor = Properties.Settings.Default.BackColor;

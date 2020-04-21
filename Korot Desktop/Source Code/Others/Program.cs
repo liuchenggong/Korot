@@ -37,7 +37,7 @@ namespace Korot
         private static void Main(string[] args)
         {
             bool isPreRelease = true;
-            int preVer = 3;
+            int preVer = 4;
             Cef.EnableHighDPISupport();
             CollectionManager colman = new CollectionManager();
             Properties.Settings.Default.dismissUpdate = false;
