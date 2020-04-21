@@ -210,11 +210,17 @@ namespace Korot.Properties {
         ///    &lt;title&gt;CefSharp Javascript Binding Demo&lt;/title&gt;
         ///
         ///    &lt;script type=&quot;text/javascript&quot;&gt;
-        ///        //Here we have a simple method that helps us call our bound object from an event
-        ///        //To bind multiple events to the one bound object this method should be modified
-        ///        CefSharp.RegisterEvent = async function (boundObjName, boundObjMethodName, targetObj, evtName)
+        ///        //Register the object immediately
+        ///        (async function ()
         ///        {
-        ///            a [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        ///            await CefSharp.BindObjectAsync(&quot;simpleBoundEventHandler&quot;);
+        ///        })();
+        ///    &lt;/script&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;h1&gt;CefSharp Javascript Binding Demo - Simple.html&lt;/h1&gt;
+        ///
+        ///    The button below will call a c# method t [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         internal static string cefboundtext {
             get {
@@ -663,6 +669,30 @@ namespace Korot.Properties {
             get {
                 object obj = ResourceManager.GetObject("newwindow_w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;head&gt;
+        ///&lt;title&gt;Notification Test Page&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///&lt;button onclick=&quot;notifyMe()&quot;&gt;Notify me!&lt;/button&gt;
+        ///&lt;script&gt;
+        ///function notifyMe() {
+        ///  // Let&apos;s check if the browser supports notifications
+        ///  if (!(&quot;Notification&quot; in window)) {
+        ///    alert(&quot;This browser does not support desktop notification&quot;);
+        ///  }
+        ///
+        ///  // Let&apos;s check whether notification permissions have already been granted
+        ///  else if (Notification.permission === &quot;granted&quot;) {
+        ///    // If it&apos;s okay let&apos;s create a notification
+        ///    var notificatio [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string notificationTest {
+            get {
+                return ResourceManager.GetString("notificationTest", resourceCulture);
             }
         }
         

@@ -91,6 +91,11 @@ namespace Korot
 
                     return ResourceHandler.FromString(Properties.Resources.cefboundtext);
                 }
+                else if (request.Url == "korot://notificationtest/")
+                {
+
+                    return ResourceHandler.FromString(Properties.Resources.notificationTest);
+                }
                 else if (request.Url == "korot://boundtest2/")
                 {
 
