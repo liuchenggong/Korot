@@ -78,15 +78,7 @@ namespace Korot
             InitializeComponent();
             InitializeChromium();
             updateExtensions();
-            // Create new notification like this:
-            Notification newNot = new Notification() { 
-                url = "https://haltroy.com", 
-                imageUrl = "https://haltroy.com/assets/images/ht-logo-2020.png", 
-                message = "Test \n Test", 
-                title = "This is an example notification" };
-            frmNotification notifyForm = new frmNotification(this, newNot);
-            notifyForm.Show();
-            // End of example
+
             frmCollection collectionManager = new frmCollection(this)
             {
                 TopLevel = false,
@@ -181,34 +173,20 @@ namespace Korot
         }
         public void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
-            if (e.Frame.IsMain)
+            if (e.Frame.IsMain && chromiumWebBrowser1.CanExecuteJavascriptInMainFrame)
             {
-                //In the main frame we inject some javascript that's run on mouseUp
-                //You can hook any javascript event you like.
-                chromiumWebBrowser1.ExecuteScriptAsync(@"
-	  document.body.onmouseup = function()
-	  {
-		//CefSharp.PostMessage can be used to communicate between the browser
-		//and .Net, in this case we pass a simple string,
-		//complex objects are supported, passing a reference to Javascript methods
-		//is also supported.
-		//See https://github.com/cefsharp/CefSharp/issues/2775#issuecomment-498454221 for details
-		CefSharp.PostMessage(window.getSelection().toString());
-	  }
-	");
+                    //In the main frame we inject some javascript that's run on mouseUp
+                    //You can hook any javascript event you like.
+                    chromiumWebBrowser1.ExecuteScriptAsync(@"" + Properties.Resources.notification);
             }
         }
 
         private void OnBrowserJavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs e)
         {
             var windowSelection = (string)e.Message;
-            //DO SOMETHING WITH THIS MESSAGE
-            //This event is called on a CEF Thread, to access your UI thread
-            //You can cast sender to ChromiumWebBrowser
-            //use Control.BeginInvoke/Dispatcher.BeginInvoke
             var browser = (sender as ChromiumWebBrowser);
-            Console.WriteLine("[Korot.OnBrowserJSMessageReceived] Link=\"" + browser.Address + "\" windowSelection=\"" + windowSelection + "\"");
 
+            Console.WriteLine("[Korot.OnBrowserJSMessageReceived] Link=\"" + browser.Address + "\" windowSelection=\"" + windowSelection + "\"");
         }
         private void JavascriptEventHandlerEventArrived(string eventName, dynamic eventArgs)
         {
@@ -440,6 +418,8 @@ namespace Korot
             }
         }
         #region "Translate"
+        public string allow = "Allow";
+        public string deny = "Deny";
         public string ubuntuLicense = "Ubuntu Font License";
         public string newProfileInfo = "Please enter a name for the new profile.It should not contain: ";
         public string Yes = "Yes";
@@ -2225,6 +2205,18 @@ namespace Korot
             }
             LoadLangFromFile(Properties.Settings.Default.LangFile);
             cbLang.Text = Path.GetFileNameWithoutExtension(Properties.Settings.Default.LangFile);
+            // Create new notification like this:
+            Notification newNot = new Notification()
+            {
+                url = "https://haltroy.com",
+                imageUrl = "https://haltroy.com/assets/images/ht-logo-2020.png",
+                message = "Test \n Test",
+                title = "This is an example notification"
+            };
+            frmNotification notifyForm = new frmNotification(this, newNot);
+            anaform.notifications.Add(notifyForm);
+            notifyForm.Show();
+            // End of example
         }
         private void button4_Click(object sender, EventArgs e)
         {

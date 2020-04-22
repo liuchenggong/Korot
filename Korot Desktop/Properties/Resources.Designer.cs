@@ -673,22 +673,58 @@ namespace Korot.Properties {
         }
         
         /// <summary>
-        ///   &lt;head&gt;
-        ///&lt;title&gt;Notification Test Page&lt;/title&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///&lt;button onclick=&quot;notifyMe()&quot;&gt;Notify me!&lt;/button&gt;
-        ///&lt;script&gt;
-        ///function notifyMe() {
-        ///  // Let&apos;s check if the browser supports notifications
-        ///  if (!(&quot;Notification&quot; in window)) {
-        ///    alert(&quot;This browser does not support desktop notification&quot;);
-        ///  }
+        ///   /**
+        /// * Notification JS
+        /// * Shims up the Notification API
+        /// *
+        /// * @author Andrew Dodson
+        /// * @website http://adodson.com/notification.js/
+        /// */
         ///
-        ///  // Let&apos;s check whether notification permissions have already been granted
-        ///  else if (Notification.permission === &quot;granted&quot;) {
-        ///    // If it&apos;s okay let&apos;s create a notification
-        ///    var notificatio [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /////
+        ///// Does the browser support the the Notification API?
+        ///// .. and does it have a permission property?
+        /////
+        ///
+        ///(function(window, document){
+        ///
+        ///	var PERMISSION_GRANTED = &apos;granted&apos;,
+        ///		PERMISSION_DENIED = &apos;denied&apos;,
+        ///		PERMISSION_UNKNOWN = &apos;unknown&apos;;
+        ///	
+        ///	var a = [], iv, i=0;
+        ///
+        ///	//
+        ///	// Swap the document.title with the notification
+        ///	//
+        ///	function swaptitle(title){
+        ///	
+        ///		if(a.length===0){
+        ///		 [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string notification {
+            get {
+                return ResourceManager.GetString("notification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;!--
+        ///   Copied example from https://developer.mozilla.org/en-US/docs/Web/API/notification
+        ///--&gt;
+        ///&lt;body&gt;
+        ///    &lt;h5&gt;Notification Test Page&lt;/h5&gt;
+        ///    &lt;button onClick=&quot;notifyMe()&quot;&gt;Notify Me!&lt;/button&gt;
+        ///    &lt;script&gt;
+        ///        function notifyMe() {
+        ///            // Let&apos;s check if the browser supports notifications
+        ///            if (!(&quot;Notification&quot; in window)) {
+        ///                alert(&quot;Not Implemented.&quot;);
+        ///            }
+        ///
+        ///            // Let&apos;s check whether notification permissions have alread [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         internal static string notificationTest {
             get {

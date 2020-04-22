@@ -38,6 +38,7 @@ namespace Korot
         public int preVer = 0;
         public List<DownloadItem> CurrentDownloads = new List<DownloadItem>();
         public List<string> CancelledDownloads = new List<string>();
+        public List<frmNotification> notifications { get; set; }
         public bool isIncognito = false;
         public KorotTabRenderer tabRenderer;
         public CollectionManager colman;

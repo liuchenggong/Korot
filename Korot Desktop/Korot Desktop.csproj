@@ -498,6 +498,7 @@
     <None Include="Resources\cefboundtext.html" />
     <None Include="Resources\boundTest2.html" />
     <None Include="Resources\notificationTest.html" />
+    <None Include="Resources\notification.js" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
