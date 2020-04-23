@@ -43,8 +43,15 @@ namespace Korot
         #region "Not in use"
         public void OnAddressChanged(IWebBrowser chromiumWebBrowser, AddressChangedEventArgs addressChangedArgs) { return; }
         public void OnTitleChanged(IWebBrowser chromiumWebBrowser, TitleChangedEventArgs titleChangedArgs) { return; }
-        public bool OnTooltipChanged(IWebBrowser chromiumWebBrowser, ref string text) => false;
-        public bool OnAutoResize(IWebBrowser chromiumWebBrowser, IBrowser browser, CefSharp.Structs.Size newSize) => false;
+        public bool OnTooltipChanged(IWebBrowser chromiumWebBrowser, ref string text)
+        {
+            return false;
+        }
+
+        public bool OnAutoResize(IWebBrowser chromiumWebBrowser, IBrowser browser, CefSharp.Structs.Size newSize)
+        {
+            return false;
+        }
         #endregion
         public bool OnConsoleMessage(IWebBrowser chromiumWebBrowser, ConsoleMessageEventArgs consoleMessageArgs)
         {

@@ -173,7 +173,7 @@ namespace Korot
                 _activeLeftSideImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 30), Tools.GerekiyorsaAzalt(BackColor.G, 30), Tools.GerekiyorsaAzalt(BackColor.B, 30))) : Tools.ColorReplace(Resources.KorotLeft, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 30, 255), Tools.GerekiyorsaArttır(BackColor.G, 30, 255), Tools.GerekiyorsaArttır(BackColor.B, 30, 255)));
                 _activeRightSideImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 30), Tools.GerekiyorsaAzalt(BackColor.G, 30), Tools.GerekiyorsaAzalt(BackColor.B, 30))) : Tools.ColorReplace(Resources.KorotRight, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 30, 255), Tools.GerekiyorsaArttır(BackColor.G, 30, 255), Tools.GerekiyorsaArttır(BackColor.B, 30, 255)));
                 _activeCenterImage = Tools.isBright(BackColor) ? Tools.ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaAzalt(BackColor.R, 30), Tools.GerekiyorsaAzalt(BackColor.G, 30), Tools.GerekiyorsaAzalt(BackColor.B, 30))) : Tools.ColorReplace(Resources.KorotCenter, 50, Color.White, Color.FromArgb(255, Tools.GerekiyorsaArttır(BackColor.R, 30, 255), Tools.GerekiyorsaArttır(BackColor.G, 30, 255), Tools.GerekiyorsaArttır(BackColor.B, 30, 255)));
-                
+
                 //_background = Tools.ColorReplace(Resources.KorotBackground, 50, Color.White, BackColor);
                 if (Properties.Settings.Default.closeColor == 0)
                 {

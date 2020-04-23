@@ -61,13 +61,7 @@ namespace Korot
         private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
         private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
         public CollectionManager colManager;
-        public frmMain anaform
-        {
-            get
-            {
-                return ((frmMain)ParentTabs);
-            }
-        }
+        public frmMain anaform => ((frmMain)ParentTabs);
         public frmCEF(bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0")
         {
             loaduri = loadurl;
@@ -170,8 +164,8 @@ namespace Korot
             if (e.Frame.IsMain && chromiumWebBrowser1.CanExecuteJavascriptInMainFrame)
             {
                 //It was Java. Then it turned itself to CLR. It's called C#. Funniest shit I've ever seen.
-                chromiumWebBrowser1.ExecuteScriptAsync(@"  " + Properties.Resources.notificationDefault.Replace("[$]",getNotificationPermission(e.Frame.Url)));
-            
+                chromiumWebBrowser1.ExecuteScriptAsync(@"  " + Properties.Resources.notificationDefault.Replace("[$]", getNotificationPermission(e.Frame.Url)));
+
             }
         }
         public string getNotificationPermission(string url)
@@ -179,11 +173,11 @@ namespace Korot
             string x = Tools.getBaseURL(url);
             if (Properties.Settings.Default.notificationAllow.Contains(x))
             {
-                    return "granted";
+                return "granted";
             }
             if (Properties.Settings.Default.notificationBlock.Contains(x))
             {
-                    return "denied";
+                return "denied";
             }
             return "denied";
         }
@@ -201,17 +195,19 @@ namespace Korot
                 if (anaform.notificationAsked.Contains(baseUrl)) { return; }
                 else
                 {
-                    frmNotificationPermission newPerm = new frmNotificationPermission(this, baseUrl);
-                    newPerm.Location = new Point(pictureBox2.Location.X, panel2.Height);
-                    newPerm.TopLevel = false;
-                    newPerm.Visible = true;
+                    frmNotificationPermission newPerm = new frmNotificationPermission(this, baseUrl)
+                    {
+                        Location = new Point(pictureBox2.Location.X, panel2.Height),
+                        TopLevel = false,
+                        Visible = true
+                    };
                     Controls.Add(newPerm);
                     newPerm.Show();
                     newPerm.Focus();
                     newPerm.BringToFront();
                 }
             }));
-        } 
+        }
         public void refreshPage()
         {
             chromiumWebBrowser1.Refresh();
@@ -219,12 +215,13 @@ namespace Korot
 
         private void OnBrowserJavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs e)
         {
-            var message = (string)e.Message;
-            var browser = (sender as ChromiumWebBrowser);
+            string message = (string)e.Message;
+            ChromiumWebBrowser browser = (sender as ChromiumWebBrowser);
             if (string.Equals(message, "[Korot.Notification.RequestPermission]"))
             {
                 requestNotificationPermission(browser.Address);
-            }else 
+            }
+            else
             {
                 if (message.ToLower().StartsWith("[korot.notification "))
                 {
@@ -243,7 +240,7 @@ namespace Korot
                         string image = node.Attributes["Icon"] != null ? node.Attributes["Icon"].Value : "";
                         string body = node.Attributes["Body"] != null ? node.Attributes["Body"].Value : "";
                         string title = node.Attributes["Message"] != null ? node.Attributes["Message"].Value : "";
-                        Notification newnot = new Notification() { url = browser.Address, message = body,title = title, imageUrl = image };
+                        Notification newnot = new Notification() { url = browser.Address, message = body, title = title, imageUrl = image };
                         PushNewNotification(newnot);
                     }
                 }
@@ -754,7 +751,7 @@ namespace Korot
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SF = Playlist.Split(token);
 
-            while (SF.Length != 350)
+            while (SF.Length != 366) //ncı gün
             {
                 Array.Resize<string>(ref SF, SF.Length + 1);
                 SF[SF.Length - 1] = "mmisingno";
@@ -791,8 +788,36 @@ namespace Korot
         }
         public void ReadLangFileFromTemp(string[] SplittedFase)
         {
-            if (SplittedFase.Length >= 320)
+            if (SplittedFase.Length >= 344)
             {
+                btNotification.Text = SplittedFase[324].Substring(1).Replace(Environment.NewLine, "");
+                lbNotifSetting.Text = SplittedFase[325].Substring(1).Replace(Environment.NewLine, "");
+                tpNotification.Text = SplittedFase[325].Substring(1).Replace(Environment.NewLine, "");
+                lbPlayNotifSound.Text = SplittedFase[326].Substring(1).Replace(Environment.NewLine, "");
+                lbSilentMode.Text = SplittedFase[327].Substring(1).Replace(Environment.NewLine, "");
+                lbSchedule.Text = SplittedFase[328].Substring(1).Replace(Environment.NewLine, "");
+                scheduleFrom.Text = SplittedFase[329].Substring(1).Replace(Environment.NewLine, "");
+                scheduleTo.Text = SplittedFase[330].Substring(1).Replace(Environment.NewLine, "");
+                lb24HType.Text = SplittedFase[331].Substring(1).Replace(Environment.NewLine, "");
+                scheduleEvery.Text = SplittedFase[332].Substring(1).Replace(Environment.NewLine, "");
+                lbSunday.Text = SplittedFase[333].Substring(1).Replace(Environment.NewLine, "");
+                lbMonday.Text = SplittedFase[334].Substring(1).Replace(Environment.NewLine, "");
+                lbTuesday.Text = SplittedFase[335].Substring(1).Replace(Environment.NewLine, "");
+                lbWednesday.Text = SplittedFase[336].Substring(1).Replace(Environment.NewLine, "");
+                lbThursday.Text = SplittedFase[337].Substring(1).Replace(Environment.NewLine, "");
+                lbFriday.Text = SplittedFase[338].Substring(1).Replace(Environment.NewLine, "");
+                lbSaturday.Text = SplittedFase[339].Substring(1).Replace(Environment.NewLine, "");
+                allowBlockSel.Text = SplittedFase[340].Substring(1).Replace(Environment.NewLine, "");
+                blockAllowSel.Text = SplittedFase[341].Substring(1).Replace(Environment.NewLine, "");
+                lbNotifAllow.Text = SplittedFase[342].Substring(1).Replace(Environment.NewLine, "");
+                tpNAllow.Text = SplittedFase[342].Substring(1).Replace(Environment.NewLine, "");
+                lbNotifBlock.Text = SplittedFase[343].Substring(1).Replace(Environment.NewLine, "");
+                tpNBlock.Text = SplittedFase[343].Substring(1).Replace(Environment.NewLine, "");
+                btAllowList.Text = SplittedFase[344].Substring(1).Replace(Environment.NewLine, "");
+                btBlockList.Text = SplittedFase[345].Substring(1).Replace(Environment.NewLine, "");
+                notificationPermission = SplittedFase[323].Substring(1).Replace(Environment.NewLine, "");
+                deny = SplittedFase[322].Substring(1).Replace(Environment.NewLine, "");
+                allow = SplittedFase[321].Substring(1).Replace(Environment.NewLine, "");
                 changeColID = SplittedFase[317].Substring(1).Replace(Environment.NewLine, "");
                 changeColIDInfo = SplittedFase[318].Substring(1).Replace(Environment.NewLine, "");
                 changeColText = SplittedFase[319].Substring(1).Replace(Environment.NewLine, "");
@@ -890,10 +915,10 @@ namespace Korot
                 label31.Text = SplittedFase[226 + 1].Substring(1).Replace(Environment.NewLine, "");
                 label32.Text = SplittedFase[227 + 1].Substring(1).Replace(Environment.NewLine, "");
                 rbNone.Text = SplittedFase[218 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbTile.Text=SplittedFase[219 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbCenter.Text=SplittedFase[220 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbStretch.Text=SplittedFase[221 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbZoom.Text=SplittedFase[222 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbTile.Text = SplittedFase[219 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbCenter.Text = SplittedFase[220 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbStretch.Text = SplittedFase[221 + 1].Substring(1).Replace(Environment.NewLine, "");
+                rbZoom.Text = SplittedFase[222 + 1].Substring(1).Replace(Environment.NewLine, "");
                 rbBackColor.Text = SplittedFase[223 + 1].Substring(1).Replace(Environment.NewLine, "");
                 rbForeColor.Text = SplittedFase[224 + 1].Substring(1).Replace(Environment.NewLine, "");
                 rbOverlayColor.Text = SplittedFase[225 + 1].Substring(1).Replace(Environment.NewLine, "");
@@ -1042,8 +1067,12 @@ namespace Korot
                 tsThemes.Text = SplittedFase[94 + 1].Substring(1).Replace(Environment.NewLine, "");
                 caseSensitiveToolStripMenuItem.Text = SplittedFase[59 + 1].Substring(1).Replace(Environment.NewLine, "");
                 customToolStripMenuItem.Text = SplittedFase[14 + 1].Substring(1).Replace(Environment.NewLine, "");
-                removeSelectedToolStripMenuItem.Text = SplittedFase[15 + 1].Substring(1).Replace(Environment.NewLine, "");
-                clearToolStripMenuItem.Text = SplittedFase[17 + 1].Substring(1).Replace(Environment.NewLine, "");
+                allowRS.Text = SplittedFase[16].Substring(1).Replace(Environment.NewLine, "");
+                blockRS.Text = SplittedFase[16].Substring(1).Replace(Environment.NewLine, "");
+                allowClear.Text = SplittedFase[18].Substring(1).Replace(Environment.NewLine, "");
+                blockClear.Text = SplittedFase[18].Substring(1).Replace(Environment.NewLine, "");
+                removeSelectedToolStripMenuItem.Text = SplittedFase[16].Substring(1).Replace(Environment.NewLine, "");
+                clearToolStripMenuItem.Text = SplittedFase[18].Substring(1).Replace(Environment.NewLine, "");
                 settingstitle = SplittedFase[9 + 1].Substring(1).Replace(Environment.NewLine, "");
                 historyToolStripMenuItem.Text = SplittedFase[10 + 1].Substring(1).Replace(Environment.NewLine, "");
                 label4.Text = SplittedFase[10 + 1].Substring(1).Replace(Environment.NewLine, "");
@@ -1421,6 +1450,17 @@ namespace Korot
                 tbHomepage.Text = Properties.Settings.Default.Homepage;
             }
         }
+        public int fromH = -1;
+        public int fromM = -1;
+        public int toH = -1;
+        public int toM = -1;
+        public bool Nsunday = false;
+        public bool Nmonday = false;
+        public bool Ntuesday = false;
+        public bool Nwednesday = false;
+        public bool Nthursday = false;
+        public bool Nfriday = false;
+        public bool Nsaturday = false;
         public void RefreshScheduledSiletMode()
         {
             if (Properties.Settings.Default.autoSilent)
@@ -1429,29 +1469,7 @@ namespace Korot
                 string[] SplittedFase = Playlist.Split(';');
                 if (SplittedFase.Length - 1 > 9)
                 {
-                    Console.WriteLine(SplittedFase[0]
-                                                             + ";"
-                                                             + SplittedFase[1]
-                                                             + ";"
-                                                             + SplittedFase[2]
-                                                             + ";"
-                                                             + SplittedFase[3]
-                                                             + ";"
-                                                             + SplittedFase[4]
-                                                             + ";"
-                                                             + SplittedFase[5]
-                                                             + ";"
-                                                             + SplittedFase[6]
-                                                             + ";"
-                                                             + SplittedFase[7]
-                                                             + ";"
-                                                             + SplittedFase[8]
-                                                             + ";"
-                                                             + SplittedFase[9]
-                                                             + ";"
-                                                             + SplittedFase[10]
-                                                             + ";"
-                        );
+
                     fromHour.Value = Convert.ToInt32(SplittedFase[0]);
                     fromMin.Value = Convert.ToInt32(SplittedFase[1]);
                     toHour.Value = Convert.ToInt32(SplittedFase[2]);
@@ -1463,6 +1481,17 @@ namespace Korot
                     bool thursday = SplittedFase[8] == "1";
                     bool friday = SplittedFase[9] == "1";
                     bool saturday = SplittedFase[10] == "1";
+                    fromH = Convert.ToInt32(SplittedFase[0]);
+                    fromM = Convert.ToInt32(SplittedFase[1]);
+                    toH = Convert.ToInt32(SplittedFase[2]);
+                    toM = Convert.ToInt32(SplittedFase[3]);
+                    Nsunday = sunday;
+                    Nmonday = monday;
+                    Ntuesday = tuesday;
+                    Nwednesday = wednesday;
+                    Nthursday = thursday;
+                    Nfriday = friday;
+                    Nsaturday = saturday;
                     lbSunday.BackColor = sunday ? Properties.Settings.Default.OverlayColor : Properties.Settings.Default.BackColor;
                     lbMonday.BackColor = monday ? Properties.Settings.Default.OverlayColor : Properties.Settings.Default.BackColor;
                     lbTuesday.BackColor = tuesday ? Properties.Settings.Default.OverlayColor : Properties.Settings.Default.BackColor;
@@ -1482,28 +1511,18 @@ namespace Korot
         }
         public void writeSchedules()
         {
-            Properties.Settings.Default.autoSilentMode = fromHour.Value
-                                                         + ";"
-                                                         + fromMin.Value
-                                                         + ";"
-                                                         + toHour.Value
-                                                         + ";"
-                                                         + toMin.Value
-                                                         + ";"
-                                                         + lbSunday.Tag != null ? lbSunday.Tag.ToString() : "0"
-                                                         + ";"
-                                                         + lbMonday.Tag != null ? lbMonday.Tag.ToString(): "0"
-                                                         + ";"
-                                                         + lbTuesday.Tag != null ? lbTuesday.Tag.ToString(): "0"
-                                                         + ";"
-                                                         + lbWednesday.Tag != null ? lbWednesday.Tag.ToString(): "0"
-                                                         + ";"
-                                                         + lbThursday.Tag != null ? lbThursday.Tag.ToString(): "0"
-                                                         + ";"
-                                                         + lbFriday.Tag != null ? lbFriday.Tag.ToString(): "0"
-                                                         + ";"
-                                                         + lbSaturday.Tag != null ? lbSaturday.Tag.ToString(): "0"
-                                                         + ";";
+            string ScheduleBuild = fromHour.Value + ";";
+            ScheduleBuild += fromMin.Value + ";";
+            ScheduleBuild += toHour.Value + ";";
+            ScheduleBuild += toMin.Value + ";";
+            ScheduleBuild += (lbSunday.Tag != null ? lbSunday.Tag.ToString() : "0") + ";";
+            ScheduleBuild += (lbMonday.Tag != null ? lbMonday.Tag.ToString() : "0") + ";";
+            ScheduleBuild += (lbTuesday.Tag != null ? lbTuesday.Tag.ToString() : "0") + ";";
+            ScheduleBuild += (lbWednesday.Tag != null ? lbWednesday.Tag.ToString() : "0") + ";";
+            ScheduleBuild += (lbThursday.Tag != null ? lbThursday.Tag.ToString() : "0") + ";";
+            ScheduleBuild += (lbFriday.Tag != null ? lbFriday.Tag.ToString() : "0") + ";";
+            ScheduleBuild += (lbSaturday.Tag != null ? lbSaturday.Tag.ToString() : "0") + ";";
+            Properties.Settings.Default.autoSilentMode = ScheduleBuild;
         }
         private void tmrRefresher_Tick(object sender, EventArgs e)
         {
@@ -1660,11 +1679,11 @@ namespace Korot
                 pictureBox4.BackColor == themeDefaultOverlayColor &&
                 layoutIsDefault && newTabIsDefault && closeIsDefault &&
                 ((themeDefaultBackstyle == "BACKCOLOR" && textBox4.Text == usingBC) || textBox4.Text == themeDefaultBackstyle))
-            { 
-                    Properties.Settings.Default.ThemeFile = appliedTheme;
-                    comboBox1.Text = themeName;
-                    Properties.Settings.Default.ThemeAuthor = themeOwner;
-                    Properties.Settings.Default.ThemeName = themeName;
+            {
+                Properties.Settings.Default.ThemeFile = appliedTheme;
+                comboBox1.Text = themeName;
+                Properties.Settings.Default.ThemeAuthor = themeOwner;
+                Properties.Settings.Default.ThemeName = themeName;
             }
             else
             {
@@ -1834,7 +1853,7 @@ namespace Korot
             if (isPreRelease)
             {
                 string currentPreVer = Application.ProductVersion.ToString() + "-pre" + preVer;
-                if (!string.Equals(currentPreVer,preNewest))
+                if (!string.Equals(currentPreVer, preNewest))
                 {
                     if (alreadyCheckedForUpdatesOnce || Properties.Settings.Default.dismissUpdate || _Incognito)
                     {
@@ -1968,26 +1987,28 @@ namespace Korot
                 });
             }
         }
-        
+
         private void cef_GotFocus(object sender, EventArgs e)
         {
-                Invoke(new Action(() => {
-                    cmsPrivacy.Hide();
-                    cmsPrivacy.Close();
-                    cmsProfiles.Hide();
-                    cmsProfiles.Close();
-                    if (!doNotDestroyFind)
-                    {
-                        cmsHamburger.Hide();
-                        cmsHamburger.Close();
-                    }
-                }));
+            Invoke(new Action(() =>
+            {
+                cmsPrivacy.Hide();
+                cmsPrivacy.Close();
+                cmsProfiles.Hide();
+                cmsProfiles.Close();
+                if (!doNotDestroyFind)
+                {
+                    cmsHamburger.Hide();
+                    cmsHamburger.Close();
+                }
+            }));
         }
-        private void cef_LostFocus(object sender,EventArgs e)
+        private void cef_LostFocus(object sender, EventArgs e)
         {
             if (cmsCEF != null)
             {
-                Invoke(new Action(() => {
+                Invoke(new Action(() =>
+                {
                     cmsCEF.Hide();
                     cmsCEF.Close();
                     cmsCEF = null;
@@ -2382,7 +2403,7 @@ namespace Korot
                 cmsFavorite.Show(MousePosition);
             }
         }
-        
+
         private void button4_Click(object sender, EventArgs e)
         {
             allowSwitching = true;
@@ -2721,7 +2742,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         public void tsFullscreen_Click(object sender, EventArgs e)
         {
-            this.Invoke(new Action(() => Fullscreenmode(!anaform.isFullScreen)));
+            Invoke(new Action(() => Fullscreenmode(!anaform.isFullScreen)));
         }
         private Image GetImageFromURL(string URL)
         {
@@ -2974,7 +2995,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tbAddress.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsAllow.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsBlock.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                
+
                 cmsHamburger.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsProfiles.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
@@ -2992,6 +3013,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 button1.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                 button2.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.refresh : Properties.Resources.refresh_w;
                 button3.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
+                btNotifAllowBack.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                btNotifBack.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                btNBlockBack.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                btCookieBack.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                 //button4.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.go : Properties.Resources.go_w;
                 button5.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.home : Properties.Resources.home_w;
                 button11.Image = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
@@ -3206,7 +3231,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         public void RefreshSizes()
         {
-            flpFrom.Location = new Point(scheduleFrom.Location.X + scheduleFrom.Width + 10,flpFrom.Location.Y);
+            flpFrom.Location = new Point(scheduleFrom.Location.X + scheduleFrom.Width + 10, flpFrom.Location.Y);
             scheduleTo.Location = new Point(flpFrom.Location.X + flpFrom.Width + 10, scheduleTo.Location.Y);
             flpTo.Location = new Point(scheduleTo.Location.X + scheduleTo.Width + 10, flpTo.Location.Y);
             flpEvery.Location = new Point(scheduleEvery.Location.X + scheduleEvery.Width + 10, flpEvery.Location.Y);
@@ -3564,7 +3589,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (anaform.settingTab != null) 
+            if (anaform.settingTab != null)
             {
                 anaform.SelectedTab = anaform.settingTab;
             }
@@ -3599,12 +3624,14 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 cef_GotFocus(sender, e);
                 resetPage();
-            }else if (tabControl1.SelectedTab == tpCert)
+            }
+            else if (tabControl1.SelectedTab == tpCert)
             {
                 cef_GotFocus(sender, e);
                 cef_LostFocus(sender, e);
                 resetPage();
-            } else
+            }
+            else
             {
                 cef_LostFocus(sender, e);
             }
@@ -4562,12 +4589,13 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void lbHaftaGunu_Click(object sender, EventArgs e)
         {
-            var myLabel = sender as Label;
+            Label myLabel = sender as Label;
             if (myLabel.Tag.ToString() == "1")
             {
                 myLabel.Tag = "0";
                 myLabel.BackColor = panel1.BackColor;
-            }else if (myLabel.Tag.ToString() == "0")
+            }
+            else if (myLabel.Tag.ToString() == "0")
             {
                 myLabel.Tag = "1";
                 myLabel.BackColor = Properties.Settings.Default.OverlayColor;
@@ -4691,6 +4719,38 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
 
         private void button19_Click_1(object sender, EventArgs e)
+        {
+            if (anaform.notificationTab != null)
+            {
+                anaform.SelectedTab = anaform.notificationTab;
+            }
+            else
+            {
+                resetPage(true);
+                anaform.notificationTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpNotification;
+            }
+        }
+
+        private void btNotifBack_Click(object sender, EventArgs e)
+        {
+            if (anaform.settingTab != null)
+            {
+                anaform.SelectedTab = anaform.settingTab;
+            }
+            else
+            {
+                resetPage(true);
+                anaform.settingTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpSettings;
+            }
+        }
+
+        private void btNBlockBack_Click(object sender, EventArgs e)
         {
             if (anaform.notificationTab != null)
             {

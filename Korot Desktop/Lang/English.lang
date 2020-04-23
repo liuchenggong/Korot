@@ -319,3 +319,28 @@ Change Collection ID
 Enter a valid ID for this collection.
 Change Collection Text
 Enter a valid Text for this collection.
+Allow
+Deny
+Allow "[URL]" for sending notifications?
+Notification Settings...
+Notification Settings
+Play Notification Sound:
+Silent Mode:
+Schedule Silent Mode:
+Start from:
+End at:
+Uses 24-hour type. Add 12 to hours for PM.
+Every:
+Su
+M
+T
+W 
+Th
+F
+S
+Block Selected
+Allow Selected
+Notification Allow List
+Notification Block List
+Allow List...
+Block List...

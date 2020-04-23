@@ -120,11 +120,11 @@ namespace Korot
                 string arch = Environment.Is64BitProcess ? "x64" : "x86";
                 Version current = new Version(Application.ProductVersion);
                 Version MinVersion = new Version(minmv);
-                if (isPreRelease) 
+                if (isPreRelease)
                 {
-                            UpdateType = 0;
-                            fileName = ".hup";
-                            downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", preNewest);
+                    UpdateType = 0;
+                    fileName = ".hup";
+                    downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", preNewest);
                 }
                 else
                 {

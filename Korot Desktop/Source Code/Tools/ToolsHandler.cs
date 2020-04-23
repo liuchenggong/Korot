@@ -45,8 +45,8 @@ namespace Korot
         }
         public static string getBaseURL(string url)
         {
-            var uri = new Uri(url);
-            var baseUri = uri.GetLeftPart(System.UriPartial.Authority);
+            Uri uri = new Uri(url);
+            string baseUri = uri.GetLeftPart(System.UriPartial.Authority);
             return baseUri;
         }
         public static string getOSInfo()

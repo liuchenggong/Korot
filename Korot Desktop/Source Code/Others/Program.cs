@@ -66,7 +66,7 @@ namespace Korot
                     {
                         if (UACControl.IsProcessElevated)
                         {
-                            Application.Run(new Form1() { isPreRelease = isPreRelease, preVer = preVer,});
+                            Application.Run(new Form1() { isPreRelease = isPreRelease, preVer = preVer, });
                             appStarted = true;
                         }
                         else
@@ -92,7 +92,8 @@ namespace Korot
                         frmMain testApp = new frmMain
                         {
                             notifications = notifications,
-                            isPreRelease = isPreRelease, preVer = preVer,
+                            isPreRelease = isPreRelease,
+                            preVer = preVer,
                             isIncognito = args.Contains("-incognito")
                         };
                         bool isIncognito = args.Contains("-incognito");

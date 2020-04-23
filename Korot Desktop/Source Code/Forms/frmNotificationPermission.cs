@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
 {
     public partial class frmNotificationPermission : Form
     {
-        bool alreadyAddedAllow = false;
-        bool alreadyAddedBlock = false;
-        string baseUrl;
-        frmCEF cefform;
-        public frmNotificationPermission(frmCEF _frmCEF,string url)
+        private readonly bool alreadyAddedAllow = false;
+        private readonly bool alreadyAddedBlock = false;
+        private readonly string baseUrl;
+        private readonly frmCEF cefform;
+        public frmNotificationPermission(frmCEF _frmCEF, string url)
         {
             baseUrl = url;
             cefform = _frmCEF;
@@ -81,7 +75,7 @@ namespace Korot
 
         private void frmNotificationPermission_Load(object sender, EventArgs e)
         {
-                
+
         }
     }
 }

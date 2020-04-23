@@ -1,13 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Media;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
@@ -16,9 +10,9 @@ namespace Korot
     {
         public bool isPreRelease = false;
         public int preVer = 0;
-        frmCEF cefform;
-        Notification notification;
-        public frmNotification(frmCEF _frmCEF,Notification _n)
+        private readonly frmCEF cefform;
+        private readonly Notification notification;
+        public frmNotification(frmCEF _frmCEF, Notification _n)
         {
             cefform = _frmCEF;
             notification = _n;
@@ -27,10 +21,12 @@ namespace Korot
             lbTitle.Text = notification.title;
             lbMessage.Text = notification.message;
             pbImage.ImageLocation = notification.imageUrl;
-            if (!Properties.Settings.Default.quietMode) { PlayNotificationSound(); }
         }
+
+        private bool playedSound = false;
         public void PlayNotificationSound()
         {
+            if (playedSound) { return; }
             bool isw7 = Tools.getOSInfo() == "NT 6.1";
             if (!isw7)
             {
@@ -41,10 +37,10 @@ namespace Korot
                     {
                         if (key != null)
                         {
-                            Object o = key.GetValue(null); // pass null to get (Default)
+                            object o = key.GetValue(null);
                             if (o != null)
                             {
-                                SoundPlayer theSound = new SoundPlayer((String)o);
+                                SoundPlayer theSound = new SoundPlayer((string)o);
                                 theSound.Play();
                                 found = true;
                             }
@@ -54,7 +50,9 @@ namespace Korot
                 catch
                 { }
                 if (!found)
-                    SystemSounds.Beep.Play(); // consolation prize
+                {
+                    SystemSounds.Beep.Play();
+                }
             }
             else
             {
@@ -65,10 +63,10 @@ namespace Korot
                     {
                         if (key != null)
                         {
-                            Object o = key.GetValue(null); // pass null to get (Default)
+                            object o = key.GetValue(null);
                             if (o != null)
                             {
-                                SoundPlayer theSound = new SoundPlayer((String)o);
+                                SoundPlayer theSound = new SoundPlayer((string)o);
                                 theSound.Play();
                                 found = true;
                             }
@@ -78,8 +76,11 @@ namespace Korot
                 catch
                 { }
                 if (!found)
-                    SystemSounds.Beep.Play(); // consolation prize
+                {
+                    SystemSounds.Beep.Play();
+                }
             }
+            playedSound = true;
         }
         private void notification_Click(object sender, EventArgs e)
         {
@@ -92,7 +93,73 @@ namespace Korot
         }
         private void frmNotification_Load(object sender, EventArgs e)
         {
-            lbKorot.Text = "Korot " +  Application.ProductVersion.ToString() + (isPreRelease ? "-pre" + preVer : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
+            checkSilentMode();
+            if (Properties.Settings.Default.silentAllNotifications) { Hide(); }
+            if (!Properties.Settings.Default.quietMode) { PlayNotificationSound(); }
+            lbKorot.Text = "Korot " + Application.ProductVersion.ToString() + (isPreRelease ? "-pre" + preVer : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
+        }
+
+        private void checkSilentMode()
+        {
+            if (Properties.Settings.Default.autoSilent)
+            {
+                DayOfWeek wk = DateTime.Today.DayOfWeek;
+                if ((cefform.Nsunday && wk == DayOfWeek.Sunday)
+                    || (cefform.Nmonday && wk == DayOfWeek.Monday)
+                    || (cefform.Ntuesday && wk == DayOfWeek.Tuesday)
+                    || (cefform.Nwednesday && wk == DayOfWeek.Wednesday)
+                    || (cefform.Nthursday && wk == DayOfWeek.Thursday)
+                    || (cefform.Nfriday && wk == DayOfWeek.Friday)
+                    || (cefform.Nsaturday && wk == DayOfWeek.Saturday))
+                {
+                    //it passed the first test to be silent.
+                    DateTime date = DateTime.Now;
+                    int h = date.Hour;
+                    int m = date.Minute;
+                    if (cefform.fromH < h)
+                    {
+                        if (cefform.toH > h)
+                        {
+                            Properties.Settings.Default.silentAllNotifications = true;
+                        }
+                        else if (cefform.toH == h)
+                        {
+                            if (m >= cefform.toM)
+                            {
+                                Properties.Settings.Default.silentAllNotifications = true;
+                            }
+                            else
+                            {
+                                Properties.Settings.Default.silentAllNotifications = false;
+                            }
+                        }
+                        else
+                        {
+                            Properties.Settings.Default.silentAllNotifications = false;
+                        }
+                    }
+                    else if (cefform.fromH == h)
+                    {
+                        if (m >= cefform.fromM)
+                        {
+                            Properties.Settings.Default.silentAllNotifications = true;
+                        }
+                        else
+                        {
+                            Properties.Settings.Default.silentAllNotifications = false;
+                        }
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.silentAllNotifications = false;
+                    }
+                }
+                else
+                {
+                    Properties.Settings.Default.silentAllNotifications = false;
+                }
+            }
+            if (Properties.Settings.Default.silentAllNotifications) { Properties.Settings.Default.quietMode = true; }
         }
 
         private void lbClose_Click(object sender, EventArgs e)
@@ -103,19 +170,22 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            checkSilentMode();
+            if (Properties.Settings.Default.silentAllNotifications) { Hide(); } else { Show(); }
+            if (!Properties.Settings.Default.quietMode) { PlayNotificationSound(); }
             Rectangle screenSize = Screen.GetWorkingArea(this);
-            int pointX = screenSize.Width - (this.Width + 10);
-            int pointY = screenSize.Height - ((cefform.anaform.notifications.IndexOf(this) + 1) 
+            int pointX = screenSize.Width - (Width + 10);
+            int pointY = screenSize.Height - ((cefform.anaform.notifications.IndexOf(this) + 1)
                 *
-                (this.Height + 10));
-            this.Location = new Point(pointX, pointY);
+                (Height + 10));
+            Location = new Point(pointX, pointY);
             BackColor = Properties.Settings.Default.BackColor;
             ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
         }
     }
     public class Notification
     {
-       public string url { get; set; }
+        public string url { get; set; }
         public string title { get; set; }
         public string message { get; set; }
         public string imageUrl { get; set; }

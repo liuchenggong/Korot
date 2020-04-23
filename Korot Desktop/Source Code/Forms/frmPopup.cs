@@ -23,14 +23,14 @@
 using CefSharp;
 using CefSharp.WinForms;
 using System;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Korot
 {
     public partial class frmPopup : Form
     {
-        private string loadurl;
+        private readonly string loadurl;
         private readonly frmCEF tabform;
         private readonly string userCache;
         private ChromiumWebBrowser chromiumWebBrowser1;
@@ -92,7 +92,7 @@ namespace Korot
         {
             Invoke(new Action(() => Text = e.Title));
         }
-        private void cef_AddressChanged(object sender,AddressChangedEventArgs e)
+        private void cef_AddressChanged(object sender, AddressChangedEventArgs e)
         {
             Invoke(new Action(() => tbAddress.Text = e.Address));
         }
@@ -117,7 +117,7 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            tbAddress.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor,20,false);
+            tbAddress.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
             tbAddress.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
         }
     }

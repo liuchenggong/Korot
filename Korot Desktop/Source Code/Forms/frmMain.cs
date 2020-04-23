@@ -312,13 +312,14 @@ namespace Korot
                 if (!wasMaximized)
                 {
                     WindowState = FormWindowState.Normal;
-                }else
+                }
+                else
                 {
                     WindowState = FormWindowState.Normal;
                     WindowState = FormWindowState.Maximized;
                 }
                 isFullScreen = false;
-                
+
             }
             FormBorderStyle = fullscreen ? FormBorderStyle.None : FormBorderStyle.Sizable;
         }

@@ -615,7 +615,7 @@ namespace Korot
                         AddButtonMarginTop + offset.Y, _addButtonImage.Width, _addButtonImage.Height);
                 bool cursorOverAddButton = IsOverAddButton(cursor);
                 Color _addButtonColor = cursorOverAddButton ? Tools.ShiftBrightnessIfNeeded(AddButtonColor, 20, false) : AddButtonColor;
-                graphicsContext.DrawString("+", new Font("Ubuntu", 25, FontStyle.Bold), new SolidBrush(_addButtonColor),_addButtonArea.X - 5,_addButtonArea.Y - 14);
+                graphicsContext.DrawString("+", new Font("Ubuntu", 25, FontStyle.Bold), new SolidBrush(_addButtonColor), _addButtonArea.X - 5, _addButtonArea.Y - 14);
                 //graphicsContext.DrawImage(
                 //                    cursorOverAddButton
                 //                        ? _addButtonHoverImage
@@ -678,7 +678,7 @@ namespace Korot
                             area.Width - tabRightImage.Width - CloseButtonMarginRight - closeButtonImage.Width, CloseButtonMarginTop, closeButtonImage.Width,
                             closeButtonImage.Height);
 
-                        tabGraphicsContext.DrawString("X", new Font("Ubuntu", 12, FontStyle.Bold), new SolidBrush(IsOverCloseButton(tab,cursor) ? Tools.ShiftBrightnessIfNeeded(CloseButtonColor,20,false): CloseButtonColor), tab.CloseButtonArea.X + 5, tab.CloseButtonArea.Y - 2);
+                        tabGraphicsContext.DrawString("X", new Font("Ubuntu", 12, FontStyle.Bold), new SolidBrush(IsOverCloseButton(tab, cursor) ? Tools.ShiftBrightnessIfNeeded(CloseButtonColor, 20, false) : CloseButtonColor), tab.CloseButtonArea.X + 5, tab.CloseButtonArea.Y - 2);
                         //tabGraphicsContext.DrawImage(
                         //    closeButtonImage, tab.CloseButtonArea, 0, 0,
                         //    closeButtonImage.Width, closeButtonImage.Height,
@@ -850,9 +850,14 @@ namespace Korot
         public static void DrawRoundedRectangle(this Graphics graphics, Pen pen, Rectangle bounds, int cornerRadius)
         {
             if (graphics == null)
+            {
                 throw new ArgumentNullException("graphics");
+            }
+
             if (pen == null)
+            {
                 throw new ArgumentNullException("pen");
+            }
 
             using (GraphicsPath path = RoundedRect(bounds, cornerRadius))
             {
@@ -863,9 +868,14 @@ namespace Korot
         public static void FillRoundedRectangle(this Graphics graphics, Brush brush, Rectangle bounds, int cornerRadius)
         {
             if (graphics == null)
+            {
                 throw new ArgumentNullException("graphics");
+            }
+
             if (brush == null)
+            {
                 throw new ArgumentNullException("brush");
+            }
 
             using (GraphicsPath path = RoundedRect(bounds, cornerRadius))
             {

@@ -19,7 +19,6 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
-using System;
 using System.Runtime.InteropServices;
 
 public class Taskbar
@@ -39,13 +38,7 @@ public class Taskbar
     private const int SW_HIDE = 0;
     private const int SW_SHOW = 1;
 
-    protected static int Handle
-    {
-        get
-        {
-            return FindWindow("Shell_TrayWnd", "");
-        }
-    }
+    protected static int Handle => FindWindow("Shell_TrayWnd", "");
 
     protected static int HandleOfStartButton
     {

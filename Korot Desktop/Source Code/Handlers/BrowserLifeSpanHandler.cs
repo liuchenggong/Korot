@@ -39,14 +39,16 @@ namespace Korot
         {
             if (targetDisposition == WindowOpenDisposition.NewPopup)
             {
-                frmPopup popup = new frmPopup(tabform, tabform.userName, targetUrl) {
-                StartPosition = FormStartPosition.Manual,
-                Location = new System.Drawing.Point(popupFeatures.X,popupFeatures.Y),
-                Width = popupFeatures.Width,
-                Height = popupFeatures.Height,
+                frmPopup popup = new frmPopup(tabform, tabform.userName, targetUrl)
+                {
+                    StartPosition = FormStartPosition.Manual,
+                    Location = new System.Drawing.Point(popupFeatures.X, popupFeatures.Y),
+                    Width = popupFeatures.Width,
+                    Height = popupFeatures.Height,
                 };
                 popup.Show();
-            }else
+            }
+            else
             {
                 tabform.NewTab(targetUrl);
             }
