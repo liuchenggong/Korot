@@ -14,6 +14,7 @@ Latest Dev Version: [`0.6.0.0-pre3`](https://github.com/Haltroy/Korot/tree/0.6.0
  - Theme system (Comes with [`Light`](https://haltroy.com/store/Korot/Themes/Haltroy.KorotLight/) and [`Dark`](https://haltroy.com/store/Korot/Themes/Haltroy.KorotDark/) theme)
  - Built-in Extension system (with support for proxies) & [Extension Store](https://haltroy.com/store/Korot/Extensions/)
  - Profiles
+ - Notifications (+0.6)
  - Download manager
  - Custom pages (New Tab, Incognito, Error Page etc.)
  - View local & online webpages
@@ -26,8 +27,7 @@ Latest Dev Version: [`0.6.0.0-pre3`](https://github.com/Haltroy/Korot/tree/0.6.0
 
  | Branch                                                              | CEF Version | VC++ Version | .Net | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-------------------|
-| [`master`](https://github.com/haltroy/korot)                      | 79+ | 2015 | Framework 4.8 | Development | Scheduled to ~24.4.2020 |
-| [`notificationTest`](https://github.com/Haltroy/Korot/tree/notificationsTest)                      | 79+ | 2015 | Framework 4.8 | _**Feature Development**_ | i have no idea |
+| [`master`](https://github.com/haltroy/korot)                      | 79+ | 2015 | Framework 4.8 | Development | Unknown |
 | [`0.6.0.0-pre3`](https://github.com/Haltroy/Korot/tree/0.6.0.0-pre3) | 79 | 2015 | Framework 4.8 | *Latest Pre-Release* | 17.4.2020 |
 | [`0.5.4.0`](https://github.com/Haltroy/Korot/tree/0.5.4.0) | 79 | 2015 | Framework 4.8 | **Latest Release** | 03.4.2020 |
 | `0.5.3.0` and lower | 79 | 2015 | Framework 4.5.2 | Unsupported | Before 03.4.2020 |
