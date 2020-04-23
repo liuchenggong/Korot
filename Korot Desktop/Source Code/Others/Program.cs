@@ -21,6 +21,7 @@
 //SOFTWARE.
 using CefSharp;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace Korot
         private static void Main(string[] args)
         {
             bool isPreRelease = true;
-            int preVer = 3;
+            int preVer = 4;
             Cef.EnableHighDPISupport();
             CollectionManager colman = new CollectionManager();
             Properties.Settings.Default.dismissUpdate = false;
@@ -47,6 +48,7 @@ namespace Korot
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             bool appStarted = false;
+            List<frmNotification> notifications = new List<frmNotification>();
             try
             {
                 if (!File.Exists(Properties.Settings.Default.LangFile)) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
@@ -89,6 +91,7 @@ namespace Korot
                     {
                         frmMain testApp = new frmMain
                         {
+                            notifications = notifications,
                             isPreRelease = isPreRelease, preVer = preVer,
                             isIncognito = args.Contains("-incognito")
                         };

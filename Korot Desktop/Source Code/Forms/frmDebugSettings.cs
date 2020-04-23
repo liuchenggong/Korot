@@ -131,6 +131,10 @@ namespace Korot
             if (selected < lbCookie.Items.Count) { lbCookie.SelectedIndex = selected; }
             int selected2 = lbExt.SelectedIndex; lbExt.Items.Clear(); foreach (string x in Properties.Settings.Default.registeredExtensions) { lbExt.Items.Add(x); }
             if (selected2 < lbExt.Items.Count) { lbExt.SelectedIndex = selected2; }
+            int selected3 = lbAllow.SelectedIndex; lbAllow.Items.Clear(); foreach (string x in Properties.Settings.Default.notificationAllow) { lbAllow.Items.Add(x); }
+            if (selected3 < lbAllow.Items.Count) { lbAllow.SelectedIndex = selected3; }
+            int selected4 = lbBlock.SelectedIndex; lbBlock.Items.Clear(); foreach (string x in Properties.Settings.Default.notificationBlock) { lbBlock.Items.Add(x); }
+            if (selected4 < lbBlock.Items.Count) { lbBlock.SelectedIndex = selected4; }
             tbHomepage.Text = Properties.Settings.Default.Homepage;
             tbThemeName.Text = Properties.Settings.Default.ThemeName;
             tbThemeAuthor.Text = Properties.Settings.Default.ThemeAuthor;
@@ -169,6 +173,10 @@ namespace Korot
             textBox2.Text = Properties.Settings.Default.KorotErrorDesc;
             textBox3.Text = Properties.Settings.Default.KorotErrorTI;
             checkBox7.Checked = Properties.Settings.Default.autoRestoreSessions;
+            checkBox8.Checked = !Properties.Settings.Default.quietMode;
+            checkBox9.Checked = Properties.Settings.Default.silentAllNotifications;
+            checkBox10.Checked = Properties.Settings.Default.autoSilent;
+            textBox4.Text = Properties.Settings.Default.autoSilentMode;
         }
 
         private void pbBack_Click(object sender, EventArgs e)
@@ -302,6 +310,26 @@ namespace Korot
         private void checkBox7_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.autoRestoreSessions = checkBox7.Checked;
+        }
+
+        private void checkBox9_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.silentAllNotifications = checkBox9.Checked;
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.quietMode = !checkBox8.Checked;
+        }
+
+        private void checkBox10_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.autoSilent = checkBox10.Checked;
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.autoSilentMode = textBox4.Text;
         }
     }
 }

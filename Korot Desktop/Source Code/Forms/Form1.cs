@@ -65,9 +65,9 @@ namespace Korot
             string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
-            StatusType = SplittedFase[93].Substring(1).Replace(Environment.NewLine, "");
-            installStatus = SplittedFase[92].Substring(1).Replace(Environment.NewLine, "");
-            Text = SplittedFase[1].Substring(1).Replace(Environment.NewLine, "");
+            StatusType = SplittedFase[94].Substring(1).Replace(Environment.NewLine, "");
+            installStatus = SplittedFase[93].Substring(1).Replace(Environment.NewLine, "");
+            Text = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
             installingTxt = SplittedFase[265].Substring(1).Replace(Environment.NewLine, "");
             label1.Text = installStatus;
             label2.Text = StatusType.Replace("[PERC]", "0").Replace("[CURRENT]", "0").Replace("[TOTAL]", "0");

@@ -625,6 +625,64 @@ namespace Korot.Properties {
         }
         
         /// <summary>
+        ///   /**
+        /// * Notification JS
+        /// * Shims up the Notification API
+        /// *
+        /// * @author Andrew Dodson
+        /// * @website http://adodson.com/notification.js/
+        /// * 
+        /// * Edited by Haltroy for
+        /// * Korot Desktop Client
+        /// * 0.6.0.0-pre4
+        /// * notificationTest branch
+        /// * github.com/haltroy/korot
+        /// */
+        ///
+        /////
+        ///// Does the browser support the the Notification API?
+        ///// .. and does it have a permission property?
+        /////
+        ///var korotNotificationPermission = &quot;[$]&quot;;
+        ///
+        ///(function (window, document) {
+        ///
+        ///	var PERMISSION_GRANTED = &apos;granted&apos;,
+        ///		PERMISSIO [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string notificationDefault {
+            get {
+                return ResourceManager.GetString("notificationDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;!--
+        ///   Copied example from https://developer.mozilla.org/en-US/docs/Web/API/notification
+        ///--&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;Notification Test Page&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;h5&gt;Notification Test Page&lt;/h5&gt;
+        ///    &lt;textarea id=&quot;ConsoleArea&quot;&gt;&lt;/textarea&gt;
+        ///
+        ///    &lt;button onClick=&quot;notifyMe()&quot;&gt;Notify Me!&lt;/button&gt;
+        ///    &lt;button onClick=&quot;requestNotification()&quot;&gt;Get Permission&lt;/button&gt;
+        ///    &lt;script&gt;
+        ///        console.log(&quot;Page loaded.&quot;);
+        ///        function requestNotification() {
+        ///            if (!(&quot;Not [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string notificationTest {
+            get {
+                return ResourceManager.GetString("notificationTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static System.Drawing.Bitmap profiles {

@@ -109,6 +109,16 @@ namespace Korot
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.tabPage14 = new System.Windows.Forms.TabPage();
+            this.lbBlock = new System.Windows.Forms.ListBox();
+            this.lbAllow = new System.Windows.Forms.ListBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -151,6 +161,7 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbOverlay)).BeginInit();
             this.tabPage13.SuspendLayout();
+            this.tabPage14.SuspendLayout();
             this.tabPage9.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -191,6 +202,7 @@ namespace Korot
             this.tabControl2.Controls.Add(this.tabPage12);
             this.tabControl2.Controls.Add(this.tabPage10);
             this.tabControl2.Controls.Add(this.tabPage13);
+            this.tabControl2.Controls.Add(this.tabPage14);
             this.tabControl2.Controls.Add(this.tabPage9);
             this.tabControl2.Controls.Add(this.tabPage2);
             this.tabControl2.Controls.Add(this.tabPage3);
@@ -873,6 +885,114 @@ namespace Korot
             this.checkBox4.UseVisualStyleBackColor = true;
             this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
+            // tabPage14
+            // 
+            this.tabPage14.Controls.Add(this.lbBlock);
+            this.tabPage14.Controls.Add(this.lbAllow);
+            this.tabPage14.Controls.Add(this.label29);
+            this.tabPage14.Controls.Add(this.textBox4);
+            this.tabPage14.Controls.Add(this.label28);
+            this.tabPage14.Controls.Add(this.label27);
+            this.tabPage14.Controls.Add(this.checkBox10);
+            this.tabPage14.Controls.Add(this.checkBox9);
+            this.tabPage14.Controls.Add(this.checkBox8);
+            this.tabPage14.Location = new System.Drawing.Point(4, 40);
+            this.tabPage14.Name = "tabPage14";
+            this.tabPage14.Size = new System.Drawing.Size(512, 361);
+            this.tabPage14.TabIndex = 11;
+            this.tabPage14.Text = "Notification";
+            this.tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // lbBlock
+            // 
+            this.lbBlock.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbBlock.FormattingEnabled = true;
+            this.lbBlock.Location = new System.Drawing.Point(7, 215);
+            this.lbBlock.Name = "lbBlock";
+            this.lbBlock.Size = new System.Drawing.Size(499, 134);
+            this.lbBlock.TabIndex = 4;
+            // 
+            // lbAllow
+            // 
+            this.lbAllow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbAllow.FormattingEnabled = true;
+            this.lbAllow.Location = new System.Drawing.Point(7, 62);
+            this.lbAllow.Name = "lbAllow";
+            this.lbAllow.Size = new System.Drawing.Size(499, 134);
+            this.lbAllow.TabIndex = 4;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(7, 199);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(49, 13);
+            this.label29.TabIndex = 2;
+            this.label29.Text = "Blocked:";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox4.Location = new System.Drawing.Point(69, 25);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(437, 20);
+            this.textBox4.TabIndex = 3;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(4, 46);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(47, 13);
+            this.label28.TabIndex = 2;
+            this.label28.Text = "Allowed:";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(4, 28);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(61, 13);
+            this.label27.TabIndex = 2;
+            this.label27.Text = "Scheduled:";
+            // 
+            // checkBox10
+            // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Location = new System.Drawing.Point(234, 3);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(130, 17);
+            this.checkBox10.TabIndex = 1;
+            this.checkBox10.Text = "Schedule Silent Mode";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
+            // 
+            // checkBox9
+            // 
+            this.checkBox9.AutoSize = true;
+            this.checkBox9.Location = new System.Drawing.Point(146, 3);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.Size = new System.Drawing.Size(82, 17);
+            this.checkBox9.TabIndex = 1;
+            this.checkBox9.Text = "Silent Mode";
+            this.checkBox9.UseVisualStyleBackColor = true;
+            this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(4, 4);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(136, 17);
+            this.checkBox8.TabIndex = 0;
+            this.checkBox8.Text = "Play Notification Sound";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
+            // 
             // tabPage9
             // 
             this.tabPage9.Controls.Add(this.label26);
@@ -1166,6 +1286,8 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pbOverlay)).EndInit();
             this.tabPage13.ResumeLayout(false);
             this.tabPage13.PerformLayout();
+            this.tabPage14.ResumeLayout(false);
+            this.tabPage14.PerformLayout();
             this.tabPage9.ResumeLayout(false);
             this.tabPage9.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -1270,5 +1392,15 @@ namespace Korot
         private System.Windows.Forms.TabPage tabPage12;
         private System.Windows.Forms.TabPage tabPage13;
         private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.TabPage tabPage14;
+        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.CheckBox checkBox10;
+        private System.Windows.Forms.CheckBox checkBox9;
+        private System.Windows.Forms.ListBox lbBlock;
+        private System.Windows.Forms.ListBox lbAllow;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label28;
     }
 }

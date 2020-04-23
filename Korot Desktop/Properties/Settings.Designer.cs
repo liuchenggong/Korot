@@ -517,5 +517,79 @@ namespace Korot.Properties {
                 this["autoRestoreSessions"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool quietMode {
+            get {
+                return ((bool)(this["quietMode"]));
+            }
+            set {
+                this["quietMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+        public global::System.Collections.Specialized.StringCollection notificationAllow {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["notificationAllow"]));
+            }
+            set {
+                this["notificationAllow"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+        public global::System.Collections.Specialized.StringCollection notificationBlock {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["notificationBlock"]));
+            }
+            set {
+                this["notificationBlock"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool silentAllNotifications {
+            get {
+                return ((bool)(this["silentAllNotifications"]));
+            }
+            set {
+                this["silentAllNotifications"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool autoSilent {
+            get {
+                return ((bool)(this["autoSilent"]));
+            }
+            set {
+                this["autoSilent"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0;0;23;59;0;0;0;0;0;0;")]
+        public string autoSilentMode {
+            get {
+                return ((string)(this["autoSilentMode"]));
+            }
+            set {
+                this["autoSilentMode"] = value;
+            }
+        }
     }
 }

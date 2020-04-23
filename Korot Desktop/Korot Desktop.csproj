@@ -214,6 +214,12 @@
     <Compile Include="Source Code\Forms\frmNewFav.Designer.cs">
       <DependentUpon>frmNewFav.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Forms\frmNotification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmNotification.Designer.cs">
+      <DependentUpon>frmNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Forms\frmOOBE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,6 +238,12 @@
     </Compile>
     <Compile Include="Source Code\Forms\frmUpdateExt.Designer.cs">
       <DependentUpon>frmUpdateExt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmNotificationPermission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmNotificationPermission.Designer.cs">
+      <DependentUpon>frmNotificationPermission.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Handlers\FindHandler.cs" />
     <Compile Include="Source Code\Handlers\KeyboardHandler.cs" />
@@ -353,6 +365,9 @@
     <EmbeddedResource Include="Source Code\Forms\frmNewFav.resx">
       <DependentUpon>frmNewFav.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmNotification.resx">
+      <DependentUpon>frmNotification.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmOOBE.resx">
       <DependentUpon>frmOOBE.cs</DependentUpon>
     </EmbeddedResource>
@@ -361,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmUpdateExt.resx">
       <DependentUpon>frmUpdateExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmNotificationPermission.resx">
+      <DependentUpon>frmNotificationPermission.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Tab\TitleBarTabs.resx">
       <DependentUpon>TitleBarTabs.cs</DependentUpon>
@@ -485,6 +503,10 @@
     <None Include="Resources\tip-tema.png" />
     <None Include="Resources\collection.png" />
     <None Include="Resources\collection-w.png" />
+    <None Include="Resources\cefboundtext.html" />
+    <None Include="Resources\boundTest2.html" />
+    <None Include="Resources\notificationTest.html" />
+    <None Include="Resources\notificationDefault.js" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

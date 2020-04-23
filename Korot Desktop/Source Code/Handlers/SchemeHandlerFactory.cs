@@ -81,16 +81,22 @@ namespace Korot
 
                     return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.SearchHelpText).Replace("§SEARCH§", CefForm.Search).Replace("§DAYS§", CefForm.DayNames).Replace("§MONTHS§", CefForm.MonthNames).Replace("§TITLE§", CefForm.NewTabtitle));
                 }
-                if (request.Url == "korot://homepage/")
+                else if (request.Url == "korot://homepage/")
                 {
 
                     return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + Properties.Settings.Default.Homepage + "\" />");
+                }
+                else if (request.Url == "korot://notificationtest/")
+                {
+
+                    return ResourceHandler.FromString(Properties.Resources.notificationTest);
                 }
                 else if (request.Url == "korot://incognito/")
                 {
 
                     return ResourceHandler.FromString(Properties.Resources.incognito.Replace("§TITLE§", CefForm.IncognitoT).Replace("§INCTITLE§", CefForm.IncognitoTitle).Replace("§INCTITLE1§", CefForm.IncognitoTitle1).Replace("§INCTITLE2§", CefForm.IncognitoTitle2).Replace("§INCTITLE1M1§", CefForm.IncognitoT1M1).Replace("§INCTITLE1M2§", CefForm.IncognitoT1M2).Replace("§INCTITLE1M3§", CefForm.IncognitoT1M3).Replace("§INCTITLE2M1§", CefForm.IncognitoT2M1).Replace("§INCTITLE2M2§", CefForm.IncognitoT2M2).Replace("§INCTITLE2M3§", CefForm.IncognitoT2M3));
                 }
+                
                 else if (request.Url.StartsWith("korot://search/?q="))
                 {
                     string x = request.Url.Substring(request.Url.IndexOf("=") + 1);

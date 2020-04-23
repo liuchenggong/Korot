@@ -43,6 +43,12 @@ namespace Korot
                 .ToList().ForEach(e => builder.Append(e));
             return builder.ToString().Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
         }
+        public static string getBaseURL(string url)
+        {
+            var uri = new Uri(url);
+            var baseUri = uri.GetLeftPart(System.UriPartial.Authority);
+            return baseUri;
+        }
         public static string getOSInfo()
         {
             string fullName = System.Runtime.InteropServices.RuntimeInformation.OSDescription;

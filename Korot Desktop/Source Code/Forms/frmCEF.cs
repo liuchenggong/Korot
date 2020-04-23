@@ -44,14 +44,13 @@ namespace Korot
         private int updateProgress = 0;
         public bool isPreRelease = false;
         public int preVer = 0;
-        //0=Checking 1=UpToDate 2=UpdateAvailabe 3=Error
         private bool isLoading = false;
         private readonly string loaduri = null;
         public bool _Incognito = false;
         public string userName;
         private readonly string profilePath;
         private readonly string userCache;
-#pragma warning disable IDE0052 //(we don't need this for now but we might need this later)
+#pragma warning disable IDE0052 //(we don't need this for now)
         private int findIdentifier;
 #pragma warning restore IDE0052
         private int findTotal;
@@ -62,7 +61,6 @@ namespace Korot
         private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
         private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
         public CollectionManager colManager;
-        // [NEWTAB]
         public frmMain anaform
         {
             get
@@ -109,7 +107,219 @@ namespace Korot
                 if (Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy)) { SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy); }
             }
         }
+        public void InitializeChromium()
+        {
+            CefSettings settings = new CefSettings
+            {
+                UserAgent = "Mozilla/5.0 ( Windows "
+                + Tools.getOSInfo()
+                + "; "
+                + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
+                + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
+                + Cef.ChromiumVersion
+                + " Safari/537.36 Korot/"
+                + Application.ProductVersion.ToString()
+            };
+            if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
+            else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
+            settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = "korot",
+                SchemeHandlerFactory = new SchemeHandlerFactory(this)
+                {
+                    extKEM = "",
+                    isExt = false,
+                    extForm = null
+                }
+            });
+            // Initialize cef with the provided settings
+            if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
+            chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri);
+            pCEF.Controls.Add(chromiumWebBrowser1);
+            chromiumWebBrowser1.ConsoleMessage += cef_consoleMessage;
+            chromiumWebBrowser1.FindHandler = new FindHandler(this);
+            chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this);
+            chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(this);
+            chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this);
+            chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
+            chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
+            chromiumWebBrowser1.AddressChanged += cef_AddressChanged;
+            chromiumWebBrowser1.LoadError += cef_onLoadError;
+            chromiumWebBrowser1.KeyDown += tabform_KeyDown;
+            chromiumWebBrowser1.LostFocus += cef_LostFocus;
+            chromiumWebBrowser1.Enter += cef_GotFocus;
+            chromiumWebBrowser1.GotFocus += cef_GotFocus;
+            chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(this);
+            chromiumWebBrowser1.LifeSpanHandler = new BrowserLifeSpanHandler(this);
+            chromiumWebBrowser1.DownloadHandler = new DownloadHandler(this);
+            chromiumWebBrowser1.JsDialogHandler = new JsHandler(this);
+            chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
+            chromiumWebBrowser1.JavascriptMessageReceived += OnBrowserJavascriptMessageReceived;
+            chromiumWebBrowser1.FrameLoadEnd += OnFrameLoadEnd;
+            chromiumWebBrowser1.MouseWheel += MouseScroll;
+            chromiumWebBrowser1.Dock = DockStyle.Fill;
+            chromiumWebBrowser1.Show();
+            if (defaultProxy != null && Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy))
+            {
+                SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy);
+            }
+            executeStartupExtensions();
+        }
+        public void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        {
+            if (e.Frame.IsMain && chromiumWebBrowser1.CanExecuteJavascriptInMainFrame)
+            {
+                //It was Java. Then it turned itself to CLR. It's called C#. Funniest shit I've ever seen.
+                chromiumWebBrowser1.ExecuteScriptAsync(@"  " + Properties.Resources.notificationDefault.Replace("[$]",getNotificationPermission(e.Frame.Url)));
+            
+            }
+        }
+        public string getNotificationPermission(string url)
+        {
+            string x = Tools.getBaseURL(url);
+            if (Properties.Settings.Default.notificationAllow.Contains(x))
+            {
+                    return "granted";
+            }
+            if (Properties.Settings.Default.notificationBlock.Contains(x))
+            {
+                    return "denied";
+            }
+            return "denied";
+        }
+        public void PushNewNotification(Notification notification)
+        {
+            frmNotification notifyForm = new frmNotification(this, notification);
+            anaform.notifications.Add(notifyForm);
+            notifyForm.Show();
+        }
+        public void requestNotificationPermission(string url)
+        {
+            Invoke(new Action(() =>
+            {
+                string baseUrl = Tools.getBaseURL(url);
+                if (anaform.notificationAsked.Contains(baseUrl)) { return; }
+                else
+                {
+                    frmNotificationPermission newPerm = new frmNotificationPermission(this, baseUrl);
+                    newPerm.Location = new Point(pictureBox2.Location.X, panel2.Height);
+                    newPerm.TopLevel = false;
+                    newPerm.Visible = true;
+                    Controls.Add(newPerm);
+                    newPerm.Show();
+                    newPerm.Focus();
+                    newPerm.BringToFront();
+                }
+            }));
+        } 
+        public void refreshPage()
+        {
+            chromiumWebBrowser1.Refresh();
+        }
 
+        private void OnBrowserJavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs e)
+        {
+            var message = (string)e.Message;
+            var browser = (sender as ChromiumWebBrowser);
+            if (string.Equals(message, "[Korot.Notification.RequestPermission]"))
+            {
+                requestNotificationPermission(browser.Address);
+            }else 
+            {
+                if (message.ToLower().StartsWith("[korot.notification "))
+                {
+                    if (Properties.Settings.Default.notificationAllow.Contains(Tools.getBaseURL(browser.Address)))
+                    {
+                        // Then he turned himself into a kaşık. He's called Enes Batur Kaşık. Funnies shit I've ever seen.
+                        //ok that was the last easter egg for this meme.
+                        MemoryStream stream = new MemoryStream();
+                        StreamWriter writer = new StreamWriter(stream);
+                        writer.Write(message.Replace("[", "<").Replace("]", ">"));
+                        writer.Flush();
+                        stream.Position = 0;
+                        XmlDocument document = new XmlDocument();
+                        document.Load(stream);
+                        XmlNode node = document.DocumentElement;
+                        string image = node.Attributes["Icon"] != null ? node.Attributes["Icon"].Value : "";
+                        string body = node.Attributes["Body"] != null ? node.Attributes["Body"].Value : "";
+                        string title = node.Attributes["Message"] != null ? node.Attributes["Message"].Value : "";
+                        Notification newnot = new Notification() { url = browser.Address, message = body,title = title, imageUrl = image };
+                        PushNewNotification(newnot);
+                    }
+                }
+            }
+        }
+        private void tabform_Load(object sender, EventArgs e)
+        {
+            Updater();
+            if (File.Exists(Properties.Settings.Default.ThemeFile))
+            {
+                comboBox1.Text = new FileInfo(Properties.Settings.Default.ThemeFile).Name.Replace(".ktf", "");
+            }
+            else
+            {
+                comboBox1.Text = "";
+                Properties.Settings.Default.ThemeAuthor = "";
+                Properties.Settings.Default.ThemeName = "";
+            }
+            tbHomepage.Text = Properties.Settings.Default.Homepage;
+            tbSearchEngine.Text = Properties.Settings.Default.SearchURL;
+            if (Properties.Settings.Default.Homepage == "korot://newtab") { radioButton1.Enabled = true; }
+            pictureBox3.BackColor = Properties.Settings.Default.BackColor;
+            pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
+            RefreshLangList();
+            refreshThemeList();
+            ChangeTheme();
+            RefreshDownloadList();
+            lbVersion.Text = Application.ProductVersion.ToString() + (isPreRelease ? "-pre" + preVer : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
+            RefreshFavorites();
+            LoadExt();
+            RefreshProfiles();
+            profilenameToolStripMenuItem.Text = userName;
+            //caseSensitiveToolStripMenuItem.Text = CaseSensitive;
+            showCertificateErrorsToolStripMenuItem.Text = showCertError;
+            chromiumWebBrowser1.Select();
+            hsDoNotTrack.Checked = Properties.Settings.Default.DoNotTrack;
+            EasterEggs();
+            RefreshTranslation();
+            RefreshSizes();
+            if (_Incognito)
+            {
+                foreach (Control x in tpSettings.Controls)
+                {
+                    if (x != button13) { x.Enabled = false; }
+                }
+                btInstall.Enabled = false;
+                btUpdater.Enabled = false;
+                button9.Enabled = false;
+                cmsBStyle.Enabled = false;
+                cmsSearchEngine.Enabled = false;
+                button7.Enabled = false;
+                cmsHistory.Enabled = false;
+                cmsProfiles.Enabled = false;
+                removeSelectedToolStripMenuItem1.Enabled = false;
+                clearToolStripMenuItem2.Enabled = false;
+                removeSelectedToolStripMenuItem.Enabled = false;
+                clearToolStripMenuItem.Enabled = false;
+                disallowThisPageForCookieAccessToolStripMenuItem.Enabled = false;
+                removeSelectedTSMI.Enabled = false;
+                clearTSMI.Enabled = false;
+                Properties.Settings.Default.BackColor = Color.FromArgb(255, 64, 64, 64);
+                Properties.Settings.Default.OverlayColor = Color.DodgerBlue;
+            }
+            else
+            {
+                pictureBox1.Visible = false;
+                tbAddress.Size = new Size(tbAddress.Size.Width + pictureBox1.Size.Width, tbAddress.Size.Height);
+            }
+            LoadLangFromFile(Properties.Settings.Default.LangFile);
+            cbLang.Text = Path.GetFileNameWithoutExtension(Properties.Settings.Default.LangFile);
+            //PushNewNotification(new Notification() { 
+            //    title = "Chromium Initialized.", 
+            //    message = "Congrats m9!", 
+            //    imageUrl = "https://haltroy.com/assets/images/ht-logo-2020.png", 
+            //    url = "https://haltroy.com" });
+        }
         private void RefreshHistory()
         {
             int selectedValue = hlvHistory.SelectedIndices.Count > 0 ? hlvHistory.SelectedIndices[0] : 0;
@@ -333,6 +543,9 @@ namespace Korot
             }
         }
         #region "Translate"
+        public string notificationPermission = "Allow [URL] for sending notifications?";
+        public string allow = "Allow";
+        public string deny = "Deny";
         public string ubuntuLicense = "Ubuntu Font License";
         public string newProfileInfo = "Please enter a name for the new profile.It should not contain: ";
         public string Yes = "Yes";
@@ -1208,7 +1421,90 @@ namespace Korot
                 tbHomepage.Text = Properties.Settings.Default.Homepage;
             }
         }
-
+        public void RefreshScheduledSiletMode()
+        {
+            if (Properties.Settings.Default.autoSilent)
+            {
+                string Playlist = Properties.Settings.Default.autoSilentMode;
+                string[] SplittedFase = Playlist.Split(';');
+                if (SplittedFase.Length - 1 > 9)
+                {
+                    Console.WriteLine(SplittedFase[0]
+                                                             + ";"
+                                                             + SplittedFase[1]
+                                                             + ";"
+                                                             + SplittedFase[2]
+                                                             + ";"
+                                                             + SplittedFase[3]
+                                                             + ";"
+                                                             + SplittedFase[4]
+                                                             + ";"
+                                                             + SplittedFase[5]
+                                                             + ";"
+                                                             + SplittedFase[6]
+                                                             + ";"
+                                                             + SplittedFase[7]
+                                                             + ";"
+                                                             + SplittedFase[8]
+                                                             + ";"
+                                                             + SplittedFase[9]
+                                                             + ";"
+                                                             + SplittedFase[10]
+                                                             + ";"
+                        );
+                    fromHour.Value = Convert.ToInt32(SplittedFase[0]);
+                    fromMin.Value = Convert.ToInt32(SplittedFase[1]);
+                    toHour.Value = Convert.ToInt32(SplittedFase[2]);
+                    toMin.Value = Convert.ToInt32(SplittedFase[3]);
+                    bool sunday = SplittedFase[4] == "1";
+                    bool monday = SplittedFase[5] == "1";
+                    bool tuesday = SplittedFase[6] == "1";
+                    bool wednesday = SplittedFase[7] == "1";
+                    bool thursday = SplittedFase[8] == "1";
+                    bool friday = SplittedFase[9] == "1";
+                    bool saturday = SplittedFase[10] == "1";
+                    lbSunday.BackColor = sunday ? Properties.Settings.Default.OverlayColor : Properties.Settings.Default.BackColor;
+                    lbMonday.BackColor = monday ? Properties.Settings.Default.OverlayColor : Properties.Settings.Default.BackColor;
+                    lbTuesday.BackColor = tuesday ? Properties.Settings.Default.OverlayColor : Properties.Settings.Default.BackColor;
+                    lbWednesday.BackColor = wednesday ? Properties.Settings.Default.OverlayColor : Properties.Settings.Default.BackColor;
+                    lbThursday.BackColor = thursday ? Properties.Settings.Default.OverlayColor : Properties.Settings.Default.BackColor;
+                    lbFriday.BackColor = friday ? Properties.Settings.Default.OverlayColor : Properties.Settings.Default.BackColor;
+                    lbSaturday.BackColor = saturday ? Properties.Settings.Default.OverlayColor : Properties.Settings.Default.BackColor;
+                    lbSunday.Tag = sunday ? "1" : "0";
+                    lbMonday.Tag = monday ? "1" : "0";
+                    lbTuesday.Tag = tuesday ? "1" : "0";
+                    lbWednesday.Tag = wednesday ? "1" : "0";
+                    lbThursday.Tag = thursday ? "1" : "0";
+                    lbFriday.Tag = friday ? "1" : "0";
+                    lbSaturday.Tag = saturday ? "1" : "0";
+                }
+            }
+        }
+        public void writeSchedules()
+        {
+            Properties.Settings.Default.autoSilentMode = fromHour.Value
+                                                         + ";"
+                                                         + fromMin.Value
+                                                         + ";"
+                                                         + toHour.Value
+                                                         + ";"
+                                                         + toMin.Value
+                                                         + ";"
+                                                         + lbSunday.Tag != null ? lbSunday.Tag.ToString() : "0"
+                                                         + ";"
+                                                         + lbMonday.Tag != null ? lbMonday.Tag.ToString(): "0"
+                                                         + ";"
+                                                         + lbTuesday.Tag != null ? lbTuesday.Tag.ToString(): "0"
+                                                         + ";"
+                                                         + lbWednesday.Tag != null ? lbWednesday.Tag.ToString(): "0"
+                                                         + ";"
+                                                         + lbThursday.Tag != null ? lbThursday.Tag.ToString(): "0"
+                                                         + ";"
+                                                         + lbFriday.Tag != null ? lbFriday.Tag.ToString(): "0"
+                                                         + ";"
+                                                         + lbSaturday.Tag != null ? lbSaturday.Tag.ToString(): "0"
+                                                         + ";";
+        }
         private void tmrRefresher_Tick(object sender, EventArgs e)
         {
             hsDoNotTrack.Checked = Properties.Settings.Default.DoNotTrack;
@@ -1216,11 +1512,44 @@ namespace Korot
             radioButton1.Checked = Properties.Settings.Default.Homepage == "korot://newtab";
             tbSearchEngine.Text = Properties.Settings.Default.SearchURL;
             hsProxy.Checked = Properties.Settings.Default.rememberLastProxy;
+            hsNotificationSound.Checked = !Properties.Settings.Default.quietMode;
+            hsSilent.Checked = Properties.Settings.Default.silentAllNotifications;
+            hsSchedule.Checked = Properties.Settings.Default.autoSilent;
+            panel1.Enabled = Properties.Settings.Default.autoSilent;
+            RefreshScheduledSiletMode();
             RefreshLangList();
             refreshThemeList();
             RefreshDownloadList();
             RefreshHistory();
             RefreshCookies();
+            RefreshAllowList();
+            RefreshBlockList();
+        }
+        public void RefreshAllowList()
+        {
+            int selectedIndex = lbAllow.SelectedItem != null ? lbAllow.SelectedIndex : 0;
+            lbAllow.Items.Clear();
+            foreach (string x in Properties.Settings.Default.notificationAllow)
+            {
+                lbAllow.Items.Add(x);
+            }
+            if (lbAllow.Items.Count - 1 > selectedIndex)
+            {
+                lbAllow.SelectedIndex = selectedIndex;
+            }
+        }
+        public void RefreshBlockList()
+        {
+            int selectedIndex = lbBlock.SelectedItem != null ? lbBlock.SelectedIndex : 0;
+            lbBlock.Items.Clear();
+            foreach (string x in Properties.Settings.Default.notificationBlock)
+            {
+                lbBlock.Items.Add(x);
+            }
+            if (lbBlock.Items.Count - 1 > selectedIndex)
+            {
+                lbBlock.SelectedIndex = selectedIndex;
+            }
         }
 
         private void label15_MouseClick(object sender, MouseEventArgs e)
@@ -1639,63 +1968,7 @@ namespace Korot
                 });
             }
         }
-        public void InitializeChromium()
-        {
-            CefSettings settings = new CefSettings
-            {
-                UserAgent = "Mozilla/5.0 ( Windows "
-                + Tools.getOSInfo()
-                + "; "
-                + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
-                + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
-                + Cef.ChromiumVersion
-                + " Safari/537.36 Korot/"
-                + Application.ProductVersion.ToString()
-            };
-            if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
-            else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
-            settings.RegisterScheme(new CefCustomScheme
-            {
-                SchemeName = "korot",
-                SchemeHandlerFactory = new SchemeHandlerFactory(this)
-                {
-                    extKEM = "",
-                    isExt = false,
-                    extForm = null
-                }
-            });
-            // Initialize cef with the provided settings
-            if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
-            chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri);
-            pCEF.Controls.Add(chromiumWebBrowser1);
-            chromiumWebBrowser1.ConsoleMessage += cef_consoleMessage;
-            chromiumWebBrowser1.FindHandler = new FindHandler(this);
-            chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this);
-            chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(this);
-            chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this);
-            chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
-            chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
-            chromiumWebBrowser1.AddressChanged += cef_AddressChanged;
-            chromiumWebBrowser1.LoadError += cef_onLoadError;
-            chromiumWebBrowser1.KeyDown += tabform_KeyDown;
-            chromiumWebBrowser1.LostFocus += cef_LostFocus;
-            chromiumWebBrowser1.Enter += cef_GotFocus;
-            chromiumWebBrowser1.GotFocus += cef_GotFocus;
-            chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(this);
-            chromiumWebBrowser1.LifeSpanHandler = new BrowserLifeSpanHandler(this);
-            chromiumWebBrowser1.DownloadHandler = new DownloadHandler(this);
-            chromiumWebBrowser1.JsDialogHandler = new JsHandler(this);
-            chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
-            chromiumWebBrowser1.MouseWheel += MouseScroll;
-            chromiumWebBrowser1.Dock = DockStyle.Fill;
-            chromiumWebBrowser1.Show();
-            if (defaultProxy != null && Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy))
-            {
-                SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy);
-            }
-            executeStartupExtensions();
-
-        }
+        
         private void cef_GotFocus(object sender, EventArgs e)
         {
                 Invoke(new Action(() => {
@@ -1723,7 +1996,7 @@ namespace Korot
         }
         private void cef_consoleMessage(object sender, ConsoleMessageEventArgs e)
         {
-            Output.WriteLine(" [Korot.ConsoleMessage] Message received: [Line: " + e.Line + "Level: " + e.Level + " Source: " + e.Source + " Message:" + e.Message + "]");
+            Output.WriteLine(" [Korot.ConsoleMessage] Message received: [Line: " + e.Line + " Level: " + e.Level + " Source: " + e.Source + " Message:" + e.Message + "]");
         }
         public void updateExtensions()
         {
@@ -2109,72 +2382,7 @@ namespace Korot
                 cmsFavorite.Show(MousePosition);
             }
         }
-        private void tabform_Load(object sender, EventArgs e)
-        {
-            Updater();
-            if (File.Exists(Properties.Settings.Default.ThemeFile))
-            {
-                comboBox1.Text = new FileInfo(Properties.Settings.Default.ThemeFile).Name.Replace(".ktf", "");
-            }
-            else
-            {
-                comboBox1.Text = "";
-                Properties.Settings.Default.ThemeAuthor = "";
-                Properties.Settings.Default.ThemeName = "";
-            }
-            tbHomepage.Text = Properties.Settings.Default.Homepage;
-            tbSearchEngine.Text = Properties.Settings.Default.SearchURL;
-            if (Properties.Settings.Default.Homepage == "korot://newtab") { radioButton1.Enabled = true; }
-            pictureBox3.BackColor = Properties.Settings.Default.BackColor;
-            pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
-            RefreshLangList();
-            refreshThemeList();
-            ChangeTheme();
-            RefreshDownloadList();
-            lbVersion.Text = Application.ProductVersion.ToString() + (isPreRelease ? "-pre" + preVer : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
-            RefreshFavorites();
-            LoadExt();
-            RefreshProfiles();
-            profilenameToolStripMenuItem.Text = userName;
-            //caseSensitiveToolStripMenuItem.Text = CaseSensitive;
-            showCertificateErrorsToolStripMenuItem.Text = showCertError;
-            chromiumWebBrowser1.Select();
-            hsDoNotTrack.Checked = Properties.Settings.Default.DoNotTrack;
-            EasterEggs();
-            RefreshTranslation();
-            RefreshSizes();
-            if (_Incognito)
-            {
-                foreach (Control x in tpSettings.Controls)
-                {
-                    if (x != button13) { x.Enabled = false; }
-                }
-                btInstall.Enabled = false;
-                btUpdater.Enabled = false;
-                button9.Enabled = false;
-                cmsBStyle.Enabled = false;
-                cmsSearchEngine.Enabled = false;
-                button7.Enabled = false;
-                cmsHistory.Enabled = false;
-                cmsProfiles.Enabled = false;
-                removeSelectedToolStripMenuItem1.Enabled = false;
-                clearToolStripMenuItem2.Enabled = false;
-                removeSelectedToolStripMenuItem.Enabled = false;
-                clearToolStripMenuItem.Enabled = false;
-                disallowThisPageForCookieAccessToolStripMenuItem.Enabled = false;
-                removeSelectedTSMI.Enabled = false;
-                clearTSMI.Enabled = false;
-                Properties.Settings.Default.BackColor = Color.FromArgb(255, 64, 64, 64);
-                Properties.Settings.Default.OverlayColor = Color.DodgerBlue;
-            }
-            else
-            {
-                pictureBox1.Visible = false;
-                tbAddress.Size = new Size(tbAddress.Size.Width + pictureBox1.Size.Width, tbAddress.Size.Height);
-            }
-            LoadLangFromFile(Properties.Settings.Default.LangFile);
-            cbLang.Text = Path.GetFileNameWithoutExtension(Properties.Settings.Default.LangFile);
-        }
+        
         private void button4_Click(object sender, EventArgs e)
         {
             allowSwitching = true;
@@ -2228,12 +2436,15 @@ namespace Korot
                      || tabControl1.SelectedTab == tpAbout
                      || tabControl1.SelectedTab == tpTheme
                      || tabControl1.SelectedTab == tpCollection
-                     || tabControl1.SelectedTab == tpCookie) //Menu
+                     || tabControl1.SelectedTab == tpCookie
+                     || tabControl1.SelectedTab == tpNotification
+                     || tabControl1.SelectedTab == tpNAllow
+                     || tabControl1.SelectedTab == tpNBlock) //Menu
             {
                 resetPage();
             }
         }
-        public void resetPage()
+        public void resetPage(bool doNotGoToCEFTab = false)
         {
             if (anaform.settingTab == ParentTab)
             {
@@ -2263,8 +2474,23 @@ namespace Korot
             {
                 anaform.collectionTab = null;
             }
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpCef;
+            if (anaform.notificationTab == ParentTab)
+            {
+                anaform.notificationTab = null;
+            }
+            if (anaform.nallowTab == ParentTab)
+            {
+                anaform.nallowTab = null;
+            }
+            if (anaform.nblockTab == ParentTab)
+            {
+                anaform.nblockTab = null;
+            }
+            if (!doNotGoToCEFTab)
+            {
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpCef;
+            }
         }
         public void button3_Click(object sender, EventArgs e)
         {
@@ -2562,7 +2788,13 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 hsUnknown.OverlayColor = Properties.Settings.Default.OverlayColor;
                 hlvDownload.OverlayColor = Properties.Settings.Default.OverlayColor;
                 hlvHistory.OverlayColor = Properties.Settings.Default.OverlayColor;
-                if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                if (Cef.IsInitialized)
+                {
+                    if (chromiumWebBrowser1.IsBrowserInitialized)
+                    {
+                        if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                    }
+                }
             }
             if (Properties.Settings.Default.BackColor != oldBackColor)
             {
@@ -2570,7 +2802,13 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 updateFavoritesImages();
                 label2.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 label2.BackColor = Properties.Settings.Default.BackColor;
-                if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                if (Cef.IsInitialized)
+                {
+                    if (chromiumWebBrowser1.IsBrowserInitialized)
+                    {
+                        if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                    }
+                }
                 cmsFavorite.BackColor = Properties.Settings.Default.BackColor;
                 cmsIncognito.BackColor = Properties.Settings.Default.BackColor;
                 oldBackColor = Properties.Settings.Default.BackColor;
@@ -2587,12 +2825,32 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 button8.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 button14.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 button16.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button21.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button22.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button17.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 lbSettings.BackColor = Color.Transparent;
                 lbSettings.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvDownload.BackColor = Properties.Settings.Default.BackColor;
                 hlvDownload.HeaderBackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 hlvDownload.HeaderForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvHistory.BackColor = Properties.Settings.Default.BackColor;
+                lbAllow.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                lbAllow.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                lbBlock.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                lbBlock.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                fromHour.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                fromHour.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                fromMin.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                fromMin.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                toHour.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                toHour.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                toMin.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                toMin.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                btAllowList.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                btAllowList.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                btBlockList.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                btBlockList.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+
                 hlvHistory.HeaderBackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 hlvHistory.HeaderForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 cmsDownload.BackColor = Properties.Settings.Default.BackColor;
@@ -2608,6 +2866,24 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 button10.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvDownload.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 cbLang.ForeColor = !Tools.isBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
+                hsNotificationSound.BackColor = Properties.Settings.Default.BackColor;
+                hsNotificationSound.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsNotificationSound.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsNotificationSound.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
+                hsNotificationSound.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+
+                hsSilent.BackColor = Properties.Settings.Default.BackColor;
+                hsSilent.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsSilent.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsSilent.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
+                hsSilent.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+
+                hsSchedule.BackColor = Properties.Settings.Default.BackColor;
+                hsSchedule.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsSchedule.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
+                hsSchedule.ButtonHoverColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
+                hsSchedule.ButtonPressedColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+
                 hsAutoRestore.BackColor = Properties.Settings.Default.BackColor;
                 hsAutoRestore.ButtonColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
                 hsAutoRestore.BorderColor = Tools.TersRenk(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
@@ -2666,6 +2942,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 btDownloadFolder.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 button12.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 tbSearchEngine.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                btNotification.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                btNotification.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                panel1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                panel1.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 button10.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 tbHomepage.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 tbSearchEngine.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
@@ -2681,6 +2961,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
                 cmsProfiles.BackColor = Properties.Settings.Default.BackColor;
                 cmsHamburger.BackColor = Properties.Settings.Default.BackColor;
+                cmsAllow.BackColor = Properties.Settings.Default.BackColor;
+                cmsBlock.BackColor = Properties.Settings.Default.BackColor;
                 cmsPrivacy.BackColor = Properties.Settings.Default.BackColor;
                 label2.BackColor = Properties.Settings.Default.BackColor;
                 BackColor = Properties.Settings.Default.BackColor;
@@ -2690,6 +2972,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 historyToolStripMenuItem.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.history_w : Properties.Resources.history;
                 pictureBox1.Image = !Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.inctab_w : Properties.Resources.inctab;
                 tbAddress.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                cmsAllow.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                cmsBlock.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                
                 cmsHamburger.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsProfiles.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
@@ -2723,6 +3008,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 cmsForward.BackColor = Properties.Settings.Default.BackColor;
                 cmsForward.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 switchToToolStripMenuItem.DropDown.BackColor = Properties.Settings.Default.BackColor; switchToToolStripMenuItem.DropDown.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
+                foreach (ToolStripItem x in cmsAllow.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
+                foreach (ToolStripItem x in cmsBlock.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (ToolStripItem x in cmsForward.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (ToolStripItem x in cmsBack.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (ToolStripItem x in cmsProfiles.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
@@ -2919,6 +3206,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         public void RefreshSizes()
         {
+            flpFrom.Location = new Point(scheduleFrom.Location.X + scheduleFrom.Width + 10,flpFrom.Location.Y);
+            scheduleTo.Location = new Point(flpFrom.Location.X + flpFrom.Width + 10, scheduleTo.Location.Y);
+            flpTo.Location = new Point(scheduleTo.Location.X + scheduleTo.Width + 10, flpTo.Location.Y);
+            flpEvery.Location = new Point(scheduleEvery.Location.X + scheduleEvery.Width + 10, flpEvery.Location.Y);
             lbVersion.Location = new Point(lbKorot.Location.X + lbKorot.Width, lbVersion.Location.Y);
             flpClose.Location = new Point(label32.Location.X + label32.Width, flpClose.Location.Y);
             flpClose.Width = tpTheme.Width - (label32.Width + label32.Location.X + 25);
@@ -3739,6 +4030,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
             else
             {
+                resetPage(true);
                 anaform.cookieTab = ParentTab;
                 button3.Enabled = true;
                 allowSwitching = true;
@@ -4261,6 +4553,157 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void label2_TextChanged(object sender, EventArgs e)
         {
             label2.Visible = !string.IsNullOrWhiteSpace(label2.Text);
+        }
+
+        private void hsNotificationSound_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.quietMode = !hsNotificationSound.Checked;
+        }
+
+        private void lbHaftaGunu_Click(object sender, EventArgs e)
+        {
+            var myLabel = sender as Label;
+            if (myLabel.Tag.ToString() == "1")
+            {
+                myLabel.Tag = "0";
+                myLabel.BackColor = panel1.BackColor;
+            }else if (myLabel.Tag.ToString() == "0")
+            {
+                myLabel.Tag = "1";
+                myLabel.BackColor = Properties.Settings.Default.OverlayColor;
+            }
+            writeSchedules();
+            RefreshScheduledSiletMode();
+        }
+
+        private void fromHour_ValueChanged(object sender, EventArgs e)
+        {
+            writeSchedules();
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            if (anaform.nblockTab != null)
+            {
+                anaform.SelectedTab = anaform.nblockTab;
+            }
+            else
+            {
+                resetPage(true);
+                anaform.nblockTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpNBlock;
+            }
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            if (anaform.nallowTab != null)
+            {
+                anaform.SelectedTab = anaform.nallowTab;
+            }
+            else
+            {
+                resetPage(true);
+                anaform.nallowTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpNAllow;
+            }
+        }
+
+        private void cmsAllow_Opening(object sender, CancelEventArgs e)
+        {
+            allowRS.Enabled = lbAllow.SelectedItem != null;
+            allowBlockSel.Enabled = lbAllow.SelectedItem != null;
+        }
+
+        private void allowClear_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.notificationAllow.Contains(Tools.getBaseURL(chromiumWebBrowser1.Address)))
+            {
+                refreshPage();
+            }
+            Properties.Settings.Default.notificationAllow.Clear();
+            RefreshAllowList();
+        }
+
+        private void cmsBlock_Opening(object sender, CancelEventArgs e)
+        {
+            blockRS.Enabled = lbBlock.SelectedItem != null;
+            blockAllowSel.Enabled = lbBlock.SelectedItem != null;
+        }
+
+        private void allowRS_Click(object sender, EventArgs e)
+        {
+            if (Tools.getBaseURL(chromiumWebBrowser1.Address) == lbAllow.SelectedItem.ToString())
+            {
+                refreshPage();
+            }
+            Properties.Settings.Default.notificationAllow.Remove(lbAllow.SelectedItem.ToString());
+            RefreshAllowList();
+        }
+
+        private void allowBlockSel_Click(object sender, EventArgs e)
+        {
+            if (Tools.getBaseURL(chromiumWebBrowser1.Address) == lbAllow.SelectedItem.ToString())
+            {
+                refreshPage();
+            }
+            Properties.Settings.Default.notificationAllow.Remove(lbAllow.SelectedItem.ToString());
+            Properties.Settings.Default.notificationBlock.Add(lbAllow.SelectedItem.ToString());
+            RefreshAllowList();
+            RefreshBlockList();
+        }
+
+        private void blockAllowSel_Click(object sender, EventArgs e)
+        {
+            if (Tools.getBaseURL(chromiumWebBrowser1.Address) == lbBlock.SelectedItem.ToString())
+            {
+                refreshPage();
+            }
+            Properties.Settings.Default.notificationBlock.Remove(lbBlock.SelectedItem.ToString());
+            Properties.Settings.Default.notificationAllow.Add(lbBlock.SelectedItem.ToString());
+            RefreshAllowList();
+            RefreshBlockList();
+        }
+
+        private void blockRS_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.notificationBlock.Contains(Tools.getBaseURL(chromiumWebBrowser1.Address)))
+            {
+                refreshPage();
+            }
+            Properties.Settings.Default.notificationBlock.Clear();
+            RefreshBlockList();
+        }
+
+        private void hsSchedule_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.autoSilent = hsSchedule.Checked;
+            panel1.Enabled = hsSchedule.Checked;
+        }
+
+        private void hsSilent_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.silentAllNotifications = hsSilent.Checked;
+        }
+
+        private void button19_Click_1(object sender, EventArgs e)
+        {
+            if (anaform.notificationTab != null)
+            {
+                anaform.SelectedTab = anaform.notificationTab;
+            }
+            else
+            {
+                resetPage(true);
+                anaform.notificationTab = ParentTab;
+                button3.Enabled = true;
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpNotification;
+            }
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

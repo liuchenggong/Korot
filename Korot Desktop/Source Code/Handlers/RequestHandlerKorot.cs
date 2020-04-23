@@ -73,6 +73,8 @@ namespace Korot
                 }
                 else
                 {
+                    if (request.Url.ToLower().StartsWith("devtools")) { return false; }
+                    Console.WriteLine("[OnBeforeBrowse] TransitionType=\"" + request.TransitionType + "\" URL=\"" + request.Url + "\"");
                     cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
                 }
             }

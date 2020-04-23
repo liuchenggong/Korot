@@ -38,6 +38,8 @@ namespace Korot
         public int preVer = 0;
         public List<DownloadItem> CurrentDownloads = new List<DownloadItem>();
         public List<string> CancelledDownloads = new List<string>();
+        public List<string> notificationAsked = new List<string>();
+        public List<frmNotification> notifications { get; set; }
         public bool isIncognito = false;
         public KorotTabRenderer tabRenderer;
         public CollectionManager colman;
@@ -48,6 +50,9 @@ namespace Korot
         public TitleBarTab aboutTab = null;
         public TitleBarTab cookieTab = null;
         public TitleBarTab collectionTab = null;
+        public TitleBarTab nallowTab = null;
+        public TitleBarTab nblockTab = null;
+        public TitleBarTab notificationTab = null;
         public frmMain()
         {
             AeroPeekEnabled = true;
