@@ -10,7 +10,7 @@ Latest Dev Version: [`0.6.0.0-pre3`](https://github.com/Haltroy/Korot/tree/0.6.0
  - HTML5, CSS3, JS, HTML5 Video, WebGL 3D, etc. supported. (Except `H.264` codec. See #12)
  - Tabbed, built-in search mode inside of address bar (auto-detecting URLs).
  - Developer tools & View Source
- - UI language system (Comes with [`English`](https://haltroy.com/store/Korot/Languages/Haltroy.English/) and [`Türkçe`](https://haltroy.com/store/Korot/Languages/Haltroy.Türkçe/) languages)
+ - UI language system (Comes with [`English`](https://haltroy.com/store/Korot/Languages/Haltroy.English/) and [`TÃ¼rkÃ§e`](https://haltroy.com/store/Korot/Languages/Haltroy.TÃ¼rkÃ§e/) languages)
  - Theme system (Comes with [`Light`](https://haltroy.com/store/Korot/Themes/Haltroy.KorotLight/) and [`Dark`](https://haltroy.com/store/Korot/Themes/Haltroy.KorotDark/) theme)
  - Built-in Extension system (with support for proxies) & [Extension Store](https://haltroy.com/store/Korot/Extensions/)
  - Profiles
@@ -22,7 +22,7 @@ Latest Dev Version: [`0.6.0.0-pre3`](https://github.com/Haltroy/Korot/tree/0.6.0
  
  ## Release Branches
 
- If the latest commit has `§` symbol at start of the text, that means the `master` is not stable enough and more changes are going to be added.
+ If the latest commit has `Â§` symbol at start of the text, that means the `master` is not stable enough and more changes are going to be added.
 
  | Branch                                                              | CEF Version | VC++ Version | .Net | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-------------------|
