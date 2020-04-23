@@ -260,6 +260,35 @@ namespace Korot
             this.panel3 = new System.Windows.Forms.Panel();
             this.button15 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
+            this.tpNotification = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.flpFrom = new System.Windows.Forms.FlowLayoutPanel();
+            this.fromHour = new System.Windows.Forms.NumericUpDown();
+            this.label40 = new System.Windows.Forms.Label();
+            this.fromMin = new System.Windows.Forms.NumericUpDown();
+            this.flpEvery = new System.Windows.Forms.FlowLayoutPanel();
+            this.lbSunday = new System.Windows.Forms.Label();
+            this.lbMonday = new System.Windows.Forms.Label();
+            this.lbTuesday = new System.Windows.Forms.Label();
+            this.lbWednesday = new System.Windows.Forms.Label();
+            this.lbThursday = new System.Windows.Forms.Label();
+            this.lbFriday = new System.Windows.Forms.Label();
+            this.lbSaturday = new System.Windows.Forms.Label();
+            this.scheduleFrom = new System.Windows.Forms.Label();
+            this.flpTo = new System.Windows.Forms.FlowLayoutPanel();
+            this.toHour = new System.Windows.Forms.NumericUpDown();
+            this.label41 = new System.Windows.Forms.Label();
+            this.toMin = new System.Windows.Forms.NumericUpDown();
+            this.scheduleEvery = new System.Windows.Forms.Label();
+            this.scheduleTo = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.hsSchedule = new HaltroyFramework.HaltroySwitch();
+            this.hsSilent = new HaltroyFramework.HaltroySwitch();
+            this.label17 = new System.Windows.Forms.Label();
+            this.hsNotificationSound = new HaltroyFramework.HaltroySwitch();
+            this.button17 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
             this.cmsSearchEngine = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.googleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yandexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -286,6 +315,26 @@ namespace Korot
             this.showNewTabPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tpNAllow = new System.Windows.Forms.TabPage();
+            this.tpNBlock = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btAllowList = new System.Windows.Forms.Button();
+            this.btBlockList = new System.Windows.Forms.Button();
+            this.button21 = new System.Windows.Forms.Button();
+            this.label23 = new System.Windows.Forms.Label();
+            this.lbBlock = new System.Windows.Forms.ListBox();
+            this.lbAllow = new System.Windows.Forms.ListBox();
+            this.button22 = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.cmsAllow = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsBlock = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.allowRS = new System.Windows.Forms.ToolStripMenuItem();
+            this.allowClear = new System.Windows.Forms.ToolStripMenuItem();
+            this.allowBlockSel = new System.Windows.Forms.ToolStripMenuItem();
+            this.blockRS = new System.Windows.Forms.ToolStripMenuItem();
+            this.blockAllowSel = new System.Windows.Forms.ToolStripMenuItem();
+            this.blockClear = new System.Windows.Forms.ToolStripMenuItem();
+            this.btNotification = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.cmsHamburger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -317,10 +366,24 @@ namespace Korot
             this.tpCookie.SuspendLayout();
             this.cmsCookie.SuspendLayout();
             this.tpCollection.SuspendLayout();
+            this.tpNotification.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.flpFrom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fromHour)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fromMin)).BeginInit();
+            this.flpEvery.SuspendLayout();
+            this.flpTo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.toHour)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toMin)).BeginInit();
             this.cmsSearchEngine.SuspendLayout();
             this.cmsBStyle.SuspendLayout();
             this.cmsIncognito.SuspendLayout();
             this.cmsStartup.SuspendLayout();
+            this.tpNAllow.SuspendLayout();
+            this.tpNBlock.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
+            this.cmsAllow.SuspendLayout();
+            this.cmsBlock.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbAddress
@@ -1170,6 +1233,9 @@ namespace Korot
             this.tabControl1.Controls.Add(this.tpAbout);
             this.tabControl1.Controls.Add(this.tpCookie);
             this.tabControl1.Controls.Add(this.tpCollection);
+            this.tabControl1.Controls.Add(this.tpNotification);
+            this.tabControl1.Controls.Add(this.tpNAllow);
+            this.tabControl1.Controls.Add(this.tpNBlock);
             this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControl1.Location = new System.Drawing.Point(-7, 32);
             this.tabControl1.Name = "tabControl1";
@@ -1290,11 +1356,12 @@ namespace Korot
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.Controls.Add(this.btCookie);
+            this.flowLayoutPanel1.Controls.Add(this.btNotification);
             this.flowLayoutPanel1.Controls.Add(this.btCleanLog);
             this.flowLayoutPanel1.Controls.Add(this.button18);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(13, 314);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(541, 36);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(541, 77);
             this.flowLayoutPanel1.TabIndex = 38;
             // 
             // btCookie
@@ -1321,7 +1388,7 @@ namespace Korot
             this.btCleanLog.FlatAppearance.BorderSize = 0;
             this.btCleanLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btCleanLog.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.btCleanLog.Location = new System.Drawing.Point(159, 3);
+            this.btCleanLog.Location = new System.Drawing.Point(321, 3);
             this.btCleanLog.Name = "btCleanLog";
             this.btCleanLog.Size = new System.Drawing.Size(114, 28);
             this.btCleanLog.TabIndex = 12;
@@ -1337,7 +1404,7 @@ namespace Korot
             this.button18.FlatAppearance.BorderSize = 0;
             this.button18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button18.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.button18.Location = new System.Drawing.Point(279, 3);
+            this.button18.Location = new System.Drawing.Point(3, 37);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(103, 28);
             this.button18.TabIndex = 13;
@@ -2598,6 +2665,375 @@ namespace Korot
             this.label9.TabIndex = 38;
             this.label9.Text = "Collections";
             // 
+            // tpNotification
+            // 
+            this.tpNotification.Controls.Add(this.flowLayoutPanel2);
+            this.tpNotification.Controls.Add(this.panel1);
+            this.tpNotification.Controls.Add(this.label19);
+            this.tpNotification.Controls.Add(this.label18);
+            this.tpNotification.Controls.Add(this.hsSchedule);
+            this.tpNotification.Controls.Add(this.hsSilent);
+            this.tpNotification.Controls.Add(this.label17);
+            this.tpNotification.Controls.Add(this.hsNotificationSound);
+            this.tpNotification.Controls.Add(this.button17);
+            this.tpNotification.Controls.Add(this.label11);
+            this.tpNotification.Location = new System.Drawing.Point(4, 25);
+            this.tpNotification.Name = "tpNotification";
+            this.tpNotification.Size = new System.Drawing.Size(568, 406);
+            this.tpNotification.TabIndex = 9;
+            this.tpNotification.Text = "Notification Setting";
+            this.tpNotification.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.flpFrom);
+            this.panel1.Controls.Add(this.flpEvery);
+            this.panel1.Controls.Add(this.scheduleFrom);
+            this.panel1.Controls.Add(this.flpTo);
+            this.panel1.Controls.Add(this.scheduleEvery);
+            this.panel1.Controls.Add(this.scheduleTo);
+            this.panel1.Location = new System.Drawing.Point(16, 144);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(537, 89);
+            this.panel1.TabIndex = 42;
+            // 
+            // flpFrom
+            // 
+            this.flpFrom.AutoSize = true;
+            this.flpFrom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpFrom.Controls.Add(this.fromHour);
+            this.flpFrom.Controls.Add(this.label40);
+            this.flpFrom.Controls.Add(this.fromMin);
+            this.flpFrom.Location = new System.Drawing.Point(58, 11);
+            this.flpFrom.Name = "flpFrom";
+            this.flpFrom.Size = new System.Drawing.Size(97, 27);
+            this.flpFrom.TabIndex = 43;
+            // 
+            // fromHour
+            // 
+            this.fromHour.Location = new System.Drawing.Point(3, 3);
+            this.fromHour.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            this.fromHour.Name = "fromHour";
+            this.fromHour.Size = new System.Drawing.Size(34, 21);
+            this.fromHour.TabIndex = 46;
+            this.fromHour.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.fromHour.ValueChanged += new System.EventHandler(this.fromHour_ValueChanged);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(43, 3);
+            this.label40.Margin = new System.Windows.Forms.Padding(3);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(11, 16);
+            this.label40.TabIndex = 45;
+            this.label40.Text = ":";
+            // 
+            // fromMin
+            // 
+            this.fromMin.Location = new System.Drawing.Point(60, 3);
+            this.fromMin.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.fromMin.Name = "fromMin";
+            this.fromMin.Size = new System.Drawing.Size(34, 21);
+            this.fromMin.TabIndex = 47;
+            this.fromMin.Value = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.fromMin.ValueChanged += new System.EventHandler(this.fromHour_ValueChanged);
+            // 
+            // flpEvery
+            // 
+            this.flpEvery.AutoSize = true;
+            this.flpEvery.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpEvery.Controls.Add(this.lbSunday);
+            this.flpEvery.Controls.Add(this.lbMonday);
+            this.flpEvery.Controls.Add(this.lbTuesday);
+            this.flpEvery.Controls.Add(this.lbWednesday);
+            this.flpEvery.Controls.Add(this.lbThursday);
+            this.flpEvery.Controls.Add(this.lbFriday);
+            this.flpEvery.Controls.Add(this.lbSaturday);
+            this.flpEvery.Location = new System.Drawing.Point(58, 48);
+            this.flpEvery.Name = "flpEvery";
+            this.flpEvery.Size = new System.Drawing.Size(209, 28);
+            this.flpEvery.TabIndex = 43;
+            // 
+            // lbSunday
+            // 
+            this.lbSunday.AutoSize = true;
+            this.lbSunday.Location = new System.Drawing.Point(3, 3);
+            this.lbSunday.Margin = new System.Windows.Forms.Padding(3);
+            this.lbSunday.Name = "lbSunday";
+            this.lbSunday.Padding = new System.Windows.Forms.Padding(3);
+            this.lbSunday.Size = new System.Drawing.Size(27, 22);
+            this.lbSunday.TabIndex = 0;
+            this.lbSunday.Tag = "0";
+            this.lbSunday.Text = "Su";
+            this.lbSunday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
+            // 
+            // lbMonday
+            // 
+            this.lbMonday.AutoSize = true;
+            this.lbMonday.Location = new System.Drawing.Point(36, 3);
+            this.lbMonday.Margin = new System.Windows.Forms.Padding(3);
+            this.lbMonday.Name = "lbMonday";
+            this.lbMonday.Padding = new System.Windows.Forms.Padding(3);
+            this.lbMonday.Size = new System.Drawing.Size(25, 22);
+            this.lbMonday.TabIndex = 1;
+            this.lbMonday.Tag = "0";
+            this.lbMonday.Text = "M";
+            this.lbMonday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
+            // 
+            // lbTuesday
+            // 
+            this.lbTuesday.AutoSize = true;
+            this.lbTuesday.Location = new System.Drawing.Point(67, 3);
+            this.lbTuesday.Margin = new System.Windows.Forms.Padding(3);
+            this.lbTuesday.Name = "lbTuesday";
+            this.lbTuesday.Padding = new System.Windows.Forms.Padding(3);
+            this.lbTuesday.Size = new System.Drawing.Size(21, 22);
+            this.lbTuesday.TabIndex = 2;
+            this.lbTuesday.Tag = "0";
+            this.lbTuesday.Text = "T";
+            this.lbTuesday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
+            // 
+            // lbWednesday
+            // 
+            this.lbWednesday.AutoSize = true;
+            this.lbWednesday.Location = new System.Drawing.Point(94, 3);
+            this.lbWednesday.Margin = new System.Windows.Forms.Padding(3);
+            this.lbWednesday.Name = "lbWednesday";
+            this.lbWednesday.Padding = new System.Windows.Forms.Padding(3);
+            this.lbWednesday.Size = new System.Drawing.Size(25, 22);
+            this.lbWednesday.TabIndex = 3;
+            this.lbWednesday.Tag = "0";
+            this.lbWednesday.Text = "W";
+            this.lbWednesday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
+            // 
+            // lbThursday
+            // 
+            this.lbThursday.AutoSize = true;
+            this.lbThursday.Location = new System.Drawing.Point(125, 3);
+            this.lbThursday.Margin = new System.Windows.Forms.Padding(3);
+            this.lbThursday.Name = "lbThursday";
+            this.lbThursday.Padding = new System.Windows.Forms.Padding(3);
+            this.lbThursday.Size = new System.Drawing.Size(29, 22);
+            this.lbThursday.TabIndex = 4;
+            this.lbThursday.Tag = "0";
+            this.lbThursday.Text = "TH";
+            this.lbThursday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
+            // 
+            // lbFriday
+            // 
+            this.lbFriday.AutoSize = true;
+            this.lbFriday.Location = new System.Drawing.Point(160, 3);
+            this.lbFriday.Margin = new System.Windows.Forms.Padding(3);
+            this.lbFriday.Name = "lbFriday";
+            this.lbFriday.Padding = new System.Windows.Forms.Padding(3);
+            this.lbFriday.Size = new System.Drawing.Size(20, 22);
+            this.lbFriday.TabIndex = 5;
+            this.lbFriday.Tag = "0";
+            this.lbFriday.Text = "F";
+            this.lbFriday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
+            // 
+            // lbSaturday
+            // 
+            this.lbSaturday.AutoSize = true;
+            this.lbSaturday.Location = new System.Drawing.Point(186, 3);
+            this.lbSaturday.Margin = new System.Windows.Forms.Padding(3);
+            this.lbSaturday.Name = "lbSaturday";
+            this.lbSaturday.Padding = new System.Windows.Forms.Padding(3);
+            this.lbSaturday.Size = new System.Drawing.Size(20, 22);
+            this.lbSaturday.TabIndex = 6;
+            this.lbSaturday.Tag = "0";
+            this.lbSaturday.Text = "S";
+            this.lbSaturday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
+            // 
+            // scheduleFrom
+            // 
+            this.scheduleFrom.AutoSize = true;
+            this.scheduleFrom.Location = new System.Drawing.Point(12, 16);
+            this.scheduleFrom.Name = "scheduleFrom";
+            this.scheduleFrom.Size = new System.Drawing.Size(40, 16);
+            this.scheduleFrom.TabIndex = 41;
+            this.scheduleFrom.Text = "From:";
+            // 
+            // flpTo
+            // 
+            this.flpTo.AutoSize = true;
+            this.flpTo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpTo.Controls.Add(this.toHour);
+            this.flpTo.Controls.Add(this.label41);
+            this.flpTo.Controls.Add(this.toMin);
+            this.flpTo.Location = new System.Drawing.Point(193, 11);
+            this.flpTo.Name = "flpTo";
+            this.flpTo.Size = new System.Drawing.Size(97, 27);
+            this.flpTo.TabIndex = 48;
+            // 
+            // toHour
+            // 
+            this.toHour.Location = new System.Drawing.Point(3, 3);
+            this.toHour.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            this.toHour.Name = "toHour";
+            this.toHour.Size = new System.Drawing.Size(34, 21);
+            this.toHour.TabIndex = 46;
+            this.toHour.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.toHour.ValueChanged += new System.EventHandler(this.fromHour_ValueChanged);
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(43, 3);
+            this.label41.Margin = new System.Windows.Forms.Padding(3);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(11, 16);
+            this.label41.TabIndex = 45;
+            this.label41.Text = ":";
+            // 
+            // toMin
+            // 
+            this.toMin.Location = new System.Drawing.Point(60, 3);
+            this.toMin.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.toMin.Name = "toMin";
+            this.toMin.Size = new System.Drawing.Size(34, 21);
+            this.toMin.TabIndex = 47;
+            this.toMin.Value = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.toMin.ValueChanged += new System.EventHandler(this.fromHour_ValueChanged);
+            // 
+            // scheduleEvery
+            // 
+            this.scheduleEvery.AutoSize = true;
+            this.scheduleEvery.Location = new System.Drawing.Point(12, 54);
+            this.scheduleEvery.Name = "scheduleEvery";
+            this.scheduleEvery.Size = new System.Drawing.Size(40, 16);
+            this.scheduleEvery.TabIndex = 41;
+            this.scheduleEvery.Text = "Every:";
+            // 
+            // scheduleTo
+            // 
+            this.scheduleTo.AutoSize = true;
+            this.scheduleTo.Location = new System.Drawing.Point(163, 17);
+            this.scheduleTo.Name = "scheduleTo";
+            this.scheduleTo.Size = new System.Drawing.Size(24, 16);
+            this.scheduleTo.TabIndex = 41;
+            this.scheduleTo.Text = "To:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.Color.Transparent;
+            this.label19.Location = new System.Drawing.Point(15, 119);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(132, 16);
+            this.label19.TabIndex = 40;
+            this.label19.Text = "Schedule Silent Mode:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.Color.Transparent;
+            this.label18.Location = new System.Drawing.Point(13, 88);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(78, 16);
+            this.label18.TabIndex = 40;
+            this.label18.Text = "Silent Mode:";
+            // 
+            // hsSchedule
+            // 
+            this.hsSchedule.Location = new System.Drawing.Point(153, 119);
+            this.hsSchedule.Name = "hsSchedule";
+            this.hsSchedule.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsSchedule.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsSchedule.Size = new System.Drawing.Size(50, 19);
+            this.hsSchedule.TabIndex = 39;
+            this.hsSchedule.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsSchedule_CheckedChanged);
+            // 
+            // hsSilent
+            // 
+            this.hsSilent.Location = new System.Drawing.Point(97, 88);
+            this.hsSilent.Name = "hsSilent";
+            this.hsSilent.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsSilent.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsSilent.Size = new System.Drawing.Size(50, 19);
+            this.hsSilent.TabIndex = 39;
+            this.hsSilent.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsSilent_CheckedChanged);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.Transparent;
+            this.label17.Location = new System.Drawing.Point(13, 56);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(141, 16);
+            this.label17.TabIndex = 40;
+            this.label17.Text = "Play Notification Sound:";
+            // 
+            // hsNotificationSound
+            // 
+            this.hsNotificationSound.Location = new System.Drawing.Point(160, 56);
+            this.hsNotificationSound.Name = "hsNotificationSound";
+            this.hsNotificationSound.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsNotificationSound.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.hsNotificationSound.Size = new System.Drawing.Size(50, 19);
+            this.hsNotificationSound.TabIndex = 39;
+            this.hsNotificationSound.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsNotificationSound_CheckedChanged);
+            // 
+            // button17
+            // 
+            this.button17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button17.AutoSize = true;
+            this.button17.BackColor = System.Drawing.Color.Transparent;
+            this.button17.FlatAppearance.BorderSize = 0;
+            this.button17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button17.Image = global::Korot.Properties.Resources.cancel;
+            this.button17.Location = new System.Drawing.Point(527, 7);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(30, 28);
+            this.button17.TabIndex = 37;
+            this.button17.UseVisualStyleBackColor = false;
+            this.button17.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.label11.Location = new System.Drawing.Point(11, 8);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(206, 25);
+            this.label11.TabIndex = 38;
+            this.label11.Text = "Notification Settings";
+            // 
             // cmsSearchEngine
             // 
             this.cmsSearchEngine.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2819,6 +3255,232 @@ namespace Korot
             this.showAWebsiteToolStripMenuItem.Text = "Show a website";
             this.showAWebsiteToolStripMenuItem.Click += new System.EventHandler(this.showAWebsiteToolStripMenuItem_Click);
             // 
+            // tpNAllow
+            // 
+            this.tpNAllow.Controls.Add(this.lbAllow);
+            this.tpNAllow.Controls.Add(this.button22);
+            this.tpNAllow.Controls.Add(this.label24);
+            this.tpNAllow.Location = new System.Drawing.Point(4, 25);
+            this.tpNAllow.Name = "tpNAllow";
+            this.tpNAllow.Size = new System.Drawing.Size(568, 406);
+            this.tpNAllow.TabIndex = 10;
+            this.tpNAllow.Text = "Notification Allow List";
+            this.tpNAllow.UseVisualStyleBackColor = true;
+            // 
+            // tpNBlock
+            // 
+            this.tpNBlock.Controls.Add(this.lbBlock);
+            this.tpNBlock.Controls.Add(this.button21);
+            this.tpNBlock.Controls.Add(this.label23);
+            this.tpNBlock.Location = new System.Drawing.Point(4, 25);
+            this.tpNBlock.Name = "tpNBlock";
+            this.tpNBlock.Size = new System.Drawing.Size(568, 406);
+            this.tpNBlock.TabIndex = 11;
+            this.tpNBlock.Text = "Notification Block List";
+            this.tpNBlock.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel2.Controls.Add(this.btAllowList);
+            this.flowLayoutPanel2.Controls.Add(this.btBlockList);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(15, 239);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(541, 36);
+            this.flowLayoutPanel2.TabIndex = 43;
+            // 
+            // btAllowList
+            // 
+            this.btAllowList.AutoSize = true;
+            this.btAllowList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btAllowList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btAllowList.FlatAppearance.BorderSize = 0;
+            this.btAllowList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btAllowList.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.btAllowList.Location = new System.Drawing.Point(3, 3);
+            this.btAllowList.Name = "btAllowList";
+            this.btAllowList.Size = new System.Drawing.Size(86, 28);
+            this.btAllowList.TabIndex = 11;
+            this.btAllowList.Text = "Allow List...";
+            this.btAllowList.UseVisualStyleBackColor = false;
+            this.btAllowList.Click += new System.EventHandler(this.button19_Click);
+            // 
+            // btBlockList
+            // 
+            this.btBlockList.AutoSize = true;
+            this.btBlockList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btBlockList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btBlockList.FlatAppearance.BorderSize = 0;
+            this.btBlockList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btBlockList.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.btBlockList.Location = new System.Drawing.Point(95, 3);
+            this.btBlockList.Name = "btBlockList";
+            this.btBlockList.Size = new System.Drawing.Size(87, 28);
+            this.btBlockList.TabIndex = 12;
+            this.btBlockList.Text = "Block List...";
+            this.btBlockList.UseVisualStyleBackColor = false;
+            this.btBlockList.Click += new System.EventHandler(this.button20_Click);
+            // 
+            // button21
+            // 
+            this.button21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button21.AutoSize = true;
+            this.button21.BackColor = System.Drawing.Color.Transparent;
+            this.button21.FlatAppearance.BorderSize = 0;
+            this.button21.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button21.Image = global::Korot.Properties.Resources.cancel;
+            this.button21.Location = new System.Drawing.Point(527, 7);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(30, 28);
+            this.button21.TabIndex = 39;
+            this.button21.UseVisualStyleBackColor = false;
+            this.button21.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.label23.Location = new System.Drawing.Point(11, 8);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(218, 25);
+            this.label23.TabIndex = 40;
+            this.label23.Text = "Notification Block List";
+            // 
+            // lbBlock
+            // 
+            this.lbBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbBlock.ContextMenuStrip = this.cmsBlock;
+            this.lbBlock.FormattingEnabled = true;
+            this.lbBlock.ItemHeight = 16;
+            this.lbBlock.Location = new System.Drawing.Point(16, 36);
+            this.lbBlock.Name = "lbBlock";
+            this.lbBlock.Size = new System.Drawing.Size(541, 356);
+            this.lbBlock.TabIndex = 41;
+            // 
+            // lbAllow
+            // 
+            this.lbAllow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbAllow.ContextMenuStrip = this.cmsAllow;
+            this.lbAllow.FormattingEnabled = true;
+            this.lbAllow.ItemHeight = 16;
+            this.lbAllow.Location = new System.Drawing.Point(15, 36);
+            this.lbAllow.Name = "lbAllow";
+            this.lbAllow.Size = new System.Drawing.Size(542, 356);
+            this.lbAllow.TabIndex = 44;
+            // 
+            // button22
+            // 
+            this.button22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button22.AutoSize = true;
+            this.button22.BackColor = System.Drawing.Color.Transparent;
+            this.button22.FlatAppearance.BorderSize = 0;
+            this.button22.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button22.Image = global::Korot.Properties.Resources.cancel;
+            this.button22.Location = new System.Drawing.Point(527, 7);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(30, 28);
+            this.button22.TabIndex = 42;
+            this.button22.UseVisualStyleBackColor = false;
+            this.button22.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.label24.Location = new System.Drawing.Point(11, 8);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(219, 25);
+            this.label24.TabIndex = 43;
+            this.label24.Text = "Notification Allow List";
+            // 
+            // cmsAllow
+            // 
+            this.cmsAllow.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allowRS,
+            this.allowBlockSel,
+            this.allowClear});
+            this.cmsAllow.Name = "cmsAllow";
+            this.cmsAllow.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cmsAllow.ShowImageMargin = false;
+            this.cmsAllow.ShowItemToolTips = false;
+            this.cmsAllow.Size = new System.Drawing.Size(153, 70);
+            this.cmsAllow.Opening += new System.ComponentModel.CancelEventHandler(this.cmsAllow_Opening);
+            // 
+            // cmsBlock
+            // 
+            this.cmsBlock.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.blockRS,
+            this.blockAllowSel,
+            this.blockClear});
+            this.cmsBlock.Name = "cmsAllow";
+            this.cmsBlock.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cmsBlock.ShowImageMargin = false;
+            this.cmsBlock.ShowItemToolTips = false;
+            this.cmsBlock.Size = new System.Drawing.Size(153, 70);
+            this.cmsBlock.Opening += new System.ComponentModel.CancelEventHandler(this.cmsBlock_Opening);
+            // 
+            // allowRS
+            // 
+            this.allowRS.Name = "allowRS";
+            this.allowRS.Size = new System.Drawing.Size(152, 22);
+            this.allowRS.Text = "Remove Selected";
+            this.allowRS.Click += new System.EventHandler(this.allowRS_Click);
+            // 
+            // allowClear
+            // 
+            this.allowClear.Name = "allowClear";
+            this.allowClear.Size = new System.Drawing.Size(152, 22);
+            this.allowClear.Text = "Clear";
+            this.allowClear.Click += new System.EventHandler(this.allowClear_Click);
+            // 
+            // allowBlockSel
+            // 
+            this.allowBlockSel.Name = "allowBlockSel";
+            this.allowBlockSel.Size = new System.Drawing.Size(152, 22);
+            this.allowBlockSel.Text = "Block Selected";
+            this.allowBlockSel.Click += new System.EventHandler(this.allowBlockSel_Click);
+            // 
+            // blockRS
+            // 
+            this.blockRS.Name = "blockRS";
+            this.blockRS.Size = new System.Drawing.Size(152, 22);
+            this.blockRS.Text = "Remove Selected";
+            this.blockRS.Click += new System.EventHandler(this.blockRS_Click);
+            // 
+            // blockAllowSel
+            // 
+            this.blockAllowSel.Name = "blockAllowSel";
+            this.blockAllowSel.Size = new System.Drawing.Size(152, 22);
+            this.blockAllowSel.Text = "Allow Selected";
+            this.blockAllowSel.Click += new System.EventHandler(this.blockAllowSel_Click);
+            // 
+            // blockClear
+            // 
+            this.blockClear.Name = "blockClear";
+            this.blockClear.Size = new System.Drawing.Size(152, 22);
+            this.blockClear.Text = "Clear";
+            // 
+            // btNotification
+            // 
+            this.btNotification.AutoSize = true;
+            this.btNotification.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btNotification.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btNotification.FlatAppearance.BorderSize = 0;
+            this.btNotification.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btNotification.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.btNotification.Location = new System.Drawing.Point(159, 3);
+            this.btNotification.Name = "btNotification";
+            this.btNotification.Size = new System.Drawing.Size(156, 28);
+            this.btNotification.TabIndex = 14;
+            this.btNotification.Text = "Notification Settings...";
+            this.btNotification.UseVisualStyleBackColor = false;
+            this.btNotification.Click += new System.EventHandler(this.button19_Click_1);
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -2887,10 +3549,32 @@ namespace Korot
             this.cmsCookie.ResumeLayout(false);
             this.tpCollection.ResumeLayout(false);
             this.tpCollection.PerformLayout();
+            this.tpNotification.ResumeLayout(false);
+            this.tpNotification.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.flpFrom.ResumeLayout(false);
+            this.flpFrom.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fromHour)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fromMin)).EndInit();
+            this.flpEvery.ResumeLayout(false);
+            this.flpEvery.PerformLayout();
+            this.flpTo.ResumeLayout(false);
+            this.flpTo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.toHour)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toMin)).EndInit();
             this.cmsSearchEngine.ResumeLayout(false);
             this.cmsBStyle.ResumeLayout(false);
             this.cmsIncognito.ResumeLayout(false);
             this.cmsStartup.ResumeLayout(false);
+            this.tpNAllow.ResumeLayout(false);
+            this.tpNAllow.PerformLayout();
+            this.tpNBlock.ResumeLayout(false);
+            this.tpNBlock.PerformLayout();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
+            this.cmsAllow.ResumeLayout(false);
+            this.cmsBlock.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3131,5 +3815,54 @@ namespace Korot
         private System.Windows.Forms.RadioButton rbCenter;
         private System.Windows.Forms.RadioButton rbStretch;
         private System.Windows.Forms.RadioButton rbZoom;
+        private System.Windows.Forms.TabPage tpNotification;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.FlowLayoutPanel flpFrom;
+        private System.Windows.Forms.NumericUpDown fromHour;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.NumericUpDown fromMin;
+        private System.Windows.Forms.FlowLayoutPanel flpEvery;
+        private System.Windows.Forms.Label lbSunday;
+        private System.Windows.Forms.Label lbMonday;
+        private System.Windows.Forms.Label lbTuesday;
+        private System.Windows.Forms.Label lbWednesday;
+        private System.Windows.Forms.Label lbThursday;
+        private System.Windows.Forms.Label lbFriday;
+        private System.Windows.Forms.Label lbSaturday;
+        private System.Windows.Forms.Label scheduleFrom;
+        private System.Windows.Forms.FlowLayoutPanel flpTo;
+        private System.Windows.Forms.NumericUpDown toHour;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.NumericUpDown toMin;
+        private System.Windows.Forms.Label scheduleEvery;
+        private System.Windows.Forms.Label scheduleTo;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private HaltroyFramework.HaltroySwitch hsSchedule;
+        private HaltroyFramework.HaltroySwitch hsSilent;
+        private System.Windows.Forms.Label label17;
+        private HaltroyFramework.HaltroySwitch hsNotificationSound;
+        public System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Button btAllowList;
+        private System.Windows.Forms.Button btBlockList;
+        private System.Windows.Forms.TabPage tpNAllow;
+        private System.Windows.Forms.TabPage tpNBlock;
+        private System.Windows.Forms.ListBox lbAllow;
+        public System.Windows.Forms.Button button22;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.ListBox lbBlock;
+        public System.Windows.Forms.Button button21;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ContextMenuStrip cmsAllow;
+        private System.Windows.Forms.ToolStripMenuItem allowRS;
+        private System.Windows.Forms.ToolStripMenuItem allowBlockSel;
+        private System.Windows.Forms.ToolStripMenuItem allowClear;
+        private System.Windows.Forms.ContextMenuStrip cmsBlock;
+        private System.Windows.Forms.ToolStripMenuItem blockRS;
+        private System.Windows.Forms.ToolStripMenuItem blockAllowSel;
+        private System.Windows.Forms.ToolStripMenuItem blockClear;
+        private System.Windows.Forms.Button btNotification;
     }
 }

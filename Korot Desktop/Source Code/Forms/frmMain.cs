@@ -50,6 +50,9 @@ namespace Korot
         public TitleBarTab aboutTab = null;
         public TitleBarTab cookieTab = null;
         public TitleBarTab collectionTab = null;
+        public TitleBarTab nallowTab = null;
+        public TitleBarTab nblockTab = null;
+        public TitleBarTab notificationTab = null;
         public frmMain()
         {
             AeroPeekEnabled = true;

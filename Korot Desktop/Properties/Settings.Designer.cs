@@ -555,5 +555,41 @@ namespace Korot.Properties {
                 this["notificationBlock"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool silentAllNotifications {
+            get {
+                return ((bool)(this["silentAllNotifications"]));
+            }
+            set {
+                this["silentAllNotifications"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool autoSilent {
+            get {
+                return ((bool)(this["autoSilent"]));
+            }
+            set {
+                this["autoSilent"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0;0;23;59;0;0;0;0;0;0;")]
+        public string autoSilentMode {
+            get {
+                return ((string)(this["autoSilentMode"]));
+            }
+            set {
+                this["autoSilentMode"] = value;
+            }
+        }
     }
 }
