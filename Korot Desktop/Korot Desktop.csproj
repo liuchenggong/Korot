@@ -503,9 +503,6 @@
     <None Include="Resources\tip-tema.png" />
     <None Include="Resources\collection.png" />
     <None Include="Resources\collection-w.png" />
-    <None Include="Resources\cefboundtext.html" />
-    <None Include="Resources\boundTest2.html" />
-    <None Include="Resources\notificationTest.html" />
     <None Include="Resources\notificationDefault.js" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
