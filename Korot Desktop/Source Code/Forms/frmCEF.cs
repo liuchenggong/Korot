@@ -107,7 +107,6 @@ namespace Korot
                 if (Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy)) { SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy); }
             }
         }
-        public NotificationsJSHandler eventHandler;
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings
@@ -142,10 +141,6 @@ namespace Korot
             chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this);
             chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(this);
             chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this);
-            eventHandler = new NotificationsJSHandler();
-            eventHandler.EventArrived += JavascriptEventHandlerEventArrived;
-            chromiumWebBrowser1.JavascriptObjectRepository.Register("boundEventHandler", eventHandler, true, BindingOptions.DefaultBinder);
-            //chromiumWebBrowser1.JavascriptObjectRepository.Register("boundEventHandler", eventHandler, true, BindingOptions.DefaultBinder);
             chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
             chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
             chromiumWebBrowser1.AddressChanged += cef_AddressChanged;
@@ -169,31 +164,161 @@ namespace Korot
                 SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy);
             }
             executeStartupExtensions();
-
         }
         public void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
             if (e.Frame.IsMain && chromiumWebBrowser1.CanExecuteJavascriptInMainFrame)
             {
-                    //In the main frame we inject some javascript that's run on mouseUp
-                    //You can hook any javascript event you like.
-                    chromiumWebBrowser1.ExecuteScriptAsync(@"" + Properties.Resources.notification);
+                //It was Java. Then it turned itself to CLR. It's called C#. Funniest shit I've ever seen.
+                chromiumWebBrowser1.ExecuteScriptAsync(@"  " + Properties.Resources.notificationDefault.Replace("[$]",getNotificationPermission(e.Frame.Url)));
+            
             }
+        }
+        public string getNotificationPermission(string url)
+        {
+            string x = Tools.getBaseURL(url);
+            if (Properties.Settings.Default.notificationAllow.Contains(x))
+            {
+                    return "granted";
+            }
+            if (Properties.Settings.Default.notificationBlock.Contains(x))
+            {
+                    return "denied";
+            }
+            return "denied";
+        }
+        public void PushNewNotification(Notification notification)
+        {
+            frmNotification notifyForm = new frmNotification(this, notification);
+            anaform.notifications.Add(notifyForm);
+            notifyForm.Show();
+        }
+        public void requestNotificationPermission(string url)
+        {
+            Invoke(new Action(() =>
+            {
+                string baseUrl = Tools.getBaseURL(url);
+                if (anaform.notificationAsked.Contains(baseUrl)) { return; }
+                else
+                {
+                    frmNotificationPermission newPerm = new frmNotificationPermission(this, baseUrl);
+                    newPerm.Location = new Point(pictureBox2.Location.X, panel2.Height);
+                    newPerm.TopLevel = false;
+                    newPerm.Visible = true;
+                    Controls.Add(newPerm);
+                    newPerm.Show();
+                    newPerm.Focus();
+                    newPerm.BringToFront();
+                }
+            }));
+        } 
+        public void refreshPage()
+        {
+            chromiumWebBrowser1.Refresh();
         }
 
         private void OnBrowserJavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs e)
         {
-            var windowSelection = (string)e.Message;
+            var message = (string)e.Message;
             var browser = (sender as ChromiumWebBrowser);
-
-            Console.WriteLine("[Korot.OnBrowserJSMessageReceived] Link=\"" + browser.Address + "\" windowSelection=\"" + windowSelection + "\"");
+            if (string.Equals(message, "[Korot.Notification.RequestPermission]"))
+            {
+                requestNotificationPermission(browser.Address);
+            }else 
+            {
+                if (message.ToLower().StartsWith("[korot.notification "))
+                {
+                    if (Properties.Settings.Default.notificationAllow.Contains(Tools.getBaseURL(browser.Address)))
+                    {
+                        // Then he turned himself into a kaşık. He's called Enes Batur Kaşık. Funnies shit I've ever seen.
+                        //ok that was the last easter egg for this meme.
+                        MemoryStream stream = new MemoryStream();
+                        StreamWriter writer = new StreamWriter(stream);
+                        writer.Write(message.Replace("[", "<").Replace("]", ">"));
+                        writer.Flush();
+                        stream.Position = 0;
+                        XmlDocument document = new XmlDocument();
+                        document.Load(stream);
+                        XmlNode node = document.DocumentElement;
+                        string image = node.Attributes["Icon"] != null ? node.Attributes["Icon"].Value : "";
+                        string body = node.Attributes["Body"] != null ? node.Attributes["Body"].Value : "";
+                        string title = node.Attributes["Message"] != null ? node.Attributes["Message"].Value : "";
+                        Notification newnot = new Notification() { url = browser.Address, message = body,title = title, imageUrl = image };
+                        PushNewNotification(newnot);
+                    }
+                }
+            }
         }
-        private void JavascriptEventHandlerEventArrived(string eventName, dynamic eventArgs)
+        private void tabform_Load(object sender, EventArgs e)
         {
-            var id = eventArgs.id;
-            var tagName = eventArgs.tagName;
-            var link = eventArgs.link;
-            Console.WriteLine("[Korot.JSEHEventArrived] eventName=\"" + eventName + "\" id=\"" + id + "\" tagName=\"" + tagName + "\" link=\"" + link + "\"");
+            Updater();
+            if (File.Exists(Properties.Settings.Default.ThemeFile))
+            {
+                comboBox1.Text = new FileInfo(Properties.Settings.Default.ThemeFile).Name.Replace(".ktf", "");
+            }
+            else
+            {
+                comboBox1.Text = "";
+                Properties.Settings.Default.ThemeAuthor = "";
+                Properties.Settings.Default.ThemeName = "";
+            }
+            tbHomepage.Text = Properties.Settings.Default.Homepage;
+            tbSearchEngine.Text = Properties.Settings.Default.SearchURL;
+            if (Properties.Settings.Default.Homepage == "korot://newtab") { radioButton1.Enabled = true; }
+            pictureBox3.BackColor = Properties.Settings.Default.BackColor;
+            pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
+            RefreshLangList();
+            refreshThemeList();
+            ChangeTheme();
+            RefreshDownloadList();
+            lbVersion.Text = Application.ProductVersion.ToString() + (isPreRelease ? "-pre" + preVer : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
+            RefreshFavorites();
+            LoadExt();
+            RefreshProfiles();
+            profilenameToolStripMenuItem.Text = userName;
+            //caseSensitiveToolStripMenuItem.Text = CaseSensitive;
+            showCertificateErrorsToolStripMenuItem.Text = showCertError;
+            chromiumWebBrowser1.Select();
+            hsDoNotTrack.Checked = Properties.Settings.Default.DoNotTrack;
+            EasterEggs();
+            RefreshTranslation();
+            RefreshSizes();
+            if (_Incognito)
+            {
+                foreach (Control x in tpSettings.Controls)
+                {
+                    if (x != button13) { x.Enabled = false; }
+                }
+                btInstall.Enabled = false;
+                btUpdater.Enabled = false;
+                button9.Enabled = false;
+                cmsBStyle.Enabled = false;
+                cmsSearchEngine.Enabled = false;
+                button7.Enabled = false;
+                cmsHistory.Enabled = false;
+                cmsProfiles.Enabled = false;
+                removeSelectedToolStripMenuItem1.Enabled = false;
+                clearToolStripMenuItem2.Enabled = false;
+                removeSelectedToolStripMenuItem.Enabled = false;
+                clearToolStripMenuItem.Enabled = false;
+                disallowThisPageForCookieAccessToolStripMenuItem.Enabled = false;
+                removeSelectedTSMI.Enabled = false;
+                clearTSMI.Enabled = false;
+                Properties.Settings.Default.BackColor = Color.FromArgb(255, 64, 64, 64);
+                Properties.Settings.Default.OverlayColor = Color.DodgerBlue;
+            }
+            else
+            {
+                pictureBox1.Visible = false;
+                tbAddress.Size = new Size(tbAddress.Size.Width + pictureBox1.Size.Width, tbAddress.Size.Height);
+            }
+            LoadLangFromFile(Properties.Settings.Default.LangFile);
+            cbLang.Text = Path.GetFileNameWithoutExtension(Properties.Settings.Default.LangFile);
+            //PushNewNotification(new Notification() { 
+            //    title = "Chromium Initialized.", 
+            //    message = "Congrats m9!", 
+            //    imageUrl = "https://haltroy.com/assets/images/ht-logo-2020.png", 
+            //    url = "https://haltroy.com" });
         }
         private void RefreshHistory()
         {
@@ -418,6 +543,7 @@ namespace Korot
             }
         }
         #region "Translate"
+        public string notificationPermission = "Allow [URL] for sending notifications?";
         public string allow = "Allow";
         public string deny = "Deny";
         public string ubuntuLicense = "Ubuntu Font License";
@@ -2140,84 +2266,7 @@ namespace Korot
                 cmsFavorite.Show(MousePosition);
             }
         }
-        private void tabform_Load(object sender, EventArgs e)
-        {
-            Updater();
-            if (File.Exists(Properties.Settings.Default.ThemeFile))
-            {
-                comboBox1.Text = new FileInfo(Properties.Settings.Default.ThemeFile).Name.Replace(".ktf", "");
-            }
-            else
-            {
-                comboBox1.Text = "";
-                Properties.Settings.Default.ThemeAuthor = "";
-                Properties.Settings.Default.ThemeName = "";
-            }
-            tbHomepage.Text = Properties.Settings.Default.Homepage;
-            tbSearchEngine.Text = Properties.Settings.Default.SearchURL;
-            if (Properties.Settings.Default.Homepage == "korot://newtab") { radioButton1.Enabled = true; }
-            pictureBox3.BackColor = Properties.Settings.Default.BackColor;
-            pictureBox4.BackColor = Properties.Settings.Default.OverlayColor;
-            RefreshLangList();
-            refreshThemeList();
-            ChangeTheme();
-            RefreshDownloadList();
-            lbVersion.Text = Application.ProductVersion.ToString() + (isPreRelease ? "-pre" + preVer : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
-            RefreshFavorites();
-            LoadExt();
-            RefreshProfiles();
-            profilenameToolStripMenuItem.Text = userName;
-            //caseSensitiveToolStripMenuItem.Text = CaseSensitive;
-            showCertificateErrorsToolStripMenuItem.Text = showCertError;
-            chromiumWebBrowser1.Select();
-            hsDoNotTrack.Checked = Properties.Settings.Default.DoNotTrack;
-            EasterEggs();
-            RefreshTranslation();
-            RefreshSizes();
-            if (_Incognito)
-            {
-                foreach (Control x in tpSettings.Controls)
-                {
-                    if (x != button13) { x.Enabled = false; }
-                }
-                btInstall.Enabled = false;
-                btUpdater.Enabled = false;
-                button9.Enabled = false;
-                cmsBStyle.Enabled = false;
-                cmsSearchEngine.Enabled = false;
-                button7.Enabled = false;
-                cmsHistory.Enabled = false;
-                cmsProfiles.Enabled = false;
-                removeSelectedToolStripMenuItem1.Enabled = false;
-                clearToolStripMenuItem2.Enabled = false;
-                removeSelectedToolStripMenuItem.Enabled = false;
-                clearToolStripMenuItem.Enabled = false;
-                disallowThisPageForCookieAccessToolStripMenuItem.Enabled = false;
-                removeSelectedTSMI.Enabled = false;
-                clearTSMI.Enabled = false;
-                Properties.Settings.Default.BackColor = Color.FromArgb(255, 64, 64, 64);
-                Properties.Settings.Default.OverlayColor = Color.DodgerBlue;
-            }
-            else
-            {
-                pictureBox1.Visible = false;
-                tbAddress.Size = new Size(tbAddress.Size.Width + pictureBox1.Size.Width, tbAddress.Size.Height);
-            }
-            LoadLangFromFile(Properties.Settings.Default.LangFile);
-            cbLang.Text = Path.GetFileNameWithoutExtension(Properties.Settings.Default.LangFile);
-            // Create new notification like this:
-            Notification newNot = new Notification()
-            {
-                url = "https://haltroy.com",
-                imageUrl = "https://haltroy.com/assets/images/ht-logo-2020.png",
-                message = "Test \n Test",
-                title = "This is an example notification"
-            };
-            frmNotification notifyForm = new frmNotification(this, newNot);
-            anaform.notifications.Add(notifyForm);
-            notifyForm.Show();
-            // End of example
-        }
+        
         private void button4_Click(object sender, EventArgs e)
         {
             allowSwitching = true;

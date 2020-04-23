@@ -48,8 +48,7 @@ namespace Korot
         #endregion
         public bool OnConsoleMessage(IWebBrowser chromiumWebBrowser, ConsoleMessageEventArgs consoleMessageArgs)
         {
-            Output.WriteLine("[Korot.DisplayHandler.OnConsoleMessage] (" + consoleMessageArgs.Source + ") " + consoleMessageArgs.Message);
-            return false;
+            return true;
         }
 
         public void OnFaviconUrlChange(IWebBrowser chromiumWebBrowser, IBrowser browser, IList<string> urls)

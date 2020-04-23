@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,7 +27,59 @@ namespace Korot
             lbTitle.Text = notification.title;
             lbMessage.Text = notification.message;
             pbImage.ImageLocation = notification.imageUrl;
-
+            if (!Properties.Settings.Default.quietMode) { PlayNotificationSound(); }
+        }
+        public void PlayNotificationSound()
+        {
+            bool isw7 = Tools.getOSInfo() == "NT 6.1";
+            if (!isw7)
+            {
+                bool found = false;
+                try
+                {
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"AppEvents\Schemes\Apps\.Default\Notification.Default\.Current"))
+                    {
+                        if (key != null)
+                        {
+                            Object o = key.GetValue(null); // pass null to get (Default)
+                            if (o != null)
+                            {
+                                SoundPlayer theSound = new SoundPlayer((String)o);
+                                theSound.Play();
+                                found = true;
+                            }
+                        }
+                    }
+                }
+                catch
+                { }
+                if (!found)
+                    SystemSounds.Beep.Play(); // consolation prize
+            }
+            else
+            {
+                bool found = false;
+                try
+                {
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"AppEvents\Schemes\Apps\.Default\SystemNotification\.Current"))
+                    {
+                        if (key != null)
+                        {
+                            Object o = key.GetValue(null); // pass null to get (Default)
+                            if (o != null)
+                            {
+                                SoundPlayer theSound = new SoundPlayer((String)o);
+                                theSound.Play();
+                                found = true;
+                            }
+                        }
+                    }
+                }
+                catch
+                { }
+                if (!found)
+                    SystemSounds.Beep.Play(); // consolation prize
+            }
         }
         private void notification_Click(object sender, EventArgs e)
         {

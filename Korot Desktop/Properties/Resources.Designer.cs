@@ -161,27 +161,6 @@ namespace Korot.Properties {
         }
         
         /// <summary>
-        ///   &lt;!DOCTYPE html&gt;
-        ///
-        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-        ///&lt;head&gt;
-        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
-        ///    &lt;title&gt;CefSharp Javascript Binding Demo&lt;/title&gt;
-        ///
-        ///    &lt;script type=&quot;text/javascript&quot;&gt;
-        ///        //Here we have a simple method that helps us call our bound object from an event
-        ///        //To bind multiple events to the one bound object this method should be modified
-        ///        CefSharp.RegisterEvent = async function (boundObjName, boundObjMethodName, targetObj, evtName)
-        ///        {
-        ///            a [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        internal static string boundTest2 {
-            get {
-                return ResourceManager.GetString("boundTest2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static System.Drawing.Bitmap cancel {
@@ -198,33 +177,6 @@ namespace Korot.Properties {
             get {
                 object obj = ResourceManager.GetObject("cancel_w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   &lt;!DOCTYPE html&gt;
-        ///
-        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-        ///&lt;head&gt;
-        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
-        ///    &lt;title&gt;CefSharp Javascript Binding Demo&lt;/title&gt;
-        ///
-        ///    &lt;script type=&quot;text/javascript&quot;&gt;
-        ///        //Register the object immediately
-        ///        (async function ()
-        ///        {
-        ///            await CefSharp.BindObjectAsync(&quot;simpleBoundEventHandler&quot;);
-        ///        })();
-        ///    &lt;/script&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///    &lt;h1&gt;CefSharp Javascript Binding Demo - Simple.html&lt;/h1&gt;
-        ///
-        ///    The button below will call a c# method t [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        internal static string cefboundtext {
-            get {
-                return ResourceManager.GetString("cefboundtext", resourceCulture);
             }
         }
         
@@ -679,32 +631,28 @@ namespace Korot.Properties {
         /// *
         /// * @author Andrew Dodson
         /// * @website http://adodson.com/notification.js/
+        /// * 
+        /// * Edited by Haltroy for
+        /// * Korot Desktop Client
+        /// * 0.6.0.0-pre4
+        /// * notificationTest branch
+        /// * github.com/haltroy/korot
         /// */
         ///
         /////
         ///// Does the browser support the the Notification API?
         ///// .. and does it have a permission property?
         /////
+        ///var korotNotificationPermission = &quot;[$]&quot;;
         ///
-        ///(function(window, document){
+        ///(function (window, document) {
         ///
         ///	var PERMISSION_GRANTED = &apos;granted&apos;,
-        ///		PERMISSION_DENIED = &apos;denied&apos;,
-        ///		PERMISSION_UNKNOWN = &apos;unknown&apos;;
-        ///	
-        ///	var a = [], iv, i=0;
-        ///
-        ///	//
-        ///	// Swap the document.title with the notification
-        ///	//
-        ///	function swaptitle(title){
-        ///	
-        ///		if(a.length===0){
-        ///		 [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        ///		PERMISSIO [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string notification {
+        internal static string notificationDefault {
             get {
-                return ResourceManager.GetString("notification", resourceCulture);
+                return ResourceManager.GetString("notificationDefault", resourceCulture);
             }
         }
         
@@ -714,17 +662,19 @@ namespace Korot.Properties {
         ///&lt;!--
         ///   Copied example from https://developer.mozilla.org/en-US/docs/Web/API/notification
         ///--&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;Notification Test Page&lt;/title&gt;
+        ///&lt;/head&gt;
         ///&lt;body&gt;
         ///    &lt;h5&gt;Notification Test Page&lt;/h5&gt;
-        ///    &lt;button onClick=&quot;notifyMe()&quot;&gt;Notify Me!&lt;/button&gt;
-        ///    &lt;script&gt;
-        ///        function notifyMe() {
-        ///            // Let&apos;s check if the browser supports notifications
-        ///            if (!(&quot;Notification&quot; in window)) {
-        ///                alert(&quot;Not Implemented.&quot;);
-        ///            }
+        ///    &lt;textarea id=&quot;ConsoleArea&quot;&gt;&lt;/textarea&gt;
         ///
-        ///            // Let&apos;s check whether notification permissions have alread [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        ///    &lt;button onClick=&quot;notifyMe()&quot;&gt;Notify Me!&lt;/button&gt;
+        ///    &lt;button onClick=&quot;requestNotification()&quot;&gt;Get Permission&lt;/button&gt;
+        ///    &lt;script&gt;
+        ///        console.log(&quot;Page loaded.&quot;);
+        ///        function requestNotification() {
+        ///            if (!(&quot;Not [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         internal static string notificationTest {
             get {

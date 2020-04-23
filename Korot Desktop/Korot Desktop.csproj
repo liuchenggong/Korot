@@ -239,9 +239,14 @@
     <Compile Include="Source Code\Forms\frmUpdateExt.Designer.cs">
       <DependentUpon>frmUpdateExt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Forms\frmNotificationPermission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmNotificationPermission.Designer.cs">
+      <DependentUpon>frmNotificationPermission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Handlers\FindHandler.cs" />
     <Compile Include="Source Code\Handlers\KeyboardHandler.cs" />
-    <Compile Include="Source Code\Handlers\NotificationsJSHandler.cs" />
     <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
     <Compile Include="Source Code\Others\CustomLinkLabel.cs">
       <SubType>Component</SubType>
@@ -372,6 +377,9 @@
     <EmbeddedResource Include="Source Code\Forms\frmUpdateExt.resx">
       <DependentUpon>frmUpdateExt.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmNotificationPermission.resx">
+      <DependentUpon>frmNotificationPermission.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Tab\TitleBarTabs.resx">
       <DependentUpon>TitleBarTabs.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -498,7 +506,7 @@
     <None Include="Resources\cefboundtext.html" />
     <None Include="Resources\boundTest2.html" />
     <None Include="Resources\notificationTest.html" />
-    <None Include="Resources\notification.js" />
+    <None Include="Resources\notificationDefault.js" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
