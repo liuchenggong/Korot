@@ -83,6 +83,12 @@ namespace Korot
             Properties.Settings.Default.showFav = true;
             Properties.Settings.Default.allowUnknownResources = false;
             Properties.Settings.Default.registeredExtensions.Clear();
+            Properties.Settings.Default.notificationBlock.Clear();
+            Properties.Settings.Default.notificationAllow.Clear();
+            Properties.Settings.Default.quietMode = false;
+            Properties.Settings.Default.silentAllNotifications = false;
+            Properties.Settings.Default.autoSilent = false;
+            Properties.Settings.Default.autoSilentMode = "0:0:23:59:0:0:0:0:0:0:0:";
         }
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         { if (allowSwitch) { allowSwitch = false; e.Cancel = false; } else { e.Cancel = true; } }
@@ -214,7 +220,9 @@ namespace Korot
                     profilePath + "history.ksf",
                     profilePath + "favorites.ksf",
                     profilePath + "download.ksf",
-                    profilePath + "cookieDisallow.ksf");
+                    profilePath + "cookieDisallow.ksf",
+                    profilePath + "notificationAllow.ksf",
+                    profilePath + "notificationBlock.ksf");
             Properties.Settings.Default.Save();
             allowClose = true;
             Process.Start(Application.ExecutablePath);

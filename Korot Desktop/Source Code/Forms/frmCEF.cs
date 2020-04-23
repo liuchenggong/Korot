@@ -1466,7 +1466,7 @@ namespace Korot
             if (Properties.Settings.Default.autoSilent)
             {
                 string Playlist = Properties.Settings.Default.autoSilentMode;
-                string[] SplittedFase = Playlist.Split(';');
+                string[] SplittedFase = Playlist.Split(':');
                 if (SplittedFase.Length - 1 > 9)
                 {
 
@@ -1511,17 +1511,17 @@ namespace Korot
         }
         public void writeSchedules()
         {
-            string ScheduleBuild = fromHour.Value + ";";
-            ScheduleBuild += fromMin.Value + ";";
-            ScheduleBuild += toHour.Value + ";";
-            ScheduleBuild += toMin.Value + ";";
-            ScheduleBuild += (lbSunday.Tag != null ? lbSunday.Tag.ToString() : "0") + ";";
-            ScheduleBuild += (lbMonday.Tag != null ? lbMonday.Tag.ToString() : "0") + ";";
-            ScheduleBuild += (lbTuesday.Tag != null ? lbTuesday.Tag.ToString() : "0") + ";";
-            ScheduleBuild += (lbWednesday.Tag != null ? lbWednesday.Tag.ToString() : "0") + ";";
-            ScheduleBuild += (lbThursday.Tag != null ? lbThursday.Tag.ToString() : "0") + ";";
-            ScheduleBuild += (lbFriday.Tag != null ? lbFriday.Tag.ToString() : "0") + ";";
-            ScheduleBuild += (lbSaturday.Tag != null ? lbSaturday.Tag.ToString() : "0") + ";";
+            string ScheduleBuild = fromHour.Value + ":";
+            ScheduleBuild += fromMin.Value + ":";
+            ScheduleBuild += toHour.Value + ":";
+            ScheduleBuild += toMin.Value + ":";
+            ScheduleBuild += (lbSunday.Tag != null ? lbSunday.Tag.ToString() : "0") + ":";
+            ScheduleBuild += (lbMonday.Tag != null ? lbMonday.Tag.ToString() : "0") + ":";
+            ScheduleBuild += (lbTuesday.Tag != null ? lbTuesday.Tag.ToString() : "0") + ":";
+            ScheduleBuild += (lbWednesday.Tag != null ? lbWednesday.Tag.ToString() : "0") + ":";
+            ScheduleBuild += (lbThursday.Tag != null ? lbThursday.Tag.ToString() : "0") + ":";
+            ScheduleBuild += (lbFriday.Tag != null ? lbFriday.Tag.ToString() : "0") + ":";
+            ScheduleBuild += (lbSaturday.Tag != null ? lbSaturday.Tag.ToString() : "0") + ":";
             Properties.Settings.Default.autoSilentMode = ScheduleBuild;
         }
         private void tmrRefresher_Tick(object sender, EventArgs e)

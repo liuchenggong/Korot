@@ -3,7 +3,7 @@ An advanced Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy'
 
 Latest Stable Version: [`0.5.4.0`](https://github.com/Haltroy/Korot/releases/tag/0.5.4.0).
 
-Latest Dev Version: [`0.6.0.0-pre3`](https://github.com/Haltroy/Korot/tree/0.6.0.0-pre3).
+Latest Dev Version: [`0.6.0.0-pre4`](https://github.com/Haltroy/Korot/tree/0.6.0.0-pre4).
 
 
 ## Features:
@@ -14,7 +14,7 @@ Latest Dev Version: [`0.6.0.0-pre3`](https://github.com/Haltroy/Korot/tree/0.6.0
  - Theme system (Comes with [`Light`](https://haltroy.com/store/Korot/Themes/Haltroy.KorotLight/) and [`Dark`](https://haltroy.com/store/Korot/Themes/Haltroy.KorotDark/) theme)
  - Built-in Extension system (with support for proxies) & [Extension Store](https://haltroy.com/store/Korot/Extensions/)
  - Profiles
- - Notifications (+0.6)
+ - Notifications (+[`0.6`](https://github.com/Haltroy/Korot/tree/0.6.0.0-pre4))
  - Download manager
  - Custom pages (New Tab, Incognito, Error Page etc.)
  - View local & online webpages
@@ -28,6 +28,6 @@ Latest Dev Version: [`0.6.0.0-pre3`](https://github.com/Haltroy/Korot/tree/0.6.0
  | Branch                                                              | CEF Version | VC++ Version | .Net | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-------------------|
 | [`master`](https://github.com/haltroy/korot)                      | 79+ | 2015 | Framework 4.8 | Development | Unknown |
-| [`0.6.0.0-pre3`](https://github.com/Haltroy/Korot/tree/0.6.0.0-pre3) | 79 | 2015 | Framework 4.8 | *Latest Pre-Release* | 17.4.2020 |
+| [`0.6.0.0-pre4`](https://github.com/Haltroy/Korot/tree/0.6.0.0-pre4) | 79 | 2015 | Framework 4.8 | *Latest Pre-Release* | 24.4.2020 |
 | [`0.5.4.0`](https://github.com/Haltroy/Korot/tree/0.5.4.0) | 79 | 2015 | Framework 4.8 | **Latest Release** | 03.4.2020 |
 | `0.5.3.0` and lower | 79 | 2015 | Framework 4.5.2 | Unsupported | Before 03.4.2020 |

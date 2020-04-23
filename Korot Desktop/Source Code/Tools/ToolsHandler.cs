@@ -158,7 +158,7 @@ namespace Korot
             }
             return true;
         }
-        public static bool SaveSettings(string settingFile, string historyFile, string favoritesFile, string downloadHistory, string disCookieFile)
+        public static bool SaveSettings(string settingFile, string historyFile, string favoritesFile, string downloadHistory, string disCookieFile, string notAllow,string notBlock)
         {
             // Settings
 
@@ -189,13 +189,36 @@ namespace Korot
 
             settingsText += (Properties.Settings.Default.allowUnknownResources ? "1" : "0") + ";";
 
+            settingsText += (Properties.Settings.Default.quietMode ? "1" : "0") + ";";
+
+            settingsText += (Properties.Settings.Default.silentAllNotifications ? "1" : "0") + ";";
+
+            settingsText += (Properties.Settings.Default.autoSilent ? "1" : "0") + ";";
+
+            settingsText += Properties.Settings.Default.autoSilentMode + ";";
+
             FileSystem2.WriteFile(settingFile, settingsText, Encoding.UTF8);
+            //Cookie
             string cookieList = "";
             foreach (string x in Properties.Settings.Default.CookieDisallowList)
             {
                 cookieList += x + Environment.NewLine;
             }
             FileSystem2.WriteFile(disCookieFile, cookieList, Encoding.UTF8);
+            //NotAllow
+            string allowList = "";
+            foreach (string x in Properties.Settings.Default.notificationAllow)
+            {
+                allowList += x + Environment.NewLine;
+            }
+            FileSystem2.WriteFile(notAllow, allowList, Encoding.UTF8);
+            //NotBlock
+            string blockList = "";
+            foreach (string x in Properties.Settings.Default.notificationBlock)
+            {
+                blockList += x + Environment.NewLine;
+            }
+            FileSystem2.WriteFile(notBlock, blockList, Encoding.UTF8);
             // History
             FileSystem2.WriteFile(historyFile, Properties.Settings.Default.History, Encoding.UTF8);
             // Favorites
@@ -205,13 +228,13 @@ namespace Korot
             FileSystem2.WriteFile(downloadHistory, Properties.Settings.Default.DowloadHistory, Encoding.UTF8);
             return true;
         }
-        public static bool LoadSettings(string settingFile, string historyFile, string favoritesFile, string downloadHistory, string disCookieFile)
+        public static bool LoadSettings(string settingFile, string historyFile, string favoritesFile, string downloadHistory, string disCookieFile,string notAllow,string notBlock)
         {
             // Settings
             string Playlist = FileSystem2.ReadFile(settingFile, Encoding.UTF8);
             char[] token = new char[] { ';' };
             string[] SplittedFase = Playlist.Split(token);
-            if (SplittedFase.Length >= 13)
+            if (SplittedFase.Length >= 16)
             {
                 Properties.Settings.Default.Homepage = SplittedFase[0].Replace(Environment.NewLine, "");
                 Properties.Settings.Default.SearchURL = SplittedFase[1].Replace(Environment.NewLine, "");
@@ -226,13 +249,18 @@ namespace Korot
                 Properties.Settings.Default.StartupURL = SplittedFase[10].Replace(Environment.NewLine, "");
                 Properties.Settings.Default.showFav = SplittedFase[11].Replace(Environment.NewLine, "") == "1";
                 Properties.Settings.Default.allowUnknownResources = SplittedFase[12].Replace(Environment.NewLine, "") == "1";
+                Properties.Settings.Default.quietMode = SplittedFase[13].Replace(Environment.NewLine, "") == "1";
+                Properties.Settings.Default.silentAllNotifications = SplittedFase[14].Replace(Environment.NewLine, "") == "1";
+                Properties.Settings.Default.autoSilent = SplittedFase[15].Replace(Environment.NewLine, "") == "1";
+                Properties.Settings.Default.autoSilentMode = SplittedFase[16].Replace(Environment.NewLine, "");
             }
             else
             {
                 Console.WriteLine("Error at reading settings(" + settingFile + ") : [Lines: " + SplittedFase.Length + "]");
-                Tools.SaveSettings(settingFile, historyFile, favoritesFile, downloadHistory, disCookieFile);
+                Tools.SaveSettings(settingFile, historyFile, favoritesFile, downloadHistory, disCookieFile,notAllow,notBlock);
                 return false;
             }
+            //Cookie
             Properties.Settings.Default.CookieDisallowList.Clear();
             string Playlist2 = FileSystem2.ReadFile(disCookieFile, Encoding.UTF8);
             char[] token2 = new char[] { Environment.NewLine.ToCharArray()[0] };
@@ -243,6 +271,29 @@ namespace Korot
                 Properties.Settings.Default.CookieDisallowList.Add(SplittedFase2[i].Replace(Environment.NewLine, ""));
                 i += 1;
             }
+            //notAlow
+            Properties.Settings.Default.notificationAllow.Clear();
+            string Playlist3 = FileSystem2.ReadFile(notAllow, Encoding.UTF8);
+            char[] token3 = new char[] { Environment.NewLine.ToCharArray()[0] };
+            string[] SplittedFase3 = Playlist3.Split(token3);
+            int Count2 = SplittedFase3.Length - 1; ; int i2 = 0;
+            while ((i2 != Count2) && (Count2 >= 1))
+            {
+                Properties.Settings.Default.notificationAllow.Add(SplittedFase3[i2].Replace(Environment.NewLine, ""));
+                i2 += 1;
+            }
+            //notBlock
+            Properties.Settings.Default.notificationBlock.Clear();
+            string Playlist4 = FileSystem2.ReadFile(notAllow, Encoding.UTF8);
+            char[] token4 = new char[] { Environment.NewLine.ToCharArray()[0] };
+            string[] SplittedFase4 = Playlist4.Split(token4);
+            int Count3 = SplittedFase4.Length - 1; ; int i3 = 0;
+            while ((i3 != Count3) && (Count3 >= 1))
+            {
+                Properties.Settings.Default.notificationBlock.Add(SplittedFase4[i3].Replace(Environment.NewLine, ""));
+                i3 += 1;
+            }
+            //Theme
             if (Properties.Settings.Default.ThemeFile == null || !File.Exists(Properties.Settings.Default.ThemeFile))
             {
                 Properties.Settings.Default.ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\Korot Light.ktf";

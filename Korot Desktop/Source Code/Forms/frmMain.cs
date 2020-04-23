@@ -140,7 +140,9 @@ namespace Korot
                         profilePath + "history.ksf",
                         profilePath + "favorites.ksf",
                         profilePath + "download.ksf",
-                        profilePath + "cookieDisallow.ksf");
+                        profilePath + "cookieDisallow.ksf",
+                        profilePath + "notificationAllow.ksf",
+                        profilePath + "notificationBlock.ksf");
                 }
                 else
                 {
@@ -148,7 +150,9 @@ namespace Korot
                         profilePath + "history.ksf",
                         profilePath + "favorites.ksf",
                         profilePath + "download.ksf",
-                        profilePath + "cookieDisallow.ksf");
+                        profilePath + "cookieDisallow.ksf",
+                        profilePath + "notificationAllow.ksf",
+                        profilePath + "notificationBlock.ksf");
                 }
                 if (!File.Exists(profilePath + "collections.kcf"))
                 {
@@ -377,7 +381,9 @@ namespace Korot
                     Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\history.ksf",
                     Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\favorites.ksf",
                     Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\download.ksf",
-                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\cookieDisallow.ksf");
+                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\cookieDisallow.ksf",
+                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "notificationAllow.ksf",
+                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "notificationBlock.ksf");
             }
         }
 
