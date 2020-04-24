@@ -57,6 +57,7 @@ namespace Korot
                 + Cef.ChromiumVersion
                 + " Safari/537.36 Korot/"
                 + Application.ProductVersion.ToString()
+                + (tabform.isPreRelease ? ("-pre" + tabform.preVer) : "")
             };
             if (tabform._Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
             else { settings.CachePath = userCache; settings.RootCachePath = userCache; }

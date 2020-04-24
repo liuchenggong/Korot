@@ -56,7 +56,7 @@ namespace Korot
         private int findTotal;
         private int findCurrent;
         private bool findLast;
-        private readonly string defaultProxy = null;
+        private string defaultProxy = null;
         public ChromiumWebBrowser chromiumWebBrowser1;
         private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
         private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
@@ -64,15 +64,13 @@ namespace Korot
         public frmMain anaform => ((frmMain)ParentTabs);
         public frmCEF(bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0")
         {
+
             loaduri = loadurl;
             _Incognito = isIncognito;
             userName = profileName;
             profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profileName + "\\";
             userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profileName + "\\cache\\";
             InitializeComponent();
-            InitializeChromium();
-            updateExtensions();
-
             frmCollection collectionManager = new frmCollection(this)
             {
                 TopLevel = false,
@@ -88,31 +86,22 @@ namespace Korot
             {
                 try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
-            Uri testUri = new Uri("https://haltroy.com");
-            Uri aUri = WebRequest.GetSystemWebProxy().GetProxy(testUri);
-            if (aUri != testUri)
-            {
-                defaultProxy = aUri.AbsoluteUri;
-            }
-
-            if (defaultProxy == null) { DefaultProxyts.Visible = false; DefaultProxyts.Enabled = false; }
-            else
-            {
-                if (Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy)) { SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy); }
-            }
         }
         public void InitializeChromium()
         {
+            isPreRelease = anaform.isPreRelease;
+            preVer = anaform.preVer;
             CefSettings settings = new CefSettings
             {
                 UserAgent = "Mozilla/5.0 ( Windows "
                 + Tools.getOSInfo()
                 + "; "
-                + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
+                + (Environment.Is64BitProcess ? "Win64" : "Win32NT")
                 + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
                 + Cef.ChromiumVersion
                 + " Safari/537.36 Korot/"
                 + Application.ProductVersion.ToString()
+                + (isPreRelease ? ("-pre" + preVer) : "")
             };
             if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
             else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
@@ -248,6 +237,20 @@ namespace Korot
         }
         private void tabform_Load(object sender, EventArgs e)
         {
+            InitializeChromium();
+            updateExtensions();
+            Uri testUri = new Uri("https://haltroy.com");
+            Uri aUri = WebRequest.GetSystemWebProxy().GetProxy(testUri);
+            if (aUri != testUri)
+            {
+                defaultProxy = aUri.AbsoluteUri;
+            }
+
+            if (defaultProxy == null) { DefaultProxyts.Visible = false; DefaultProxyts.Enabled = false; }
+            else
+            {
+                if (Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy)) { SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy); }
+            }
             Updater();
             if (File.Exists(Properties.Settings.Default.ThemeFile))
             {

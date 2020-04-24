@@ -43,14 +43,11 @@ namespace Korot
                 {
                     if (anaform() != null)
                     {
-                        if ((!Cefform.IsDisposed) || !Cefform.closing)
+                        if (!(Cefform.IsDisposed || Cefform.closing || Cefform.anaform.closing))
                         {
-                            if (!Cefform.IsDisposed)
-                            {
                                 Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
                                 Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
                                 if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pictureBox2.Image = Properties.Resources.locko)); }
-                            }
                         }
                     }
                 }
@@ -66,7 +63,7 @@ namespace Korot
                 {
                     if (anaform() != null)
                     {
-                        if (!(Cefform.IsDisposed) || !Cefform.closing || !Cefform.anaform.closing)
+                        if (!(Cefform.IsDisposed || Cefform.closing || Cefform.anaform.closing))
                         {
                             Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
                             Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
