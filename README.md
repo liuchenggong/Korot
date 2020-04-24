@@ -7,7 +7,7 @@ Latest Dev Version: [`0.6.0.0-pre4`](https://github.com/Haltroy/Korot/tree/0.6.0
 
 
 ## Features:
- - HTML5, CSS3, JS, HTML5 Video, WebGL 3D, etc. supported. (Except `H.264` codec. See #12)
+ - HTML5, CSS3, JS, HTML5 Video, WebGL 3D, etc. supported. (Except `H.264` codec. See [#12](https://github.com/Haltroy/Korot/issues/12))
  - Tabbed, built-in search mode inside of address bar (auto-detecting URLs).
  - Developer tools & View Source
  - UI language system (Comes with [`English`](https://haltroy.com/store/Korot/Languages/Haltroy.English/) and [`Türkçe`](https://haltroy.com/store/Korot/Languages/Haltroy.Türkçe/) languages)
