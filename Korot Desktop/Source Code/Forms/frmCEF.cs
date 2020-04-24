@@ -1855,8 +1855,7 @@ namespace Korot
             Version current = new Version(Application.ProductVersion);
             if (isPreRelease)
             {
-                string currentPreVer = Application.ProductVersion.ToString() + "-pre" + preVer;
-                if (!string.Equals(currentPreVer, preNewest))
+                if (preNo == "0") 
                 {
                     if (alreadyCheckedForUpdatesOnce || Properties.Settings.Default.dismissUpdate || _Incognito)
                     {
@@ -1900,6 +1899,56 @@ namespace Korot
                             }
                         }
                         Properties.Settings.Default.dismissUpdate = true;
+                    }
+                }
+                else
+                {
+                    string currentPreVer = Application.ProductVersion.ToString() + "-pre" + preVer;
+                    if (!string.Equals(currentPreVer, preNewest))
+                    {
+                        if (alreadyCheckedForUpdatesOnce || Properties.Settings.Default.dismissUpdate || _Incognito)
+                        {
+                            updateProgress = 2;
+                            lbUpdateStatus.Text = updateavailable;
+                            btUpdater.Visible = true;
+                            btInstall.Visible = true;
+                        }
+                        else
+                        {
+                            alreadyCheckedForUpdatesOnce = true;
+                            updateProgress = 2;
+                            lbUpdateStatus.Text = updateavailable;
+                            btInstall.Visible = true;
+                            btUpdater.Visible = true;
+                            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
+                                updateTitle,
+                                updateMessage,
+                                Icon,
+                                MessageBoxButtons.YesNo,
+                                Properties.Settings.Default.BackColor,
+                                Yes,
+                                No,
+                                OK,
+                                Cancel,
+                                390,
+                                140);
+                            DialogResult diagres = mesaj.ShowDialog();
+                            if (diagres == DialogResult.Yes)
+                            {
+                                if (Application.OpenForms.OfType<Form1>().Count() < 1)
+                                {
+                                    Process.Start(Application.ExecutablePath, "-update");
+                                }
+                                else
+                                {
+                                    foreach (Form1 x in Application.OpenForms)
+                                    {
+                                        x.Focus();
+                                    }
+                                }
+                            }
+                            Properties.Settings.Default.dismissUpdate = true;
+                        }
                     }
                 }
             }

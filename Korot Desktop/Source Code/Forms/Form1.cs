@@ -116,15 +116,25 @@ namespace Korot
                 string nv = SplittedFase3[0].Replace(Environment.NewLine, "");
                 string minmv = SplittedFase3[2].Substring(1).Replace(Environment.NewLine, "");
                 UpdateURL = SplittedFase3[3].Substring(1).Replace(Environment.NewLine, "");
-                string preNewest = SplittedFase3[4].Substring(1).Replace(Environment.NewLine, "") + "-pre" + SplittedFase3[5].Substring(1).Replace(Environment.NewLine, "");
+                string preNo = SplittedFase3[5].Substring(1).Replace(Environment.NewLine, "");
+                string preNewest = SplittedFase3[4].Substring(1).Replace(Environment.NewLine, "") + "-pre" + preNo;
                 string arch = Environment.Is64BitProcess ? "x64" : "x86";
                 Version current = new Version(Application.ProductVersion);
                 Version MinVersion = new Version(minmv);
                 if (isPreRelease)
                 {
-                    UpdateType = 0;
-                    fileName = ".hup";
-                    downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", preNewest);
+                    if (preNo == "0") 
+                    {
+                        UpdateType = 0;
+                        fileName = ".hup";
+                        downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", nv);
+                    }
+                    else
+                    {
+                        UpdateType = 0;
+                        fileName = ".hup";
+                        downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", preNewest);
+                    }
                 }
                 else
                 {
