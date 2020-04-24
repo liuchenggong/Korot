@@ -50,12 +50,15 @@ namespace Korot
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCollection));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpMain = new System.Windows.Forms.TabPage();
             this.listView1 = new System.Windows.Forms.ListView();
             this.cmsMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newCollectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteThisCollectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeCollectionIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeCollectionTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,8 +72,6 @@ namespace Korot
             this.ımportİtemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.changeCollectionIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeCollectionTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.cmsMain.SuspendLayout();
@@ -131,7 +132,7 @@ namespace Korot
             this.cmsMain.Name = "cmsMain";
             this.cmsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsMain.ShowImageMargin = false;
-            this.cmsMain.Size = new System.Drawing.Size(186, 186);
+            this.cmsMain.Size = new System.Drawing.Size(186, 164);
             this.cmsMain.Opening += new System.ComponentModel.CancelEventHandler(this.cmsMain_Opening);
             // 
             // newCollectionToolStripMenuItem
@@ -147,6 +148,20 @@ namespace Korot
             this.deleteThisCollectionsToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.deleteThisCollectionsToolStripMenuItem.Text = "Delete this Collection";
             this.deleteThisCollectionsToolStripMenuItem.Click += new System.EventHandler(this.deleteThisCollectionsToolStripMenuItem_Click);
+            // 
+            // changeCollectionIDToolStripMenuItem
+            // 
+            this.changeCollectionIDToolStripMenuItem.Name = "changeCollectionIDToolStripMenuItem";
+            this.changeCollectionIDToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.changeCollectionIDToolStripMenuItem.Text = "Change Collection ID";
+            this.changeCollectionIDToolStripMenuItem.Click += new System.EventHandler(this.changeCollectionIDToolStripMenuItem_Click);
+            // 
+            // changeCollectionTextToolStripMenuItem
+            // 
+            this.changeCollectionTextToolStripMenuItem.Name = "changeCollectionTextToolStripMenuItem";
+            this.changeCollectionTextToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.changeCollectionTextToolStripMenuItem.Text = "Change Collection Text";
+            this.changeCollectionTextToolStripMenuItem.Click += new System.EventHandler(this.changeCollectionTextToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
@@ -240,20 +255,6 @@ namespace Korot
             this.timer2.Interval = 2500;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // changeCollectionIDToolStripMenuItem
-            // 
-            this.changeCollectionIDToolStripMenuItem.Name = "changeCollectionIDToolStripMenuItem";
-            this.changeCollectionIDToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.changeCollectionIDToolStripMenuItem.Text = "Change Collection ID";
-            this.changeCollectionIDToolStripMenuItem.Click += new System.EventHandler(this.changeCollectionIDToolStripMenuItem_Click);
-            // 
-            // changeCollectionTextToolStripMenuItem
-            // 
-            this.changeCollectionTextToolStripMenuItem.Name = "changeCollectionTextToolStripMenuItem";
-            this.changeCollectionTextToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.changeCollectionTextToolStripMenuItem.Text = "Change Collection Text";
-            this.changeCollectionTextToolStripMenuItem.Click += new System.EventHandler(this.changeCollectionTextToolStripMenuItem_Click);
-            // 
             // frmCollection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
@@ -261,6 +262,7 @@ namespace Korot
             this.ClientSize = new System.Drawing.Size(775, 336);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Ubuntu", 8.25F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmCollection";
             this.Text = "frmCollection";

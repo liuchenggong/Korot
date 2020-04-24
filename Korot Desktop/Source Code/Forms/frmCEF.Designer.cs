@@ -251,6 +251,7 @@ namespace Korot
             this.lbKorot = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.tpCookie = new System.Windows.Forms.TabPage();
+            this.btCookieBack = new System.Windows.Forms.Button();
             this.lbCookie = new System.Windows.Forms.ListBox();
             this.cmsCookie = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allowSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -262,6 +263,7 @@ namespace Korot
             this.button15 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.tpNotification = new System.Windows.Forms.TabPage();
+            this.btNotifBack = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.btAllowList = new System.Windows.Forms.Button();
             this.btBlockList = new System.Windows.Forms.Button();
@@ -295,6 +297,7 @@ namespace Korot
             this.button17 = new System.Windows.Forms.Button();
             this.lbNotifSetting = new System.Windows.Forms.Label();
             this.tpNAllow = new System.Windows.Forms.TabPage();
+            this.btNotifAllowBack = new System.Windows.Forms.Button();
             this.lbAllow = new System.Windows.Forms.ListBox();
             this.cmsAllow = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allowRS = new System.Windows.Forms.ToolStripMenuItem();
@@ -303,6 +306,7 @@ namespace Korot
             this.button22 = new System.Windows.Forms.Button();
             this.lbNotifAllow = new System.Windows.Forms.Label();
             this.tpNBlock = new System.Windows.Forms.TabPage();
+            this.btNBlockBack = new System.Windows.Forms.Button();
             this.lbBlock = new System.Windows.Forms.ListBox();
             this.cmsBlock = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.blockRS = new System.Windows.Forms.ToolStripMenuItem();
@@ -336,10 +340,6 @@ namespace Korot
             this.showNewTabPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btNotifBack = new System.Windows.Forms.Button();
-            this.btNBlockBack = new System.Windows.Forms.Button();
-            this.btNotifAllowBack = new System.Windows.Forms.Button();
-            this.btCookieBack = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.cmsHamburger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -2576,6 +2576,20 @@ namespace Korot
             this.tpCookie.Text = "Cookie Disallow List";
             this.tpCookie.UseVisualStyleBackColor = true;
             // 
+            // btCookieBack
+            // 
+            this.btCookieBack.BackColor = System.Drawing.Color.Transparent;
+            this.btCookieBack.ContextMenuStrip = this.cmsBack;
+            this.btCookieBack.FlatAppearance.BorderSize = 0;
+            this.btCookieBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btCookieBack.Image = global::Korot.Properties.Resources.leftarrow;
+            this.btCookieBack.Location = new System.Drawing.Point(14, 5);
+            this.btCookieBack.Name = "btCookieBack";
+            this.btCookieBack.Size = new System.Drawing.Size(30, 28);
+            this.btCookieBack.TabIndex = 45;
+            this.btCookieBack.UseVisualStyleBackColor = false;
+            this.btCookieBack.Click += new System.EventHandler(this.btNotifBack_Click);
+            // 
             // lbCookie
             // 
             this.lbCookie.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2706,6 +2720,20 @@ namespace Korot
             this.tpNotification.TabIndex = 9;
             this.tpNotification.Text = "Notification Setting";
             this.tpNotification.UseVisualStyleBackColor = true;
+            // 
+            // btNotifBack
+            // 
+            this.btNotifBack.BackColor = System.Drawing.Color.Transparent;
+            this.btNotifBack.ContextMenuStrip = this.cmsBack;
+            this.btNotifBack.FlatAppearance.BorderSize = 0;
+            this.btNotifBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btNotifBack.Image = global::Korot.Properties.Resources.leftarrow;
+            this.btNotifBack.Location = new System.Drawing.Point(15, 7);
+            this.btNotifBack.Name = "btNotifBack";
+            this.btNotifBack.Size = new System.Drawing.Size(30, 28);
+            this.btNotifBack.TabIndex = 44;
+            this.btNotifBack.UseVisualStyleBackColor = false;
+            this.btNotifBack.Click += new System.EventHandler(this.btNotifBack_Click);
             // 
             // flowLayoutPanel2
             // 
@@ -3125,6 +3153,20 @@ namespace Korot
             this.tpNAllow.Text = "Notification Allow List";
             this.tpNAllow.UseVisualStyleBackColor = true;
             // 
+            // btNotifAllowBack
+            // 
+            this.btNotifAllowBack.BackColor = System.Drawing.Color.Transparent;
+            this.btNotifAllowBack.ContextMenuStrip = this.cmsBack;
+            this.btNotifAllowBack.FlatAppearance.BorderSize = 0;
+            this.btNotifAllowBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btNotifAllowBack.Image = global::Korot.Properties.Resources.leftarrow;
+            this.btNotifAllowBack.Location = new System.Drawing.Point(15, 7);
+            this.btNotifAllowBack.Name = "btNotifAllowBack";
+            this.btNotifAllowBack.Size = new System.Drawing.Size(30, 28);
+            this.btNotifAllowBack.TabIndex = 46;
+            this.btNotifAllowBack.UseVisualStyleBackColor = false;
+            this.btNotifAllowBack.Click += new System.EventHandler(this.btNBlockBack_Click);
+            // 
             // lbAllow
             // 
             this.lbAllow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -3209,6 +3251,20 @@ namespace Korot
             this.tpNBlock.TabIndex = 11;
             this.tpNBlock.Text = "Notification Block List";
             this.tpNBlock.UseVisualStyleBackColor = true;
+            // 
+            // btNBlockBack
+            // 
+            this.btNBlockBack.BackColor = System.Drawing.Color.Transparent;
+            this.btNBlockBack.ContextMenuStrip = this.cmsBack;
+            this.btNBlockBack.FlatAppearance.BorderSize = 0;
+            this.btNBlockBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btNBlockBack.Image = global::Korot.Properties.Resources.leftarrow;
+            this.btNBlockBack.Location = new System.Drawing.Point(16, 4);
+            this.btNBlockBack.Name = "btNBlockBack";
+            this.btNBlockBack.Size = new System.Drawing.Size(30, 28);
+            this.btNBlockBack.TabIndex = 45;
+            this.btNBlockBack.UseVisualStyleBackColor = false;
+            this.btNBlockBack.Click += new System.EventHandler(this.btNBlockBack_Click);
             // 
             // lbBlock
             // 
@@ -3501,62 +3557,6 @@ namespace Korot
             this.showAWebsiteToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.showAWebsiteToolStripMenuItem.Text = "Show a website";
             this.showAWebsiteToolStripMenuItem.Click += new System.EventHandler(this.showAWebsiteToolStripMenuItem_Click);
-            // 
-            // btNotifBack
-            // 
-            this.btNotifBack.BackColor = System.Drawing.Color.Transparent;
-            this.btNotifBack.ContextMenuStrip = this.cmsBack;
-            this.btNotifBack.FlatAppearance.BorderSize = 0;
-            this.btNotifBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btNotifBack.Image = global::Korot.Properties.Resources.leftarrow;
-            this.btNotifBack.Location = new System.Drawing.Point(15, 7);
-            this.btNotifBack.Name = "btNotifBack";
-            this.btNotifBack.Size = new System.Drawing.Size(30, 28);
-            this.btNotifBack.TabIndex = 44;
-            this.btNotifBack.UseVisualStyleBackColor = false;
-            this.btNotifBack.Click += new System.EventHandler(this.btNotifBack_Click);
-            // 
-            // btNBlockBack
-            // 
-            this.btNBlockBack.BackColor = System.Drawing.Color.Transparent;
-            this.btNBlockBack.ContextMenuStrip = this.cmsBack;
-            this.btNBlockBack.FlatAppearance.BorderSize = 0;
-            this.btNBlockBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btNBlockBack.Image = global::Korot.Properties.Resources.leftarrow;
-            this.btNBlockBack.Location = new System.Drawing.Point(16, 4);
-            this.btNBlockBack.Name = "btNBlockBack";
-            this.btNBlockBack.Size = new System.Drawing.Size(30, 28);
-            this.btNBlockBack.TabIndex = 45;
-            this.btNBlockBack.UseVisualStyleBackColor = false;
-            this.btNBlockBack.Click += new System.EventHandler(this.btNBlockBack_Click);
-            // 
-            // btNotifAllowBack
-            // 
-            this.btNotifAllowBack.BackColor = System.Drawing.Color.Transparent;
-            this.btNotifAllowBack.ContextMenuStrip = this.cmsBack;
-            this.btNotifAllowBack.FlatAppearance.BorderSize = 0;
-            this.btNotifAllowBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btNotifAllowBack.Image = global::Korot.Properties.Resources.leftarrow;
-            this.btNotifAllowBack.Location = new System.Drawing.Point(15, 7);
-            this.btNotifAllowBack.Name = "btNotifAllowBack";
-            this.btNotifAllowBack.Size = new System.Drawing.Size(30, 28);
-            this.btNotifAllowBack.TabIndex = 46;
-            this.btNotifAllowBack.UseVisualStyleBackColor = false;
-            this.btNotifAllowBack.Click += new System.EventHandler(this.btNBlockBack_Click);
-            // 
-            // btCookieBack
-            // 
-            this.btCookieBack.BackColor = System.Drawing.Color.Transparent;
-            this.btCookieBack.ContextMenuStrip = this.cmsBack;
-            this.btCookieBack.FlatAppearance.BorderSize = 0;
-            this.btCookieBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCookieBack.Image = global::Korot.Properties.Resources.leftarrow;
-            this.btCookieBack.Location = new System.Drawing.Point(14, 5);
-            this.btCookieBack.Name = "btCookieBack";
-            this.btCookieBack.Size = new System.Drawing.Size(30, 28);
-            this.btCookieBack.TabIndex = 45;
-            this.btCookieBack.UseVisualStyleBackColor = false;
-            this.btCookieBack.Click += new System.EventHandler(this.btNotifBack_Click);
             // 
             // frmCEF
             // 

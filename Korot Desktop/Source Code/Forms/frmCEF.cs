@@ -39,6 +39,7 @@ namespace Korot
 {
     public partial class frmCEF : Form
     {
+        private frmCollection ColMan;
         public bool closing;
         public ContextMenuStrip cmsCEF = null;
         private int updateProgress = 0;
@@ -71,17 +72,6 @@ namespace Korot
             profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profileName + "\\";
             userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profileName + "\\cache\\";
             InitializeComponent();
-            frmCollection collectionManager = new frmCollection(this)
-            {
-                TopLevel = false,
-                FormBorderStyle = FormBorderStyle.None,
-                Dock = DockStyle.Fill,
-                Visible = true
-            };
-            ColMan = collectionManager;
-            collectionManager.Show();
-            panel3.Controls.Add(collectionManager);
-
             foreach (Control x in Controls)
             {
                 try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
@@ -251,6 +241,16 @@ namespace Korot
             {
                 if (Properties.Settings.Default.rememberLastProxy && !string.IsNullOrWhiteSpace(Properties.Settings.Default.LastProxy)) { SetProxy(chromiumWebBrowser1, Properties.Settings.Default.LastProxy); }
             }
+            frmCollection collectionManager = new frmCollection(this)
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill,
+                Visible = true
+            };
+            ColMan = collectionManager;
+            collectionManager.Show();
+            panel3.Controls.Add(collectionManager);
             Updater();
             if (File.Exists(Properties.Settings.Default.ThemeFile))
             {
@@ -4400,7 +4400,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             Properties.Settings.Default.autoRestoreSessions = hsAutoRestore.Checked;
         }
 
-        private readonly frmCollection ColMan;
         private void tpCollection_Enter(object sender, EventArgs e)
         {
             ColMan.genColList();
