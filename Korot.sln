@@ -18,7 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{02C4F649-0587-4D07-A48C-EFC7C4D594EE}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\Desktop\bug_report.md = ..\..\..\Desktop\bug_report.md
-		..\..\..\Desktop\custom.md = ..\..\..\Desktop\custom.md
+		..\..\..\Desktop\help.md = ..\..\..\Desktop\help.md
 		..\..\..\Desktop\feature_request.md = ..\..\..\Desktop\feature_request.md
 	EndProjectSection
 EndProject
