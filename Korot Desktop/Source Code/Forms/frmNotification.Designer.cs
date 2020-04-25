@@ -37,6 +37,10 @@
             this.lbClose = new System.Windows.Forms.Label();
             this.lbKorot = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pDown = new System.Windows.Forms.Panel();
+            this.pLeft = new System.Windows.Forms.Panel();
+            this.pUp = new System.Windows.Forms.Panel();
+            this.pRight = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,7 +49,7 @@
             this.lbSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSource.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.lbSource.Location = new System.Drawing.Point(12, 11);
+            this.lbSource.Location = new System.Drawing.Point(12, 13);
             this.lbSource.Name = "lbSource";
             this.lbSource.Size = new System.Drawing.Size(456, 18);
             this.lbSource.TabIndex = 0;
@@ -93,7 +97,7 @@
             this.lbClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbClose.AutoSize = true;
             this.lbClose.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.lbClose.Location = new System.Drawing.Point(474, 5);
+            this.lbClose.Location = new System.Drawing.Point(467, 10);
             this.lbClose.Name = "lbClose";
             this.lbClose.Size = new System.Drawing.Size(25, 25);
             this.lbClose.TabIndex = 0;
@@ -104,7 +108,7 @@
             // 
             this.lbKorot.AutoSize = true;
             this.lbKorot.Font = new System.Drawing.Font("Ubuntu", 8F);
-            this.lbKorot.Location = new System.Drawing.Point(12, 142);
+            this.lbKorot.Location = new System.Drawing.Point(12, 136);
             this.lbKorot.Name = "lbKorot";
             this.lbKorot.Size = new System.Drawing.Size(66, 16);
             this.lbKorot.TabIndex = 2;
@@ -116,12 +120,55 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // pDown
+            // 
+            this.pDown.BackColor = System.Drawing.Color.Black;
+            this.pDown.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pDown.Location = new System.Drawing.Point(0, 162);
+            this.pDown.Name = "pDown";
+            this.pDown.Size = new System.Drawing.Size(504, 5);
+            this.pDown.TabIndex = 3;
+            // 
+            // pLeft
+            // 
+            this.pLeft.BackColor = System.Drawing.Color.Black;
+            this.pLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pLeft.Location = new System.Drawing.Point(0, 0);
+            this.pLeft.Name = "pLeft";
+            this.pLeft.Size = new System.Drawing.Size(5, 162);
+            this.pLeft.TabIndex = 4;
+            this.pLeft.Click += new System.EventHandler(this.notification_Click);
+            // 
+            // pUp
+            // 
+            this.pUp.BackColor = System.Drawing.Color.Black;
+            this.pUp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pUp.Location = new System.Drawing.Point(5, 0);
+            this.pUp.Name = "pUp";
+            this.pUp.Size = new System.Drawing.Size(499, 5);
+            this.pUp.TabIndex = 5;
+            this.pUp.Click += new System.EventHandler(this.notification_Click);
+            // 
+            // pRight
+            // 
+            this.pRight.BackColor = System.Drawing.Color.Black;
+            this.pRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pRight.Location = new System.Drawing.Point(499, 5);
+            this.pRight.Name = "pRight";
+            this.pRight.Size = new System.Drawing.Size(5, 157);
+            this.pRight.TabIndex = 6;
+            this.pRight.Click += new System.EventHandler(this.notification_Click);
+            // 
             // frmNotification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(504, 167);
             this.ControlBox = false;
+            this.Controls.Add(this.pRight);
+            this.Controls.Add(this.pUp);
+            this.Controls.Add(this.pLeft);
+            this.Controls.Add(this.pDown);
             this.Controls.Add(this.lbKorot);
             this.Controls.Add(this.pbImage);
             this.Controls.Add(this.lbMessage);
@@ -139,6 +186,7 @@
             this.Text = "Korot";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.frmNotification_Load);
+            this.Click += new System.EventHandler(this.notification_Click);
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -154,5 +202,9 @@
         private System.Windows.Forms.Label lbClose;
         private System.Windows.Forms.Label lbKorot;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Panel pDown;
+        private System.Windows.Forms.Panel pLeft;
+        private System.Windows.Forms.Panel pUp;
+        private System.Windows.Forms.Panel pRight;
     }
 }

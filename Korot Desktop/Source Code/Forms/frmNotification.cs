@@ -181,6 +181,10 @@ namespace Korot
             Location = new Point(pointX, pointY);
             BackColor = Properties.Settings.Default.BackColor;
             ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            pUp.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            pDown.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            pLeft.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            pRight.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
         }
     }
     public class Notification

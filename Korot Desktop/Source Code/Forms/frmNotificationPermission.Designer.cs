@@ -36,6 +36,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pRight = new System.Windows.Forms.Panel();
+            this.pUp = new System.Windows.Forms.Panel();
+            this.pLeft = new System.Windows.Forms.Panel();
+            this.pDown = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,6 +112,42 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // pRight
+            // 
+            this.pRight.BackColor = System.Drawing.Color.Black;
+            this.pRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pRight.Location = new System.Drawing.Point(384, 5);
+            this.pRight.Name = "pRight";
+            this.pRight.Size = new System.Drawing.Size(5, 126);
+            this.pRight.TabIndex = 10;
+            // 
+            // pUp
+            // 
+            this.pUp.BackColor = System.Drawing.Color.Black;
+            this.pUp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pUp.Location = new System.Drawing.Point(5, 0);
+            this.pUp.Name = "pUp";
+            this.pUp.Size = new System.Drawing.Size(384, 5);
+            this.pUp.TabIndex = 9;
+            // 
+            // pLeft
+            // 
+            this.pLeft.BackColor = System.Drawing.Color.Black;
+            this.pLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pLeft.Location = new System.Drawing.Point(0, 0);
+            this.pLeft.Name = "pLeft";
+            this.pLeft.Size = new System.Drawing.Size(5, 131);
+            this.pLeft.TabIndex = 8;
+            // 
+            // pDown
+            // 
+            this.pDown.BackColor = System.Drawing.Color.Black;
+            this.pDown.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pDown.Location = new System.Drawing.Point(0, 131);
+            this.pDown.Name = "pDown";
+            this.pDown.Size = new System.Drawing.Size(389, 5);
+            this.pDown.TabIndex = 7;
+            // 
             // frmNotificationPermission
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
@@ -115,6 +155,10 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(389, 136);
             this.ControlBox = false;
+            this.Controls.Add(this.pRight);
+            this.Controls.Add(this.pUp);
+            this.Controls.Add(this.pLeft);
+            this.Controls.Add(this.pDown);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -134,7 +178,6 @@
             this.Tag = "deez nuts";
             this.Text = "please no not look at tags";
             this.Deactivate += new System.EventHandler(this.frmNotificationPermission_Leave);
-            this.Load += new System.EventHandler(this.frmNotificationPermission_Load);
             this.Leave += new System.EventHandler(this.frmNotificationPermission_Leave);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
@@ -151,5 +194,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Panel pRight;
+        private System.Windows.Forms.Panel pUp;
+        private System.Windows.Forms.Panel pLeft;
+        private System.Windows.Forms.Panel pDown;
     }
 }

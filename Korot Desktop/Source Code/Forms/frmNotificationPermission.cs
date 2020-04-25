@@ -59,6 +59,10 @@ namespace Korot
             ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             button1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
             button2.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+            pUp.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            pDown.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            pLeft.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            pRight.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -71,11 +75,6 @@ namespace Korot
         {
             Close();
             cefform.Invoke(new Action(() => cefform.chromiumWebBrowser1.Refresh()));
-        }
-
-        private void frmNotificationPermission_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
