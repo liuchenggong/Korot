@@ -219,7 +219,8 @@ namespace Korot
                         string image = node.Attributes["Icon"] != null ? node.Attributes["Icon"].Value : "";
                         string body = node.Attributes["Body"] != null ? node.Attributes["Body"].Value : "";
                         string title = node.Attributes["Message"] != null ? node.Attributes["Message"].Value : "";
-                        Notification newnot = new Notification() { url = browser.Address, message = body, title = title, imageUrl = image };
+                        string onclick = node.Attributes["onClick"] != null ? node.Attributes["onClick"].Value : "";
+                        Notification newnot = new Notification() { url = browser.Address, message = body, title = title, imageUrl = image, action = onclick };
                         PushNewNotification(newnot);
                     }
                 }

@@ -6,9 +6,7 @@
  * @website http://adodson.com/notification.js/
  * 
  * Edited by Haltroy for
- * Korot Desktop Client
- * 0.6.0.0-pre4
- * notificationTest branch
+ * Korot Desktop Client 0.6 and later
  * github.com/haltroy/korot
  */
 
@@ -127,7 +125,7 @@ var korotNotificationPermission = "[$]";
 		window.webkitNotifications = function (message, options) {
 			return window.Notification(message, options);
 		}
-		window.webkitNotifications.createNotification = function (icon, message, body) {
+		window.webkitNotifications.createNotification = function (icon, message, body, onclick) {
 			if (message == null) { return;}
 			var pMessage = "[Korot.Notification" + " Message=\"" + message + "\"";
 			if (icon != null) {
@@ -136,8 +134,12 @@ var korotNotificationPermission = "[$]";
 			if (body != null) {
 				pMessage = pMessage + " Body=\"" + body + "\"";
 			}
+			if (onclick != null) {
+				pMessage = pMessage + " onclick=\"" + onclick + "\"";
+			}
 			pMessage = pMessage + " /]";
 			CefSharp.PostMessage(pMessage);
+			return pMessage;
 		};
 		window.webkitNotifications.requestPermission = function (cb) {
 			// Setup
@@ -183,8 +185,10 @@ var korotNotificationPermission = "[$]";
 
 				self.onclose();
 			};
-			this.onclick = function () { };
-			this.onclose = function () { };
+			this.onshow = options.onshow || function () { };
+			var currentUrl = window.location.href;
+			this.onclick = options.onclick || function () { window.open(currentUrl,'_blank'); };
+			this.onclose = options.onclose || function () { };
 
 			//
 			// Swap document.title
@@ -204,13 +208,15 @@ var korotNotificationPermission = "[$]";
 			}
 			else if ("webkitNotifications" in window) {
 				if (window.webkitNotifications.checkPermission() === 0) {
-					n = window.webkitNotifications.createNotification(this.icon, message, this.body);
+					n = window.webkitNotifications.createNotification(this.icon, message, this.body, this.onclick);
 				}
 			}
 			else if ("mozNotification" in window.navigator) {
 				var m = window.navigator.mozNotification.createNotification(message, this.body, this.icon);
 				m.show();
 			}
+			this.onshow();
+			this.onclose();
 		};
 
 		window.Notification.requestPermission = function (cb) {

@@ -116,18 +116,18 @@
             // 
             this.pRight.BackColor = System.Drawing.Color.Black;
             this.pRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pRight.Location = new System.Drawing.Point(384, 5);
+            this.pRight.Location = new System.Drawing.Point(387, 2);
             this.pRight.Name = "pRight";
-            this.pRight.Size = new System.Drawing.Size(5, 126);
+            this.pRight.Size = new System.Drawing.Size(2, 132);
             this.pRight.TabIndex = 10;
             // 
             // pUp
             // 
             this.pUp.BackColor = System.Drawing.Color.Black;
             this.pUp.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pUp.Location = new System.Drawing.Point(5, 0);
+            this.pUp.Location = new System.Drawing.Point(2, 0);
             this.pUp.Name = "pUp";
-            this.pUp.Size = new System.Drawing.Size(384, 5);
+            this.pUp.Size = new System.Drawing.Size(387, 2);
             this.pUp.TabIndex = 9;
             // 
             // pLeft
@@ -136,16 +136,16 @@
             this.pLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.pLeft.Location = new System.Drawing.Point(0, 0);
             this.pLeft.Name = "pLeft";
-            this.pLeft.Size = new System.Drawing.Size(5, 131);
+            this.pLeft.Size = new System.Drawing.Size(2, 134);
             this.pLeft.TabIndex = 8;
             // 
             // pDown
             // 
             this.pDown.BackColor = System.Drawing.Color.Black;
             this.pDown.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pDown.Location = new System.Drawing.Point(0, 131);
+            this.pDown.Location = new System.Drawing.Point(0, 134);
             this.pDown.Name = "pDown";
-            this.pDown.Size = new System.Drawing.Size(389, 5);
+            this.pDown.Size = new System.Drawing.Size(389, 2);
             this.pDown.TabIndex = 7;
             // 
             // frmNotificationPermission

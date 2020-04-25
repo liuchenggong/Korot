@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using CefSharp;
+using Microsoft.Win32;
 using System;
 using System.Drawing;
 using System.Media;
@@ -21,6 +22,7 @@ namespace Korot
             lbTitle.Text = notification.title;
             lbMessage.Text = notification.message;
             pbImage.ImageLocation = notification.imageUrl;
+            Console.WriteLine(notification.action);
         }
 
         private bool playedSound = false;
@@ -87,8 +89,15 @@ namespace Korot
             if (cefform == null) { cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this))); Close(); return; }
             if (cefform.IsDisposed) { cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this))); Close(); return; }
             if (cefform.closing) { cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this))); Close(); return; }
-            cefform.Invoke(new Action(() => cefform.NewTab(notification.url)));
-            cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this)));
+            if (string.IsNullOrWhiteSpace(notification.action)) 
+            {
+                cefform.Invoke(new Action(() => cefform.NewTab(notification.url)));
+            }
+            else
+            {
+                cefform.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsync(@" " + notification.action)));
+            }
+                cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this)));
             Close();
         }
         private void frmNotification_Load(object sender, EventArgs e)
@@ -193,5 +202,6 @@ namespace Korot
         public string title { get; set; }
         public string message { get; set; }
         public string imageUrl { get; set; }
+        public string action { get; set; }
     }
 }

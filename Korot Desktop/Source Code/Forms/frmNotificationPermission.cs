@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CefSharp;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,8 +7,8 @@ namespace Korot
 {
     public partial class frmNotificationPermission : Form
     {
-        private readonly bool alreadyAddedAllow = false;
-        private readonly bool alreadyAddedBlock = false;
+        private bool alreadyAddedAllow { get { return Properties.Settings.Default.notificationAllow.Contains(baseUrl); } }
+        private bool alreadyAddedBlock { get { return Properties.Settings.Default.notificationBlock.Contains(baseUrl); } }
         private readonly string baseUrl;
         private readonly frmCEF cefform;
         public frmNotificationPermission(frmCEF _frmCEF, string url)
@@ -18,8 +19,6 @@ namespace Korot
             label1.Text = cefform.notificationPermission.Replace("[URL]", baseUrl);
             button1.Text = cefform.allow;
             button2.Text = cefform.deny;
-            alreadyAddedAllow = Properties.Settings.Default.notificationAllow.Contains(baseUrl);
-            alreadyAddedBlock = Properties.Settings.Default.notificationBlock.Contains(baseUrl);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -32,6 +31,7 @@ namespace Korot
             {
                 Properties.Settings.Default.notificationAllow.Add(baseUrl);
             }
+            cefform.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsync(@"korotNotificationPermission = 'granted';")));
             cefform.Invoke(new Action(() => cefform.refreshPage()));
             Close();
         }
@@ -46,6 +46,7 @@ namespace Korot
             {
                 Properties.Settings.Default.notificationBlock.Add(baseUrl);
             }
+            cefform.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsync(@"korotNotificationPermission = 'denied';")));
             cefform.Invoke(new Action(() => cefform.refreshPage()));
             Close();
         }

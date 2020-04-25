@@ -27,52 +27,35 @@ namespace Korot
     internal class CookieAccessFilter : ICookieAccessFilter
     {
         private readonly frmCEF Cefform;
-        public frmMain anaform()
-        {
-            return ((frmMain)Cefform.ParentTabs);
-        }
         public CookieAccessFilter(frmCEF _Cefform)
         {
             Cefform = _Cefform;
         }
         public bool CanSaveCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, Cookie cookie)
         {
-            if (!Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address))
-            {
-                if (Cefform != null)
-                {
-                    if (anaform() != null)
-                    {
-                        if (!(Cefform.IsDisposed || Cefform.closing || Cefform.anaform.closing))
-                        {
-                                Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
-                                Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
-                                if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pictureBox2.Image = Properties.Resources.locko)); }
-                        }
-                    }
-                }
-            }
+            sCookie(chromiumWebBrowser);
             return !Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address);
         }
 
         public bool CanSendCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, Cookie cookie)
         {
+            sCookie(chromiumWebBrowser);
+            return !Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address);
+        }
+        public void sCookie(IWebBrowser chromiumWebBrowser)
+        {
             if (!Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address))
             {
-                if (Cefform != null)
-                {
-                    if (anaform() != null)
-                    {
-                        if (!(Cefform.IsDisposed || Cefform.closing || Cefform.anaform.closing))
-                        {
-                            Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
-                            Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
-                            if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pictureBox2.Image = Properties.Resources.locko)); }
-                        }
-                    }
-                }
+                if (Cefform == null) { return; }
+                if (Cefform.anaform == null) { return; }
+                if (Cefform.closing) { return; }
+                if (Cefform.anaform.closing) { return; }
+                if (Cefform.IsDisposed) { return; }
+                if (Cefform.anaform.IsDisposed) { return; }
+                Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
+                Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
+                if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pictureBox2.Image = Properties.Resources.locko)); }
             }
-            return !Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address);
         }
     }
 }
