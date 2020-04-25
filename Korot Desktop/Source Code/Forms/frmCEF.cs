@@ -1904,8 +1904,7 @@ namespace Korot
                 }
                 else
                 {
-                    string currentPreVer = Application.ProductVersion.ToString() + "-pre" + preVer;
-                    if (!string.Equals(currentPreVer, preNewest))
+                    if (Convert.ToInt32(preVer) < Convert.ToInt32(preNo))
                     {
                         if (alreadyCheckedForUpdatesOnce || Properties.Settings.Default.dismissUpdate || _Incognito)
                         {
