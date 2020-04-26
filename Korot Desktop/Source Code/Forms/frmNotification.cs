@@ -12,7 +12,7 @@ namespace Korot
         public bool isPreRelease = false;
         public int preVer = 0;
         private readonly frmCEF cefform;
-        private readonly Notification notification;
+        public Notification notification;
         public frmNotification(frmCEF _frmCEF, Notification _n)
         {
             cefform = _frmCEF;
@@ -21,8 +21,8 @@ namespace Korot
             lbSource.Text = notification.url;
             lbTitle.Text = notification.title;
             lbMessage.Text = notification.message;
-            pbImage.ImageLocation = notification.imageUrl;
-            Console.WriteLine(notification.action);
+            ilkImage = notification.imageUrl;
+            pbImage.Image = Tools.getImageFromUrl(ilkImage);
         }
 
         private bool playedSound = false;
@@ -176,9 +176,17 @@ namespace Korot
             cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this)));
             Close();
         }
-
+        string ilkImage = "";
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (ilkImage != notification.imageUrl)
+            {
+                ilkImage = notification.imageUrl;
+                pbImage.Image = Tools.getImageFromUrl(ilkImage);
+            }
+            lbSource.Text = notification.url;
+            lbTitle.Text = notification.title;
+            lbMessage.Text = notification.message;
             checkSilentMode();
             if (Properties.Settings.Default.silentAllNotifications) { Hide(); } else { Show(); }
             if (!Properties.Settings.Default.quietMode) { PlayNotificationSound(); }
@@ -198,6 +206,7 @@ namespace Korot
     }
     public class Notification
     {
+        public string id { get; set; }
         public string url { get; set; }
         public string title { get; set; }
         public string message { get; set; }

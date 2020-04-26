@@ -124,9 +124,9 @@
             // 
             this.pDown.BackColor = System.Drawing.Color.Black;
             this.pDown.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pDown.Location = new System.Drawing.Point(0, 165);
+            this.pDown.Location = new System.Drawing.Point(0, 166);
             this.pDown.Name = "pDown";
-            this.pDown.Size = new System.Drawing.Size(504, 2);
+            this.pDown.Size = new System.Drawing.Size(504, 1);
             this.pDown.TabIndex = 3;
             // 
             // pLeft
@@ -135,7 +135,7 @@
             this.pLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.pLeft.Location = new System.Drawing.Point(0, 0);
             this.pLeft.Name = "pLeft";
-            this.pLeft.Size = new System.Drawing.Size(2, 165);
+            this.pLeft.Size = new System.Drawing.Size(1, 166);
             this.pLeft.TabIndex = 4;
             this.pLeft.Click += new System.EventHandler(this.notification_Click);
             // 
@@ -143,9 +143,9 @@
             // 
             this.pUp.BackColor = System.Drawing.Color.Black;
             this.pUp.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pUp.Location = new System.Drawing.Point(2, 0);
+            this.pUp.Location = new System.Drawing.Point(1, 0);
             this.pUp.Name = "pUp";
-            this.pUp.Size = new System.Drawing.Size(502, 2);
+            this.pUp.Size = new System.Drawing.Size(503, 1);
             this.pUp.TabIndex = 5;
             this.pUp.Click += new System.EventHandler(this.notification_Click);
             // 
@@ -153,9 +153,9 @@
             // 
             this.pRight.BackColor = System.Drawing.Color.Black;
             this.pRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pRight.Location = new System.Drawing.Point(502, 2);
+            this.pRight.Location = new System.Drawing.Point(503, 1);
             this.pRight.Name = "pRight";
-            this.pRight.Size = new System.Drawing.Size(2, 163);
+            this.pRight.Size = new System.Drawing.Size(1, 165);
             this.pRight.TabIndex = 6;
             this.pRight.Click += new System.EventHandler(this.notification_Click);
             // 

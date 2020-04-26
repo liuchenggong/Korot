@@ -14,6 +14,15 @@
 // Does the browser support the the Notification API?
 // .. and does it have a permission property?
 //
+function makeid(length) {
+	var result = '';
+	var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	var charactersLength = characters.length;
+	for (var i = 0; i < length; i++) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	}
+	return result;
+}
 var korotNotificationPermission = "[$]";
 
 (function (window, document) {
@@ -125,9 +134,9 @@ var korotNotificationPermission = "[$]";
 		window.webkitNotifications = function (message, options) {
 			return window.Notification(message, options);
 		}
-		window.webkitNotifications.createNotification = function (icon, message, body, onclick) {
+		window.webkitNotifications.createNotification = function (icon, message, body, onclick, id) {
 			if (message == null) { return;}
-			var pMessage = "[Korot.Notification" + " Message=\"" + message + "\"";
+			var pMessage = "[Korot.Notification" + " ID=\"" + id + "\"" + " Message=\"" + message + "\"";
 			if (icon != null) {
 				pMessage = pMessage + " Icon=\"" + icon + "\"";
 			}
@@ -169,6 +178,7 @@ var korotNotificationPermission = "[$]";
 			//
 			options = options || {};
 
+			this.id = this.id || makeid(11);
 			this.body = options.body || '';
 			this.icon = options.icon || '';
 			this.lang = options.lang || '';
@@ -186,8 +196,7 @@ var korotNotificationPermission = "[$]";
 				self.onclose();
 			};
 			this.onshow = options.onshow || function () { };
-			var currentUrl = window.location.href;
-			this.onclick = options.onclick || function () { window.open(currentUrl,'_blank'); };
+			this.onclick = options.onclick || function () { };
 			this.onclose = options.onclose || function () { };
 
 			//
@@ -208,7 +217,7 @@ var korotNotificationPermission = "[$]";
 			}
 			else if ("webkitNotifications" in window) {
 				if (window.webkitNotifications.checkPermission() === 0) {
-					n = window.webkitNotifications.createNotification(this.icon, message, this.body, this.onclick);
+					n = window.webkitNotifications.createNotification(this.icon, message, this.body, this.onclick, this.id);
 				}
 			}
 			else if ("mozNotification" in window.navigator) {

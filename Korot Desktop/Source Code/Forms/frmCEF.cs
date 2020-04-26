@@ -142,9 +142,7 @@ namespace Korot
         {
             if (e.Frame.IsMain && chromiumWebBrowser1.CanExecuteJavascriptInMainFrame)
             {
-                //It was Java. Then it turned itself to CLR. It's called C#. Funniest shit I've ever seen.
                 chromiumWebBrowser1.ExecuteScriptAsync(@"  " + Properties.Resources.notificationDefault.Replace("[$]", getNotificationPermission(e.Frame.Url)));
-
             }
         }
         public string getNotificationPermission(string url)
@@ -165,6 +163,18 @@ namespace Korot
             frmNotification notifyForm = new frmNotification(this, notification);
             anaform.notifications.Add(notifyForm);
             notifyForm.Show();
+        }
+        public frmNotification getNotificationByID(string ID)
+        {
+            List<frmNotification> foundList = new List<frmNotification>();
+            foreach (frmNotification x in anaform.notifications)
+            {
+                if (x.notification.id == ID)
+                {
+                    foundList.Add(x);
+                }
+            }
+            if (foundList.Count > 0) { return foundList[0]; }else { return null; }
         }
         public void requestNotificationPermission(string url)
         {
@@ -189,7 +199,7 @@ namespace Korot
         }
         public void refreshPage()
         {
-            chromiumWebBrowser1.Refresh();
+            chromiumWebBrowser1.Reload();
         }
 
         private void OnBrowserJavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs e)
@@ -206,8 +216,6 @@ namespace Korot
                 {
                     if (Properties.Settings.Default.notificationAllow.Contains(Tools.getBaseURL(browser.Address)))
                     {
-                        // Then he turned himself into a kaşık. He's called Enes Batur Kaşık. Funnies shit I've ever seen.
-                        //ok that was the last easter egg for this meme.
                         MemoryStream stream = new MemoryStream();
                         StreamWriter writer = new StreamWriter(stream);
                         writer.Write(message.Replace("[", "<").Replace("]", ">"));
@@ -216,12 +224,18 @@ namespace Korot
                         XmlDocument document = new XmlDocument();
                         document.Load(stream);
                         XmlNode node = document.DocumentElement;
+                        string id = node.Attributes["ID"] != null ? node.Attributes["ID"].Value : "";
                         string image = node.Attributes["Icon"] != null ? node.Attributes["Icon"].Value : "";
                         string body = node.Attributes["Body"] != null ? node.Attributes["Body"].Value : "";
                         string title = node.Attributes["Message"] != null ? node.Attributes["Message"].Value : "";
                         string onclick = node.Attributes["onClick"] != null ? node.Attributes["onClick"].Value : "";
-                        Notification newnot = new Notification() { url = browser.Address, message = body, title = title, imageUrl = image, action = onclick };
-                        PushNewNotification(newnot);
+                        Notification newnot = new Notification() { id = id, url = browser.Address, message = body, title = title, imageUrl = image, action = onclick };
+                        frmNotification existingNot = getNotificationByID(id);
+                        if (existingNot != null) { existingNot.notification = newnot; }
+                        else
+                        {
+                            PushNewNotification(newnot);
+                        }
                     }
                 }
             }
