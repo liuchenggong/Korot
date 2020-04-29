@@ -21,6 +21,8 @@
 //SOFTWARE.
 using CefSharp;
 using System;
+using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Korot
@@ -67,7 +69,7 @@ namespace Korot
         }
         public static bool ValidHttpURL(string s)
         {
-            string Pattern = @"^(?:about\:\/\/)|(?:about\:\/\/)|(?:file\:\/\/)|(?:https\:\/\/)|(?:korot\:\/\/)|(?:http:\/\/)|(?:\:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$";
+            string Pattern = @"^(?:chrome\:\/\/)|(?:about\:\/\/)|(?:file\:\/\/)|(?:https\:\/\/)|(?:korot\:\/\/)|(?:http:\/\/)|(?:\:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$";
             Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             Regex Rgx2 = new Regex(@"\b(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return Rgx2.IsMatch(s) || Rgx.IsMatch(s);
@@ -78,13 +80,17 @@ namespace Korot
             {
                 if (request.Url == "korot://newtab/")
                 {
-
                     return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.SearchHelpText).Replace("§SEARCH§", CefForm.Search).Replace("§DAYS§", CefForm.DayNames).Replace("§MONTHS§", CefForm.MonthNames).Replace("§TITLE§", CefForm.NewTabtitle));
                 }
                 else if (request.Url == "korot://homepage/")
                 {
-
-                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + Properties.Settings.Default.Homepage + "\" />");
+                    if (frame.IsMain)
+                    {
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + Properties.Settings.Default.Homepage + "\" />");
+                    }else
+                    {
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=RESTRICTED_PAGE \" />");
+                    }
                 }
                 else if (request.Url == "korot://incognito/")
                 {
@@ -145,13 +151,12 @@ namespace Korot
                         }
                         else
                         {
-                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=ARGUMENT_NOT_FOUND \" />");
-
+                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=NOT_ACTUAL_KOROT_PAGE \" />");
                         }
                     }
                     else
                     {
-                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=NOT_KOROT_PAGE \" />");
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=NOT_ACTUAL_KOROT_PAGE \" />");
                     }
                 }
                 else if (request.Url == "korot://folder/" || request.Url == "korot://root/")

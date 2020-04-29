@@ -492,20 +492,17 @@ namespace Korot
         {
             HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
                                                                                          ActiveForm.newColInfo,
-                                                                                        ActiveForm.Icon,
-                                                                                         ActiveForm.newColName,
-                                                                                         Properties.Settings.Default.BackColor,
-                                                                                         ActiveForm.OK,
-                                                                                         ActiveForm.Cancel);
+                                                                                         ActiveForm.newColName)
+            { Icon = ActiveForm.Icon, OKText = ActiveForm.OK, CancelText = ActiveForm.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue))
                 {
                     Collection newCol = new Collection
                     {
                         ID = Tools.generateRandomText(),
-                        Text = mesaj.TextValue()
+                        Text = mesaj.TextValue
                     };
                     ActiveForm.colManager.Collections.Add(newCol);
                 }

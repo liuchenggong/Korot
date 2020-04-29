@@ -49,16 +49,16 @@ namespace Korot
         }
         public static bool NewProfile(frmCEF cefform)
         {
-            HaltroyFramework.HaltroyInputBox newprof = new HaltroyFramework.HaltroyInputBox("Korot", cefform.newProfileInfo + Environment.NewLine + "/ \\ : ? * |", cefform.anaform.Icon, "", Properties.Settings.Default.BackColor, cefform.OK, cefform.Cancel, 400, 150);
+            HaltroyFramework.HaltroyInputBox newprof = new HaltroyFramework.HaltroyInputBox("Korot", cefform.newProfileInfo + Environment.NewLine + "/ \\ : ? * |", "") { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = newprof.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (newprof.TextValue().Contains("/") || newprof.TextValue().Contains("\\") || newprof.TextValue().Contains(":") || newprof.TextValue().Contains("?") || newprof.TextValue().Contains("*") || newprof.TextValue().Contains("|"))
+                if (newprof.TextValue.Contains("/") || newprof.TextValue.Contains("\\") || newprof.TextValue.Contains(":") || newprof.TextValue.Contains("?") || newprof.TextValue.Contains("*") || newprof.TextValue.Contains("|"))
                 { NewProfile(cefform); }
                 else
                 {
-                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + newprof.TextValue());
-                    SwitchProfile(newprof.TextValue(), cefform);
+                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + newprof.TextValue);
+                    SwitchProfile(newprof.TextValue, cefform);
                 }
             }
             return true;

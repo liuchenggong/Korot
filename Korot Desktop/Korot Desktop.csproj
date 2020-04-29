@@ -90,8 +90,8 @@
     <ApplicationManifest>Source Code\Others\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HaltroyFramework, Version=0.0.1.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HaltroyFramework.0.0.1.9-alpha\lib\net45\HaltroyFramework.dll</HintPath>
+    <Reference Include="HaltroyFramework, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HaltroyFramework.0.1.0\lib\net45\HaltroyFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>

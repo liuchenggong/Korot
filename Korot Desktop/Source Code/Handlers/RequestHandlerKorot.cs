@@ -142,7 +142,7 @@ namespace Korot
         public void OnRenderProcessTerminated(IWebBrowser chromiumWebBrowser, IBrowser browser, CefTerminationStatus status)
         {
             anaform().Invoke(new Action(() => anaform().Hide()));
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", cefform.renderProcessDies, anaform().Icon, MessageBoxButtons.OK, Properties.Settings.Default.BackColor, cefform.Yes, cefform.No, cefform.OK, cefform.Cancel, 390, 140);
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", cefform.renderProcessDies, MessageBoxButtons.OK) { YesButtonText = cefform.Yes, NoButtonText = cefform.No, OKBUttonText = cefform.OK, CancelButtonText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = cefform.anaform.Icon };
             if (mesaj.ShowDialog() == DialogResult.OK || mesaj.ShowDialog() == DialogResult.Cancel)
             {
                 Application.Exit();

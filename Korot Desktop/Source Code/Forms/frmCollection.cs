@@ -358,20 +358,17 @@ namespace Korot
         {
             HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
                                                                                           cefform.newColInfo,
-                                                                                          cefform.Icon,
-                                                                                          cefform.newColName,
-                                                                                          Properties.Settings.Default.BackColor,
-                                                                                          cefform.OK,
-                                                                                          cefform.Cancel);
+                                                                                          cefform.newColName)
+            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue))
                 {
                     Collection newCol = new Collection
                     {
                         ID = Tools.generateRandomText(),
-                        Text = mesaj.TextValue()
+                        Text = mesaj.TextValue
                     };
                     cefform.colManager.Collections.Add(newCol);
                     genColList();
@@ -384,17 +381,14 @@ namespace Korot
         {
             HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
                                                                                           cefform.importColInfo,
-                                                                                          cefform.Icon,
-                                                                                          "[collection][/collection]",
-                                                                                          Properties.Settings.Default.BackColor,
-                                                                                          cefform.OK,
-                                                                                          cefform.Cancel);
+                                                                                          "[collection][/collection]")
+            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue))
                 {
-                    Collection newCol = new Collection(mesaj.TextValue());
+                    Collection newCol = new Collection(mesaj.TextValue);
                     cefform.colManager.Collections.Add(newCol);
                     genColList();
                 }
@@ -409,13 +403,8 @@ namespace Korot
                 HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
                     "Korot",
                     cefform.delColInfo.Replace("$", listView1.SelectedItems[0].Text),
-                    cefform.Icon,
-                    MessageBoxButtons.YesNoCancel,
-                    Properties.Settings.Default.BackColor,
-                    cefform.Yes,
-                    cefform.No,
-                    cefform.OK,
-                    cefform.Cancel);
+                    MessageBoxButtons.YesNoCancel)
+                { YesButtonText = cefform.Yes, NoButtonText = cefform.No, OKBUttonText = cefform.OK, CancelButtonText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = cefform.anaform.Icon };
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
                     cefform.colManager.Collections.Remove(cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name));
@@ -429,13 +418,8 @@ namespace Korot
             HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
                 "Korot",
                 cefform.clearColInfo,
-                cefform.Icon,
-                MessageBoxButtons.YesNoCancel,
-                Properties.Settings.Default.BackColor,
-                cefform.Yes,
-                cefform.No,
-                cefform.OK,
-                cefform.Cancel);
+                MessageBoxButtons.YesNoCancel)
+            { YesButtonText = cefform.Yes, NoButtonText = cefform.No, OKBUttonText = cefform.OK, CancelButtonText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = cefform.anaform.Icon };
             if (mesaj.ShowDialog() == DialogResult.Yes)
             {
                 cefform.colManager.Collections.Clear();
@@ -447,15 +431,12 @@ namespace Korot
         {
             HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
                                                                               cefform.okToClipboard,
-                                                                              cefform.Icon,
-                                                                              listView1.SelectedItems[0].ToolTipText,
-                                                                              Properties.Settings.Default.BackColor,
-                                                                              cefform.OK,
-                                                                              cefform.Cancel);
+                                                                              listView1.SelectedItems[0].ToolTipText)
+            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                Clipboard.SetText(string.IsNullOrWhiteSpace(mesaj.TextValue()) ? listView1.SelectedItems[0].ToolTipText : mesaj.TextValue());
+                Clipboard.SetText(string.IsNullOrWhiteSpace(mesaj.TextValue) ? listView1.SelectedItems[0].ToolTipText : mesaj.TextValue);
             }
         }
 
@@ -476,15 +457,12 @@ namespace Korot
         {
             HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
                                                       cefform.okToClipboard,
-                                                      cefform.Icon,
-                                                      ((Control)ıTEMToolStripMenuItem.Tag).Tag.ToString(),
-                                                      Properties.Settings.Default.BackColor,
-                                                      cefform.OK,
-                                                      cefform.Cancel);
+                                                      ((Control)ıTEMToolStripMenuItem.Tag).Tag.ToString())
+            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                Clipboard.SetText(string.IsNullOrWhiteSpace(mesaj.TextValue()) ? ((Control)ıTEMToolStripMenuItem.Tag).Tag.ToString() : mesaj.TextValue());
+                Clipboard.SetText(string.IsNullOrWhiteSpace(mesaj.TextValue) ? ((Control)ıTEMToolStripMenuItem.Tag).Tag.ToString() : mesaj.TextValue);
             }
         }
 
@@ -509,17 +487,14 @@ namespace Korot
         {
             HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
                                                                                          cefform.importColItemInfo,
-                                                                                         cefform.Icon,
-                                                                                         "",
-                                                                                         Properties.Settings.Default.BackColor,
-                                                                                         cefform.OK,
-                                                                                         cefform.Cancel);
+                                                                                         "")
+            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue))
                 {
-                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).NewItemFromCode(mesaj.TextValue());
+                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).NewItemFromCode(mesaj.TextValue);
                     genColList();
                 }
                 else { ımportİtemToolStripMenuItem_Click(sender, e); }
@@ -530,17 +505,14 @@ namespace Korot
         {
             HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
                                                                                          cefform.changeColIDInfo,
-                                                                                         cefform.Icon,
-                                                                                         cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID,
-                                                                                         Properties.Settings.Default.BackColor,
-                                                                                         cefform.OK,
-                                                                                         cefform.Cancel);
+                                                                                         cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID)
+            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue))
                 {
-                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID = mesaj.TextValue();
+                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID = mesaj.TextValue;
                     genColList();
                 }
                 else { changeCollectionIDToolStripMenuItem_Click(sender, e); }
@@ -551,17 +523,14 @@ namespace Korot
         {
             HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
                                                                              cefform.changeColTextInfo,
-                                                                             cefform.Icon,
-                                                                             cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text,
-                                                                             Properties.Settings.Default.BackColor,
-                                                                             cefform.OK,
-                                                                             cefform.Cancel);
+                                                                             cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text)
+            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (!string.IsNullOrWhiteSpace(mesaj.TextValue()))
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue))
                 {
-                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text = mesaj.TextValue();
+                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text = mesaj.TextValue;
                     genColList();
                 }
                 else { changeCollectionTextToolStripMenuItem_Click(sender, e); }

@@ -233,7 +233,7 @@ namespace Korot
         {
             if (!allowClose)
             {
-                HaltroyFramework.HaltroyMsgBox msgBox = new HaltroyFramework.HaltroyMsgBox(Text, closeMessage, Icon, MessageBoxButtons.YesNo, Color.White, Yes, No, OK, Cancel, 390, 140);
+                HaltroyFramework.HaltroyMsgBox msgBox = new HaltroyFramework.HaltroyMsgBox(Text, closeMessage, MessageBoxButtons.YesNo) { YesButtonText = Yes, NoButtonText = No, OKBUttonText = OK, CancelButtonText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                 if (msgBox.ShowDialog() == DialogResult.Yes)
                 {
                     e.Cancel = false;

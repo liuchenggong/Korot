@@ -549,7 +549,7 @@ namespace Korot
         {
             if (listBox2.SelectedItem != null)
             {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, Icon, MessageBoxButtons.YesNoCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
+                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, MessageBoxButtons.YesNoCancel) {StartPosition = FormStartPosition.CenterParent,YesButtonText = Yes,NoButtonText = No,OKBUttonText = OK, CancelButtonText = Cancel,BackgroundColor = Properties.Settings.Default.BackColor,Icon= Icon };
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
                     LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\" + listBox2.SelectedItem.ToString());
@@ -786,7 +786,7 @@ namespace Korot
                 }
                 else
                 {
-                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", "This language file is made for an older version of Korot. This can cause some problems. Do you wish to proceed?", Icon, MessageBoxButtons.YesNoCancel, Properties.Settings.Default.BackColor, "Yes", "No", "OK", "Cancel", 390, 140);
+                    HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", "This language file is made for an older version of Korot. This can cause some problems. Do you wish to proceed?", MessageBoxButtons.YesNoCancel) { StartPosition = FormStartPosition.CenterParent,YesButtonText = Yes, NoButtonText = No, OKBUttonText = OK, CancelButtonText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                     if (mesaj.ShowDialog() == DialogResult.Yes)
                     {
                         Properties.Settings.Default.disableLangErrors = true;
@@ -1173,7 +1173,7 @@ namespace Korot
             }
             else
             {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ErrorPageTitle, "This file does not suitable for this version of Korot.Please ask the creator of this language to update." + Environment.NewLine + " Error : Missing Line" + "[ Line Count: " + SplittedFase.Length + "]", Icon, MessageBoxButtons.OK, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140);
+                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ErrorPageTitle, "This file does not suitable for this version of Korot.Please ask the creator of this language to update." + Environment.NewLine + " Error : Missing Line" + "[ Line Count: " + SplittedFase.Length + "]", MessageBoxButtons.OK) { StartPosition = FormStartPosition.CenterParent,YesButtonText = Yes, NoButtonText = No, OKBUttonText = OK, CancelButtonText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                 DialogResult diyalog = mesaj.ShowDialog();
                 Output.WriteLine(" [KOROT] Error at applying a language file : [ Line Count: " + SplittedFase.Length + "]");
             }
@@ -1191,13 +1191,13 @@ namespace Korot
         #endregion
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox(customSearchNote, customSearchMessage, Icon, Properties.Settings.Default.SearchURL, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150);
+            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox(customSearchNote, customSearchMessage, Properties.Settings.Default.SearchURL) { Icon = Icon,StartPosition = FormStartPosition.CenterParent, OKText = OK,CancelText = Cancel,BackgroundColor = Properties.Settings.Default.BackColor};
             DialogResult diagres = inputb.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (ValidHttpURL(inputb.TextValue()) && !inputb.TextValue().StartsWith("korot://") && !inputb.TextValue().StartsWith("file://") && !inputb.TextValue().StartsWith("about"))
+                if (ValidHttpURL(inputb.TextValue) && !inputb.TextValue.StartsWith("korot://") && !inputb.TextValue.StartsWith("file://") && !inputb.TextValue.StartsWith("about"))
                 {
-                    Properties.Settings.Default.SearchURL = inputb.TextValue();
+                    Properties.Settings.Default.SearchURL = inputb.TextValue;
                     tbSearchEngine.Text = Properties.Settings.Default.SearchURL;
                 }
                 else
@@ -1422,13 +1422,11 @@ namespace Korot
         {
             HaltroyFramework.HaltroyInputBox inputbox = new HaltroyFramework.HaltroyInputBox("Korot",
                                                                                             enterAValidCode,
-                                                                                            Icon,
-                                                                                            "",
-                                                                                            Properties.Settings.Default.BackColor,
-                                                                                            OK, Cancel, 400, 150);
+                                                                                            "")
+            { Icon = Icon, StartPosition = FormStartPosition.CenterParent, OKText = OK, CancelText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             if (inputbox.ShowDialog() == DialogResult.OK)
             {
-                Properties.Settings.Default.BackStyle = inputbox.TextValue() + ";";
+                Properties.Settings.Default.BackStyle = inputbox.TextValue + ";";
                 textBox4.Text = Properties.Settings.Default.BackStyle;
                 colorToolStripMenuItem.Checked = false;
             }
@@ -1766,10 +1764,8 @@ namespace Korot
                 }
                 HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(ErrorPageTitle,
                                                                                           ErrorTheme,
-                                                                                          Icon,
-                                                                                          MessageBoxButtons.OK,
-                                                                                          Properties.Settings.Default.BackColor,
-                                                                                          Yes, No, OK, Cancel, 390, 140);
+                                                                                          MessageBoxButtons.OK)
+                { StartPosition = FormStartPosition.CenterParent,YesButtonText = Yes, NoButtonText = No, OKBUttonText = OK, CancelButtonText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
 
                 DialogResult diyalog = mesaj.ShowDialog();
                 Output.WriteLine(" [KOROT] Error at applying a theme : [Line Count:" + SplittedFase3.Length + "]");
@@ -1889,15 +1885,8 @@ namespace Korot
                         HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
                             updateTitle,
                             updateMessage,
-                            Icon,
-                            MessageBoxButtons.YesNo,
-                            Properties.Settings.Default.BackColor,
-                            Yes,
-                            No,
-                            OK,
-                            Cancel,
-                            390,
-                            140);
+                            MessageBoxButtons.YesNo)
+                        { StartPosition = FormStartPosition.CenterParent,YesButtonText = Yes, NoButtonText = No, OKBUttonText = OK, CancelButtonText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                         DialogResult diagres = mesaj.ShowDialog();
                         if (diagres == DialogResult.Yes)
                         {
@@ -1937,15 +1926,8 @@ namespace Korot
                             HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
                                 updateTitle,
                                 updateMessage,
-                                Icon,
-                                MessageBoxButtons.YesNo,
-                                Properties.Settings.Default.BackColor,
-                                Yes,
-                                No,
-                                OK,
-                                Cancel,
-                                390,
-                                140);
+                                MessageBoxButtons.YesNo)
+                            { StartPosition = FormStartPosition.CenterParent,YesButtonText = Yes, NoButtonText = No, OKBUttonText = OK, CancelButtonText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                             DialogResult diagres = mesaj.ShowDialog();
                             if (diagres == DialogResult.Yes)
                             {
@@ -1987,15 +1969,8 @@ namespace Korot
                         HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
                             updateTitle,
                             updateMessage,
-                            Icon,
-                            MessageBoxButtons.YesNo,
-                            Properties.Settings.Default.BackColor,
-                            Yes,
-                            No,
-                            OK,
-                            Cancel,
-                            390,
-                            140);
+                            MessageBoxButtons.YesNo)
+                        { StartPosition = FormStartPosition.CenterParent,YesButtonText = Yes, NoButtonText = No, OKBUttonText = OK, CancelButtonText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                         DialogResult diagres = mesaj.ShowDialog();
                         if (diagres == DialogResult.Yes)
                         {
@@ -2317,10 +2292,8 @@ namespace Korot
 
         public bool OnJSAlert(string url, string message)
         {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSAlert.Replace("[TITLE]", Text).Replace("[URL]", url), message, anaform.Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140)
-            {
-                StartPosition = FormStartPosition.CenterParent
-            };
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSAlert.Replace("[TITLE]", Text).Replace("[URL]", url), message, System.Windows.Forms.MessageBoxButtons.OKCancel)
+            { StartPosition = FormStartPosition.CenterParent,YesButtonText = Yes, NoButtonText = No, OKBUttonText = OK, CancelButtonText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
             mesaj.ShowDialog();
             return true;
         }
@@ -2328,10 +2301,8 @@ namespace Korot
 
         public bool OnJSConfirm(string url, string message, out bool returnval)
         {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSConfirm.Replace("[TITLE]", Text).Replace("[URL]", url), message, anaform.Icon, System.Windows.Forms.MessageBoxButtons.OKCancel, Properties.Settings.Default.BackColor, Yes, No, OK, Cancel, 390, 140)
-            {
-                StartPosition = FormStartPosition.CenterParent
-            };
+            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(JSConfirm.Replace("[TITLE]", Text).Replace("[URL]", url), message, System.Windows.Forms.MessageBoxButtons.OKCancel)
+            { StartPosition = FormStartPosition.CenterParent, YesButtonText = Yes, NoButtonText = No, OKBUttonText = OK, CancelButtonText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
             if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
             return true;
         }
@@ -2339,12 +2310,10 @@ namespace Korot
 
         public bool OnJSPrompt(string url, string message, string defaultValue, out bool returnval, out string textresult)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox(url, message, anaform.Icon, defaultValue, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150)
-            {
-                StartPosition = FormStartPosition.CenterParent
-            };
+            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox(url, message, defaultValue)
+            { StartPosition = FormStartPosition.CenterParent, Icon = Icon, OKText = OK, CancelText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
-            textresult = mesaj.TextValue();
+            textresult = mesaj.TextValue;
             return true;
         }
         public void NewTab(string url)
@@ -4204,18 +4173,18 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void showAWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox("Korot", enterAValidUrl, Icon, Properties.Settings.Default.SearchURL, Properties.Settings.Default.BackColor, OK, Cancel, 400, 150);
+            HaltroyFramework.HaltroyInputBox inputb = new HaltroyFramework.HaltroyInputBox("Korot", enterAValidUrl, Properties.Settings.Default.SearchURL) { Icon = Icon, StartPosition = FormStartPosition.CenterParent, OKText = OK, CancelText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = inputb.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (string.IsNullOrWhiteSpace(inputb.TextValue()) || (inputb.TextValue().ToLower() == "korot://newtab") || inputb.TextValue().ToLower() == Properties.Settings.Default.Homepage.ToLower() || inputb.TextValue().ToLower() == "korot://homepage")
+                if (string.IsNullOrWhiteSpace(inputb.TextValue) || (inputb.TextValue.ToLower() == "korot://newtab") || inputb.TextValue.ToLower() == Properties.Settings.Default.Homepage.ToLower() || inputb.TextValue.ToLower() == "korot://homepage")
                 {
                     showAWebsiteToolStripMenuItem_Click(sender, e);
                 }
                 else
                 {
-                    Properties.Settings.Default.StartupURL = inputb.TextValue();
-                    tbStartup.Text = inputb.TextValue();
+                    Properties.Settings.Default.StartupURL = inputb.TextValue;
+                    tbStartup.Text = inputb.TextValue;
                 }
             }
         }
@@ -4228,12 +4197,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void button18_Click(object sender, EventArgs e)
         {
             HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox("Korot", resetConfirm,
-                                                                                      anaform.Icon,
-                                                                                      MessageBoxButtons.YesNoCancel,
-                                                                                      Properties.Settings.Default.BackColor,
-                                                                                      Yes, No,
-                                                                                      OK, Cancel, 390,
-                                                                                      140);
+                                                                                      MessageBoxButtons.YesNoCancel)
+            { StartPosition = FormStartPosition.CenterParent,YesButtonText = Yes, NoButtonText = No, OKBUttonText = OK, CancelButtonText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
             if (mesaj.ShowDialog() == DialogResult.Yes)
             {
                 Process.Start(Application.ExecutablePath, "-oobe");

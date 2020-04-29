@@ -1396,7 +1396,7 @@ namespace Korot
             this.btNotification.Location = new System.Drawing.Point(159, 3);
             this.btNotification.Name = "btNotification";
             this.btNotification.Size = new System.Drawing.Size(156, 28);
-            this.btNotification.TabIndex = 14;
+            this.btNotification.TabIndex = 12;
             this.btNotification.Text = "Notification Settings...";
             this.btNotification.UseVisualStyleBackColor = false;
             this.btNotification.Click += new System.EventHandler(this.button19_Click_1);
@@ -1412,7 +1412,7 @@ namespace Korot
             this.btCleanLog.Location = new System.Drawing.Point(321, 3);
             this.btCleanLog.Name = "btCleanLog";
             this.btCleanLog.Size = new System.Drawing.Size(114, 28);
-            this.btCleanLog.TabIndex = 12;
+            this.btCleanLog.TabIndex = 13;
             this.btCleanLog.Text = "Clean Log Data";
             this.btCleanLog.UseVisualStyleBackColor = false;
             this.btCleanLog.Click += new System.EventHandler(this.btCleanLog_Click);
@@ -1428,7 +1428,7 @@ namespace Korot
             this.button18.Location = new System.Drawing.Point(3, 37);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(103, 28);
-            this.button18.TabIndex = 13;
+            this.button18.TabIndex = 14;
             this.button18.Text = "Reset Korot...";
             this.button18.UseVisualStyleBackColor = false;
             this.button18.Click += new System.EventHandler(this.button18_Click);
@@ -1469,8 +1469,6 @@ namespace Korot
             // 
             this.hsUnknown.Location = new System.Drawing.Point(176, 275);
             this.hsUnknown.Name = "hsUnknown";
-            this.hsUnknown.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsUnknown.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsUnknown.Size = new System.Drawing.Size(50, 18);
             this.hsUnknown.TabIndex = 10;
             this.hsUnknown.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsUnknown_CheckedChanged);
@@ -1479,8 +1477,6 @@ namespace Korot
             // 
             this.hsDoNotTrack.Location = new System.Drawing.Point(142, 208);
             this.hsDoNotTrack.Name = "hsDoNotTrack";
-            this.hsDoNotTrack.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsDoNotTrack.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsDoNotTrack.Size = new System.Drawing.Size(50, 19);
             this.hsDoNotTrack.TabIndex = 7;
             this.hsDoNotTrack.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsDoNotTrack_CheckedChanged);
@@ -1509,8 +1505,6 @@ namespace Korot
             // 
             this.hsAutoRestore.Location = new System.Drawing.Point(190, 252);
             this.hsAutoRestore.Name = "hsAutoRestore";
-            this.hsAutoRestore.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsAutoRestore.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsAutoRestore.Size = new System.Drawing.Size(50, 19);
             this.hsAutoRestore.TabIndex = 9;
             this.hsAutoRestore.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsAutoRestore_CheckedChanged);
@@ -1519,8 +1513,6 @@ namespace Korot
             // 
             this.hsProxy.Location = new System.Drawing.Point(173, 231);
             this.hsProxy.Name = "hsProxy";
-            this.hsProxy.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsProxy.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsProxy.Size = new System.Drawing.Size(50, 19);
             this.hsProxy.TabIndex = 8;
             this.hsProxy.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsProxy_CheckedChanged);
@@ -1586,8 +1578,6 @@ namespace Korot
             this.hsFav.Checked = true;
             this.hsFav.Location = new System.Drawing.Point(144, 160);
             this.hsFav.Name = "hsFav";
-            this.hsFav.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsFav.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsFav.Size = new System.Drawing.Size(50, 19);
             this.hsFav.TabIndex = 5;
             this.hsFav.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsFav_CheckedChanged);
@@ -2326,8 +2316,6 @@ namespace Korot
             // 
             this.hsOpen.Location = new System.Drawing.Point(168, 34);
             this.hsOpen.Name = "hsOpen";
-            this.hsOpen.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsOpen.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsOpen.Size = new System.Drawing.Size(50, 19);
             this.hsOpen.TabIndex = 1;
             this.hsOpen.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsOpen_CheckedChanged);
@@ -2336,8 +2324,6 @@ namespace Korot
             // 
             this.hsDownload.Location = new System.Drawing.Point(174, 59);
             this.hsDownload.Name = "hsDownload";
-            this.hsDownload.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsDownload.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsDownload.Size = new System.Drawing.Size(50, 19);
             this.hsDownload.TabIndex = 2;
             this.hsDownload.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsDownload_CheckedChanged);
@@ -2731,7 +2717,7 @@ namespace Korot
             this.btNotifBack.Location = new System.Drawing.Point(15, 7);
             this.btNotifBack.Name = "btNotifBack";
             this.btNotifBack.Size = new System.Drawing.Size(30, 28);
-            this.btNotifBack.TabIndex = 44;
+            this.btNotifBack.TabIndex = 0;
             this.btNotifBack.UseVisualStyleBackColor = false;
             this.btNotifBack.Click += new System.EventHandler(this.btNotifBack_Click);
             // 
@@ -2757,7 +2743,7 @@ namespace Korot
             this.btAllowList.Location = new System.Drawing.Point(3, 3);
             this.btAllowList.Name = "btAllowList";
             this.btAllowList.Size = new System.Drawing.Size(86, 28);
-            this.btAllowList.TabIndex = 11;
+            this.btAllowList.TabIndex = 8;
             this.btAllowList.Text = "Allow List...";
             this.btAllowList.UseVisualStyleBackColor = false;
             this.btAllowList.Click += new System.EventHandler(this.button19_Click);
@@ -2773,7 +2759,7 @@ namespace Korot
             this.btBlockList.Location = new System.Drawing.Point(95, 3);
             this.btBlockList.Name = "btBlockList";
             this.btBlockList.Size = new System.Drawing.Size(87, 28);
-            this.btBlockList.TabIndex = 12;
+            this.btBlockList.TabIndex = 9;
             this.btBlockList.Text = "Block List...";
             this.btBlockList.UseVisualStyleBackColor = false;
             this.btBlockList.Click += new System.EventHandler(this.button20_Click);
@@ -2816,7 +2802,7 @@ namespace Korot
             0});
             this.fromHour.Name = "fromHour";
             this.fromHour.Size = new System.Drawing.Size(34, 21);
-            this.fromHour.TabIndex = 46;
+            this.fromHour.TabIndex = 5;
             this.fromHour.Value = new decimal(new int[] {
             10,
             0,
@@ -2844,7 +2830,7 @@ namespace Korot
             0});
             this.fromMin.Name = "fromMin";
             this.fromMin.Size = new System.Drawing.Size(34, 21);
-            this.fromMin.TabIndex = 47;
+            this.fromMin.TabIndex = 5;
             this.fromMin.Value = new decimal(new int[] {
             59,
             0,
@@ -2876,7 +2862,7 @@ namespace Korot
             this.lbSunday.Name = "lbSunday";
             this.lbSunday.Padding = new System.Windows.Forms.Padding(3);
             this.lbSunday.Size = new System.Drawing.Size(27, 22);
-            this.lbSunday.TabIndex = 0;
+            this.lbSunday.TabIndex = 7;
             this.lbSunday.Tag = "0";
             this.lbSunday.Text = "Su";
             this.lbSunday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
@@ -2889,7 +2875,7 @@ namespace Korot
             this.lbMonday.Name = "lbMonday";
             this.lbMonday.Padding = new System.Windows.Forms.Padding(3);
             this.lbMonday.Size = new System.Drawing.Size(25, 22);
-            this.lbMonday.TabIndex = 1;
+            this.lbMonday.TabIndex = 7;
             this.lbMonday.Tag = "0";
             this.lbMonday.Text = "M";
             this.lbMonday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
@@ -2902,7 +2888,7 @@ namespace Korot
             this.lbTuesday.Name = "lbTuesday";
             this.lbTuesday.Padding = new System.Windows.Forms.Padding(3);
             this.lbTuesday.Size = new System.Drawing.Size(21, 22);
-            this.lbTuesday.TabIndex = 2;
+            this.lbTuesday.TabIndex = 7;
             this.lbTuesday.Tag = "0";
             this.lbTuesday.Text = "T";
             this.lbTuesday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
@@ -2915,7 +2901,7 @@ namespace Korot
             this.lbWednesday.Name = "lbWednesday";
             this.lbWednesday.Padding = new System.Windows.Forms.Padding(3);
             this.lbWednesday.Size = new System.Drawing.Size(25, 22);
-            this.lbWednesday.TabIndex = 3;
+            this.lbWednesday.TabIndex = 7;
             this.lbWednesday.Tag = "0";
             this.lbWednesday.Text = "W";
             this.lbWednesday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
@@ -2928,7 +2914,7 @@ namespace Korot
             this.lbThursday.Name = "lbThursday";
             this.lbThursday.Padding = new System.Windows.Forms.Padding(3);
             this.lbThursday.Size = new System.Drawing.Size(29, 22);
-            this.lbThursday.TabIndex = 4;
+            this.lbThursday.TabIndex = 7;
             this.lbThursday.Tag = "0";
             this.lbThursday.Text = "TH";
             this.lbThursday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
@@ -2941,7 +2927,7 @@ namespace Korot
             this.lbFriday.Name = "lbFriday";
             this.lbFriday.Padding = new System.Windows.Forms.Padding(3);
             this.lbFriday.Size = new System.Drawing.Size(20, 22);
-            this.lbFriday.TabIndex = 5;
+            this.lbFriday.TabIndex = 7;
             this.lbFriday.Tag = "0";
             this.lbFriday.Text = "F";
             this.lbFriday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
@@ -2954,7 +2940,7 @@ namespace Korot
             this.lbSaturday.Name = "lbSaturday";
             this.lbSaturday.Padding = new System.Windows.Forms.Padding(3);
             this.lbSaturday.Size = new System.Drawing.Size(20, 22);
-            this.lbSaturday.TabIndex = 6;
+            this.lbSaturday.TabIndex = 7;
             this.lbSaturday.Tag = "0";
             this.lbSaturday.Text = "S";
             this.lbSaturday.Click += new System.EventHandler(this.lbHaftaGunu_Click);
@@ -3001,7 +2987,7 @@ namespace Korot
             0});
             this.toHour.Name = "toHour";
             this.toHour.Size = new System.Drawing.Size(34, 21);
-            this.toHour.TabIndex = 46;
+            this.toHour.TabIndex = 6;
             this.toHour.Value = new decimal(new int[] {
             10,
             0,
@@ -3029,7 +3015,7 @@ namespace Korot
             0});
             this.toMin.Name = "toMin";
             this.toMin.Size = new System.Drawing.Size(34, 21);
-            this.toMin.TabIndex = 47;
+            this.toMin.TabIndex = 6;
             this.toMin.Value = new decimal(new int[] {
             59,
             0,
@@ -3079,20 +3065,16 @@ namespace Korot
             // 
             this.hsSchedule.Location = new System.Drawing.Point(153, 119);
             this.hsSchedule.Name = "hsSchedule";
-            this.hsSchedule.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsSchedule.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsSchedule.Size = new System.Drawing.Size(50, 19);
-            this.hsSchedule.TabIndex = 39;
+            this.hsSchedule.TabIndex = 4;
             this.hsSchedule.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsSchedule_CheckedChanged);
             // 
             // hsSilent
             // 
             this.hsSilent.Location = new System.Drawing.Point(97, 88);
             this.hsSilent.Name = "hsSilent";
-            this.hsSilent.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsSilent.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsSilent.Size = new System.Drawing.Size(50, 19);
-            this.hsSilent.TabIndex = 39;
+            this.hsSilent.TabIndex = 3;
             this.hsSilent.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsSilent_CheckedChanged);
             // 
             // lbPlayNotifSound
@@ -3109,10 +3091,8 @@ namespace Korot
             // 
             this.hsNotificationSound.Location = new System.Drawing.Point(160, 56);
             this.hsNotificationSound.Name = "hsNotificationSound";
-            this.hsNotificationSound.OffFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.hsNotificationSound.OnFont = new System.Drawing.Font("Ubuntu", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.hsNotificationSound.Size = new System.Drawing.Size(50, 19);
-            this.hsNotificationSound.TabIndex = 39;
+            this.hsNotificationSound.TabIndex = 2;
             this.hsNotificationSound.CheckedChanged += new HaltroyFramework.HaltroySwitch.CheckedChangedDelegate(this.hsNotificationSound_CheckedChanged);
             // 
             // button17
@@ -3126,7 +3106,7 @@ namespace Korot
             this.button17.Location = new System.Drawing.Point(527, 7);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(30, 28);
-            this.button17.TabIndex = 37;
+            this.button17.TabIndex = 1;
             this.button17.UseVisualStyleBackColor = false;
             this.button17.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -3163,7 +3143,7 @@ namespace Korot
             this.btNotifAllowBack.Location = new System.Drawing.Point(15, 7);
             this.btNotifAllowBack.Name = "btNotifAllowBack";
             this.btNotifAllowBack.Size = new System.Drawing.Size(30, 28);
-            this.btNotifAllowBack.TabIndex = 46;
+            this.btNotifAllowBack.TabIndex = 0;
             this.btNotifAllowBack.UseVisualStyleBackColor = false;
             this.btNotifAllowBack.Click += new System.EventHandler(this.btNBlockBack_Click);
             // 
@@ -3178,7 +3158,7 @@ namespace Korot
             this.lbAllow.Location = new System.Drawing.Point(15, 36);
             this.lbAllow.Name = "lbAllow";
             this.lbAllow.Size = new System.Drawing.Size(542, 356);
-            this.lbAllow.TabIndex = 44;
+            this.lbAllow.TabIndex = 2;
             // 
             // cmsAllow
             // 
@@ -3225,7 +3205,7 @@ namespace Korot
             this.button22.Location = new System.Drawing.Point(527, 7);
             this.button22.Name = "button22";
             this.button22.Size = new System.Drawing.Size(30, 28);
-            this.button22.TabIndex = 42;
+            this.button22.TabIndex = 1;
             this.button22.UseVisualStyleBackColor = false;
             this.button22.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -3262,7 +3242,7 @@ namespace Korot
             this.btNBlockBack.Location = new System.Drawing.Point(16, 4);
             this.btNBlockBack.Name = "btNBlockBack";
             this.btNBlockBack.Size = new System.Drawing.Size(30, 28);
-            this.btNBlockBack.TabIndex = 45;
+            this.btNBlockBack.TabIndex = 0;
             this.btNBlockBack.UseVisualStyleBackColor = false;
             this.btNBlockBack.Click += new System.EventHandler(this.btNBlockBack_Click);
             // 
@@ -3277,7 +3257,7 @@ namespace Korot
             this.lbBlock.Location = new System.Drawing.Point(16, 36);
             this.lbBlock.Name = "lbBlock";
             this.lbBlock.Size = new System.Drawing.Size(541, 356);
-            this.lbBlock.TabIndex = 41;
+            this.lbBlock.TabIndex = 2;
             // 
             // cmsBlock
             // 
@@ -3323,7 +3303,7 @@ namespace Korot
             this.button21.Location = new System.Drawing.Point(527, 4);
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(30, 28);
-            this.button21.TabIndex = 39;
+            this.button21.TabIndex = 1;
             this.button21.UseVisualStyleBackColor = false;
             this.button21.Click += new System.EventHandler(this.button1_Click);
             // 

@@ -166,21 +166,16 @@ namespace Korot
         {
             HaltroyFramework.HaltroyInputBox haltroyInputBox = new HaltroyFramework.HaltroyInputBox("Korot",
                                                                                                     Cefform.folderInfo,
-                                                                                                    Cefform.Icon,
-                                                                                                    Cefform.defaultFolderName,
-                                                                                                    Properties.Settings.Default.BackColor,
-                                                                                                    Cefform.OK,
-                                                                                                    Cefform.Cancel,
-                                                                                                    400,
-                                                                                                    150);
+                                                                                                    Cefform.defaultFolderName)
+            { Icon = Cefform.Icon, OKText = Cefform.OK, CancelText = Cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             if (haltroyInputBox.ShowDialog() == DialogResult.OK)
             {
-                if (!string.IsNullOrWhiteSpace(haltroyInputBox.TextValue()))
+                if (!string.IsNullOrWhiteSpace(haltroyInputBox.TextValue))
                 {
                     TreeNode newFolder = new TreeNode
                     {
-                        Text = haltroyInputBox.TextValue(),
-                        Name = haltroyInputBox.TextValue().Replace(" ", "").Replace(Environment.NewLine, ""),
+                        Text = haltroyInputBox.TextValue,
+                        Name = haltroyInputBox.TextValue.Replace(" ", "").Replace(Environment.NewLine, ""),
                         ToolTipText = "korot://folder"
                     };
                     treeView1.SelectedNode.Nodes.Add(newFolder);
