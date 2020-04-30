@@ -52,9 +52,9 @@ namespace Korot
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmChangeTBTBack));
             this.label1 = new System.Windows.Forms.Label();
-            this.btDefault = new System.Windows.Forms.Button();
-            this.btOK = new System.Windows.Forms.Button();
-            this.btCancel = new System.Windows.Forms.Button();
+            this.btDefault = new HaltroyFramework.HaltroyButton();
+            this.btOK = new HaltroyFramework.HaltroyButton();
+            this.btCancel = new HaltroyFramework.HaltroyButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -162,9 +162,9 @@ namespace Korot
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btDefault;
-        private System.Windows.Forms.Button btOK;
-        private System.Windows.Forms.Button btCancel;
+        private HaltroyFramework.HaltroyButton btDefault;
+        private HaltroyFramework.HaltroyButton btOK;
+        private HaltroyFramework.HaltroyButton btCancel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer1;
     }
