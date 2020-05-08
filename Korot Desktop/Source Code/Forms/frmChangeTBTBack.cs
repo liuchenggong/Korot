@@ -74,14 +74,14 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-            ForeColor = Tools.isBright(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false)) ? Color.Black : Color.White;
-            btDefault.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
-            btDefault.ForeColor = Tools.isBright(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false)) ? Color.Black : Color.White;
-            btOK.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
-            btOK.ForeColor = Tools.isBright(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false)) ? Color.Black : Color.White;
-            btCancel.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
-            btCancel.ForeColor = Tools.isBright(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false)) ? Color.Black : Color.White;
+            BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+            ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false)) ? Color.Black : Color.White;
+            btDefault.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
+            btDefault.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false)) ? Color.Black : Color.White;
+            btOK.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
+            btOK.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false)) ? Color.Black : Color.White;
+            btCancel.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false);
+            btCancel.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false)) ? Color.Black : Color.White;
         }
     }
 }

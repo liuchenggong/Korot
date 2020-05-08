@@ -318,12 +318,12 @@ namespace Korot
             foreach (TabPage x in tabControl1.TabPages)
             {
                 x.BackColor = Properties.Settings.Default.BackColor;
-                x.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+                x.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             }
             foreach (Panel x in titlePanels)
             {
-                x.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                x.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+                x.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                x.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             }
             foreach (Control x in defaultBackColor)
             {
@@ -333,33 +333,33 @@ namespace Korot
             {
                 if (x is CustomLinkLabel)
                 {
-                    ((CustomLinkLabel)x).ActiveLinkColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-                    ((CustomLinkLabel)x).DisabledLinkColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-                    ((CustomLinkLabel)x).VisitedLinkColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-                    ((CustomLinkLabel)x).LinkColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+                    ((CustomLinkLabel)x).ActiveLinkColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+                    ((CustomLinkLabel)x).DisabledLinkColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+                    ((CustomLinkLabel)x).VisitedLinkColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+                    ((CustomLinkLabel)x).LinkColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
 
                 }
-                x.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+                x.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             }
             foreach (PictureBox x in backButtons)
             {
-                x.Image = Tools.isBright(Properties.Settings.Default.BackColor) ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                x.Image = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
             }
-            listView1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-            listView1.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            cmsCollection.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-            cmsCollection.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            cmsMain.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-            cmsMain.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            listView1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+            listView1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            cmsCollection.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+            cmsCollection.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            cmsMain.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+            cmsMain.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
         }
 
 
         private void newCollectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                                           cefform.newColInfo,
                                                                                           cefform.newColName)
-            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -367,7 +367,7 @@ namespace Korot
                 {
                     Collection newCol = new Collection
                     {
-                        ID = Tools.generateRandomText(),
+                        ID = HTAlt.Tools.GenerateRandomText,
                         Text = mesaj.TextValue
                     };
                     cefform.colManager.Collections.Add(newCol);
@@ -379,10 +379,10 @@ namespace Korot
 
         private void ımportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                                           cefform.importColInfo,
                                                                                           "[collection][/collection]")
-            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -400,11 +400,11 @@ namespace Korot
         {
             if (listView1.SelectedItems.Count > 0)
             {
-                HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
+                HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(
                     "Korot",
                     cefform.delColInfo.Replace("$", listView1.SelectedItems[0].Text),
                     MessageBoxButtons.YesNoCancel)
-                { YesButtonText = cefform.Yes, NoButtonText = cefform.No, OKBUttonText = cefform.OK, CancelButtonText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = cefform.anaform.Icon };
+                { Yes = cefform.Yes, No = cefform.No, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = cefform.anaform.Icon };
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
                     cefform.colManager.Collections.Remove(cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name));
@@ -415,11 +415,11 @@ namespace Korot
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyMsgBox mesaj = new HaltroyFramework.HaltroyMsgBox(
+            HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(
                 "Korot",
                 cefform.clearColInfo,
                 MessageBoxButtons.YesNoCancel)
-            { YesButtonText = cefform.Yes, NoButtonText = cefform.No, OKBUttonText = cefform.OK, CancelButtonText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = cefform.anaform.Icon };
+            { Yes = cefform.Yes, No = cefform.No, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = cefform.anaform.Icon };
             if (mesaj.ShowDialog() == DialogResult.Yes)
             {
                 cefform.colManager.Collections.Clear();
@@ -429,10 +429,10 @@ namespace Korot
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                               cefform.okToClipboard,
                                                                               listView1.SelectedItems[0].ToolTipText)
-            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
+            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -455,10 +455,10 @@ namespace Korot
         }
         private void exportThisİtemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                       cefform.okToClipboard,
                                                       ((Control)ıTEMToolStripMenuItem.Tag).Tag.ToString())
-            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
+            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -485,10 +485,10 @@ namespace Korot
 
         private void ımportİtemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                                          cefform.importColItemInfo,
                                                                                          "")
-            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
+            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -503,10 +503,10 @@ namespace Korot
 
         private void changeCollectionIDToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                                          cefform.changeColIDInfo,
                                                                                          cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID)
-            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -521,10 +521,10 @@ namespace Korot
 
         private void changeCollectionTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                              cefform.changeColTextInfo,
                                                                              cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text)
-            { Icon = cefform.anaform.Icon, OKText = cefform.OK, CancelText = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {

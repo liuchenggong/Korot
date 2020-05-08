@@ -65,7 +65,7 @@ namespace Korot
             this.pbBack = new System.Windows.Forms.PictureBox();
             this.tbID = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.bt3DOT = new HaltroyFramework.HaltroyButton();
+            this.bt3DOT = new HTAlt.HTButton();
             this.flpProp = new System.Windows.Forms.FlowLayoutPanel();
             this.rbRegular = new System.Windows.Forms.RadioButton();
             this.rbBold = new System.Windows.Forms.RadioButton();
@@ -81,7 +81,7 @@ namespace Korot
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.nudH = new System.Windows.Forms.NumericUpDown();
             this.nudW = new System.Windows.Forms.NumericUpDown();
-            this.btDone = new HaltroyFramework.HaltroyButton();
+            this.btDone = new HTAlt.HTButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
@@ -546,8 +546,8 @@ namespace Korot
         private System.Windows.Forms.TextBox tbSource;
         private System.Windows.Forms.NumericUpDown nudH;
         private System.Windows.Forms.NumericUpDown nudW;
-        private HaltroyFramework.HaltroyButton btDone;
-        private HaltroyFramework.HaltroyButton bt3DOT;
+        private HTAlt.HTButton btDone;
+        private HTAlt.HTButton bt3DOT;
         private System.Windows.Forms.Timer timer1;
     }
 }

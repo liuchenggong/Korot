@@ -90,8 +90,8 @@
     <ApplicationManifest>Source Code\Others\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HaltroyFramework, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HaltroyFramework.0.1.0\lib\net45\HaltroyFramework.dll</HintPath>
+    <Reference Include="HTAlt, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HTAlt.0.1.2\lib\net45\HTAlt.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -324,7 +324,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Source Code\Tools\FileSystem2.cs" />
     <Compile Include="Source Code\Tools\TakeScrenshot.cs" />
     <Compile Include="Source Code\Tools\WindowsMessageHelper.cs" />
     <EmbeddedResource Include="Source Code\Forms\Form1.resx">

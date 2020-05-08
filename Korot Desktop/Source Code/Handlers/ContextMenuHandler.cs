@@ -368,13 +368,13 @@ namespace Korot
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
             if (!string.IsNullOrWhiteSpace(SelectedText))
             {
-                string newItem = "[text ID=\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                string newItem = "[text ID=\"" + HTAlt.Tools.GenerateRandomText + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
                 ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                 return;
             }
             if (!string.IsNullOrWhiteSpace(SourceURL))
             {
-                string newItem = "[image ID=\"" + Tools.generateRandomText() + "\" Source=\"" + SourceURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                string newItem = "[image ID=\"" + HTAlt.Tools.GenerateRandomText + "\" Source=\"" + SourceURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
                 ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                 return;
             }
@@ -382,13 +382,13 @@ namespace Korot
             {
                 if (!string.IsNullOrWhiteSpace(SelectedText))
                 {
-                    string newItem = "[link ID =\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                    string newItem = "[link ID =\"" + HTAlt.Tools.GenerateRandomText + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
                     ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                     return;
                 }
                 else
                 {
-                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                    string newItem = "[link ID=\"" + HTAlt.Tools.GenerateRandomText + "\" Text=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
                     ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                     return;
                 }
@@ -397,13 +397,13 @@ namespace Korot
             {
                 if (!string.IsNullOrWhiteSpace(SelectedText))
                 {
-                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + chromiumWebBrowser1.Address.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                    string newItem = "[link ID=\"" + HTAlt.Tools.GenerateRandomText + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + chromiumWebBrowser1.Address.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
                     ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                     return;
                 }
                 else
                 {
-                    string newItem = "[link ID=\"" + Tools.generateRandomText() + "\" Text=\"" + ActiveForm.Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + chromiumWebBrowser1.Address.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
+                    string newItem = "[link ID=\"" + HTAlt.Tools.GenerateRandomText + "\" Text=\"" + ActiveForm.Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + chromiumWebBrowser1.Address.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" /]";
                     ActiveForm.colManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                     return;
                 }
@@ -423,7 +423,7 @@ namespace Korot
                 };
                 item.Click += item_Click;
                 item.BackColor = Properties.Settings.Default.BackColor;
-                item.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+                item.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
                 addToCollection.DropDown.Items.Add(item);
             }
             if (addToCollection.DropDown.Items.Count < 1)
@@ -439,9 +439,9 @@ namespace Korot
             currentCMS = cmsCef;
             chromiumWebBrowser1 = cwb;
             cmsCef.BackColor = Properties.Settings.Default.BackColor;
-            cmsCef.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            cmsCef.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             addToCollection.DropDown.BackColor = Properties.Settings.Default.BackColor;
-            addToCollection.DropDown.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            addToCollection.DropDown.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             LinkURL = link;
             hasImageContents = hasimage;
             SourceURL = source;
@@ -490,10 +490,10 @@ namespace Korot
 
         private void newCollection_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox mesaj = new HaltroyFramework.HaltroyInputBox("Korot",
+            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                                          ActiveForm.newColInfo,
                                                                                          ActiveForm.newColName)
-            { Icon = ActiveForm.Icon, OKText = ActiveForm.OK, CancelText = ActiveForm.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = ActiveForm.Icon, OK = ActiveForm.OK, Cancel = ActiveForm.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -501,7 +501,7 @@ namespace Korot
                 {
                     Collection newCol = new Collection
                     {
-                        ID = Tools.generateRandomText(),
+                        ID = HTAlt.Tools.GenerateRandomText,
                         Text = mesaj.TextValue
                     };
                     ActiveForm.colManager.Collections.Add(newCol);
@@ -529,7 +529,7 @@ namespace Korot
 
         private void copyImage(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SourceURL)) { Clipboard.SetImage(Tools.getImageFromUrl(SourceURL)); }
+            if (!string.IsNullOrWhiteSpace(SourceURL)) { Clipboard.SetImage(HTAlt.Tools.GetImageFromUrl(SourceURL)); }
         }
         private void copyImageAddress(object sender, EventArgs e)
         {

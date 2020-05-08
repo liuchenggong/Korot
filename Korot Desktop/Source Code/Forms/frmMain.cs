@@ -87,7 +87,7 @@ namespace Korot
         {
             MinimumSize = new System.Drawing.Size(660, 340);
             BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
         }
         public string OldSessions;
         private string profilePath;
@@ -156,7 +156,7 @@ namespace Korot
                 }
                 if (!File.Exists(profilePath + "collections.kcf"))
                 {
-                    FileSystem2.WriteFile(profilePath + "collections.kcf", "[root][/root]", Encoding.UTF8);
+                    HTAlt.Tools.WriteFile(profilePath + "collections.kcf", "[root][/root]", Encoding.UTF8);
                 }
                 colman.readCollections(profilePath + "collections.kcf");
             }

@@ -48,7 +48,7 @@ namespace Korot
             GetMostUsedColor(bitmap);
             Color c = MostUsedColor;
             MostUsedColor = Color.Empty;
-            return Tools.Brightness(c);
+            return HTAlt.Tools.Brightness(c);
         }
 
         public static void GetMostUsedColor(Bitmap theBitMap)

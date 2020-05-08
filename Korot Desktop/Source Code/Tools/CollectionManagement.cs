@@ -55,7 +55,7 @@ namespace Korot
                 Collections.Clear();
             }
             // Read the file
-            string CollectionXML = FileSystem2.ReadFile(collectionFile, Encoding.UTF8).Replace("[", "<").Replace("]", ">");
+            string CollectionXML = HTAlt.Tools.ReadFile(collectionFile, Encoding.UTF8).Replace("[", "<").Replace("]", ">");
             // Write XML to Stream so we don't need to load the same file again.
             MemoryStream stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);
@@ -74,7 +74,7 @@ namespace Korot
                     // Collection - ID
                     if (node.Attributes["ID"] == null)
                     {
-                        newCol.ID = Tools.generateRandomText();
+                        newCol.ID = HTAlt.Tools.GenerateRandomText;
                     }
                     else
                     {
@@ -98,7 +98,7 @@ namespace Korot
                             // Item - ID
                             if (subnode.Attributes["ID"] == null)
                             {
-                                item.ID = Tools.generateRandomText();
+                                item.ID = HTAlt.Tools.GenerateRandomText;
                             }
                             else
                             {
@@ -111,7 +111,7 @@ namespace Korot
                             }
                             else
                             {
-                                item.BackColor = Tools.HexToColor(subnode.Attributes["BackColor"].Value);
+                                item.BackColor = HTAlt.Tools.HexToColor(subnode.Attributes["BackColor"].Value);
                             }
                             // TextItem - ForeColor
                             if (subnode.Attributes["ForeColor"] == null)
@@ -120,7 +120,7 @@ namespace Korot
                             }
                             else
                             {
-                                item.ForeColor = Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
+                                item.ForeColor = HTAlt.Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
                             }
                             // TextItem - Text
                             if (subnode.Attributes["Text"] == null)
@@ -185,7 +185,7 @@ namespace Korot
                             // Item - ID
                             if (subnode.Attributes["ID"] == null)
                             {
-                                item.ID = Tools.generateRandomText();
+                                item.ID = HTAlt.Tools.GenerateRandomText;
                             }
                             else
                             {
@@ -198,7 +198,7 @@ namespace Korot
                             }
                             else
                             {
-                                item.BackColor = Tools.HexToColor(subnode.Attributes["BackColor"].Value);
+                                item.BackColor = HTAlt.Tools.HexToColor(subnode.Attributes["BackColor"].Value);
                             }
                             // LinkItem - ForeColor
                             if (subnode.Attributes["ForeColor"] == null)
@@ -207,7 +207,7 @@ namespace Korot
                             }
                             else
                             {
-                                item.ForeColor = Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
+                                item.ForeColor = HTAlt.Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
                             }
                             // LinkItem - Text
                             if (subnode.Attributes["Text"] == null)
@@ -281,7 +281,7 @@ namespace Korot
                             // Item - ID
                             if (subnode.Attributes["ID"] == null)
                             {
-                                item.ID = Tools.generateRandomText();
+                                item.ID = HTAlt.Tools.GenerateRandomText;
                             }
                             else
                             {
@@ -294,7 +294,7 @@ namespace Korot
                             }
                             else
                             {
-                                item.BackColor = Tools.HexToColor(subnode.Attributes["BackColor"].Value);
+                                item.BackColor = HTAlt.Tools.HexToColor(subnode.Attributes["BackColor"].Value);
                             }
                             // ImageItem - Source
                             if (subnode.Attributes["Source"] == null)
@@ -354,8 +354,8 @@ namespace Korot
                         TextItem ti = (item as TextItem);
                         string iCode = "[text";
                         iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + Tools.ColorToHex(ti.BackColor) + "\" ";
-                        iCode += "ForeColor=\"" + Tools.ColorToHex(ti.ForeColor) + "\" ";
+                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
+                        iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ti.ForeColor) + "\" ";
                         iCode += "Text=\"" + ti.Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                         iCode += "Font=\"" + ti.Font.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                         iCode += "FontSize=\"" + ti.FontSize + "\" ";
@@ -388,8 +388,8 @@ namespace Korot
                         LinkItem ti = (item as LinkItem);
                         string iCode = "[link";
                         iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + Tools.ColorToHex(ti.BackColor) + "\" ";
-                        iCode += "ForeColor=\"" + Tools.ColorToHex(ti.ForeColor) + "\" ";
+                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
+                        iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ti.ForeColor) + "\" ";
                         iCode += "Source=\"" + ti.Source.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                         iCode += "Text=\"" + ti.Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                         iCode += "Font=\"" + ti.Font.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
@@ -423,7 +423,7 @@ namespace Korot
                         ImageItem ti = (item as ImageItem);
                         string iCode = "[image";
                         iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + Tools.ColorToHex(ti.BackColor) + "\" ";
+                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
                         iCode += "Source=\"" + ti.Source.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                         iCode += "Width=\"" + ti.Width + "\" ";
                         iCode += "Height=\"" + ti.Height + "\" ";
@@ -436,7 +436,7 @@ namespace Korot
             }
             xmlCode += Environment.NewLine + "[/root]";
             //Final
-            FileSystem2.WriteFile(collectionFile, xmlCode, Encoding.UTF8);
+            HTAlt.Tools.WriteFile(collectionFile, xmlCode, Encoding.UTF8);
             //End
             return true;
         }
@@ -522,7 +522,7 @@ namespace Korot
                                                     // Item - ID
                     if (subnode.Attributes["ID"] == null)
                     {
-                        item.ID = Tools.generateRandomText();
+                        item.ID = HTAlt.Tools.GenerateRandomText;
                     }
                     else
                     {
@@ -535,7 +535,7 @@ namespace Korot
                     }
                     else
                     {
-                        item.BackColor = Tools.HexToColor(subnode.Attributes["BackColor"].Value);
+                        item.BackColor = HTAlt.Tools.HexToColor(subnode.Attributes["BackColor"].Value);
                     }
                     // TextItem - ForeColor
                     if (subnode.Attributes["ForeColor"] == null)
@@ -544,7 +544,7 @@ namespace Korot
                     }
                     else
                     {
-                        item.ForeColor = Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
+                        item.ForeColor = HTAlt.Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
                     }
                     // TextItem - Text
                     if (subnode.Attributes["Text"] == null)
@@ -609,7 +609,7 @@ namespace Korot
                                                     // Item - ID
                     if (subnode.Attributes["ID"] == null)
                     {
-                        item.ID = Tools.generateRandomText();
+                        item.ID = HTAlt.Tools.GenerateRandomText;
                     }
                     else
                     {
@@ -622,7 +622,7 @@ namespace Korot
                     }
                     else
                     {
-                        item.BackColor = Tools.HexToColor(subnode.Attributes["BackColor"].Value);
+                        item.BackColor = HTAlt.Tools.HexToColor(subnode.Attributes["BackColor"].Value);
                     }
                     // LinkItem - ForeColor
                     if (subnode.Attributes["ForeColor"] == null)
@@ -631,7 +631,7 @@ namespace Korot
                     }
                     else
                     {
-                        item.ForeColor = Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
+                        item.ForeColor = HTAlt.Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
                     }
                     // LinkItem - Text
                     if (subnode.Attributes["Text"] == null)
@@ -705,7 +705,7 @@ namespace Korot
                                                       // Item - ID
                     if (subnode.Attributes["ID"] == null)
                     {
-                        item.ID = Tools.generateRandomText();
+                        item.ID = HTAlt.Tools.GenerateRandomText;
                     }
                     else
                     {
@@ -718,7 +718,7 @@ namespace Korot
                     }
                     else
                     {
-                        item.BackColor = Tools.HexToColor(subnode.Attributes["BackColor"].Value);
+                        item.BackColor = HTAlt.Tools.HexToColor(subnode.Attributes["BackColor"].Value);
                     }
                     // ImageItem - Source
                     if (subnode.Attributes["Source"] == null)
@@ -771,7 +771,7 @@ namespace Korot
                                                 // Item - ID
                 if (subnode.Attributes["ID"] == null)
                 {
-                    item.ID = Tools.generateRandomText();
+                    item.ID = HTAlt.Tools.GenerateRandomText;
                 }
                 else
                 {
@@ -784,7 +784,7 @@ namespace Korot
                 }
                 else
                 {
-                    item.BackColor = Tools.HexToColor(subnode.Attributes["BackColor"].Value);
+                    item.BackColor = HTAlt.Tools.HexToColor(subnode.Attributes["BackColor"].Value);
                 }
                 // TextItem - ForeColor
                 if (subnode.Attributes["ForeColor"] == null)
@@ -793,7 +793,7 @@ namespace Korot
                 }
                 else
                 {
-                    item.ForeColor = Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
+                    item.ForeColor = HTAlt.Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
                 }
                 // TextItem - Text
                 if (subnode.Attributes["Text"] == null)
@@ -858,7 +858,7 @@ namespace Korot
                                                 // Item - ID
                 if (subnode.Attributes["ID"] == null)
                 {
-                    item.ID = Tools.generateRandomText();
+                    item.ID = HTAlt.Tools.GenerateRandomText;
                 }
                 else
                 {
@@ -871,7 +871,7 @@ namespace Korot
                 }
                 else
                 {
-                    item.BackColor = Tools.HexToColor(subnode.Attributes["BackColor"].Value);
+                    item.BackColor = HTAlt.Tools.HexToColor(subnode.Attributes["BackColor"].Value);
                 }
                 // LinkItem - ForeColor
                 if (subnode.Attributes["ForeColor"] == null)
@@ -880,7 +880,7 @@ namespace Korot
                 }
                 else
                 {
-                    item.ForeColor = Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
+                    item.ForeColor = HTAlt.Tools.HexToColor(subnode.Attributes["ForeColor"].Value);
                 }
                 // LinkItem - Text
                 if (subnode.Attributes["Text"] == null)
@@ -954,7 +954,7 @@ namespace Korot
                                                   // Item - ID
                 if (subnode.Attributes["ID"] == null)
                 {
-                    item.ID = Tools.generateRandomText();
+                    item.ID = HTAlt.Tools.GenerateRandomText;
                 }
                 else
                 {
@@ -967,7 +967,7 @@ namespace Korot
                 }
                 else
                 {
-                    item.BackColor = Tools.HexToColor(subnode.Attributes["BackColor"].Value);
+                    item.BackColor = HTAlt.Tools.HexToColor(subnode.Attributes["BackColor"].Value);
                 }
                 // ImageItem - Source
                 if (subnode.Attributes["Source"] == null)
@@ -1018,8 +1018,8 @@ namespace Korot
                         TextItem ti = (item as TextItem);
                         string iCode = "[text";
                         iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + Tools.ColorToHex(ti.BackColor) + "\" ";
-                        iCode += "ForeColor=\"" + Tools.ColorToHex(ti.ForeColor) + "\" ";
+                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
+                        iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ti.ForeColor) + "\" ";
                         iCode += "Text=\"" + ti.Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                         iCode += "Font=\"" + ti.Font.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                         iCode += "FontSize=\"" + ti.FontSize + "\" ";
@@ -1052,8 +1052,8 @@ namespace Korot
                         LinkItem ti = (item as LinkItem);
                         string iCode = "[link";
                         iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + Tools.ColorToHex(ti.BackColor) + "\" ";
-                        iCode += "ForeColor=\"" + Tools.ColorToHex(ti.ForeColor) + "\" ";
+                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
+                        iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ti.ForeColor) + "\" ";
                         iCode += "Source=\"" + ti.Source.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                         iCode += "Text=\"" + ti.Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                         iCode += "Font=\"" + ti.Font.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
@@ -1087,7 +1087,7 @@ namespace Korot
                         ImageItem ti = (item as ImageItem);
                         string iCode = "[image";
                         iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + Tools.ColorToHex(ti.BackColor) + "\" ";
+                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
                         iCode += "Source=\"" + ti.Source.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                         iCode += "Width=\"" + ti.Width + "\" ";
                         iCode += "Height=\"" + ti.Height + "\" ";
@@ -1195,8 +1195,8 @@ namespace Korot
             {
                 string iCode = "[text";
                 iCode += " ID=\"" + ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                iCode += "BackColor=\"" + Tools.ColorToHex(BackColor) + "\" ";
-                iCode += "ForeColor=\"" + Tools.ColorToHex(ForeColor) + "\" ";
+                iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(BackColor) + "\" ";
+                iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ForeColor) + "\" ";
                 iCode += "Text=\"" + Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                 iCode += "Font=\"" + Font.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                 iCode += "FontSize=\"" + FontSize + "\" ";
@@ -1269,8 +1269,8 @@ namespace Korot
             {
                 string iCode = "[link";
                 iCode += " ID=\"" + ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                iCode += "BackColor=\"" + Tools.ColorToHex(BackColor) + "\" ";
-                iCode += "ForeColor=\"" + Tools.ColorToHex(ForeColor) + "\" ";
+                iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(BackColor) + "\" ";
+                iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ForeColor) + "\" ";
                 iCode += "Text=\"" + Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                 iCode += "Source=\"" + Source.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                 iCode += "Font=\"" + Font.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
@@ -1327,7 +1327,7 @@ namespace Korot
             {
                 string iCode = "[image";
                 iCode += " ID=\"" + ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                iCode += "BackColor=\"" + Tools.ColorToHex(BackColor) + "\" ";
+                iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(BackColor) + "\" ";
                 iCode += "Source=\"" + Source.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                 iCode += "Width=\"" + Width + "\" ";
                 iCode += "Height=\"" + Height + "\" ";

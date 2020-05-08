@@ -51,13 +51,13 @@ namespace Korot
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNewFav));
-            this.button2 = new HaltroyFramework.HaltroyButton();
+            this.button2 = new HTAlt.HTButton();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new HaltroyFramework.HaltroyButton();
+            this.button1 = new HTAlt.HTButton();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel1.SuspendLayout();
@@ -202,13 +202,13 @@ namespace Korot
         }
 
         #endregion
-        private HaltroyFramework.HaltroyButton button2;
+        private HTAlt.HTButton button2;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
-        private HaltroyFramework.HaltroyButton button1;
+        private HTAlt.HTButton button1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Timer timer1;
     }

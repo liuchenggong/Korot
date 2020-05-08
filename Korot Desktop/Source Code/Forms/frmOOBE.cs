@@ -114,7 +114,7 @@ namespace Korot
                 else
                 {
                     Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
-                    string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+                    string Playlist = HTAlt.Tools.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
                     char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                     string[] SplittedFase = Playlist.Split(token);
                     Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
@@ -233,7 +233,7 @@ namespace Korot
         {
             if (!allowClose)
             {
-                HaltroyFramework.HaltroyMsgBox msgBox = new HaltroyFramework.HaltroyMsgBox(Text, closeMessage, MessageBoxButtons.YesNo) { YesButtonText = Yes, NoButtonText = No, OKBUttonText = OK, CancelButtonText = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
+                HTAlt.HTMsgBox msgBox = new HTAlt.HTMsgBox(Text, closeMessage, MessageBoxButtons.YesNo) { Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                 if (msgBox.ShowDialog() == DialogResult.Yes)
                 {
                     e.Cancel = false;

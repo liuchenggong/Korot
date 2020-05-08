@@ -50,11 +50,11 @@ namespace Korot
             label2.Text = Properties.Settings.Default.KorotErrorDesc.Replace("[NEWLINE]", Environment.NewLine);
             label3.Text = Properties.Settings.Default.KorotErrorTI;
             BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            textBox1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-            lbErrorCode.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-            textBox1.ForeColor = Tools.isBright(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false)) ? Color.Black : Color.White;
-            lbErrorCode.ForeColor = Tools.isBright(Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false)) ? Color.Black : Color.White;
+            ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            textBox1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+            lbErrorCode.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+            textBox1.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false)) ? Color.Black : Color.White;
+            lbErrorCode.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false)) ? Color.Black : Color.White;
         }
     }
 }

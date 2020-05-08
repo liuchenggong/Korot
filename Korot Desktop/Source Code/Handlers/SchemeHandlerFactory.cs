@@ -65,7 +65,7 @@ namespace Korot
         }
         public string GetBackStyle2()
         {
-            return "background-color: rgb(" + Properties.Settings.Default.BackColor.R + " ," + Properties.Settings.Default.BackColor.G + " , " + Properties.Settings.Default.BackColor.B + "); color: " + (Tools.isBright(Properties.Settings.Default.BackColor) ? "black" : "white") + ";";
+            return "background-color: rgb(" + Properties.Settings.Default.BackColor.R + " ," + Properties.Settings.Default.BackColor.G + " , " + Properties.Settings.Default.BackColor.B + "); color: " + (HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? "black" : "white") + ";";
         }
         public static bool ValidHttpURL(string s)
         {

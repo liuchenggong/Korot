@@ -614,7 +614,7 @@ namespace Korot
                         _activeRightSideImage.Width + AddButtonMarginLeft + offset.X,
                         AddButtonMarginTop + offset.Y, _addButtonImage.Width, _addButtonImage.Height);
                 bool cursorOverAddButton = IsOverAddButton(cursor);
-                Color _addButtonColor = cursorOverAddButton ? Tools.ShiftBrightnessIfNeeded(AddButtonColor, 20, false) : AddButtonColor;
+                Color _addButtonColor = cursorOverAddButton ? HTAlt.Tools.ShiftBrightnessIfNeeded(AddButtonColor, 20, false) : AddButtonColor;
                 graphicsContext.DrawString("+", new Font("Ubuntu", 25, FontStyle.Bold), new SolidBrush(_addButtonColor), _addButtonArea.X - 5, _addButtonArea.Y - 14);
                 //graphicsContext.DrawImage(
                 //                    cursorOverAddButton
@@ -641,8 +641,8 @@ namespace Korot
             {
                 return;
             }
-            Color thisTabBack = tab.useDefaultBackColor ? (tab.Active ? BackgroundColor : Tools.ShiftBrightnessIfNeeded(BackgroundColor, 20, false)) : (tab.Active ? tab.BackColor : Tools.ShiftBrightnessIfNeeded(tab.BackColor, 20, false));
-            Color thisTabForeColor = Tools.isBright(thisTabBack) ? Color.Black : Color.White;
+            Color thisTabBack = tab.useDefaultBackColor ? (tab.Active ? BackgroundColor : HTAlt.Tools.ShiftBrightnessIfNeeded(BackgroundColor, 20, false)) : (tab.Active ? tab.BackColor : HTAlt.Tools.ShiftBrightnessIfNeeded(tab.BackColor, 20, false));
+            Color thisTabForeColor = HTAlt.Tools.IsBright(thisTabBack) ? Color.Black : Color.White;
 
             // If we need to redraw the tab image
             if (tab.TabImage == null)
@@ -678,7 +678,7 @@ namespace Korot
                             area.Width - tabRightImage.Width - CloseButtonMarginRight - closeButtonImage.Width, CloseButtonMarginTop, closeButtonImage.Width,
                             closeButtonImage.Height);
 
-                        tabGraphicsContext.DrawString("X", new Font("Ubuntu", 12, FontStyle.Bold), new SolidBrush(IsOverCloseButton(tab, cursor) ? Tools.ShiftBrightnessIfNeeded(CloseButtonColor, 20, false) : CloseButtonColor), tab.CloseButtonArea.X + 5, tab.CloseButtonArea.Y - 2);
+                        tabGraphicsContext.DrawString("X", new Font("Ubuntu", 12, FontStyle.Bold), new SolidBrush(IsOverCloseButton(tab, cursor) ? HTAlt.Tools.ShiftBrightnessIfNeeded(CloseButtonColor, 20, false) : CloseButtonColor), tab.CloseButtonArea.X + 5, tab.CloseButtonArea.Y - 2);
                         //tabGraphicsContext.DrawImage(
                         //    closeButtonImage, tab.CloseButtonArea, 0, 0,
                         //    closeButtonImage.Width, closeButtonImage.Height,

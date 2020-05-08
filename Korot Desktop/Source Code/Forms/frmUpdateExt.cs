@@ -55,14 +55,14 @@ namespace Korot
 
         private void readKEM()
         {
-            string Playlist = FileSystem2.ReadFile(extKEM, Encoding.UTF8);
+            string Playlist = HTAlt.Tools.ReadFile(extKEM, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
             currentVersion = new Version(SplittedFase[1].Substring(1).Replace(Environment.NewLine, ""));
             string extName = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
             string extAuthor = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
             fileURL = "https://haltroy.com/store/Korot/Extensions/" + extAuthor + "." + extName + "/" + extAuthor + "." + extName + ".kef";
-            fileLocation = tempPath + Tools.generateRandomText() + "\\" + extAuthor + "." + extName + ".kef";
+            fileLocation = tempPath + HTAlt.Tools.GenerateRandomText + "\\" + extAuthor + "." + extName + ".kef";
             verLocation = "https://haltroy.com/store/Korot/Extensions/" + extAuthor + "." + extName + "/ver.txt";
             downloadString();
         }
@@ -71,14 +71,14 @@ namespace Korot
 
         private void readKTF()
         {
-            string Playlist = FileSystem2.ReadFile(extKEM, Encoding.UTF8);
+            string Playlist = HTAlt.Tools.ReadFile(extKEM, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
             currentVersion = new Version(SplittedFase[1].Substring(1).Replace(Environment.NewLine, ""));
             string extName = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
             string extAuthor = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
             fileURL = "https://haltroy.com/store/Korot/Themes/" + extAuthor + "." + extName + "/" + extAuthor + "." + extName + ".ktf";
-            fileLocation = tempPath + Tools.generateRandomText() + "\\" + extAuthor + "." + extName + ".ktf";
+            fileLocation = tempPath + HTAlt.Tools.GenerateRandomText + "\\" + extAuthor + "." + extName + ".ktf";
             verLocation = "https://haltroy.com/store/Korot/Themes/" + extAuthor + "." + extName + "/ver.txt";
             downloadString();
         }
@@ -149,7 +149,7 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             panel2.BackColor = Properties.Settings.Default.OverlayColor;
             panel1.BackColor = Properties.Settings.Default.BackColor;
         }

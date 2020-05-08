@@ -22,7 +22,7 @@ namespace Korot
             lbTitle.Text = notification.title;
             lbMessage.Text = notification.message;
             ilkImage = notification.imageUrl;
-            pbImage.Image = Tools.getImageFromUrl(ilkImage);
+            pbImage.Image = HTAlt.Tools.GetImageFromUrl(ilkImage);
         }
 
         private bool playedSound = false;
@@ -182,7 +182,7 @@ namespace Korot
             if (ilkImage != notification.imageUrl)
             {
                 ilkImage = notification.imageUrl;
-                pbImage.Image = Tools.getImageFromUrl(ilkImage);
+                pbImage.Image = HTAlt.Tools.GetImageFromUrl(ilkImage);
             }
             lbSource.Text = notification.url;
             lbTitle.Text = notification.title;
@@ -197,11 +197,11 @@ namespace Korot
                 (Height + 10));
             Location = new Point(pointX, pointY);
             BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            pUp.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            pDown.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            pLeft.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            pRight.BackColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            pUp.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            pDown.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            pLeft.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            pRight.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
         }
     }
     public class Notification

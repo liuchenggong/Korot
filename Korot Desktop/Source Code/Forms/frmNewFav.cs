@@ -164,18 +164,18 @@ namespace Korot
 
         private void button1_Click(object sender, EventArgs e)
         {
-            HaltroyFramework.HaltroyInputBox haltroyInputBox = new HaltroyFramework.HaltroyInputBox("Korot",
+            HTAlt.HTInputBox HTInputBox = new HTAlt.HTInputBox("Korot",
                                                                                                     Cefform.folderInfo,
                                                                                                     Cefform.defaultFolderName)
-            { Icon = Cefform.Icon, OKText = Cefform.OK, CancelText = Cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
-            if (haltroyInputBox.ShowDialog() == DialogResult.OK)
+            { Icon = Cefform.Icon, OK = Cefform.OK, Cancel = Cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            if (HTInputBox.ShowDialog() == DialogResult.OK)
             {
-                if (!string.IsNullOrWhiteSpace(haltroyInputBox.TextValue))
+                if (!string.IsNullOrWhiteSpace(HTInputBox.TextValue))
                 {
                     TreeNode newFolder = new TreeNode
                     {
-                        Text = haltroyInputBox.TextValue,
-                        Name = haltroyInputBox.TextValue.Replace(" ", "").Replace(Environment.NewLine, ""),
+                        Text = HTInputBox.TextValue,
+                        Name = HTInputBox.TextValue.Replace(" ", "").Replace(Environment.NewLine, ""),
                         ToolTipText = "korot://folder"
                     };
                     treeView1.SelectedNode.Nodes.Add(newFolder);
@@ -252,7 +252,7 @@ namespace Korot
                 {
                     if (!File.Exists(iconStorage + newFolder.Name + ".png"))
                     {
-                        FileSystem2.WriteFile(iconStorage + newFolder.Name + ".png", Cefform.Icon.ToBitmap(), ImageFormat.Png);
+                        HTAlt.Tools.WriteFile(iconStorage + newFolder.Name + ".png", Cefform.Icon.ToBitmap(), ImageFormat.Png);
                     }
                     newFolder.Tag = "{ICONSTORAGE}" + newFolder.Name + ".png";
                 }
@@ -324,19 +324,19 @@ namespace Korot
             textBox1.Text = favName;
             textBox2.Text = favUrl;
             BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            button1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            button1.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            button2.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            button2.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            //button3.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            //button3.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            textBox1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            textBox1.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            textBox2.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            textBox2.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            treeView1.BackColor = Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
-            treeView1.ForeColor = Tools.isBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            button1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            button1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            button2.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            button2.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            //button3.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            //button3.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            textBox1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            textBox1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            textBox2.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            textBox2.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            treeView1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            treeView1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             textBox1.Location = new Point(label1.Location.X + label1.Width, label1.Location.Y);
             textBox1.Width = Width - (label1.Width + 50);
             textBox2.Location = new Point(label2.Location.X + label2.Width, label2.Location.Y);

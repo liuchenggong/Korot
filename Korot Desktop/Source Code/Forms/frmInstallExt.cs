@@ -82,7 +82,7 @@ namespace Korot
                 if (!silentInstall)
                 {
                     label3.Invoke(new Action(() => label3.Text = ext));
-                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + Tools.generateRandomText() + "\\";
+                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText + "\\";
                     if (Directory.Exists(tempFolder))
                     {
                         Directory.Delete(tempFolder, true);
@@ -104,7 +104,7 @@ namespace Korot
                 else
                 {
                     label3.Invoke(new Action(() => label3.Text = ext));
-                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + Tools.generateRandomText() + "\\";
+                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText + "\\";
                     if (Directory.Exists(tempFolder))
                     {
                         Directory.Delete(tempFolder, true);
@@ -137,7 +137,7 @@ namespace Korot
         {
             if (!silentInstall)
             {
-                string Playlist = FileSystem2.ReadFile(fileLocation, Encoding.UTF8);
+                string Playlist = HTAlt.Tools.ReadFile(fileLocation, Encoding.UTF8);
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                 string[] SplittedFase = Playlist.Split(token);
                 if (SplittedFase.Length >= 8)
@@ -267,7 +267,7 @@ namespace Korot
             }
             else
             {
-                string Playlist = FileSystem2.ReadFile(fileLocation, Encoding.UTF8);
+                string Playlist = HTAlt.Tools.ReadFile(fileLocation, Encoding.UTF8);
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                 string[] SplittedFase = Playlist.Split(token);
                 if (SplittedFase.Length >= 8)
@@ -387,7 +387,7 @@ namespace Korot
         {
             if (!silentInstall)
             {
-                string Playlist = FileSystem2.ReadFile(fileLocation, Encoding.UTF8);
+                string Playlist = HTAlt.Tools.ReadFile(fileLocation, Encoding.UTF8);
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                 string[] SplittedFase = Playlist.Split(token);
                 //ExtName
@@ -415,7 +415,7 @@ namespace Korot
             }
             else
             {
-                string Playlist = FileSystem2.ReadFile(fileLocation, Encoding.UTF8);
+                string Playlist = HTAlt.Tools.ReadFile(fileLocation, Encoding.UTF8);
                 char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                 string[] SplittedFase = Playlist.Split(token);
                 //ExtName
@@ -578,7 +578,7 @@ namespace Korot
             pictureBox7.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._1_w : Properties.Resources._1;
             pictureBox2.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._2_w : Properties.Resources._2;
             pictureBox5.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._3_w : Properties.Resources._3;
-            string Playlist = FileSystem2.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+            string Playlist = HTAlt.Tools.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
             noPermission = SplittedFase[112].Substring(1).Replace(Environment.NewLine, "");
