@@ -382,7 +382,7 @@ namespace Korot
             HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                                           cefform.importColInfo,
                                                                                           "[collection][/collection]")
-            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -432,7 +432,7 @@ namespace Korot
             HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                               cefform.okToClipboard,
                                                                               listView1.SelectedItems[0].ToolTipText)
-            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -458,7 +458,7 @@ namespace Korot
             HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                       cefform.okToClipboard,
                                                       ((Control)ıTEMToolStripMenuItem.Tag).Tag.ToString())
-            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -488,7 +488,7 @@ namespace Korot
             HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                                          cefform.importColItemInfo,
                                                                                          "")
-            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -506,7 +506,7 @@ namespace Korot
             HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                                          cefform.changeColIDInfo,
                                                                                          cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID)
-            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -524,7 +524,7 @@ namespace Korot
             HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                              cefform.changeColTextInfo,
                                                                              cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text)
-            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {

@@ -493,7 +493,7 @@ namespace Korot
             HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
                                                                                          ActiveForm.newColInfo,
                                                                                          ActiveForm.newColName)
-            { Icon = ActiveForm.Icon, OK = ActiveForm.OK, Cancel = ActiveForm.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = ActiveForm.Icon, OK = ActiveForm.OK, SetToDefault = ActiveForm.SetToDefault, Cancel = ActiveForm.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {

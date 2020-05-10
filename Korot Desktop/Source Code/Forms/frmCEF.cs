@@ -739,7 +739,7 @@ namespace Korot
         public string changeColText = "Change Collection Text";
         public string changeColTextInfo = "Enter a valid Text for this collection.";
         public string empty = "((empty))";
-
+        public string SetToDefault = "Set to default";
         //Collection Manager
         public string newColInfo = "Enter a name for new collection";
         public string newColName = "New Collection";
@@ -757,8 +757,8 @@ namespace Korot
         public string editItem = "Edit this item";
         public string addToCollection = "Add to Collection";
         public string titleBackInfo = "Click the rectangle on top to change color.";
-        public string setToDefault = "Set to Default";
-
+        // DO NOT FORGET TO CHANGE THIS WHEN YOU TOUCHED THE LANGUAGE SYSTEM EVEN FOR A SMALL CHANGE!!!!
+        public Version LangVersion = new Version("6.1.0.0");
         private void dummyCMS_Opening(object sender, CancelEventArgs e)
         {
             Process.Start(Application.StartupPath + "//Lang//");
@@ -775,8 +775,7 @@ namespace Korot
                 SF[SF.Length - 1] = "mmisingno";
             }
             Version langVersion = new Version(SF[0].ToString().Replace(Environment.NewLine, "") != "mmissingno" ? SF[0].ToString().Replace(Environment.NewLine, "") : "0.0.0.0");
-            Version current = new Version(Application.ProductVersion);
-            if (langVersion < current)
+            if (langVersion < LangVersion)
             {
                 if (Properties.Settings.Default.disableLangErrors)
                 {
@@ -786,10 +785,10 @@ namespace Korot
                 }
                 else
                 {
+                    Properties.Settings.Default.disableLangErrors = true;
                     HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox("Korot", "This language file is made for an older version of Korot. This can cause some problems. Do you wish to proceed?", MessageBoxButtons.YesNoCancel) { StartPosition = FormStartPosition.CenterParent,Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                     if (mesaj.ShowDialog() == DialogResult.Yes)
                     {
-                        Properties.Settings.Default.disableLangErrors = true;
                         ReadLangFileFromTemp(SF);
                         Properties.Settings.Default.LangFile = fileLocation;
                         if (!_Incognito) { Properties.Settings.Default.Save(); }
@@ -842,7 +841,7 @@ namespace Korot
                 changeColTextInfo = SplittedFase[320].Substring(1).Replace(Environment.NewLine, "");
                 importColItem = SplittedFase[316].Substring(1).Replace(Environment.NewLine, "");
                 importColItemInfo = SplittedFase[315].Substring(1).Replace(Environment.NewLine, "");
-                setToDefault = SplittedFase[314].Substring(1).Replace(Environment.NewLine, "");
+                SetToDefault = SplittedFase[314].Substring(1).Replace(Environment.NewLine, "");
                 tsChangeTitleBack.Text = SplittedFase[312].Substring(1).Replace(Environment.NewLine, "");
                 titleBackInfo = SplittedFase[313].Substring(1).Replace(Environment.NewLine, "");
                 addToCollection = SplittedFase[311].Substring(1).Replace(Environment.NewLine, "");
@@ -1191,7 +1190,7 @@ namespace Korot
         #endregion
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox inputb = new HTAlt.HTInputBox(customSearchNote, customSearchMessage, Properties.Settings.Default.SearchURL) { Icon = Icon,StartPosition = FormStartPosition.CenterParent, OK = OK,Cancel = Cancel,BackgroundColor = Properties.Settings.Default.BackColor};
+            HTAlt.HTInputBox inputb = new HTAlt.HTInputBox(customSearchNote, customSearchMessage, Properties.Settings.Default.SearchURL) { Icon = Icon, SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = OK,Cancel = Cancel,BackgroundColor = Properties.Settings.Default.BackColor};
             DialogResult diagres = inputb.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -1423,7 +1422,7 @@ namespace Korot
             HTAlt.HTInputBox inputbox = new HTAlt.HTInputBox("Korot",
                                                                                             enterAValidCode,
                                                                                             "")
-            { Icon = Icon, StartPosition = FormStartPosition.CenterParent, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = Icon, SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             if (inputbox.ShowDialog() == DialogResult.OK)
             {
                 Properties.Settings.Default.BackStyle = inputbox.TextValue + ";";
@@ -2311,7 +2310,7 @@ namespace Korot
         public bool OnJSPrompt(string url, string message, string defaultValue, out bool returnval, out string textresult)
         {
             HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox(url, message, defaultValue)
-            { StartPosition = FormStartPosition.CenterParent, Icon = Icon, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, Icon = Icon, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
             textresult = mesaj.TextValue;
             return true;
@@ -4197,7 +4196,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void showAWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox inputb = new HTAlt.HTInputBox("Korot", enterAValidUrl, Properties.Settings.Default.SearchURL) { Icon = Icon, StartPosition = FormStartPosition.CenterParent, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            HTAlt.HTInputBox inputb = new HTAlt.HTInputBox("Korot", enterAValidUrl, Properties.Settings.Default.SearchURL) { Icon = Icon, SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = inputb.ShowDialog();
             if (diagres == DialogResult.OK)
             {

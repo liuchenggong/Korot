@@ -167,7 +167,7 @@ namespace Korot
             HTAlt.HTInputBox HTInputBox = new HTAlt.HTInputBox("Korot",
                                                                                                     Cefform.folderInfo,
                                                                                                     Cefform.defaultFolderName)
-            { Icon = Cefform.Icon, OK = Cefform.OK, Cancel = Cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = Cefform.Icon, OK = Cefform.OK, SetToDefault = Cefform.SetToDefault, Cancel = Cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             if (HTInputBox.ShowDialog() == DialogResult.OK)
             {
                 if (!string.IsNullOrWhiteSpace(HTInputBox.TextValue))
