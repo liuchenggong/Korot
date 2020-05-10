@@ -35,7 +35,7 @@ namespace Korot
             pictureBox1.BackColor = cefform.ParentTab.BackColor;
             DialogResult = DialogResult.Cancel;
             label1.Text = cefform.titleBackInfo;
-            btDefault.Text = cefform.setToDefault;
+            btDefault.Text = cefform.SetToDefault;
             btOK.Text = cefform.OK;
             btCancel.Text = cefform.Cancel;
         }
