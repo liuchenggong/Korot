@@ -54,7 +54,7 @@ namespace Korot
                 if (Cefform.anaform.IsDisposed) { return; }
                 Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
                 Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
-                if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pictureBox2.Image = Properties.Resources.locko)); }
+                if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pbPrivacy.Image = Properties.Resources.locko)); }
             }
         }
     }

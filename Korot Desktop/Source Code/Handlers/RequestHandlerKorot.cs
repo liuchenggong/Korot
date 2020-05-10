@@ -102,7 +102,7 @@ namespace Korot
                 cefform.showCertificateErrorsToolStripMenuItem.Tag = certError;
                 cefform.certError = true;
                 cefform.showCertificateErrorsToolStripMenuItem.Visible = true;
-                cefform.pictureBox2.Image = Properties.Resources.lockr;
+                cefform.pbPrivacy.Image = Properties.Resources.lockr;
             }));
             if (cefform.CertAllowedUrls.Contains(requestUrl))
             {

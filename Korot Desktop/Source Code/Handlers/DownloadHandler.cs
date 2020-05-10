@@ -56,7 +56,7 @@ namespace Korot
                     }
                     downloadItem.FullPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName;
                     callback.Continue(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName, false);
-                    ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
+                    ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
                 }
                 else
                 {
@@ -68,7 +68,7 @@ namespace Korot
                         }
                         downloadItem.FullPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName;
                         callback.Continue(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName, false);
-                        ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
+                        ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
                     }
                     else
                     {
@@ -76,7 +76,7 @@ namespace Korot
                         {
                             downloadItem.FullPath = Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName;
                             callback.Continue(Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName, false);
-                            ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
+                            ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
                         }
                         else
                         {
@@ -85,7 +85,7 @@ namespace Korot
                             {
                                 downloadItem.FullPath = saveFileDialog1.FileName;
                                 callback.Continue(saveFileDialog1.FileName, false);
-                                ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
+                                ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
                             }
                         }
                     }
@@ -97,7 +97,7 @@ namespace Korot
                 {
                     downloadItem.FullPath = Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName;
                     callback.Continue(Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName, false);
-                    ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
+                    ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
                 }
                 else
                 {
@@ -106,7 +106,7 @@ namespace Korot
                     {
                         downloadItem.FullPath = saveFileDialog1.FileName;
                         callback.Continue(saveFileDialog1.FileName, false);
-                        ActiveForm.Invoke(new Action(() => ActiveForm.button11.FlatAppearance.BorderSize = 1));
+                        ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
                     }
                 }
             }

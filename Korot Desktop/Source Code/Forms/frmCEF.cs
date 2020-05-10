@@ -186,7 +186,7 @@ namespace Korot
                 {
                     frmNotificationPermission newPerm = new frmNotificationPermission(this, baseUrl)
                     {
-                        Location = new Point(pictureBox2.Location.X, panel2.Height),
+                        Location = new Point(pbPrivacy.Location.X, pNavigate.Height),
                         TopLevel = false,
                         Visible = true
                     };
@@ -302,14 +302,14 @@ namespace Korot
             {
                 foreach (Control x in tpSettings.Controls)
                 {
-                    if (x != button13) { x.Enabled = false; }
+                    if (x != btClose4) { x.Enabled = false; }
                 }
                 btInstall.Enabled = false;
                 btUpdater.Enabled = false;
-                button9.Enabled = false;
+                btProfile.Enabled = false;
                 cmsBStyle.Enabled = false;
                 cmsSearchEngine.Enabled = false;
-                button7.Enabled = false;
+                btFav.Enabled = false;
                 cmsHistory.Enabled = false;
                 cmsProfiles.Enabled = false;
                 removeSelectedToolStripMenuItem1.Enabled = false;
@@ -324,8 +324,8 @@ namespace Korot
             }
             else
             {
-                pictureBox1.Visible = false;
-                tbAddress.Size = new Size(tbAddress.Size.Width + pictureBox1.Size.Width, tbAddress.Size.Height);
+                pbIncognito.Visible = false;
+                tbAddress.Size = new Size(tbAddress.Size.Width + pbIncognito.Size.Width, tbAddress.Size.Height);
             }
             LoadLangFromFile(Properties.Settings.Default.LangFile);
             cbLang.Text = Path.GetFileNameWithoutExtension(Properties.Settings.Default.LangFile);
@@ -2237,7 +2237,7 @@ namespace Korot
                 {
                     certError = false;
                     cookieUsage = false;
-                    pictureBox2.Invoke(new Action(() => pictureBox2.Image = Properties.Resources.lockg));
+                    pbPrivacy.Invoke(new Action(() => pbPrivacy.Image = Properties.Resources.lockg));
                     Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Tag = null));
                     Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Visible = false));
                     Invoke(new Action(() => safeStatusToolStripMenuItem.Text = CertificateOKTitle));
@@ -2245,9 +2245,9 @@ namespace Korot
                     Invoke(new Action(() => cookieInfoToolStripMenuItem.Text = notUsesCookies));
                     if (HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130)
                     {
-                        button2.Image = Korot.Properties.Resources.cancel;
+                        btRefresh.Image = Korot.Properties.Resources.cancel;
                     }
-                    else { button2.Image = Korot.Properties.Resources.cancel_w; }
+                    else { btRefresh.Image = Korot.Properties.Resources.cancel_w; }
                 }
                 else
                 {
@@ -2260,22 +2260,22 @@ namespace Korot
                     executeBackgroundExtensions();
                     if (HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130)
                     {
-                        button2.Image = Korot.Properties.Resources.refresh;
+                        btRefresh.Image = Korot.Properties.Resources.refresh;
                     }
                     else
-                    { button2.Image = Korot.Properties.Resources.refresh_w; }
+                    { btRefresh.Image = Korot.Properties.Resources.refresh_w; }
                 }
                 if (onCEFTab)
                 {
                     if (!e.Browser.IsDisposed)
                     {
-                        button1.Invoke(new Action(() => button1.Enabled = canGoBack()));
-                        button3.Invoke(new Action(() => button3.Enabled = canGoForward()));
+                        btBack.Invoke(new Action(() => btBack.Enabled = canGoBack()));
+                        btNext.Invoke(new Action(() => btNext.Enabled = canGoForward()));
                     }
                     else
                     {
-                        button1.Invoke(new Action(() => button1.Enabled = false));
-                        button3.Invoke(new Action(() => button3.Enabled = false));
+                        btBack.Invoke(new Action(() => btBack.Enabled = false));
+                        btNext.Invoke(new Action(() => btNext.Enabled = false));
                     }
                 }
                 isLoading = e.IsLoading;
@@ -2325,7 +2325,7 @@ namespace Korot
 
         private void showFavMenu()
         {
-            panel2.Height += mFavorites.Height;
+            pNavigate.Height += mFavorites.Height;
             tabControl1.Height -= mFavorites.Height;
             tabControl1.Top += mFavorites.Height;
             mFavorites.Visible = true;
@@ -2334,7 +2334,7 @@ namespace Korot
 
         private void hideFavMenu()
         {
-            panel2.Height -= mFavorites.Height;
+            pNavigate.Height -= mFavorites.Height;
             tabControl1.Height += mFavorites.Height;
             tabControl1.Top -= mFavorites.Height;
             mFavorites.Visible = false;
@@ -2571,11 +2571,11 @@ namespace Korot
             Invoke(new Action(() => tbAddress.Text = e.Address));
             if (isPageFavorited(chromiumWebBrowser1.Address))
             {
-                button7.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on;
+                btFav.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on;
             }
             else
             {
-                button7.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
+                btFav.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
             }
             if (!ValidHttpURL(e.Address))
             {
@@ -2655,7 +2655,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
             else
             {
-                cmsHamburger.Show(button11, 0, 0);
+                cmsHamburger.Show(btHamburger, 0, 0);
                 toolStripTextBox1.Text = SearchOnPage;
                 chromiumWebBrowser1.StopFinding(true);
             }
@@ -2873,23 +2873,40 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tsCollections.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.collection_w : Properties.Resources.collection;
                 pbStore.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.store_w : Properties.Resources.store;
                 tsWebStore.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.store_w : Properties.Resources.store;
-                button13.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose4.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 tsThemes.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.theme_w : Properties.Resources.theme;
                 button6.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button15.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button4.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose2.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose5.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 button8.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button14.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button16.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose3.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 button21.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 button22.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button17.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose1.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 lbSettings.BackColor = Color.Transparent;
                 lbSettings.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvDownload.BackColor = Properties.Settings.Default.BackColor;
                 hlvDownload.HeaderBackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 hlvDownload.HeaderForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvHistory.BackColor = Properties.Settings.Default.BackColor;
+                btBack.BackColor = Properties.Settings.Default.BackColor;
+                btNext.BackColor = Properties.Settings.Default.BackColor;
+                btHome.BackColor = Properties.Settings.Default.BackColor;
+                btRefresh.BackColor = Properties.Settings.Default.BackColor;
+                btProfile.BackColor = Properties.Settings.Default.BackColor;
+                btHamburger.BackColor = Properties.Settings.Default.BackColor;
+                btFav.BackColor = Properties.Settings.Default.BackColor;
+                btClose.BackColor = Properties.Settings.Default.BackColor;
+                btClose1.BackColor = Properties.Settings.Default.BackColor;
+                btClose2.BackColor = Properties.Settings.Default.BackColor;
+                btClose3.BackColor = Properties.Settings.Default.BackColor;
+                btClose4.BackColor = Properties.Settings.Default.BackColor;
+                btClose5.BackColor = Properties.Settings.Default.BackColor;
+                pbPrivacy.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                tbAddress.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                pbIncognito.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+
                 lbAllow.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 lbAllow.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 lbBlock.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
@@ -3013,7 +3030,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 aboutToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.about_w : Properties.Resources.about;
                 downloadsToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.download_w : Properties.Resources.download;
                 historyToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.history_w : Properties.Resources.history;
-                pictureBox1.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.inctab_w : Properties.Resources.inctab;
+                pbIncognito.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.inctab_w : Properties.Resources.inctab;
                 tbAddress.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsAllow.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 cmsBlock.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
@@ -3026,22 +3043,22 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 cmsPrivacy.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 extensionToolStripMenuItem1.DropDown.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 textBox4.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                if (isPageFavorited(chromiumWebBrowser1.Address)) { button7.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { button7.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
+                if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { btFav.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
                 mFavorites.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 settingsToolStripMenuItem.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.Settings : Properties.Resources.Settings_w;
                 newWindowToolStripMenuItem.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.newwindow : Properties.Resources.newwindow_w;
                 newIncognitoWindowToolStripMenuItem.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.inctab : Properties.Resources.inctab_w;
-                button9.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.profiles : Properties.Resources.profiles_w;
-                button1.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                button2.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.refresh : Properties.Resources.refresh_w;
-                button3.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
+                btProfile.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.profiles : Properties.Resources.profiles_w;
+                btBack.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                btRefresh.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.refresh : Properties.Resources.refresh_w;
+                btNext.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
                 btNotifAllowBack.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                 btNotifBack.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                 btNBlockBack.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                 btCookieBack.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                 //button4.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.go : Properties.Resources.go_w;
-                button5.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.home : Properties.Resources.home_w;
-                button11.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
+                btHome.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.home : Properties.Resources.home_w;
+                btHamburger.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
                 tbAddress.BackColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.B, 20, 255));
                 textBox4.BackColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.B, 20, 255));
                 mFavorites.BackColor = Properties.Settings.Default.BackColor;
@@ -3062,6 +3079,26 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 foreach (ToolStripItem x in cmsProfiles.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (ToolStripItem x in extensionToolStripMenuItem1.DropDownItems) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black; }
+                btBack.Refresh();
+                btNext.Refresh();
+                btHome.Refresh();
+                btRefresh.Refresh();
+                btProfile.Refresh();
+                btHamburger.Refresh();
+                btFav.Refresh();
+                btClose.Refresh();
+                btClose1.Refresh();
+                btClose2.Refresh();
+                btClose3.Refresh();
+                btClose4.Refresh();
+                btClose5.Refresh();
+                pbPrivacy.Refresh();
+                tbAddress.Refresh();
+                pbIncognito.Refresh();
+                foreach(Control c in Controls)
+                {
+                    c.Refresh();
+                }
             }
             if (Properties.Settings.Default.BackStyle != "BACKCOLOR")
             {
@@ -3069,7 +3106,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 {
                     oldStyle = Properties.Settings.Default.BackStyle;
                     Image backStyle = GetImageFromURL(Properties.Settings.Default.BackStyle);
-                    panel2.BackgroundImage = backStyle;
+                    pNavigate.BackgroundImage = backStyle;
                     mFavorites.BackgroundImage = backStyle;
                     foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImage = backStyle; }
                     tpSettings.BackgroundImage = backStyle;
@@ -3080,7 +3117,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 if (Properties.Settings.Default.BackStyle != oldStyle)
                 {
                     oldStyle = Properties.Settings.Default.BackStyle;
-                    panel2.BackgroundImage = null;
+                    pNavigate.BackgroundImage = null;
                     mFavorites.BackgroundImage = null;
                     foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImage = null; }
                     tpSettings.BackgroundImage = null;
@@ -3088,35 +3125,35 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
             if (Properties.Settings.Default.BStyleLayout == 0) //NONE
             {
-                panel2.BackgroundImageLayout = ImageLayout.None;
+                pNavigate.BackgroundImageLayout = ImageLayout.None;
                 mFavorites.BackgroundImageLayout = ImageLayout.None;
                 tpSettings.BackgroundImageLayout = ImageLayout.None;
                 foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.None; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 1) //TILE
             {
-                panel2.BackgroundImageLayout = ImageLayout.Tile;
+                pNavigate.BackgroundImageLayout = ImageLayout.Tile;
                 mFavorites.BackgroundImageLayout = ImageLayout.Tile;
                 tpSettings.BackgroundImageLayout = ImageLayout.Tile;
                 foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Tile; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 2) //CENTER
             {
-                panel2.BackgroundImageLayout = ImageLayout.Center;
+                pNavigate.BackgroundImageLayout = ImageLayout.Center;
                 mFavorites.BackgroundImageLayout = ImageLayout.Center;
                 tpSettings.BackgroundImageLayout = ImageLayout.Center;
                 foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Center; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 3) //STRETCH
             {
-                panel2.BackgroundImageLayout = ImageLayout.Stretch;
+                pNavigate.BackgroundImageLayout = ImageLayout.Stretch;
                 mFavorites.BackgroundImageLayout = ImageLayout.Stretch;
                 tpSettings.BackgroundImageLayout = ImageLayout.Stretch;
                 foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Stretch; }
             }
             else if (Properties.Settings.Default.BStyleLayout == 4) //ZOOM
             {
-                panel2.BackgroundImageLayout = ImageLayout.Zoom;
+                pNavigate.BackgroundImageLayout = ImageLayout.Zoom;
                 mFavorites.BackgroundImageLayout = ImageLayout.Zoom;
                 tpSettings.BackgroundImageLayout = ImageLayout.Zoom;
                 foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Zoom; }
@@ -3216,7 +3253,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             if (isPageFavorited(chromiumWebBrowser1.Address))
             {
                 removeFavorite(chromiumWebBrowser1.Address);
-                button7.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
+                btFav.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
             }
             else
             {
@@ -3396,15 +3433,15 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 if (fullscreen)
                 {
-                    tabControl1.Location = new Point(tabControl1.Location.X, tabControl1.Location.Y - panel2.Height);
-                    tabControl1.Height += panel2.Height;
+                    tabControl1.Location = new Point(tabControl1.Location.X, tabControl1.Location.Y - pNavigate.Height);
+                    tabControl1.Height += pNavigate.Height;
                 }
                 else
                 {
-                    tabControl1.Location = new Point(tabControl1.Location.X, tabControl1.Location.Y + panel2.Height);
-                    tabControl1.Height -= panel2.Height;
+                    tabControl1.Location = new Point(tabControl1.Location.X, tabControl1.Location.Y + pNavigate.Height);
+                    tabControl1.Height -= pNavigate.Height;
                 }
-                panel2.Visible = !fullscreen;
+                pNavigate.Visible = !fullscreen;
                 anaform.Invoke(new Action(() => anaform.Fullscreenmode(fullscreen)));
             }
         }
@@ -3583,7 +3620,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            cmsPrivacy.Show(pictureBox2, 0, pictureBox2.Size.Height);
+            cmsPrivacy.Show(pbPrivacy, 0, pbPrivacy.Size.Height);
         }
 
         private void xToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3618,7 +3655,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             else
             {
                 anaform.settingTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpSettings;
             }
@@ -3626,8 +3663,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void button11_Click(object sender, EventArgs e)
         {
-            if (cmsHamburger.Visible) { cmsHamburger.Close(); } else { cmsHamburger.Show(button11, 0, 0); }
-            button11.FlatAppearance.BorderSize = 0;
+            if (cmsHamburger.Visible) { cmsHamburger.Close(); } else { cmsHamburger.Show(btHamburger, 0, 0); }
+            btHamburger.FlatAppearance.BorderSize = 0;
         }
 
         private void restoreLastSessionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3695,7 +3732,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            cmsIncognito.Show(pictureBox1, 0, 0);
+            cmsIncognito.Show(pbIncognito, 0, 0);
         }
 
         private void openInNewTab_Click(object sender, EventArgs e)
@@ -3724,7 +3761,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 if (selectedFavorite.Tag.ToString() == chromiumWebBrowser1.Address)
                 {
-                    button7.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
+                    btFav.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
                 }
                 if (selectedFavorite.Tag.ToString() != "korot://folder")
                 {
@@ -3741,7 +3778,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void clearTSMI_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Favorites = "[root][/root]";
-            button7.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
+            btFav.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
             RefreshFavorites();
         }
 
@@ -3867,8 +3904,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             allowSwitching = true;
             tabControl1.SelectedTab = tpCef;
             chromiumWebBrowser1.SetZoomLevel(0.0);
-            cmsHamburger.Show(button11, 0, 0);
-            cmsHamburger.Show(button11, 0, 0);
+            cmsHamburger.Show(btHamburger, 0, 0);
+            cmsHamburger.Show(btHamburger, 0, 0);
             doNotDestroyFind = true;
             toolStripTextBox1.Text = searchPrev;
             toolStripTextBox_TextChanged(null, e);
@@ -3894,7 +3931,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             allowSwitching = true;
             tabControl1.SelectedTab = tpCef;
             zoomIn();
-            cmsHamburger.Show(button11, 0, 0);
+            cmsHamburger.Show(btHamburger, 0, 0);
             doNotDestroyFind = true;
             toolStripTextBox1.Text = searchPrev;
             toolStripTextBox_TextChanged(null, e);
@@ -3906,8 +3943,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             allowSwitching = true;
             tabControl1.SelectedTab = tpCef;
             zoomOut();
-            cmsHamburger.Show(button11, 0, 0);
-            cmsHamburger.Show(button11, 0, 0);
+            cmsHamburger.Show(btHamburger, 0, 0);
+            cmsHamburger.Show(btHamburger, 0, 0);
             doNotDestroyFind = true;
             toolStripTextBox1.Text = searchPrev;
             toolStripTextBox_TextChanged(null, e);
@@ -3964,7 +4001,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void caseSensitiveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cmsHamburger.Show(button11, 0, 0);
+            cmsHamburger.Show(btHamburger, 0, 0);
             doNotDestroyFind = true;
             toolStripTextBox1.Text = searchPrev;
             toolStripTextBox_TextChanged(null, e);
@@ -3986,7 +4023,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             else
             {
                 anaform.historyTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpHistory;
             }
@@ -4001,7 +4038,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             else
             {
                 anaform.downloadTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpDownload;
             }
@@ -4009,7 +4046,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void tsSearchNext_Click(object sender, EventArgs e)
         {
             chromiumWebBrowser1.Find(0, toolStripTextBox1.Text, true, caseSensitiveToolStripMenuItem.Checked, true);
-            cmsHamburger.Show(button11, 0, 0);
+            cmsHamburger.Show(btHamburger, 0, 0);
             doNotDestroyFind = true;
             toolStripTextBox1.Text = searchPrev;
             toolStripTextBox_TextChanged(null, e);
@@ -4023,7 +4060,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             else
             {
                 anaform.aboutTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpAbout;
             }
@@ -4043,7 +4080,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             else
             {
                 anaform.themeTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpTheme;
             }
@@ -4081,7 +4118,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 resetPage(true);
                 anaform.cookieTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpCookie;
             }
@@ -4356,8 +4393,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 indexChanged = true;
                 chromiumWebBrowser1.Load(lbURL.SelectedItem.ToString());
             }
-            button1.Visible = lbURL.SelectedIndex != 0;
-            button3.Visible = lbURL.SelectedIndex != lbURL.Items.Count - 1;
+            btBack.Visible = lbURL.SelectedIndex != 0;
+            btNext.Visible = lbURL.SelectedIndex != lbURL.Items.Count - 1;
         }
 
         private void cmsBack_Opening(object sender, CancelEventArgs e)
@@ -4430,7 +4467,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             else
             {
                 anaform.collectionTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpCollection;
             }
@@ -4636,7 +4673,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 resetPage(true);
                 anaform.nblockTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpNBlock;
             }
@@ -4652,7 +4689,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 resetPage(true);
                 anaform.nallowTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpNAllow;
             }
@@ -4745,7 +4782,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 resetPage(true);
                 anaform.notificationTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpNotification;
             }
@@ -4761,7 +4798,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 resetPage(true);
                 anaform.settingTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpSettings;
             }
@@ -4777,7 +4814,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 resetPage(true);
                 anaform.notificationTab = ParentTab;
-                button3.Enabled = true;
+                btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpNotification;
             }
