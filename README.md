@@ -8,8 +8,8 @@ Latest Stable Version: [`0.6.0.0`](https://github.com/Haltroy/Korot/tree/0.6.0.0
  - HTML5, CSS3, JS, HTML5 Video, WebGL 3D, etc. supported. (Except `H.264` codec. See [#12](https://github.com/Haltroy/Korot/issues/12))
  - Tabbed, built-in search mode inside of address bar (auto-detecting URLs).
  - Developer tools & View Source
- - UI language system (Comes with [`English`](https://haltroy.com/store/Korot/Languages/Haltroy.English/) and [`Türkçe`](https://haltroy.com/store/Korot/Languages/Haltroy.Türkçe/) languages)
- - Theme system (Comes with [`Light`](https://haltroy.com/store/Korot/Themes/Haltroy.KorotLight/) and [`Dark`](https://haltroy.com/store/Korot/Themes/Haltroy.KorotDark/) theme)
+ - UI language system (Comes with [`English`](https://haltroy.com/store/item/Haltroy.KorotEnglish/) and [`Türkçe`](https://haltroy.com/store/item/Haltroy.KorotTürkçe/) languages)
+ - Theme system (Comes with [`Light`](https://haltroy.com/store/item/Haltroy.KorotLight/) and [`Dark`](https://haltroy.com/store/item/Haltroy.KorotDark/) theme)
  - Built-in Extension system (with support for proxies) & [Extension Store](https://haltroy.com/store/Korot/Extensions/)
  - Profiles
  - Notifications
