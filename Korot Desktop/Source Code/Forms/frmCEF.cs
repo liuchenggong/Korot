@@ -62,10 +62,11 @@ namespace Korot
         private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
         private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
         public CollectionManager colManager;
+        public bool NotificationListenerMode = false;
         public frmMain anaform => ((frmMain)ParentTabs);
-        public frmCEF(bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0")
+        public frmCEF(bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0",bool notifListenMode = false)
         {
-
+            NotificationListenerMode = notifListenMode;
             loaduri = loadurl;
             _Incognito = isIncognito;
             userName = profileName;
@@ -757,6 +758,8 @@ namespace Korot
         public string editItem = "Edit this item";
         public string addToCollection = "Add to Collection";
         public string titleBackInfo = "Click the rectangle on top to change color.";
+        public string MuteThisTab = "Mute this tab";
+        public string UnmuteThisTab = "Unmute this tab";
         // CHANGE THIS WHEN YOU TOUCHED THE LANGUAGE SYSTEM EVEN BY ADDING SOMETHING OR DELETING
         public Version KLangVer = new Version("0.6.1.0");
         private void dummyCMS_Opening(object sender, CancelEventArgs e)
@@ -777,11 +780,7 @@ namespace Korot
             int versionCompability = KLangVer.CompareTo(langVersion);
             if (versionCompability < 0)
             {
-                if (Properties.Settings.Default.disableLangErrors)
-                {
-
-                }
-                else
+                if (!Properties.Settings.Default.disableLangErrors && !NotificationListenerMode)
                 {
                     Properties.Settings.Default.disableLangErrors = true;
                     HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox("Korot", "This language file is made for an older version of Korot. This can cause some problems. Do you wish to proceed?", MessageBoxButtons.YesNoCancel) { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
@@ -793,6 +792,9 @@ namespace Korot
             }
             if (SF.Length >= 344)
             {
+                MuteThisTab = SF[350].Substring(1).Replace(Environment.NewLine, "");
+                UnmuteThisTab = SF[351].Substring(1).Replace(Environment.NewLine, "");
+                MuteTS.Text = isMuted ? UnmuteThisTab : MuteThisTab;
                 btNotification.Text = SF[324].Substring(1).Replace(Environment.NewLine, "");
                 lbNotifSetting.Text = SF[325].Substring(1).Replace(Environment.NewLine, "");
                 tpNotification.Text = SF[325].Substring(1).Replace(Environment.NewLine, "");
@@ -1853,7 +1855,7 @@ namespace Korot
             {
                 if (preNo == "0") 
                 {
-                    if (alreadyCheckedForUpdatesOnce || Properties.Settings.Default.dismissUpdate || _Incognito)
+                    if (alreadyCheckedForUpdatesOnce || Properties.Settings.Default.dismissUpdate || _Incognito || NotificationListenerMode)
                     {
                         updateProgress = 2;
                         lbUpdateStatus.Text = updateavailable;
@@ -1894,7 +1896,7 @@ namespace Korot
                 {
                     if (Convert.ToInt32(preVer) < Convert.ToInt32(preNo))
                     {
-                        if (alreadyCheckedForUpdatesOnce || Properties.Settings.Default.dismissUpdate || _Incognito)
+                        if (alreadyCheckedForUpdatesOnce || Properties.Settings.Default.dismissUpdate || _Incognito || NotificationListenerMode)
                         {
                             updateProgress = 2;
                             lbUpdateStatus.Text = updateavailable;
@@ -2277,29 +2279,40 @@ namespace Korot
 
         public bool OnJSAlert(string url, string message)
         {
-            HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(JSAlert.Replace("[TITLE]", Text).Replace("[URL]", url), message, System.Windows.Forms.MessageBoxButtons.OKCancel)
-            { StartPosition = FormStartPosition.CenterParent,Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
-            mesaj.ShowDialog();
-            return true;
+            if (!NotificationListenerMode)
+            {
+                HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(JSAlert.Replace("[TITLE]", Text).Replace("[URL]", url), message, System.Windows.Forms.MessageBoxButtons.OKCancel)
+                { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
+                mesaj.ShowDialog();
+                return true;
+            }
+            else { return false; }
         }
 
 
         public bool OnJSConfirm(string url, string message, out bool returnval)
         {
-            HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(JSConfirm.Replace("[TITLE]", Text).Replace("[URL]", url), message, System.Windows.Forms.MessageBoxButtons.OKCancel)
+            if (!NotificationListenerMode)
+            {
+                HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(JSConfirm.Replace("[TITLE]", Text).Replace("[URL]", url), message, System.Windows.Forms.MessageBoxButtons.OKCancel)
             { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
             if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
             return true;
+        }
+            else { returnval = false; return false; }
         }
 
 
         public bool OnJSPrompt(string url, string message, string defaultValue, out bool returnval, out string textresult)
         {
-            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox(url, message, defaultValue)
-            { SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, Icon = Icon, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
-            if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
-            textresult = mesaj.TextValue;
-            return true;
+            if (!NotificationListenerMode)
+            {
+                HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox(url, message, defaultValue)
+                { SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, Icon = Icon, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+                if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
+                textresult = mesaj.TextValue;
+                return true;
+            }else { textresult = null; returnval = false; return false; }
         }
         public void NewTab(string url)
         {
@@ -2671,6 +2684,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 tsFullscreen_Click(null, null);
             }
+            else if (code == 6) //Mute
+            {
+                MuteTS_Click(null, null);
+            }
         }
 
         public bool canGoForward()
@@ -2690,74 +2707,116 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             if (e.KeyData == Keys.BrowserBack)
             {
                 button1_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.BrowserForward)
             {
                 button3_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.BrowserRefresh)
             {
                 button2_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.BrowserStop)
             {
                 button2_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.BrowserHome)
             {
                 button5_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyCode == Keys.N && isControlKeyPressed)
             {
                 NewTab("korot://newtab");
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyCode == Keys.N && isControlKeyPressed && e.Shift)
             {
                 Process.Start(Application.ExecutablePath, "-incognito");
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyCode == Keys.N && isControlKeyPressed && e.Alt)
             {
                 Process.Start(Application.ExecutablePath);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyCode == Keys.F && isControlKeyPressed)
             {
                 showHideSearchMenu();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.Enter)
             {
                 button4_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if ((e.KeyData == Keys.Up || e.KeyData == Keys.PageUp) && isControlKeyPressed)
             {
                 zoomInToolStripMenuItem_Click(sender, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if ((e.KeyData == Keys.Down || e.KeyData == Keys.PageDown) && isControlKeyPressed)
             {
                 zoomOutToolStripMenuItem_Click(sender, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.PrintScreen && isControlKeyPressed)
             {
                 takeScreenShot();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.S && isControlKeyPressed)
             {
                 savePage();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (isControlKeyPressed && e.Shift && e.KeyData == Keys.N)
             {
                 NewIncognitoWindowToolStripMenuItem_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (isControlKeyPressed && e.Alt && e.KeyData == Keys.N)
             {
                 NewWindowToolStripMenuItem_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (isControlKeyPressed && e.KeyData == Keys.N)
             {
                 NewTab("korot://newtab");
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.F11)
             {
                 tsFullscreen_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyData == Keys.M && isControlKeyPressed)
+            {
+                MuteTS_Click(sender, e);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
         }
         public void tsFullscreen_Click(object sender, EventArgs e)
@@ -3188,6 +3247,12 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 if (anaform.OldSessions == "") { spRestorer.Visible = false; restoreLastSessionToolStripMenuItem.Visible = false; } else { spRestorer.Visible = true; restoreLastSessionToolStripMenuItem.Visible = true; }
             }
             Text = tabControl1.SelectedTab.Text;
+            if (NotificationListenerMode)
+            {
+                isMuted = true;
+                MuteTS.Text = "NOTIFICATION LISTENER MODE! MUTED";
+                chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(true);
+            }
         }
 
         private void TestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4802,6 +4867,31 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpNotification;
+            }
+        }
+
+        private void tbAddress_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button4_Click(sender, e);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+        bool isMuted = false;
+        private void MuteTS_Click(object sender, EventArgs e)
+        {
+            isMuted = isMuted ? false : true;
+            chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(isMuted);
+            MuteTS.Text = isMuted ? UnmuteThisTab : MuteThisTab;
+        }
+
+        private void tmrNotifListener_Tick(object sender, EventArgs e)
+        {
+            if (NotificationListenerMode)
+            {
+                chromiumWebBrowser1.Refresh();
             }
         }
 

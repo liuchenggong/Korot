@@ -22,9 +22,11 @@
 using CefSharp;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
@@ -53,6 +55,7 @@ namespace Korot
         public TitleBarTab nallowTab = null;
         public TitleBarTab nblockTab = null;
         public TitleBarTab notificationTab = null;
+        public Collection<frmCEF> NotifListeners = new Collection<frmCEF>();
         public frmMain()
         {
             AeroPeekEnabled = true;
@@ -63,6 +66,19 @@ namespace Korot
             foreach (Control x in Controls)
             {
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
+            }
+            bool exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
+            if (!exists)
+            {
+                foreach (string x in Properties.Settings.Default.notificationAllow)
+                {
+                    frmCEF notfiListener = new frmCEF(isIncognito, x, Properties.Settings.Default.LastUser, true) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, };
+                    notfiListener.Visible = true;
+                    notfiListener.Enabled = true;
+                    notfiListener.Show();
+                    NotifListeners.Add(notfiListener);
+                    notfiListener.Hide();
+                }
             }
         }
         public void removeThisDownloadItem(DownloadItem removeItem)

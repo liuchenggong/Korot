@@ -340,6 +340,8 @@ namespace Korot
             this.showNewTabPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MuteTS = new System.Windows.Forms.ToolStripMenuItem();
+            this.tmrNotifListener = new System.Windows.Forms.Timer(this.components);
             this.pNavigate.SuspendLayout();
             this.cmsHamburger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
@@ -402,6 +404,7 @@ namespace Korot
             this.tbAddress.Name = "tbAddress";
             this.tbAddress.Size = new System.Drawing.Size(305, 23);
             this.tbAddress.TabIndex = 5;
+            this.tbAddress.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbAddress_KeyDown);
             // 
             // pNavigate
             // 
@@ -444,6 +447,7 @@ namespace Korot
             this.saveThisPageToolStripMenuItem,
             this.tsFullscreen,
             this.tsChangeTitleBack,
+            this.MuteTS,
             this.toolStripSeparator7,
             this.zOOMLEVELToolStripMenuItem,
             this.zoomInToolStripMenuItem,
@@ -461,7 +465,7 @@ namespace Korot
             this.spRestorer});
             this.cmsHamburger.Name = "cmsHamburger";
             this.cmsHamburger.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsHamburger.Size = new System.Drawing.Size(289, 559);
+            this.cmsHamburger.Size = new System.Drawing.Size(289, 581);
             this.cmsHamburger.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.cmsHamburger_Closing);
             this.cmsHamburger.Opening += new System.ComponentModel.CancelEventHandler(this.cmsHamburger_Opening);
             // 
@@ -3616,6 +3620,20 @@ namespace Korot
             this.showAWebsiteToolStripMenuItem.Text = "Show a website";
             this.showAWebsiteToolStripMenuItem.Click += new System.EventHandler(this.showAWebsiteToolStripMenuItem_Click);
             // 
+            // MuteTS
+            // 
+            this.MuteTS.Name = "MuteTS";
+            this.MuteTS.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
+            this.MuteTS.Size = new System.Drawing.Size(288, 22);
+            this.MuteTS.Text = "Mute this tab";
+            this.MuteTS.Click += new System.EventHandler(this.MuteTS_Click);
+            // 
+            // tmrNotifListener
+            // 
+            this.tmrNotifListener.Enabled = true;
+            this.tmrNotifListener.Interval = 300000;
+            this.tmrNotifListener.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -4004,5 +4022,7 @@ namespace Korot
         public HTAlt.HTButton btNBlockBack;
         public HTAlt.HTButton btNotifAllowBack;
         public HTAlt.HTButton btCookieBack;
+        private System.Windows.Forms.ToolStripMenuItem MuteTS;
+        private System.Windows.Forms.Timer tmrNotifListener;
     }
 }

@@ -44,6 +44,7 @@ namespace Korot
         private const int keyF = 0x46;
         private const int keyN = 0x4E;
         private const int keyS = 0x53;
+        private const int keyM = 0x4D;
         private const int VK_F11 = 0x7A;
         private const int VK_SNAPSHOT = 0x2C;
 
@@ -82,6 +83,13 @@ namespace Korot
                 _frmCEF.Invoke(new Action(() => _frmCEF.retrieveKey(3)));
                 //_frmCEF.Invoke(new Action(() => { _frmCEF.tabform_KeyDown(chromiumWebBrowser, new KeyEventArgs(Keys.BrowserStop)); }));
 
+                return true;
+            }
+            else if (windowsKeyCode == keyM && modifiers == CefEventFlags.ControlDown)
+            {
+                isKeyboardShortcut = true;
+                _frmCEF.Invoke(new Action(() => _frmCEF.retrieveKey(6)));
+                //_frmCEF.Invoke(new Action(() => { _frmCEF.tabform_KeyDown(chromiumWebBrowser, new KeyEventArgs(Keys.BrowserForward)); }));
                 return true;
             }
             else if (windowsKeyCode == VK_F11)
@@ -180,7 +188,8 @@ namespace Korot
                 || (windowsKeyCode == keyS && modifiers == CefEventFlags.ControlDown)
                 || (windowsKeyCode == VK_SNAPSHOT && modifiers == CefEventFlags.ControlDown)
                 || (windowsKeyCode == keyN && modifiers.HasFlag(CefEventFlags.ControlDown) && modifiers.HasFlag(CefEventFlags.ShiftDown))
-                || (windowsKeyCode == keyN && modifiers.HasFlag(CefEventFlags.ControlDown) && modifiers.HasFlag(CefEventFlags.AltDown)))
+                || (windowsKeyCode == keyN && modifiers.HasFlag(CefEventFlags.ControlDown) && modifiers.HasFlag(CefEventFlags.AltDown))
+                || (windowsKeyCode == keyM && modifiers.HasFlag(CefEventFlags.ControlDown)))
             {
                 return false;
             }
