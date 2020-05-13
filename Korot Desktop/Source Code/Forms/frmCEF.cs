@@ -245,6 +245,7 @@ namespace Korot
         {
             InitializeChromium();
             updateExtensions();
+            if (NotificationListenerMode) { timer1.Start(); }
             Uri testUri = new Uri("https://haltroy.com");
             Uri aUri = WebRequest.GetSystemWebProxy().GetProxy(testUri);
             if (aUri != testUri)
@@ -947,7 +948,7 @@ namespace Korot
                 lbDownloadFolder.Text = SF[203 + 1].Substring(1).Replace(Environment.NewLine, "");
                 lbAutoDownload.Text = SF[202 + 1].Substring(1).Replace(Environment.NewLine, "");
                 label28.Text = SF[201 + 1].Substring(1).Replace(Environment.NewLine, "");
-                button18.Text = SF[200 + 1].Substring(1).Replace(Environment.NewLine, "");
+                btReset.Text = SF[200 + 1].Substring(1).Replace(Environment.NewLine, "");
                 resetConfirm = SF[199 + 1].Substring(1).Replace(Environment.NewLine, "");
                 label27.Text = SF[196 + 1].Substring(1).Replace(Environment.NewLine, "");
                 allowSelectedToolStripMenuItem.Text = SF[197 + 1].Substring(1).Replace(Environment.NewLine, "");
@@ -2224,7 +2225,7 @@ namespace Korot
                 {
                     certError = false;
                     cookieUsage = false;
-                    pbPrivacy.Invoke(new Action(() => pbPrivacy.Image = Properties.Resources.lockg));
+                    Invoke(new Action(() => pbPrivacy.Image = Properties.Resources.lockg));
                     Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Tag = null));
                     Invoke(new Action(() => showCertificateErrorsToolStripMenuItem.Visible = false));
                     Invoke(new Action(() => safeStatusToolStripMenuItem.Text = CertificateOKTitle));
@@ -2919,15 +2920,15 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tsWebStore.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.store_w : Properties.Resources.store;
                 btClose4.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 tsThemes.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.theme_w : Properties.Resources.theme;
-                button6.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose6.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 btClose2.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 btClose5.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button8.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose7.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 btClose.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 btClose3.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button21.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button22.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose1.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose4.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose5.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose10.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 lbSettings.BackColor = Color.Transparent;
                 lbSettings.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvDownload.BackColor = Properties.Settings.Default.BackColor;
@@ -3029,7 +3030,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tbFolder.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 tbStartup.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 lbURinfo.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                button18.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                btReset.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 btDownloadFolder.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 button12.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 tbSearchEngine.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
