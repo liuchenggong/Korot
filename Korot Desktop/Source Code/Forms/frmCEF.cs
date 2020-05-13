@@ -796,7 +796,7 @@ namespace Korot
                 MuteThisTab = SF[350].Substring(1).Replace(Environment.NewLine, "");
                 UnmuteThisTab = SF[351].Substring(1).Replace(Environment.NewLine, "");
                 MuteTS.Text = isMuted ? UnmuteThisTab : MuteThisTab;
-                btNotification.Text = SF[324].Substring(1).Replace(Environment.NewLine, "");
+                btNotification.ButtonText = SF[324].Substring(1).Replace(Environment.NewLine, "");
                 lbNotifSetting.Text = SF[325].Substring(1).Replace(Environment.NewLine, "");
                 tpNotification.Text = SF[325].Substring(1).Replace(Environment.NewLine, "");
                 lbPlayNotifSound.Text = SF[326].Substring(1).Replace(Environment.NewLine, "");
@@ -819,8 +819,8 @@ namespace Korot
                 tpNAllow.Text = SF[342].Substring(1).Replace(Environment.NewLine, "");
                 lbNotifBlock.Text = SF[343].Substring(1).Replace(Environment.NewLine, "");
                 tpNBlock.Text = SF[343].Substring(1).Replace(Environment.NewLine, "");
-                btAllowList.Text = SF[344].Substring(1).Replace(Environment.NewLine, "");
-                btBlockList.Text = SF[345].Substring(1).Replace(Environment.NewLine, "");
+                btAllowList.ButtonText = SF[344].Substring(1).Replace(Environment.NewLine, "");
+                btBlockList.ButtonText = SF[345].Substring(1).Replace(Environment.NewLine, "");
                 notificationPermission = SF[323].Substring(1).Replace(Environment.NewLine, "");
                 deny = SF[322].Substring(1).Replace(Environment.NewLine, "");
                 allow = SF[321].Substring(1).Replace(Environment.NewLine, "");
@@ -914,7 +914,7 @@ namespace Korot
                 tsEmptyExt.Text = SF[233 + 1].Substring(1).Replace(Environment.NewLine, "");
                 tsEmptyProfile.Text = SF[233 + 1].Substring(1).Replace(Environment.NewLine, "");
                 empty = SF[233 + 1].Substring(1).Replace(Environment.NewLine, "");
-                btCleanLog.Text = SF[234 + 1].Substring(1).Replace(Environment.NewLine, "");
+                btCleanLog.ButtonText = SF[234 + 1].Substring(1).Replace(Environment.NewLine, "");
                 lbUResources.Text = SF[230 + 1].Substring(1).Replace(Environment.NewLine, "");
                 lbURinfo.Text = SF[229 + 1].Substring(1).Replace(Environment.NewLine, "");
                 label33.Text = SF[228 + 1].Substring(1).Replace(Environment.NewLine, "");
@@ -948,12 +948,12 @@ namespace Korot
                 lbDownloadFolder.Text = SF[203 + 1].Substring(1).Replace(Environment.NewLine, "");
                 lbAutoDownload.Text = SF[202 + 1].Substring(1).Replace(Environment.NewLine, "");
                 label28.Text = SF[201 + 1].Substring(1).Replace(Environment.NewLine, "");
-                btReset.Text = SF[200 + 1].Substring(1).Replace(Environment.NewLine, "");
+                btReset.ButtonText = SF[200 + 1].Substring(1).Replace(Environment.NewLine, "");
                 resetConfirm = SF[199 + 1].Substring(1).Replace(Environment.NewLine, "");
                 label27.Text = SF[196 + 1].Substring(1).Replace(Environment.NewLine, "");
                 allowSelectedToolStripMenuItem.Text = SF[197 + 1].Substring(1).Replace(Environment.NewLine, "");
                 clearToolStripMenuItem1.Text = SF[17 + 1].Substring(1).Replace(Environment.NewLine, "");
-                btCookie.Text = SF[198 + 1].Substring(1).Replace(Environment.NewLine, "");
+                btCookie.ButtonText = SF[198 + 1].Substring(1).Replace(Environment.NewLine, "");
                 ıncognitoModeToolStripMenuItem.Text = SF[193 + 1].Substring(1).Replace(Environment.NewLine, "");
                 thisSessionİsNotGoingToBeSavedToolStripMenuItem.Text = SF[194 + 1].Substring(1).Replace(Environment.NewLine, "");
                 clickHereToLearnMoreToolStripMenuItem.Text = SF[195 + 1].Substring(1).Replace(Environment.NewLine, "");
@@ -1030,8 +1030,8 @@ namespace Korot
                 CertificateOK = SF[101 + 1].Substring(1).Replace(Environment.NewLine, "");
                 ErrorTheme = SF[96 + 1].Substring(1).Replace(Environment.NewLine, "");
                 ThemeMessage = SF[95 + 1].Substring(1).Replace(Environment.NewLine, "");
-                btUpdater.Text = SF[90 + 1].Substring(1).Replace(Environment.NewLine, "");
-                btInstall.Text = SF[91 + 1].Substring(1).Replace(Environment.NewLine, "");
+                btUpdater.ButtonText = SF[90 + 1].Substring(1).Replace(Environment.NewLine, "");
+                btInstall.ButtonText = SF[91 + 1].Substring(1).Replace(Environment.NewLine, "");
                 checking = SF[88 + 1].Substring(1).Replace(Environment.NewLine, "");
                 uptodate = SF[89 + 1].Substring(1).Replace(Environment.NewLine, "");
                 installStatus = SF[92 + 1].Substring(1).Replace(Environment.NewLine, "");
@@ -2570,11 +2570,11 @@ namespace Korot
             Invoke(new Action(() => tbAddress.Text = e.Address));
             if (isPageFavorited(chromiumWebBrowser1.Address))
             {
-                btFav.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on;
+                btFav.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on;
             }
             else
             {
-                btFav.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
+                btFav.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
             }
             if (!ValidHttpURL(e.Address))
             {
@@ -2925,6 +2925,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 btClose5.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 btClose7.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 btClose.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose8.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose9.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 btClose3.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 btClose4.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 btClose5.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
@@ -3275,7 +3277,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             if (isPageFavorited(chromiumWebBrowser1.Address))
             {
                 removeFavorite(chromiumWebBrowser1.Address);
-                btFav.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
+                btFav.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
             }
             else
             {
@@ -3783,7 +3785,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 if (selectedFavorite.Tag.ToString() == chromiumWebBrowser1.Address)
                 {
-                    btFav.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
+                    btFav.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
                 }
                 if (selectedFavorite.Tag.ToString() != "korot://folder")
                 {
@@ -3800,7 +3802,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void clearTSMI_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Favorites = "[root][/root]";
-            btFav.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
+            btFav.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
             RefreshFavorites();
         }
 
