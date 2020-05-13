@@ -2917,36 +2917,23 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tsCollections.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.collection_w : Properties.Resources.collection;
                 pbStore.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.store_w : Properties.Resources.store;
                 tsWebStore.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.store_w : Properties.Resources.store;
-                btClose4.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose4.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 tsThemes.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.theme_w : Properties.Resources.theme;
-                button6.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose2.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose5.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button8.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose3.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button21.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                button22.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose1.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button6.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose2.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose5.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button8.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose3.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button21.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button22.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                btClose1.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                 lbSettings.BackColor = Color.Transparent;
                 lbSettings.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvDownload.BackColor = Properties.Settings.Default.BackColor;
                 hlvDownload.HeaderBackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 hlvDownload.HeaderForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvHistory.BackColor = Properties.Settings.Default.BackColor;
-                btBack.BackColor = Properties.Settings.Default.BackColor;
-                btNext.BackColor = Properties.Settings.Default.BackColor;
-                btHome.BackColor = Properties.Settings.Default.BackColor;
-                btRefresh.BackColor = Properties.Settings.Default.BackColor;
-                btProfile.BackColor = Properties.Settings.Default.BackColor;
-                btHamburger.BackColor = Properties.Settings.Default.BackColor;
-                btFav.BackColor = Properties.Settings.Default.BackColor;
-                btClose.BackColor = Properties.Settings.Default.BackColor;
-                btClose1.BackColor = Properties.Settings.Default.BackColor;
-                btClose2.BackColor = Properties.Settings.Default.BackColor;
-                btClose3.BackColor = Properties.Settings.Default.BackColor;
-                btClose4.BackColor = Properties.Settings.Default.BackColor;
-                btClose5.BackColor = Properties.Settings.Default.BackColor;
                 pbPrivacy.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 tbAddress.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
                 pbIncognito.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
@@ -3087,22 +3074,22 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 cmsPrivacy.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 extensionToolStripMenuItem1.DropDown.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 textBox4.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.Image = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { btFav.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
+                if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { btFav.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
                 mFavorites.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 settingsToolStripMenuItem.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.Settings : Properties.Resources.Settings_w;
                 newWindowToolStripMenuItem.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.newwindow : Properties.Resources.newwindow_w;
                 newIncognitoWindowToolStripMenuItem.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.inctab : Properties.Resources.inctab_w;
-                btProfile.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.profiles : Properties.Resources.profiles_w;
-                btBack.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btRefresh.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.refresh : Properties.Resources.refresh_w;
-                btNext.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
-                btNotifAllowBack.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btNotifBack.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btNBlockBack.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btCookieBack.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                //button4.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.go : Properties.Resources.go_w;
-                btHome.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.home : Properties.Resources.home_w;
-                btHamburger.Image = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
+                btProfile.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.profiles : Properties.Resources.profiles_w;
+                btBack.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                btRefresh.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.refresh : Properties.Resources.refresh_w;
+                btNext.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
+                btNotifAllowBack.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                btNotifBack.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                btNBlockBack.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                btCookieBack.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                //button4.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.go : Properties.Resources.go_w;
+                btHome.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.home : Properties.Resources.home_w;
+                btHamburger.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
                 tbAddress.BackColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.B, 20, 255));
                 textBox4.BackColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Properties.Settings.Default.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Properties.Settings.Default.BackColor.B, 20, 255));
                 mFavorites.BackColor = Properties.Settings.Default.BackColor;
@@ -3123,22 +3110,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 foreach (ToolStripItem x in cmsProfiles.Items) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (ToolStripItem x in extensionToolStripMenuItem1.DropDownItems) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White; }
                 foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Properties.Settings.Default.BackColor; x.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black; }
-                btBack.Refresh();
-                btNext.Refresh();
-                btHome.Refresh();
-                btRefresh.Refresh();
-                btProfile.Refresh();
-                btHamburger.Refresh();
-                btFav.Refresh();
-                btClose.Refresh();
-                btClose1.Refresh();
-                btClose2.Refresh();
-                btClose3.Refresh();
-                btClose4.Refresh();
-                btClose5.Refresh();
-                pbPrivacy.Refresh();
-                tbAddress.Refresh();
-                pbIncognito.Refresh();
                 foreach(Control c in Controls)
                 {
                     c.Refresh();
