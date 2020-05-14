@@ -14,10 +14,6 @@ namespace Korot
     {
         private JumpList list;
         frmMain anaform;
-        /// <summary>
-        /// Creating a JumpList for the application
-        /// </summary>
-        /// <param name="windowHandle"></param>
         public MyJumplist(IntPtr windowHandle,frmMain MainForm)
         {
             
@@ -29,10 +25,6 @@ namespace Korot
         }
         string NIW = "New Incognito Window";
         string NW = "New Window";
-
-        /// <summary>
-        /// Builds the Jumplist
-        /// </summary>
         private void BuildList()
         {
             string Playlist = HTAlt.Tools.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
@@ -43,18 +35,15 @@ namespace Korot
             JumpListCustomCategory userActionsCategory = new JumpListCustomCategory("Actions");
             userActionsCategory.AddJumpListItems();
             list.AddCustomCategories(userActionsCategory);
-
-            string incmodepath = Application.ExecutablePath +  " -incognito";
-            JumpListLink jlNotepad = new JumpListLink(incmodepath, NIW);
-            jlNotepad.IconReference = new IconReference(Application.ExecutablePath, 0);
-
-            string newwindow = Application.ExecutablePath;
-            JumpListLink jlCalculator = new JumpListLink(newwindow, NW);
-            jlCalculator.IconReference = new IconReference(Application.ExecutablePath, 0);
-
             list.ClearAllUserTasks();
-            list.AddUserTasks(jlNotepad);
-            list.AddUserTasks(jlCalculator);
+            string incmodepath = Application.ExecutablePath + " -incognito";
+            JumpListLink jlIncognito = new JumpListLink(incmodepath, NIW);
+            jlIncognito.IconReference = new IconReference(Application.ExecutablePath, 0);
+            list.AddUserTasks(jlIncognito);
+            string newwindow = Application.ExecutablePath;
+            JumpListLink jlN = new JumpListLink(newwindow, NW);
+            jlN.IconReference = new IconReference(Application.ExecutablePath, 0);
+            list.AddUserTasks(jlN);
             list.Refresh();
         }
     }

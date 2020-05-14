@@ -352,13 +352,6 @@ namespace Korot
                 listV.SubItems.Add(SplittedFase[i + 2].Replace(Environment.NewLine, ""));
                 hlvHistory.Items.Add(listV);
                 i += 3;
-            } while ((i != Count) && (Count > 2))
-            {
-                ListViewItem listV = new ListViewItem(SplittedFase[i].Replace(Environment.NewLine, ""));
-                listV.SubItems.Add(SplittedFase[i + 1].Replace(Environment.NewLine, ""));
-                listV.SubItems.Add(SplittedFase[i + 2].Replace(Environment.NewLine, ""));
-                hlvHistory.Items.Add(listV);
-                i += 3;
             }
             if (selectedValue <= (hlvHistory.Items.Count - 1))
             {
