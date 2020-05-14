@@ -37,6 +37,7 @@ namespace Korot
 
     public partial class frmMain : TitleBarTabs
     {
+        private MyJumplist list;
         public bool isPreRelease = false;
         public int preVer = 0;
         public List<DownloadItem> CurrentDownloads = new List<DownloadItem>();
@@ -199,6 +200,7 @@ namespace Korot
                 tmrNL.Tick += tmrNL_Tick;
                 tmrNL.Start();
             }
+            list = new MyJumplist(this.Handle, this);
         }
         public void removeThisDownloadItem(DownloadItem removeItem)
         {

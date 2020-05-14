@@ -254,6 +254,7 @@
     <Compile Include="Source Code\Others\DevToolsContainerControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Source Code\Others\MyJumplist.cs" />
     <Compile Include="Source Code\Others\ProfileManagement.cs" />
     <Compile Include="Source Code\Others\UACControl.cs" />
     <Compile Include="Source Code\Tab\BaseTabRenderer.cs" />
