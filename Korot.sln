@@ -6,6 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Korot Desktop", "Korot Desk
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CA044C17-6907-463B-9193-DE500F16CEFD}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
 		CONTRIBUTING.md = CONTRIBUTING.md
@@ -18,8 +19,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{02C4F649-0587-4D07-A48C-EFC7C4D594EE}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\Desktop\bug_report.md = ..\..\..\Desktop\bug_report.md
-		..\..\..\Desktop\help.md = ..\..\..\Desktop\help.md
 		..\..\..\Desktop\feature_request.md = ..\..\..\Desktop\feature_request.md
+		..\..\..\Desktop\help.md = ..\..\..\Desktop\help.md
 	EndProjectSection
 EndProject
 Global

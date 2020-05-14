@@ -30,6 +30,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using Win32Interop.Enums;
 
 namespace Korot
 {
@@ -42,6 +43,8 @@ namespace Korot
         public List<string> CancelledDownloads = new List<string>();
         public List<string> notificationAsked = new List<string>();
         public List<frmNotification> notifications { get; set; }
+        public Collection<frmCEF> NotifListeners { get => notifListeners; set => notifListeners = value; }
+
         public bool isIncognito = false;
         public KorotTabRenderer tabRenderer;
         public CollectionManager colman;
@@ -55,7 +58,119 @@ namespace Korot
         public TitleBarTab nallowTab = null;
         public TitleBarTab nblockTab = null;
         public TitleBarTab notificationTab = null;
-        public Collection<frmCEF> NotifListeners = new Collection<frmCEF>();
+
+        #region Notificatin Listener
+        private string closeKorotMessage = "Do you want to close Korot?";
+#pragma warning disable 414
+        private string closeAllMessage = "Do you really want to close them all?";
+#pragma warning restore 414
+        private string closeAll = "Clsoe all";
+        private string closeKorot = "Close Korot";
+        private string Yes = "Yes";
+        private string No = "No";
+        private string Cancel = "Cancel";
+        ToolStripMenuItem tsCloseK;
+        ToolStripMenuItem tsCloseAll;
+        ToolStripSeparator tsSepNL;
+        public Collection<frmCEF> notifListeners = new Collection<frmCEF>();
+        ContextMenuStrip cmsNL = new ContextMenuStrip() { RenderMode = ToolStripRenderMode.System, ShowImageMargin = false,};
+        private NotifyIcon NLEditor = new NotifyIcon() { Text = "Korot", Icon = Properties.Resources.KorotIcon, Visible = true};
+        private void InitNL()
+        {
+            string Playlist = HTAlt.Tools.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+            string[] SF = Playlist.Split(token);
+            closeAll = SF[346].Substring(1).Replace(Environment.NewLine, "");
+            closeAllMessage = SF[348].Substring(1).Replace(Environment.NewLine, "");
+            closeKorot = SF[347].Substring(1).Replace(Environment.NewLine, "");
+            closeKorotMessage = SF[349].Substring(1).Replace(Environment.NewLine, "");
+            Yes = SF[84].Substring(1).Replace(Environment.NewLine, "");
+            No = SF[85].Substring(1).Replace(Environment.NewLine, "");
+            Cancel = SF[87].Substring(1).Replace(Environment.NewLine, "");
+            cmsNL.Items.Clear();
+            foreach (frmCEF x in notifListeners)
+            {
+                ToolStripMenuItem tsItem = new ToolStripMenuItem();
+                tsItem.Text = x.Text;
+                tsItem.Tag = x;
+                tsItem.Name = HTAlt.Tools.GenerateRandomText;
+                tsItem.Click += closeNL_Click;
+                cmsNL.Items.Add(tsItem);
+            }
+            tsSepNL = new ToolStripSeparator()
+            {
+                Name = "tsSepNL"
+            };
+            cmsNL.Items.Add(tsSepNL);
+            tsCloseAll = new ToolStripMenuItem()
+            {
+                Text = closeAll,
+                Name = "CloseAllTS"
+            };
+            tsCloseAll.Click += closeall_Click;
+            cmsNL.Items.Add(tsCloseAll);
+            tsCloseK = new ToolStripMenuItem()
+            {
+                Text = closeKorot,
+                Name = "CloseKorotTS"
+            };
+            tsCloseK.Click += closekorot_Click;
+            cmsNL.Items.Add(tsCloseK);
+            NLEditor.Visible = (notifListeners.Count > 0);
+            cmsNL.BackColor = Properties.Settings.Default.BackColor;
+            cmsNL.ForeColor = HTAlt.Tools.AutoWhiteBlack(Properties.Settings.Default.BackColor);
+            foreach (ToolStripItem x in cmsNL.Items)
+            {
+                x.BackColor = Properties.Settings.Default.BackColor;
+                x.ForeColor = HTAlt.Tools.AutoWhiteBlack(Properties.Settings.Default.BackColor);
+            } 
+        }
+        private void tmrNL_Tick(object sender,EventArgs e)
+        {
+            InitNL();
+        }
+        private void closeNL_Click(object sender,EventArgs e)
+        {
+            if (sender is ToolStripMenuItem)
+            {
+                var tsSender = sender as ToolStripItem;
+                var tsForm = tsSender.Tag as Form;
+                cmsNL.Items.Remove(tsSender);
+                tsForm.Close();
+                NotifListeners.Remove(tsForm as frmCEF);
+            }
+        }
+        private void closeall_Click(object sender, EventArgs e)
+        {
+            HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox("Korot",
+                                                      closeAllMessage,
+                                                      MessageBoxButtons.YesNoCancel) 
+            { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            DialogResult diares = mesaj.ShowDialog();
+            if (diares == DialogResult.Yes)
+            {
+                foreach (ToolStripItem x in cmsNL.Items)
+                {
+                    if (x.Name != "CloseAllTS" && x.Name != "CloseKorotTS" && x.Name != "tsSepNL")
+                    {
+                        closeNL_Click(x, e);
+                    }
+                }
+            }
+        }
+        private void closekorot_Click(object sender, EventArgs e)
+        {
+            HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox("Korot",
+                                                      closeKorotMessage,
+                                                      MessageBoxButtons.YesNoCancel)
+            { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            DialogResult diares = mesaj.ShowDialog();
+            if (diares == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+        #endregion
         public frmMain()
         {
             AeroPeekEnabled = true;
@@ -79,6 +194,10 @@ namespace Korot
                     NotifListeners.Add(notfiListener);
                     notfiListener.Hide();
                 }
+                InitNL();
+                Timer tmrNL = new Timer() { Interval = 5000, };
+                tmrNL.Tick += tmrNL_Tick;
+                tmrNL.Start();
             }
         }
         public void removeThisDownloadItem(DownloadItem removeItem)
