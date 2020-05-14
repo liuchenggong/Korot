@@ -4859,6 +4859,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             if (NotificationListenerMode)
             {
                 chromiumWebBrowser1.Refresh();
+                chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(true);
             }
         }
 
