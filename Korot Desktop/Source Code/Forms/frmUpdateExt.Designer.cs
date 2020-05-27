@@ -84,7 +84,7 @@ namespace Korot
             // 
             // htProgressBar1
             // 
-            this.htProgressBar1.BorderThickness = 0;
+            this.htProgressBar1.DrawBorder = true;
             this.htProgressBar1.Location = new System.Drawing.Point(13, 53);
             this.htProgressBar1.Name = "htProgressBar1";
             this.htProgressBar1.Size = new System.Drawing.Size(289, 10);

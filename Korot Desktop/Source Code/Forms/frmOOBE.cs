@@ -118,11 +118,11 @@ namespace Korot
                     char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                     string[] SplittedFase = Playlist.Split(token);
                     Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
-                    btContinue.Text = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
-                    btContinue2.Text = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
-                    btBack.Text = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
-                    btBack1.Text = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
-                    btFinish.Text = SplittedFase[157].Substring(1).Replace(Environment.NewLine, "");
+                    btContinue.ButtonText = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
+                    btContinue2.ButtonText = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
+                    btBack.ButtonText = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
+                    btBack1.ButtonText = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
+                    btFinish.ButtonText = SplittedFase[157].Substring(1).Replace(Environment.NewLine, "");
                     lbTip1.Text = SplittedFase[153].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
                     lbWelcome.Text = SplittedFase[145].Substring(1).Replace(Environment.NewLine, "");
                     lbProfile.Text = SplittedFase[146].Substring(1).Replace(Environment.NewLine, "");

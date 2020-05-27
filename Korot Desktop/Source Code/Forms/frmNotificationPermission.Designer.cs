@@ -34,13 +34,11 @@
             this.button1 = new HTAlt.WinForms.HTButton();
             this.button2 = new HTAlt.WinForms.HTButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pRight = new System.Windows.Forms.Panel();
             this.pUp = new System.Windows.Forms.Panel();
             this.pLeft = new System.Windows.Forms.Panel();
             this.pDown = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -57,29 +55,29 @@
             // 
             // button1
             // 
-            this.button1.AutoSize = true;
-            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button1.ButtonText = "Block";
+            this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(316, 3);
+            this.button1.Location = new System.Drawing.Point(1, 83);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(46, 26);
+            this.button1.Size = new System.Drawing.Size(387, 26);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Allow";
+            this.button1.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.AutoSize = true;
-            this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button2.ButtonText = "Allow";
+            this.button2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(267, 3);
+            this.button2.Location = new System.Drawing.Point(1, 109);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(43, 26);
+            this.button2.Size = new System.Drawing.Size(388, 26);
             this.button2.TabIndex = 1;
-            this.button2.Text = "Deny";
+            this.button2.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -95,18 +93,6 @@
             this.label2.Text = "X";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Controls.Add(this.button2);
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 85);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(365, 33);
-            this.flowLayoutPanel1.TabIndex = 3;
-            // 
             // timer1
             // 
             this.timer1.Enabled = true;
@@ -118,7 +104,7 @@
             this.pRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.pRight.Location = new System.Drawing.Point(388, 1);
             this.pRight.Name = "pRight";
-            this.pRight.Size = new System.Drawing.Size(1, 134);
+            this.pRight.Size = new System.Drawing.Size(1, 108);
             this.pRight.TabIndex = 10;
             // 
             // pUp
@@ -155,11 +141,12 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(389, 136);
             this.ControlBox = false;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.pRight);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.pUp);
             this.Controls.Add(this.pLeft);
             this.Controls.Add(this.pDown);
-            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Ubuntu", 8.25F);
@@ -179,8 +166,6 @@
             this.Text = "please no not look at tags";
             this.Deactivate += new System.EventHandler(this.frmNotificationPermission_Leave);
             this.Leave += new System.EventHandler(this.frmNotificationPermission_Leave);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -192,7 +177,6 @@
         private HTAlt.WinForms.HTButton button1;
         private HTAlt.WinForms.HTButton button2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel pRight;
         private System.Windows.Forms.Panel pUp;

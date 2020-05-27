@@ -122,7 +122,7 @@ namespace Korot
         }
         public void webC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            htProgressBar1.Value = e.ProgressPercentage * 3;
+            htProgressBar1.Value = e.ProgressPercentage;
             label2.Text = infoTemp.Replace("[PERC]", e.ProgressPercentage.ToString())
                 .Replace("[CURRENT]", (e.BytesReceived / 1024).ToString())
                 .Replace("[TOTAL]", (e.TotalBytesToReceive / 1024).ToString());

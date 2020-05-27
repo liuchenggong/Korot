@@ -317,8 +317,8 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             Text = Cefform.newFavorite;
-            button2.Text = Cefform.add;
-            button1.Text = Cefform.newFolder;
+            button2.ButtonText = Cefform.add;
+            button1.ButtonText = Cefform.newFolder;
             label1.Text = Cefform.nametd;
             label2.Text = Cefform.urltd;
             textBox1.Text = favName;

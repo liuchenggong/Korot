@@ -75,46 +75,46 @@ namespace Korot
             // 
             // btDefault
             // 
-            this.btDefault.AutoSize = true;
-            this.btDefault.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btDefault.ButtonText = "Set to Default";
+            this.btDefault.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btDefault.FlatAppearance.BorderSize = 0;
             this.btDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btDefault.Location = new System.Drawing.Point(14, 188);
+            this.btDefault.Location = new System.Drawing.Point(0, 205);
             this.btDefault.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.btDefault.Name = "btDefault";
-            this.btDefault.Size = new System.Drawing.Size(106, 26);
+            this.btDefault.Size = new System.Drawing.Size(446, 26);
             this.btDefault.TabIndex = 1;
-            this.btDefault.Text = "Revert to Default";
+            this.btDefault.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btDefault.UseVisualStyleBackColor = true;
             this.btDefault.Click += new System.EventHandler(this.button1_Click);
             // 
             // btOK
             // 
-            this.btOK.AutoSize = true;
-            this.btOK.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btOK.ButtonText = "OK";
+            this.btOK.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btOK.FlatAppearance.BorderSize = 0;
             this.btOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btOK.Location = new System.Drawing.Point(14, 154);
+            this.btOK.Location = new System.Drawing.Point(0, 231);
             this.btOK.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.btOK.Name = "btOK";
-            this.btOK.Size = new System.Drawing.Size(34, 26);
+            this.btOK.Size = new System.Drawing.Size(446, 26);
             this.btOK.TabIndex = 1;
-            this.btOK.Text = "OK";
+            this.btOK.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btOK.UseVisualStyleBackColor = true;
             this.btOK.Click += new System.EventHandler(this.button2_Click);
             // 
             // btCancel
             // 
-            this.btCancel.AutoSize = true;
-            this.btCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btCancel.ButtonText = "Cancel";
+            this.btCancel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btCancel.FlatAppearance.BorderSize = 0;
             this.btCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCancel.Location = new System.Drawing.Point(14, 222);
+            this.btCancel.Location = new System.Drawing.Point(0, 179);
             this.btCancel.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(51, 26);
+            this.btCancel.Size = new System.Drawing.Size(446, 26);
             this.btCancel.TabIndex = 1;
-            this.btCancel.Text = "Cancel";
+            this.btCancel.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btCancel.UseVisualStyleBackColor = true;
             this.btCancel.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -155,7 +155,6 @@ namespace Korot
             this.Text = "Korot";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

@@ -506,17 +506,17 @@ namespace Korot
                 extCodeName = (lbAuthor.Text + "." + lbName.Text).Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
                 Invoke(new Action(() => button3Mode(false)));
                 lbStatus.Invoke(new Action(() => lbStatus.Text = installing));
-                pbStatus.Invoke(new Action(() => pbStatus.Width = 45));
+                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 10));
                 if (Directory.Exists(korotExtDirectory + "\\" + extCodeName))
                 {
                     lbStatus.Invoke(new Action(() => lbStatus.Text = rof1));
                     Directory.Delete(korotExtDirectory + "\\" + extCodeName, true);
                     lbStatus.Invoke(new Action(() => lbStatus.Text = rof2));
                 }
-                pbStatus.Invoke(new Action(() => pbStatus.Width = 90));
+                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 30));
                 lbStatus.Invoke(new Action(() => lbStatus.Text = cd));
                 Directory.CreateDirectory(korotExtDirectory + "\\" + extCodeName);
-                pbStatus.Invoke(new Action(() => pbStatus.Width = 180));
+                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 60));
                 lbStatus.Invoke(new Action(() => lbStatus.Text = dc));
                 foreach (string x in Directory.GetFiles(new FileInfo(ExtFile).DirectoryName + " \\"))
                 {
@@ -529,8 +529,7 @@ namespace Korot
                 lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
                 label8.Invoke(new Action(() => label8.Text = installed));
                 Invoke(new Action(() => button3Mode(true)));
-                panel2.Invoke(new Action(() => panel2.Visible = false));
-                pbStatus.Invoke(new Action(() => pbStatus.Width = 300));
+                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 100));
                 Directory.Delete(new FileInfo(ExtFile).DirectoryName, true);
                 Properties.Settings.Default.registeredExtensions.Add(extCodeName);
                 Properties.Settings.Default.Save();
@@ -546,14 +545,13 @@ namespace Korot
             {
                 Invoke(new Action(() => button3Mode(false)));
                 lbStatus.Invoke(new Action(() => lbStatus.Text = installing));
-                pbStatus.Invoke(new Action(() => pbStatus.Width = 90));
+                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 90));
                 string fileName = new FileInfo(ExtFile).Name;
                 File.Copy(ExtFile, korotThemeDirectory + fileName);
                 lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
                 label8.Invoke(new Action(() => label8.Text = installed));
                 Invoke(new Action(() => button3Mode(true)));
-                panel2.Invoke(new Action(() => panel2.Visible = false));
-                pbStatus.Invoke(new Action(() => pbStatus.Width = 300));
+                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 300));
                 if (silentInstall)
                 {
                     Invoke(new Action(() => Close()));
@@ -597,10 +595,10 @@ namespace Korot
             label10.Text = SplittedFase[126].Substring(1).Replace(Environment.NewLine, "");
             label7.Text = SplittedFase[127].Substring(1).Replace(Environment.NewLine, "");
             label14.Text = SplittedFase[128].Substring(1).Replace(Environment.NewLine, "");
-            button1.Text = SplittedFase[121].Substring(1).Replace(Environment.NewLine, "");
-            button2.Text = SplittedFase[87].Substring(1).Replace(Environment.NewLine, "");
-            button3.Text = SplittedFase[120].Substring(1).Replace(Environment.NewLine, "");
-            button4.Text = SplittedFase[120].Substring(1).Replace(Environment.NewLine, "");
+            button1.ButtonText = SplittedFase[121].Substring(1).Replace(Environment.NewLine, "");
+            button2.ButtonText = SplittedFase[87].Substring(1).Replace(Environment.NewLine, "");
+            button3.ButtonText = SplittedFase[120].Substring(1).Replace(Environment.NewLine, "");
+            button4.ButtonText = SplittedFase[120].Substring(1).Replace(Environment.NewLine, "");
             label8.Text = SplittedFase[114].Substring(1).Replace(Environment.NewLine, "");
             label6.Text = SplittedFase[113].Substring(1).Replace(Environment.NewLine, "");
             reqError = SplittedFase[129].Substring(1).Replace(Environment.NewLine, "");

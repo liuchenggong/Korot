@@ -92,12 +92,11 @@ namespace Korot
         private void Form1_Load(object sender, EventArgs e)
         {
             RefreshTranslate();
-            pictureBox1.Width = 0;
             WebC.DownloadStringAsync(new Uri("https://haltroy.com/Update/Korot.htupdate"));
         }
         private void WebC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            pictureBox1.Width = e.ProgressPercentage * 3;
+            htProgressBar1.Value = e.ProgressPercentage;
             label2.Text = StatusType.Replace("[PERC]", e.ProgressPercentage.ToString()).Replace("[CURRENT]", (e.BytesReceived / 1024).ToString()).Replace("[TOTAL]", (e.TotalBytesToReceive / 1024).ToString());
             label1.Text = installStatus;
         }
@@ -336,8 +335,8 @@ namespace Korot
             OtherInstances();
             BackColor = Properties.Settings.Default.BackColor;
             ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            panel1.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 20, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 20));
-            pictureBox1.BackColor = Properties.Settings.Default.OverlayColor;
+            htProgressBar1.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 20, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 20));
+            htProgressBar1.BarColor = Properties.Settings.Default.OverlayColor;
 
         }
     }

@@ -73,13 +73,11 @@ namespace Korot
             this.label12 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button1 = new HTAlt.WinForms.HTButton();
             this.button2 = new HTAlt.WinForms.HTButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.htProgressBar1 = new HTAlt.WinForms.HTProgressBar();
             this.lbStatus = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.pbStatus = new System.Windows.Forms.PictureBox();
             this.button3 = new HTAlt.WinForms.HTButton();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -108,10 +106,7 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
@@ -131,18 +126,17 @@ namespace Korot
             this.tabControl1.Location = new System.Drawing.Point(-5, 43);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(654, 372);
+            this.tabControl1.Size = new System.Drawing.Size(654, 403);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.flowLayoutPanel2);
-            this.tabPage2.Controls.Add(this.flowLayoutPanel1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(646, 346);
+            this.tabPage2.Size = new System.Drawing.Size(646, 377);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             // 
@@ -155,11 +149,13 @@ namespace Korot
             this.flowLayoutPanel2.Controls.Add(this.panel3);
             this.flowLayoutPanel2.Controls.Add(this.panel4);
             this.flowLayoutPanel2.Controls.Add(this.label2);
+            this.flowLayoutPanel2.Controls.Add(this.button1);
+            this.flowLayoutPanel2.Controls.Add(this.button2);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(640, 308);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(640, 371);
             this.flowLayoutPanel2.TabIndex = 15;
             // 
             // label11
@@ -364,58 +360,56 @@ namespace Korot
             this.label2.TabIndex = 6;
             this.label2.Text = "Do you want to install it?";
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Controls.Add(this.button2);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 311);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(640, 32);
-            this.flowLayoutPanel1.TabIndex = 3;
-            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.AutoSize = true;
+            this.button1.ButtonText = "Install";
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(562, 3);
+            this.button1.Location = new System.Drawing.Point(550, 303);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 11;
-            this.button1.Text = "Install";
+            this.button1.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.AutoSize = true;
+            this.button2.ButtonText = "Close";
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(481, 3);
+            this.button2.Location = new System.Drawing.Point(550, 332);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 11;
-            this.button2.Text = "Cancel";
+            this.button2.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.htProgressBar1);
             this.tabPage3.Controls.Add(this.lbStatus);
-            this.tabPage3.Controls.Add(this.panel2);
             this.tabPage3.Controls.Add(this.button3);
             this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(646, 346);
+            this.tabPage3.Size = new System.Drawing.Size(646, 377);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // htProgressBar1
+            // 
+            this.htProgressBar1.DrawBorder = true;
+            this.htProgressBar1.Location = new System.Drawing.Point(25, 40);
+            this.htProgressBar1.Name = "htProgressBar1";
+            this.htProgressBar1.Size = new System.Drawing.Size(300, 10);
+            this.htProgressBar1.TabIndex = 4;
+            this.htProgressBar1.Text = "htProgressBar1";
             // 
             // lbStatus
             // 
@@ -426,35 +420,17 @@ namespace Korot
             this.lbStatus.Text = "Inıtializing...";
             this.lbStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.pbStatus);
-            this.panel2.Location = new System.Drawing.Point(25, 40);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(300, 10);
-            this.panel2.TabIndex = 2;
-            // 
-            // pbStatus
-            // 
-            this.pbStatus.BackColor = System.Drawing.Color.DodgerBlue;
-            this.pbStatus.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pbStatus.Location = new System.Drawing.Point(0, 0);
-            this.pbStatus.Name = "pbStatus";
-            this.pbStatus.Size = new System.Drawing.Size(0, 8);
-            this.pbStatus.TabIndex = 3;
-            this.pbStatus.TabStop = false;
-            // 
             // button3
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.ButtonText = "Close";
+            this.button3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(565, 270);
+            this.button3.Location = new System.Drawing.Point(3, 351);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(640, 23);
             this.button3.TabIndex = 1;
-            this.button3.Text = "Close";
+            this.button3.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -474,21 +450,22 @@ namespace Korot
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(646, 346);
+            this.tabPage1.Size = new System.Drawing.Size(646, 377);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.ButtonText = "Close";
+            this.button4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(554, 264);
+            this.button4.Location = new System.Drawing.Point(0, 354);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.Size = new System.Drawing.Size(646, 23);
             this.button4.TabIndex = 2;
-            this.button4.Text = "Close";
+            this.button4.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -501,7 +478,7 @@ namespace Korot
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(613, 235);
+            this.textBox1.Size = new System.Drawing.Size(613, 266);
             this.textBox1.TabIndex = 1;
             // 
             // label6
@@ -619,7 +596,7 @@ namespace Korot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 406);
+            this.ClientSize = new System.Drawing.Size(640, 437);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -644,12 +621,8 @@ namespace Korot
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -666,7 +639,6 @@ namespace Korot
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private HTAlt.WinForms.HTButton button1;
         private HTAlt.WinForms.HTButton button2;
         private System.Windows.Forms.PictureBox pictureBox5;
@@ -682,8 +654,6 @@ namespace Korot
         private HTAlt.WinForms.HTButton button3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lbStatus;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.PictureBox pbStatus;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label15;
@@ -710,5 +680,6 @@ namespace Korot
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Timer timer2;
+        private HTAlt.WinForms.HTProgressBar htProgressBar1;
     }
 }

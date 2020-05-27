@@ -54,8 +54,8 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             label1.Text = cefform.notificationPermission.Replace("[URL]", baseUrl);
-            button1.Text = cefform.allow;
-            button2.Text = cefform.deny;
+            button1.ButtonText = cefform.allow;
+            button2.ButtonText = cefform.deny;
             BackColor = Properties.Settings.Default.BackColor;
             ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             button1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
