@@ -20,6 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using CefSharp;
+using HTAlt.WinForms;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,8 +39,8 @@ namespace Korot
         [STAThread]
         private static void Main(string[] args)
         {
-            bool isPreRelease = false;
-            int preVer = 0;
+            bool isPreRelease = true;
+            int preVer = 1;
             Cef.EnableHighDPISupport();
             CollectionManager colman = new CollectionManager();
             Properties.Settings.Default.dismissUpdate = false;
@@ -82,6 +83,12 @@ namespace Korot
                         }
                         return;
                     }
+                    else if (args.Contains("--make-ext"))
+                    {
+                        Application.Run(new frmMakeExt());
+                        appStarted = true;
+                        return;
+                    }
                     else if (args.Contains("-oobe") || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
                     {
                         Application.Run(new frmOOBE());
@@ -104,7 +111,7 @@ namespace Korot
                             if (x == Application.ExecutablePath || x == "-oobe" || x == "-update") { }
                             else if (x == "-incognito")
                             {
-                                testApp.Tabs.Add(new TitleBarTab(testApp) { Content = new frmCEF(true, "korot://incognito", Properties.Settings.Default.LastUser) { } });
+                                testApp.Tabs.Add(new HTTitleTab(testApp) { Content = new frmCEF(true, "korot://incognito", Properties.Settings.Default.LastUser) { } });
                             }
                             else if (x == "-debug" && !isIncognito)
                             {
@@ -139,14 +146,14 @@ namespace Korot
                         if (testApp.Tabs.Count < 1)
                         {
                             testApp.Tabs.Add(
-    new TitleBarTab(testApp)
+    new HTTitleTab(testApp)
     {
         Content = new frmCEF(isIncognito, Properties.Settings.Default.StartupURL, Properties.Settings.Default.LastUser) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, }
     });
                         }
                         testApp.SelectedTabIndex = 0;
                         testApp.colman = colman;
-                        TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
+                        HTTitleTabsApplicationContext applicationContext = new HTTitleTabsApplicationContext();
                         applicationContext.Start(testApp);
                         Application.Run(applicationContext);
                         appStarted = true;

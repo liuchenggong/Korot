@@ -220,6 +220,8 @@ namespace Korot
                             Directory.Move(x, Application.StartupPath + "\\" + info.Name);
                         }
                     }
+                    File.Delete(downloadFolder + fileName);
+                    Directory.Delete(newVerLocation, true);
                     Restart();
                 }
                 catch (Exception ex)

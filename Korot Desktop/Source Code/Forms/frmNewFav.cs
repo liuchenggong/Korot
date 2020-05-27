@@ -164,7 +164,7 @@ namespace Korot
 
         private void button1_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox HTInputBox = new HTAlt.HTInputBox("Korot",
+            HTAlt.WinForms.HTInputBox HTInputBox = new HTAlt.WinForms.HTInputBox("Korot",
                                                                                                     Cefform.folderInfo,
                                                                                                     Cefform.defaultFolderName)
             { Icon = Cefform.Icon, OK = Cefform.OK, SetToDefault = Cefform.SetToDefault, Cancel = Cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
@@ -325,17 +325,17 @@ namespace Korot
             textBox2.Text = favUrl;
             BackColor = Properties.Settings.Default.BackColor;
             ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            button1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            button1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
             button1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            button2.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            button2.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
             button2.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            //button3.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            //button3.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
             //button3.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            textBox1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            textBox1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
             textBox1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            textBox2.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            textBox2.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
             textBox2.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            treeView1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 29, false);
+            treeView1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
             treeView1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             textBox1.Location = new Point(label1.Location.X + label1.Width, label1.Location.Y);
             textBox1.Width = Width - (label1.Width + 50);

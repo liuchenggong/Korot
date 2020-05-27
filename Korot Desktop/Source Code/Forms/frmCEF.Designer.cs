@@ -99,21 +99,21 @@ namespace Korot
             this.pbProgress = new System.Windows.Forms.PictureBox();
             this.mFavorites = new System.Windows.Forms.MenuStrip();
             this.pbIncognito = new System.Windows.Forms.PictureBox();
-            this.btHome = new HTAlt.HTButton();
-            this.btFav = new HTAlt.HTButton();
-            this.btNext = new HTAlt.HTButton();
+            this.btHome = new HTAlt.WinForms.HTButton();
+            this.btFav = new HTAlt.WinForms.HTButton();
+            this.btNext = new HTAlt.WinForms.HTButton();
             this.cmsForward = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.btBack = new HTAlt.HTButton();
+            this.btBack = new HTAlt.WinForms.HTButton();
             this.cmsBack = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.btHamburger = new HTAlt.HTButton();
-            this.btProfile = new HTAlt.HTButton();
+            this.btHamburger = new HTAlt.WinForms.HTButton();
+            this.btProfile = new HTAlt.WinForms.HTButton();
             this.cmsProfiles = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.profilenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteThisProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsEmptyProfile = new System.Windows.Forms.ToolStripMenuItem();
             this.newProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btRefresh = new HTAlt.HTButton();
+            this.btRefresh = new HTAlt.WinForms.HTButton();
             this.cmsFavorite = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsopenInNewTab = new System.Windows.Forms.ToolStripMenuItem();
             this.openİnNewWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,7 +139,7 @@ namespace Korot
             this.label2 = new System.Windows.Forms.Label();
             this.tmrSlower = new System.Windows.Forms.Timer(this.components);
             this.pnlCert = new System.Windows.Forms.Panel();
-            this.button10 = new HTAlt.HTButton();
+            this.button10 = new HTAlt.WinForms.HTButton();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -149,26 +149,26 @@ namespace Korot
             this.lbURL = new System.Windows.Forms.ListBox();
             this.tpCert = new System.Windows.Forms.TabPage();
             this.tpSettings = new System.Windows.Forms.TabPage();
-            this.btNotification = new HTAlt.HTButton();
-            this.btCookie = new HTAlt.HTButton();
-            this.btReset = new HTAlt.HTButton();
-            this.btCleanLog = new HTAlt.HTButton();
+            this.btNotification = new HTAlt.WinForms.HTButton();
+            this.btCookie = new HTAlt.WinForms.HTButton();
+            this.btReset = new HTAlt.WinForms.HTButton();
+            this.btCleanLog = new HTAlt.WinForms.HTButton();
             this.cbLang = new System.Windows.Forms.ComboBox();
             this.lbURinfo = new System.Windows.Forms.Label();
             this.lbUResources = new System.Windows.Forms.Label();
             this.lbDNT = new System.Windows.Forms.Label();
-            this.hsUnknown = new HTAlt.HTSwitch();
-            this.hsDoNotTrack = new HTAlt.HTSwitch();
+            this.hsUnknown = new HTAlt.WinForms.HTSwitch();
+            this.hsDoNotTrack = new HTAlt.WinForms.HTSwitch();
             this.lbautoRestore = new System.Windows.Forms.Label();
             this.lbLastProxy = new System.Windows.Forms.Label();
-            this.hsAutoRestore = new HTAlt.HTSwitch();
-            this.hsProxy = new HTAlt.HTSwitch();
-            this.btClose = new HTAlt.HTButton();
+            this.hsAutoRestore = new HTAlt.WinForms.HTSwitch();
+            this.hsProxy = new HTAlt.WinForms.HTSwitch();
+            this.btClose = new HTAlt.WinForms.HTButton();
             this.label28 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.lbSettings = new System.Windows.Forms.Label();
-            this.hsFav = new HTAlt.HTSwitch();
+            this.hsFav = new HTAlt.WinForms.HTSwitch();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.lbHomepage = new System.Windows.Forms.Label();
             this.lbSearchEngine = new System.Windows.Forms.Label();
@@ -190,7 +190,7 @@ namespace Korot
             this.rbCenter = new System.Windows.Forms.RadioButton();
             this.rbStretch = new System.Windows.Forms.RadioButton();
             this.rbZoom = new System.Windows.Forms.RadioButton();
-            this.btClose2 = new HTAlt.HTButton();
+            this.btClose2 = new HTAlt.WinForms.HTButton();
             this.label25 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
@@ -204,13 +204,13 @@ namespace Korot
             this.label13 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button12 = new HTAlt.HTButton();
+            this.button12 = new HTAlt.WinForms.HTButton();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.label26 = new System.Windows.Forms.Label();
             this.tpHistory = new System.Windows.Forms.TabPage();
-            this.btClose6 = new HTAlt.HTButton();
+            this.btClose6 = new HTAlt.WinForms.HTButton();
             this.label4 = new System.Windows.Forms.Label();
-            this.hlvHistory = new HTAlt.HTListView();
+            this.hlvHistory = new HTAlt.WinForms.HTListView();
             this.chDateHistory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -218,9 +218,9 @@ namespace Korot
             this.removeSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tpDownload = new System.Windows.Forms.TabPage();
-            this.btClose7 = new HTAlt.HTButton();
+            this.btClose7 = new HTAlt.WinForms.HTButton();
             this.label6 = new System.Windows.Forms.Label();
-            this.hlvDownload = new HTAlt.HTListView();
+            this.hlvDownload = new HTAlt.WinForms.HTListView();
             this.chStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -231,19 +231,19 @@ namespace Korot
             this.openFileİnExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeSelectedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.hsOpen = new HTAlt.HTSwitch();
-            this.hsDownload = new HTAlt.HTSwitch();
+            this.hsOpen = new HTAlt.WinForms.HTSwitch();
+            this.hsDownload = new HTAlt.WinForms.HTSwitch();
             this.tbFolder = new System.Windows.Forms.TextBox();
-            this.btDownloadFolder = new HTAlt.HTButton();
+            this.btDownloadFolder = new HTAlt.WinForms.HTButton();
             this.lbDownloadFolder = new System.Windows.Forms.Label();
             this.lbOpen = new System.Windows.Forms.Label();
             this.lbAutoDownload = new System.Windows.Forms.Label();
             this.tpAbout = new System.Windows.Forms.TabPage();
-            this.btClose10 = new HTAlt.HTButton();
+            this.btClose10 = new HTAlt.WinForms.HTButton();
             this.label22 = new System.Windows.Forms.Label();
             this.lbUpdateStatus = new System.Windows.Forms.Label();
-            this.btInstall = new HTAlt.HTButton();
-            this.btUpdater = new HTAlt.HTButton();
+            this.btInstall = new HTAlt.WinForms.HTButton();
+            this.btUpdater = new HTAlt.WinForms.HTButton();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label21 = new System.Windows.Forms.Label();
             this.lbVersion = new System.Windows.Forms.Label();
@@ -251,21 +251,21 @@ namespace Korot
             this.lbKorot = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.tpCookie = new System.Windows.Forms.TabPage();
-            this.btCookieBack = new HTAlt.HTButton();
+            this.btCookieBack = new HTAlt.WinForms.HTButton();
             this.lbCookie = new System.Windows.Forms.ListBox();
             this.cmsCookie = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allowSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btClose8 = new HTAlt.HTButton();
+            this.btClose8 = new HTAlt.WinForms.HTButton();
             this.label27 = new System.Windows.Forms.Label();
             this.tpCollection = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btClose9 = new HTAlt.HTButton();
+            this.btClose9 = new HTAlt.WinForms.HTButton();
             this.label9 = new System.Windows.Forms.Label();
             this.tpNotification = new System.Windows.Forms.TabPage();
-            this.btBlockList = new HTAlt.HTButton();
-            this.btAllowList = new HTAlt.HTButton();
-            this.btNotifBack = new HTAlt.HTButton();
+            this.btBlockList = new HTAlt.WinForms.HTButton();
+            this.btAllowList = new HTAlt.WinForms.HTButton();
+            this.btNotifBack = new HTAlt.WinForms.HTButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.flpFrom = new System.Windows.Forms.FlowLayoutPanel();
             this.fromHour = new System.Windows.Forms.NumericUpDown();
@@ -289,29 +289,29 @@ namespace Korot
             this.scheduleTo = new System.Windows.Forms.Label();
             this.lbSchedule = new System.Windows.Forms.Label();
             this.lbSilentMode = new System.Windows.Forms.Label();
-            this.hsSchedule = new HTAlt.HTSwitch();
-            this.hsSilent = new HTAlt.HTSwitch();
+            this.hsSchedule = new HTAlt.WinForms.HTSwitch();
+            this.hsSilent = new HTAlt.WinForms.HTSwitch();
             this.lbPlayNotifSound = new System.Windows.Forms.Label();
-            this.hsNotificationSound = new HTAlt.HTSwitch();
-            this.btClose3 = new HTAlt.HTButton();
+            this.hsNotificationSound = new HTAlt.WinForms.HTSwitch();
+            this.btClose3 = new HTAlt.WinForms.HTButton();
             this.lbNotifSetting = new System.Windows.Forms.Label();
             this.tpNAllow = new System.Windows.Forms.TabPage();
-            this.btNotifAllowBack = new HTAlt.HTButton();
+            this.btNotifAllowBack = new HTAlt.WinForms.HTButton();
             this.lbAllow = new System.Windows.Forms.ListBox();
             this.cmsAllow = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allowRS = new System.Windows.Forms.ToolStripMenuItem();
             this.allowBlockSel = new System.Windows.Forms.ToolStripMenuItem();
             this.allowClear = new System.Windows.Forms.ToolStripMenuItem();
-            this.btClose5 = new HTAlt.HTButton();
+            this.btClose5 = new HTAlt.WinForms.HTButton();
             this.lbNotifAllow = new System.Windows.Forms.Label();
             this.tpNBlock = new System.Windows.Forms.TabPage();
-            this.btNBlockBack = new HTAlt.HTButton();
+            this.btNBlockBack = new HTAlt.WinForms.HTButton();
             this.lbBlock = new System.Windows.Forms.ListBox();
             this.cmsBlock = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.blockRS = new System.Windows.Forms.ToolStripMenuItem();
             this.blockAllowSel = new System.Windows.Forms.ToolStripMenuItem();
             this.blockClear = new System.Windows.Forms.ToolStripMenuItem();
-            this.btClose4 = new HTAlt.HTButton();
+            this.btClose4 = new HTAlt.WinForms.HTButton();
             this.lbNotifBlock = new System.Windows.Forms.Label();
             this.cmsSearchEngine = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.googleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -832,12 +832,12 @@ namespace Korot
             this.btHome.ContextMenuStrip = this.cmsHamburger;
             this.btHome.FlatAppearance.BorderSize = 0;
             this.btHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btHome.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btHome.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btHome.Location = new System.Drawing.Point(58, 0);
             this.btHome.Name = "btHome";
             this.btHome.Size = new System.Drawing.Size(30, 28);
             this.btHome.TabIndex = 2;
-            this.btHome.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btHome.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btHome.UseVisualStyleBackColor = false;
             this.btHome.Click += new System.EventHandler(this.button5_Click);
             this.btHome.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -850,12 +850,12 @@ namespace Korot
             this.btFav.ContextMenuStrip = this.cmsHamburger;
             this.btFav.FlatAppearance.BorderSize = 0;
             this.btFav.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btFav.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btFav.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btFav.Location = new System.Drawing.Point(472, 0);
             this.btFav.Name = "btFav";
             this.btFav.Size = new System.Drawing.Size(30, 28);
             this.btFav.TabIndex = 7;
-            this.btFav.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btFav.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btFav.UseVisualStyleBackColor = false;
             this.btFav.Click += new System.EventHandler(this.Button7_Click);
             this.btFav.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -867,12 +867,12 @@ namespace Korot
             this.btNext.ContextMenuStrip = this.cmsForward;
             this.btNext.FlatAppearance.BorderSize = 0;
             this.btNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btNext.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btNext.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btNext.Location = new System.Drawing.Point(87, 0);
             this.btNext.Name = "btNext";
             this.btNext.Size = new System.Drawing.Size(30, 28);
             this.btNext.TabIndex = 3;
-            this.btNext.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNext.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btNext.UseVisualStyleBackColor = false;
             this.btNext.Click += new System.EventHandler(this.button3_Click);
             this.btNext.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -892,12 +892,12 @@ namespace Korot
             this.btBack.ContextMenuStrip = this.cmsBack;
             this.btBack.FlatAppearance.BorderSize = 0;
             this.btBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btBack.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btBack.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btBack.Location = new System.Drawing.Point(0, 0);
             this.btBack.Name = "btBack";
             this.btBack.Size = new System.Drawing.Size(30, 28);
             this.btBack.TabIndex = 0;
-            this.btBack.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btBack.UseVisualStyleBackColor = false;
             this.btBack.Click += new System.EventHandler(this.button1_Click);
             this.btBack.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -918,12 +918,12 @@ namespace Korot
             this.btHamburger.ContextMenuStrip = this.cmsHamburger;
             this.btHamburger.FlatAppearance.BorderSize = 0;
             this.btHamburger.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btHamburger.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btHamburger.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btHamburger.Location = new System.Drawing.Point(530, 0);
             this.btHamburger.Name = "btHamburger";
             this.btHamburger.Size = new System.Drawing.Size(30, 28);
             this.btHamburger.TabIndex = 9;
-            this.btHamburger.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btHamburger.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btHamburger.UseVisualStyleBackColor = false;
             this.btHamburger.Click += new System.EventHandler(this.button11_Click);
             this.btHamburger.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -936,12 +936,12 @@ namespace Korot
             this.btProfile.ContextMenuStrip = this.cmsProfiles;
             this.btProfile.FlatAppearance.BorderSize = 0;
             this.btProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btProfile.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btProfile.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btProfile.Location = new System.Drawing.Point(501, 0);
             this.btProfile.Name = "btProfile";
             this.btProfile.Size = new System.Drawing.Size(30, 28);
             this.btProfile.TabIndex = 8;
-            this.btProfile.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btProfile.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btProfile.UseVisualStyleBackColor = false;
             this.btProfile.Click += new System.EventHandler(this.Button9_Click);
             this.btProfile.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -1001,12 +1001,12 @@ namespace Korot
             this.btRefresh.ContextMenuStrip = this.cmsHamburger;
             this.btRefresh.FlatAppearance.BorderSize = 0;
             this.btRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btRefresh.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btRefresh.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btRefresh.Location = new System.Drawing.Point(29, 0);
             this.btRefresh.Name = "btRefresh";
             this.btRefresh.Size = new System.Drawing.Size(30, 28);
             this.btRefresh.TabIndex = 1;
-            this.btRefresh.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btRefresh.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btRefresh.UseVisualStyleBackColor = false;
             this.btRefresh.Click += new System.EventHandler(this.button2_Click);
             this.btRefresh.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -1223,7 +1223,7 @@ namespace Korot
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(562, 26);
             this.button10.TabIndex = 0;
-            this.button10.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.button10.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
@@ -1378,7 +1378,7 @@ namespace Korot
             this.btNotification.Name = "btNotification";
             this.btNotification.Size = new System.Drawing.Size(568, 28);
             this.btNotification.TabIndex = 12;
-            this.btNotification.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNotification.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btNotification.UseVisualStyleBackColor = false;
             this.btNotification.Click += new System.EventHandler(this.button19_Click_1);
             // 
@@ -1394,7 +1394,7 @@ namespace Korot
             this.btCookie.Name = "btCookie";
             this.btCookie.Size = new System.Drawing.Size(568, 28);
             this.btCookie.TabIndex = 11;
-            this.btCookie.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btCookie.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btCookie.UseVisualStyleBackColor = false;
             this.btCookie.Click += new System.EventHandler(this.button15_Click);
             // 
@@ -1410,7 +1410,7 @@ namespace Korot
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(568, 28);
             this.btReset.TabIndex = 14;
-            this.btReset.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btReset.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btReset.UseVisualStyleBackColor = false;
             this.btReset.Click += new System.EventHandler(this.button18_Click);
             // 
@@ -1426,7 +1426,7 @@ namespace Korot
             this.btCleanLog.Name = "btCleanLog";
             this.btCleanLog.Size = new System.Drawing.Size(568, 28);
             this.btCleanLog.TabIndex = 13;
-            this.btCleanLog.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btCleanLog.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btCleanLog.UseVisualStyleBackColor = false;
             this.btCleanLog.Click += new System.EventHandler(this.btCleanLog_Click);
             // 
@@ -1483,7 +1483,7 @@ namespace Korot
             this.hsUnknown.Name = "hsUnknown";
             this.hsUnknown.Size = new System.Drawing.Size(50, 18);
             this.hsUnknown.TabIndex = 10;
-            this.hsUnknown.CheckedChanged += new HTAlt.HTSwitch.CheckedChangedDelegate(this.hsUnknown_CheckedChanged);
+            this.hsUnknown.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsUnknown_CheckedChanged);
             // 
             // hsDoNotTrack
             // 
@@ -1491,7 +1491,7 @@ namespace Korot
             this.hsDoNotTrack.Name = "hsDoNotTrack";
             this.hsDoNotTrack.Size = new System.Drawing.Size(50, 19);
             this.hsDoNotTrack.TabIndex = 7;
-            this.hsDoNotTrack.CheckedChanged += new HTAlt.HTSwitch.CheckedChangedDelegate(this.hsDoNotTrack_CheckedChanged);
+            this.hsDoNotTrack.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsDoNotTrack_CheckedChanged);
             // 
             // lbautoRestore
             // 
@@ -1519,7 +1519,7 @@ namespace Korot
             this.hsAutoRestore.Name = "hsAutoRestore";
             this.hsAutoRestore.Size = new System.Drawing.Size(50, 19);
             this.hsAutoRestore.TabIndex = 9;
-            this.hsAutoRestore.CheckedChanged += new HTAlt.HTSwitch.CheckedChangedDelegate(this.hsAutoRestore_CheckedChanged);
+            this.hsAutoRestore.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsAutoRestore_CheckedChanged);
             // 
             // hsProxy
             // 
@@ -1527,7 +1527,7 @@ namespace Korot
             this.hsProxy.Name = "hsProxy";
             this.hsProxy.Size = new System.Drawing.Size(50, 19);
             this.hsProxy.TabIndex = 8;
-            this.hsProxy.CheckedChanged += new HTAlt.HTSwitch.CheckedChangedDelegate(this.hsProxy_CheckedChanged);
+            this.hsProxy.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsProxy_CheckedChanged);
             // 
             // btClose
             // 
@@ -1537,12 +1537,12 @@ namespace Korot
             this.btClose.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose.FlatAppearance.BorderSize = 0;
             this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btClose.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose.Location = new System.Drawing.Point(527, 5);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(30, 30);
             this.btClose.TabIndex = 0;
-            this.btClose.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btClose.UseVisualStyleBackColor = false;
             this.btClose.Click += new System.EventHandler(this.button1_Click);
             this.btClose.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -1594,7 +1594,7 @@ namespace Korot
             this.hsFav.Name = "hsFav";
             this.hsFav.Size = new System.Drawing.Size(50, 19);
             this.hsFav.TabIndex = 5;
-            this.hsFav.CheckedChanged += new HTAlt.HTSwitch.CheckedChangedDelegate(this.hsFav_CheckedChanged);
+            this.hsFav.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsFav_CheckedChanged);
             // 
             // radioButton1
             // 
@@ -1878,12 +1878,12 @@ namespace Korot
             this.btClose2.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose2.FlatAppearance.BorderSize = 0;
             this.btClose2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose2.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btClose2.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose2.Location = new System.Drawing.Point(527, 5);
             this.btClose2.Name = "btClose2";
             this.btClose2.Size = new System.Drawing.Size(30, 30);
             this.btClose2.TabIndex = 0;
-            this.btClose2.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose2.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btClose2.UseVisualStyleBackColor = false;
             this.btClose2.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2057,7 +2057,7 @@ namespace Korot
             this.button12.Size = new System.Drawing.Size(6, 6);
             this.button12.TabIndex = 8;
             this.button12.Tag = "";
-            this.button12.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.button12.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.Button12_Click);
             // 
@@ -2104,12 +2104,12 @@ namespace Korot
             this.btClose6.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose6.FlatAppearance.BorderSize = 0;
             this.btClose6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose6.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btClose6.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose6.Location = new System.Drawing.Point(527, 5);
             this.btClose6.Name = "btClose6";
             this.btClose6.Size = new System.Drawing.Size(30, 30);
             this.btClose6.TabIndex = 0;
-            this.btClose6.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose6.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btClose6.UseVisualStyleBackColor = false;
             this.btClose6.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2215,12 +2215,12 @@ namespace Korot
             this.btClose7.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose7.FlatAppearance.BorderSize = 0;
             this.btClose7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose7.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btClose7.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose7.Location = new System.Drawing.Point(527, 5);
             this.btClose7.Name = "btClose7";
             this.btClose7.Size = new System.Drawing.Size(30, 30);
             this.btClose7.TabIndex = 0;
-            this.btClose7.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose7.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btClose7.UseVisualStyleBackColor = false;
             this.btClose7.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2338,7 +2338,7 @@ namespace Korot
             this.hsOpen.Name = "hsOpen";
             this.hsOpen.Size = new System.Drawing.Size(50, 19);
             this.hsOpen.TabIndex = 1;
-            this.hsOpen.CheckedChanged += new HTAlt.HTSwitch.CheckedChangedDelegate(this.hsOpen_CheckedChanged);
+            this.hsOpen.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsOpen_CheckedChanged);
             // 
             // hsDownload
             // 
@@ -2346,7 +2346,7 @@ namespace Korot
             this.hsDownload.Name = "hsDownload";
             this.hsDownload.Size = new System.Drawing.Size(50, 19);
             this.hsDownload.TabIndex = 2;
-            this.hsDownload.CheckedChanged += new HTAlt.HTSwitch.CheckedChangedDelegate(this.hsDownload_CheckedChanged);
+            this.hsDownload.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsDownload_CheckedChanged);
             // 
             // tbFolder
             // 
@@ -2369,7 +2369,7 @@ namespace Korot
             this.btDownloadFolder.Name = "btDownloadFolder";
             this.btDownloadFolder.Size = new System.Drawing.Size(27, 26);
             this.btDownloadFolder.TabIndex = 4;
-            this.btDownloadFolder.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btDownloadFolder.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btDownloadFolder.UseVisualStyleBackColor = true;
             this.btDownloadFolder.Click += new System.EventHandler(this.button17_Click);
             // 
@@ -2438,12 +2438,12 @@ namespace Korot
             this.btClose10.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose10.FlatAppearance.BorderSize = 0;
             this.btClose10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose10.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btClose10.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose10.Location = new System.Drawing.Point(527, 5);
             this.btClose10.Name = "btClose10";
             this.btClose10.Size = new System.Drawing.Size(30, 30);
             this.btClose10.TabIndex = 0;
-            this.btClose10.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose10.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btClose10.UseVisualStyleBackColor = false;
             this.btClose10.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2481,7 +2481,7 @@ namespace Korot
             this.btInstall.Name = "btInstall";
             this.btInstall.Size = new System.Drawing.Size(562, 31);
             this.btInstall.TabIndex = 3;
-            this.btInstall.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btInstall.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btInstall.UseVisualStyleBackColor = false;
             this.btInstall.Visible = false;
             this.btInstall.Click += new System.EventHandler(this.btInstall_Click);
@@ -2498,7 +2498,7 @@ namespace Korot
             this.btUpdater.Name = "btUpdater";
             this.btUpdater.Size = new System.Drawing.Size(562, 31);
             this.btUpdater.TabIndex = 2;
-            this.btUpdater.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btUpdater.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btUpdater.UseVisualStyleBackColor = false;
             this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
             // 
@@ -2592,12 +2592,12 @@ namespace Korot
             this.btCookieBack.ContextMenuStrip = this.cmsBack;
             this.btCookieBack.FlatAppearance.BorderSize = 0;
             this.btCookieBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCookieBack.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btCookieBack.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btCookieBack.Location = new System.Drawing.Point(14, 5);
             this.btCookieBack.Name = "btCookieBack";
             this.btCookieBack.Size = new System.Drawing.Size(30, 28);
             this.btCookieBack.TabIndex = 45;
-            this.btCookieBack.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btCookieBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btCookieBack.UseVisualStyleBackColor = false;
             this.btCookieBack.Click += new System.EventHandler(this.btNotifBack_Click);
             // 
@@ -2647,12 +2647,12 @@ namespace Korot
             this.btClose8.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose8.FlatAppearance.BorderSize = 0;
             this.btClose8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose8.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btClose8.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose8.Location = new System.Drawing.Point(527, 5);
             this.btClose8.Name = "btClose8";
             this.btClose8.Size = new System.Drawing.Size(30, 30);
             this.btClose8.TabIndex = 0;
-            this.btClose8.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose8.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btClose8.UseVisualStyleBackColor = false;
             this.btClose8.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2697,12 +2697,12 @@ namespace Korot
             this.btClose9.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose9.FlatAppearance.BorderSize = 0;
             this.btClose9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose9.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btClose9.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose9.Location = new System.Drawing.Point(527, 5);
             this.btClose9.Name = "btClose9";
             this.btClose9.Size = new System.Drawing.Size(30, 30);
             this.btClose9.TabIndex = 0;
-            this.btClose9.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose9.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btClose9.UseVisualStyleBackColor = false;
             this.btClose9.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2750,7 +2750,7 @@ namespace Korot
             this.btBlockList.Name = "btBlockList";
             this.btBlockList.Size = new System.Drawing.Size(568, 28);
             this.btBlockList.TabIndex = 12;
-            this.btBlockList.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btBlockList.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btBlockList.UseVisualStyleBackColor = false;
             this.btBlockList.Click += new System.EventHandler(this.button20_Click);
             // 
@@ -2767,7 +2767,7 @@ namespace Korot
             this.btAllowList.Name = "btAllowList";
             this.btAllowList.Size = new System.Drawing.Size(568, 28);
             this.btAllowList.TabIndex = 11;
-            this.btAllowList.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btAllowList.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btAllowList.UseVisualStyleBackColor = false;
             this.btAllowList.Click += new System.EventHandler(this.button19_Click);
             // 
@@ -2778,12 +2778,12 @@ namespace Korot
             this.btNotifBack.ContextMenuStrip = this.cmsBack;
             this.btNotifBack.FlatAppearance.BorderSize = 0;
             this.btNotifBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btNotifBack.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btNotifBack.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btNotifBack.Location = new System.Drawing.Point(15, 7);
             this.btNotifBack.Name = "btNotifBack";
             this.btNotifBack.Size = new System.Drawing.Size(30, 28);
             this.btNotifBack.TabIndex = 44;
-            this.btNotifBack.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNotifBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btNotifBack.UseVisualStyleBackColor = false;
             this.btNotifBack.Click += new System.EventHandler(this.btNotifBack_Click);
             // 
@@ -3090,7 +3090,7 @@ namespace Korot
             this.hsSchedule.Name = "hsSchedule";
             this.hsSchedule.Size = new System.Drawing.Size(50, 19);
             this.hsSchedule.TabIndex = 39;
-            this.hsSchedule.CheckedChanged += new HTAlt.HTSwitch.CheckedChangedDelegate(this.hsSchedule_CheckedChanged);
+            this.hsSchedule.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsSchedule_CheckedChanged);
             // 
             // hsSilent
             // 
@@ -3098,7 +3098,7 @@ namespace Korot
             this.hsSilent.Name = "hsSilent";
             this.hsSilent.Size = new System.Drawing.Size(50, 19);
             this.hsSilent.TabIndex = 39;
-            this.hsSilent.CheckedChanged += new HTAlt.HTSwitch.CheckedChangedDelegate(this.hsSilent_CheckedChanged);
+            this.hsSilent.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsSilent_CheckedChanged);
             // 
             // lbPlayNotifSound
             // 
@@ -3116,7 +3116,7 @@ namespace Korot
             this.hsNotificationSound.Name = "hsNotificationSound";
             this.hsNotificationSound.Size = new System.Drawing.Size(50, 19);
             this.hsNotificationSound.TabIndex = 39;
-            this.hsNotificationSound.CheckedChanged += new HTAlt.HTSwitch.CheckedChangedDelegate(this.hsNotificationSound_CheckedChanged);
+            this.hsNotificationSound.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsNotificationSound_CheckedChanged);
             // 
             // btClose3
             // 
@@ -3126,12 +3126,12 @@ namespace Korot
             this.btClose3.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose3.FlatAppearance.BorderSize = 0;
             this.btClose3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose3.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btClose3.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose3.Location = new System.Drawing.Point(527, 5);
             this.btClose3.Name = "btClose3";
             this.btClose3.Size = new System.Drawing.Size(30, 30);
             this.btClose3.TabIndex = 37;
-            this.btClose3.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose3.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btClose3.UseVisualStyleBackColor = false;
             this.btClose3.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -3165,12 +3165,12 @@ namespace Korot
             this.btNotifAllowBack.ContextMenuStrip = this.cmsBack;
             this.btNotifAllowBack.FlatAppearance.BorderSize = 0;
             this.btNotifAllowBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btNotifAllowBack.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btNotifAllowBack.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btNotifAllowBack.Location = new System.Drawing.Point(15, 7);
             this.btNotifAllowBack.Name = "btNotifAllowBack";
             this.btNotifAllowBack.Size = new System.Drawing.Size(30, 28);
             this.btNotifAllowBack.TabIndex = 46;
-            this.btNotifAllowBack.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNotifAllowBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btNotifAllowBack.UseVisualStyleBackColor = false;
             this.btNotifAllowBack.Click += new System.EventHandler(this.btNBlockBack_Click);
             // 
@@ -3229,12 +3229,12 @@ namespace Korot
             this.btClose5.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose5.FlatAppearance.BorderSize = 0;
             this.btClose5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose5.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btClose5.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose5.Location = new System.Drawing.Point(527, 5);
             this.btClose5.Name = "btClose5";
             this.btClose5.Size = new System.Drawing.Size(30, 30);
             this.btClose5.TabIndex = 42;
-            this.btClose5.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose5.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btClose5.UseVisualStyleBackColor = false;
             this.btClose5.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -3268,12 +3268,12 @@ namespace Korot
             this.btNBlockBack.ContextMenuStrip = this.cmsBack;
             this.btNBlockBack.FlatAppearance.BorderSize = 0;
             this.btNBlockBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btNBlockBack.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btNBlockBack.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btNBlockBack.Location = new System.Drawing.Point(16, 4);
             this.btNBlockBack.Name = "btNBlockBack";
             this.btNBlockBack.Size = new System.Drawing.Size(30, 28);
             this.btNBlockBack.TabIndex = 45;
-            this.btNBlockBack.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNBlockBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btNBlockBack.UseVisualStyleBackColor = false;
             this.btNBlockBack.Click += new System.EventHandler(this.btNBlockBack_Click);
             // 
@@ -3331,12 +3331,12 @@ namespace Korot
             this.btClose4.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose4.FlatAppearance.BorderSize = 0;
             this.btClose4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose4.ImageSizeMode = HTAlt.HTButton.ButtonImageSizeMode.Zoom;
+            this.btClose4.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose4.Location = new System.Drawing.Point(527, 5);
             this.btClose4.Name = "btClose4";
             this.btClose4.Size = new System.Drawing.Size(30, 30);
             this.btClose4.TabIndex = 39;
-            this.btClose4.TextImageRelation = HTAlt.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose4.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btClose4.UseVisualStyleBackColor = false;
             this.btClose4.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -3671,11 +3671,11 @@ namespace Korot
         }
 
         #endregion
-        public HTAlt.HTButton btBack;
-        public HTAlt.HTButton btRefresh;
-        public HTAlt.HTButton btNext;
+        public HTAlt.WinForms.HTButton btBack;
+        public HTAlt.WinForms.HTButton btRefresh;
+        public HTAlt.WinForms.HTButton btNext;
         public System.Windows.Forms.TextBox tbAddress;
-        public HTAlt.HTButton btHome;
+        public HTAlt.WinForms.HTButton btHome;
         private System.Windows.Forms.PictureBox pbIncognito;
         private System.Windows.Forms.Panel pNavigate;
         private System.Windows.Forms.Label lErrorTitle2Text;
@@ -3686,8 +3686,8 @@ namespace Korot
         private System.Windows.Forms.ContextMenuStrip dummyCMS;
         private System.Windows.Forms.Timer tmrFaster;
         private System.Windows.Forms.MenuStrip mFavorites;
-        public HTAlt.HTButton btFav;
-        public HTAlt.HTButton btProfile;
+        public HTAlt.WinForms.HTButton btFav;
+        public HTAlt.WinForms.HTButton btProfile;
         private System.Windows.Forms.ContextMenuStrip cmsProfiles;
         private System.Windows.Forms.ToolStripMenuItem profilenameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteThisProfileToolStripMenuItem;
@@ -3708,7 +3708,7 @@ namespace Korot
         public System.Windows.Forms.Panel pnlCert;
         public System.Windows.Forms.Label label8;
         public System.Windows.Forms.Label label7;
-        public HTAlt.HTButton btHamburger;
+        public HTAlt.WinForms.HTButton btHamburger;
         private System.Windows.Forms.ContextMenuStrip cmsHamburger;
         private System.Windows.Forms.ToolStripMenuItem newWindowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newIncognitoWindowToolStripMenuItem;
@@ -3731,17 +3731,17 @@ namespace Korot
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private HTAlt.HTListView hlvHistory;
+        private HTAlt.WinForms.HTListView hlvHistory;
         private System.Windows.Forms.ColumnHeader chDateHistory;
         private System.Windows.Forms.ColumnHeader chTitle;
         private System.Windows.Forms.ColumnHeader chURL;
-        private HTAlt.HTListView hlvDownload;
+        private HTAlt.WinForms.HTListView hlvDownload;
         private System.Windows.Forms.ColumnHeader chDate;
         private System.Windows.Forms.ColumnHeader chTo;
         private System.Windows.Forms.ColumnHeader chFrom;
         private System.Windows.Forms.TabPage tpAbout;
-        private HTAlt.HTButton btInstall;
-        private HTAlt.HTButton btUpdater;
+        private HTAlt.WinForms.HTButton btInstall;
+        private HTAlt.WinForms.HTButton btUpdater;
         private System.Windows.Forms.Label lbUpdateStatus;
         private System.Windows.Forms.Label lbVersion;
         private System.Windows.Forms.Label lbKorot;
@@ -3769,7 +3769,7 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
         private System.Windows.Forms.Timer tmrRefresher;
         private System.Windows.Forms.Label lbSettings;
-        public HTAlt.HTButton btClose;
+        public HTAlt.WinForms.HTButton btClose;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.LinkLabel linkLabel1;
@@ -3778,7 +3778,7 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem yaaniToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip cms4;
         private System.Windows.Forms.Label lbDNT;
-        private HTAlt.HTSwitch hsDoNotTrack;
+        private HTAlt.WinForms.HTSwitch hsDoNotTrack;
         private System.Windows.Forms.ToolStripMenuItem ımageFromURLToolStripMenuItem;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.ToolStripMenuItem disallowThisPageForCookieAccessToolStripMenuItem;
@@ -3807,13 +3807,13 @@ namespace Korot
         public System.Windows.Forms.TabControl tabControl1;
         public System.Windows.Forms.TabPage tpCert;
         private System.Windows.Forms.TabPage tpHistory;
-        public HTAlt.HTButton btClose6;
+        public HTAlt.WinForms.HTButton btClose6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TabPage tpDownload;
-        public HTAlt.HTButton btClose7;
+        public HTAlt.WinForms.HTButton btClose7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label2;
-        public HTAlt.HTButton btClose10;
+        public HTAlt.WinForms.HTButton btClose10;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ToolStripMenuItem historyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadsToolStripMenuItem;
@@ -3824,44 +3824,44 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem tsSearchStatus;
         private System.Windows.Forms.ToolStripMenuItem DefaultProxyts;
         private System.Windows.Forms.TabPage tpTheme;
-        public HTAlt.HTButton btClose2;
+        public HTAlt.WinForms.HTButton btClose2;
         private System.Windows.Forms.ToolStripMenuItem tsThemes;
         private System.Windows.Forms.Label lbLastProxy;
-        private HTAlt.HTSwitch hsProxy;
+        private HTAlt.WinForms.HTSwitch hsProxy;
         private System.Windows.Forms.ContextMenuStrip cmsIncognito;
         private System.Windows.Forms.ToolStripMenuItem ıncognitoModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem thisSessionİsNotGoingToBeSavedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clickHereToLearnMoreToolStripMenuItem;
-        private HTAlt.HTButton btCookie;
+        private HTAlt.WinForms.HTButton btCookie;
         private System.Windows.Forms.TabPage tpCookie;
         private System.Windows.Forms.ListBox lbCookie;
-        public HTAlt.HTButton btClose8;
+        public HTAlt.WinForms.HTButton btClose8;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.ContextMenuStrip cmsCookie;
         private System.Windows.Forms.ToolStripMenuItem allowSelectedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem1;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.TextBox tbStartup;
-        private HTAlt.HTButton btDownloadFolder;
+        private HTAlt.WinForms.HTButton btDownloadFolder;
         private System.Windows.Forms.Label lbAutoDownload;
-        private HTAlt.HTSwitch hsDownload;
+        private HTAlt.WinForms.HTSwitch hsDownload;
         private System.Windows.Forms.Label lbDownloadFolder;
         private System.Windows.Forms.TextBox tbFolder;
         private System.Windows.Forms.ContextMenuStrip cmsStartup;
         private System.Windows.Forms.ToolStripMenuItem showNewTabPageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showHomepageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAWebsiteToolStripMenuItem;
-        private HTAlt.HTButton btReset;
+        private HTAlt.WinForms.HTButton btReset;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label33;
-        private HTAlt.HTSwitch hsFav;
+        private HTAlt.WinForms.HTSwitch hsFav;
         private System.Windows.Forms.Label lbUResources;
-        private HTAlt.HTSwitch hsUnknown;
+        private HTAlt.WinForms.HTSwitch hsUnknown;
         private System.Windows.Forms.ToolStripMenuItem tsFullscreen;
         private System.Windows.Forms.Label lbURinfo;
-        private HTAlt.HTButton btCleanLog;
-        private HTAlt.HTSwitch hsOpen;
+        private HTAlt.WinForms.HTButton btCleanLog;
+        private HTAlt.WinForms.HTSwitch hsOpen;
         private System.Windows.Forms.Label lbOpen;
         private System.Windows.Forms.ToolStripSeparator tsExt;
         private System.Windows.Forms.ToolStripMenuItem tsWebStore;
@@ -3882,10 +3882,10 @@ namespace Korot
         public System.Windows.Forms.ListBox lbURL;
         public System.Windows.Forms.ListBox lbTitle;
         private System.Windows.Forms.Label lbautoRestore;
-        private HTAlt.HTSwitch hsAutoRestore;
+        private HTAlt.WinForms.HTSwitch hsAutoRestore;
         private System.Windows.Forms.TabPage tpCollection;
         private System.Windows.Forms.Panel panel3;
-        public HTAlt.HTButton btClose9;
+        public HTAlt.WinForms.HTButton btClose9;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ToolStripMenuItem tsCollections;
         private System.Windows.Forms.ToolStripMenuItem tsChangeTitleBack;
@@ -3926,21 +3926,21 @@ namespace Korot
         private System.Windows.Forms.Label scheduleTo;
         private System.Windows.Forms.Label lbSchedule;
         private System.Windows.Forms.Label lbSilentMode;
-        private HTAlt.HTSwitch hsSchedule;
-        private HTAlt.HTSwitch hsSilent;
+        private HTAlt.WinForms.HTSwitch hsSchedule;
+        private HTAlt.WinForms.HTSwitch hsSilent;
         private System.Windows.Forms.Label lbPlayNotifSound;
-        private HTAlt.HTSwitch hsNotificationSound;
-        public HTAlt.HTButton btClose3;
+        private HTAlt.WinForms.HTSwitch hsNotificationSound;
+        public HTAlt.WinForms.HTButton btClose3;
         private System.Windows.Forms.Label lbNotifSetting;
-        private HTAlt.HTButton btAllowList;
-        private HTAlt.HTButton btBlockList;
+        private HTAlt.WinForms.HTButton btAllowList;
+        private HTAlt.WinForms.HTButton btBlockList;
         private System.Windows.Forms.TabPage tpNAllow;
         private System.Windows.Forms.TabPage tpNBlock;
         private System.Windows.Forms.ListBox lbAllow;
-        public HTAlt.HTButton btClose5;
+        public HTAlt.WinForms.HTButton btClose5;
         private System.Windows.Forms.Label lbNotifAllow;
         private System.Windows.Forms.ListBox lbBlock;
-        public HTAlt.HTButton btClose4;
+        public HTAlt.WinForms.HTButton btClose4;
         private System.Windows.Forms.Label lbNotifBlock;
         private System.Windows.Forms.ContextMenuStrip cmsAllow;
         private System.Windows.Forms.ToolStripMenuItem allowRS;
@@ -3950,15 +3950,15 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem blockRS;
         private System.Windows.Forms.ToolStripMenuItem blockAllowSel;
         private System.Windows.Forms.ToolStripMenuItem blockClear;
-        private HTAlt.HTButton btNotification;
+        private HTAlt.WinForms.HTButton btNotification;
         private System.Windows.Forms.Label lb24HType;
-        public HTAlt.HTButton btNotifBack;
-        public HTAlt.HTButton btNBlockBack;
-        public HTAlt.HTButton btNotifAllowBack;
-        public HTAlt.HTButton btCookieBack;
+        public HTAlt.WinForms.HTButton btNotifBack;
+        public HTAlt.WinForms.HTButton btNBlockBack;
+        public HTAlt.WinForms.HTButton btNotifAllowBack;
+        public HTAlt.WinForms.HTButton btCookieBack;
         private System.Windows.Forms.ToolStripMenuItem MuteTS;
-        public HTAlt.HTButton button10;
-        private HTAlt.HTButton button12;
+        public HTAlt.WinForms.HTButton button10;
+        private HTAlt.WinForms.HTButton button12;
         private System.Windows.Forms.Timer timer1;
     }
 }

@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNotificationPermission));
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new HTAlt.HTButton();
-            this.button2 = new HTAlt.HTButton();
+            this.button1 = new HTAlt.WinForms.HTButton();
+            this.button2 = new HTAlt.WinForms.HTButton();
             this.label2 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -189,8 +189,8 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private HTAlt.HTButton button1;
-        private HTAlt.HTButton button2;
+        private HTAlt.WinForms.HTButton button1;
+        private HTAlt.WinForms.HTButton button2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Timer timer1;

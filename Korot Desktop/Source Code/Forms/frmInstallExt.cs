@@ -82,7 +82,7 @@ namespace Korot
                 if (!silentInstall)
                 {
                     label3.Invoke(new Action(() => label3.Text = ext));
-                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText + "\\";
+                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText(12) + "\\";
                     if (Directory.Exists(tempFolder))
                     {
                         Directory.Delete(tempFolder, true);
@@ -104,7 +104,7 @@ namespace Korot
                 else
                 {
                     label3.Invoke(new Action(() => label3.Text = ext));
-                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText + "\\";
+                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText(12) + "\\";
                     if (Directory.Exists(tempFolder))
                     {
                         Directory.Delete(tempFolder, true);
@@ -531,6 +531,7 @@ namespace Korot
                 Invoke(new Action(() => button3Mode(true)));
                 panel2.Invoke(new Action(() => panel2.Visible = false));
                 pbStatus.Invoke(new Action(() => pbStatus.Width = 300));
+                Directory.Delete(new FileInfo(ExtFile).DirectoryName, true);
                 Properties.Settings.Default.registeredExtensions.Add(extCodeName);
                 Properties.Settings.Default.Save();
                 if (silentInstall)

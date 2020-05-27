@@ -20,6 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using CefSharp;
+using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,7 +36,7 @@ using Win32Interop.Enums;
 namespace Korot
 {
 
-    public partial class frmMain : TitleBarTabs
+    public partial class frmMain : HTAlt.WinForms.HTTitleTabs
     {
         private MyJumplist list;
         public bool isPreRelease = false;
@@ -47,18 +48,18 @@ namespace Korot
         public Collection<frmCEF> NotifListeners { get => notifListeners; set => notifListeners = value; }
 
         public bool isIncognito = false;
-        public KorotTabRenderer tabRenderer;
+        public HTTabRenderer tabRenderer;
         public CollectionManager colman;
-        public TitleBarTab settingTab = null;
-        public TitleBarTab themeTab = null;
-        public TitleBarTab historyTab = null;
-        public TitleBarTab downloadTab = null;
-        public TitleBarTab aboutTab = null;
-        public TitleBarTab cookieTab = null;
-        public TitleBarTab collectionTab = null;
-        public TitleBarTab nallowTab = null;
-        public TitleBarTab nblockTab = null;
-        public TitleBarTab notificationTab = null;
+        public HTTitleTab settingTab = null;
+        public HTTitleTab themeTab = null;
+        public HTTitleTab historyTab = null;
+        public HTTitleTab downloadTab = null;
+        public HTTitleTab aboutTab = null;
+        public HTTitleTab cookieTab = null;
+        public HTTitleTab collectionTab = null;
+        public HTTitleTab nallowTab = null;
+        public HTTitleTab nblockTab = null;
+        public HTTitleTab notificationTab = null;
 
         #region Notificatin Listener
         private string closeKorotMessage = "Do you want to close Korot?";
@@ -94,7 +95,7 @@ namespace Korot
                 ToolStripMenuItem tsItem = new ToolStripMenuItem();
                 tsItem.Text = x.Text;
                 tsItem.Tag = x;
-                tsItem.Name = HTAlt.Tools.GenerateRandomText;
+                tsItem.Name = HTAlt.Tools.GenerateRandomText(12);
                 tsItem.Click += closeNL_Click;
                 cmsNL.Items.Add(tsItem);
             }
@@ -143,9 +144,9 @@ namespace Korot
         }
         private void closeall_Click(object sender, EventArgs e)
         {
-            HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox("Korot",
+            HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot",
                                                       closeAllMessage,
-                                                      MessageBoxButtons.YesNoCancel) 
+                                                      new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true }) 
             { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diares = mesaj.ShowDialog();
             if (diares == DialogResult.Yes)
@@ -161,9 +162,9 @@ namespace Korot
         }
         private void closekorot_Click(object sender, EventArgs e)
         {
-            HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox("Korot",
+            HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot",
                                                       closeKorotMessage,
-                                                      MessageBoxButtons.YesNoCancel)
+                                                      new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
             { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diares = mesaj.ShowDialog();
             if (diares == DialogResult.Yes)
@@ -175,7 +176,7 @@ namespace Korot
         public frmMain()
         {
             AeroPeekEnabled = true;
-            tabRenderer = new KorotTabRenderer(this, Color.Black, Color.White, Color.DodgerBlue, null, false);
+            tabRenderer = new HTTabRenderer(this);
             TabRenderer = tabRenderer;
             Icon = Properties.Resources.KorotIcon;
             InitializeComponent();
@@ -350,7 +351,7 @@ namespace Korot
                 }
                 cefform.lbURL.SelectedIndex = Convert.ToInt32(node.Attributes["Index"].Value);
                 cefform.lbTitle.SelectedIndex = Convert.ToInt32(node.Attributes["Index"].Value);
-                TitleBarTab tab = new TitleBarTab(this)
+                HTTitleTab tab = new HTTitleTab(this)
                 {
                     Content = cefform
                 };
@@ -372,7 +373,7 @@ namespace Korot
         public void WriteCurrentSession()
         {
             string CurrentSessionURIs = "[root]";
-            foreach (TitleBarTab x in Tabs)
+            foreach (HTTitleTab x in Tabs)
             {
                 frmCEF cefform = (frmCEF)x.Content;
                 string text = "";
@@ -394,13 +395,13 @@ namespace Korot
             WriteSessions(CurrentSessionURIs);
         }
         public bool closing = false;
-        public void CreateTab(TitleBarTab referenceTab, string url = "korot://newtab")
+        public void CreateTab(HTTitleTab referenceTab, string url = "korot://newtab")
         {
             if (!Directory.Exists(profilePath) && profilePath != null) { Directory.CreateDirectory(profilePath); }
-            TitleBarTab newTab = new TitleBarTab(this)
+            HTTitleTab newTab = new HTTitleTab(this)
             {
                 BackColor = referenceTab.BackColor,
-                useDefaultBackColor = referenceTab.useDefaultBackColor,
+                UseDefaultBackColor = referenceTab.UseDefaultBackColor,
                 Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, }
             };
             Tabs.Insert(Tabs.IndexOf(referenceTab) + 1, newTab);
@@ -410,22 +411,22 @@ namespace Korot
         public void CreateTab(string url = "korot://newtab")
         {
             if (!Directory.Exists(profilePath) && profilePath != null) { Directory.CreateDirectory(profilePath); }
-            TitleBarTab newTab = new TitleBarTab(this)
+            HTTitleTab newTab = new HTTitleTab(this)
             {
                 BackColor = Properties.Settings.Default.BackColor,
-                useDefaultBackColor = true,
+                UseDefaultBackColor = true,
                 Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, }
             };
             Tabs.Add(newTab);
             SelectedTabIndex = Tabs.Count - 1;
         }
-        public override TitleBarTab CreateTab()
+        public override HTTitleTab CreateTab()
         {
             if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
-            return new TitleBarTab(this)
+            return new HTTitleTab(this)
             {
                 BackColor = Properties.Settings.Default.BackColor,
-                useDefaultBackColor = true,
+                UseDefaultBackColor = true,
                 Content = new frmCEF(isIncognito, "korot://newtab", Properties.Settings.Default.LastUser) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, }
             };
         }
@@ -493,7 +494,7 @@ namespace Korot
                 else
                 {
                     Korot.Properties.Settings.Default.LastSessionURIs = "[root]";
-                    foreach (TitleBarTab x in Tabs)
+                    foreach (HTTitleTab x in Tabs)
                     {
                         frmCEF cefform = (frmCEF)x.Content;
                         string text = "";
@@ -531,7 +532,7 @@ namespace Korot
 
         private void frmMain_Resize(object sender, EventArgs e)
         {
-            foreach (TitleBarTab x in Tabs)
+            foreach (HTTitleTab x in Tabs)
             {
                 ((frmCEF)x.Content).Invoke(new Action(() => ((frmCEF)x.Content).FrmCEF_SizeChanged(null, null)));
             }

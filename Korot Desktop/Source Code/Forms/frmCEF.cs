@@ -21,6 +21,7 @@
 //SOFTWARE.
 using CefSharp;
 using CefSharp.WinForms;
+using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -544,7 +545,7 @@ namespace Korot
         {
             if (listBox2.SelectedItem != null)
             {
-                HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox("Korot", listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, MessageBoxButtons.YesNoCancel) {StartPosition = FormStartPosition.CenterParent,Yes = Yes,No = No,OK = OK, Cancel = Cancel,BackgroundColor = Properties.Settings.Default.BackColor,Icon= Icon };
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true }) {StartPosition = FormStartPosition.CenterParent,Yes = Yes,No = No,OK = OK, Cancel = Cancel,BackgroundColor = Properties.Settings.Default.BackColor,Icon= Icon };
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
                     LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\" + listBox2.SelectedItem.ToString());
@@ -777,7 +778,7 @@ namespace Korot
                 if (!Properties.Settings.Default.disableLangErrors && !NotificationListenerMode)
                 {
                     Properties.Settings.Default.disableLangErrors = true;
-                    HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox("Korot", "This language file is made for an older version of Korot. This can cause some problems. Do you wish to proceed?", MessageBoxButtons.YesNoCancel) { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
+                    HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", "This language file is made for an older version of Korot. This can cause some problems. Do you wish to proceed?", new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true }) { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                     if (mesaj.ShowDialog() != DialogResult.Yes)
                     {
                         return;
@@ -1154,7 +1155,7 @@ namespace Korot
             }
             else
             {
-                HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(ErrorPageTitle, "This file does not suitable for this version of Korot.Please ask the creator of this language to update." + Environment.NewLine + " Error : Missing Line" + "[ Line Count: " + SF.Length + "]", MessageBoxButtons.OK) { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(ErrorPageTitle, "This file does not suitable for this version of Korot.Please ask the creator of this language to update." + Environment.NewLine + " Error : Missing Line" + "[ Line Count: " + SF.Length + "]", new HTAlt.WinForms.HTDialogBoxContext() { OK = true}) { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                 DialogResult diyalog = mesaj.ShowDialog();
                 Output.WriteLine(" [KOROT] Error at applying a language file : [ Line Count: " + SF.Length + "]");
             }
@@ -1172,7 +1173,7 @@ namespace Korot
         #endregion
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox inputb = new HTAlt.HTInputBox(customSearchNote, customSearchMessage, Properties.Settings.Default.SearchURL) { Icon = Icon, SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = OK,Cancel = Cancel,BackgroundColor = Properties.Settings.Default.BackColor};
+            HTAlt.WinForms.HTInputBox inputb = new HTAlt.WinForms.HTInputBox(customSearchNote, customSearchMessage, Properties.Settings.Default.SearchURL) { Icon = Icon, SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = OK,Cancel = Cancel,BackgroundColor = Properties.Settings.Default.BackColor};
             DialogResult diagres = inputb.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -1401,7 +1402,7 @@ namespace Korot
         }
         private void FromURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox inputbox = new HTAlt.HTInputBox("Korot",
+            HTAlt.WinForms.HTInputBox inputbox = new HTAlt.WinForms.HTInputBox("Korot",
                                                                                             enterAValidCode,
                                                                                             "")
             { Icon = Icon, SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
@@ -1743,9 +1744,9 @@ namespace Korot
                 {
                     Tools.createThemes();
                 }
-                HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(ErrorPageTitle,
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(ErrorPageTitle,
                                                                                           ErrorTheme,
-                                                                                          MessageBoxButtons.OK)
+                                                                                          new HTAlt.WinForms.HTDialogBoxContext() { OK = true})
                 { StartPosition = FormStartPosition.CenterParent,Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
 
                 DialogResult diyalog = mesaj.ShowDialog();
@@ -1863,10 +1864,10 @@ namespace Korot
                         lbUpdateStatus.Text = updateavailable;
                         btInstall.Visible = true;
                         btUpdater.Visible = true;
-                        HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(
+                        HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
                             updateTitle,
                             updateMessage,
-                            MessageBoxButtons.YesNo)
+                            new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true })
                         { StartPosition = FormStartPosition.CenterParent,Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                         DialogResult diagres = mesaj.ShowDialog();
                         if (diagres == DialogResult.Yes)
@@ -1904,10 +1905,10 @@ namespace Korot
                             lbUpdateStatus.Text = updateavailable;
                             btInstall.Visible = true;
                             btUpdater.Visible = true;
-                            HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(
+                            HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
                                 updateTitle,
                                 updateMessage,
-                                MessageBoxButtons.YesNo)
+                                new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true })
                             { StartPosition = FormStartPosition.CenterParent,Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                             DialogResult diagres = mesaj.ShowDialog();
                             if (diagres == DialogResult.Yes)
@@ -1947,10 +1948,10 @@ namespace Korot
                         lbUpdateStatus.Text = updateavailable;
                         btInstall.Visible = true;
                         btUpdater.Visible = true;
-                        HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(
+                        HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
                             updateTitle,
                             updateMessage,
-                            MessageBoxButtons.YesNo)
+                            new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true })
                         { StartPosition = FormStartPosition.CenterParent,Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                         DialogResult diagres = mesaj.ShowDialog();
                         if (diagres == DialogResult.Yes)
@@ -1979,13 +1980,13 @@ namespace Korot
                 }
             }
         }
-        public TitleBarTabs ParentTabs => (ParentForm as TitleBarTabs);
-        public TitleBarTab ParentTab
+        public HTTitleTabs ParentTabs => (ParentForm as HTTitleTabs);
+        public HTTitleTab ParentTab
         {
             get
             {
                 List<int> tabIndexes = new List<int>();
-                foreach (TitleBarTab x in ParentTabs.Tabs)
+                foreach (HTTitleTab x in ParentTabs.Tabs)
                 {
                     if (x.Content == this) { tabIndexes.Add(ParentTabs.Tabs.IndexOf(x)); }
                 }
@@ -2275,7 +2276,7 @@ namespace Korot
         {
             if (!NotificationListenerMode)
             {
-                HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(JSAlert.Replace("[TITLE]", Text).Replace("[URL]", url), message, System.Windows.Forms.MessageBoxButtons.OKCancel)
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(JSAlert.Replace("[TITLE]", Text).Replace("[URL]", url), message, new HTAlt.WinForms.HTDialogBoxContext() { OK = true, Cancel = true })
                 { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                 mesaj.ShowDialog();
                 return true;
@@ -2288,7 +2289,7 @@ namespace Korot
         {
             if (!NotificationListenerMode)
             {
-                HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(JSConfirm.Replace("[TITLE]", Text).Replace("[URL]", url), message, System.Windows.Forms.MessageBoxButtons.OKCancel)
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(JSConfirm.Replace("[TITLE]", Text).Replace("[URL]", url), message, new HTAlt.WinForms.HTDialogBoxContext() { OK = true, Cancel = true })
             { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
             if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
             return true;
@@ -2301,7 +2302,7 @@ namespace Korot
         {
             if (!NotificationListenerMode)
             {
-                HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox(url, message, defaultValue)
+                HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox(url, message, defaultValue)
                 { SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, Icon = Icon, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
                 if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
                 textresult = mesaj.TextValue;
@@ -2561,14 +2562,17 @@ namespace Korot
         private void cef_AddressChanged(object sender, AddressChangedEventArgs e)
         {
             Invoke(new Action(() => tbAddress.Text = e.Address));
-            if (isPageFavorited(chromiumWebBrowser1.Address))
+            Invoke(new Action(() =>
             {
-                btFav.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on;
-            }
-            else
-            {
-                btFav.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
-            }
+                if (isPageFavorited(chromiumWebBrowser1.Address))
+                {
+                    btFav.ButtonImage = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on;
+                }
+                else
+                {
+                    btFav.ButtonImage = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
+                }
+            }));
             if (!ValidHttpURL(e.Address))
             {
                 chromiumWebBrowser1.Load(Properties.Settings.Default.SearchURL + e.Address);
@@ -2868,8 +2872,11 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             if (anaform != null)
             {
-                anaform.tabRenderer.ChangeColors(Properties.Settings.Default.BackColor, HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White, Properties.Settings.Default.OverlayColor);
-                anaform.Update();
+                if (anaform.tabRenderer != null)
+                {
+                    anaform.tabRenderer.ApplyColors(Properties.Settings.Default.BackColor, HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White, Properties.Settings.Default.OverlayColor, Properties.Settings.Default.BackColor);
+                    anaform.Update();
+                }
             }
             if (Properties.Settings.Default.OverlayColor != oldOverlayColor)
             {
@@ -2927,31 +2934,31 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 lbSettings.BackColor = Color.Transparent;
                 lbSettings.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvDownload.BackColor = Properties.Settings.Default.BackColor;
-                hlvDownload.HeaderBackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                hlvDownload.HeaderBackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 hlvDownload.HeaderForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hlvHistory.BackColor = Properties.Settings.Default.BackColor;
-                pbPrivacy.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                tbAddress.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                pbIncognito.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                pbPrivacy.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                tbAddress.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                pbIncognito.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
 
-                lbAllow.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                lbAllow.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 lbAllow.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
-                lbBlock.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                lbBlock.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 lbBlock.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
-                fromHour.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                fromHour.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 fromHour.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
-                fromMin.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                fromMin.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 fromMin.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
-                toHour.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                toHour.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 toHour.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
-                toMin.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                toMin.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 toMin.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
-                btAllowList.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                btAllowList.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 btAllowList.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
-                btBlockList.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                btBlockList.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 btBlockList.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
 
-                hlvHistory.HeaderBackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                hlvHistory.HeaderBackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 hlvHistory.HeaderForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 cmsDownload.BackColor = Properties.Settings.Default.BackColor;
                 cmsHistory.BackColor = Properties.Settings.Default.BackColor;
@@ -2967,78 +2974,78 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 hlvDownload.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 cbLang.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 hsNotificationSound.BackColor = Properties.Settings.Default.BackColor;
-                hsNotificationSound.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
-                hsNotificationSound.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
-                hsNotificationSound.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+                hsNotificationSound.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false), false);
+                hsNotificationSound.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false), false);
+                hsNotificationSound.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 60, false), false);
                 hsSilent.BackColor = Properties.Settings.Default.BackColor;
-                hsSilent.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
-                hsSilent.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
-                hsSilent.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+                hsSilent.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false), false);
+                hsSilent.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false), false);
+                hsSilent.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 60, false), false);
                 hsSchedule.BackColor = Properties.Settings.Default.BackColor;
-                hsSchedule.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
-                hsSchedule.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
-                hsSchedule.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+                hsSchedule.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false), false);
+                hsSchedule.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false), false);
+                hsSchedule.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 60, false), false);
                 hsAutoRestore.BackColor = Properties.Settings.Default.BackColor;
-                hsAutoRestore.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
-                hsAutoRestore.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
-                hsAutoRestore.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+                hsAutoRestore.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false), false);
+                hsAutoRestore.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false), false);
+                hsAutoRestore.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 60, false), false);
                 hsDownload.BackColor = Properties.Settings.Default.BackColor;
-                hsDownload.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
-                hsDownload.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
-                hsDownload.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+                hsDownload.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false), false);
+                hsDownload.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false), false);
+                hsDownload.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 60, false), false);
                 hsDoNotTrack.BackColor = Properties.Settings.Default.BackColor;
-                hsDoNotTrack.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
-                hsDoNotTrack.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
-                hsDoNotTrack.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+                hsDoNotTrack.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false), false);
+                hsDoNotTrack.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false), false);
+                hsDoNotTrack.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 60, false), false);
                 hsProxy.BackColor = Properties.Settings.Default.BackColor;
-                hsProxy.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
-                hsProxy.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
-                hsProxy.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+                hsProxy.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false), false);
+                hsProxy.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false), false);
+                hsProxy.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 60, false), false);
                 hsUnknown.BackColor = Properties.Settings.Default.BackColor;
-                hsUnknown.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
-                hsUnknown.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
-                hsUnknown.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+                hsUnknown.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false), false);
+                hsUnknown.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false), false);
+                hsUnknown.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 60, false), false);
                 hsFav.BackColor = Properties.Settings.Default.BackColor;
-                hsFav.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
-                hsFav.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
-                hsFav.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+                hsFav.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false), false);
+                hsFav.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false), false);
+                hsFav.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 60, false), false);
                 hsOpen.BackColor = Properties.Settings.Default.BackColor;
-                hsOpen.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false), false);
-                hsOpen.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 40, false), false);
-                hsOpen.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 60, false), false);
+                hsOpen.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false), false);
+                hsOpen.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false), false);
+                hsOpen.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 60, false), false);
                 hlvHistory.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 cbLang.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 cmsHistory.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 cmsSearchEngine.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
-                listBox2.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                comboBox1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                lbCookie.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                btCookie.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                btInstall.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                btUpdater.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                tbHomepage.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                btCleanLog.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                tbFolder.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                tbStartup.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                listBox2.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                comboBox1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                lbCookie.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                btCookie.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                btInstall.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                btUpdater.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                tbHomepage.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                btCleanLog.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                tbFolder.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                tbStartup.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 cmsStartup.BackColor = Properties.Settings.Default.BackColor;
                 cmsStartup.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 tbFolder.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
                 tbStartup.ForeColor = !HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.White : Color.Black;
-                lbURinfo.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                btReset.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                btDownloadFolder.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                button12.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                tbSearchEngine.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                btNotification.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                lbURinfo.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                btReset.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                btDownloadFolder.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                button12.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                tbSearchEngine.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                btNotification.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 btNotification.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                panel1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                panel1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 panel1.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
-                button10.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                tbHomepage.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                tbSearchEngine.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                cbLang.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                cbLang.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
-                toolStripTextBox1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                button10.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                tbHomepage.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                tbSearchEngine.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                cbLang.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                cbLang.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
+                toolStripTextBox1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 flpLayout.BackColor = Properties.Settings.Default.BackColor;
                 flpLayout.ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) > 130 ? Color.Black : Color.White;
                 flpNewTab.BackColor = Properties.Settings.Default.BackColor;
@@ -4214,7 +4221,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void showAWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox inputb = new HTAlt.HTInputBox("Korot", enterAValidUrl, Properties.Settings.Default.SearchURL) { Icon = Icon, SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            HTAlt.WinForms.HTInputBox inputb = new HTAlt.WinForms.HTInputBox("Korot", enterAValidUrl, Properties.Settings.Default.SearchURL) { Icon = Icon, SetToDefault = SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
             DialogResult diagres = inputb.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -4237,8 +4244,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void button18_Click(object sender, EventArgs e)
         {
-            HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox("Korot", resetConfirm,
-                                                                                      MessageBoxButtons.YesNoCancel)
+            HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", resetConfirm,
+                                                                                      new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
             { StartPosition = FormStartPosition.CenterParent,Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
             if (mesaj.ShowDialog() == DialogResult.Yes)
             {
@@ -4497,11 +4504,11 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 case DialogResult.OK:
                     ParentTab.BackColor = dialog.Color;
-                    ParentTab.useDefaultBackColor = false;
+                    ParentTab.UseDefaultBackColor = false;
                     break;
                 case DialogResult.Abort:
                     ParentTab.BackColor = BackColor;
-                    ParentTab.useDefaultBackColor = true;
+                    ParentTab.UseDefaultBackColor = true;
                     break;
             }
         }

@@ -74,7 +74,7 @@ namespace Korot
                     // Collection - ID
                     if (node.Attributes["ID"] == null)
                     {
-                        newCol.ID = HTAlt.Tools.GenerateRandomText;
+                        newCol.ID = HTAlt.Tools.GenerateRandomText(12);
                     }
                     else
                     {
@@ -98,7 +98,7 @@ namespace Korot
                             // Item - ID
                             if (subnode.Attributes["ID"] == null)
                             {
-                                item.ID = HTAlt.Tools.GenerateRandomText;
+                                item.ID = HTAlt.Tools.GenerateRandomText(12);
                             }
                             else
                             {
@@ -185,7 +185,7 @@ namespace Korot
                             // Item - ID
                             if (subnode.Attributes["ID"] == null)
                             {
-                                item.ID = HTAlt.Tools.GenerateRandomText;
+                                item.ID = HTAlt.Tools.GenerateRandomText(12);
                             }
                             else
                             {
@@ -281,7 +281,7 @@ namespace Korot
                             // Item - ID
                             if (subnode.Attributes["ID"] == null)
                             {
-                                item.ID = HTAlt.Tools.GenerateRandomText;
+                                item.ID = HTAlt.Tools.GenerateRandomText(12);
                             }
                             else
                             {
@@ -522,7 +522,7 @@ namespace Korot
                                                     // Item - ID
                     if (subnode.Attributes["ID"] == null)
                     {
-                        item.ID = HTAlt.Tools.GenerateRandomText;
+                        item.ID = HTAlt.Tools.GenerateRandomText(12);
                     }
                     else
                     {
@@ -609,7 +609,7 @@ namespace Korot
                                                     // Item - ID
                     if (subnode.Attributes["ID"] == null)
                     {
-                        item.ID = HTAlt.Tools.GenerateRandomText;
+                        item.ID = HTAlt.Tools.GenerateRandomText(12);
                     }
                     else
                     {
@@ -705,7 +705,7 @@ namespace Korot
                                                       // Item - ID
                     if (subnode.Attributes["ID"] == null)
                     {
-                        item.ID = HTAlt.Tools.GenerateRandomText;
+                        item.ID = HTAlt.Tools.GenerateRandomText(12);
                     }
                     else
                     {
@@ -771,7 +771,7 @@ namespace Korot
                                                 // Item - ID
                 if (subnode.Attributes["ID"] == null)
                 {
-                    item.ID = HTAlt.Tools.GenerateRandomText;
+                    item.ID = HTAlt.Tools.GenerateRandomText(12);
                 }
                 else
                 {
@@ -858,7 +858,7 @@ namespace Korot
                                                 // Item - ID
                 if (subnode.Attributes["ID"] == null)
                 {
-                    item.ID = HTAlt.Tools.GenerateRandomText;
+                    item.ID = HTAlt.Tools.GenerateRandomText(12);
                 }
                 else
                 {
@@ -954,7 +954,7 @@ namespace Korot
                                                   // Item - ID
                 if (subnode.Attributes["ID"] == null)
                 {
-                    item.ID = HTAlt.Tools.GenerateRandomText;
+                    item.ID = HTAlt.Tools.GenerateRandomText(12);
                 }
                 else
                 {

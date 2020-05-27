@@ -322,7 +322,7 @@ namespace Korot
             }
             foreach (Panel x in titlePanels)
             {
-                x.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+                x.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
                 x.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
             }
             foreach (Control x in defaultBackColor)
@@ -345,18 +345,18 @@ namespace Korot
             {
                 x.Image = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
             }
-            listView1.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+            listView1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
             listView1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            cmsCollection.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+            cmsCollection.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
             cmsCollection.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            cmsMain.BackColor = HTAlt.Tools.ShiftBrightnessIfNeeded(Properties.Settings.Default.BackColor, 20, false);
+            cmsMain.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
             cmsMain.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
         }
 
 
         private void newCollectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
+            HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
                                                                                           cefform.newColInfo,
                                                                                           cefform.newColName)
             { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
@@ -367,7 +367,7 @@ namespace Korot
                 {
                     Collection newCol = new Collection
                     {
-                        ID = HTAlt.Tools.GenerateRandomText,
+                        ID = HTAlt.Tools.GenerateRandomText(12),
                         Text = mesaj.TextValue
                     };
                     cefform.colManager.Collections.Add(newCol);
@@ -379,7 +379,7 @@ namespace Korot
 
         private void ımportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
+            HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
                                                                                           cefform.importColInfo,
                                                                                           "[collection][/collection]")
             { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
@@ -400,10 +400,10 @@ namespace Korot
         {
             if (listView1.SelectedItems.Count > 0)
             {
-                HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
                     "Korot",
                     cefform.delColInfo.Replace("$", listView1.SelectedItems[0].Text),
-                    MessageBoxButtons.YesNoCancel)
+                    new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
                 { Yes = cefform.Yes, No = cefform.No, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = cefform.anaform.Icon };
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
@@ -415,10 +415,10 @@ namespace Korot
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTMsgBox mesaj = new HTAlt.HTMsgBox(
+            HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
                 "Korot",
                 cefform.clearColInfo,
-                MessageBoxButtons.YesNoCancel)
+                new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
             { Yes = cefform.Yes, No = cefform.No, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = cefform.anaform.Icon };
             if (mesaj.ShowDialog() == DialogResult.Yes)
             {
@@ -429,7 +429,7 @@ namespace Korot
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
+            HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
                                                                               cefform.okToClipboard,
                                                                               listView1.SelectedItems[0].ToolTipText)
             { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
@@ -455,7 +455,7 @@ namespace Korot
         }
         private void exportThisİtemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
+            HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
                                                       cefform.okToClipboard,
                                                       ((Control)ıTEMToolStripMenuItem.Tag).Tag.ToString())
             { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
@@ -485,7 +485,7 @@ namespace Korot
 
         private void ımportİtemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
+            HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
                                                                                          cefform.importColItemInfo,
                                                                                          "")
             { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };;
@@ -503,7 +503,7 @@ namespace Korot
 
         private void changeCollectionIDToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
+            HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
                                                                                          cefform.changeColIDInfo,
                                                                                          cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID)
             { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
@@ -521,7 +521,7 @@ namespace Korot
 
         private void changeCollectionTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HTAlt.HTInputBox mesaj = new HTAlt.HTInputBox("Korot",
+            HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
                                                                              cefform.changeColTextInfo,
                                                                              cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text)
             { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };

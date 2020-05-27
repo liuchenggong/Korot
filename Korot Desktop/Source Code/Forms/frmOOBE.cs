@@ -228,12 +228,12 @@ namespace Korot
             Process.Start(Application.ExecutablePath);
             Application.Exit();
         }
-
+        
         private void frmOOBE_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!allowClose)
             {
-                HTAlt.HTMsgBox msgBox = new HTAlt.HTMsgBox(Text, closeMessage, MessageBoxButtons.YesNo) { Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
+                HTAlt.WinForms.HTMsgBox msgBox = new HTAlt.WinForms.HTMsgBox(Text, closeMessage, new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true }) { Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
                 if (msgBox.ShowDialog() == DialogResult.Yes)
                 {
                     e.Cancel = false;

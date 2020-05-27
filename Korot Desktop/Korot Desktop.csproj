@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.props" Condition="Exists('..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.props')" />
-  <Import Project="..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.props')" />
-  <Import Project="..\packages\cef.redist.x86.79.1.36\build\cef.redist.x86.props" Condition="Exists('..\packages\cef.redist.x86.79.1.36\build\cef.redist.x86.props')" />
-  <Import Project="..\packages\cef.redist.x64.79.1.36\build\cef.redist.x64.props" Condition="Exists('..\packages\cef.redist.x64.79.1.36\build\cef.redist.x64.props')" />
+  <Import Project="..\packages\CefSharp.WinForms.81.3.100\build\CefSharp.WinForms.props" Condition="Exists('..\packages\CefSharp.WinForms.81.3.100\build\CefSharp.WinForms.props')" />
+  <Import Project="..\packages\CefSharp.Common.81.3.100\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.81.3.100\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\cef.redist.x86.81.3.10\build\cef.redist.x86.props" Condition="Exists('..\packages\cef.redist.x86.81.3.10\build\cef.redist.x86.props')" />
+  <Import Project="..\packages\cef.redist.x64.81.3.10\build\cef.redist.x64.props" Condition="Exists('..\packages\cef.redist.x64.81.3.10\build\cef.redist.x64.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -90,14 +90,18 @@
     <ApplicationManifest>Source Code\Others\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HTAlt, Version=0.1.3.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HTAlt.0.1.3.2\lib\net45\HTAlt.dll</HintPath>
+    <Reference Include="CustomMarshalers" />
+    <Reference Include="HTAlt WinForms, Version=0.1.4.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HTAlt.WinForms.0.1.4.2\lib\net461\HTAlt WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    <Reference Include="HTAlt.Standart, Version=0.1.4.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HTAlt.Standart.0.1.4.2\lib\netstandard2.0\HTAlt.Standart.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.4.0, Culture=neutral, PublicKeyToken=8985beaab7ea3f04, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft-WindowsAPICodePack-Core.1.1.4\lib\net48\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.4.0, Culture=neutral, PublicKeyToken=8985beaab7ea3f04, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft-WindowsAPICodePack-Shell.1.1.4\lib\net48\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore">
       <Private>False</Private>
@@ -112,6 +116,9 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.4.7.0\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Compression">
       <Private>False</Private>
     </Reference>
@@ -124,6 +131,7 @@
     <Reference Include="System.Speech">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <Private>False</Private>
     </Reference>
@@ -169,9 +177,16 @@
     <Reference Include="WindowsBase">
       <Private>False</Private>
     </Reference>
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source Code\Filters\StreamResponseFilter.cs" />
+    <Compile Include="Source Code\Forms\frmProxyGen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmProxyGen.Designer.cs">
+      <DependentUpon>frmProxyGen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Handlers\StreamResponseFilter.cs" />
     <Compile Include="Source Code\Forms\frmChangeTBTBack.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,6 +223,12 @@
     <Compile Include="Source Code\Forms\frmInstallExt.Designer.cs">
       <DependentUpon>frmInstallExt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Forms\frmMakeExt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Forms\frmMakeExt.Designer.cs">
+      <DependentUpon>frmMakeExt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Forms\frmNewFav.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,7 +247,7 @@
     <Compile Include="Source Code\Forms\frmOOBE.Designer.cs">
       <DependentUpon>frmOOBE.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source Code\Filters\CookieAccessFilter.cs" />
+    <Compile Include="Source Code\Handlers\CookieAccessFilter.cs" />
     <Compile Include="Source Code\Forms\frmPopup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -257,32 +278,8 @@
     <Compile Include="Source Code\Others\MyJumplist.cs" />
     <Compile Include="Source Code\Others\ProfileManagement.cs" />
     <Compile Include="Source Code\Others\UACControl.cs" />
-    <Compile Include="Source Code\Tab\BaseTabRenderer.cs" />
-    <Compile Include="Source Code\Tab\DisplayType.cs" />
-    <Compile Include="Source Code\Tab\KorotTabRenderer.cs" />
-    <Compile Include="Source Code\Tab\ListItemEventArgs.cs" />
-    <Compile Include="Source Code\Tab\ListModification.cs" />
-    <Compile Include="Source Code\Tab\ListModificationEventArgs.cs" />
-    <Compile Include="Source Code\Tab\ListRangeEventArgs.cs" />
-    <Compile Include="Source Code\Tab\ListWithEvents.cs" />
-    <Compile Include="Source Code\Tab\TitleBarTab.cs" />
-    <Compile Include="Source Code\Tab\TitleBarTabCancelEventArgs.cs" />
-    <Compile Include="Source Code\Tab\TitleBarTabEventArgs.cs" />
-    <Compile Include="Source Code\Tab\TitleBarTabs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source Code\Tab\TitleBarTabs.Designer.cs">
-      <DependentUpon>TitleBarTabs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Source Code\Tab\TitleBarTabsApplicationContext.cs" />
-    <Compile Include="Source Code\Tab\TitleBarTabsOverlay.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source Code\Tab\TornTabForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source Code\Tools\CollectionManagement.cs" />
-    <Compile Include="Source Code\Tools\ConsoleOutputLog.cs" />
+    <Compile Include="Source Code\Others\CollectionManagement.cs" />
+    <Compile Include="Source Code\Others\ConsoleOutputLog.cs" />
     <Compile Include="Source Code\Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -305,13 +302,13 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Handlers\DisplayHandler.cs" />
-    <Compile Include="Source Code\Tools\GetOverallColor.cs" />
+    <Compile Include="Source Code\Others\GetOverallColor.cs" />
     <Compile Include="Source Code\Handlers\JsHandler.cs" />
     <Compile Include="Source Code\Handlers\MyDialogHandler.cs" />
     <Compile Include="Source Code\Handlers\RequestHandlerKorot.cs" />
     <Compile Include="Source Code\Handlers\SchemeHandlerFactory.cs" />
-    <Compile Include="Source Code\Tools\Taskbar.cs" />
-    <Compile Include="Source Code\Tools\ToolsHandler.cs" />
+    <Compile Include="Source Code\Others\Taskbar.cs" />
+    <Compile Include="Source Code\Others\ToolsHandler.cs" />
     <Compile Include="Source Code\Others\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source Code\Forms\frmCEF.cs">
@@ -325,8 +322,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Source Code\Tools\TakeScrenshot.cs" />
-    <Compile Include="Source Code\Tools\WindowsMessageHelper.cs" />
+    <Compile Include="Source Code\Others\TakeScrenshot.cs" />
+    <Compile Include="Source Code\Others\WindowsMessageHelper.cs" />
     <EmbeddedResource Include="Source Code\Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -362,6 +359,9 @@
     <EmbeddedResource Include="Source Code\Forms\frmCEF.resx">
       <DependentUpon>frmCEF.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmMakeExt.resx">
+      <DependentUpon>frmMakeExt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmNewFav.resx">
       <DependentUpon>frmNewFav.cs</DependentUpon>
     </EmbeddedResource>
@@ -374,15 +374,14 @@
     <EmbeddedResource Include="Source Code\Forms\frmPopup.resx">
       <DependentUpon>frmPopup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Forms\frmProxyGen.resx">
+      <DependentUpon>frmProxyGen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmUpdateExt.resx">
       <DependentUpon>frmUpdateExt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmNotificationPermission.resx">
       <DependentUpon>frmNotificationPermission.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Source Code\Tab\TitleBarTabs.resx">
-      <DependentUpon>TitleBarTabs.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
@@ -580,19 +579,19 @@
     <PropertyGroup>
       <ErrorText>Bu proje bu bilgisayarda olmayan NuGet paketlerine başvuru yapıyor. Bunları indirmek için NuGet Paket Geri Yükleme'yi kullanın. Daha fazla bilgi için, bkz. http://go.microsoft.com/fwlink/?LinkID=322105. Eksik dosya: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\cef.redist.x64.79.1.36\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.79.1.36\build\cef.redist.x64.props'))" />
-    <Error Condition="!Exists('..\packages\cef.redist.x86.79.1.36\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.79.1.36\build\cef.redist.x86.props'))" />
-    <Error Condition="!Exists('..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.props'))" />
-    <Error Condition="!Exists('..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets'))" />
-    <Error Condition="!Exists('..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.props'))" />
-    <Error Condition="!Exists('..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets'))" />
     <Error Condition="!Exists('..\packages\LargeAddressAware.1.0.4\build\LargeAddressAware.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LargeAddressAware.1.0.4\build\LargeAddressAware.targets'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x64.81.3.10\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.81.3.10\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x86.81.3.10\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.81.3.10\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.81.3.100\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.81.3.100\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.81.3.100\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.81.3.100\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.81.3.100\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.81.3.100\build\CefSharp.WinForms.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.81.3.100\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.81.3.100\build\CefSharp.WinForms.targets'))" />
   </Target>
-  <Import Project="..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets')" />
-  <Import Project="..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets')" />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\LargeAddressAware.1.0.4\build\LargeAddressAware.targets" Condition="Exists('..\packages\LargeAddressAware.1.0.4\build\LargeAddressAware.targets')" />
+  <Import Project="..\packages\CefSharp.Common.81.3.100\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.81.3.100\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\CefSharp.WinForms.81.3.100\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.81.3.100\build\CefSharp.WinForms.targets')" />
 </Project>
