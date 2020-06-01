@@ -1483,7 +1483,6 @@ namespace Korot
             this.hsUnknown.Name = "hsUnknown";
             this.hsUnknown.Size = new System.Drawing.Size(50, 18);
             this.hsUnknown.TabIndex = 10;
-            this.hsUnknown.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsUnknown_CheckedChanged);
             // 
             // hsDoNotTrack
             // 
@@ -2630,14 +2629,12 @@ namespace Korot
             this.allowSelectedToolStripMenuItem.Name = "allowSelectedToolStripMenuItem";
             this.allowSelectedToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.allowSelectedToolStripMenuItem.Text = "Allow Selected";
-            this.allowSelectedToolStripMenuItem.Click += new System.EventHandler(this.allowSelectedToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem1
             // 
             this.clearToolStripMenuItem1.Name = "clearToolStripMenuItem1";
             this.clearToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
             this.clearToolStripMenuItem1.Text = "Clear";
-            this.clearToolStripMenuItem1.Click += new System.EventHandler(this.clearToolStripMenuItem1_Click_1);
             // 
             // btClose8
             // 
@@ -3205,21 +3202,18 @@ namespace Korot
             this.allowRS.Name = "allowRS";
             this.allowRS.Size = new System.Drawing.Size(152, 22);
             this.allowRS.Text = "Remove Selected";
-            this.allowRS.Click += new System.EventHandler(this.allowRS_Click);
             // 
             // allowBlockSel
             // 
             this.allowBlockSel.Name = "allowBlockSel";
             this.allowBlockSel.Size = new System.Drawing.Size(152, 22);
             this.allowBlockSel.Text = "Block Selected";
-            this.allowBlockSel.Click += new System.EventHandler(this.allowBlockSel_Click);
             // 
             // allowClear
             // 
             this.allowClear.Name = "allowClear";
             this.allowClear.Size = new System.Drawing.Size(152, 22);
             this.allowClear.Text = "Clear";
-            this.allowClear.Click += new System.EventHandler(this.allowClear_Click);
             // 
             // btClose5
             // 
@@ -3308,14 +3302,12 @@ namespace Korot
             this.blockRS.Name = "blockRS";
             this.blockRS.Size = new System.Drawing.Size(152, 22);
             this.blockRS.Text = "Remove Selected";
-            this.blockRS.Click += new System.EventHandler(this.blockRS_Click);
             // 
             // blockAllowSel
             // 
             this.blockAllowSel.Name = "blockAllowSel";
             this.blockAllowSel.Size = new System.Drawing.Size(152, 22);
             this.blockAllowSel.Text = "Allow Selected";
-            this.blockAllowSel.Click += new System.EventHandler(this.blockAllowSel_Click);
             // 
             // blockClear
             // 

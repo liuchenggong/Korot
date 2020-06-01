@@ -260,36 +260,36 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            groupBox1.BackColor = Properties.Settings.Default.BackColor;
-            groupBox1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            groupBox2.BackColor = Properties.Settings.Default.BackColor;
-            groupBox2.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            groupBox3.BackColor = Properties.Settings.Default.BackColor;
-            groupBox3.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            groupBox4.BackColor = Properties.Settings.Default.BackColor;
-            groupBox4.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            flpProp.BackColor = Properties.Settings.Default.BackColor;
-            flpProp.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            btDone.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            btDone.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            bt3DOT.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            bt3DOT.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            tbID.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            tbID.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            tbText.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            tbText.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            tbSource.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            tbSource.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            tbFont.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            tbFont.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            nudSize.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            nudSize.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            nudW.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            nudW.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            nudH.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            nudH.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            BackColor = cefform.Settings.Theme.BackColor;
+            ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            groupBox1.BackColor = cefform.Settings.Theme.BackColor;
+            groupBox1.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            groupBox2.BackColor = cefform.Settings.Theme.BackColor;
+            groupBox2.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            groupBox3.BackColor = cefform.Settings.Theme.BackColor;
+            groupBox3.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            groupBox4.BackColor = cefform.Settings.Theme.BackColor;
+            groupBox4.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            flpProp.BackColor = cefform.Settings.Theme.BackColor;
+            flpProp.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            btDone.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            btDone.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            bt3DOT.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            bt3DOT.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            tbID.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            tbID.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            tbText.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            tbText.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            tbSource.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            tbSource.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            tbFont.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            tbFont.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            nudSize.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            nudSize.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            nudW.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            nudW.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            nudH.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            nudH.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
 
         }
 

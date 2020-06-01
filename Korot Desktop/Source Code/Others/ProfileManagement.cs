@@ -49,7 +49,7 @@ namespace Korot
         }
         public static bool NewProfile(frmCEF cefform)
         {
-            HTAlt.WinForms.HTInputBox newprof = new HTAlt.WinForms.HTInputBox("Korot", cefform.newProfileInfo + Environment.NewLine + "/ \\ : ? * |", "") { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            HTAlt.WinForms.HTInputBox newprof = new HTAlt.WinForms.HTInputBox("Korot", cefform.newProfileInfo + Environment.NewLine + "/ \\ : ? * |", "") { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
             DialogResult diagres = newprof.ShowDialog();
             if (diagres == DialogResult.OK)
             {

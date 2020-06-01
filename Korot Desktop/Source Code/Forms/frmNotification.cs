@@ -9,8 +9,6 @@ namespace Korot
 {
     public partial class frmNotification : Form
     {
-        public bool isPreRelease = false;
-        public int preVer = 0;
         private readonly frmCEF cefform;
         public Notification notification;
         public frmNotification(frmCEF _frmCEF, Notification _n)
@@ -29,7 +27,7 @@ namespace Korot
         public void PlayNotificationSound()
         {
             if (playedSound) { return; }
-            bool isw7 = Tools.getOSInfo() == "NT 6.1";
+            bool isw7 = Program.getOSInfo() == "NT 6.1";
             if (!isw7)
             {
                 bool found = false;
@@ -103,14 +101,14 @@ namespace Korot
         private void frmNotification_Load(object sender, EventArgs e)
         {
             checkSilentMode();
-            if (Properties.Settings.Default.silentAllNotifications) { Hide(); }
-            if (!Properties.Settings.Default.quietMode) { PlayNotificationSound(); }
-            lbKorot.Text = "Korot " + Application.ProductVersion.ToString() + (isPreRelease ? "-pre" + preVer : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
+            if (cefform.Settings.Notification.DoNotPlaySound) { PlayNotificationSound(); }
+            if (!cefform.Settings.Notification.QuietMode) { Hide(); }
+            lbKorot.Text = "Korot " + Application.ProductVersion.ToString() + (VersionInfo.IsPreRelease ? "-pre" + VersionInfo.PreReleaseNumber : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)") + " (" + VersionInfo.CodeName + ")";
         }
 
         private void checkSilentMode()
         {
-            if (Properties.Settings.Default.autoSilent)
+            if (cefform.Settings.Notification.AutoSilent)
             {
                 DayOfWeek wk = DateTime.Today.DayOfWeek;
                 if ((cefform.Nsunday && wk == DayOfWeek.Sunday)
@@ -129,46 +127,46 @@ namespace Korot
                     {
                         if (cefform.toH > h)
                         {
-                            Properties.Settings.Default.silentAllNotifications = true;
+                            cefform.Settings.Notification.QuietMode = true;
                         }
                         else if (cefform.toH == h)
                         {
                             if (m >= cefform.toM)
                             {
-                                Properties.Settings.Default.silentAllNotifications = true;
+                                cefform.Settings.Notification.QuietMode = true;
                             }
                             else
                             {
-                                Properties.Settings.Default.silentAllNotifications = false;
+                                cefform.Settings.Notification.QuietMode = false;
                             }
                         }
                         else
                         {
-                            Properties.Settings.Default.silentAllNotifications = false;
+                            cefform.Settings.Notification.QuietMode = false;
                         }
                     }
                     else if (cefform.fromH == h)
                     {
                         if (m >= cefform.fromM)
                         {
-                            Properties.Settings.Default.silentAllNotifications = true;
+                            cefform.Settings.Notification.QuietMode = true;
                         }
                         else
                         {
-                            Properties.Settings.Default.silentAllNotifications = false;
+                            cefform.Settings.Notification.QuietMode = false;
                         }
                     }
                     else
                     {
-                        Properties.Settings.Default.silentAllNotifications = false;
+                        cefform.Settings.Notification.QuietMode = false;
                     }
                 }
                 else
                 {
-                    Properties.Settings.Default.silentAllNotifications = false;
+                    cefform.Settings.Notification.QuietMode = false;
                 }
             }
-            if (Properties.Settings.Default.silentAllNotifications) { Properties.Settings.Default.quietMode = true; }
+            if (cefform.Settings.Notification.Silent) { cefform.Settings.Notification.QuietMode = true; }
         }
 
         private void lbClose_Click(object sender, EventArgs e)
@@ -188,20 +186,20 @@ namespace Korot
             lbTitle.Text = notification.title;
             lbMessage.Text = notification.message;
             checkSilentMode();
-            if (Properties.Settings.Default.silentAllNotifications) { Hide(); } else { Show(); }
-            if (!Properties.Settings.Default.quietMode) { PlayNotificationSound(); }
+            if (cefform.Settings.Notification.QuietMode) { Hide(); } else { Show(); }
+            if (!cefform.Settings.Notification.QuietMode) { PlayNotificationSound(); }
             Rectangle screenSize = Screen.GetWorkingArea(this);
             int pointX = screenSize.Width - (Width + 10);
             int pointY = screenSize.Height - ((cefform.anaform.notifications.IndexOf(this) + 1)
                 *
                 (Height + 10));
             Location = new Point(pointX, pointY);
-            BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            pUp.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            pDown.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            pLeft.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            pRight.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            BackColor = cefform.Settings.Theme.BackColor;
+            ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            pUp.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            pDown.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            pLeft.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            pRight.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
         }
     }
     public class Notification

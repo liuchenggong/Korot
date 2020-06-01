@@ -32,23 +32,36 @@ namespace Korot
 {
     public partial class frmUpdateExt : Form
     {
+        public Settings Settings;
         public bool isTheme = false;
         private readonly WebClient webC = new WebClient();
         private readonly string extKEM;
         private Version currentVersion;
         private string fileLocation;
         private string fileURL;
+        public string info = "Updating [NAME]..." + Environment.NewLine +  "Please wait...";
         public string infoTemp = "[PERC]% | [CURRENT] KiB downloaded out of [TOTAL] KiB.";
-        public frmUpdateExt(string manifest, bool theme)
+        public frmUpdateExt(string manifest, bool theme,Settings settings)
         {
+            Settings = settings;
             isTheme = theme;
             extKEM = manifest;
             InitializeComponent();
+            Lang();
             webC.DownloadStringCompleted += webC_DownloadStringComplete;
             foreach (Control x in Controls)
             {
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
+        }
+        private void Lang()
+        {
+            string Playlist = HTAlt.Tools.ReadFile(Settings.LanguageFile, Encoding.UTF8);
+            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
+            string[] SplittedFase = Playlist.Split(token);
+            Text = SplittedFase[259].Substring(1).Replace(Environment.NewLine, "");
+            info = SplittedFase[260].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]",Environment.NewLine);
+            infoTemp = SplittedFase[94].Substring(1).Replace(Environment.NewLine, "");
         }
 
         private readonly string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\";
@@ -61,9 +74,11 @@ namespace Korot
             currentVersion = new Version(SplittedFase[1].Substring(1).Replace(Environment.NewLine, ""));
             string extName = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
             string extAuthor = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
-            fileURL = "https://haltroy.com/store/Korot/Extensions/" + extAuthor + "." + extName + "/" + extAuthor + "." + extName + ".kef";
+            string codeName = extAuthor + "." + extName;
+            label1.Text = info.Replace("[NAME]", codeName);
+            fileURL = "https://haltroy.com/store/item/" + codeName + "/" + codeName + ".kef";
             fileLocation = tempPath + HTAlt.Tools.GenerateRandomText(12) + "\\" + extAuthor + "." + extName + ".kef";
-            verLocation = "https://haltroy.com/store/Korot/Extensions/" + extAuthor + "." + extName + "/ver.txt";
+            verLocation = "https://haltroy.com/store/item/" + extAuthor + "." + extName + "/.htupdate";
             downloadString();
         }
 
@@ -77,14 +92,15 @@ namespace Korot
             currentVersion = new Version(SplittedFase[1].Substring(1).Replace(Environment.NewLine, ""));
             string extName = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
             string extAuthor = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
-            fileURL = "https://haltroy.com/store/Korot/Themes/" + extAuthor + "." + extName + "/" + extAuthor + "." + extName + ".ktf";
+            string codeName = extAuthor + "." + extName;
+            label1.Text = info.Replace("[NAME]", codeName);
+            fileURL = "https://haltroy.com/store/item/" + codeName + "/" + codeName + ".ktf";
             fileLocation = tempPath + HTAlt.Tools.GenerateRandomText(12) + "\\" + extAuthor + "." + extName + ".ktf";
-            verLocation = "https://haltroy.com/store/Korot/Themes/" + extAuthor + "." + extName + "/ver.txt";
+            verLocation = "https://haltroy.com/store/item/" + codeName + "/.htupdate";
             downloadString();
         }
         private void frmUpdateExt_Load(object sender, EventArgs e)
         {
-
             Hide();
             if (!isTheme) { readKEM(); } else { readKTF(); }
         }
@@ -134,7 +150,7 @@ namespace Korot
             else
             {
                 webC.Dispose();
-                frmInstallExt installExt = new frmInstallExt(fileLocation, true);
+                frmInstallExt installExt = new frmInstallExt(Settings,fileLocation, true);
                 installExt.ShowDialog();
                 Directory.Delete(new FileInfo(fileLocation).DirectoryName,true);
                 Close();
@@ -149,10 +165,10 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            htProgressBar1.BarColor = Properties.Settings.Default.OverlayColor;
-            htProgressBar1.BackColor = Properties.Settings.Default.BackColor;
+            BackColor = Settings.Theme.BackColor;
+            ForeColor = HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.Black : Color.White;
+            htProgressBar1.BarColor = Settings.Theme.BackColor;
+            htProgressBar1.BackColor = Settings.Theme.BackColor;
         }
     }
 }

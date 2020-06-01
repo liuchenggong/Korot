@@ -51,101 +51,72 @@ namespace Korot
         public void LoadDynamicMenu()
         {
             treeView1.Nodes.Clear();
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Favorites))
+            TreeNode rootNode = new TreeNode
             {
-                MemoryStream stream = new MemoryStream();
-                StreamWriter writer = new StreamWriter(stream);
-                writer.Write(Properties.Settings.Default.Favorites.Replace("[", "<").Replace("]", ">"));
-                writer.Flush();
-                stream.Position = 0;
-                XmlDocument document = new XmlDocument();
-                document.Load(stream);
+                Name = "root",
+                Text = "Root",
+                ToolTipText = "korot://root"
+            };
+            treeView1.Nodes.Add(rootNode);
 
-                XmlElement element = document.DocumentElement;
-                TreeNode rootNode = new TreeNode
+            foreach (Folder folder in Cefform.Settings.Favorites.Favorites)
+            {
+                if (folder is Favorite)
                 {
-                    Name = "root",
-                    Text = "Root",
-                    ToolTipText = "korot://root"
-                };
-                treeView1.Nodes.Add(rootNode);
-
-                foreach (XmlNode node in document.FirstChild.ChildNodes)
-                {
-                    if (node.Name == "Folder")
+                    TreeNode menuItem = new TreeNode
                     {
-                        TreeNode menuItem = new TreeNode
-                        {
-                            Name = node.Attributes["Name"].Value,
-                            Text = node.Attributes["Text"].Value,
-                            ToolTipText = "korot://folder"
-                        };
+                        Name = folder.Name,
+                        Text = folder.Text,
+                        Tag = folder,
+                        ToolTipText = (folder as Favorite).Url
+                    };
 
-                        rootNode.Nodes.Add(menuItem);
-                        GenerateMenusFromXML(node, menuItem);
+                    rootNode.Nodes.Add(menuItem);
 
-                    }
-                    else if (node.Name == "Favorite")
-                    {
-                        TreeNode menuItem = new TreeNode
-                        {
-                            Name = node.Attributes["Name"].Value,
-                            Text = node.Attributes["Text"].Value,
-                            Tag = node.Attributes["Icon"] != null ? node.Attributes["Icon"].Value : "",
-                            ToolTipText = node.Attributes["Url"] == null ? null : node.Attributes["Url"].Value
-                        };
-
-                        rootNode.Nodes.Add(menuItem);
-                    }
                 }
-                treeView1.ExpandAll();
+                else
+                {
+                    TreeNode menuItem = new TreeNode
+                    {
+                        Name = folder.Name,
+                        Text = folder.Text,
+                        Tag = folder
+                    };
+
+                    rootNode.Nodes.Add(menuItem);
+                    GenerateMenusFromXML(folder, menuItem);
+                }
             }
-            else
-            {
-                Properties.Settings.Default.Favorites = "[root][/root]";
-                LoadDynamicMenu();
-            }
+            treeView1.ExpandAll();
         }
-        private void GenerateMenusFromXML(XmlNode rootNode, TreeNode menuItem)
+        private void GenerateMenusFromXML(Folder folder, TreeNode menuItem)
         {
             TreeNode item = null;
 
-            foreach (XmlNode node in rootNode.ChildNodes)
+            foreach (Folder subfolder in folder.Favorites)
             {
-                if (node.Name == "Folder")
+                if (subfolder is Favorite)
                 {
                     item = new TreeNode
                     {
-                        Name = node.Attributes["Name"].Value,
-                        Text = node.Attributes["Text"].Value,
+                        Name = subfolder.Name,
+                        Text = subfolder.Text,
+                        Tag = subfolder,
+                        ToolTipText = (subfolder as Favorite).Url,
+                    };
+                    menuItem.Nodes.Add(item);
+                }
+                else
+                {
+                    item = new TreeNode
+                    {
+                        Name = subfolder.Name,
+                        Text = subfolder.Text,
                         ToolTipText = "korot://folder"
                     };
 
                     menuItem.Nodes.Add(item);
-
-                    if (node.Attributes["FormLocation"] != null)
-                    {
-                        item.ToolTipText = node.Attributes["FormLocation"].Value;
-                    }
-
-                    GenerateMenusFromXML(node, item);
-                }
-                else if (node.Name == "Favorite")
-                {
-                    item = new TreeNode
-                    {
-                        Name = node.Attributes["Name"].Value,
-                        Text = node.Attributes["Text"].Value,
-                        Tag = node.Attributes["Icon"] != null ? node.Attributes["Icon"].Value : "",
-                        ToolTipText = node.Attributes["Url"] == null ? null : node.Attributes["Url"].Value
-                    };
-
-                    menuItem.Nodes.Add(item);
-
-                    if (node.Attributes["FormLocation"] != null)
-                    {
-                        item.ToolTipText = node.Attributes["FormLocation"].Value;
-                    }
+                    GenerateMenusFromXML(subfolder, item);
                 }
             }
         }
@@ -167,7 +138,7 @@ namespace Korot
             HTAlt.WinForms.HTInputBox HTInputBox = new HTAlt.WinForms.HTInputBox("Korot",
                                                                                                     Cefform.folderInfo,
                                                                                                     Cefform.defaultFolderName)
-            { Icon = Cefform.Icon, OK = Cefform.OK, SetToDefault = Cefform.SetToDefault, Cancel = Cefform.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = Cefform.Icon, OK = Cefform.OK, SetToDefault = Cefform.SetToDefault, Cancel = Cefform.Cancel, BackgroundColor = Cefform.Settings.Theme.BackColor };
             if (HTInputBox.ShowDialog() == DialogResult.OK)
             {
                 if (!string.IsNullOrWhiteSpace(HTInputBox.TextValue))
@@ -176,7 +147,7 @@ namespace Korot
                     {
                         Text = HTInputBox.TextValue,
                         Name = HTInputBox.TextValue.Replace(" ", "").Replace(Environment.NewLine, ""),
-                        ToolTipText = "korot://folder"
+                        Tag = new Folder() { Text = HTInputBox.TextValue , Name = HTInputBox.TextValue.Replace(" ", "").Replace(Environment.NewLine, ""), ParentFolder = (treeView1.SelectedNode.Tag != null ? (treeView1.SelectedNode.Tag as Folder) : null), }
                     };
                     treeView1.SelectedNode.Nodes.Add(newFolder);
                     treeView1.ExpandAll();
@@ -188,52 +159,6 @@ namespace Korot
             }
 
         }
-        public void TreeViewToXml(TreeView treeView)
-        {
-            XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.AppendChild(XmlRecursiveExport(xmlDocument.DocumentElement, treeView.Nodes, xmlDocument));
-            Properties.Settings.Default.Favorites = xmlDocument.OuterXml.Replace("<", "[").Replace(">", "]");
-        }
-        private XmlNode XmlRecursiveExport(XmlNode nodeElement, TreeNodeCollection treeNodeCollection, XmlDocument xmlDocument)
-        {
-            XmlNode xmlNode = null;
-            foreach (TreeNode treeNode in treeNodeCollection)
-            {
-                if (treeNode.ToolTipText != null)
-                {
-                    if (treeNode.ToolTipText.ToString() == "korot://root")
-                    {
-                        xmlNode = xmlDocument.CreateElement("root");
-                        XmlRecursiveExport(xmlNode, treeNode.Nodes, xmlDocument);
-                    }
-                    else
-                    {
-                        xmlNode = xmlDocument.CreateElement(treeNode.ToolTipText == null ?
-                            "" :
-                            (treeNode.ToolTipText.ToString() == "korot://folder" ? "Folder" : "Favorite"));
-                        xmlNode.Attributes.Append(xmlDocument.CreateAttribute("Name"));
-                        xmlNode.Attributes["Name"].Value = treeNode.Name;
-                        xmlNode.Attributes.Append(xmlDocument.CreateAttribute("Text"));
-                        xmlNode.Attributes["Text"].Value = treeNode.Text;
-                        xmlNode.Attributes.Append(xmlDocument.CreateAttribute("Url"));
-                        xmlNode.Attributes["Url"].Value = treeNode.ToolTipText;
-                        xmlNode.Attributes.Append(xmlDocument.CreateAttribute("Icon"));
-                        xmlNode.Attributes["Icon"].Value = treeNode.Tag == null ? "" : treeNode.Tag.ToString();
-
-                        if (nodeElement != null)
-                        {
-                            nodeElement.AppendChild(xmlNode);
-                        }
-
-                        if (treeNode.Nodes.Count > 0)
-                        {
-                            XmlRecursiveExport(xmlNode, treeNode.Nodes, xmlDocument);
-                        }
-                    }
-                }
-            }
-            return xmlNode;
-        }
 
         private readonly string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\IconStorage\\";
 
@@ -242,23 +167,32 @@ namespace Korot
             if (string.IsNullOrWhiteSpace(textBox1.Text) && string.IsNullOrWhiteSpace(textBox2.Text)) { }
             else
             {
-                TreeNode newFolder = new TreeNode
-                {
-                    Name = textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, ""),
-                    Text = textBox1.Text,
-                    ToolTipText = textBox2.Text
-                };
                 if (textBox2.Text != "korot://folder")
                 {
-                    if (!File.Exists(iconStorage + newFolder.Name + ".png"))
+                    Favorite newFav = new Favorite()
                     {
-                        HTAlt.Tools.WriteFile(iconStorage + newFolder.Name + ".png", Cefform.Icon.ToBitmap(), ImageFormat.Png);
+                        Name = textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, ""),
+                        Text = textBox1.Text,
+                        Url = textBox2.Text,
+                        ParentFolder = treeView1.SelectedNode.Tag as Folder,
+                        IconPath = "{ICONSTORAGE}" + textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, "") + ".png",
+                    };
+                    if (!File.Exists(iconStorage + textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, "") + ".png"))
+                    {
+                        HTAlt.Tools.WriteFile(iconStorage + textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, "") + ".png", Cefform.Icon.ToBitmap(), ImageFormat.Png);
                     }
-                    newFolder.Tag = "{ICONSTORAGE}" + newFolder.Name + ".png";
+                    (treeView1.SelectedNode.Tag as Folder).Favorites.Add(newFav);
                 }
-                treeView1.SelectedNode.Nodes.Add(newFolder);
-                TreeViewToXml(treeView1);
-                Output.WriteLine(Properties.Settings.Default.Favorites);
+                else
+                {
+                    Folder newFav = new Folder()
+                    {
+                        Name = textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, ""),
+                        Text = textBox1.Text,
+                        ParentFolder = treeView1.SelectedNode.Tag as Folder,
+                    };
+                    (treeView1.SelectedNode.Tag as Folder).Favorites.Add(newFav);
+                }
                 Close();
             }
         }
@@ -323,20 +257,20 @@ namespace Korot
             label2.Text = Cefform.urltd;
             textBox1.Text = favName;
             textBox2.Text = favUrl;
-            BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            button1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
-            button1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            button2.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
-            button2.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            //button3.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
-            //button3.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            textBox1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
-            textBox1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            textBox2.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
-            textBox2.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            treeView1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 29, false);
-            treeView1.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            BackColor = Cefform.Settings.Theme.BackColor;
+            ForeColor = HTAlt.Tools.IsBright(Cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            button1.BackColor = HTAlt.Tools.ShiftBrightness(Cefform.Settings.Theme.BackColor, 29, false);
+            button1.ForeColor = HTAlt.Tools.IsBright(Cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            button2.BackColor = HTAlt.Tools.ShiftBrightness(Cefform.Settings.Theme.BackColor, 29, false);
+            button2.ForeColor = HTAlt.Tools.IsBright(Cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            //button3.BackColor = HTAlt.Tools.ShiftBrightness(Cefform.Settings.Theme.BackColor, 29, false);
+            //button3.ForeColor = HTAlt.Tools.IsBright(Cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            textBox1.BackColor = HTAlt.Tools.ShiftBrightness(Cefform.Settings.Theme.BackColor, 29, false);
+            textBox1.ForeColor = HTAlt.Tools.IsBright(Cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            textBox2.BackColor = HTAlt.Tools.ShiftBrightness(Cefform.Settings.Theme.BackColor, 29, false);
+            textBox2.ForeColor = HTAlt.Tools.IsBright(Cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            treeView1.BackColor = HTAlt.Tools.ShiftBrightness(Cefform.Settings.Theme.BackColor, 29, false);
+            treeView1.ForeColor = HTAlt.Tools.IsBright(Cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
             textBox1.Location = new Point(label1.Location.X + label1.Width, label1.Location.Y);
             textBox1.Width = Width - (label1.Width + 50);
             textBox2.Location = new Point(label2.Location.X + label2.Width, label2.Location.Y);

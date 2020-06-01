@@ -35,8 +35,6 @@ namespace Korot
 {
     public partial class Form1 : Form
     {
-        public bool isPreRelease = false;
-        public int preVer = 0;
         private string UpdateURL = "https://github.com/Haltroy/Korot/releases/download/[LATEST]/Korot-Full-[ARCH].zip";
         private readonly string InstallerURL = "http://bit.ly/KorotSetup";
         private string downloadUrl;
@@ -47,8 +45,10 @@ namespace Korot
         private string StatusType;
         private string installingTxt;
         private string installStatus;
-        public Form1()
+        public Settings Settings;
+        public Form1(Settings settings)
         {
+            Settings = settings;
             InitializeComponent();
             WebC.DownloadStringCompleted += WebC_DownloadStringCompleted;
             WebC.DownloadProgressChanged += WebC_DownloadProgressChanged;
@@ -61,8 +61,8 @@ namespace Korot
 
         private void RefreshTranslate()
         {
-            if (!File.Exists(Properties.Settings.Default.LangFile)) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
-            string Playlist = HTAlt.Tools.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+            if (!File.Exists(Settings.LanguageFile)) { Settings.LanguageFile = Application.StartupPath + "\\Lang\\English.lang"; }
+            string Playlist = HTAlt.Tools.ReadFile(Settings.LanguageFile, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
             StatusType = SplittedFase[94].Substring(1).Replace(Environment.NewLine, "");
@@ -120,7 +120,7 @@ namespace Korot
                 string arch = Environment.Is64BitProcess ? "x64" : "x86";
                 Version current = new Version(Application.ProductVersion);
                 Version MinVersion = new Version(minmv);
-                if (isPreRelease)
+                if (VersionInfo.IsPreRelease)
                 {
                     if (preNo == "0") 
                     {
@@ -333,10 +333,10 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             OtherInstances();
-            BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            htProgressBar1.BackColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.FromArgb(GerekiyorsaArttır(Properties.Settings.Default.BackColor.R, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.G, 20, 255), GerekiyorsaArttır(Properties.Settings.Default.BackColor.B, 20, 255)) : Color.FromArgb(GerekiyorsaAzalt(Properties.Settings.Default.BackColor.R, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.G, 20), GerekiyorsaAzalt(Properties.Settings.Default.BackColor.B, 20));
-            htProgressBar1.BarColor = Properties.Settings.Default.OverlayColor;
+            BackColor = Settings.Theme.BackColor;
+            ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
+            htProgressBar1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+            htProgressBar1.BarColor = Settings.Theme.OverlayColor;
 
         }
     }

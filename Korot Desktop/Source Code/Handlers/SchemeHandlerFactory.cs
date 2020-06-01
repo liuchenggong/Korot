@@ -50,22 +50,22 @@ namespace Korot
         }
         public string GetBackStyle()
         {
-            if (Properties.Settings.Default.BackStyle == "BACKCOLOR")
+            if (CefForm.Settings.Theme.BackgroundStyle == "BACKCOLOR")
             {
-                return "background-color: rgb(" + Properties.Settings.Default.BackColor.R + " ," + Properties.Settings.Default.BackColor.G + " , " + Properties.Settings.Default.BackColor.B + ");";
+                return "background-color: rgb(" + CefForm.Settings.Theme.BackColor.R + " ," + CefForm.Settings.Theme.BackColor.G + " , " + CefForm.Settings.Theme.BackColor.B + ");";
             }
             else
             {
-                return Properties.Settings.Default.BackStyle;
+                return CefForm.Settings.Theme.BackgroundStyle;
             }
         }
         public string GetOverlay()
         {
-            return "color: rgb(" + Properties.Settings.Default.OverlayColor.R + " ," + Properties.Settings.Default.OverlayColor.G + " , " + Properties.Settings.Default.OverlayColor.B + ");";
+            return "color: rgb(" + CefForm.Settings.Theme.OverlayColor.R + " ," + CefForm.Settings.Theme.OverlayColor.G + " , " + CefForm.Settings.Theme.OverlayColor.B + ");";
         }
         public string GetBackStyle2()
         {
-            return "background-color: rgb(" + Properties.Settings.Default.BackColor.R + " ," + Properties.Settings.Default.BackColor.G + " , " + Properties.Settings.Default.BackColor.B + "); color: " + (HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? "black" : "white") + ";";
+            return "background-color: rgb(" + CefForm.Settings.Theme.BackColor.R + " ," + CefForm.Settings.Theme.BackColor.G + " , " + CefForm.Settings.Theme.BackColor.B + "); color: " + (HTAlt.Tools.IsBright(CefForm.Settings.Theme.BackColor) ? "black" : "white") + ";";
         }
         public static bool ValidHttpURL(string s)
         {
@@ -86,7 +86,7 @@ namespace Korot
                 {
                     if (frame.IsMain)
                     {
-                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + Properties.Settings.Default.Homepage + "\" />");
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + CefForm.Settings.Homepage + "\" />");
                     }else
                     {
                         return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=RESTRICTED_PAGE \" />");
@@ -107,7 +107,7 @@ namespace Korot
                     }
                     else
                     {
-                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + Properties.Settings.Default.SearchURL + x + "\" />");
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + CefForm.Settings.SearchEngine + x + "\" />");
                     }
                 }
                 else if (request.Url == "korot://empty/")

@@ -74,14 +74,14 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false)) ? Color.Black : Color.White;
-            btDefault.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false);
-            btDefault.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false)) ? Color.Black : Color.White;
-            btOK.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false);
-            btOK.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false)) ? Color.Black : Color.White;
-            btCancel.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false);
-            btCancel.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 40, false)) ? Color.Black : Color.White;
+            BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false)) ? Color.Black : Color.White;
+            btDefault.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 40, false);
+            btDefault.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 40, false)) ? Color.Black : Color.White;
+            btOK.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 40, false);
+            btOK.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 40, false)) ? Color.Black : Color.White;
+            btCancel.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 40, false);
+            btCancel.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 40, false)) ? Color.Black : Color.White;
         }
     }
 }

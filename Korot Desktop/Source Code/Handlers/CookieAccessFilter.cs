@@ -33,18 +33,18 @@ namespace Korot
         }
         public bool CanSaveCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, Cookie cookie)
         {
-            sCookie(chromiumWebBrowser);
-            return !Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address);
+            setCookie(chromiumWebBrowser);
+            return Cefform.Settings.Notification.GetSiteFromUrl(chromiumWebBrowser.Address).AllowCookies;
         }
 
         public bool CanSendCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, Cookie cookie)
         {
-            sCookie(chromiumWebBrowser);
-            return !Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address);
+            setCookie(chromiumWebBrowser);
+            return Cefform.Settings.Notification.GetSiteFromUrl(chromiumWebBrowser.Address).AllowCookies;
         }
-        public void sCookie(IWebBrowser chromiumWebBrowser)
+        public void setCookie(IWebBrowser chromiumWebBrowser)
         {
-            if (!Properties.Settings.Default.CookieDisallowList.Contains(chromiumWebBrowser.Address))
+            if (Cefform.Settings.Notification.GetSiteFromUrl(chromiumWebBrowser.Address).AllowCookies)
             {
                 if (Cefform == null) { return; }
                 if (Cefform.anaform == null) { return; }

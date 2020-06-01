@@ -7,8 +7,7 @@ namespace Korot
 {
     public partial class frmNotificationPermission : Form
     {
-        private bool alreadyAddedAllow { get { return Properties.Settings.Default.notificationAllow.Contains(baseUrl); } }
-        private bool alreadyAddedBlock { get { return Properties.Settings.Default.notificationBlock.Contains(baseUrl); } }
+        private bool alreadyAddedAllow { get { return cefform.Settings.Notification.GetSiteFromUrl(baseUrl).AllowNotifications; } }
         private readonly string baseUrl;
         private readonly frmCEF cefform;
         public frmNotificationPermission(frmCEF _frmCEF, string url)
@@ -23,13 +22,9 @@ namespace Korot
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (alreadyAddedBlock)
-            {
-                Properties.Settings.Default.notificationBlock.Remove(baseUrl);
-            }
             if (!alreadyAddedAllow)
             {
-                Properties.Settings.Default.notificationAllow.Add(baseUrl);
+                cefform.Settings.Notification.GetSiteFromUrl(baseUrl).AllowNotifications = true;
             }
             cefform.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsync(@"korotNotificationPermission = 'granted';")));
             cefform.Invoke(new Action(() => cefform.refreshPage()));
@@ -40,11 +35,7 @@ namespace Korot
         {
             if (alreadyAddedAllow)
             {
-                Properties.Settings.Default.notificationAllow.Remove(baseUrl);
-            }
-            if (!alreadyAddedBlock)
-            {
-                Properties.Settings.Default.notificationBlock.Add(baseUrl);
+                cefform.Settings.Notification.GetSiteFromUrl(baseUrl).AllowNotifications = false;
             }
             cefform.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsync(@"korotNotificationPermission = 'denied';")));
             cefform.Invoke(new Action(() => cefform.refreshPage()));
@@ -56,14 +47,14 @@ namespace Korot
             label1.Text = cefform.notificationPermission.Replace("[URL]", baseUrl);
             button1.ButtonText = cefform.allow;
             button2.ButtonText = cefform.deny;
-            BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            button1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            button2.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            pUp.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            pDown.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            pLeft.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            pRight.BackColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            BackColor = cefform.Settings.Theme.BackColor;
+            ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            button1.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            button2.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            pUp.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            pDown.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            pLeft.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            pRight.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
         }
 
         private void label2_Click(object sender, EventArgs e)

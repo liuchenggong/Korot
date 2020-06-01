@@ -422,8 +422,8 @@ namespace Korot
                     Tag = node.outXML
                 };
                 item.Click += item_Click;
-                item.BackColor = Properties.Settings.Default.BackColor;
-                item.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+                item.BackColor = ActiveForm.Settings.Theme.BackColor;
+                item.ForeColor = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Color.Black : Color.White;
                 addToCollection.DropDown.Items.Add(item);
             }
             if (addToCollection.DropDown.Items.Count < 1)
@@ -438,10 +438,10 @@ namespace Korot
             InitializeCMSComponent();
             currentCMS = cmsCef;
             chromiumWebBrowser1 = cwb;
-            cmsCef.BackColor = Properties.Settings.Default.BackColor;
-            cmsCef.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            addToCollection.DropDown.BackColor = Properties.Settings.Default.BackColor;
-            addToCollection.DropDown.ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
+            cmsCef.BackColor = ActiveForm.Settings.Theme.BackColor;
+            cmsCef.ForeColor = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            addToCollection.DropDown.BackColor = ActiveForm.Settings.Theme.BackColor;
+            addToCollection.DropDown.ForeColor = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Color.Black : Color.White;
             LinkURL = link;
             hasImageContents = hasimage;
             SourceURL = source;
@@ -493,7 +493,7 @@ namespace Korot
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
                                                                                          ActiveForm.newColInfo,
                                                                                          ActiveForm.newColName)
-            { Icon = ActiveForm.Icon, OK = ActiveForm.OK, SetToDefault = ActiveForm.SetToDefault, Cancel = ActiveForm.Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = ActiveForm.Icon, OK = ActiveForm.OK, SetToDefault = ActiveForm.SetToDefault, Cancel = ActiveForm.Cancel, BackgroundColor = ActiveForm.Settings.Theme.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {

@@ -30,8 +30,10 @@ namespace Korot
 {
     public partial class frmOOBE : Form
     {
-        public frmOOBE()
+        Settings Settings;
+        public frmOOBE(Settings settings)
         {
+            Settings = settings;
             InitializeComponent();
             foreach (Control x in Controls)
             {
@@ -48,48 +50,6 @@ namespace Korot
         public string closeMessage = "The installation is not completed yet. Do you still want to close this?";
         public string OK = "OK";
         public string Cancel = "Cancel";
-
-        private void ResetSettings()
-        {
-            Properties.Settings.Default.Homepage = "korot://newtab";
-            Properties.Settings.Default.History = "";
-            Properties.Settings.Default.WindowSizeH = 0;
-            Properties.Settings.Default.WindowSizeW = 0;
-            Properties.Settings.Default.WindowPosX = 0;
-            Properties.Settings.Default.WindowPosY = 0;
-            Properties.Settings.Default.Favorites = "";
-            Properties.Settings.Default.SearchURL = "https://www.google.com/search?q=";
-            Properties.Settings.Default.downloadOpen = false;
-            Properties.Settings.Default.LangFile = "";
-            Properties.Settings.Default.BackColor = Color.White;
-            Properties.Settings.Default.OverlayColor = Color.DodgerBlue;
-            Properties.Settings.Default.DowloadHistory = "";
-            Properties.Settings.Default.LastUser = "";
-            Properties.Settings.Default.ThemeFile = "";
-            Properties.Settings.Default.BackStyle = "BACKCOLOR";
-            Properties.Settings.Default.LastSessionURIs = "";
-            Properties.Settings.Default.DoNotTrack = true;
-            Properties.Settings.Default.BStyleLayout = 0;
-            Properties.Settings.Default.CookieDisallowList.Clear();
-            Properties.Settings.Default.ThemeName = "";
-            Properties.Settings.Default.ThemeAuthor = "";
-            Properties.Settings.Default.rememberLastProxy = false;
-            Properties.Settings.Default.LastProxy = "";
-            Properties.Settings.Default.DownloadFolder = "";
-            Properties.Settings.Default.useDownloadFolder = false;
-            Properties.Settings.Default.StartupURL = "korot://newtab";
-            Properties.Settings.Default.newTabColor = 2;
-            Properties.Settings.Default.closeColor = 2;
-            Properties.Settings.Default.showFav = true;
-            Properties.Settings.Default.allowUnknownResources = false;
-            Properties.Settings.Default.registeredExtensions.Clear();
-            Properties.Settings.Default.notificationBlock.Clear();
-            Properties.Settings.Default.notificationAllow.Clear();
-            Properties.Settings.Default.quietMode = false;
-            Properties.Settings.Default.silentAllNotifications = false;
-            Properties.Settings.Default.autoSilent = false;
-            Properties.Settings.Default.autoSilentMode = "0:0:23:59:0:0:0:0:0:0:0:";
-        }
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         { if (allowSwitch) { allowSwitch = false; e.Cancel = false; } else { e.Cancel = true; } }
 
@@ -113,8 +73,8 @@ namespace Korot
                 }
                 else
                 {
-                    Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
-                    string Playlist = HTAlt.Tools.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+                    Settings.LanguageFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
+                    string Playlist = HTAlt.Tools.ReadFile(Settings.LanguageFile, Encoding.UTF8);
                     char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                     string[] SplittedFase = Playlist.Split(token);
                     Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
@@ -171,7 +131,6 @@ namespace Korot
             {
                 Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\", true);
             }
-            ResetSettings();
             RefreshLangList();
         }
 
@@ -216,13 +175,7 @@ namespace Korot
             profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\";
             Directory.CreateDirectory(profilePath);
             Tools.createThemes();
-            Tools.SaveSettings(profilePath + "settings.ksf",
-                    profilePath + "history.ksf",
-                    profilePath + "favorites.ksf",
-                    profilePath + "download.ksf",
-                    profilePath + "cookieDisallow.ksf",
-                    profilePath + "notificationAllow.ksf",
-                    profilePath + "notificationBlock.ksf");
+            Settings.Save();
             Properties.Settings.Default.Save();
             allowClose = true;
             Process.Start(Application.ExecutablePath);
@@ -233,7 +186,7 @@ namespace Korot
         {
             if (!allowClose)
             {
-                HTAlt.WinForms.HTMsgBox msgBox = new HTAlt.WinForms.HTMsgBox(Text, closeMessage, new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true }) { Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor, Icon = Icon };
+                HTAlt.WinForms.HTMsgBox msgBox = new HTAlt.WinForms.HTMsgBox(Text, closeMessage, new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true }) { Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
                 if (msgBox.ShowDialog() == DialogResult.Yes)
                 {
                     e.Cancel = false;

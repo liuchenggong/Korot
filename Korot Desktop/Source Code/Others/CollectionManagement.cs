@@ -37,35 +37,22 @@ namespace Korot
         {
             Collections = new List<Collection>();
         }
-        /// <summary>
-        /// Collections of this session.
-        /// </summary>
         public List<Collection> Collections { get; set; }
-        /// <summary>
-        /// Reads the file and creates new collections.
-        /// </summary>
-        /// <param name="collectionFile">File location of the Korot Collections File type file.</param>
-        /// <param name="clearCurrent">true to clear the current collection list, otherwise false.</param>
-        /// <returns></returns>
-        public bool readCollections(string collectionFile, bool clearCurrent = true)
+        public bool readCollections(string collections, bool clearCurrent = true)
         {
             // Clear the current list of collections.
             if (clearCurrent)
             {
                 Collections.Clear();
             }
-            // Read the file
-            string CollectionXML = HTAlt.Tools.ReadFile(collectionFile, Encoding.UTF8).Replace("[", "<").Replace("]", ">");
-            // Write XML to Stream so we don't need to load the same file again.
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(CollectionXML); //Writes our XML file
-            writer.Flush();
-            stream.Position = 0;
             XmlDocument document = new XmlDocument();
-            document.Load(stream); //Loads our XML Stream
+            if (string.IsNullOrWhiteSpace(collections) || collections.ToLower().Replace(Environment.NewLine, "") == "<collections></collections>")
+            {
+                return true;
+            }
+            document.Load(collections); //Loads our XML Stream
 
-            // This is the part where fun starts.
+            // This is the part where fun begins.
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
                 if (node.Name == "Collection") //Top must always only have Collections. This ain't favorites.
@@ -92,7 +79,7 @@ namespace Korot
                     // Items
                     foreach (XmlNode subnode in node.ChildNodes)
                     {
-                        if (subnode.Name == "text") //TextItem
+                        if (subnode.Name.ToLower() == "text") //TextItem
                         {
                             TextItem item = new TextItem(); //New Item
                             // Item - ID
@@ -179,7 +166,7 @@ namespace Korot
                             }
                             newCol.CollectionItems.Add(item); //Final touch
                         }
-                        else if (subnode.Name == "link") //LinkItem
+                        else if (subnode.Name.ToLower() == "link") //LinkItem
                         {
                             LinkItem item = new LinkItem(); //New Item
                             // Item - ID
@@ -275,7 +262,7 @@ namespace Korot
                             }
                             newCol.CollectionItems.Add(item); //Final touch
                         }
-                        else if (subnode.Name == "image") //ImageItem
+                        else if (subnode.Name.ToLower() == "image") //ImageItem
                         {
                             ImageItem item = new ImageItem(); //New Item
                             // Item - ID
@@ -334,111 +321,22 @@ namespace Korot
             return true;
         }
         /// <summary>
-        /// Writes current collections to a Korot Collections file.
+        /// Gets current collections list.
         /// </summary>
-        /// <param name="collectionFile">Path to write current collections.</param>
-        /// <returns></returns>
-        public bool writeCollections(string collectionFile)
+        /// <returns>XML code</returns>
+        public string writeCollections
         {
-            string xmlCode = "[root]"; //Starting point
-            foreach (Collection x in Collections)
+            get
             {
-                string cCode = "[collection";
-                cCode += " ID=\"" + x.ID + "\" ";
-                cCode += "Text=\"" + x.Text + "\" ";
-                cCode += "]";
-                foreach (CollectionItem item in x.CollectionItems)
+                string xmlCode = "<Collections>" + Environment.NewLine; //Starting point
+                foreach (Collection x in Collections)
                 {
-                    if (item is TextItem)
-                    {
-                        TextItem ti = (item as TextItem);
-                        string iCode = "[text";
-                        iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
-                        iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ti.ForeColor) + "\" ";
-                        iCode += "Text=\"" + ti.Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "Font=\"" + ti.Font.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "FontSize=\"" + ti.FontSize + "\" ";
-                        iCode += "FontProperties=\"";
-                        if (ti.FontProperties == FontType.Regular)
-                        {
-                            iCode += "Regular\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Bold)
-                        {
-                            iCode += "Bold\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Italic)
-                        {
-                            iCode += "Italic\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Underline)
-                        {
-                            iCode += "Underline\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Strikeout)
-                        {
-                            iCode += "Strikeout\" ";
-                        }
-                        iCode += "/]";
-                        cCode += Environment.NewLine + iCode;
-                    }
-                    else if (item is LinkItem)
-                    {
-                        LinkItem ti = (item as LinkItem);
-                        string iCode = "[link";
-                        iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
-                        iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ti.ForeColor) + "\" ";
-                        iCode += "Source=\"" + ti.Source.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "Text=\"" + ti.Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "Font=\"" + ti.Font.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "FontSize=\"" + ti.FontSize + "\" ";
-                        iCode += "FontProperties=\"";
-                        if (ti.FontProperties == FontType.Regular)
-                        {
-                            iCode += "Regular\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Bold)
-                        {
-                            iCode += "Bold\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Italic)
-                        {
-                            iCode += "Italic\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Underline)
-                        {
-                            iCode += "Underline\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Strikeout)
-                        {
-                            iCode += "Strikeout\" ";
-                        }
-                        iCode += "/]";
-                        cCode += Environment.NewLine + iCode;
-                    }
-                    else if (item is ImageItem)
-                    {
-                        ImageItem ti = (item as ImageItem);
-                        string iCode = "[image";
-                        iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
-                        iCode += "Source=\"" + ti.Source.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "Width=\"" + ti.Width + "\" ";
-                        iCode += "Height=\"" + ti.Height + "\" ";
-                        iCode += "/]";
-                        cCode += Environment.NewLine + iCode;
-                    }
+                    xmlCode += x.outXML + Environment.NewLine;
                 }
-                cCode += Environment.NewLine + "[/collection]";
-                xmlCode += Environment.NewLine + cCode;
+                xmlCode += "</Collections>" + Environment.NewLine;
+                //End
+                return xmlCode;
             }
-            xmlCode += Environment.NewLine + "[/root]";
-            //Final
-            HTAlt.Tools.WriteFile(collectionFile, xmlCode, Encoding.UTF8);
-            //End
-            return true;
         }
         /// <summary>
         /// Gets collections from specific ID.
@@ -503,7 +401,7 @@ namespace Korot
         {
             CollectionItems = new List<CollectionItem>();
             // Read the file
-            string CollectionXML = xmlCode.Replace("[", "<").Replace("]", ">");
+            string CollectionXML = xmlCode;
             // Write XML to Stream so we don't need to load the same file again.
             MemoryStream stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);
@@ -516,7 +414,7 @@ namespace Korot
             // This is the part where fun starts.
             foreach (XmlNode subnode in document.FirstChild.ChildNodes)
             {
-                if (subnode.Name == "text") //TextItem
+                if (subnode.Name.ToLower() == "text") //TextItem
                 {
                     TextItem item = new TextItem(); //New Item
                                                     // Item - ID
@@ -603,7 +501,7 @@ namespace Korot
                     }
                     CollectionItems.Add(item); //Final touch
                 }
-                else if (subnode.Name == "link") //LinkItem
+                else if (subnode.Name.ToLower() == "link") //LinkItem
                 {
                     LinkItem item = new LinkItem(); //New Item
                                                     // Item - ID
@@ -699,7 +597,7 @@ namespace Korot
                     }
                     CollectionItems.Add(item); //Final touch
                 }
-                else if (subnode.Name == "image") //ImageItem
+                else if (subnode.Name.ToLower() == "image") //ImageItem
                 {
                     ImageItem item = new ImageItem(); //New Item
                                                       // Item - ID
@@ -753,19 +651,10 @@ namespace Korot
         }
         public bool NewItemFromCode(string xmlCode)
         {
-            // Read the file
-            string CollectionXML = xmlCode.Replace("[", "<").Replace("]", ">");
-            // Write XML to Stream so we don't need to load the same file again.
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(CollectionXML); //Writes our XML file
-            writer.Flush();
-            stream.Position = 0;
-            Console.WriteLine(xmlCode);
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(CollectionXML);
+            doc.Load(xmlCode);
             XmlElement subnode = doc.DocumentElement;
-            if (subnode.Name == "text") //TextItem
+            if (subnode.Name.ToLower() == "text") //TextItem
             {
                 TextItem item = new TextItem(); //New Item
                                                 // Item - ID
@@ -852,7 +741,7 @@ namespace Korot
                 }
                 CollectionItems.Add(item); //Final touch
             }
-            else if (subnode.Name == "link") //LinkItem
+            else if (subnode.Name.ToLower() == "link") //LinkItem
             {
                 LinkItem item = new LinkItem(); //New Item
                                                 // Item - ID
@@ -948,7 +837,7 @@ namespace Korot
                 }
                 CollectionItems.Add(item); //Final touch
             }
-            else if (subnode.Name == "image") //ImageItem
+            else if (subnode.Name.ToLower() == "image") //ImageItem
             {
                 ImageItem item = new ImageItem(); //New Item
                                                   // Item - ID
@@ -1007,95 +896,30 @@ namespace Korot
         {
             get
             {
-                string cCode = "[collection";
+                string cCode = "<Collection";
                 cCode += " ID=\"" + ID + "\" ";
                 cCode += " Text=\"" + Text + "\" ";
-                cCode += "]";
+                cCode += ">";
                 foreach (CollectionItem item in CollectionItems)
                 {
                     if (item is TextItem)
                     {
                         TextItem ti = (item as TextItem);
-                        string iCode = "[text";
-                        iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
-                        iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ti.ForeColor) + "\" ";
-                        iCode += "Text=\"" + ti.Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "Font=\"" + ti.Font.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "FontSize=\"" + ti.FontSize + "\" ";
-                        iCode += "FontProperties=\"";
-                        if (ti.FontProperties == FontType.Regular)
-                        {
-                            iCode += "Regular\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Bold)
-                        {
-                            iCode += "Bold\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Italic)
-                        {
-                            iCode += "Italic\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Underline)
-                        {
-                            iCode += "Underline\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Strikeout)
-                        {
-                            iCode += "Strikeout\" ";
-                        }
-                        iCode += "/]";
-                        cCode += Environment.NewLine + iCode;
+                        cCode += Environment.NewLine + ti.outXML;
                     }
                     else if (item is LinkItem)
                     {
                         LinkItem ti = (item as LinkItem);
-                        string iCode = "[link";
-                        iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
-                        iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ti.ForeColor) + "\" ";
-                        iCode += "Source=\"" + ti.Source.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "Text=\"" + ti.Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "Font=\"" + ti.Font.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "FontSize=\"" + ti.FontSize + "\" ";
-                        iCode += "FontProperties=\"";
-                        if (ti.FontProperties == FontType.Regular)
-                        {
-                            iCode += "Regular\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Bold)
-                        {
-                            iCode += "Bold\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Italic)
-                        {
-                            iCode += "Italic\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Underline)
-                        {
-                            iCode += "Underline\" ";
-                        }
-                        else if (ti.FontProperties == FontType.Strikeout)
-                        {
-                            iCode += "Strikeout\" ";
-                        }
-                        iCode += "/]";
-                        cCode += Environment.NewLine + iCode;
+                        
+                        cCode += Environment.NewLine + ti.outXML;
                     }
                     else if (item is ImageItem)
                     {
                         ImageItem ti = (item as ImageItem);
-                        string iCode = "[image";
-                        iCode += " ID=\"" + ti.ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(ti.BackColor) + "\" ";
-                        iCode += "Source=\"" + ti.Source.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
-                        iCode += "Width=\"" + ti.Width + "\" ";
-                        iCode += "Height=\"" + ti.Height + "\" ";
-                        iCode += "/]";
-                        cCode += Environment.NewLine + iCode;
+                        cCode += Environment.NewLine + ti.outXML;
                     }
                 }
-                cCode += Environment.NewLine + "[/collection]";
+                cCode += Environment.NewLine + "</Collection>";
                 return cCode;
             }
         }
@@ -1193,7 +1017,7 @@ namespace Korot
         {
             get
             {
-                string iCode = "[text";
+                string iCode = "<Text";
                 iCode += " ID=\"" + ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                 iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(BackColor) + "\" ";
                 iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ForeColor) + "\" ";
@@ -1221,7 +1045,7 @@ namespace Korot
                 {
                     iCode += "Strikeout\" ";
                 }
-                iCode += "/]";
+                iCode += "/>";
                 return iCode;
             }
         }
@@ -1267,7 +1091,7 @@ namespace Korot
         {
             get
             {
-                string iCode = "[link";
+                string iCode = "<Link";
                 iCode += " ID=\"" + ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                 iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(BackColor) + "\" ";
                 iCode += "ForeColor=\"" + HTAlt.Tools.ColorToHex(ForeColor) + "\" ";
@@ -1296,7 +1120,7 @@ namespace Korot
                 {
                     iCode += "Strikeout\" ";
                 }
-                iCode += "/]";
+                iCode += "/>";
                 return iCode;
             }
         }
@@ -1325,13 +1149,13 @@ namespace Korot
         {
             get
             {
-                string iCode = "[image";
+                string iCode = "<Image";
                 iCode += " ID=\"" + ID.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                 iCode += "BackColor=\"" + HTAlt.Tools.ColorToHex(BackColor) + "\" ";
                 iCode += "Source=\"" + Source.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" ";
                 iCode += "Width=\"" + Width + "\" ";
                 iCode += "Height=\"" + Height + "\" ";
-                iCode += "/]";
+                iCode += "/>";
                 return iCode;
             }
         }

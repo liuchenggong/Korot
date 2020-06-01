@@ -38,9 +38,8 @@ namespace Korot
 
     public partial class frmMain : HTAlt.WinForms.HTTitleTabs
     {
+        public Settings Settings;
         private MyJumplist list;
-        public bool isPreRelease = false;
-        public int preVer = 0;
         public List<DownloadItem> CurrentDownloads = new List<DownloadItem>();
         public List<string> CancelledDownloads = new List<string>();
         public List<string> notificationAsked = new List<string>();
@@ -49,7 +48,6 @@ namespace Korot
 
         public bool isIncognito = false;
         public HTTabRenderer tabRenderer;
-        public CollectionManager colman;
         public HTTitleTab settingTab = null;
         public HTTitleTab themeTab = null;
         public HTTitleTab historyTab = null;
@@ -61,7 +59,7 @@ namespace Korot
         public HTTitleTab nblockTab = null;
         public HTTitleTab notificationTab = null;
 
-        #region Notificatin Listener
+        #region Notification Listener
         private string closeKorotMessage = "Do you want to close Korot?";
 #pragma warning disable 414
         private string closeAllMessage = "Do you really want to close them all?";
@@ -79,7 +77,7 @@ namespace Korot
         private NotifyIcon NLEditor = new NotifyIcon() { Text = "Korot", Icon = Properties.Resources.KorotIcon, Visible = true};
         private void InitNL()
         {
-            string Playlist = HTAlt.Tools.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+            string Playlist = HTAlt.Tools.ReadFile(Settings.LanguageFile, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SF = Playlist.Split(token);
             closeAll = SF[346].Substring(1).Replace(Environment.NewLine, "");
@@ -119,12 +117,12 @@ namespace Korot
             tsCloseK.Click += closekorot_Click;
             cmsNL.Items.Add(tsCloseK);
             NLEditor.Visible = (notifListeners.Count > 0);
-            cmsNL.BackColor = Properties.Settings.Default.BackColor;
-            cmsNL.ForeColor = HTAlt.Tools.AutoWhiteBlack(Properties.Settings.Default.BackColor);
+            cmsNL.BackColor = Settings.Theme.BackColor;
+            cmsNL.ForeColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
             foreach (ToolStripItem x in cmsNL.Items)
             {
-                x.BackColor = Properties.Settings.Default.BackColor;
-                x.ForeColor = HTAlt.Tools.AutoWhiteBlack(Properties.Settings.Default.BackColor);
+                x.BackColor = Settings.Theme.BackColor;
+                x.ForeColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
             } 
         }
         private void tmrNL_Tick(object sender,EventArgs e)
@@ -147,7 +145,7 @@ namespace Korot
             HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot",
                                                       closeAllMessage,
                                                       new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true }) 
-            { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor };
             DialogResult diares = mesaj.ShowDialog();
             if (diares == DialogResult.Yes)
             {
@@ -165,7 +163,7 @@ namespace Korot
             HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot",
                                                       closeKorotMessage,
                                                       new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
-            { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Properties.Settings.Default.BackColor };
+            { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor };
             DialogResult diares = mesaj.ShowDialog();
             if (diares == DialogResult.Yes)
             {
@@ -173,8 +171,9 @@ namespace Korot
             }
         }
         #endregion
-        public frmMain()
+        public frmMain(Settings settings)
         {
+            Settings = settings;
             AeroPeekEnabled = true;
             tabRenderer = new HTTabRenderer(this);
             TabRenderer = tabRenderer;
@@ -187,9 +186,10 @@ namespace Korot
             bool exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
             if (!exists)
             {
-                foreach (string x in Properties.Settings.Default.notificationAllow)
+                foreach (Site x in Settings.Notification.Sites)
                 {
-                    frmCEF notfiListener = new frmCEF(isIncognito, x, Properties.Settings.Default.LastUser, true) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, };
+                    if (!x.AllowNotifications) { return; }
+                    frmCEF notfiListener = new frmCEF(Settings,isIncognito, x.Url, Properties.Settings.Default.LastUser, true);
                     notfiListener.Visible = true;
                     notfiListener.Enabled = true;
                     notfiListener.Show();
@@ -224,8 +224,8 @@ namespace Korot
         private void PrintImages()
         {
             MinimumSize = new System.Drawing.Size(660, 340);
-            BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = HTAlt.Tools.Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
+            BackColor = Settings.Theme.BackColor;
+            ForeColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
         }
         public string OldSessions;
         private string profilePath;
@@ -262,50 +262,8 @@ namespace Korot
                     Output.WriteLine(x);
                 }
             }
-            if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
-            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
-            {
-                profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\";
-                if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
-                Tools.createThemes();
-                if (File.Exists(profilePath + "settings.ksf") &&
-                        File.Exists(profilePath + "history.ksf") &&
-                        File.Exists(profilePath + "favorites.ksf") &&
-                        File.Exists(profilePath + "download.ksf") &&
-                        File.Exists(profilePath + "cookieDisallow.ksf"))
-                {
-                    Tools.LoadSettings(profilePath + "settings.ksf",
-                        profilePath + "history.ksf",
-                        profilePath + "favorites.ksf",
-                        profilePath + "download.ksf",
-                        profilePath + "cookieDisallow.ksf",
-                        profilePath + "notificationAllow.ksf",
-                        profilePath + "notificationBlock.ksf");
-                }
-                else
-                {
-                    Tools.SaveSettings(profilePath + "settings.ksf",
-                        profilePath + "history.ksf",
-                        profilePath + "favorites.ksf",
-                        profilePath + "download.ksf",
-                        profilePath + "cookieDisallow.ksf",
-                        profilePath + "notificationAllow.ksf",
-                        profilePath + "notificationBlock.ksf");
-                }
-                if (!File.Exists(profilePath + "collections.kcf"))
-                {
-                    HTAlt.Tools.WriteFile(profilePath + "collections.kcf", "[root][/root]", Encoding.UTF8);
-                }
-                colman.readCollections(profilePath + "collections.kcf");
-            }
-            else
-            { Process.Start(Application.ExecutablePath, "-oobe"); Close(); }
-
-            Location = new Point(Korot.Properties.Settings.Default.WindowPosX, Korot.Properties.Settings.Default.WindowPosY);
-            Size = new Size(Korot.Properties.Settings.Default.WindowSizeW, Korot.Properties.Settings.Default.WindowSizeH);
             PrintImages();
-            if (Properties.Settings.Default.LangFile == null) { Properties.Settings.Default.LangFile = Application.StartupPath + "\\Lang\\English.lang"; }
-            if (Properties.Settings.Default.autoRestoreSessions)
+            if (Settings.AutoRestore)
             {
                 ReadSession(Properties.Settings.Default.LastSessionURIs);
             }
@@ -316,13 +274,10 @@ namespace Korot
             SessionLogger.Start();
             MinimumSize = new System.Drawing.Size(660, 340);
             MaximizedBounds = Screen.GetWorkingArea(this);
-            if (Properties.Settings.Default.windowState == 0) { WindowState = FormWindowState.Normal; }
-            else if (Properties.Settings.Default.windowState == 1) { WindowState = FormWindowState.Maximized; }
-            else if (Properties.Settings.Default.windowState == 2) { WindowState = FormWindowState.Minimized; }
-            else
-            { Properties.Settings.Default.windowState = 0; WindowState = FormWindowState.Normal; }
-            Size = new Size(Properties.Settings.Default.WindowSizeW, Properties.Settings.Default.WindowSizeH);
-            Location = new Point(Properties.Settings.Default.WindowPosX, Properties.Settings.Default.WindowPosY);
+            if (!Settings.MenuWasMaximized) { WindowState = FormWindowState.Normal; }
+            else { WindowState = FormWindowState.Maximized; }
+            Size = Settings.MenuSize;
+            Location = Settings.MenuPoint;
 
         }
 
@@ -337,7 +292,7 @@ namespace Korot
             document.Load(stream);
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                frmCEF cefform = new frmCEF(isIncognito, "korot://newtab", Properties.Settings.Default.LastUser);
+                frmCEF cefform = new frmCEF(Settings,isIncognito, "korot://newtab", Properties.Settings.Default.LastUser);
                 cefform.lbURL.Items.Clear();
                 cefform.lbTitle.Items.Clear();
                 string[] SplittedFase = node.Attributes["Content"].Value.Split(';');
@@ -402,7 +357,7 @@ namespace Korot
             {
                 BackColor = referenceTab.BackColor,
                 UseDefaultBackColor = referenceTab.UseDefaultBackColor,
-                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, }
+                Content = new frmCEF(Settings,isIncognito, url, Properties.Settings.Default.LastUser)
             };
             Tabs.Insert(Tabs.IndexOf(referenceTab) + 1, newTab);
             SelectedTabIndex = Tabs.IndexOf(referenceTab) + 1;
@@ -413,9 +368,9 @@ namespace Korot
             if (!Directory.Exists(profilePath) && profilePath != null) { Directory.CreateDirectory(profilePath); }
             HTTitleTab newTab = new HTTitleTab(this)
             {
-                BackColor = Properties.Settings.Default.BackColor,
+                BackColor = Settings.Theme.BackColor,
                 UseDefaultBackColor = true,
-                Content = new frmCEF(isIncognito, url, Properties.Settings.Default.LastUser) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, }
+                Content = new frmCEF(Settings,isIncognito, url, Properties.Settings.Default.LastUser)
             };
             Tabs.Add(newTab);
             SelectedTabIndex = Tabs.Count - 1;
@@ -425,9 +380,9 @@ namespace Korot
             if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
             return new HTTitleTab(this)
             {
-                BackColor = Properties.Settings.Default.BackColor,
+                BackColor = Settings.Theme.BackColor,
                 UseDefaultBackColor = true,
-                Content = new frmCEF(isIncognito, "korot://newtab", Properties.Settings.Default.LastUser) { isPreRelease = isPreRelease, preVer = preVer, colManager = colman, }
+                Content = new frmCEF(Settings,isIncognito, "korot://newtab", Properties.Settings.Default.LastUser)
             };
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -472,21 +427,10 @@ namespace Korot
             closing = true;
             if (!isIncognito)
             {
-                Korot.Properties.Settings.Default.WindowPosX = Location.X;
-                Korot.Properties.Settings.Default.WindowPosY = Location.Y;
-                Korot.Properties.Settings.Default.WindowSizeH = Size.Height;
-                Korot.Properties.Settings.Default.WindowSizeW = Size.Width;
-                if (WindowState == FormWindowState.Normal) { Properties.Settings.Default.windowState = 0; }
-                else if (WindowState == FormWindowState.Maximized) { Properties.Settings.Default.windowState = 1; }
-                else if (WindowState == FormWindowState.Minimized) { Properties.Settings.Default.windowState = 2; }
-                Korot.Properties.Settings.Default.dismissUpdate = false;
-                Korot.Properties.Settings.Default.alreadyUpdatedThemes = false;
-                Korot.Properties.Settings.Default.alreadyUpdatedExt = false;
-                Properties.Settings.Default.disableLangErrors = false;
-                if (WindowState == FormWindowState.Normal) { Properties.Settings.Default.windowState = 0; }
-                else if (WindowState == FormWindowState.Maximized) { Properties.Settings.Default.windowState = 1; }
-                else if (WindowState == FormWindowState.Minimized) { Properties.Settings.Default.windowState = 2; }
-                colman.writeCollections(profilePath + "collections.kcf");
+                Settings.MenuPoint = Location;
+                Settings.MenuSize = Size;
+                Settings.MenuWasMaximized = WindowState == FormWindowState.Maximized;
+
                 if (e.CloseReason != CloseReason.None || e.CloseReason != CloseReason.WindowsShutDown || e.CloseReason != CloseReason.TaskManagerClosing)
                 {
                     Korot.Properties.Settings.Default.LastSessionURIs = "";
@@ -513,15 +457,7 @@ namespace Korot
 
                 }
                 if (!isIncognito) { Properties.Settings.Default.Save(); }
-                if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\")) { } else { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\"); }
-                Tools.SaveSettings(
-                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\settings.ksf",
-                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\history.ksf",
-                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\favorites.ksf",
-                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\download.ksf",
-                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\cookieDisallow.ksf",
-                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "notificationAllow.ksf",
-                    Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "notificationBlock.ksf");
+                Settings.Save();
             }
         }
 

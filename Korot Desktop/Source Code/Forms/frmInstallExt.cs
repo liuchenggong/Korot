@@ -31,6 +31,7 @@ namespace Korot
 {
     public partial class frmInstallExt : Form
     {
+        public Settings Settings;
         private bool requires1;
         private bool requires3;
         private bool allowSwitch = false;
@@ -49,8 +50,9 @@ namespace Korot
         private string ext = "Extension";
         private string theme = "Theme";
         private readonly bool silentInstall = false;
-        public frmInstallExt(string installFrom, bool silent = false)
+        public frmInstallExt(Settings settings,string installFrom, bool silent = false)
         {
+            Settings = settings;
             ExtFile = installFrom;
             silentInstall = silent;
             InitializeComponent();
@@ -155,7 +157,7 @@ namespace Korot
                     }
                     else
                     {
-                        pbLogo.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.ext_w : Properties.Resources.ext;
+                        pbLogo.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources.ext_w : Properties.Resources.ext;
                     }
                     //ExtReq - autoLoad
                     if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Length >= 5)
@@ -285,7 +287,7 @@ namespace Korot
                     }
                     else
                     {
-                        pbLogo.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.ext_w : Properties.Resources.ext;
+                        pbLogo.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources.ext_w : Properties.Resources.ext;
                     }
                     //ExtReq - autoLoad
                     if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Length >= 5)
@@ -397,7 +399,7 @@ namespace Korot
                 //ExtAuthor
                 lbAuthor.Text = SplittedFase[9].Substring(1).Replace(Environment.NewLine, "");
                 panel6.Visible = false;
-                pbLogo.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.theme_w : Properties.Resources.theme;
+                pbLogo.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources.theme_w : Properties.Resources.theme;
                 panel7.Visible = false;
                 panel4.Visible = true;
                 label9.Visible = false;
@@ -425,7 +427,7 @@ namespace Korot
                 //ExtAuthor
                 lbAuthor.Text = SplittedFase[9].Substring(1).Replace(Environment.NewLine, "");
                 panel6.Visible = false;
-                pbLogo.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources.theme_w : Properties.Resources.theme;
+                pbLogo.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources.theme_w : Properties.Resources.theme;
                 panel7.Visible = false;
                 panel4.Visible = true;
                 label9.Visible = false;
@@ -531,8 +533,10 @@ namespace Korot
                 Invoke(new Action(() => button3Mode(true)));
                 htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 100));
                 Directory.Delete(new FileInfo(ExtFile).DirectoryName, true);
-                Properties.Settings.Default.registeredExtensions.Add(extCodeName);
-                Properties.Settings.Default.Save();
+                Settings.Extensions.ExtensionCodeNames.Add(extCodeName);
+                Extension ext = new Extension(korotExtDirectory + "\\" + extCodeName + "\\ext.kem");
+                Settings.Extensions.ExtensionList.Add(ext);
+                ext.Update();
                 if (silentInstall)
                 {
                     Invoke(new Action(() => Close()));
@@ -561,23 +565,23 @@ namespace Korot
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            pictureBox1.BackColor = Properties.Settings.Default.OverlayColor;
-            tabPage1.BackColor = Properties.Settings.Default.BackColor;
-            tabPage1.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            tabPage2.BackColor = Properties.Settings.Default.BackColor;
-            tabPage2.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            tabPage3.BackColor = Properties.Settings.Default.BackColor;
-            tabPage3.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            panel1.BackColor = Properties.Settings.Default.BackColor;
-            tabPage4.BackColor = Properties.Settings.Default.BackColor;
-            tabPage4.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            panel1.ForeColor = Brightness(Properties.Settings.Default.BackColor) < 130 ? Color.White : Color.Black;
-            pictureBox7.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._1_w : Properties.Resources._1;
-            pictureBox2.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._2_w : Properties.Resources._2;
-            pictureBox5.Image = Brightness(Properties.Settings.Default.BackColor) < 130 ? Properties.Resources._3_w : Properties.Resources._3;
-            string Playlist = HTAlt.Tools.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+            BackColor = Settings.Theme.BackColor;
+            ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
+            pictureBox1.BackColor = Settings.Theme.OverlayColor;
+            tabPage1.BackColor = Settings.Theme.BackColor;
+            tabPage1.ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
+            tabPage2.BackColor = Settings.Theme.BackColor;
+            tabPage2.ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
+            tabPage3.BackColor = Settings.Theme.BackColor;
+            tabPage3.ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
+            panel1.BackColor = Settings.Theme.BackColor;
+            tabPage4.BackColor = Settings.Theme.BackColor;
+            tabPage4.ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
+            panel1.ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
+            pictureBox7.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._1_w : Properties.Resources._1;
+            pictureBox2.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._2_w : Properties.Resources._2;
+            pictureBox5.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._3_w : Properties.Resources._3;
+            string Playlist = HTAlt.Tools.ReadFile(Settings.LanguageFile, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
             noPermission = SplittedFase[112].Substring(1).Replace(Environment.NewLine, "");

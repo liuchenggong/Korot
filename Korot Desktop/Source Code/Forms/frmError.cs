@@ -28,8 +28,10 @@ namespace Korot
     public partial class frmError : Form
     {
         private readonly Exception Error;
-        public frmError(Exception error)
+        public Settings Settings;
+        public frmError(Exception error,Settings settings)
         {
+            Settings = settings;
             Error = error;
             InitializeComponent();
             foreach (Control x in Controls)
@@ -49,12 +51,12 @@ namespace Korot
             label1.Text = Properties.Settings.Default.KorotErrorTitle;
             label2.Text = Properties.Settings.Default.KorotErrorDesc.Replace("[NEWLINE]", Environment.NewLine);
             label3.Text = Properties.Settings.Default.KorotErrorTI;
-            BackColor = Properties.Settings.Default.BackColor;
-            ForeColor = HTAlt.Tools.IsBright(Properties.Settings.Default.BackColor) ? Color.Black : Color.White;
-            textBox1.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            lbErrorCode.BackColor = HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false);
-            textBox1.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false)) ? Color.Black : Color.White;
-            lbErrorCode.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Properties.Settings.Default.BackColor, 20, false)) ? Color.Black : Color.White;
+            BackColor = Settings.Theme.BackColor;
+            ForeColor = HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.Black : Color.White;
+            textBox1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+            lbErrorCode.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+            textBox1.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false)) ? Color.Black : Color.White;
+            lbErrorCode.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false)) ? Color.Black : Color.White;
         }
     }
 }

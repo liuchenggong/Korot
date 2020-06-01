@@ -48,7 +48,7 @@ namespace Korot
         {
             if (downloadItem.SuggestedFileName.ToLower().EndsWith(".kef"))
             {
-                if (Properties.Settings.Default.allowUnknownResources)
+                if (ValidHaltroyWebsite(downloadItem.OriginalUrl))
                 {
                     if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName))
                     {
@@ -60,43 +60,30 @@ namespace Korot
                 }
                 else
                 {
-                    if (ValidHaltroyWebsite(downloadItem.OriginalUrl))
+                    if (ActiveForm.Settings.Downloads.UseDownloadFolder)
                     {
-                        if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName))
-                        {
-                            File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName);
-                        }
-                        downloadItem.FullPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName;
-                        callback.Continue(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName, false);
+                        downloadItem.FullPath = ActiveForm.Settings.Downloads.DownloadDirectory + "\\" + downloadItem.SuggestedFileName;
+                        callback.Continue(ActiveForm.Settings.Downloads.DownloadDirectory + "\\" + downloadItem.SuggestedFileName, false);
                         ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
                     }
                     else
                     {
-                        if (Properties.Settings.Default.useDownloadFolder)
+                        SaveFileDialog saveFileDialog1 = new SaveFileDialog() { Filter = ActiveForm.allFiles + "|*.*", FilterIndex = 2, RestoreDirectory = true, FileName = downloadItem.SuggestedFileName };
+                        if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                         {
-                            downloadItem.FullPath = Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName;
-                            callback.Continue(Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName, false);
+                            downloadItem.FullPath = saveFileDialog1.FileName;
+                            callback.Continue(saveFileDialog1.FileName, false);
                             ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
-                        }
-                        else
-                        {
-                            SaveFileDialog saveFileDialog1 = new SaveFileDialog() { Filter = ActiveForm.allFiles + "|*.*", FilterIndex = 2, RestoreDirectory = true, FileName = downloadItem.SuggestedFileName };
-                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                            {
-                                downloadItem.FullPath = saveFileDialog1.FileName;
-                                callback.Continue(saveFileDialog1.FileName, false);
-                                ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
-                            }
                         }
                     }
                 }
             }
             else
             {
-                if (Properties.Settings.Default.useDownloadFolder)
+                if (ActiveForm.Settings.Downloads.UseDownloadFolder)
                 {
-                    downloadItem.FullPath = Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName;
-                    callback.Continue(Properties.Settings.Default.DownloadFolder + "\\" + downloadItem.SuggestedFileName, false);
+                    downloadItem.FullPath = ActiveForm.Settings.Downloads.DownloadDirectory + "\\" + downloadItem.SuggestedFileName;
+                    callback.Continue(ActiveForm.Settings.Downloads.DownloadDirectory + "\\" + downloadItem.SuggestedFileName, false);
                     ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
                 }
                 else
@@ -128,16 +115,26 @@ namespace Korot
             if (downloadItem.IsCancelled)
             {
                 anaform().CurrentDownloads.Remove(downloadItem);
-                Properties.Settings.Default.DowloadHistory += "X;" + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + downloadItem.FullPath + ";" + downloadItem.Url + ";";
+                Site site = new Site();
+                site.Date = DateTime.Now.ToString("dd/MM/yy hh:mm:ss");
+                site.Url = downloadItem.Url;
+                site.LocalUrl = downloadItem.FullPath;
+                site.Status = DownloadStatus.Cancelled;
+                ActiveForm.Settings.Downloads.Downloads.Add(site);
             }
             if (downloadItem.IsComplete)
             {
                 if (downloadItem.FullPath.ToLower().EndsWith(".kef") || downloadItem.FullPath.ToLower().EndsWith(".ktf"))
                 {
-                    frmInstallExt ınstallExt = new frmInstallExt(downloadItem.FullPath, Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions" + Path.GetFileNameWithoutExtension(downloadItem.FullPath)));
+                    frmInstallExt ınstallExt = new frmInstallExt(ActiveForm.Settings,downloadItem.FullPath, Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser +"\\Extensions" + Path.GetFileNameWithoutExtension(downloadItem.FullPath)));
                     ınstallExt.Show();
                 }
-                Properties.Settings.Default.DowloadHistory += "✓;" + DateTime.Now.ToString("dd/MM/yy hh:mm:ss") + ";" + downloadItem.Url + ";" + downloadItem.FullPath + ";";
+                Site site = new Site();
+                site.Date = DateTime.Now.ToString("dd/MM/yy hh:mm:ss");
+                site.Url = downloadItem.Url;
+                site.LocalUrl = downloadItem.FullPath;
+                site.Status = DownloadStatus.Downloaded;
+                ActiveForm.Settings.Downloads.Downloads.Add(site);
                 anaform().CurrentDownloads.Remove(downloadItem);
                 ActiveForm.Invoke(new Action(() => ActiveForm.RefreshDownloadList()));
             }

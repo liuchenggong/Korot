@@ -69,14 +69,15 @@ namespace Korot
             CefSettings settings = new CefSettings
             {
                 UserAgent = "Mozilla/5.0 ( Windows "
-                + Tools.getOSInfo()
+                + Program.getOSInfo()
                 + "; "
                 + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
                 + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
                 + Cef.ChromiumVersion
                 + " Safari/537.36 Korot/"
                 + Application.ProductVersion.ToString()
-                + (tabform.isPreRelease ? ("-pre" + tabform.preVer) : "")
+                + (VersionInfo.IsPreRelease ? ("-pre" + VersionInfo.PreReleaseNumber) : "")
+                + "(" + VersionInfo.CodeName + ")"
             };
             if (tabform._Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
             else { settings.CachePath = userCache; settings.RootCachePath = userCache; }

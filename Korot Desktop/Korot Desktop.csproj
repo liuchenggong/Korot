@@ -199,12 +199,6 @@
     <Compile Include="Source Code\Forms\frmCollection.Designer.cs">
       <DependentUpon>frmCollection.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source Code\Forms\frmDebugSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source Code\Forms\frmDebugSettings.Designer.cs">
-      <DependentUpon>frmDebugSettings.cs</DependentUpon>
-    </Compile>
     <Compile Include="Source Code\Forms\frmEditCollection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,6 +269,7 @@
     <Compile Include="Source Code\Others\DevToolsContainerControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Source Code\Others\Extensions.cs" />
     <Compile Include="Source Code\Others\MyJumplist.cs" />
     <Compile Include="Source Code\Others\ProfileManagement.cs" />
     <Compile Include="Source Code\Others\UACControl.cs" />
@@ -333,9 +328,6 @@
     <EmbeddedResource Include="Source Code\Forms\frmCollection.resx">
       <DependentUpon>frmCollection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source Code\Forms\frmDebugSettings.resx">
-      <DependentUpon>frmDebugSettings.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Forms\frmEditCollection.resx">
       <DependentUpon>frmEditCollection.cs</DependentUpon>
     </EmbeddedResource>
@@ -383,9 +375,6 @@
     <EmbeddedResource Include="Source Code\Forms\frmNotificationPermission.resx">
       <DependentUpon>frmNotificationPermission.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="..\.editorconfig">
-      <Link>.editorconfig</Link>
-    </None>
     <None Include="app.config" />
     <None Include="Lang\English.lang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

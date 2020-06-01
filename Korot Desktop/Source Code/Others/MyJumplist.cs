@@ -27,7 +27,7 @@ namespace Korot
         string NW = "New Window";
         private void BuildList()
         {
-            string Playlist = HTAlt.Tools.ReadFile(Properties.Settings.Default.LangFile, Encoding.UTF8);
+            string Playlist = HTAlt.Tools.ReadFile(anaform.Settings.LanguageFile, Encoding.UTF8);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SF = Playlist.Split(token);
             NIW = SF[9].Substring(1).Replace(Environment.NewLine, "");

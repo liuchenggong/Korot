@@ -404,6 +404,7 @@ namespace Korot
             // 
             // htProgressBar1
             // 
+            this.htProgressBar1.BorderThickness = 0;
             this.htProgressBar1.DrawBorder = true;
             this.htProgressBar1.Location = new System.Drawing.Point(25, 40);
             this.htProgressBar1.Name = "htProgressBar1";
@@ -495,7 +496,7 @@ namespace Korot
             this.tabPage4.Controls.Add(this.label1);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(646, 346);
+            this.tabPage4.Size = new System.Drawing.Size(646, 377);
             this.tabPage4.TabIndex = 4;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
