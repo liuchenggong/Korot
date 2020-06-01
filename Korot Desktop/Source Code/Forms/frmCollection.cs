@@ -118,7 +118,7 @@ namespace Korot
             backButtons.Clear();
             defaultBackColor.Clear();
             DefaultforeColor.Clear();
-            generateCollectionList(cefform.colManager);
+            generateCollectionList(cefform.Settings.CollectionManager);
         }
 
         private void generateCollectionList(CollectionManager collections)
@@ -370,7 +370,7 @@ namespace Korot
                         ID = HTAlt.Tools.GenerateRandomText(12),
                         Text = mesaj.TextValue
                     };
-                    cefform.colManager.Collections.Add(newCol);
+                    cefform.Settings.CollectionManager.Collections.Add(newCol);
                     genColList();
                 }
                 else { newCollectionToolStripMenuItem_Click(sender, e); }
@@ -389,7 +389,7 @@ namespace Korot
                 if (!string.IsNullOrWhiteSpace(mesaj.TextValue))
                 {
                     Collection newCol = new Collection(mesaj.TextValue);
-                    cefform.colManager.Collections.Add(newCol);
+                    cefform.Settings.CollectionManager.Collections.Add(newCol);
                     genColList();
                 }
                 else { ımportToolStripMenuItem_Click(sender, e); }
@@ -407,7 +407,7 @@ namespace Korot
                 { Yes = cefform.Yes, No = cefform.No, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor, Icon = cefform.anaform.Icon };
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
-                    cefform.colManager.Collections.Remove(cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name));
+                    cefform.Settings.CollectionManager.Collections.Remove(cefform.Settings.CollectionManager.GetCollectionFromID(listView1.SelectedItems[0].Name));
                     genColList();
                 }
             }
@@ -422,7 +422,7 @@ namespace Korot
             { Yes = cefform.Yes, No = cefform.No, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor, Icon = cefform.anaform.Icon };
             if (mesaj.ShowDialog() == DialogResult.Yes)
             {
-                cefform.colManager.Collections.Clear();
+                cefform.Settings.CollectionManager.Collections.Clear();
                 genColList();
             }
         }
@@ -450,7 +450,7 @@ namespace Korot
 
         private void deleteThisİtemToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).GetItemFromID(((Control)ıTEMToolStripMenuItem.Tag).Name);
+            cefform.Settings.CollectionManager.GetCollectionFromID(listView1.SelectedItems[0].Name).GetItemFromID(((Control)ıTEMToolStripMenuItem.Tag).Name);
             genColList();
         }
         private void exportThisİtemToolStripMenuItem_Click(object sender, EventArgs e)
@@ -494,7 +494,7 @@ namespace Korot
             {
                 if (!string.IsNullOrWhiteSpace(mesaj.TextValue))
                 {
-                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).NewItemFromCode(mesaj.TextValue);
+                    cefform.Settings.CollectionManager.GetCollectionFromID(listView1.SelectedItems[0].Name).NewItemFromCode(mesaj.TextValue);
                     genColList();
                 }
                 else { ımportİtemToolStripMenuItem_Click(sender, e); }
@@ -505,14 +505,14 @@ namespace Korot
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
                                                                                          cefform.changeColIDInfo,
-                                                                                         cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID)
+                                                                                         cefform.Settings.CollectionManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID)
             { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
                 if (!string.IsNullOrWhiteSpace(mesaj.TextValue))
                 {
-                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID = mesaj.TextValue;
+                    cefform.Settings.CollectionManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID = mesaj.TextValue;
                     genColList();
                 }
                 else { changeCollectionIDToolStripMenuItem_Click(sender, e); }
@@ -523,14 +523,14 @@ namespace Korot
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
                                                                              cefform.changeColTextInfo,
-                                                                             cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text)
+                                                                             cefform.Settings.CollectionManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text)
             { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
                 if (!string.IsNullOrWhiteSpace(mesaj.TextValue))
                 {
-                    cefform.colManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text = mesaj.TextValue;
+                    cefform.Settings.CollectionManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text = mesaj.TextValue;
                     genColList();
                 }
                 else { changeCollectionTextToolStripMenuItem_Click(sender, e); }

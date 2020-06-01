@@ -40,7 +40,6 @@ namespace Korot
                                   "<Name>Korot Light</Name>" + Environment.NewLine +
                                    "<Author>Haltroy</Author>" + Environment.NewLine +
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
-                                   "<MinimumKorotVersion>0.7.0.0</MinimumKorotVersion>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>true</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#ffffff</BackColor>" + Environment.NewLine +
                                    "<OverlayColor>#1E90FF</OverlayColor>" + Environment.NewLine +
@@ -57,7 +56,6 @@ namespace Korot
                                   "<Name>Korot Light</Name>" + Environment.NewLine +
                                    "<Author>Haltroy</Author>" + Environment.NewLine +
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
-                                   "<MinimumKorotVersion>0.7.0.0</MinimumKorotVersion>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>true</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#000000</BackColor>" + Environment.NewLine +
                                    "<OverlayColor>#1E90FF</OverlayColor>" + Environment.NewLine +

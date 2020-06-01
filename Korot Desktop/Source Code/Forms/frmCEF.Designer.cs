@@ -149,15 +149,12 @@ namespace Korot
             this.lbURL = new System.Windows.Forms.ListBox();
             this.tpCert = new System.Windows.Forms.TabPage();
             this.tpSettings = new System.Windows.Forms.TabPage();
-            this.btNotification = new HTAlt.WinForms.HTButton();
             this.btCookie = new HTAlt.WinForms.HTButton();
+            this.btNotification = new HTAlt.WinForms.HTButton();
             this.btReset = new HTAlt.WinForms.HTButton();
             this.btCleanLog = new HTAlt.WinForms.HTButton();
             this.cbLang = new System.Windows.Forms.ComboBox();
-            this.lbURinfo = new System.Windows.Forms.Label();
-            this.lbUResources = new System.Windows.Forms.Label();
             this.lbDNT = new System.Windows.Forms.Label();
-            this.hsUnknown = new HTAlt.WinForms.HTSwitch();
             this.hsDoNotTrack = new HTAlt.WinForms.HTSwitch();
             this.lbautoRestore = new System.Windows.Forms.Label();
             this.lbLastProxy = new System.Windows.Forms.Label();
@@ -250,9 +247,8 @@ namespace Korot
             this.label20 = new System.Windows.Forms.Label();
             this.lbKorot = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.tpCookie = new System.Windows.Forms.TabPage();
+            this.tpSite = new System.Windows.Forms.TabPage();
             this.btCookieBack = new HTAlt.WinForms.HTButton();
-            this.lbCookie = new System.Windows.Forms.ListBox();
             this.cmsCookie = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allowSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -263,8 +259,6 @@ namespace Korot
             this.btClose9 = new HTAlt.WinForms.HTButton();
             this.label9 = new System.Windows.Forms.Label();
             this.tpNotification = new System.Windows.Forms.TabPage();
-            this.btBlockList = new HTAlt.WinForms.HTButton();
-            this.btAllowList = new HTAlt.WinForms.HTButton();
             this.btNotifBack = new HTAlt.WinForms.HTButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.flpFrom = new System.Windows.Forms.FlowLayoutPanel();
@@ -340,6 +334,7 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
             this.pNavigate.SuspendLayout();
             this.cmsHamburger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
@@ -367,7 +362,7 @@ namespace Korot
             this.cmsDownload.SuspendLayout();
             this.tpAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            this.tpCookie.SuspendLayout();
+            this.tpSite.SuspendLayout();
             this.cmsCookie.SuspendLayout();
             this.tpCollection.SuspendLayout();
             this.tpNotification.SuspendLayout();
@@ -1214,7 +1209,6 @@ namespace Korot
             // 
             // button10
             // 
-            this.button10.AutoSize = true;
             this.button10.ButtonText = "most of the time";
             this.button10.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button10.FlatAppearance.BorderSize = 0;
@@ -1258,7 +1252,7 @@ namespace Korot
             this.tabControl1.Controls.Add(this.tpHistory);
             this.tabControl1.Controls.Add(this.tpDownload);
             this.tabControl1.Controls.Add(this.tpAbout);
-            this.tabControl1.Controls.Add(this.tpCookie);
+            this.tabControl1.Controls.Add(this.tpSite);
             this.tabControl1.Controls.Add(this.tpCollection);
             this.tabControl1.Controls.Add(this.tpNotification);
             this.tabControl1.Controls.Add(this.tpNAllow);
@@ -1338,10 +1332,7 @@ namespace Korot
             this.tpSettings.Controls.Add(this.btReset);
             this.tpSettings.Controls.Add(this.btCleanLog);
             this.tpSettings.Controls.Add(this.cbLang);
-            this.tpSettings.Controls.Add(this.lbURinfo);
-            this.tpSettings.Controls.Add(this.lbUResources);
             this.tpSettings.Controls.Add(this.lbDNT);
-            this.tpSettings.Controls.Add(this.hsUnknown);
             this.tpSettings.Controls.Add(this.hsDoNotTrack);
             this.tpSettings.Controls.Add(this.lbautoRestore);
             this.tpSettings.Controls.Add(this.lbLastProxy);
@@ -1366,6 +1357,22 @@ namespace Korot
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
             // 
+            // btCookie
+            // 
+            this.btCookie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btCookie.ButtonText = "Site Settings...";
+            this.btCookie.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btCookie.FlatAppearance.BorderSize = 0;
+            this.btCookie.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btCookie.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.btCookie.Location = new System.Drawing.Point(0, 371);
+            this.btCookie.Name = "btCookie";
+            this.btCookie.Size = new System.Drawing.Size(568, 28);
+            this.btCookie.TabIndex = 11;
+            this.btCookie.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btCookie.UseVisualStyleBackColor = false;
+            this.btCookie.Click += new System.EventHandler(this.button15_Click);
+            // 
             // btNotification
             // 
             this.btNotification.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
@@ -1381,22 +1388,6 @@ namespace Korot
             this.btNotification.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btNotification.UseVisualStyleBackColor = false;
             this.btNotification.Click += new System.EventHandler(this.button19_Click_1);
-            // 
-            // btCookie
-            // 
-            this.btCookie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btCookie.ButtonText = "Cookie Disallow List...";
-            this.btCookie.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btCookie.FlatAppearance.BorderSize = 0;
-            this.btCookie.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCookie.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.btCookie.Location = new System.Drawing.Point(0, 371);
-            this.btCookie.Name = "btCookie";
-            this.btCookie.Size = new System.Drawing.Size(568, 28);
-            this.btCookie.TabIndex = 11;
-            this.btCookie.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.btCookie.UseVisualStyleBackColor = false;
-            this.btCookie.Click += new System.EventHandler(this.button15_Click);
             // 
             // btReset
             // 
@@ -1445,28 +1436,6 @@ namespace Korot
             this.cbLang.SelectionChangeCommitted += new System.EventHandler(this.cbLang_TextUpdate);
             this.cbLang.TextChanged += new System.EventHandler(this.cbLang_TextUpdate);
             // 
-            // lbURinfo
-            // 
-            this.lbURinfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbURinfo.AutoSize = true;
-            this.lbURinfo.BackColor = System.Drawing.Color.Transparent;
-            this.lbURinfo.Location = new System.Drawing.Point(15, 295);
-            this.lbURinfo.Name = "lbURinfo";
-            this.lbURinfo.Size = new System.Drawing.Size(42, 16);
-            this.lbURinfo.TabIndex = 29;
-            this.lbURinfo.Text = "[INFO]";
-            // 
-            // lbUResources
-            // 
-            this.lbUResources.AutoSize = true;
-            this.lbUResources.BackColor = System.Drawing.Color.Transparent;
-            this.lbUResources.Location = new System.Drawing.Point(13, 275);
-            this.lbUResources.Name = "lbUResources";
-            this.lbUResources.Size = new System.Drawing.Size(157, 16);
-            this.lbUResources.TabIndex = 29;
-            this.lbUResources.Text = "Allow Unknown Resources:";
-            // 
             // lbDNT
             // 
             this.lbDNT.AutoSize = true;
@@ -1476,13 +1445,6 @@ namespace Korot
             this.lbDNT.Size = new System.Drawing.Size(123, 16);
             this.lbDNT.TabIndex = 29;
             this.lbDNT.Text = "Enable DoNotTrack :";
-            // 
-            // hsUnknown
-            // 
-            this.hsUnknown.Location = new System.Drawing.Point(176, 275);
-            this.hsUnknown.Name = "hsUnknown";
-            this.hsUnknown.Size = new System.Drawing.Size(50, 18);
-            this.hsUnknown.TabIndex = 10;
             // 
             // hsDoNotTrack
             // 
@@ -1531,7 +1493,6 @@ namespace Korot
             // btClose
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose.AutoSize = true;
             this.btClose.BackColor = System.Drawing.Color.Transparent;
             this.btClose.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose.FlatAppearance.BorderSize = 0;
@@ -1872,7 +1833,6 @@ namespace Korot
             // btClose2
             // 
             this.btClose2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose2.AutoSize = true;
             this.btClose2.BackColor = System.Drawing.Color.Transparent;
             this.btClose2.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose2.FlatAppearance.BorderSize = 0;
@@ -2047,8 +2007,6 @@ namespace Korot
             // button12
             // 
             this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button12.AutoSize = true;
-            this.button12.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button12.FlatAppearance.BorderSize = 0;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button12.Location = new System.Drawing.Point(547, 220);
@@ -2098,7 +2056,6 @@ namespace Korot
             // btClose6
             // 
             this.btClose6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose6.AutoSize = true;
             this.btClose6.BackColor = System.Drawing.Color.Transparent;
             this.btClose6.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose6.FlatAppearance.BorderSize = 0;
@@ -2209,7 +2166,6 @@ namespace Korot
             // btClose7
             // 
             this.btClose7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose7.AutoSize = true;
             this.btClose7.BackColor = System.Drawing.Color.Transparent;
             this.btClose7.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose7.FlatAppearance.BorderSize = 0;
@@ -2432,7 +2388,6 @@ namespace Korot
             // btClose10
             // 
             this.btClose10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose10.AutoSize = true;
             this.btClose10.BackColor = System.Drawing.Color.Transparent;
             this.btClose10.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose10.FlatAppearance.BorderSize = 0;
@@ -2470,7 +2425,6 @@ namespace Korot
             // 
             // btInstall
             // 
-            this.btInstall.AutoSize = true;
             this.btInstall.BackColor = System.Drawing.Color.Transparent;
             this.btInstall.ButtonText = "Install the update";
             this.btInstall.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -2487,7 +2441,6 @@ namespace Korot
             // 
             // btUpdater
             // 
-            this.btUpdater.AutoSize = true;
             this.btUpdater.BackColor = System.Drawing.Color.Transparent;
             this.btUpdater.ButtonText = "Check for Updates";
             this.btUpdater.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -2571,18 +2524,18 @@ namespace Korot
             this.pictureBox5.TabIndex = 0;
             this.pictureBox5.TabStop = false;
             // 
-            // tpCookie
+            // tpSite
             // 
-            this.tpCookie.Controls.Add(this.btCookieBack);
-            this.tpCookie.Controls.Add(this.lbCookie);
-            this.tpCookie.Controls.Add(this.btClose8);
-            this.tpCookie.Controls.Add(this.label27);
-            this.tpCookie.Location = new System.Drawing.Point(4, 25);
-            this.tpCookie.Name = "tpCookie";
-            this.tpCookie.Size = new System.Drawing.Size(568, 483);
-            this.tpCookie.TabIndex = 7;
-            this.tpCookie.Text = "Cookie Disallow List";
-            this.tpCookie.UseVisualStyleBackColor = true;
+            this.tpSite.Controls.Add(this.panel2);
+            this.tpSite.Controls.Add(this.btCookieBack);
+            this.tpSite.Controls.Add(this.btClose8);
+            this.tpSite.Controls.Add(this.label27);
+            this.tpSite.Location = new System.Drawing.Point(4, 25);
+            this.tpSite.Name = "tpSite";
+            this.tpSite.Size = new System.Drawing.Size(568, 483);
+            this.tpSite.TabIndex = 7;
+            this.tpSite.Text = "Site Settings";
+            this.tpSite.UseVisualStyleBackColor = true;
             // 
             // btCookieBack
             // 
@@ -2599,19 +2552,6 @@ namespace Korot
             this.btCookieBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btCookieBack.UseVisualStyleBackColor = false;
             this.btCookieBack.Click += new System.EventHandler(this.btNotifBack_Click);
-            // 
-            // lbCookie
-            // 
-            this.lbCookie.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbCookie.ContextMenuStrip = this.cmsCookie;
-            this.lbCookie.FormattingEnabled = true;
-            this.lbCookie.ItemHeight = 16;
-            this.lbCookie.Location = new System.Drawing.Point(14, 38);
-            this.lbCookie.Name = "lbCookie";
-            this.lbCookie.Size = new System.Drawing.Size(540, 484);
-            this.lbCookie.TabIndex = 1;
             // 
             // cmsCookie
             // 
@@ -2639,7 +2579,6 @@ namespace Korot
             // btClose8
             // 
             this.btClose8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose8.AutoSize = true;
             this.btClose8.BackColor = System.Drawing.Color.Transparent;
             this.btClose8.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose8.FlatAppearance.BorderSize = 0;
@@ -2659,9 +2598,9 @@ namespace Korot
             this.label27.Font = new System.Drawing.Font("Ubuntu", 15F);
             this.label27.Location = new System.Drawing.Point(50, 4);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(196, 25);
+            this.label27.Size = new System.Drawing.Size(130, 25);
             this.label27.TabIndex = 0;
-            this.label27.Text = "Cookie Disallow List";
+            this.label27.Text = "Site Settings";
             // 
             // tpCollection
             // 
@@ -2689,7 +2628,6 @@ namespace Korot
             // btClose9
             // 
             this.btClose9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose9.AutoSize = true;
             this.btClose9.BackColor = System.Drawing.Color.Transparent;
             this.btClose9.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose9.FlatAppearance.BorderSize = 0;
@@ -2715,8 +2653,6 @@ namespace Korot
             // 
             // tpNotification
             // 
-            this.tpNotification.Controls.Add(this.btBlockList);
-            this.tpNotification.Controls.Add(this.btAllowList);
             this.tpNotification.Controls.Add(this.btNotifBack);
             this.tpNotification.Controls.Add(this.panel1);
             this.tpNotification.Controls.Add(this.lbSchedule);
@@ -2733,40 +2669,6 @@ namespace Korot
             this.tpNotification.TabIndex = 9;
             this.tpNotification.Text = "Notification Setting";
             this.tpNotification.UseVisualStyleBackColor = true;
-            // 
-            // btBlockList
-            // 
-            this.btBlockList.AutoSize = true;
-            this.btBlockList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btBlockList.ButtonText = "Block List...";
-            this.btBlockList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btBlockList.FlatAppearance.BorderSize = 0;
-            this.btBlockList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btBlockList.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.btBlockList.Location = new System.Drawing.Point(0, 427);
-            this.btBlockList.Name = "btBlockList";
-            this.btBlockList.Size = new System.Drawing.Size(568, 28);
-            this.btBlockList.TabIndex = 12;
-            this.btBlockList.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.btBlockList.UseVisualStyleBackColor = false;
-            this.btBlockList.Click += new System.EventHandler(this.button20_Click);
-            // 
-            // btAllowList
-            // 
-            this.btAllowList.AutoSize = true;
-            this.btAllowList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btAllowList.ButtonText = "Allow List...";
-            this.btAllowList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btAllowList.FlatAppearance.BorderSize = 0;
-            this.btAllowList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btAllowList.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.btAllowList.Location = new System.Drawing.Point(0, 455);
-            this.btAllowList.Name = "btAllowList";
-            this.btAllowList.Size = new System.Drawing.Size(568, 28);
-            this.btAllowList.TabIndex = 11;
-            this.btAllowList.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.btAllowList.UseVisualStyleBackColor = false;
-            this.btAllowList.Click += new System.EventHandler(this.button19_Click);
             // 
             // btNotifBack
             // 
@@ -3118,7 +3020,6 @@ namespace Korot
             // btClose3
             // 
             this.btClose3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose3.AutoSize = true;
             this.btClose3.BackColor = System.Drawing.Color.Transparent;
             this.btClose3.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose3.FlatAppearance.BorderSize = 0;
@@ -3218,7 +3119,6 @@ namespace Korot
             // btClose5
             // 
             this.btClose5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose5.AutoSize = true;
             this.btClose5.BackColor = System.Drawing.Color.Transparent;
             this.btClose5.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose5.FlatAppearance.BorderSize = 0;
@@ -3318,7 +3218,6 @@ namespace Korot
             // btClose4
             // 
             this.btClose4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose4.AutoSize = true;
             this.btClose4.BackColor = System.Drawing.Color.Transparent;
             this.btClose4.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose4.FlatAppearance.BorderSize = 0;
@@ -3568,6 +3467,16 @@ namespace Korot
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Location = new System.Drawing.Point(19, 39);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(538, 457);
+            this.panel2.TabIndex = 46;
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -3629,8 +3538,8 @@ namespace Korot
             this.tpAbout.ResumeLayout(false);
             this.tpAbout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            this.tpCookie.ResumeLayout(false);
-            this.tpCookie.PerformLayout();
+            this.tpSite.ResumeLayout(false);
+            this.tpSite.PerformLayout();
             this.cmsCookie.ResumeLayout(false);
             this.tpCollection.ResumeLayout(false);
             this.tpCollection.PerformLayout();
@@ -3825,8 +3734,7 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem thisSessionİsNotGoingToBeSavedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clickHereToLearnMoreToolStripMenuItem;
         private HTAlt.WinForms.HTButton btCookie;
-        private System.Windows.Forms.TabPage tpCookie;
-        private System.Windows.Forms.ListBox lbCookie;
+        private System.Windows.Forms.TabPage tpSite;
         public HTAlt.WinForms.HTButton btClose8;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.ContextMenuStrip cmsCookie;
@@ -3848,10 +3756,7 @@ namespace Korot
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label33;
         private HTAlt.WinForms.HTSwitch hsFav;
-        private System.Windows.Forms.Label lbUResources;
-        private HTAlt.WinForms.HTSwitch hsUnknown;
         private System.Windows.Forms.ToolStripMenuItem tsFullscreen;
-        private System.Windows.Forms.Label lbURinfo;
         private HTAlt.WinForms.HTButton btCleanLog;
         private HTAlt.WinForms.HTSwitch hsOpen;
         private System.Windows.Forms.Label lbOpen;
@@ -3924,8 +3829,6 @@ namespace Korot
         private HTAlt.WinForms.HTSwitch hsNotificationSound;
         public HTAlt.WinForms.HTButton btClose3;
         private System.Windows.Forms.Label lbNotifSetting;
-        private HTAlt.WinForms.HTButton btAllowList;
-        private HTAlt.WinForms.HTButton btBlockList;
         private System.Windows.Forms.TabPage tpNAllow;
         private System.Windows.Forms.TabPage tpNBlock;
         private System.Windows.Forms.ListBox lbAllow;
@@ -3952,5 +3855,6 @@ namespace Korot
         public HTAlt.WinForms.HTButton button10;
         private HTAlt.WinForms.HTButton button12;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

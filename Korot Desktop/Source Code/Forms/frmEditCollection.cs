@@ -164,7 +164,7 @@ namespace Korot
             if (isOK)
             {
                 DialogResult = DialogResult.OK;
-                CollectionItem mainitem = cefform.colManager.GetItemFromID(editItem.Name);
+                CollectionItem mainitem = cefform.Settings.CollectionManager.GetItemFromID(editItem.Name);
                 if (editItem is CustomLinkLabel)
                 {
                     LinkItem ti = mainitem as LinkItem;
