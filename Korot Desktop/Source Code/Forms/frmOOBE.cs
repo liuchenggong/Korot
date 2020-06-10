@@ -20,6 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -129,9 +130,24 @@ namespace Korot
         {
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
             {
-                Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\", true);
+                RemoveDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\");
             }
             RefreshLangList();
+        }
+
+        private void RemoveDirectory(string directory)
+        {
+            List<FileFolderError> errors = new List<FileFolderError>();
+            foreach (String x in Directory.GetFiles(directory)){try { File.Delete(x); } catch (Exception ex) { errors.Add(new FileFolderError(x,ex,false)); }}
+            foreach (String x in Directory.GetDirectories(directory)) { try { Directory.Delete(x,true); } catch (Exception ex) { errors.Add(new FileFolderError(x, ex, true)); } }
+            if (errors.Count == 0)
+            {
+                Console.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with no errors.");
+            }else
+            {
+                Console.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with " + errors.Count + " error(s).");
+                foreach (FileFolderError x in errors) { Console.WriteLine(" [RemoveDirectory] " + (x.isDirectory ? "Directory" : "File") + " Error: " + x.Location + " [" + x.Error.ToString() + "]"); } 
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -171,10 +187,11 @@ namespace Korot
         private void button2_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.LastUser = textBox1.Text;
-            Tools.createFolders();
-            profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + Properties.Settings.Default.LastUser + "\\";
+            profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Profiles\\";
             Directory.CreateDirectory(profilePath);
+            Tools.createFolders();
             Tools.createThemes();
+            Settings.ProfileName = textBox1.Text;
             Settings.Save();
             Properties.Settings.Default.Save();
             allowClose = true;

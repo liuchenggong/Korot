@@ -101,14 +101,14 @@ namespace Korot
         private void frmNotification_Load(object sender, EventArgs e)
         {
             checkSilentMode();
-            if (cefform.Settings.Notification.DoNotPlaySound) { PlayNotificationSound(); }
-            if (!cefform.Settings.Notification.QuietMode) { Hide(); }
+            if (cefform.Settings.DoNotPlaySound) { PlayNotificationSound(); }
+            if (!cefform.Settings.QuietMode) { Hide(); }
             lbKorot.Text = "Korot " + Application.ProductVersion.ToString() + (VersionInfo.IsPreRelease ? "-pre" + VersionInfo.PreReleaseNumber : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)") + " (" + VersionInfo.CodeName + ")";
         }
 
         private void checkSilentMode()
         {
-            if (cefform.Settings.Notification.AutoSilent)
+            if (cefform.Settings.AutoSilent)
             {
                 DayOfWeek wk = DateTime.Today.DayOfWeek;
                 if ((cefform.Nsunday && wk == DayOfWeek.Sunday)
@@ -127,46 +127,46 @@ namespace Korot
                     {
                         if (cefform.toH > h)
                         {
-                            cefform.Settings.Notification.QuietMode = true;
+                            cefform.Settings.QuietMode = true;
                         }
                         else if (cefform.toH == h)
                         {
                             if (m >= cefform.toM)
                             {
-                                cefform.Settings.Notification.QuietMode = true;
+                                cefform.Settings.QuietMode = true;
                             }
                             else
                             {
-                                cefform.Settings.Notification.QuietMode = false;
+                                cefform.Settings.QuietMode = false;
                             }
                         }
                         else
                         {
-                            cefform.Settings.Notification.QuietMode = false;
+                            cefform.Settings.QuietMode = false;
                         }
                     }
                     else if (cefform.fromH == h)
                     {
                         if (m >= cefform.fromM)
                         {
-                            cefform.Settings.Notification.QuietMode = true;
+                            cefform.Settings.QuietMode = true;
                         }
                         else
                         {
-                            cefform.Settings.Notification.QuietMode = false;
+                            cefform.Settings.QuietMode = false;
                         }
                     }
                     else
                     {
-                        cefform.Settings.Notification.QuietMode = false;
+                        cefform.Settings.QuietMode = false;
                     }
                 }
                 else
                 {
-                    cefform.Settings.Notification.QuietMode = false;
+                    cefform.Settings.QuietMode = false;
                 }
             }
-            if (cefform.Settings.Notification.Silent) { cefform.Settings.Notification.QuietMode = true; }
+            if (cefform.Settings.Silent) { cefform.Settings.QuietMode = true; }
         }
 
         private void lbClose_Click(object sender, EventArgs e)
@@ -186,8 +186,8 @@ namespace Korot
             lbTitle.Text = notification.title;
             lbMessage.Text = notification.message;
             checkSilentMode();
-            if (cefform.Settings.Notification.QuietMode) { Hide(); } else { Show(); }
-            if (!cefform.Settings.Notification.QuietMode) { PlayNotificationSound(); }
+            if (cefform.Settings.QuietMode) { Hide(); } else { Show(); }
+            if (!cefform.Settings.QuietMode) { PlayNotificationSound(); }
             Rectangle screenSize = Screen.GetWorkingArea(this);
             int pointX = screenSize.Width - (Width + 10);
             int pointY = screenSize.Height - ((cefform.anaform.notifications.IndexOf(this) + 1)

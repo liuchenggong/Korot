@@ -193,8 +193,8 @@ namespace Korot
             this.label31 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.pbStore = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pbBack = new System.Windows.Forms.PictureBox();
+            this.pbOverlay = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -248,10 +248,8 @@ namespace Korot
             this.lbKorot = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.tpSite = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.btCookieBack = new HTAlt.WinForms.HTButton();
-            this.cmsCookie = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.allowSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.btClose8 = new HTAlt.WinForms.HTButton();
             this.label27 = new System.Windows.Forms.Label();
             this.tpCollection = new System.Windows.Forms.TabPage();
@@ -289,24 +287,9 @@ namespace Korot
             this.hsNotificationSound = new HTAlt.WinForms.HTSwitch();
             this.btClose3 = new HTAlt.WinForms.HTButton();
             this.lbNotifSetting = new System.Windows.Forms.Label();
-            this.tpNAllow = new System.Windows.Forms.TabPage();
-            this.btNotifAllowBack = new HTAlt.WinForms.HTButton();
-            this.lbAllow = new System.Windows.Forms.ListBox();
-            this.cmsAllow = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.allowRS = new System.Windows.Forms.ToolStripMenuItem();
-            this.allowBlockSel = new System.Windows.Forms.ToolStripMenuItem();
-            this.allowClear = new System.Windows.Forms.ToolStripMenuItem();
-            this.btClose5 = new HTAlt.WinForms.HTButton();
-            this.lbNotifAllow = new System.Windows.Forms.Label();
-            this.tpNBlock = new System.Windows.Forms.TabPage();
-            this.btNBlockBack = new HTAlt.WinForms.HTButton();
-            this.lbBlock = new System.Windows.Forms.ListBox();
-            this.cmsBlock = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.blockRS = new System.Windows.Forms.ToolStripMenuItem();
-            this.blockAllowSel = new System.Windows.Forms.ToolStripMenuItem();
-            this.blockClear = new System.Windows.Forms.ToolStripMenuItem();
-            this.btClose4 = new HTAlt.WinForms.HTButton();
-            this.lbNotifBlock = new System.Windows.Forms.Label();
+            this.cmsCookie = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.allowSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsSearchEngine = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.googleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yandexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -334,7 +317,6 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.panel2 = new System.Windows.Forms.Panel();
             this.pNavigate.SuspendLayout();
             this.cmsHamburger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
@@ -354,8 +336,8 @@ namespace Korot
             this.flpNewTab.SuspendLayout();
             this.flpLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbStore)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOverlay)).BeginInit();
             this.tpHistory.SuspendLayout();
             this.cmsHistory.SuspendLayout();
             this.tpDownload.SuspendLayout();
@@ -363,7 +345,6 @@ namespace Korot
             this.tpAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.tpSite.SuspendLayout();
-            this.cmsCookie.SuspendLayout();
             this.tpCollection.SuspendLayout();
             this.tpNotification.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -374,10 +355,7 @@ namespace Korot
             this.flpTo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toHour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toMin)).BeginInit();
-            this.tpNAllow.SuspendLayout();
-            this.cmsAllow.SuspendLayout();
-            this.tpNBlock.SuspendLayout();
-            this.cmsBlock.SuspendLayout();
+            this.cmsCookie.SuspendLayout();
             this.cmsSearchEngine.SuspendLayout();
             this.cmsBStyle.SuspendLayout();
             this.cmsIncognito.SuspendLayout();
@@ -1255,8 +1233,6 @@ namespace Korot
             this.tabControl1.Controls.Add(this.tpSite);
             this.tabControl1.Controls.Add(this.tpCollection);
             this.tabControl1.Controls.Add(this.tpNotification);
-            this.tabControl1.Controls.Add(this.tpNAllow);
-            this.tabControl1.Controls.Add(this.tpNBlock);
             this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControl1.Location = new System.Drawing.Point(-7, 32);
             this.tabControl1.Name = "tabControl1";
@@ -1360,7 +1336,7 @@ namespace Korot
             // btCookie
             // 
             this.btCookie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btCookie.ButtonText = "Site Settings...";
+            this.btCookie.ButtonText = "Site Settings..";
             this.btCookie.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btCookie.FlatAppearance.BorderSize = 0;
             this.btCookie.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1376,7 +1352,7 @@ namespace Korot
             // btNotification
             // 
             this.btNotification.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btNotification.ButtonText = "Notification Settings...";
+            this.btNotification.ButtonText = "Notification Settings..";
             this.btNotification.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btNotification.FlatAppearance.BorderSize = 0;
             this.btNotification.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1639,8 +1615,8 @@ namespace Korot
             this.tpTheme.Controls.Add(this.label31);
             this.tpTheme.Controls.Add(this.label12);
             this.tpTheme.Controls.Add(this.pbStore);
-            this.tpTheme.Controls.Add(this.pictureBox3);
-            this.tpTheme.Controls.Add(this.pictureBox4);
+            this.tpTheme.Controls.Add(this.pbBack);
+            this.tpTheme.Controls.Add(this.pbOverlay);
             this.tpTheme.Controls.Add(this.label14);
             this.tpTheme.Controls.Add(this.label16);
             this.tpTheme.Controls.Add(this.textBox4);
@@ -1907,27 +1883,27 @@ namespace Korot
             this.pbStore.Tag = "";
             this.pbStore.Click += new System.EventHandler(this.pictureBox6_Click);
             // 
-            // pictureBox3
+            // pbBack
             // 
-            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox3.Location = new System.Drawing.Point(173, 38);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(23, 23);
-            this.pictureBox3.TabIndex = 27;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Tag = "";
-            this.pictureBox3.Click += new System.EventHandler(this.PictureBox3_Click);
+            this.pbBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbBack.Location = new System.Drawing.Point(173, 38);
+            this.pbBack.Name = "pbBack";
+            this.pbBack.Size = new System.Drawing.Size(23, 23);
+            this.pbBack.TabIndex = 27;
+            this.pbBack.TabStop = false;
+            this.pbBack.Tag = "";
+            this.pbBack.Click += new System.EventHandler(this.PictureBox3_Click);
             // 
-            // pictureBox4
+            // pbOverlay
             // 
-            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox4.Location = new System.Drawing.Point(173, 67);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(23, 23);
-            this.pictureBox4.TabIndex = 28;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Tag = "Default: DodgerBlue";
-            this.pictureBox4.Click += new System.EventHandler(this.PictureBox4_Click);
+            this.pbOverlay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbOverlay.Location = new System.Drawing.Point(173, 67);
+            this.pbOverlay.Name = "pbOverlay";
+            this.pbOverlay.Size = new System.Drawing.Size(23, 23);
+            this.pbOverlay.TabIndex = 28;
+            this.pbOverlay.TabStop = false;
+            this.pbOverlay.Tag = "";
+            this.pbOverlay.Click += new System.EventHandler(this.PictureBox4_Click);
             // 
             // label14
             // 
@@ -2003,20 +1979,27 @@ namespace Korot
             this.comboBox1.Size = new System.Drawing.Size(376, 25);
             this.comboBox1.TabIndex = 7;
             this.comboBox1.Tag = "";
+            this.comboBox1.Enter += new System.EventHandler(this.comboBox1_Enter);
+            this.comboBox1.Leave += new System.EventHandler(this.comboBox1_Leave);
             // 
             // button12
             // 
             this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button12.ButtonImage = global::Korot.Properties.Resources.collection;
+            this.button12.ButtonText = "";
             this.button12.FlatAppearance.BorderSize = 0;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(547, 220);
+            this.button12.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
+            this.button12.Location = new System.Drawing.Point(505, 220);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(6, 6);
+            this.button12.Size = new System.Drawing.Size(48, 26);
             this.button12.TabIndex = 8;
             this.button12.Tag = "";
             this.button12.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.Button12_Click);
+            this.button12.Enter += new System.EventHandler(this.comboBox1_Enter);
+            this.button12.Leave += new System.EventHandler(this.comboBox1_Leave);
             // 
             // listBox2
             // 
@@ -2027,7 +2010,7 @@ namespace Korot
             this.listBox2.ItemHeight = 16;
             this.listBox2.Location = new System.Drawing.Point(20, 275);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(526, 116);
+            this.listBox2.Size = new System.Drawing.Size(526, 196);
             this.listBox2.TabIndex = 10;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
@@ -2537,6 +2520,16 @@ namespace Korot
             this.tpSite.Text = "Site Settings";
             this.tpSite.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Location = new System.Drawing.Point(19, 39);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(538, 457);
+            this.panel2.TabIndex = 46;
+            // 
             // btCookieBack
             // 
             this.btCookieBack.BackColor = System.Drawing.Color.Transparent;
@@ -2552,29 +2545,6 @@ namespace Korot
             this.btCookieBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btCookieBack.UseVisualStyleBackColor = false;
             this.btCookieBack.Click += new System.EventHandler(this.btNotifBack_Click);
-            // 
-            // cmsCookie
-            // 
-            this.cmsCookie.BackColor = System.Drawing.Color.White;
-            this.cmsCookie.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.allowSelectedToolStripMenuItem,
-            this.clearToolStripMenuItem1});
-            this.cmsCookie.Name = "cmsCookie";
-            this.cmsCookie.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsCookie.ShowImageMargin = false;
-            this.cmsCookie.Size = new System.Drawing.Size(137, 48);
-            // 
-            // allowSelectedToolStripMenuItem
-            // 
-            this.allowSelectedToolStripMenuItem.Name = "allowSelectedToolStripMenuItem";
-            this.allowSelectedToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.allowSelectedToolStripMenuItem.Text = "Allow Selected";
-            // 
-            // clearToolStripMenuItem1
-            // 
-            this.clearToolStripMenuItem1.Name = "clearToolStripMenuItem1";
-            this.clearToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
-            this.clearToolStripMenuItem1.Text = "Clear";
             // 
             // btClose8
             // 
@@ -3043,203 +3013,28 @@ namespace Korot
             this.lbNotifSetting.TabIndex = 38;
             this.lbNotifSetting.Text = "Notification Settings";
             // 
-            // tpNAllow
+            // cmsCookie
             // 
-            this.tpNAllow.Controls.Add(this.btNotifAllowBack);
-            this.tpNAllow.Controls.Add(this.lbAllow);
-            this.tpNAllow.Controls.Add(this.btClose5);
-            this.tpNAllow.Controls.Add(this.lbNotifAllow);
-            this.tpNAllow.Location = new System.Drawing.Point(4, 25);
-            this.tpNAllow.Name = "tpNAllow";
-            this.tpNAllow.Size = new System.Drawing.Size(568, 483);
-            this.tpNAllow.TabIndex = 10;
-            this.tpNAllow.Text = "Notification Allow List";
-            this.tpNAllow.UseVisualStyleBackColor = true;
+            this.cmsCookie.BackColor = System.Drawing.Color.White;
+            this.cmsCookie.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allowSelectedToolStripMenuItem,
+            this.clearToolStripMenuItem1});
+            this.cmsCookie.Name = "cmsCookie";
+            this.cmsCookie.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cmsCookie.ShowImageMargin = false;
+            this.cmsCookie.Size = new System.Drawing.Size(137, 48);
             // 
-            // btNotifAllowBack
+            // allowSelectedToolStripMenuItem
             // 
-            this.btNotifAllowBack.BackColor = System.Drawing.Color.Transparent;
-            this.btNotifAllowBack.ButtonImage = global::Korot.Properties.Resources.leftarrow;
-            this.btNotifAllowBack.ContextMenuStrip = this.cmsBack;
-            this.btNotifAllowBack.FlatAppearance.BorderSize = 0;
-            this.btNotifAllowBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btNotifAllowBack.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btNotifAllowBack.Location = new System.Drawing.Point(15, 7);
-            this.btNotifAllowBack.Name = "btNotifAllowBack";
-            this.btNotifAllowBack.Size = new System.Drawing.Size(30, 28);
-            this.btNotifAllowBack.TabIndex = 46;
-            this.btNotifAllowBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.btNotifAllowBack.UseVisualStyleBackColor = false;
-            this.btNotifAllowBack.Click += new System.EventHandler(this.btNBlockBack_Click);
+            this.allowSelectedToolStripMenuItem.Name = "allowSelectedToolStripMenuItem";
+            this.allowSelectedToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.allowSelectedToolStripMenuItem.Text = "Allow Selected";
             // 
-            // lbAllow
+            // clearToolStripMenuItem1
             // 
-            this.lbAllow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbAllow.ContextMenuStrip = this.cmsAllow;
-            this.lbAllow.FormattingEnabled = true;
-            this.lbAllow.ItemHeight = 16;
-            this.lbAllow.Location = new System.Drawing.Point(15, 36);
-            this.lbAllow.Name = "lbAllow";
-            this.lbAllow.Size = new System.Drawing.Size(542, 500);
-            this.lbAllow.TabIndex = 44;
-            // 
-            // cmsAllow
-            // 
-            this.cmsAllow.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.allowRS,
-            this.allowBlockSel,
-            this.allowClear});
-            this.cmsAllow.Name = "cmsAllow";
-            this.cmsAllow.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsAllow.ShowImageMargin = false;
-            this.cmsAllow.ShowItemToolTips = false;
-            this.cmsAllow.Size = new System.Drawing.Size(153, 70);
-            this.cmsAllow.Opening += new System.ComponentModel.CancelEventHandler(this.cmsAllow_Opening);
-            // 
-            // allowRS
-            // 
-            this.allowRS.Name = "allowRS";
-            this.allowRS.Size = new System.Drawing.Size(152, 22);
-            this.allowRS.Text = "Remove Selected";
-            // 
-            // allowBlockSel
-            // 
-            this.allowBlockSel.Name = "allowBlockSel";
-            this.allowBlockSel.Size = new System.Drawing.Size(152, 22);
-            this.allowBlockSel.Text = "Block Selected";
-            // 
-            // allowClear
-            // 
-            this.allowClear.Name = "allowClear";
-            this.allowClear.Size = new System.Drawing.Size(152, 22);
-            this.allowClear.Text = "Clear";
-            // 
-            // btClose5
-            // 
-            this.btClose5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose5.BackColor = System.Drawing.Color.Transparent;
-            this.btClose5.ButtonImage = global::Korot.Properties.Resources.cancel;
-            this.btClose5.FlatAppearance.BorderSize = 0;
-            this.btClose5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose5.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btClose5.Location = new System.Drawing.Point(527, 5);
-            this.btClose5.Name = "btClose5";
-            this.btClose5.Size = new System.Drawing.Size(30, 30);
-            this.btClose5.TabIndex = 42;
-            this.btClose5.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.btClose5.UseVisualStyleBackColor = false;
-            this.btClose5.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // lbNotifAllow
-            // 
-            this.lbNotifAllow.AutoSize = true;
-            this.lbNotifAllow.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.lbNotifAllow.Location = new System.Drawing.Point(51, 8);
-            this.lbNotifAllow.Name = "lbNotifAllow";
-            this.lbNotifAllow.Size = new System.Drawing.Size(219, 25);
-            this.lbNotifAllow.TabIndex = 43;
-            this.lbNotifAllow.Text = "Notification Allow List";
-            // 
-            // tpNBlock
-            // 
-            this.tpNBlock.Controls.Add(this.btNBlockBack);
-            this.tpNBlock.Controls.Add(this.lbBlock);
-            this.tpNBlock.Controls.Add(this.btClose4);
-            this.tpNBlock.Controls.Add(this.lbNotifBlock);
-            this.tpNBlock.Location = new System.Drawing.Point(4, 25);
-            this.tpNBlock.Name = "tpNBlock";
-            this.tpNBlock.Size = new System.Drawing.Size(568, 483);
-            this.tpNBlock.TabIndex = 11;
-            this.tpNBlock.Text = "Notification Block List";
-            this.tpNBlock.UseVisualStyleBackColor = true;
-            // 
-            // btNBlockBack
-            // 
-            this.btNBlockBack.BackColor = System.Drawing.Color.Transparent;
-            this.btNBlockBack.ButtonImage = global::Korot.Properties.Resources.leftarrow;
-            this.btNBlockBack.ContextMenuStrip = this.cmsBack;
-            this.btNBlockBack.FlatAppearance.BorderSize = 0;
-            this.btNBlockBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btNBlockBack.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btNBlockBack.Location = new System.Drawing.Point(16, 4);
-            this.btNBlockBack.Name = "btNBlockBack";
-            this.btNBlockBack.Size = new System.Drawing.Size(30, 28);
-            this.btNBlockBack.TabIndex = 45;
-            this.btNBlockBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.btNBlockBack.UseVisualStyleBackColor = false;
-            this.btNBlockBack.Click += new System.EventHandler(this.btNBlockBack_Click);
-            // 
-            // lbBlock
-            // 
-            this.lbBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbBlock.ContextMenuStrip = this.cmsBlock;
-            this.lbBlock.FormattingEnabled = true;
-            this.lbBlock.ItemHeight = 16;
-            this.lbBlock.Location = new System.Drawing.Point(16, 36);
-            this.lbBlock.Name = "lbBlock";
-            this.lbBlock.Size = new System.Drawing.Size(541, 500);
-            this.lbBlock.TabIndex = 41;
-            // 
-            // cmsBlock
-            // 
-            this.cmsBlock.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.blockRS,
-            this.blockAllowSel,
-            this.blockClear});
-            this.cmsBlock.Name = "cmsAllow";
-            this.cmsBlock.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsBlock.ShowImageMargin = false;
-            this.cmsBlock.ShowItemToolTips = false;
-            this.cmsBlock.Size = new System.Drawing.Size(153, 70);
-            this.cmsBlock.Opening += new System.ComponentModel.CancelEventHandler(this.cmsBlock_Opening);
-            // 
-            // blockRS
-            // 
-            this.blockRS.Name = "blockRS";
-            this.blockRS.Size = new System.Drawing.Size(152, 22);
-            this.blockRS.Text = "Remove Selected";
-            // 
-            // blockAllowSel
-            // 
-            this.blockAllowSel.Name = "blockAllowSel";
-            this.blockAllowSel.Size = new System.Drawing.Size(152, 22);
-            this.blockAllowSel.Text = "Allow Selected";
-            // 
-            // blockClear
-            // 
-            this.blockClear.Name = "blockClear";
-            this.blockClear.Size = new System.Drawing.Size(152, 22);
-            this.blockClear.Text = "Clear";
-            // 
-            // btClose4
-            // 
-            this.btClose4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose4.BackColor = System.Drawing.Color.Transparent;
-            this.btClose4.ButtonImage = global::Korot.Properties.Resources.cancel;
-            this.btClose4.FlatAppearance.BorderSize = 0;
-            this.btClose4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose4.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btClose4.Location = new System.Drawing.Point(527, 5);
-            this.btClose4.Name = "btClose4";
-            this.btClose4.Size = new System.Drawing.Size(30, 30);
-            this.btClose4.TabIndex = 39;
-            this.btClose4.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.btClose4.UseVisualStyleBackColor = false;
-            this.btClose4.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // lbNotifBlock
-            // 
-            this.lbNotifBlock.AutoSize = true;
-            this.lbNotifBlock.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.lbNotifBlock.Location = new System.Drawing.Point(52, 5);
-            this.lbNotifBlock.Name = "lbNotifBlock";
-            this.lbNotifBlock.Size = new System.Drawing.Size(218, 25);
-            this.lbNotifBlock.TabIndex = 40;
-            this.lbNotifBlock.Text = "Notification Block List";
+            this.clearToolStripMenuItem1.Name = "clearToolStripMenuItem1";
+            this.clearToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
+            this.clearToolStripMenuItem1.Text = "Clear";
             // 
             // cmsSearchEngine
             // 
@@ -3467,16 +3262,6 @@ namespace Korot
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
             // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Location = new System.Drawing.Point(19, 39);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(538, 457);
-            this.panel2.TabIndex = 46;
-            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -3527,8 +3312,8 @@ namespace Korot
             this.flpLayout.ResumeLayout(false);
             this.flpLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbStore)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOverlay)).EndInit();
             this.tpHistory.ResumeLayout(false);
             this.tpHistory.PerformLayout();
             this.cmsHistory.ResumeLayout(false);
@@ -3540,7 +3325,6 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.tpSite.ResumeLayout(false);
             this.tpSite.PerformLayout();
-            this.cmsCookie.ResumeLayout(false);
             this.tpCollection.ResumeLayout(false);
             this.tpCollection.PerformLayout();
             this.tpNotification.ResumeLayout(false);
@@ -3557,12 +3341,7 @@ namespace Korot
             this.flpTo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toHour)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toMin)).EndInit();
-            this.tpNAllow.ResumeLayout(false);
-            this.tpNAllow.PerformLayout();
-            this.cmsAllow.ResumeLayout(false);
-            this.tpNBlock.ResumeLayout(false);
-            this.tpNBlock.PerformLayout();
-            this.cmsBlock.ResumeLayout(false);
+            this.cmsCookie.ResumeLayout(false);
             this.cmsSearchEngine.ResumeLayout(false);
             this.cmsBStyle.ResumeLayout(false);
             this.cmsIncognito.ResumeLayout(false);
@@ -3630,8 +3409,8 @@ namespace Korot
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pbOverlay;
+        private System.Windows.Forms.PictureBox pbBack;
         private HTAlt.WinForms.HTListView hlvHistory;
         private System.Windows.Forms.ColumnHeader chDateHistory;
         private System.Windows.Forms.ColumnHeader chTitle;
@@ -3829,27 +3608,9 @@ namespace Korot
         private HTAlt.WinForms.HTSwitch hsNotificationSound;
         public HTAlt.WinForms.HTButton btClose3;
         private System.Windows.Forms.Label lbNotifSetting;
-        private System.Windows.Forms.TabPage tpNAllow;
-        private System.Windows.Forms.TabPage tpNBlock;
-        private System.Windows.Forms.ListBox lbAllow;
-        public HTAlt.WinForms.HTButton btClose5;
-        private System.Windows.Forms.Label lbNotifAllow;
-        private System.Windows.Forms.ListBox lbBlock;
-        public HTAlt.WinForms.HTButton btClose4;
-        private System.Windows.Forms.Label lbNotifBlock;
-        private System.Windows.Forms.ContextMenuStrip cmsAllow;
-        private System.Windows.Forms.ToolStripMenuItem allowRS;
-        private System.Windows.Forms.ToolStripMenuItem allowBlockSel;
-        private System.Windows.Forms.ToolStripMenuItem allowClear;
-        private System.Windows.Forms.ContextMenuStrip cmsBlock;
-        private System.Windows.Forms.ToolStripMenuItem blockRS;
-        private System.Windows.Forms.ToolStripMenuItem blockAllowSel;
-        private System.Windows.Forms.ToolStripMenuItem blockClear;
         private HTAlt.WinForms.HTButton btNotification;
         private System.Windows.Forms.Label lb24HType;
         public HTAlt.WinForms.HTButton btNotifBack;
-        public HTAlt.WinForms.HTButton btNBlockBack;
-        public HTAlt.WinForms.HTButton btNotifAllowBack;
         public HTAlt.WinForms.HTButton btCookieBack;
         private System.Windows.Forms.ToolStripMenuItem MuteTS;
         public HTAlt.WinForms.HTButton button10;

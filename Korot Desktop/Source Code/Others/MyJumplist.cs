@@ -36,12 +36,10 @@ namespace Korot
             userActionsCategory.AddJumpListItems();
             list.AddCustomCategories(userActionsCategory);
             list.ClearAllUserTasks();
-            string incmodepath = Application.ExecutablePath + " -incognito";
-            JumpListLink jlIncognito = new JumpListLink(incmodepath, NIW);
+            JumpListLink jlIncognito = new JumpListLink(Application.ExecutablePath + " -incognito", NIW);
             jlIncognito.IconReference = new IconReference(Application.ExecutablePath, 0);
             list.AddUserTasks(jlIncognito);
-            string newwindow = Application.ExecutablePath;
-            JumpListLink jlN = new JumpListLink(newwindow, NW);
+            JumpListLink jlN = new JumpListLink(Application.ExecutablePath, NW);
             jlN.IconReference = new IconReference(Application.ExecutablePath, 0);
             list.AddUserTasks(jlN);
             list.Refresh();

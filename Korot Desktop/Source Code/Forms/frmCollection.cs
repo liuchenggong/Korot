@@ -146,7 +146,7 @@ namespace Korot
                     Image = Properties.Resources.leftarrow,
                     Size = new System.Drawing.Size(30, 30),
                     Location = new System.Drawing.Point(9, 7),
-                    SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage,
+                    SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom,
                     Visible = true,
                 };
                 pbBack.Click += back_Click;
@@ -381,7 +381,7 @@ namespace Korot
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
                                                                                           cefform.importColInfo,
-                                                                                          "[collection][/collection]")
+                                                                                          "<collection></collection>")
             { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)

@@ -393,7 +393,7 @@ namespace Korot
             this.pbNext.Location = new System.Drawing.Point(558, 167);
             this.pbNext.Name = "pbNext";
             this.pbNext.Size = new System.Drawing.Size(50, 50);
-            this.pbNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbNext.TabIndex = 22;
             this.pbNext.TabStop = false;
             this.pbNext.Click += new System.EventHandler(this.pbNext_Click);
@@ -404,7 +404,7 @@ namespace Korot
             this.pbPrev.Location = new System.Drawing.Point(18, 167);
             this.pbPrev.Name = "pbPrev";
             this.pbPrev.Size = new System.Drawing.Size(50, 50);
-            this.pbPrev.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbPrev.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPrev.TabIndex = 22;
             this.pbPrev.TabStop = false;
             this.pbPrev.Visible = false;

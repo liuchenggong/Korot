@@ -82,16 +82,6 @@ namespace Korot
                 {
                     return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.SearchHelpText).Replace("§SEARCH§", CefForm.Search).Replace("§DAYS§", CefForm.DayNames).Replace("§MONTHS§", CefForm.MonthNames).Replace("§TITLE§", CefForm.NewTabtitle));
                 }
-                else if (request.Url == "korot://homepage/")
-                {
-                    if (frame.IsMain)
-                    {
-                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + CefForm.Settings.Homepage + "\" />");
-                    }else
-                    {
-                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=RESTRICTED_PAGE \" />");
-                    }
-                }
                 else if (request.Url == "korot://incognito/")
                 {
 

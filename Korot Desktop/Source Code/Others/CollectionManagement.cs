@@ -33,9 +33,10 @@ namespace Korot
     /// </summary>
     public class CollectionManager
     {
-        public CollectionManager()
+        public CollectionManager(string collectionXML)
         {
             Collections = new List<Collection>();
+            readCollections(collectionXML, true);
         }
         public List<Collection> Collections { get; set; }
         public bool readCollections(string collections, bool clearCurrent = true)
@@ -50,12 +51,12 @@ namespace Korot
             {
                 return true;
             }
-            document.Load(collections); //Loads our XML Stream
+            document.LoadXml(collections); //Loads our XML Stream
 
             // This is the part where fun begins.
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                if (node.Name == "Collection") //Top must always only have Collections. This ain't favorites.
+                if (node.Name.ToLower() == "collection") //Top must always only have Collections. This ain't favorites.
                 {
                     Collection newCol = new Collection(); // New Collection to add
                     // Collection - ID
@@ -400,18 +401,10 @@ namespace Korot
         public Collection(string xmlCode)
         {
             CollectionItems = new List<CollectionItem>();
-            // Read the file
-            string CollectionXML = xmlCode;
-            // Write XML to Stream so we don't need to load the same file again.
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(CollectionXML); //Writes our XML file
-            writer.Flush();
-            stream.Position = 0;
             XmlDocument document = new XmlDocument();
-            document.Load(stream); //Loads our XML Stream
-
-            // This is the part where fun starts.
+            document.LoadXml(xmlCode); //Loads our XML Stream
+            ID = document.FirstChild.Attributes["ID"] == null ? HTAlt.Tools.GenerateRandomText(12) : document.FirstChild.Attributes["ID"].Value;
+            Text = document.FirstChild.Attributes["Text"] == null ? ID : document.FirstChild.Attributes["Text"].Value;
             foreach (XmlNode subnode in document.FirstChild.ChildNodes)
             {
                 if (subnode.Name.ToLower() == "text") //TextItem
@@ -652,7 +645,7 @@ namespace Korot
         public bool NewItemFromCode(string xmlCode)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(xmlCode);
+            doc.LoadXml(xmlCode);
             XmlElement subnode = doc.DocumentElement;
             if (subnode.Name.ToLower() == "text") //TextItem
             {

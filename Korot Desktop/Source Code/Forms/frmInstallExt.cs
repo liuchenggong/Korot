@@ -32,8 +32,6 @@ namespace Korot
     public partial class frmInstallExt : Form
     {
         public Settings Settings;
-        private bool requires1;
-        private bool requires3;
         private bool allowSwitch = false;
         private string ExtFile;
         private string noPermission = "This extension does not require any permissions but:";
@@ -137,309 +135,96 @@ namespace Korot
 
         private void ReadKEM(string fileLocation)
         {
-            if (!silentInstall)
+            Extension extension;
+            try
             {
-                string Playlist = HTAlt.Tools.ReadFile(fileLocation, Encoding.UTF8);
-                char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-                string[] SplittedFase = Playlist.Split(token);
-                if (SplittedFase.Length >= 8)
-                {
-                    //ExtName
-                    lbName.Text = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
-                    //ExtVersion
-                    lbVersion.Text = SplittedFase[1].Substring(1).Replace(Environment.NewLine, "");
-                    //ExtAuthor
-                    lbAuthor.Text = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
-                    //ExtIcon
-                    if (File.Exists(SplittedFase[3].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).DirectoryName + " \\")))
+               extension = new Extension(fileLocation);
+                Invoke(new Action(() => {
+                    lbName.Text = extension.Name;
+                    lbVersion.Text = extension.Version.ToString();
+                    lbAuthor.Text = extension.Author;
+                    if (File.Exists(extension.Icon.Replace("[EXTFOLDER]", new FileInfo(fileLocation).DirectoryName + " \\")))
                     {
-                        pbLogo.Image = Image.FromFile(SplittedFase[3].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).DirectoryName + " \\"));
+                        pbLogo.Image = Image.FromFile(extension.Icon.Replace("[EXTFOLDER]", new FileInfo(fileLocation).DirectoryName + " \\"));
                     }
-                    else
-                    {
-                        pbLogo.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources.ext_w : Properties.Resources.ext;
-                    }
-                    //ExtReq - autoLoad
-                    if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Length >= 5)
-                    {
-                        if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(0, 1) == "1")
-                        {
-                            requires1 = true;
-                        }
-                        else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(0, 1) == "0")
-                        {
-                            requires1 = false;
-                        }
-                        else
-                        {
-                            allowSwitch = true;
-                            tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                            textBox1.Text = reqError.Replace("[REQ]", "(autoLoad)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
-                            return;
-                        }
-                        //ExtReq - onlineFiles
-                        if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "1")
-                        {
-                            requires3 = true;
-                        }
-                        else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "0")
-                        {
-                            requires3 = false;
-                        }
-                        else
-                        {
-                            allowSwitch = true;
-                            tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                            textBox1.Text = reqError.Replace("[REQ]", "(onlineFiles)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
-                            return;
-                        }
-                        //ExtReq - showPopupMenu
-                        if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "1")
-                        {
-
-                        }
-                        else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "0")
-                        {
-
-                        }
-                        else
-                        {
-                            allowSwitch = true;
-                            tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                            textBox1.Text = reqError.Replace("[REQ]", "(showPopupMenu)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
-                            return;
-                        }
-                        //ExtReq - activateScript
-                        if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "1")
-                        {
-
-                        }
-                        else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "0")
-                        {
-
-                        }
-                        else
-                        {
-                            allowSwitch = true;
-                            tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                            textBox1.Text = reqError.Replace("[REQ]", "(activateScript)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
-                            return;
-                        }
-                        //ExtReq - hasProxy
-                        if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(4, 1) == "1")
-                        {
-
-                        }
-                        else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(4, 1) == "0")
-                        {
-
-                        }
-                        else
-                        {
-                            allowSwitch = true;
-                            tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                            textBox1.Text = reqError.Replace("[REQ]", "(hasProxy)").Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
-                            return;
-                        }
-                        panel6.Visible = requires1;
-                        panel3.Visible = requires3;
-                        if (!requires1 && !requires3)
-                        {
-                            label9.Text = noPermission;
-                        }
-                        lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
-                        allowSwitch = true;
-                        tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage2));
-                    }
-                    else
+                    panel7.Visible = extension.Settings.onlineFiles;
+                    panel6.Visible = extension.Settings.autoLoad;
+                    panel3.Visible = extension.Settings.onlineFiles;
+                    panel4.Visible = false;
+                    lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
+                    if (!silentInstall)
                     {
                         allowSwitch = true;
-                        tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                        textBox1.Text = reqEmpty.Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "5");
-                        return;
-                    }
-                }
-                else
-                {
-                    allowSwitch = true;
-                    tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                    textBox1.Text = reqEmpty.Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", SplittedFase.Length.ToString());
-                    return;
-                }
-            }
-            else
-            {
-                string Playlist = HTAlt.Tools.ReadFile(fileLocation, Encoding.UTF8);
-                char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-                string[] SplittedFase = Playlist.Split(token);
-                if (SplittedFase.Length >= 8)
-                {
-                    //ExtName
-                    lbName.Text = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
-                    //ExtVersion
-                    lbVersion.Text = SplittedFase[1].Substring(1).Replace(Environment.NewLine, "");
-                    //ExtAuthor
-                    lbAuthor.Text = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
-                    //ExtIcon
-                    if (File.Exists(SplittedFase[3].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).DirectoryName + " \\")))
-                    {
-                        pbLogo.Image = Image.FromFile(SplittedFase[3].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).DirectoryName + " \\"));
+                        tabControl1.SelectedTab = tabPage2;
                     }
                     else
                     {
-                        pbLogo.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources.ext_w : Properties.Resources.ext;
-                    }
-                    //ExtReq - autoLoad
-                    if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Length >= 5)
-                    {
-                        if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(0, 1) == "1")
-                        {
-                            requires1 = true;
-                        }
-                        else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(0, 1) == "0")
-                        {
-                            requires1 = false;
-                        }
-                        else
-                        {
-                            Close();
-                            return;
-                        }
-                        //ExtReq - onlineFiles
-                        if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "1")
-                        {
-                            requires3 = true;
-                        }
-                        else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "0")
-                        {
-                            requires3 = false;
-                        }
-                        else
-                        {
-                            Close();
-                            return;
-                        }
-                        //ExtReq - showPopupMenu
-                        if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "1")
-                        {
-
-                        }
-                        else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "0")
-                        {
-
-                        }
-                        else
-                        {
-                            Close();
-                            return;
-                        }
-                        //ExtReq - activateScript
-                        if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "1")
-                        {
-
-                        }
-                        else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "0")
-                        {
-
-                        }
-                        else
-                        {
-                            Close();
-                            return;
-                        }
-                        //ExtReq - hasProxy
-                        if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(4, 1) == "1")
-                        {
-
-                        }
-                        else if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(4, 1) == "0")
-                        {
-
-                        }
-                        else
-                        {
-                            Close();
-                            return;
-                        }
-                        panel6.Visible = requires1;
-                        panel3.Visible = requires3;
-                        if (!requires1 && !requires3)
-                        {
-                            label9.Text = noPermission;
-                        }
-                        lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
                         i = 5;
-                        Invoke(new Action(() => button1_Click(null, null)));
+                        button1_Click(null, null);
                     }
-                    else
-                    {
-                        Close();
-                        return;
-                    }
-                }
-                else
+                }));
+            }
+            catch (Exception ex)
+            {
+                if (silentInstall)
                 {
                     Close();
                     return;
+                }else
+                {
+                    Invoke(new Action(() =>
+                    {
+                        allowSwitch = true;
+                        tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
+                        textBox1.Text = ex.Message;
+                    }));
+                    return;
                 }
             }
+            
         }
 
         private void ReadKTF(string fileLocation)
         {
-            if (!silentInstall)
+            Theme extension;
+            try
             {
-                string Playlist = HTAlt.Tools.ReadFile(fileLocation, Encoding.UTF8);
-                char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-                string[] SplittedFase = Playlist.Split(token);
-                //ExtName
-                lbName.Text = SplittedFase[8].Substring(0).Replace(Environment.NewLine, "");
-                //ExtVersion
-                lbVersion.Visible = false;
-                //ExtAuthor
-                lbAuthor.Text = SplittedFase[9].Substring(1).Replace(Environment.NewLine, "");
-                panel6.Visible = false;
-                pbLogo.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources.theme_w : Properties.Resources.theme;
-                panel7.Visible = false;
-                panel4.Visible = true;
-                label9.Visible = false;
-                panel3.Visible = false;
-                if (SplittedFase[6].Substring(0).Replace(Environment.NewLine, "").Length > 131072)
-                {
-                    allowSwitch = true;
-                    tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                    textBox1.Text = fileSizeError.Replace("[NEWLINE]", Environment.NewLine).Replace("[FILE]", fileLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\newExt\\", "...\\")).Replace("[LINE]", "7");
-                    return;
-                }
-                lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
-                allowSwitch = true;
-                tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage2));
+                extension = new Theme(fileLocation);
+                Invoke(new Action(() => {
+                    lbName.Text = extension.Name;
+                    lbVersion.Text = extension.Version.ToString();
+                    lbAuthor.Text = extension.Author;
+                    panel4.Visible = true;
+                    lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
+                    if (!silentInstall)
+                    {
+                        allowSwitch = true;
+                        tabControl1.SelectedTab = tabPage2;
+                    }
+                    else
+                    {
+                        i = 5;
+                        button1_Click(null, null);
+                    }
+                }));
             }
-            else
+            catch (Exception ex)
             {
-                string Playlist = HTAlt.Tools.ReadFile(fileLocation, Encoding.UTF8);
-                char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-                string[] SplittedFase = Playlist.Split(token);
-                //ExtName
-                lbName.Text = SplittedFase[8].Substring(0).Replace(Environment.NewLine, "");
-                //ExtVersion
-                lbVersion.Visible = false;
-                //ExtAuthor
-                lbAuthor.Text = SplittedFase[9].Substring(1).Replace(Environment.NewLine, "");
-                panel6.Visible = false;
-                pbLogo.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources.theme_w : Properties.Resources.theme;
-                panel7.Visible = false;
-                panel4.Visible = true;
-                label9.Visible = false;
-                panel3.Visible = false;
-                if (SplittedFase[6].Substring(0).Replace(Environment.NewLine, "").Length > 131072)
+                if (silentInstall)
                 {
                     Close();
                     return;
                 }
-                lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
-                i = 5;
-                button1_Click(null, null);
+                else
+                {
+                    Invoke(new Action(() =>
+                    {
+                        allowSwitch = true;
+                        tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
+                        textBox1.Text = ex.Message;
+                    }));
+                    return;
+                }
             }
         }
 

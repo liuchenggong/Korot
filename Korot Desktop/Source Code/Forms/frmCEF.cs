@@ -221,7 +221,7 @@ namespace Korot
             });
             // Initialize cef with the provided settings
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
-            chromiumWebBrowser1 = new ChromiumWebBrowser(loaduri);
+            chromiumWebBrowser1 = new ChromiumWebBrowser(string.IsNullOrWhiteSpace(loaduri) ? "korot://newtab" : loaduri);
             pCEF.Controls.Add(chromiumWebBrowser1);
             chromiumWebBrowser1.ConsoleMessage += cef_consoleMessage;
             chromiumWebBrowser1.FindHandler = new FindHandler(this);
@@ -280,7 +280,7 @@ namespace Korot
         public string getNotificationPermission(string url)
         {
             string x = HTAlt.Tools.GetBaseURL(url);
-            if (Settings.Notification.GetSiteFromUrl(x).AllowNotifications)
+            if (Settings.GetSiteFromUrl(x).AllowNotifications)
             {
                 return "granted";
             }
@@ -342,7 +342,7 @@ namespace Korot
             {
                 if (message.ToLower().StartsWith("[korot.notification "))
                 {
-                    if (Settings.Notification.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(browser.Address)).AllowNotifications)
+                    if (Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(browser.Address)).AllowNotifications)
                     {
                         MemoryStream stream = new MemoryStream();
                         StreamWriter writer = new StreamWriter(stream);
@@ -407,8 +407,8 @@ namespace Korot
             tbHomepage.Text = Settings.Homepage;
             tbSearchEngine.Text = Settings.SearchEngine;
             if (Settings.Homepage == "korot://newtab") { radioButton1.Enabled = true; }
-            pictureBox3.BackColor = Settings.Theme.BackColor;
-            pictureBox4.BackColor = Settings.Theme.OverlayColor;
+            pbBack.BackColor = Settings.Theme.BackColor;
+            pbOverlay.BackColor = Settings.Theme.OverlayColor;
             RefreshLangList();
             refreshThemeList();
             ChangeTheme();
@@ -428,7 +428,7 @@ namespace Korot
             {
                 foreach (Control x in tpSettings.Controls)
                 {
-                    if (x != btClose4) { x.Enabled = false; }
+                    if (x != btClose || x != btClose2 || x != btClose6 || x != btClose7 || x != btClose9) { x.Enabled = false; }
                 }
                 btInstall.Enabled = false;
                 btUpdater.Enabled = false;
@@ -462,7 +462,7 @@ namespace Korot
             int selectedValue = hlvHistory.SelectedIndices.Count > 0 ? hlvHistory.SelectedIndices[0] : 0;
             ListViewItem scroll = hlvHistory.TopItem;
             hlvHistory.Items.Clear();
-            foreach(Site x in Settings.History.History)
+            foreach(Site x in Settings.History)
             {
                 ListViewItem listV = new ListViewItem(x.Date);
                 listV.SubItems.Add(x.Name);
@@ -792,12 +792,6 @@ namespace Korot
                 lbThursday.Text = SF[337].Substring(1).Replace(Environment.NewLine, "");
                 lbFriday.Text = SF[338].Substring(1).Replace(Environment.NewLine, "");
                 lbSaturday.Text = SF[339].Substring(1).Replace(Environment.NewLine, "");
-                allowBlockSel.Text = SF[340].Substring(1).Replace(Environment.NewLine, "");
-                blockAllowSel.Text = SF[341].Substring(1).Replace(Environment.NewLine, "");
-                lbNotifAllow.Text = SF[342].Substring(1).Replace(Environment.NewLine, "");
-                tpNAllow.Text = SF[342].Substring(1).Replace(Environment.NewLine, "");
-                lbNotifBlock.Text = SF[343].Substring(1).Replace(Environment.NewLine, "");
-                tpNBlock.Text = SF[343].Substring(1).Replace(Environment.NewLine, "");
                 notificationPermission = SF[323].Substring(1).Replace(Environment.NewLine, "");
                 deny = SF[322].Substring(1).Replace(Environment.NewLine, "");
                 allow = SF[321].Substring(1).Replace(Environment.NewLine, "");
@@ -916,7 +910,6 @@ namespace Korot
                 JSAlert = SF[210 + 1].Substring(1).Replace(Environment.NewLine, "");
                 JSConfirm = SF[209 + 1].Substring(1).Replace(Environment.NewLine, "");
                 selectAFolder = SF[208 + 1].Substring(1).Replace(Environment.NewLine, "");
-                button12.Text = SF[207 + 1].Substring(1).Replace(Environment.NewLine, "");
                 showNewTabPageToolStripMenuItem.Text = SF[204 + 1].Substring(1).Replace(Environment.NewLine, "");
                 showHomepageToolStripMenuItem.Text = SF[205 + 1].Substring(1).Replace(Environment.NewLine, "");
                 showAWebsiteToolStripMenuItem.Text = SF[206 + 1].Substring(1).Replace(Environment.NewLine, "");
@@ -964,9 +957,30 @@ namespace Korot
                 IncognitoT2M3 = SF[169 + 1].Substring(1).Replace(Environment.NewLine, "");
                 disallowCookie = SF[158 + 1].Substring(1).Replace(Environment.NewLine, "");
                 allowCookie = SF[159 + 1].Substring(1).Replace(Environment.NewLine, "");
-                if (!Settings.Notification.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)).AllowCookies)
+                if (chromiumWebBrowser1 != null)
                 {
-                    disallowThisPageForCookieAccessToolStripMenuItem.Text = SF[158 + 1].Substring(1).Replace(Environment.NewLine, "");
+                    if (chromiumWebBrowser1.Address != null)
+                    {
+                        if (Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)) != null)
+                        {
+                            if (!Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)).AllowCookies)
+                            {
+                                disallowThisPageForCookieAccessToolStripMenuItem.Text = SF[158 + 1].Substring(1).Replace(Environment.NewLine, "");
+                            }
+                            else
+                            {
+                                disallowThisPageForCookieAccessToolStripMenuItem.Text = SF[159 + 1].Substring(1).Replace(Environment.NewLine, "");
+                            }
+                        }
+                        else
+                        {
+                            disallowThisPageForCookieAccessToolStripMenuItem.Text = SF[159 + 1].Substring(1).Replace(Environment.NewLine, "");
+                        }
+                    }
+                    else
+                    {
+                        disallowThisPageForCookieAccessToolStripMenuItem.Text = SF[159 + 1].Substring(1).Replace(Environment.NewLine, "");
+                    }
                 }
                 else
                 {
@@ -1048,10 +1062,6 @@ namespace Korot
                 tsThemes.Text = SF[94 + 1].Substring(1).Replace(Environment.NewLine, "");
                 caseSensitiveToolStripMenuItem.Text = SF[59 + 1].Substring(1).Replace(Environment.NewLine, "");
                 customToolStripMenuItem.Text = SF[14 + 1].Substring(1).Replace(Environment.NewLine, "");
-                allowRS.Text = SF[16].Substring(1).Replace(Environment.NewLine, "");
-                blockRS.Text = SF[16].Substring(1).Replace(Environment.NewLine, "");
-                allowClear.Text = SF[18].Substring(1).Replace(Environment.NewLine, "");
-                blockClear.Text = SF[18].Substring(1).Replace(Environment.NewLine, "");
                 removeSelectedToolStripMenuItem.Text = SF[16].Substring(1).Replace(Environment.NewLine, "");
                 clearToolStripMenuItem.Text = SF[18].Substring(1).Replace(Environment.NewLine, "");
                 settingstitle = SF[9 + 1].Substring(1).Replace(Environment.NewLine, "");
@@ -1213,9 +1223,9 @@ namespace Korot
             };
             if (colorpicker.ShowDialog() == DialogResult.OK)
             {
-                pictureBox3.BackColor = colorpicker.Color;
+                pbBack.BackColor = colorpicker.Color;
                 Settings.Theme.BackColor = colorpicker.Color;
-                pictureBox3.BackColor = colorpicker.Color;
+                pbBack.BackColor = colorpicker.Color;
                 ChangeTheme();
             }
             
@@ -1231,9 +1241,9 @@ namespace Korot
             };
             if (colorpicker.ShowDialog() == DialogResult.OK)
             {
-                pictureBox4.BackColor = colorpicker.Color;
+                pbOverlay.BackColor = colorpicker.Color;
                 Settings.Theme.OverlayColor = colorpicker.Color;
-                pictureBox4.BackColor = colorpicker.Color;
+                pbOverlay.BackColor = colorpicker.Color;
                 ChangeTheme();
             }
             
@@ -1411,9 +1421,9 @@ namespace Korot
         public bool Nsaturday = false;
         public void RefreshScheduledSiletMode()
         {
-            if (Settings.Notification.AutoSilent)
+            if (Settings.AutoSilent)
             {
-                string Playlist = Settings.Notification.AutoSilentMode;
+                string Playlist = Settings.AutoSilentMode;
                 string[] SplittedFase = Playlist.Split(':');
                 if (SplittedFase.Length - 1 > 9)
                 {
@@ -1470,7 +1480,7 @@ namespace Korot
             ScheduleBuild += (lbThursday.Tag != null ? lbThursday.Tag.ToString() : "0") + ":";
             ScheduleBuild += (lbFriday.Tag != null ? lbFriday.Tag.ToString() : "0") + ":";
             ScheduleBuild += (lbSaturday.Tag != null ? lbSaturday.Tag.ToString() : "0") + ":";
-            Settings.Notification.AutoSilentMode = ScheduleBuild;
+            Settings.AutoSilentMode = ScheduleBuild;
         }
         private void tmrRefresher_Tick(object sender, EventArgs e)
         {
@@ -1479,45 +1489,19 @@ namespace Korot
             radioButton1.Checked = Settings.Homepage == "korot://newtab";
             tbSearchEngine.Text = Settings.SearchEngine;
             hsProxy.Checked = Settings.RememberLastProxy;
-            hsNotificationSound.Checked = !Settings.Notification.QuietMode;
-            hsSilent.Checked = Settings.Notification.Silent;
-            hsSchedule.Checked = Settings.Notification.AutoSilent;
-            panel1.Enabled = Settings.Notification.AutoSilent;
+            hsNotificationSound.Checked = !Settings.QuietMode;
+            hsSilent.Checked = Settings.Silent;
+            hsSchedule.Checked = Settings.AutoSilent;
+            panel1.Enabled = Settings.AutoSilent;
             RefreshScheduledSiletMode();
             RefreshLangList();
             refreshThemeList();
             RefreshDownloadList();
             RefreshHistory();
-            RefreshAllowList();
-            RefreshBlockList();
+            RefreshSites();
+            comboBox1.Text = !onThemeName ? (Settings.Theme.LoadedDefaults ? "((default))" : Settings.Theme.Name) : comboBox1.Text;
         }
-        public void RefreshAllowList()
-        {
-            int selectedIndex = lbAllow.SelectedItem != null ? lbAllow.SelectedIndex : 0;
-            lbAllow.Items.Clear();
-            foreach (Site x in Settings.Notification.Sites)
-            {
-                if (x.AllowNotifications) { lbAllow.Items.Add(x); };
-            }
-            if (lbAllow.Items.Count - 1 > selectedIndex)
-            {
-                lbAllow.SelectedIndex = selectedIndex;
-            }
-        }
-        public void RefreshBlockList()
-        {
-            int selectedIndex = lbBlock.SelectedItem != null ? lbBlock.SelectedIndex : 0;
-            lbBlock.Items.Clear();
-            foreach (Site x in Settings.Notification.Sites)
-            {
-                if(!x.AllowNotifications){ lbBlock.Items.Add(x); }
-            }
-            if (lbBlock.Items.Count - 1 > selectedIndex)
-            {
-                lbBlock.SelectedIndex = selectedIndex;
-            }
-        }
-
+        
         private void label15_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle)
@@ -1529,7 +1513,10 @@ namespace Korot
                 Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\" + "\"");
             }
         }
-
+        private void RefreshSites()
+        {
+            Console.WriteLine(" [TODO] RefreshSites() ");
+        }
 
         private void btInstall_Click(object sender, EventArgs e)
         {
@@ -1545,21 +1532,19 @@ namespace Korot
         }
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            pictureBox3.BackColor = Settings.Theme.BackColor;
-            pictureBox4.BackColor = Settings.Theme.OverlayColor;
             RefreshHistory();
             RefreshDownloadList();
         }
         private void removeSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Settings.History.History.Remove(hlvHistory.SelectedItems[0].Tag as Site);
+            Settings.History.Remove(hlvHistory.SelectedItems[0].Tag as Site);
             RefreshHistory();
         }
 
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Settings.History.History.Clear();
+            Settings.History.Clear();
             if (!_Incognito) { Properties.Settings.Default.Save(); }
             RefreshHistory();
         }
@@ -1573,78 +1558,7 @@ namespace Korot
 
         public void LoadTheme(string ThemeFile)
         {
-            string ManifestXML = HTAlt.Tools.ReadFile(ThemeFile, Encoding.UTF8);
-            Settings.Theme.ThemeFile = ThemeFile;
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(ManifestXML);
-            writer.Flush();
-            stream.Position = 0;
-            XmlDocument document = new XmlDocument();
-            document.Load(stream);
-            if (document.FirstChild.Name.ToLower() != "theme") { return; }
-            foreach (XmlNode node in document.FirstChild.ChildNodes)
-            {
-                if (node.Name.ToLower() == "name")
-                {
-                    Settings.Theme.Name = node.InnerText;
-                }
-                else if (node.Name.ToLower() == "author")
-                {
-                    Settings.Theme.Author = node.InnerText;
-                }
-                else if (node.Name.ToLower() == "backcolor")
-                {
-                    Settings.Theme.BackColor = HTAlt.Tools.HexToColor(node.InnerText);
-                }
-                else if (node.Name.ToLower() == "overlaycolor")
-                {
-                    Settings.Theme.OverlayColor = HTAlt.Tools.HexToColor(node.InnerText);
-                }
-                else if (node.Name.ToLower() == "backgroundstyle")
-                {
-                    Settings.Theme.BackgroundStyle = node.InnerText;
-                    Settings.Theme.BackgroundStyleLayout = node.Attributes["Layout"] != null ? Convert.ToInt32(node.Attributes["Layout"].Value) : 0;
-                }
-                else if (node.Name.ToLower() == "newtabcolor")
-                {
-                    if (node.InnerText == "0")
-                    {
-                        Settings.Theme.NewTabColor = TabColors.BackColor;
-                    }
-                    else if (node.InnerText == "1")
-                    {
-                        Settings.Theme.NewTabColor = TabColors.ForeColor;
-                    }
-                    else if (node.InnerText == "2")
-                    {
-                        Settings.Theme.NewTabColor = TabColors.OverlayColor;
-                    }
-                    else if (node.InnerText == "3")
-                    {
-                        Settings.Theme.NewTabColor = TabColors.OverlayBackColor;
-                    }
-                }
-                else if (node.Name.ToLower() == "closebuttoncolor")
-                {
-                    if (node.InnerText == "0")
-                    {
-                        Settings.Theme.CloseButtonColor = TabColors.BackColor;
-                    }
-                    else if (node.InnerText == "1")
-                    {
-                        Settings.Theme.CloseButtonColor = TabColors.ForeColor;
-                    }
-                    else if (node.InnerText == "2")
-                    {
-                        Settings.Theme.CloseButtonColor = TabColors.OverlayColor;
-                    }
-                    else if (node.InnerText == "3")
-                    {
-                        Settings.Theme.CloseButtonColor = TabColors.OverlayBackColor;
-                    }
-                }
-            }
+            Settings.Theme.LoadFromFile(ThemeFile);
         }
         public void refreshThemeList()
         {
@@ -1668,38 +1582,27 @@ namespace Korot
 
         private void Button12_Click(object sender, EventArgs e)
         {
-            System.IO.StreamWriter objWriter3;
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\"); }
-            objWriter3 = new System.IO.StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf");
-            string x = Settings.Theme.BackgroundStyle;
-            string lol = Settings.Theme.BackColor.R
-                + Environment.NewLine
-                + Settings.Theme.BackColor.G
-                + Environment.NewLine
-                + Settings.Theme.BackColor.B
-                + Environment.NewLine
-                + Settings.Theme.OverlayColor.R
-                + Environment.NewLine
-                + Settings.Theme.OverlayColor.G
-                + Environment.NewLine
-                + Settings.Theme.OverlayColor.B
-                + Environment.NewLine
-                + x
-                + Environment.NewLine
-                + Settings.Theme.BackgroundStyleLayout
-                + Environment.NewLine
-                + comboBox1.Text
-                + Environment.NewLine
-                + userName
-                + Environment.NewLine;
-            objWriter3.WriteLine(lol);
-            objWriter3.Close();
-            Settings.Theme.ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf";
+            string themeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf";
+            Theme saveTheme = new Theme("");
+            saveTheme.ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf";
+            saveTheme.BackColor = Settings.Theme.BackColor;
+            saveTheme.OverlayColor = Settings.Theme.OverlayColor;
+            saveTheme.MininmumKorotVersion = new Version(Application.ProductVersion);
+            saveTheme.Version = new Version(Application.ProductVersion);
+            saveTheme.Name = comboBox1.Text;
+            saveTheme.Author = userName;
+            saveTheme.BackgroundStyle = Settings.Theme.BackgroundStyle;
+            saveTheme.BackgroundStyleLayout = Settings.Theme.BackgroundStyleLayout;
+            saveTheme.CloseButtonColor = Settings.Theme.CloseButtonColor;
+            saveTheme.NewTabColor = Settings.Theme.NewTabColor;
+            saveTheme.SaveTheme();
+            Settings.Theme.ThemeFile = themeFile;
             refreshThemeList();
         }
 
         private readonly WebClient UpdateWebC = new WebClient();
-        public void Updater()
+        public void Updater() 
         {
             UpdateWebC.DownloadStringCompleted += Updater_DownloadStringCompleted;
             UpdateWebC.DownloadProgressChanged += updater_checking;
@@ -1964,7 +1867,25 @@ namespace Korot
         {
             label2.Text = status;
         }
-
+        public void CreateNewCollection()
+        {
+            HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",newColInfo,newColName)
+            { Icon = Icon, OK = OK, SetToDefault = SetToDefault, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor };
+            DialogResult diagres = mesaj.ShowDialog();
+            if (diagres == DialogResult.OK)
+            {
+                if (!string.IsNullOrWhiteSpace(mesaj.TextValue))
+                {
+                    Collection newCol = new Collection
+                    {
+                        ID = HTAlt.Tools.GenerateRandomText(12),
+                        Text = mesaj.TextValue
+                    };
+                    Settings.CollectionManager.Collections.Add(newCol);
+                }
+                else { CreateNewCollection(); }
+            }
+        }
         public void loadingstatechanged(object sender, LoadingStateChangedEventArgs e)
         {
             if (!IsDisposed)
@@ -1990,7 +1911,7 @@ namespace Korot
                     if (_Incognito) { }
                     else
                     {
-                        Invoke(new Action(() => Settings.History.History.Add(new Korot.Site() { Date = DateTime.Now.ToString("dd/MM/yy hh:mm:ss"), Name = Text, Url = tbAddress.Text })));
+                        Invoke(new Action(() => Settings.History.Add(new Korot.Site() { Date = DateTime.Now.ToString("dd/MM/yy hh:mm:ss"), Name = Text, Url = tbAddress.Text })));
 
                     }
                     if (HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130)
@@ -2014,7 +1935,7 @@ namespace Korot
                     }
                 }
                 isLoading = e.IsLoading;
-                if (!Settings.Notification.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)).AllowCookies)
+                if (!Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)).AllowCookies)
                 {
                     disallowThisPageForCookieAccessToolStripMenuItem.Text = allowCookie;
                 }
@@ -2239,9 +2160,7 @@ namespace Korot
                      || tabControl1.SelectedTab == tpTheme
                      || tabControl1.SelectedTab == tpCollection
                      || tabControl1.SelectedTab == tpSite
-                     || tabControl1.SelectedTab == tpNotification
-                     || tabControl1.SelectedTab == tpNAllow
-                     || tabControl1.SelectedTab == tpNBlock) //Menu
+                     || tabControl1.SelectedTab == tpNotification) //Menu
             {
                 resetPage();
             }
@@ -2264,9 +2183,9 @@ namespace Korot
             {
                 anaform.downloadTab = null;
             }
-            if (anaform.cookieTab == ParentTab)
+            if (anaform.siteTab == ParentTab)
             {
-                anaform.cookieTab = null;
+                anaform.siteTab = null;
             }
             if (anaform.aboutTab == ParentTab)
             {
@@ -2279,14 +2198,6 @@ namespace Korot
             if (anaform.notificationTab == ParentTab)
             {
                 anaform.notificationTab = null;
-            }
-            if (anaform.nallowTab == ParentTab)
-            {
-                anaform.nallowTab = null;
-            }
-            if (anaform.nblockTab == ParentTab)
-            {
-                anaform.nblockTab = null;
             }
             if (!doNotGoToCEFTab)
             {
@@ -2623,299 +2534,295 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void ChangeTheme()
         {
-            if (anaform != null)
+            // It won't throw any exceptions when there's try.
+            // This absoluletly does not makes sense.
+            // It throws ArgumentException in System.Drawing and shutdown application
+            // if there's no try {}
+            // What the fuck?
+            try
             {
-                if (anaform.tabRenderer != null)
+                if (anaform != null)
                 {
-                    anaform.tabRenderer.ApplyColors(Settings.Theme.BackColor, HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White, Settings.Theme.OverlayColor, Settings.Theme.BackColor);
-                    anaform.Update();
-                }
-            }
-            if (Settings.Theme.OverlayColor != oldOverlayColor)
-            {
-                oldOverlayColor = Settings.Theme.OverlayColor;
-                pbProgress.BackColor = Settings.Theme.OverlayColor;
-                hsDownload.OverlayColor = Settings.Theme.OverlayColor;
-                hsDoNotTrack.OverlayColor = Settings.Theme.OverlayColor;
-                hsFav.OverlayColor = Settings.Theme.OverlayColor;
-                hsOpen.OverlayColor = Settings.Theme.OverlayColor;
-                hlvDownload.OverlayColor = Settings.Theme.OverlayColor;
-                hlvHistory.OverlayColor = Settings.Theme.OverlayColor;
-                if (Cef.IsInitialized)
-                {
-                    if (chromiumWebBrowser1.IsBrowserInitialized)
+                    if (anaform.tabRenderer != null)
                     {
-                        if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                        anaform.tabRenderer.ApplyColors(Settings.Theme.BackColor, HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White, Settings.Theme.OverlayColor, Settings.Theme.BackColor);
+                        anaform.Update();
                     }
                 }
-            }
-            if (Settings.Theme.BackColor != oldBackColor)
-            {
-                UpdateFavoriteColor();
-                updateFavoritesImages();
-                label2.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                label2.BackColor = Settings.Theme.BackColor;
-                if (Cef.IsInitialized)
+                if (Settings.Theme.OverlayColor != oldOverlayColor)
                 {
-                    if (chromiumWebBrowser1.IsBrowserInitialized)
+                    oldOverlayColor = Settings.Theme.OverlayColor;
+                    pbOverlay.BackColor = Settings.Theme.OverlayColor;
+                    pbProgress.BackColor = Settings.Theme.OverlayColor;
+                    hsDownload.OverlayColor = Settings.Theme.OverlayColor;
+                    hsDoNotTrack.OverlayColor = Settings.Theme.OverlayColor;
+                    hsFav.OverlayColor = Settings.Theme.OverlayColor;
+                    hsOpen.OverlayColor = Settings.Theme.OverlayColor;
+                    hlvDownload.OverlayColor = Settings.Theme.OverlayColor;
+                    hlvHistory.OverlayColor = Settings.Theme.OverlayColor;
+                    if (Cef.IsInitialized)
                     {
-                        if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                        if (chromiumWebBrowser1.IsBrowserInitialized)
+                        {
+                            if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                        }
                     }
                 }
-                cmsFavorite.BackColor = Settings.Theme.BackColor;
-                cmsIncognito.BackColor = Settings.Theme.BackColor;
-                oldBackColor = Settings.Theme.BackColor;
-                cmsIncognito.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                cmsFavorite.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                tsCollections.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.collection_w : Properties.Resources.collection;
-                pbStore.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.store_w : Properties.Resources.store;
-                tsWebStore.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.store_w : Properties.Resources.store;
-                btClose4.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                tsThemes.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.theme_w : Properties.Resources.theme;
-                btClose6.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose2.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose5.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose7.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose8.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose9.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose3.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose4.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose5.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose10.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                lbSettings.BackColor = Color.Transparent;
-                lbSettings.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                hlvDownload.BackColor = Settings.Theme.BackColor;
-                hlvDownload.HeaderBackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                hlvDownload.HeaderForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                hlvHistory.BackColor = Settings.Theme.BackColor;
-                pbPrivacy.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                tbAddress.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                pbIncognito.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
 
-                lbAllow.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                lbAllow.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                lbBlock.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                lbBlock.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                fromHour.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                fromHour.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                fromMin.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                fromMin.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                toHour.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                toHour.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                toMin.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                toMin.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                hlvHistory.HeaderBackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                hlvHistory.HeaderForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                cmsDownload.BackColor = Settings.Theme.BackColor;
-                cmsHistory.BackColor = Settings.Theme.BackColor;
-                cmsSearchEngine.BackColor = Settings.Theme.BackColor;
-                profilenameToolStripMenuItem.DropDown.BackColor = Settings.Theme.BackColor;
-                profilenameToolStripMenuItem.DropDown.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                cmsDownload.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                listBox2.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                comboBox1.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                tbHomepage.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                tbSearchEngine.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                button10.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                hlvDownload.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                cbLang.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                hsNotificationSound.BackColor = Settings.Theme.BackColor;
-                hsNotificationSound.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
-                hsNotificationSound.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
-                hsNotificationSound.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
-                hsSilent.BackColor = Settings.Theme.BackColor;
-                hsSilent.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
-                hsSilent.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
-                hsSilent.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
-                hsSchedule.BackColor = Settings.Theme.BackColor;
-                hsSchedule.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
-                hsSchedule.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
-                hsSchedule.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
-                hsAutoRestore.BackColor = Settings.Theme.BackColor;
-                hsAutoRestore.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
-                hsAutoRestore.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
-                hsAutoRestore.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
-                hsDownload.BackColor = Settings.Theme.BackColor;
-                hsDownload.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
-                hsDownload.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
-                hsDownload.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
-                hsDoNotTrack.BackColor = Settings.Theme.BackColor;
-                hsDoNotTrack.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
-                hsDoNotTrack.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
-                hsDoNotTrack.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
-                hsProxy.BackColor = Settings.Theme.BackColor;
-                hsProxy.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
-                hsProxy.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
-                hsProxy.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
-                hsFav.BackColor = Settings.Theme.BackColor;
-                hsFav.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
-                hsFav.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
-                hsFav.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
-                hsOpen.BackColor = Settings.Theme.BackColor;
-                hsOpen.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
-                hsOpen.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
-                hsOpen.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
-                hlvHistory.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                cbLang.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                cmsHistory.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                cmsSearchEngine.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                listBox2.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                comboBox1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                btCookie.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                btInstall.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                btUpdater.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                tbHomepage.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                btCleanLog.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                tbFolder.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                tbStartup.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                cmsStartup.BackColor = Settings.Theme.BackColor;
-                cmsStartup.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                tbFolder.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                tbStartup.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                btReset.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                btDownloadFolder.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                button12.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                tbSearchEngine.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                btNotification.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                btNotification.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                panel1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                panel1.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                button10.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                tbHomepage.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                tbSearchEngine.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                cbLang.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                cbLang.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                toolStripTextBox1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                flpLayout.BackColor = Settings.Theme.BackColor;
-                flpLayout.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                flpNewTab.BackColor = Settings.Theme.BackColor;
-                flpNewTab.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                flpClose.BackColor = Settings.Theme.BackColor;
-                flpClose.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-
-                cmsProfiles.BackColor = Settings.Theme.BackColor;
-                cmsHamburger.BackColor = Settings.Theme.BackColor;
-                cmsAllow.BackColor = Settings.Theme.BackColor;
-                cmsBlock.BackColor = Settings.Theme.BackColor;
-                cmsPrivacy.BackColor = Settings.Theme.BackColor;
-                label2.BackColor = Settings.Theme.BackColor;
-                BackColor = Settings.Theme.BackColor;
-                extensionToolStripMenuItem1.DropDown.BackColor = Settings.Theme.BackColor;
-                aboutToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.about_w : Properties.Resources.about;
-                downloadsToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.download_w : Properties.Resources.download;
-                historyToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.history_w : Properties.Resources.history;
-                pbIncognito.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.inctab_w : Properties.Resources.inctab;
-                tbAddress.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                cmsAllow.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                cmsBlock.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-
-                cmsHamburger.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                cmsProfiles.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                label2.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                toolStripTextBox1.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                cmsPrivacy.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                extensionToolStripMenuItem1.DropDown.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                textBox4.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { btFav.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
-                mFavorites.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                settingsToolStripMenuItem.Image = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.Settings : Properties.Resources.Settings_w;
-                newWindowToolStripMenuItem.Image = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.newwindow : Properties.Resources.newwindow_w;
-                newIncognitoWindowToolStripMenuItem.Image = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.inctab : Properties.Resources.inctab_w;
-                btProfile.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.profiles : Properties.Resources.profiles_w;
-                btBack.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btRefresh.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.refresh : Properties.Resources.refresh_w;
-                btNext.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
-                btNotifAllowBack.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btNotifBack.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btNBlockBack.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btCookieBack.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                //button4.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.go : Properties.Resources.go_w;
-                btHome.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.home : Properties.Resources.home_w;
-                btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
-                tbAddress.BackColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.B, 20, 255));
-                textBox4.BackColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.B, 20, 255));
-                mFavorites.BackColor = Settings.Theme.BackColor;
-                extensionToolStripMenuItem1.Image = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.ext : Properties.Resources.ext_w;
-                cmsBStyle.BackColor = Settings.Theme.BackColor;
-                cmsBStyle.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                cmsCookie.BackColor = Settings.Theme.BackColor;
-                cmsCookie.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                cmsBack.BackColor = Settings.Theme.BackColor;
-                cmsBack.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                cmsForward.BackColor = Settings.Theme.BackColor;
-                cmsForward.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                switchToToolStripMenuItem.DropDown.BackColor = Settings.Theme.BackColor; switchToToolStripMenuItem.DropDown.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                foreach (ToolStripItem x in cmsAllow.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
-                foreach (ToolStripItem x in cmsBlock.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
-                foreach (ToolStripItem x in cmsForward.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
-                foreach (ToolStripItem x in cmsBack.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
-                foreach (ToolStripItem x in cmsProfiles.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
-                foreach (ToolStripItem x in extensionToolStripMenuItem1.DropDownItems) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
-                foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black; }
-                foreach(Control c in Controls)
+                if (Settings.Theme.BackColor != oldBackColor)
                 {
-                    c.Refresh();
+                    UpdateFavoriteColor();
+                    updateFavoritesImages();
+                    label2.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    label2.BackColor = Settings.Theme.BackColor;
+                    if (Cef.IsInitialized)
+                    {
+                        if (chromiumWebBrowser1.IsBrowserInitialized)
+                        {
+                            if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                        }
+                    }
+                    pbBack.BackColor = Settings.Theme.BackColor;
+                    cmsFavorite.BackColor = Settings.Theme.BackColor;
+                    cmsIncognito.BackColor = Settings.Theme.BackColor;
+                    oldBackColor = Settings.Theme.BackColor;
+                    cmsIncognito.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    cmsFavorite.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    tsCollections.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.collection_w : Properties.Resources.collection;
+                    button12.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.collection_w : Properties.Resources.collection;
+                    pbStore.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.store_w : Properties.Resources.store;
+                    tsWebStore.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.store_w : Properties.Resources.store;
+                    tsThemes.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.theme_w : Properties.Resources.theme;
+                    btClose6.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                    btClose2.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                    btClose7.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                    btClose.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                    btClose8.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                    btClose9.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                    btClose3.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                    btClose10.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                    lbSettings.BackColor = Color.Transparent;
+                    lbSettings.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    hlvDownload.BackColor = Settings.Theme.BackColor;
+                    hlvDownload.HeaderBackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    hlvDownload.HeaderForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    hlvHistory.BackColor = Settings.Theme.BackColor;
+                    pbPrivacy.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    tbAddress.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    pbIncognito.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    fromHour.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    fromHour.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    fromMin.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    fromMin.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    toHour.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    toHour.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    toMin.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    toMin.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    hlvHistory.HeaderBackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    hlvHistory.HeaderForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    cmsDownload.BackColor = Settings.Theme.BackColor;
+                    cmsHistory.BackColor = Settings.Theme.BackColor;
+                    cmsSearchEngine.BackColor = Settings.Theme.BackColor;
+                    profilenameToolStripMenuItem.DropDown.BackColor = Settings.Theme.BackColor;
+                    profilenameToolStripMenuItem.DropDown.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    cmsDownload.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    listBox2.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    comboBox1.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    tbHomepage.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    tbSearchEngine.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    button10.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    hlvDownload.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    cbLang.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    hsNotificationSound.BackColor = Settings.Theme.BackColor;
+                    hsNotificationSound.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
+                    hsNotificationSound.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
+                    hsNotificationSound.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
+                    hsSilent.BackColor = Settings.Theme.BackColor;
+                    hsSilent.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
+                    hsSilent.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
+                    hsSilent.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
+                    hsSchedule.BackColor = Settings.Theme.BackColor;
+                    hsSchedule.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
+                    hsSchedule.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
+                    hsSchedule.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
+                    hsAutoRestore.BackColor = Settings.Theme.BackColor;
+                    hsAutoRestore.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
+                    hsAutoRestore.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
+                    hsAutoRestore.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
+                    hsDownload.BackColor = Settings.Theme.BackColor;
+                    hsDownload.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
+                    hsDownload.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
+                    hsDownload.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
+                    hsDoNotTrack.BackColor = Settings.Theme.BackColor;
+                    hsDoNotTrack.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
+                    hsDoNotTrack.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
+                    hsDoNotTrack.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
+                    hsProxy.BackColor = Settings.Theme.BackColor;
+                    hsProxy.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
+                    hsProxy.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
+                    hsProxy.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
+                    hsFav.BackColor = Settings.Theme.BackColor;
+                    hsFav.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
+                    hsFav.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
+                    hsFav.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
+                    hsOpen.BackColor = Settings.Theme.BackColor;
+                    hsOpen.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
+                    hsOpen.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
+                    hsOpen.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
+                    hlvHistory.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    cbLang.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    cmsHistory.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    cmsSearchEngine.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    listBox2.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    comboBox1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    btCookie.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    btInstall.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    btUpdater.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    tbHomepage.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    btCleanLog.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    tbFolder.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    tbStartup.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    cmsStartup.BackColor = Settings.Theme.BackColor;
+                    cmsStartup.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    tbFolder.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    tbStartup.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    btReset.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    btDownloadFolder.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    button12.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    tbSearchEngine.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    btNotification.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    btNotification.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    panel1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    panel1.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    button10.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    tbHomepage.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    tbSearchEngine.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    cbLang.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    cbLang.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    toolStripTextBox1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    flpLayout.BackColor = Settings.Theme.BackColor;
+                    flpLayout.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    flpNewTab.BackColor = Settings.Theme.BackColor;
+                    flpNewTab.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    flpClose.BackColor = Settings.Theme.BackColor;
+                    flpClose.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    cmsProfiles.BackColor = Settings.Theme.BackColor;
+                    cmsHamburger.BackColor = Settings.Theme.BackColor;
+                    cmsPrivacy.BackColor = Settings.Theme.BackColor;
+                    label2.BackColor = Settings.Theme.BackColor;
+                    BackColor = Settings.Theme.BackColor;
+                    extensionToolStripMenuItem1.DropDown.BackColor = Settings.Theme.BackColor;
+                    aboutToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.about_w : Properties.Resources.about;
+                    downloadsToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.download_w : Properties.Resources.download;
+                    historyToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.history_w : Properties.Resources.history;
+                    pbIncognito.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.inctab_w : Properties.Resources.inctab;
+                    tbAddress.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    cmsHamburger.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    cmsProfiles.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    label2.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    toolStripTextBox1.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    cmsPrivacy.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    extensionToolStripMenuItem1.DropDown.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    textBox4.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { btFav.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
+                    mFavorites.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    settingsToolStripMenuItem.Image = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.Settings : Properties.Resources.Settings_w;
+                    newWindowToolStripMenuItem.Image = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.newwindow : Properties.Resources.newwindow_w;
+                    newIncognitoWindowToolStripMenuItem.Image = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.inctab : Properties.Resources.inctab_w;
+                    btProfile.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.profiles : Properties.Resources.profiles_w;
+                    btBack.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                    btRefresh.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.refresh : Properties.Resources.refresh_w;
+                    btNext.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
+                    btNotifBack.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                    btCookieBack.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                    //button4.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.go : Properties.Resources.go_w;
+                    btHome.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.home : Properties.Resources.home_w;
+                    btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
+                    tbAddress.BackColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.B, 20, 255));
+                    textBox4.BackColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.B, 20, 255));
+                    mFavorites.BackColor = Settings.Theme.BackColor;
+                    extensionToolStripMenuItem1.Image = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.ext : Properties.Resources.ext_w;
+                    cmsBStyle.BackColor = Settings.Theme.BackColor;
+                    cmsBStyle.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    cmsCookie.BackColor = Settings.Theme.BackColor;
+                    cmsCookie.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    cmsBack.BackColor = Settings.Theme.BackColor;
+                    cmsBack.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    cmsForward.BackColor = Settings.Theme.BackColor;
+                    cmsForward.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    switchToToolStripMenuItem.DropDown.BackColor = Settings.Theme.BackColor; switchToToolStripMenuItem.DropDown.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    foreach (ToolStripItem x in cmsForward.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
+                    foreach (ToolStripItem x in cmsBack.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
+                    foreach (ToolStripItem x in cmsProfiles.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
+                    foreach (ToolStripItem x in extensionToolStripMenuItem1.DropDownItems) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
+                    foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black; }
+                    foreach (Control c in Controls)
+                    {
+                        c.Refresh();
+                    }
                 }
-            }
-            if (Settings.Theme.BackgroundStyle != "BACKCOLOR")
-            {
-                if (Settings.Theme.BackgroundStyle != oldStyle)
+                if (Settings.Theme.BackgroundStyle != "BACKCOLOR")
                 {
-                    oldStyle = Settings.Theme.BackgroundStyle;
-                    Image backStyle = GetImageFromURL(Settings.Theme.BackgroundStyle);
-                    pNavigate.BackgroundImage = backStyle;
-                    mFavorites.BackgroundImage = backStyle;
-                    foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImage = backStyle; }
-                    tpSettings.BackgroundImage = backStyle;
+                    if (Settings.Theme.BackgroundStyle != oldStyle)
+                    {
+                        oldStyle = Settings.Theme.BackgroundStyle;
+                        Image backStyle = GetImageFromURL(Settings.Theme.BackgroundStyle);
+                        pNavigate.BackgroundImage = backStyle;
+                        mFavorites.BackgroundImage = backStyle;
+                        foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImage = backStyle; }
+                        tpSettings.BackgroundImage = backStyle;
+                    }
                 }
-            }
-            else
-            {
-                if (Settings.Theme.BackgroundStyle != oldStyle)
+                else
                 {
-                    oldStyle = Settings.Theme.BackgroundStyle;
-                    pNavigate.BackgroundImage = null;
-                    mFavorites.BackgroundImage = null;
-                    foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImage = null; }
-                    tpSettings.BackgroundImage = null;
+                    if (Settings.Theme.BackgroundStyle != oldStyle)
+                    {
+                        oldStyle = Settings.Theme.BackgroundStyle;
+                        pNavigate.BackgroundImage = null;
+                        mFavorites.BackgroundImage = null;
+                        foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImage = null; }
+                        tpSettings.BackgroundImage = null;
+                    }
                 }
-            }
-            if (Settings.Theme.BackgroundStyleLayout == 0) //NONE
+                if (Settings.Theme.BackgroundStyleLayout == 0) //NONE
+                {
+                    pNavigate.BackgroundImageLayout = ImageLayout.None;
+                    mFavorites.BackgroundImageLayout = ImageLayout.None;
+                    tpSettings.BackgroundImageLayout = ImageLayout.None;
+                    foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.None; }
+                }
+                else if (Settings.Theme.BackgroundStyleLayout == 1) //TILE
+                {
+                    pNavigate.BackgroundImageLayout = ImageLayout.Tile;
+                    mFavorites.BackgroundImageLayout = ImageLayout.Tile;
+                    tpSettings.BackgroundImageLayout = ImageLayout.Tile;
+                    foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Tile; }
+                }
+                else if (Settings.Theme.BackgroundStyleLayout == 2) //CENTER
+                {
+                    pNavigate.BackgroundImageLayout = ImageLayout.Center;
+                    mFavorites.BackgroundImageLayout = ImageLayout.Center;
+                    tpSettings.BackgroundImageLayout = ImageLayout.Center;
+                    foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Center; }
+                }
+                else if (Settings.Theme.BackgroundStyleLayout == 3) //STRETCH
+                {
+                    pNavigate.BackgroundImageLayout = ImageLayout.Stretch;
+                    mFavorites.BackgroundImageLayout = ImageLayout.Stretch;
+                    tpSettings.BackgroundImageLayout = ImageLayout.Stretch;
+                    foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Stretch; }
+                }
+                else if (Settings.Theme.BackgroundStyleLayout == 4) //ZOOM
+                {
+                    pNavigate.BackgroundImageLayout = ImageLayout.Zoom;
+                    mFavorites.BackgroundImageLayout = ImageLayout.Zoom;
+                    tpSettings.BackgroundImageLayout = ImageLayout.Zoom;
+                    foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Zoom; }
+                }
+            }catch (Exception ex)
             {
-                pNavigate.BackgroundImageLayout = ImageLayout.None;
-                mFavorites.BackgroundImageLayout = ImageLayout.None;
-                tpSettings.BackgroundImageLayout = ImageLayout.None;
-                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.None; }
-            }
-            else if (Settings.Theme.BackgroundStyleLayout == 1) //TILE
-            {
-                pNavigate.BackgroundImageLayout = ImageLayout.Tile;
-                mFavorites.BackgroundImageLayout = ImageLayout.Tile;
-                tpSettings.BackgroundImageLayout = ImageLayout.Tile;
-                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Tile; }
-            }
-            else if (Settings.Theme.BackgroundStyleLayout == 2) //CENTER
-            {
-                pNavigate.BackgroundImageLayout = ImageLayout.Center;
-                mFavorites.BackgroundImageLayout = ImageLayout.Center;
-                tpSettings.BackgroundImageLayout = ImageLayout.Center;
-                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Center; }
-            }
-            else if (Settings.Theme.BackgroundStyleLayout == 3) //STRETCH
-            {
-                pNavigate.BackgroundImageLayout = ImageLayout.Stretch;
-                mFavorites.BackgroundImageLayout = ImageLayout.Stretch;
-                tpSettings.BackgroundImageLayout = ImageLayout.Stretch;
-                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Stretch; }
-            }
-            else if (Settings.Theme.BackgroundStyleLayout == 4) //ZOOM
-            {
-                pNavigate.BackgroundImageLayout = ImageLayout.Zoom;
-                mFavorites.BackgroundImageLayout = ImageLayout.Zoom;
-                tpSettings.BackgroundImageLayout = ImageLayout.Zoom;
-                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Zoom; }
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -3044,8 +2951,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             tbStartup.Width = tpSettings.Width - (label28.Width + label28.Location.X + 15);
             flpLayout.Location = new Point(label25.Location.X + label25.Width, flpLayout.Location.Y);
             flpLayout.Width = tpTheme.Width - (label25.Width + label25.Location.X + 25);
-            pictureBox3.Location = new Point(label14.Location.X + label14.Width, pictureBox3.Location.Y);
-            pictureBox4.Location = new Point(label16.Location.X + label16.Width, pictureBox4.Location.Y);
+            pbBack.Location = new Point(label14.Location.X + label14.Width, pbBack.Location.Y);
+            pbOverlay.Location = new Point(label16.Location.X + label16.Width, pbOverlay.Location.Y);
             tbFolder.Location = new Point(lbDownloadFolder.Location.X + lbDownloadFolder.Width, tbFolder.Location.Y);
             tbFolder.Width = tpDownload.Width - (lbDownloadFolder.Location.X + lbDownloadFolder.Width + btDownloadFolder.Width + 25);
             btDownloadFolder.Location = new Point(tbFolder.Location.X + tbFolder.Width, btDownloadFolder.Location.Y);
@@ -3381,18 +3288,18 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void disallowThisPageForCookieAccessToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Settings.Notification.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)) != null)
+            if (Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)) != null)
             {
-                Settings.Notification.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)).AllowCookies = !Settings.Notification.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)).AllowCookies;
+                Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)).AllowCookies = !Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)).AllowCookies;
             }
             else
             {
                 Site newSite = new Site()
                 {
-                    Url = chromiumWebBrowser1.Address,
+                    Url = HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address),
                     AllowCookies = false,
                 };
-                Settings.Notification.Sites.Add(newSite);
+                Settings.Sites.Add(newSite);
             }
             chromiumWebBrowser1.Reload();
         }
@@ -3770,14 +3677,14 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void button15_Click(object sender, EventArgs e)
         {
-            if (anaform.cookieTab != null)
+            if (anaform.siteTab != null)
             {
-                anaform.SelectedTab = anaform.cookieTab;
+                anaform.SelectedTab = anaform.siteTab;
             }
             else
             {
                 resetPage(true);
-                anaform.cookieTab = ParentTab;
+                anaform.siteTab = ParentTab;
                 btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpSite;
@@ -3815,7 +3722,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void showHomepageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tbStartup.Text = showHomepageToolStripMenuItem.Text;
-            Settings.Startup = "korot://homepage";
+            Settings.Startup = Settings.Homepage;
         }
 
         private void showAWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4254,7 +4161,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void hsNotificationSound_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Notification.QuietMode = !hsNotificationSound.Checked;
+            Settings.QuietMode = !hsNotificationSound.Checked;
         }
 
         private void lbHaftaGunu_Click(object sender, EventArgs e)
@@ -4279,59 +4186,15 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             writeSchedules();
         }
 
-        private void button20_Click(object sender, EventArgs e)
-        {
-            if (anaform.nblockTab != null)
-            {
-                anaform.SelectedTab = anaform.nblockTab;
-            }
-            else
-            {
-                resetPage(true);
-                anaform.nblockTab = ParentTab;
-                btNext.Enabled = true;
-                allowSwitching = true;
-                tabControl1.SelectedTab = tpNBlock;
-            }
-        }
-
-        private void button19_Click(object sender, EventArgs e)
-        {
-            if (anaform.nallowTab != null)
-            {
-                anaform.SelectedTab = anaform.nallowTab;
-            }
-            else
-            {
-                resetPage(true);
-                anaform.nallowTab = ParentTab;
-                btNext.Enabled = true;
-                allowSwitching = true;
-                tabControl1.SelectedTab = tpNAllow;
-            }
-        }
-
-        private void cmsAllow_Opening(object sender, CancelEventArgs e)
-        {
-            allowRS.Enabled = lbAllow.SelectedItem != null;
-            allowBlockSel.Enabled = lbAllow.SelectedItem != null;
-        }
-
-        private void cmsBlock_Opening(object sender, CancelEventArgs e)
-        {
-            blockRS.Enabled = lbBlock.SelectedItem != null;
-            blockAllowSel.Enabled = lbBlock.SelectedItem != null;
-        }
-
         private void hsSchedule_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Notification.AutoSilent = hsSchedule.Checked;
+            Settings.AutoSilent = hsSchedule.Checked;
             panel1.Enabled = hsSchedule.Checked;
         }
 
         private void hsSilent_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Notification.DoNotPlaySound = hsSilent.Checked;
+            Settings.DoNotPlaySound = hsSilent.Checked;
         }
 
         private void button19_Click_1(object sender, EventArgs e)
@@ -4406,6 +4269,16 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 chromiumWebBrowser1.Refresh();
                 chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(true);
             }
+        }
+        bool onThemeName = false;
+        private void comboBox1_Enter(object sender, EventArgs e)
+        {
+            onThemeName = true;
+        }
+
+        private void comboBox1_Leave(object sender, EventArgs e)
+        {
+            onThemeName = false;
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

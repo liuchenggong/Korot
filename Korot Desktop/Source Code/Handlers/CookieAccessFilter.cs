@@ -34,27 +34,42 @@ namespace Korot
         public bool CanSaveCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, Cookie cookie)
         {
             setCookie(chromiumWebBrowser);
-            return Cefform.Settings.Notification.GetSiteFromUrl(chromiumWebBrowser.Address).AllowCookies;
+            if (Cefform.Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser.Address)) != null) {
+                return Cefform.Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser.Address)).AllowCookies;
+            }else
+            {
+                return true;
+            }
         }
 
         public bool CanSendCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, Cookie cookie)
         {
             setCookie(chromiumWebBrowser);
-            return Cefform.Settings.Notification.GetSiteFromUrl(chromiumWebBrowser.Address).AllowCookies;
+            if (Cefform.Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser.Address)) != null)
+            {
+                return Cefform.Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser.Address)).AllowCookies;
+            }
+            else
+            {
+                return true;
+            }
         }
         public void setCookie(IWebBrowser chromiumWebBrowser)
         {
-            if (Cefform.Settings.Notification.GetSiteFromUrl(chromiumWebBrowser.Address).AllowCookies)
+            if (Cefform.Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser.Address)) != null)
             {
-                if (Cefform == null) { return; }
-                if (Cefform.anaform == null) { return; }
-                if (Cefform.closing) { return; }
-                if (Cefform.anaform.closing) { return; }
-                if (Cefform.IsDisposed) { return; }
-                if (Cefform.anaform.IsDisposed) { return; }
-                Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
-                Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
-                if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pbPrivacy.Image = Properties.Resources.locko)); }
+                if (Cefform.Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser.Address)).AllowCookies)
+                {
+                    if (Cefform == null) { return; }
+                    if (Cefform.anaform == null) { return; }
+                    if (Cefform.closing) { return; }
+                    if (Cefform.anaform.closing) { return; }
+                    if (Cefform.IsDisposed) { return; }
+                    if (Cefform.anaform.IsDisposed) { return; }
+                    Cefform.Invoke(new Action(() => Cefform.cookieInfoToolStripMenuItem.Text = Cefform.usesCookies));
+                    Cefform.Invoke(new Action(() => Cefform.cookieUsage = true));
+                    if (!Cefform.certError) { Cefform.Invoke(new Action(() => Cefform.pbPrivacy.Image = Properties.Resources.locko)); }
+                }
             }
         }
     }

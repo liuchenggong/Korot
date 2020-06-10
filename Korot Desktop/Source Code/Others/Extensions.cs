@@ -23,7 +23,6 @@ namespace Korot
             }
             XmlDocument document = new XmlDocument();
             document.Load(ExtList);
-            if (document.FirstChild.Name.ToLower() != "extensions") { return; }
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
                 if (node.Name.ToLower() == "extension")
@@ -96,7 +95,6 @@ namespace Korot
             XmlDocument document = new XmlDocument();
             document.Load(stream); //Loads our XML Stream
             // Make sure that this is an extension manifest.
-            if (document.FirstChild.Name.ToLower() != "extensions") { return; }
             // This is the part where my brain stopped and tried shutting down (aka sleep).
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
@@ -114,7 +112,7 @@ namespace Korot
                 }
                 else if (node.Name.ToLower() == "icon")
                 {
-                    Icon = HTAlt.Tools.ReadFile(node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("[EXTFOLDER]",ExtFolder),"ignore");
+                    Icon = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                 }
                 else if (node.Name.ToLower() == "startupfile")
                 {
@@ -192,7 +190,7 @@ namespace Korot
         public string Name { get; set; }
         public string Author { get; set; }
         public Version Version { get; set; }
-        public Image Icon { get; set; }
+        public string Icon { get; set; }
         public Size Size { get; set; }
         public string Popup { get; set; }
         public string Startup { get; set; }

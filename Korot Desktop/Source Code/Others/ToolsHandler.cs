@@ -36,35 +36,48 @@ namespace Korot
         {
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Light.ktf"))
             {
-                string newTheme = "<Theme>" + Environment.NewLine +
+                string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
                                   "<Name>Korot Light</Name>" + Environment.NewLine +
                                    "<Author>Haltroy</Author>" + Environment.NewLine +
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
-                                   "<UseHaltroyUpdate>true</UseHaltroyUpdate>" + Environment.NewLine +
+                                   "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#ffffff</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#1E90FF</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
-                                   "<BackgroundStyle Layout=\"0\"></BackgroundStyle>" + Environment.NewLine +
+                                   "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
                                    "</Theme>" + Environment.NewLine;
                 HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
-
             }
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Dark.ktf"))
             {
-                string newTheme = "<Theme>" + Environment.NewLine +
-                                  "<Name>Korot Light</Name>" + Environment.NewLine +
+                string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
+                                  "<Name>Korot Dark</Name>" + Environment.NewLine +
                                    "<Author>Haltroy</Author>" + Environment.NewLine +
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
-                                   "<UseHaltroyUpdate>true</UseHaltroyUpdate>" + Environment.NewLine +
+                                   "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#000000</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#1E90FF</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
-                                   "<BackgroundStyle Layout=\"0\"></BackgroundStyle>" + Environment.NewLine +
+                                   "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
                                    "</Theme>" + Environment.NewLine;
                 HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
-
+            }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Midnight.ktf"))
+            {
+                string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
+                                  "<Name>Korot Midnight</Name>" + Environment.NewLine +
+                                   "<Author>Haltroy</Author>" + Environment.NewLine +
+                                   "<Version>1.0.0.0</Version>" + Environment.NewLine +
+                                   "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
+                                   "<BackColor>#050024</BackColor>" + Environment.NewLine +
+                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
+                                   "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
+                                   "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
+                                   "</Theme>" + Environment.NewLine;
+                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Midnight.ktf", newTheme, Encoding.UTF8);
             }
             return true;
         }

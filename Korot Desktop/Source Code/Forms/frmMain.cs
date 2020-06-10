@@ -53,10 +53,8 @@ namespace Korot
         public HTTitleTab historyTab = null;
         public HTTitleTab downloadTab = null;
         public HTTitleTab aboutTab = null;
-        public HTTitleTab cookieTab = null;
+        public HTTitleTab siteTab = null;
         public HTTitleTab collectionTab = null;
-        public HTTitleTab nallowTab = null;
-        public HTTitleTab nblockTab = null;
         public HTTitleTab notificationTab = null;
 
         #region Notification Listener
@@ -186,7 +184,7 @@ namespace Korot
             bool exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
             if (!exists)
             {
-                foreach (Site x in Settings.Notification.Sites)
+                foreach (Site x in Settings.Sites)
                 {
                     if (!x.AllowNotifications) { return; }
                     frmCEF notfiListener = new frmCEF(Settings,isIncognito, x.Url, Properties.Settings.Default.LastUser, true);
@@ -228,7 +226,6 @@ namespace Korot
             ForeColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
         }
         public string OldSessions;
-        private string profilePath;
         private void frmMain_Load(object sender, EventArgs e)
         {
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
@@ -352,7 +349,6 @@ namespace Korot
         public bool closing = false;
         public void CreateTab(HTTitleTab referenceTab, string url = "korot://newtab")
         {
-            if (!Directory.Exists(profilePath) && profilePath != null) { Directory.CreateDirectory(profilePath); }
             HTTitleTab newTab = new HTTitleTab(this)
             {
                 BackColor = referenceTab.BackColor,
@@ -365,7 +361,6 @@ namespace Korot
         }
         public void CreateTab(string url = "korot://newtab")
         {
-            if (!Directory.Exists(profilePath) && profilePath != null) { Directory.CreateDirectory(profilePath); }
             HTTitleTab newTab = new HTTitleTab(this)
             {
                 BackColor = Settings.Theme.BackColor,
@@ -377,7 +372,6 @@ namespace Korot
         }
         public override HTTitleTab CreateTab()
         {
-            if (!Directory.Exists(profilePath)) { Directory.CreateDirectory(profilePath); }
             return new HTTitleTab(this)
             {
                 BackColor = Settings.Theme.BackColor,

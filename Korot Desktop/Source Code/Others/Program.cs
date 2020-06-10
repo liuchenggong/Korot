@@ -104,11 +104,8 @@ namespace Korot
             Cef.EnableHighDPISupport();
             Tools.createFolders();
             Tools.createThemes();
-            // hallo? salut.
-            if(string.IsNullOrWhiteSpace(Properties.Settings.Default.LastUser)) { Properties.Settings.Default.LastUser = "o-zone"; }
-
             Settings settings = new Settings(Properties.Settings.Default.LastUser);
-
+            
             if (!File.Exists(settings.LanguageFile)) { settings.LanguageFile = Application.StartupPath + "\\Lang\\English.lang"; }
             if (!File.Exists(Application.StartupPath + "\\Lang\\English.lang"))
             {
@@ -120,10 +117,7 @@ namespace Korot
             List<frmNotification> notifications = new List<frmNotification>();
             try
             {
-                if (string.IsNullOrWhiteSpace(settings.Downloads.DownloadDirectory))
-                {
-                    settings.Downloads.DownloadDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads\\";
-                }
+                    
                 if (args.Contains("-update"))
                 {
                     if (UACControl.IsProcessElevated)
@@ -149,7 +143,7 @@ namespace Korot
                     appStarted = true;
                     return;
                 }
-                else if (args.Contains("-oobe") || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
+                else if (args.Contains("-oobe") || settings.LoadedDefaults || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
                 {
                     Application.Run(new frmOOBE(settings));
                     appStarted = true;
@@ -209,52 +203,43 @@ new HTTitleTab(testApp)
         public Settings (string Profile)
         {
             ProfileName = Profile;
-            // Read the file
-            // If its not available then load defaults
-            if (string.IsNullOrWhiteSpace(Profile) || !File.Exists(ProfileDirectory + "settings.kpf") || !Directory.Exists(ProfileDirectory))
+            Extensions.Settings = this;
+            if (string.IsNullOrWhiteSpace(Profile))
             {
-                Homepage = "korot://newtab";
-                MenuSize = Screen.GetWorkingArea(new Point(0, 0)).Size;
-                MenuPoint = new Point(0, 0);
-                SearchEngine = "https://www.google.com/search?q=";
-                Startup = "korot://homepage";
-                LastProxy = "";
-                MenuWasMaximized = true;
-                DoNotTrack = true;
-                AutoRestore = false;
-                RememberLastProxy = false;
-                Theme = new ThemeSettings("");
-                Notification = new NotificationSettings() { AutoSilent = false, AutoSilentMode = "", DoNotPlaySound = false, QuietMode = false, Silent = false, Sites = new List<Site>() };
-                Extensions = new Extensions("");
-                CollectionManager = new CollectionManager();
-                History = new HistorySettings("");
-                Downloads = new DownloadSettings() { UseDownloadFolder = false, DownloadDirectory = "", OpenDownload = false, Downloads = new List<Site>() };
-                Favorites = new FavoritesSettings("") { ShowFavorites = false};
+                LoadedDefaults = true;
+                Output.WriteLine(" [Settings] Loaded defaults because profile name was empty." + Environment.NewLine + " ProfileName: " + Profile);
+                return;
+            }
+            if (!File.Exists(ProfileDirectory + "settings.kpf"))
+            {
+                LoadedDefaults = true;
+                Output.WriteLine(" [Settings] Loaded defaults because can't find settings file." + Environment.NewLine + " at " + ProfileDirectory + "settings.kpf");
+                return;
+            }
+            if (!Directory.Exists(ProfileDirectory))
+            {
+                LoadedDefaults = true;
+                Output.WriteLine(" [Settings] Loaded defaults because can't find profile directory." + Environment.NewLine + " at " + ProfileDirectory);
                 return;
             }
             string ManifestXML = HTAlt.Tools.ReadFile(ProfileDirectory + "settings.kpf", Encoding.UTF8);
-            // Write XML to Stream so we don't need to load the same file again.
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(ManifestXML); //Writes our XML file
-            writer.Flush();
-            stream.Position = 0;
             XmlDocument document = new XmlDocument();
-            document.Load(stream); //Loads our XML Stream
-            // Make sure that this is an extension manifest.
-            if (document.FirstChild.Name.ToLower() != "profile") { return; }
-            // This is the part where my brain stopped and tried shutting down (aka sleep).
-            foreach (XmlNode node in document.FirstChild.ChildNodes)
+            document.LoadXml(ManifestXML);
+            foreach (XmlNode node in document.FirstChild.NextSibling.ChildNodes)
             {
                 if (node.Name.ToLower() == "homepage")
                 {
                     Homepage = node.InnerText;
                 }
+                else if (node.Name.ToLower().ToLowerInvariant() == "languagefile")
+                {
+                    LanguageFile = node.InnerText.Replace("[KOROTPATH]", Application.StartupPath);
+                }
                 else if (node.Name.ToLower() == "menusize")
                 {
                     string w = node.InnerText.Substring(0, node.InnerText.IndexOf(";"));
                     string h = node.InnerText.Substring(node.InnerText.IndexOf(";"), node.InnerText.Length - node.InnerText.IndexOf(";"));
-                    MenuSize = new Size(Convert.ToInt32(w.Replace(";","")), Convert.ToInt32(h.Replace(";", "")));
+                    MenuSize = new Size(Convert.ToInt32(w.Replace(";", "")), Convert.ToInt32(h.Replace(";", "")));
                 }
                 else if (node.Name.ToLower() == "menupoint")
                 {
@@ -294,7 +279,7 @@ new HTTitleTab(testApp)
                 {
                     string themeFile = node.Attributes["File"] != null ? node.Attributes["File"].Value : "";
                     if (!File.Exists(themeFile)) { themeFile = ""; }
-                    Theme = new ThemeSettings(themeFile);
+                    Theme = new Theme(themeFile);
                     foreach (XmlNode subnode in node.ChildNodes)
                     {
                         if (subnode.Name.ToLower() == "name")
@@ -358,44 +343,37 @@ new HTTitleTab(testApp)
                         }
                     }
                 }
-                else if (node.Name.ToLower() == "notifications")
+                if (node.Name.ToLower() == "autosilent")
                 {
-                    Notification = new NotificationSettings();
-                    foreach (XmlNode subnode in node.ChildNodes)
+                    AutoSilent = node.InnerText == "true";
+                }
+                else if (node.Name.ToLower() == "silent")
+                {
+                    Silent = node.InnerText == "true";
+                }
+                else if (node.Name.ToLower() == "donotplaysound")
+                {
+                    DoNotPlaySound = node.InnerText == "true";
+                }
+                else if (node.Name.ToLower() == "quietmode")
+                {
+                    QuietMode = node.InnerText == "true";
+                }
+                else if (node.Name.ToLower() == "autosilentmode")
+                {
+                    AutoSilentMode = node.InnerText;
+                }
+                else if (node.Name.ToLower() == "sites")
+                {
+                    Sites = new List<Site>();
+                    foreach (XmlNode sitenode in node.ChildNodes)
                     {
-                        if (subnode.Name.ToLower() == "autosilent")
-                        {
-                            Notification.AutoSilent = subnode.InnerText == "true";
-                        }
-                        else if (subnode.Name.ToLower() == "silent")
-                        {
-                            Notification.Silent = subnode.InnerText == "true";
-                        }
-                        else if (subnode.Name.ToLower() == "donotplaysound")
-                        {
-                            Notification.DoNotPlaySound = subnode.InnerText == "true";
-                        }
-                        else if (subnode.Name.ToLower() == "quietmode")
-                        {
-                            Notification.QuietMode = subnode.InnerText == "true";
-                        }
-                        else if (subnode.Name.ToLower() == "autosilentmode")
-                        {
-                            Notification.AutoSilentMode = subnode.InnerText;
-                        }
-                        else if (subnode.Name.ToLower() == "sites")
-                        {
-                            Notification.Sites = new List<Site>();
-                            foreach (XmlNode sitenode in subnode.ChildNodes)
-                            {
-                                Site site = new Site();
-                                site.AllowCookies = sitenode.Attributes["Cookies"] != null ? (sitenode.Attributes["Cookies"].Value == "true") : false;
-                                site.AllowNotifications = sitenode.Attributes["AllowNotifications"] != null ? (sitenode.Attributes["AllowNotifications"].Value == "true") : false;
-                                site.Name = sitenode.Attributes["Name"] != null ? sitenode.Attributes["Name"].Value : "";
-                                site.Url = sitenode.Attributes["Url"] != null ? sitenode.Attributes["Url"].Value : "";
-                                Notification.Sites.Add(site);
-                            }
-                        }
+                        Site site = new Site();
+                        site.AllowCookies = sitenode.Attributes["Cookies"] != null ? (sitenode.Attributes["Cookies"].Value == "true") : false;
+                        site.AllowNotifications = sitenode.Attributes["AllowNotifications"] != null ? (sitenode.Attributes["AllowNotifications"].Value == "true") : false;
+                        site.Name = sitenode.Attributes["Name"] != null ? sitenode.Attributes["Name"].Value : "";
+                        site.Url = sitenode.Attributes["Url"] != null ? sitenode.Attributes["Url"].Value : "";
+                        Sites.Add(site);
                     }
                 }
                 else if (node.Name.ToLower() == "extensions")
@@ -404,17 +382,24 @@ new HTTitleTab(testApp)
                 }
                 else if (node.Name.ToLower() == "collections")
                 {
-                    CollectionManager = new CollectionManager();
-                    CollectionManager.readCollections(node.ChildNodes.Count > 0 ? node.OuterXml : "", true);
+                    CollectionManager.readCollections(node.OuterXml, true);
                 }
                 else if (node.Name.ToLower() == "history")
                 {
-                    History = new HistorySettings(node.ChildNodes.Count > 0 ? node.OuterXml : "");
+                   foreach (XmlNode subnode in node.ChildNodes)
+                    {
+                        if (subnode.Name.ToLower() == "site")
+                        {
+                            Site newSite = new Site();
+                            newSite.Date = subnode.Attributes["Date"] != null ? subnode.Attributes["Date"].Value : "";
+                            newSite.Name = subnode.Attributes["Name"] != null ? subnode.Attributes["Name"].Value : "";
+                            newSite.Url = subnode.Attributes["Url"] != null ? subnode.Attributes["Url"].Value : "";
+                            History.Add(newSite);
+                        }
+                    }
                 }
                 else if (node.Name.ToLower() == "downloads")
                 {
-                    Downloads = new DownloadSettings();
-                    Downloads.Downloads = new List<Site>();
                     Downloads.DownloadDirectory = node.Attributes["directory"] != null ? node.Attributes["directory"].Value : "";
                     Downloads.OpenDownload = node.Attributes["open"] != null ? (node.Attributes["open"].Value == "true") : false;
                     Downloads.UseDownloadFolder = node.Attributes["usedownloadfolder"] != null ? (node.Attributes["usedownloadfolder"].Value == "true") : false;
@@ -455,39 +440,65 @@ new HTTitleTab(testApp)
                         ShowFavorites = node.Attributes["Show"] != null ? (node.Attributes["Show"].Value == "true") : false,
                     };
                 }
-             }
+            }
+            if (string.IsNullOrWhiteSpace(Downloads.DownloadDirectory))
+            {
+                Downloads.DownloadDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads\\";
+            }
         }
+        #region Defaults
+        public bool LoadedDefaults = false;
+        private bool _Silent = false;
+        private List<Site> _Sites = new List<Site>();
+        private bool _AutoSilent = false;
+        private bool _DoNotPlaySound = false;
+        private bool _QuietMode = false;
+        private string _AutoSilentMode = "";
+        private string _ProfileName = "o-zone";
+        private bool _DismissUpdate = false;
+        private string _Homepage = "korot://newtab";
+        private Size _MenuSize = new Size(720, 720);
+        private Point _MenuPoint = new Point(0, 0);
+        private string _SearchEngine = "https://www.google.com/search?q=";
+        private string _LanguageFile = Application.StartupPath + "\\Lang\\English.lang";
+        private bool _RememberLastProxy = false;
+        private string _LastProxy = "";
+        private bool _DisableLanguageError = false;
+        private bool _MenuWasMaximized = true;
+        private string _Startup = "korot://homepage";
+        private bool _AutoRestore = false;
+        private bool _DoNotTrack = true;
+        private Theme _Theme = new Theme("");
+        private List<Site> _History = new List<Site>();
+        private DownloadSettings _DownloadSettings = new DownloadSettings() { DownloadDirectory = "", Downloads = new List<Site>(), OpenDownload = false, UseDownloadFolder = false };
+        private CollectionManager _CollectionManager = new CollectionManager("") { Collections = new List<Collection>() };
+        private FavoritesSettings _Favorites = new FavoritesSettings("") { Favorites = new List<Folder>(), ShowFavorites = true };
+        private Extensions _Extensions = new Extensions("");
+        #endregion
+        
         public void Save()
         {
             string x =
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine +
             "<Profile>" + Environment.NewLine +
             "<Homepage>" + Homepage +"</Homepage>" + Environment.NewLine +
             "<MenuSize>" + MenuSize.Width + ";" + MenuSize.Height + "</MenuSize>" + Environment.NewLine +
             "<MenuPoint>" + MenuPoint.X +";" + MenuPoint.Y + "</MenuPoint>" + Environment.NewLine +
             "<SearchEngine>" + SearchEngine +"</SearchEngine>" + Environment.NewLine +
+            "<LanguageFile>" + LanguageFile.Replace(Application.StartupPath,"[KOROTPATH]") + "</LanguageFile>" + Environment.NewLine +
             "<Startup>" + Startup + "</Startup>" + Environment.NewLine +
             "<LastProxy>" + LastProxy +"</LastProxy>" + Environment.NewLine +
             "<MenuWasMaximized>" + (MenuWasMaximized ? "true" : "false") + "</MenuWasMaximized>" + Environment.NewLine +
             "<DoNotTrack>" + (DoNotTrack ? "true" : "false") + "</DoNotTrack>" + Environment.NewLine +
             "<AutoRestore>" + (AutoRestore ? "true" : "false") + "</AutoRestore>" + Environment.NewLine +
-            "<RemeberLastProxy>" + (RememberLastProxy ? "true" : "false") + "</RemeberLastProxy>" + Environment.NewLine +
-            "<Theme File=\"" + Theme.ThemeFile + "\">" + Environment.NewLine +
-            "<Name>" + Theme.Name + "</Name>" + Environment.NewLine +
-            "<Author>" + Theme.Author + "</Author>" + Environment.NewLine +
-            "<BackColor>" + HTAlt.Tools.ColorToHex(Theme.BackColor) + "</BackColor>" + Environment.NewLine +
-            "<OverlayColor>" + HTAlt.Tools.ColorToHex(Theme.OverlayColor) + "</OverlayColor>" + Environment.NewLine +
-            "<BackgroundStyle Layout=\"" + Theme.BackgroundStyleLayout + "\">" + Theme.BackgroundStyle + "</BackgroundStyle>" + Environment.NewLine +
-            "<NewTabColor>" + (int)Theme.NewTabColor + "</NewTabColor>" + Environment.NewLine +
-            "<CloseButtonColor>"+ (int)Theme.CloseButtonColor + "</CloseButtonColor>" + Environment.NewLine +
-            "</Theme>" + Environment.NewLine +
-            "<Notifications>" + Environment.NewLine +
-            "<Silent>" + (Notification.Silent ? "true" : "false") + "</Silent>" + Environment.NewLine + 
-            "<AutoSilent>" + (Notification.AutoSilent ? "true" : "false") +"</AutoSilent> " + Environment.NewLine +
-            "<DoNotPlaySound>" + (Notification.DoNotPlaySound ? "true" : "false") + "</DoNotPlaySound>" + Environment.NewLine +
-            "<QuietMode>" + (Notification.QuietMode ? "true" : "false") + "</QuietMode>" + Environment.NewLine +
-            "<AutoSilentMode>" + Notification.AutoSilentMode + "</AutoSilentMode>" + Environment.NewLine +
+            "<RememberLastProxy>" + (RememberLastProxy ? "true" : "false") + "</RememberLastProxy>" + Environment.NewLine +
+            "<Silent>" + (Silent ? "true" : "false") + "</Silent>" + Environment.NewLine +
+            "<AutoSilent>" + (AutoSilent ? "true" : "false") + "</AutoSilent> " + Environment.NewLine +
+            "<DoNotPlaySound>" + (DoNotPlaySound ? "true" : "false") + "</DoNotPlaySound>" + Environment.NewLine +
+            "<QuietMode>" + (QuietMode ? "true" : "false") + "</QuietMode>" + Environment.NewLine +
+            "<AutoSilentMode>" + AutoSilentMode + "</AutoSilentMode>" + Environment.NewLine +
             "<Sites>" + Environment.NewLine;
-            foreach (Site site in Notification.Sites)
+            foreach (Site site in Sites)
             {
                 x += "<Site Name=\""
                      + site.Name
@@ -500,8 +511,17 @@ new HTTitleTab(testApp)
                      + "\" />"
                      + Environment.NewLine;
             }
-            x += "</Sites> " + Environment.NewLine + "</Notifications>" + Environment.NewLine + Extensions.ExtractList + CollectionManager.writeCollections + "<History>" + Environment.NewLine;
-            foreach (Site site in Notification.Sites)
+            x += "</Sites> " + Environment.NewLine +
+            "<Theme File=\"" + Theme.ThemeFile + "\">" + Environment.NewLine +
+            "<Name>" + Theme.Name + "</Name>" + Environment.NewLine +
+            "<Author>" + Theme.Author + "</Author>" + Environment.NewLine +
+            "<BackColor>" + HTAlt.Tools.ColorToHex(Theme.BackColor) + "</BackColor>" + Environment.NewLine +
+            "<OverlayColor>" + HTAlt.Tools.ColorToHex(Theme.OverlayColor) + "</OverlayColor>" + Environment.NewLine +
+            "<BackgroundStyle Layout=\"" + Theme.BackgroundStyleLayout + "\">" + Theme.BackgroundStyle + "</BackgroundStyle>" + Environment.NewLine +
+            "<NewTabColor>" + (int)Theme.NewTabColor + "</NewTabColor>" + Environment.NewLine +
+            "<CloseButtonColor>"+ (int)Theme.CloseButtonColor + "</CloseButtonColor>" + Environment.NewLine +
+            "</Theme>" + Environment.NewLine + Extensions.ExtractList + CollectionManager.writeCollections + "<History>" + Environment.NewLine;
+            foreach (Site site in History)
             {
                 x += "<Site Name=\""
                      + site.Name
@@ -514,7 +534,7 @@ new HTTitleTab(testApp)
             }
             x += "</History>" + Environment.NewLine +
                 "<Downloads Directory=\"\" Open=\"false\" UseDownloadFolder=\"false\">" + Environment.NewLine;
-            foreach (Site site in Notification.Sites)
+            foreach (Site site in Downloads.Downloads)
             {
                 x += "<Site Name=\""
                      + site.Name
@@ -532,7 +552,6 @@ new HTTitleTab(testApp)
             x += "</Downloads>" + Environment.NewLine + Favorites.outXml + "</Profile>" + Environment.NewLine;
             HTAlt.Tools.WriteFile(ProfileDirectory + "settings.kpf", x, Encoding.UTF8);
         }
-        public string ProfileName { get; set; }
         public string ProfileDirectory
         {
             get
@@ -540,54 +559,193 @@ new HTTitleTab(testApp)
                 return Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + ProfileName + "\\";
             }
         }
-        public bool DismissUpdate { get; set; }
-        public string Homepage { get; set; }
-        public Size MenuSize { get; set; }
-        public Point MenuPoint { get; set; }
-        public string SearchEngine { get; set; }
-        public string LanguageFile { get; set; }
-        public bool RememberLastProxy { get; set; }
-        public string LastProxy { get; set; }
-        public bool DisableLanguageError { get; set; }
-        public bool MenuWasMaximized { get; set; }
-        public bool DoNotTrack { get; set; }
-        public DownloadSettings Downloads { get; set; }
-        public ThemeSettings Theme { get; set; }
-        public CollectionManager CollectionManager { get; set; }
-        public HistorySettings History { get; set; }
-        public NotificationSettings Notification { get; set; }
-        public FavoritesSettings Favorites { get; set; }
-        public Extensions Extensions { get; set; }
-        public string Startup { get; set; }
-        public bool AutoRestore { get; set; }
+        public Site GetSiteFromUrl(string Url)
+        {
+            if (Sites.Find(i => i.Url == Url) == null)
+            {
+                return new Site() { Url = Url, AllowCookies = false, AllowNotifications = false };
+            }
+            return Sites.Find(i => i.Url == Url);
+        }
+        #region Properties
+        public bool Silent
+        {
+            get => _Silent;
+            set => _Silent = value;
+        }
+        public List<Site> Sites
+        {
+            get => _Sites;
+            set => _Sites = value;
+        }
+        public bool AutoSilent
+        {
+            get => _AutoSilent;
+            set => _AutoSilent = value;
+        }
+        public bool DoNotPlaySound
+        {
+            get => _DoNotPlaySound;
+            set => _DoNotPlaySound = value;
+        }
+        public bool QuietMode
+        {
+            get => _QuietMode;
+            set => _QuietMode = value;
+        }
+        public string AutoSilentMode
+        {
+            get => _AutoSilentMode;
+            set => _AutoSilentMode = value;
+        }
+
+        public string ProfileName
+        {
+            get => _ProfileName;
+            set => _ProfileName = value;
+        }
+
+        public bool DismissUpdate
+        {
+            get => _DismissUpdate;
+            set => _DismissUpdate = value;
+        }
+        public string Homepage
+        {
+            get => _Homepage;
+            set => _Homepage = value;
+        }
+        public Size MenuSize
+        {
+            get => _MenuSize;
+            set => _MenuSize = value;
+        }
+        public Point MenuPoint
+        {
+            get => _MenuPoint;
+            set => _MenuPoint = value;
+        }
+        public string SearchEngine
+        {
+            get => _SearchEngine;
+            set => _SearchEngine = value;
+        }
+        public string LanguageFile
+        {
+            get => _LanguageFile;
+            set => _LanguageFile = value;
+        }
+        public bool RememberLastProxy
+        {
+            get => _RememberLastProxy;
+            set => _RememberLastProxy = value;
+        }
+        public string LastProxy
+        {
+            get => _LastProxy;
+            set => _LastProxy = value;
+        }
+        public bool DisableLanguageError
+        {
+            get => _DisableLanguageError;
+            set => _DisableLanguageError = value;
+        }
+        public bool MenuWasMaximized
+        {
+            get => _MenuWasMaximized;
+            set => _MenuWasMaximized = value;
+        }
+        public bool DoNotTrack
+        {
+            get => _DoNotTrack;
+            set => _DoNotTrack = value;
+        }
+        public Theme Theme
+        {
+            get => _Theme;
+            set => _Theme = value;
+        }
+        public DownloadSettings Downloads
+        {
+            get => _DownloadSettings;
+            set => _DownloadSettings = value;
+        }
+        public CollectionManager CollectionManager
+        {
+            get => _CollectionManager;
+            set => _CollectionManager = value;
+        }
+        public List<Site> History 
+        {
+            get => _History;
+            set => _History = value;
+        }
+        public FavoritesSettings Favorites
+        {
+            get => _Favorites;
+            set => _Favorites = value;
+        }
+        public Extensions Extensions
+        {
+            get => _Extensions;
+            set => _Extensions = value;
+        }
+        public string Startup
+        {
+            get => _Startup;
+            set => _Startup = value;
+        }
+        public bool AutoRestore
+        {
+            get => _AutoRestore;
+            set => _AutoRestore = value;
+        }
+        #endregion
     }
-    public class ThemeSettings
+    public class Theme
     {
-        public ThemeSettings(string themeFile)
+        public void SaveTheme()
+        {
+            string x = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
+                "<Version>" + Version.ToString() + "</Version>" + Environment.NewLine +
+                "<MinimumKorotVersion>" + MininmumKorotVersion.ToString() + "</MinimumKorotVersion>" + Environment.NewLine +
+                "<UseHaltroyUpdate>" + (UseHaltroyUpdate ? "true" : "false") + "</UseHaltroyUpdate>" + Environment.NewLine +
+                "<Name>" + Name + "</Name>" + Environment.NewLine +
+            "<Name>" + Name + "</Name>" + Environment.NewLine +
+            "<Author>" + Author + "</Author>" + Environment.NewLine +
+            "<BackColor>" + HTAlt.Tools.ColorToHex(BackColor) + "</BackColor>" + Environment.NewLine +
+            "<OverlayColor>" + HTAlt.Tools.ColorToHex(OverlayColor) + "</OverlayColor>" + Environment.NewLine +
+            "<BackgroundStyle Layout=\"" + BackgroundStyleLayout + "\">" + BackgroundStyle + "</BackgroundStyle>" + Environment.NewLine +
+            "<NewTabColor>" + (int)NewTabColor + "</NewTabColor>" + Environment.NewLine +
+            "<CloseButtonColor>" + (int)CloseButtonColor + "</CloseButtonColor>" + Environment.NewLine +
+            "</Theme>";
+            HTAlt.Tools.WriteFile(ThemeFile, x, Encoding.UTF8);
+        }
+        public void LoadFromFile(string themeFile)
         {
             if (string.IsNullOrWhiteSpace(themeFile))
             {
-                Name = "Korot Default";
+                Name = "Korot Midnight";
                 Author = "Haltroy";
+                UseHaltroyUpdate = false;
+                Version = new Version(Application.ProductVersion);
+                MininmumKorotVersion = Version;
                 BackColor = Color.FromArgb(255, 5, 0, 36);
                 OverlayColor = Color.FromArgb(255, 85, 180, 212);
                 BackgroundStyle = "BACKCOLOR";
                 BackgroundStyleLayout = 0;
                 NewTabColor = TabColors.OverlayColor;
                 CloseButtonColor = TabColors.OverlayColor;
+                LoadedDefaults = true;
                 return;
             }
             ThemeFile = themeFile;
             string ManifestXML = HTAlt.Tools.ReadFile(ThemeFile, Encoding.UTF8);
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(ManifestXML);
-            writer.Flush();
-            stream.Position = 0;
             XmlDocument document = new XmlDocument();
-            document.Load(stream);
-            if (document.FirstChild.Name.ToLower() != "theme") { return; }
-            foreach (XmlNode node in document.FirstChild.ChildNodes)
+            document.LoadXml(ManifestXML);
+            XmlNode workNode = document.FirstChild;
+            if (document.FirstChild.Name.ToLower() == "xml") { workNode = document.FirstChild.NextSibling; }
+            foreach (XmlNode node in workNode.ChildNodes)
             {
                 if (node.Name.ToLower() == "name")
                 {
@@ -596,6 +754,18 @@ new HTTitleTab(testApp)
                 else if (node.Name.ToLower() == "author")
                 {
                     Author = node.InnerText;
+                }
+                else if (node.Name.ToLower() == "usehaltroyupdate")
+                {
+                    UseHaltroyUpdate = node.InnerText == "true";
+                }
+                else if (node.Name.ToLower() == "version")
+                {
+                    Version = new Version(node.InnerText);
+                }
+                else if (node.Name.ToLower() == "minimumkorotversion")
+                {
+                    MininmumKorotVersion = new Version(node.InnerText);
                 }
                 else if (node.Name.ToLower() == "backcolor")
                 {
@@ -650,6 +820,14 @@ new HTTitleTab(testApp)
                 }
             }
         }
+        public Theme(string themeFile)
+        {
+            LoadFromFile(themeFile);
+        }
+        public bool LoadedDefaults = false;
+        public Version Version { get; set; }
+        public bool UseHaltroyUpdate { get; set; }
+        public Version MininmumKorotVersion { get; set; }
         public string Name { get; set; }
         public string Author { get; set; }
         public Color BackColor { get; set; }
@@ -673,49 +851,6 @@ new HTTitleTab(testApp)
         public static bool IsPreRelease => true;
         public static int PreReleaseNumber => 1;
     }
-    public class HistorySettings
-    {
-        public HistorySettings(string historyxml)
-        {
-            History = new List<Site>();
-            if (string.IsNullOrWhiteSpace(historyxml) || historyxml.ToLower().Replace(Environment.NewLine, "") == "<history></history>")
-            {
-                return;
-            }
-            XmlDocument document = new XmlDocument();
-            document.Load(historyxml);
-            if (document.FirstChild.Name.ToLower() != "history") { return; }
-            foreach (XmlNode node in document.FirstChild.ChildNodes)
-            {
-                if (node.Name.ToLower() == "site")
-                {
-                    Site newSite = new Site();
-                    newSite.Date = node.Attributes["Date"] != null ? node.Attributes["Date"].Value : "";
-                    newSite.Name = node.Attributes["Name"] != null ? node.Attributes["Name"].Value : "";
-                    newSite.Url = node.Attributes["Url"] != null ? node.Attributes["Url"].Value : "";
-                    History.Add(newSite);
-                }
-            }
-        }
-        public List<Site> History { get; set; }
-    }
-    public class NotificationSettings
-    {
-        public bool Silent { get; set; }
-        public List<Site> Sites { get; set; }
-        public bool AutoSilent { get; set; }
-        public bool DoNotPlaySound { get; set; }
-        public bool QuietMode { get; set; }
-        public string AutoSilentMode { get; set; }
-        public Site GetSiteFromUrl(string Url)
-        {
-            if (Sites.Find(i => i.Url == Url) == null)
-            {
-                return new Site() { Url = Url, AllowCookies = false, AllowNotifications = false };
-            }
-            return Sites.Find(i => i.Url == Url);
-        }
-    }
     public class Site
     {
         public string Name { get; set; }
@@ -737,6 +872,7 @@ new HTTitleTab(testApp)
     {
         public void DeleteFolder(Folder folder)
         {
+            if (folder == null) { return; }
             if (folder.IsTopFavorite)
             {
                 Favorites.Remove(folder);
@@ -762,8 +898,7 @@ new HTTitleTab(testApp)
             if (!string.IsNullOrWhiteSpace(xmlString))
             {
                 XmlDocument document = new XmlDocument();
-                document.Load(xmlString);
-
+                document.LoadXml(xmlString);
                 foreach (XmlNode node in document.FirstChild.ChildNodes)
                 {
                     if (node.Name == "Folder")
@@ -906,5 +1041,16 @@ new HTTitleTab(testApp)
         public string IconPath { get; set; }
         public Image Icon => HTAlt.Tools.ReadFile(IconPath,"ignored"); 
     }
-    
+    public class FileFolderError
+    {
+        public FileFolderError(string _Location,Exception _Error,bool IsDirectory)
+        {
+            isDirectory = IsDirectory;
+            Location = _Location;
+            Error = _Error;
+        }
+        public bool isDirectory { get; set; }
+        public string Location { get; set; }
+        public Exception Error { get; set; }
+    }
 }

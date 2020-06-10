@@ -80,7 +80,7 @@ namespace Korot
             {
                 SW = new StreamWriter(filePath)
                 {
-                    AutoFlush = true
+                    AutoFlush = true,
                 };
             }
             catch (UnauthorizedAccessException ex)
