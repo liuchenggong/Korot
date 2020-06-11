@@ -4,6 +4,8 @@ An advanced Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy'
 Latest Stable Version: [`0.6.1.0`](https://github.com/Haltroy/Korot/tree/0.6.1.0).
 
 
+Latest Development Version: [`0.7.0.0-pre1`](https://github.com/Haltroy/Korot/tree/0.7.0.0-pre1).
+
 ## Features:
  - HTML5, CSS3, JS, HTML5 Video, WebGL 3D, etc. supported. (Except `H.264` codec. See [#12](https://github.com/Haltroy/Korot/issues/12))
  - Tabbed, built-in search mode inside of address bar (auto-detecting URLs).
@@ -26,5 +28,6 @@ Latest Stable Version: [`0.6.1.0`](https://github.com/Haltroy/Korot/tree/0.6.1.0
  | Branch                                                              | CEF Version | VC++ Version | .Net | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-------------------|
 | [`master`](https://github.com/haltroy/korot)                      |  | 2015 | Framework 4.8 | Development | Unknown |
+| [`0.7.0.0-pre1`](https://github.com/Haltroy/Korot/tree/0.7.0.0-pre1) | 81 | 2015 | Framework 4.8 | *Latest Pre-Release* | 14.5.2020 |
 | [`0.6.1.0`](https://github.com/Haltroy/Korot/tree/0.6.1.0) | 79 | 2015 | Framework 4.8 | **Latest Release** | 14.5.2020 |
 | `0.6.9.0` and lower | 79 | 2015 | Framework 4.8 | Unsupported | Before 14.5.2020 |
