@@ -56,12 +56,9 @@ namespace Korot
         }
         private void Lang()
         {
-            string Playlist = HTAlt.Tools.ReadFile(Settings.LanguageFile, Encoding.UTF8);
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SplittedFase = Playlist.Split(token);
-            Text = SplittedFase[259].Substring(1).Replace(Environment.NewLine, "");
-            info = SplittedFase[260].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]",Environment.NewLine);
-            infoTemp = SplittedFase[94].Substring(1).Replace(Environment.NewLine, "");
+            Text = Settings.LanguageSystem.GetItemText("KorotExtensionUpdater");
+            info = Settings.LanguageSystem.GetItemText("ExtensionUpdatingInfo").Replace("[NEWLINE]",Environment.NewLine);
+            infoTemp = Settings.LanguageSystem.GetItemText("DownloadProgress");
         }
 
         private readonly string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\";
@@ -73,7 +70,7 @@ namespace Korot
             string[] SplittedFase = Playlist.Split(token);
             currentVersion = new Version(SplittedFase[1].Substring(1).Replace(Environment.NewLine, ""));
             string extName = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
-            string extAuthor = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
+            string extAuthor = Settings.LanguageSystem.GetItemText("KorotUpdate");
             string codeName = extAuthor + "." + extName;
             label1.Text = info.Replace("[NAME]", codeName);
             fileURL = "https://haltroy.com/store/item/" + codeName + "/" + codeName + ".kef";
@@ -91,7 +88,7 @@ namespace Korot
             string[] SplittedFase = Playlist.Split(token);
             currentVersion = new Version(SplittedFase[1].Substring(1).Replace(Environment.NewLine, ""));
             string extName = SplittedFase[0].Substring(0).Replace(Environment.NewLine, "");
-            string extAuthor = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
+            string extAuthor = Settings.LanguageSystem.GetItemText("KorotUpdate");
             string codeName = extAuthor + "." + extName;
             label1.Text = info.Replace("[NAME]", codeName);
             fileURL = "https://haltroy.com/store/item/" + codeName + "/" + codeName + ".ktf";

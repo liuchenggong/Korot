@@ -43,8 +43,6 @@ namespace Korot
         }
 
         private bool allowSwitch = false;
-        public string customSearchNote = "(Note: Searched text will be put after the url)";
-        public string customSearchMessage = "Write Custom Search Url";
         private string profilePath;
         public string Yes = "Yes";
         public string No = "No";
@@ -58,7 +56,7 @@ namespace Korot
         {
             int savedValue = lbLang.SelectedIndex;
             lbLang.Items.Clear();
-            foreach (string foundfile in Directory.GetFiles(Application.StartupPath + "//Lang//", "*.lang", SearchOption.TopDirectoryOnly))
+            foreach (string foundfile in Directory.GetFiles(Application.StartupPath + "//Lang//", "*.klf", SearchOption.TopDirectoryOnly))
             {
                 lbLang.Items.Add(Path.GetFileNameWithoutExtension(foundfile));
             }
@@ -68,47 +66,42 @@ namespace Korot
         {
             if (lbLang.SelectedItem != null)
             {
-                if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".lang"))
+                if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".klf"))
                 {
                     btContinue2.Visible = false;
                 }
                 else
                 {
-                    Settings.LanguageFile = Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".lang";
-                    string Playlist = HTAlt.Tools.ReadFile(Settings.LanguageFile, Encoding.UTF8);
-                    char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-                    string[] SplittedFase = Playlist.Split(token);
-                    Text = SplittedFase[143].Substring(1).Replace(Environment.NewLine, "");
-                    btContinue.ButtonText = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
-                    btContinue2.ButtonText = SplittedFase[144].Substring(1).Replace(Environment.NewLine, "");
-                    btBack.ButtonText = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
-                    btBack1.ButtonText = SplittedFase[151].Substring(1).Replace(Environment.NewLine, "");
-                    btFinish.ButtonText = SplittedFase[157].Substring(1).Replace(Environment.NewLine, "");
-                    lbTip1.Text = SplittedFase[153].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-                    lbWelcome.Text = SplittedFase[145].Substring(1).Replace(Environment.NewLine, "");
-                    lbProfile.Text = SplittedFase[146].Substring(1).Replace(Environment.NewLine, "");
-                    lbNotContain.Text = SplittedFase[147].Substring(1).Replace(Environment.NewLine, "");
-                    lbProfileInfo.Text = SplittedFase[148].Substring(1).Replace(Environment.NewLine, "");
-                    tbTip2.Text = SplittedFase[95].Substring(1).Replace(Environment.NewLine, "");
-                    tbTip1.Text = SplittedFase[182].Substring(1).Replace(Environment.NewLine, "");
-                    lbTipTitle.Text = SplittedFase[182].Substring(1).Replace(Environment.NewLine, "");
-                    lbTip2.Text = SplittedFase[149].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-                    lbTip3.Text = SplittedFase[150].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-                    tbTipF.Text = SplittedFase[154].Substring(1).Replace(Environment.NewLine, "");
-                    tbTip3.Text = SplittedFase[155].Substring(1).Replace(Environment.NewLine, "");
-                    lbTipF.Text = SplittedFase[267].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-                    label2.Text = SplittedFase[269].Substring(1).Replace(Environment.NewLine, "");
-                    lbCont.Text = SplittedFase[268].Substring(1).Replace(Environment.NewLine, "");
-                    lbArrowKey.Text = SplittedFase[267].Substring(1).Replace(Environment.NewLine, "");
-                    lbContinueBack.Text = SplittedFase[156].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-                    lbFinishBack.Text = SplittedFase[152].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-                    Yes = SplittedFase[84].Substring(1).Replace(Environment.NewLine, "");
-                    No = SplittedFase[85].Substring(1).Replace(Environment.NewLine, "");
-                    OK = SplittedFase[86].Substring(1).Replace(Environment.NewLine, "");
-                    Cancel = SplittedFase[87].Substring(1).Replace(Environment.NewLine, "");
-                    customSearchMessage = SplittedFase[6].Substring(1).Replace(Environment.NewLine, "");
-                    customSearchNote = SplittedFase[7].Substring(1).Replace(Environment.NewLine, "");
-                    closeMessage = SplittedFase[158].Substring(1).Replace(Environment.NewLine, "");
+                    Settings.LanguageSystem.ReadFromFile(Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".klf", true);
+                    Text = Settings.LanguageSystem.GetItemText("OOBETitle");
+                    btContinue.ButtonText = Settings.LanguageSystem.GetItemText("OOBEContinue");
+                    btContinue2.ButtonText = Settings.LanguageSystem.GetItemText("OOBEContinue");
+                    btBack.ButtonText = Settings.LanguageSystem.GetItemText("OOBEBack");
+                    btBack1.ButtonText = Settings.LanguageSystem.GetItemText("OOBEBack");
+                    btFinish.ButtonText = Settings.LanguageSystem.GetItemText("OOBEButtonFinish");
+                    lbTip1.Text = Settings.LanguageSystem.GetItemText("OOBEExtensionInfo").Replace("[NEWLINE]", Environment.NewLine);
+                    lbWelcome.Text = Settings.LanguageSystem.GetItemText("OOBEWelcome");
+                    lbProfile.Text = Settings.LanguageSystem.GetItemText("OOBEProfile");
+                    lbNotContain.Text = Settings.LanguageSystem.GetItemText("OOBENotContain");
+                    lbProfileInfo.Text = Settings.LanguageSystem.GetItemText("OOBEProfileInfo");
+                    tbTip2.Text = Settings.LanguageSystem.GetItemText("Themes");
+                    tbTip1.Text = Settings.LanguageSystem.GetItemText("Extensions");
+                    lbTipTitle.Text = Settings.LanguageSystem.GetItemText("Extensions");
+                    lbTip2.Text = Settings.LanguageSystem.GetItemText("OOBEThemeInfo").Replace("[NEWLINE]", Environment.NewLine);
+                    lbTip3.Text = Settings.LanguageSystem.GetItemText("OOBEProfilesInfo").Replace("[NEWLINE]", Environment.NewLine);
+                    tbTipF.Text = Settings.LanguageSystem.GetItemText("OOBEBestWishes");
+                    tbTip3.Text = Settings.LanguageSystem.GetItemText("OOBEProfilesTitle");
+                    lbTipF.Text = Settings.LanguageSystem.GetItemText("YoureGoodToGo").Replace("[NEWLINE]", Environment.NewLine);
+                    lbChooseLang.Text = Settings.LanguageSystem.GetItemText("ChooseALanguage");
+                    lbCont.Text = Settings.LanguageSystem.GetItemText("OOBEContinueInfo");
+                    lbArrowKey.Text = Settings.LanguageSystem.GetItemText("OOBEArrowKeys");
+                    lbContinueBack.Text = Settings.LanguageSystem.GetItemText("OOBEContinueBack").Replace("[NEWLINE]", Environment.NewLine);
+                    lbFinishBack.Text = Settings.LanguageSystem.GetItemText("OOBEFinishBack").Replace("[NEWLINE]", Environment.NewLine);
+                    Yes = Settings.LanguageSystem.GetItemText("Yes");
+                    No = Settings.LanguageSystem.GetItemText("No");
+                    OK = Settings.LanguageSystem.GetItemText("OK");
+                    Cancel = Settings.LanguageSystem.GetItemText("Cancel");
+                    closeMessage = Settings.LanguageSystem.GetItemText("OOBECloseMessage");
                     lbBanned.Location = new Point(lbNotContain.Location.X + 5 + lbNotContain.Width, lbNotContain.Location.Y);
                     btContinue2.Visible = true;
 
@@ -207,7 +200,7 @@ namespace Korot
         {
             if (lbLang.SelectedItem != null)
             {
-                if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".lang"))
+                if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".klf"))
                 {
 
                 }
@@ -271,7 +264,7 @@ namespace Korot
         {
             if (lbLang.SelectedItem != null)
             {
-                if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".lang"))
+                if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".klf"))
                 {
 
                 }

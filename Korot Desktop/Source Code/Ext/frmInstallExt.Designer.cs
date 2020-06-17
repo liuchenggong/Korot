@@ -55,43 +55,43 @@ namespace Korot
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lbExtensionRequires = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lbCanAccess = new System.Windows.Forms.Label();
+            this.lbCanAccessInfo = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
+            this.lbAutoLoad = new System.Windows.Forms.Label();
+            this.lbAutoLoadInfo = new System.Windows.Forms.Label();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
+            this.lbOnlineFiles = new System.Windows.Forms.Label();
+            this.lbOnlineFilesInfo = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.lbNRContent = new System.Windows.Forms.Label();
+            this.lbNRContentInfo = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new HTAlt.WinForms.HTButton();
-            this.button2 = new HTAlt.WinForms.HTButton();
+            this.lbInstallIt = new System.Windows.Forms.Label();
+            this.btInstall = new HTAlt.WinForms.HTButton();
+            this.btClose2 = new HTAlt.WinForms.HTButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.htProgressBar1 = new HTAlt.WinForms.HTProgressBar();
             this.lbStatus = new System.Windows.Forms.Label();
-            this.button3 = new HTAlt.WinForms.HTButton();
-            this.label8 = new System.Windows.Forms.Label();
+            this.btClose = new HTAlt.WinForms.HTButton();
+            this.lbInstallInfo = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button4 = new HTAlt.WinForms.HTButton();
+            this.btClose1 = new HTAlt.WinForms.HTButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lbCannotInstall = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbPleaseWait = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             this.lbVersion = new System.Windows.Forms.Label();
             this.lbAuthor = new System.Windows.Forms.Label();
             this.pbLogo = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbThemeExtension = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
@@ -143,14 +143,14 @@ namespace Korot
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.Controls.Add(this.label11);
-            this.flowLayoutPanel2.Controls.Add(this.label9);
+            this.flowLayoutPanel2.Controls.Add(this.lbExtensionRequires);
             this.flowLayoutPanel2.Controls.Add(this.panel7);
             this.flowLayoutPanel2.Controls.Add(this.panel6);
             this.flowLayoutPanel2.Controls.Add(this.panel3);
             this.flowLayoutPanel2.Controls.Add(this.panel4);
-            this.flowLayoutPanel2.Controls.Add(this.label2);
-            this.flowLayoutPanel2.Controls.Add(this.button1);
-            this.flowLayoutPanel2.Controls.Add(this.button2);
+            this.flowLayoutPanel2.Controls.Add(this.lbInstallIt);
+            this.flowLayoutPanel2.Controls.Add(this.btInstall);
+            this.flowLayoutPanel2.Controls.Add(this.btClose2);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 3);
@@ -166,47 +166,47 @@ namespace Korot
             this.label11.Size = new System.Drawing.Size(0, 13);
             this.label11.TabIndex = 16;
             // 
-            // label9
+            // lbExtensionRequires
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 13);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(204, 13);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "This extension requires these permissions.";
+            this.lbExtensionRequires.AutoSize = true;
+            this.lbExtensionRequires.Location = new System.Drawing.Point(3, 13);
+            this.lbExtensionRequires.Name = "lbExtensionRequires";
+            this.lbExtensionRequires.Size = new System.Drawing.Size(204, 13);
+            this.lbExtensionRequires.TabIndex = 6;
+            this.lbExtensionRequires.Text = "This extension requires these permissions.";
             // 
             // panel7
             // 
             this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel7.AutoSize = true;
-            this.panel7.Controls.Add(this.label5);
-            this.panel7.Controls.Add(this.label10);
+            this.panel7.Controls.Add(this.lbCanAccess);
+            this.panel7.Controls.Add(this.lbCanAccessInfo);
             this.panel7.Controls.Add(this.pictureBox2);
             this.panel7.Location = new System.Drawing.Point(3, 29);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(622, 66);
             this.panel7.TabIndex = 14;
             // 
-            // label5
+            // lbCanAccess
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label5.Location = new System.Drawing.Point(51, 9);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(161, 17);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Can access web content";
+            this.lbCanAccess.AutoSize = true;
+            this.lbCanAccess.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbCanAccess.Location = new System.Drawing.Point(51, 9);
+            this.lbCanAccess.Name = "lbCanAccess";
+            this.lbCanAccess.Size = new System.Drawing.Size(161, 17);
+            this.lbCanAccess.TabIndex = 5;
+            this.lbCanAccess.Text = "Can access web content";
             // 
-            // label10
+            // lbCanAccessInfo
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbCanAccessInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.Location = new System.Drawing.Point(51, 31);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(568, 35);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "This extension can see all the information about the page, including credit card " +
+            this.lbCanAccessInfo.Location = new System.Drawing.Point(51, 31);
+            this.lbCanAccessInfo.Name = "lbCanAccessInfo";
+            this.lbCanAccessInfo.Size = new System.Drawing.Size(568, 35);
+            this.lbCanAccessInfo.TabIndex = 5;
+            this.lbCanAccessInfo.Text = "This extension can see all the information about the page, including credit card " +
     "information to passwords or other private information.";
             // 
             // pictureBox2
@@ -224,33 +224,33 @@ namespace Korot
             this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.AutoSize = true;
-            this.panel6.Controls.Add(this.label15);
-            this.panel6.Controls.Add(this.label16);
+            this.panel6.Controls.Add(this.lbAutoLoad);
+            this.panel6.Controls.Add(this.lbAutoLoadInfo);
             this.panel6.Controls.Add(this.pictureBox7);
             this.panel6.Location = new System.Drawing.Point(3, 101);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(622, 52);
             this.panel6.TabIndex = 14;
             // 
-            // label15
+            // lbAutoLoad
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label15.Location = new System.Drawing.Point(51, 9);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(122, 17);
-            this.label15.TabIndex = 5;
-            this.label15.Text = "Loads automaticly";
+            this.lbAutoLoad.AutoSize = true;
+            this.lbAutoLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbAutoLoad.Location = new System.Drawing.Point(51, 9);
+            this.lbAutoLoad.Name = "lbAutoLoad";
+            this.lbAutoLoad.Size = new System.Drawing.Size(122, 17);
+            this.lbAutoLoad.TabIndex = 5;
+            this.lbAutoLoad.Text = "Loads automaticly";
             // 
-            // label16
+            // lbAutoLoadInfo
             // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbAutoLoadInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.Location = new System.Drawing.Point(51, 31);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(568, 18);
-            this.label16.TabIndex = 5;
-            this.label16.Text = "This extension can load a script after the page load is finished.";
+            this.lbAutoLoadInfo.Location = new System.Drawing.Point(51, 31);
+            this.lbAutoLoadInfo.Name = "lbAutoLoadInfo";
+            this.lbAutoLoadInfo.Size = new System.Drawing.Size(568, 18);
+            this.lbAutoLoadInfo.TabIndex = 5;
+            this.lbAutoLoadInfo.Text = "This extension can load a script after the page load is finished.";
             // 
             // pictureBox7
             // 
@@ -267,33 +267,33 @@ namespace Korot
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.AutoSize = true;
-            this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.label14);
+            this.panel3.Controls.Add(this.lbOnlineFiles);
+            this.panel3.Controls.Add(this.lbOnlineFilesInfo);
             this.panel3.Controls.Add(this.pictureBox5);
             this.panel3.Location = new System.Drawing.Point(3, 159);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(622, 52);
             this.panel3.TabIndex = 11;
             // 
-            // label7
+            // lbOnlineFiles
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label7.Location = new System.Drawing.Point(51, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(82, 17);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Online Files";
+            this.lbOnlineFiles.AutoSize = true;
+            this.lbOnlineFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbOnlineFiles.Location = new System.Drawing.Point(51, 9);
+            this.lbOnlineFiles.Name = "lbOnlineFiles";
+            this.lbOnlineFiles.Size = new System.Drawing.Size(82, 17);
+            this.lbOnlineFiles.TabIndex = 5;
+            this.lbOnlineFiles.Text = "Online Files";
             // 
-            // label14
+            // lbOnlineFilesInfo
             // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbOnlineFilesInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.Location = new System.Drawing.Point(51, 31);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(568, 18);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "This extension uses files from the Internet instead of using local files. This ca" +
+            this.lbOnlineFilesInfo.Location = new System.Drawing.Point(51, 31);
+            this.lbOnlineFilesInfo.Name = "lbOnlineFilesInfo";
+            this.lbOnlineFilesInfo.Size = new System.Drawing.Size(568, 18);
+            this.lbOnlineFilesInfo.TabIndex = 5;
+            this.lbOnlineFilesInfo.Text = "This extension uses files from the Internet instead of using local files. This ca" +
     "n eat some data.";
             // 
             // pictureBox5
@@ -311,8 +311,8 @@ namespace Korot
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.AutoSize = true;
-            this.panel4.Controls.Add(this.label4);
-            this.panel4.Controls.Add(this.label12);
+            this.panel4.Controls.Add(this.lbNRContent);
+            this.panel4.Controls.Add(this.lbNRContentInfo);
             this.panel4.Controls.Add(this.pictureBox3);
             this.panel4.Location = new System.Drawing.Point(3, 217);
             this.panel4.Name = "panel4";
@@ -320,25 +320,25 @@ namespace Korot
             this.panel4.TabIndex = 17;
             this.panel4.Visible = false;
             // 
-            // label4
+            // lbNRContent
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label4.Location = new System.Drawing.Point(51, 9);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(125, 17);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Not Rated Content";
+            this.lbNRContent.AutoSize = true;
+            this.lbNRContent.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbNRContent.Location = new System.Drawing.Point(51, 9);
+            this.lbNRContent.Name = "lbNRContent";
+            this.lbNRContent.Size = new System.Drawing.Size(125, 17);
+            this.lbNRContent.TabIndex = 5;
+            this.lbNRContent.Text = "Not Rated Content";
             // 
-            // label12
+            // lbNRContentInfo
             // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbNRContentInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label12.Location = new System.Drawing.Point(51, 30);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(568, 37);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "Korot does not automatically detect the content of this theme. As a result, this " +
+            this.lbNRContentInfo.Location = new System.Drawing.Point(51, 30);
+            this.lbNRContentInfo.Name = "lbNRContentInfo";
+            this.lbNRContentInfo.Size = new System.Drawing.Size(568, 37);
+            this.lbNRContentInfo.TabIndex = 5;
+            this.lbNRContentInfo.Text = "Korot does not automatically detect the content of this theme. As a result, this " +
     "theme may contain content that is epileptic and / or unsuitable for use.";
             // 
             // pictureBox3
@@ -351,49 +351,49 @@ namespace Korot
             this.pictureBox3.TabIndex = 10;
             this.pictureBox3.TabStop = false;
             // 
-            // label2
+            // lbInstallIt
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 287);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Do you want to install it?";
+            this.lbInstallIt.AutoSize = true;
+            this.lbInstallIt.Location = new System.Drawing.Point(3, 287);
+            this.lbInstallIt.Name = "lbInstallIt";
+            this.lbInstallIt.Size = new System.Drawing.Size(122, 13);
+            this.lbInstallIt.TabIndex = 6;
+            this.lbInstallIt.Text = "Do you want to install it?";
             // 
-            // button1
+            // btInstall
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.ButtonText = "Install";
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(550, 303);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btInstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btInstall.ButtonText = "Install";
+            this.btInstall.FlatAppearance.BorderSize = 0;
+            this.btInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btInstall.Location = new System.Drawing.Point(550, 303);
+            this.btInstall.Name = "btInstall";
+            this.btInstall.Size = new System.Drawing.Size(75, 23);
+            this.btInstall.TabIndex = 11;
+            this.btInstall.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btInstall.UseVisualStyleBackColor = true;
+            this.btInstall.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // btClose2
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.ButtonText = "Close";
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(550, 332);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 11;
-            this.button2.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btClose2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btClose2.ButtonText = "Close";
+            this.btClose2.FlatAppearance.BorderSize = 0;
+            this.btClose2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btClose2.Location = new System.Drawing.Point(550, 332);
+            this.btClose2.Name = "btClose2";
+            this.btClose2.Size = new System.Drawing.Size(75, 23);
+            this.btClose2.TabIndex = 11;
+            this.btClose2.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose2.UseVisualStyleBackColor = true;
+            this.btClose2.Click += new System.EventHandler(this.button2_Click);
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.htProgressBar1);
             this.tabPage3.Controls.Add(this.lbStatus);
-            this.tabPage3.Controls.Add(this.button3);
-            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Controls.Add(this.btClose);
+            this.tabPage3.Controls.Add(this.lbInstallInfo);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -404,6 +404,7 @@ namespace Korot
             // 
             // htProgressBar1
             // 
+            this.htProgressBar1.BorderThickness = 0;
             this.htProgressBar1.DrawBorder = true;
             this.htProgressBar1.Location = new System.Drawing.Point(25, 40);
             this.htProgressBar1.Name = "htProgressBar1";
@@ -420,34 +421,34 @@ namespace Korot
             this.lbStatus.Text = "Inıtializing...";
             this.lbStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button3
+            // btClose
             // 
-            this.button3.ButtonText = "Close";
-            this.button3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(3, 351);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(640, 23);
-            this.button3.TabIndex = 1;
-            this.button3.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btClose.ButtonText = "Close";
+            this.btClose.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btClose.FlatAppearance.BorderSize = 0;
+            this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btClose.Location = new System.Drawing.Point(3, 351);
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(640, 23);
+            this.btClose.TabIndex = 1;
+            this.btClose.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose.UseVisualStyleBackColor = true;
+            this.btClose.Click += new System.EventHandler(this.button3_Click);
             // 
-            // label8
+            // lbInstallInfo
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(22, 12);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(57, 13);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Installing...";
+            this.lbInstallInfo.AutoSize = true;
+            this.lbInstallInfo.Location = new System.Drawing.Point(22, 12);
+            this.lbInstallInfo.Name = "lbInstallInfo";
+            this.lbInstallInfo.Size = new System.Drawing.Size(57, 13);
+            this.lbInstallInfo.TabIndex = 0;
+            this.lbInstallInfo.Text = "Installing...";
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button4);
+            this.tabPage1.Controls.Add(this.btClose1);
             this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.lbCannotInstall);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(646, 377);
@@ -455,19 +456,19 @@ namespace Korot
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btClose1
             // 
-            this.button4.ButtonText = "Close";
-            this.button4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(0, 354);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(646, 23);
-            this.button4.TabIndex = 2;
-            this.button4.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btClose1.ButtonText = "Close";
+            this.btClose1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btClose1.FlatAppearance.BorderSize = 0;
+            this.btClose1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btClose1.Location = new System.Drawing.Point(0, 354);
+            this.btClose1.Name = "btClose1";
+            this.btClose1.Size = new System.Drawing.Size(646, 23);
+            this.btClose1.TabIndex = 2;
+            this.btClose1.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose1.UseVisualStyleBackColor = true;
+            this.btClose1.Click += new System.EventHandler(this.button4_Click);
             // 
             // textBox1
             // 
@@ -481,18 +482,18 @@ namespace Korot
             this.textBox1.Size = new System.Drawing.Size(613, 266);
             this.textBox1.TabIndex = 1;
             // 
-            // label6
+            // lbCannotInstall
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 6);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(140, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Cannot install this extension.";
+            this.lbCannotInstall.AutoSize = true;
+            this.lbCannotInstall.Location = new System.Drawing.Point(13, 6);
+            this.lbCannotInstall.Name = "lbCannotInstall";
+            this.lbCannotInstall.Size = new System.Drawing.Size(140, 13);
+            this.lbCannotInstall.TabIndex = 0;
+            this.lbCannotInstall.Text = "Cannot install this extension.";
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.label1);
+            this.tabPage4.Controls.Add(this.lbPleaseWait);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(646, 377);
@@ -500,14 +501,14 @@ namespace Korot
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // lbPleaseWait
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Please wait...";
+            this.lbPleaseWait.AutoSize = true;
+            this.lbPleaseWait.Location = new System.Drawing.Point(14, 10);
+            this.lbPleaseWait.Name = "lbPleaseWait";
+            this.lbPleaseWait.Size = new System.Drawing.Size(70, 13);
+            this.lbPleaseWait.TabIndex = 0;
+            this.lbPleaseWait.Text = "Please wait...";
             // 
             // lbName
             // 
@@ -550,7 +551,7 @@ namespace Korot
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.lbThemeExtension);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.pbLogo);
             this.panel1.Controls.Add(this.lbName);
@@ -562,15 +563,15 @@ namespace Korot
             this.panel1.Size = new System.Drawing.Size(640, 68);
             this.panel1.TabIndex = 2;
             // 
-            // label3
+            // lbThemeExtension
             // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label3.Location = new System.Drawing.Point(549, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Extension/Theme";
+            this.lbThemeExtension.AutoSize = true;
+            this.lbThemeExtension.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbThemeExtension.Location = new System.Drawing.Point(549, 0);
+            this.lbThemeExtension.Name = "lbThemeExtension";
+            this.lbThemeExtension.Size = new System.Drawing.Size(91, 13);
+            this.lbThemeExtension.TabIndex = 3;
+            this.lbThemeExtension.Text = "Extension/Theme";
             // 
             // pictureBox1
             // 
@@ -639,45 +640,45 @@ namespace Korot
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage2;
-        private HTAlt.WinForms.HTButton button1;
-        private HTAlt.WinForms.HTButton button2;
+        private HTAlt.WinForms.HTButton btInstall;
+        private HTAlt.WinForms.HTButton btClose2;
         private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lbOnlineFilesInfo;
+        private System.Windows.Forms.Label lbOnlineFiles;
+        private System.Windows.Forms.Label lbExtensionRequires;
         private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.Label lbVersion;
         private System.Windows.Forms.Label lbAuthor;
         private System.Windows.Forms.PictureBox pbLogo;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabPage tabPage3;
-        private HTAlt.WinForms.HTButton button3;
-        private System.Windows.Forms.Label label8;
+        private HTAlt.WinForms.HTButton btClose;
+        private System.Windows.Forms.Label lbInstallInfo;
         private System.Windows.Forms.Label lbStatus;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label lbAutoLoad;
+        private System.Windows.Forms.Label lbAutoLoadInfo;
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lbCanAccess;
+        private System.Windows.Forms.Label lbCanAccessInfo;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TabPage tabPage1;
-        private HTAlt.WinForms.HTButton button4;
+        private HTAlt.WinForms.HTButton btClose1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbCannotInstall;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbPleaseWait;
+        private System.Windows.Forms.Label lbInstallIt;
+        private System.Windows.Forms.Label lbThemeExtension;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lbNRContent;
+        private System.Windows.Forms.Label lbNRContentInfo;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Timer timer2;
         private HTAlt.WinForms.HTProgressBar htProgressBar1;

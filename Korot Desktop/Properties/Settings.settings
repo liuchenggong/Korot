@@ -17,5 +17,8 @@
     <Setting Name="KorotErrorTI" Type="System.String" Scope="User">
       <Value Profile="(Default)">Techical Information:</Value>
     </Setting>
+    <Setting Name="KorotErrorRestart" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Restart</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

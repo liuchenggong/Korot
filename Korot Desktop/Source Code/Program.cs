@@ -34,6 +34,12 @@ using System.Xml;
 
 namespace Korot
 {
+    public static class VersionInfo
+    {
+        public static string CodeName => "Laika";
+        public static bool IsPreRelease => true;
+        public static int PreReleaseNumber => 2;
+    }
     internal static class Program
     {
         public static string getOSInfo()
@@ -104,13 +110,11 @@ namespace Korot
             Cef.EnableHighDPISupport();
             createFolders();
             createThemes();
-            Settings settings = new Settings(Properties.Settings.Default.LastUser);
-            
-            if (!File.Exists(settings.LanguageFile)) { settings.LanguageFile = Application.StartupPath + "\\Lang\\English.lang"; }
-            if (!File.Exists(Application.StartupPath + "\\Lang\\English.lang"))
+            if (!File.Exists(Application.StartupPath + "\\Lang\\English.klf"))
             {
                 FixDefaultLanguage();
             }
+            Settings settings = new Settings(Properties.Settings.Default.LastUser);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             bool appStarted = false;
@@ -269,7 +273,7 @@ new HTTitleTab(testApp)
             {
                 Directory.CreateDirectory(Application.StartupPath + "\\Lang\\");
             }
-            HTAlt.Tools.WriteFile(Application.StartupPath + "\\Lang\\English.lang", Properties.Resources.English);
+            HTAlt.Tools.WriteFile(Application.StartupPath + "\\Lang\\English.klf", Properties.Resources.English);
             return true;
         }
     }
@@ -308,7 +312,8 @@ new HTTitleTab(testApp)
                 }
                 else if (node.Name.ToLower().ToLowerInvariant() == "languagefile")
                 {
-                    LanguageFile = node.InnerText.Replace("[KOROTPATH]", Application.StartupPath).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                    string lf = node.InnerText.Replace("[KOROTPATH]", Application.StartupPath).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                    LanguageSystem.ReadFromFile(string.IsNullOrWhiteSpace(lf) ? Application.StartupPath + "\\Lang\\English.klf" : lf, true);
                 }
                 else if (node.Name.ToLower() == "menusize")
                 {
@@ -529,115 +534,27 @@ new HTTitleTab(testApp)
         private bool _DoNotPlaySound = false;
         private bool _QuietMode = false;
         private string _AutoSilentMode = "";
-        private string _ProfileName = "o-zone";
+        private string _ProfileName = "skrillex";
         private bool _DismissUpdate = false;
         private string _Homepage = "korot://newtab";
         private Size _MenuSize = new Size(720, 720);
         private Point _MenuPoint = new Point(0, 0);
         private string _SearchEngine = "https://www.google.com/search?q=";
-        private string _LanguageFile = Application.StartupPath + "\\Lang\\English.lang";
         private bool _RememberLastProxy = false;
         private string _LastProxy = "";
         private bool _DisableLanguageError = false;
         private bool _MenuWasMaximized = true;
-        private string _Startup = "korot://homepage";
+        private string _Startup = "korot://newtab";
         private bool _AutoRestore = false;
         private bool _DoNotTrack = true;
         private Theme _Theme = new Theme("");
         private List<Site> _History = new List<Site>();
+        private LanguageSystem _LanguageSystem = new LanguageSystem("");
         private DownloadSettings _DownloadSettings = new DownloadSettings() { DownloadDirectory = "", Downloads = new List<Site>(), OpenDownload = false, UseDownloadFolder = false };
         private CollectionManager _CollectionManager = new CollectionManager("") { Collections = new List<Collection>() };
         private FavoritesSettings _Favorites = new FavoritesSettings("") { Favorites = new List<Folder>(), ShowFavorites = true };
         private Extensions _Extensions = new Extensions("");
         #endregion
-        
-        public void Save()
-        {
-            string x =
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine +
-            "<Profile>" + Environment.NewLine +
-            "<Homepage>" + Homepage.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Homepage>" + Environment.NewLine +
-            "<MenuSize>" + MenuSize.Width + ";" + MenuSize.Height + "</MenuSize>" + Environment.NewLine +
-            "<MenuPoint>" + MenuPoint.X +";" + MenuPoint.Y + "</MenuPoint>" + Environment.NewLine +
-            "<SearchEngine>" + SearchEngine.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</SearchEngine>" + Environment.NewLine +
-            "<LanguageFile>" + LanguageFile.Replace(Application.StartupPath,"[KOROTPATH]").Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LanguageFile>" + Environment.NewLine +
-            "<Startup>" + Startup.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Startup>" + Environment.NewLine +
-            "<LastProxy>" + LastProxy.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LastProxy>" + Environment.NewLine +
-            "<MenuWasMaximized>" + (MenuWasMaximized ? "true" : "false") + "</MenuWasMaximized>" + Environment.NewLine +
-            "<DoNotTrack>" + (DoNotTrack ? "true" : "false") + "</DoNotTrack>" + Environment.NewLine +
-            "<AutoRestore>" + (AutoRestore ? "true" : "false") + "</AutoRestore>" + Environment.NewLine +
-            "<RememberLastProxy>" + (RememberLastProxy ? "true" : "false") + "</RememberLastProxy>" + Environment.NewLine +
-            "<Silent>" + (Silent ? "true" : "false") + "</Silent>" + Environment.NewLine +
-            "<AutoSilent>" + (AutoSilent ? "true" : "false") + "</AutoSilent> " + Environment.NewLine +
-            "<DoNotPlaySound>" + (DoNotPlaySound ? "true" : "false") + "</DoNotPlaySound>" + Environment.NewLine +
-            "<QuietMode>" + (QuietMode ? "true" : "false") + "</QuietMode>" + Environment.NewLine +
-            "<AutoSilentMode>" + AutoSilentMode.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</AutoSilentMode>" + Environment.NewLine +
-            "<Sites>" + Environment.NewLine;
-            foreach (Site site in Sites)
-            {
-                x += "<Site Name=\""
-                     + site.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
-                     + "\" Url=\""
-                     + site.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
-                     + "\" AllowNotifications=\""
-                     + (site.AllowNotifications ? "true" : "false")
-                     + "\" AllowCookies=\""
-                     + (site.AllowCookies ? "true" : "false")
-                     + "\" />"
-                     + Environment.NewLine;
-            }
-            x += "</Sites> " + Environment.NewLine +
-            "<Theme File=\"" + Theme.ThemeFile.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\">" + Environment.NewLine +
-            "<Name>" + Theme.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Name>" + Environment.NewLine +
-            "<Author>" + Theme.Author.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Author>" + Environment.NewLine +
-            "<BackColor>" + HTAlt.Tools.ColorToHex(Theme.BackColor) + "</BackColor>" + Environment.NewLine +
-            "<OverlayColor>" + HTAlt.Tools.ColorToHex(Theme.OverlayColor) + "</OverlayColor>" + Environment.NewLine +
-            "<BackgroundStyle Layout=\"" + Theme.BackgroundStyleLayout + "\">" + Theme.BackgroundStyle.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</BackgroundStyle>" + Environment.NewLine +
-            "<NewTabColor>" + (int)Theme.NewTabColor + "</NewTabColor>" + Environment.NewLine +
-            "<CloseButtonColor>"+ (int)Theme.CloseButtonColor + "</CloseButtonColor>" + Environment.NewLine +
-            "</Theme>" + Environment.NewLine + Extensions.ExtractList + CollectionManager.writeCollections + "<History>" + Environment.NewLine;
-            foreach (Site site in History)
-            {
-                x += "<Site Name=\""
-                     + site.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
-                     + "\" Url=\""
-                     + site.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
-                     + "\" Date=\""
-                     + site.Date.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
-                     + "\" />"
-                     + Environment.NewLine;
-            }
-            x += "</History>" + Environment.NewLine +
-                "<Downloads Directory=\"" + Downloads.DownloadDirectory.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Open=\"" + (Downloads.OpenDownload ? "true" : "false") + "\" UseDownloadFolder=\"" + (Downloads.UseDownloadFolder ? "true" : "false") + "\">" + Environment.NewLine;
-            foreach (Site site in Downloads.Downloads)
-            {
-                x += "<Site Name=\""
-                     + site.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
-                     + "\" Url=\""
-                     + site.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
-                     + "\" Status=\""
-                     + (int)site.Status
-                     + "\" Date=\""
-                     + site.Date.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
-                     + "\" LocalUrl=\""
-                     + site.LocalUrl.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
-                     + "\" />"
-                     + Environment.NewLine;
-            }
-            x += "</Downloads>" + Environment.NewLine + Favorites.outXml + "</Profile>" + Environment.NewLine;
-            HTAlt.Tools.WriteFile(ProfileDirectory + "settings.kpf", x, Encoding.UTF8);
-        }
-        public string ProfileDirectory
-        {
-            get
-            {
-                return Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + ProfileName + "\\";
-            }
-        }
-        public Site GetSiteFromUrl(string Url)
-        {
-            return Sites.Find(i => i.Url == Url);
-        }
         #region Properties
         public bool Silent
         {
@@ -701,11 +618,6 @@ new HTTitleTab(testApp)
             get => _SearchEngine;
             set => _SearchEngine = value;
         }
-        public string LanguageFile
-        {
-            get => _LanguageFile;
-            set => _LanguageFile = value;
-        }
         public bool RememberLastProxy
         {
             get => _RememberLastProxy;
@@ -741,6 +653,11 @@ new HTTitleTab(testApp)
             get => _DownloadSettings;
             set => _DownloadSettings = value;
         }
+        public LanguageSystem LanguageSystem
+        {
+            get => _LanguageSystem;
+            set => _LanguageSystem = value;
+        }
         public CollectionManager CollectionManager
         {
             get => _CollectionManager;
@@ -772,6 +689,94 @@ new HTTitleTab(testApp)
             set => _AutoRestore = value;
         }
         #endregion
+        public void Save()
+        {
+            string x =
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine +
+            "<Profile>" + Environment.NewLine +
+            "<Homepage>" + Homepage.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Homepage>" + Environment.NewLine +
+            "<MenuSize>" + MenuSize.Width + ";" + MenuSize.Height + "</MenuSize>" + Environment.NewLine +
+            "<MenuPoint>" + MenuPoint.X +";" + MenuPoint.Y + "</MenuPoint>" + Environment.NewLine +
+            "<SearchEngine>" + SearchEngine.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</SearchEngine>" + Environment.NewLine +
+            "<LanguageFile>" + LanguageSystem.LangFile.Replace(Application.StartupPath,"[KOROTPATH]").Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LanguageFile>" + Environment.NewLine +
+            "<Startup>" + Startup.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Startup>" + Environment.NewLine +
+            "<LastProxy>" + LastProxy.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LastProxy>" + Environment.NewLine +
+            "<MenuWasMaximized>" + (MenuWasMaximized ? "true" : "false") + "</MenuWasMaximized>" + Environment.NewLine +
+            "<DoNotTrack>" + (DoNotTrack ? "true" : "false") + "</DoNotTrack>" + Environment.NewLine +
+            "<AutoRestore>" + (AutoRestore ? "true" : "false") + "</AutoRestore>" + Environment.NewLine +
+            "<RememberLastProxy>" + (RememberLastProxy ? "true" : "false") + "</RememberLastProxy>" + Environment.NewLine +
+            "<Silent>" + (Silent ? "true" : "false") + "</Silent>" + Environment.NewLine +
+            "<AutoSilent>" + (AutoSilent ? "true" : "false") + "</AutoSilent> " + Environment.NewLine +
+            "<DoNotPlaySound>" + (DoNotPlaySound ? "true" : "false") + "</DoNotPlaySound>" + Environment.NewLine +
+            "<QuietMode>" + (QuietMode ? "true" : "false") + "</QuietMode>" + Environment.NewLine +
+            "<AutoSilentMode>" + AutoSilentMode.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</AutoSilentMode>" + Environment.NewLine +
+            "<Sites>" + Environment.NewLine;
+            foreach (Site site in Sites)
+            {
+                x += "<Site Name=\""
+                     + site.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
+                     + "\" Url=\""
+                     + site.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
+                     + "\" AllowNotifications=\""
+                     + (site.AllowNotifications ? "true" : "false")
+                     + "\" AllowCookies=\""
+                     + (site.AllowCookies ? "true" : "false")
+                     + "\" />"
+                     + Environment.NewLine;
+            }
+            x += "</Sites> " + Environment.NewLine +
+            "<Theme File=\"" + (!string.IsNullOrWhiteSpace(Theme.ThemeFile) ? Theme.ThemeFile.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") : "") + "\">" + Environment.NewLine +
+            "<Name>" + Theme.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Name>" + Environment.NewLine +
+            "<Author>" + Theme.Author.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Author>" + Environment.NewLine +
+            "<BackColor>" + HTAlt.Tools.ColorToHex(Theme.BackColor) + "</BackColor>" + Environment.NewLine +
+            "<OverlayColor>" + HTAlt.Tools.ColorToHex(Theme.OverlayColor) + "</OverlayColor>" + Environment.NewLine +
+            "<BackgroundStyle Layout=\"" + Theme.BackgroundStyleLayout + "\">" + Theme.BackgroundStyle.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</BackgroundStyle>" + Environment.NewLine +
+            "<NewTabColor>" + (int)Theme.NewTabColor + "</NewTabColor>" + Environment.NewLine +
+            "<CloseButtonColor>"+ (int)Theme.CloseButtonColor + "</CloseButtonColor>" + Environment.NewLine +
+            "</Theme>" + Environment.NewLine + Extensions.ExtractList + CollectionManager.writeCollections + "<History>" + Environment.NewLine;
+            foreach (Site site in History)
+            {
+                x += "<Site Name=\""
+                     + site.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
+                     + "\" Url=\""
+                     + site.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
+                     + "\" Date=\""
+                     + site.Date.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
+                     + "\" />"
+                     + Environment.NewLine;
+            }
+            x += "</History>" + Environment.NewLine +
+                "<Downloads Directory=\"" + Downloads.DownloadDirectory.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Open=\"" + (Downloads.OpenDownload ? "true" : "false") + "\" UseDownloadFolder=\"" + (Downloads.UseDownloadFolder ? "true" : "false") + "\">" + Environment.NewLine;
+            foreach (Site site in Downloads.Downloads)
+            {
+                x += "<Site Name=\""
+                     + site.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
+                     + "\" Url=\""
+                     + site.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
+                     + "\" Status=\""
+                     + (int)site.Status
+                     + "\" Date=\""
+                     + site.Date.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
+                     + "\" LocalUrl=\""
+                     + site.LocalUrl.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
+                     + "\" />"
+                     + Environment.NewLine;
+            }
+            x += "</Downloads>" + Environment.NewLine + Favorites.outXml + "</Profile>" + Environment.NewLine;
+            HTAlt.Tools.WriteFile(ProfileDirectory + "settings.kpf", x, Encoding.UTF8);
+        }
+        public string ProfileDirectory
+        {
+            get
+            {
+                return Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + ProfileName + "\\";
+            }
+        }
+        public Site GetSiteFromUrl(string Url)
+        {
+            return Sites.Find(i => i.Url == Url);
+        }
+        
     }
     public class Theme
     {
@@ -915,12 +920,7 @@ new HTTitleTab(testApp)
         public bool UseDownloadFolder { get; set; }
         public List<Site> Downloads { get; set; }
     }
-    public static class VersionInfo
-    {
-        public static string CodeName => "Laika";
-        public static bool IsPreRelease => true;
-        public static int PreReleaseNumber => 1;
-    }
+
     public class Site
     {
         public string Name { get; set; }
@@ -1122,5 +1122,63 @@ new HTTitleTab(testApp)
         public bool isDirectory { get; set; }
         public string Location { get; set; }
         public Exception Error { get; set; }
+    }
+    public class LanguageSystem
+    {
+        public List<LanguageItem> LanguageItems { get; set; } = new List<LanguageItem>();
+        public string GetItemText(string ID)
+        {
+            LanguageItem item = LanguageItems.Find(i => i.ID.Trim() == ID.Trim());
+            if (item == null)
+            {
+                Output.WriteLine(" [Language] Missing Item [ID=\"" + ID + "\" LangFile=\"" + _LangFile + "\" ItemCount=\"" + LanguageItems.Count + "\"]");
+                return "[MI] " + ID;
+            }else
+            {
+                return item.Text.Replace("[NEWLINE]", Environment.NewLine);
+            }
+        }
+        private string _LangFile = Application.StartupPath + "\\Lang\\English.klf";
+        public string LangFile => _LangFile;
+        public LanguageSystem(string fileLoc)
+        {
+            ReadFromFile(!string.IsNullOrWhiteSpace(fileLoc) ? fileLoc : (Application.StartupPath + "\\Lang\\English.klf"), true);
+        }
+        public void ForceReadFromFile(string fileLoc, bool clear = true)
+        {
+            _LangFile = fileLoc;
+            string code = HTAlt.Tools.ReadFile(fileLoc, Encoding.UTF8);
+            ReadCode(code, clear);
+        }
+        public void ReadFromFile(string fileLoc,bool clear = true)
+        {
+            if (_LangFile != fileLoc || LanguageItems.Count == 0)
+            {
+                ForceReadFromFile(fileLoc, clear);
+            }
+        }
+        public void ReadCode(string xmlCode,bool clear = true)
+        {
+            if(clear) { LanguageItems.Clear(); }
+            XmlDocument document = new XmlDocument();
+            document.LoadXml(xmlCode);
+            foreach (XmlNode node in document.FirstChild.ChildNodes)
+            {
+                if (node.Name == "Translate")
+                {
+                    string id = node.Attributes["ID"] != null ? node.Attributes["ID"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"") : HTAlt.Tools.GenerateRandomText(12);
+                    string text = node.Attributes["Text"] != null ? node.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;","\"") : id;
+                    if (!string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(text))
+                    {
+                        LanguageItems.Add(new LanguageItem() { ID = id, Text = text });
+                    }
+                }
+            }
+        }
+    }
+    public class LanguageItem
+    {
+        public string ID { get; set; }
+        public string Text { get; set; }
     }
 }

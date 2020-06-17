@@ -58,5 +58,10 @@ namespace Korot
             textBox1.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false)) ? Color.Black : Color.White;
             lbErrorCode.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false)) ? Color.Black : Color.White;
         }
+
+        private void btRestart_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
     }
 }

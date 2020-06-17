@@ -37,14 +37,7 @@ namespace Korot
         private string noPermission = "This extension does not require any permissions but:";
         private string Initializing = "Initializing...";
         private string installed = "Installed.";
-        private string dc = "Directory created. Moving files and folders...";
-        private string cd = "Creating directory...";
-        private string rof2 = "Removed old files.";
-        private string rof1 = "Removing old files...";
         private string installing = "Installing...";
-        private string reqError = "Requirement ([REQ]) can only get \"1\" or \"0\" values." + Environment.NewLine + " at [FILE] line [LINE]";
-        private string reqEmpty = "Some requirements are missing." + Environment.NewLine + " at [FILE] line [LINE]";
-        private string fileSizeError = "Some files are above the file size limits. Please go to https://github.com/Haltroy/Korot/issues/27 for more info.";
         private string ext = "Extension";
         private string theme = "Theme";
         private readonly bool silentInstall = false;
@@ -81,7 +74,7 @@ namespace Korot
             {
                 if (!silentInstall)
                 {
-                    label3.Invoke(new Action(() => label3.Text = ext));
+                    lbThemeExtension.Invoke(new Action(() => lbThemeExtension.Text = ext));
                     string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText(12) + "\\";
                     if (Directory.Exists(tempFolder))
                     {
@@ -90,20 +83,11 @@ namespace Korot
                     Directory.CreateDirectory(tempFolder);
                     ZipFile.ExtractToDirectory(ExtFile, tempFolder, Encoding.UTF8);
                     ExtFile = tempFolder + "ext.kem";
-                    if (new FileInfo(ExtFile).Length < 1048576)
-                    {
-                        Invoke(new Action(() => ReadKEM(ExtFile)));
-                    }
-                    else
-                    {
-                        allowSwitch = true;
-                        tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage1));
-                        textBox1.Invoke(new Action(() => textBox1.Text = fileSizeError));
-                    }
+                    Invoke(new Action(() => ReadKEM(ExtFile)));
                 }
                 else
                 {
-                    label3.Invoke(new Action(() => label3.Text = ext));
+                    lbThemeExtension.Invoke(new Action(() => lbThemeExtension.Text = ext));
                     string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText(12) + "\\";
                     if (Directory.Exists(tempFolder))
                     {
@@ -128,7 +112,7 @@ namespace Korot
         {
             await Task.Run(() =>
             {
-                label3.Invoke(new Action(() => label3.Text = theme));
+                lbThemeExtension.Invoke(new Action(() => lbThemeExtension.Text = theme));
                 Invoke(new Action(() => ReadKTF(ExtFile)));
             });
         }
@@ -265,11 +249,11 @@ namespace Korot
             lbStatus.Text = Initializing;
             if (i == 5)
             {
-                if (label3.Text == ext)
+                if (lbThemeExtension.Text == ext)
                 {
                     installKEM();
                 }
-                else if (label3.Text == theme)
+                else if (lbThemeExtension.Text == theme)
                 {
                     installKTF();
                 }
@@ -279,8 +263,8 @@ namespace Korot
 
         private void button3Mode(bool ev)
         {
-            button3.Visible = ev;
-            button3.Enabled = ev;
+            btClose.Visible = ev;
+            btClose.Enabled = ev;
         }
 
         private readonly string korotExtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions";
@@ -296,15 +280,11 @@ namespace Korot
                 htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 10));
                 if (Directory.Exists(korotExtDirectory + "\\" + extCodeName))
                 {
-                    lbStatus.Invoke(new Action(() => lbStatus.Text = rof1));
                     Directory.Delete(korotExtDirectory + "\\" + extCodeName, true);
-                    lbStatus.Invoke(new Action(() => lbStatus.Text = rof2));
                 }
                 htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 30));
-                lbStatus.Invoke(new Action(() => lbStatus.Text = cd));
                 Directory.CreateDirectory(korotExtDirectory + "\\" + extCodeName);
                 htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 60));
-                lbStatus.Invoke(new Action(() => lbStatus.Text = dc));
                 foreach (string x in Directory.GetFiles(new FileInfo(ExtFile).DirectoryName + " \\"))
                 {
                     File.Copy(x, korotExtDirectory + "\\" + extCodeName + "\\" + new FileInfo(x).Name);
@@ -314,7 +294,7 @@ namespace Korot
                     Directory.Move(x, korotExtDirectory + "\\" + extCodeName + "\\" + new DirectoryInfo(x).Name);
                 }
                 lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
-                label8.Invoke(new Action(() => label8.Text = installed));
+                lbInstallInfo.Invoke(new Action(() => lbInstallInfo.Text = installed));
                 Invoke(new Action(() => button3Mode(true)));
                 htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 100));
                 Directory.Delete(new FileInfo(ExtFile).DirectoryName, true);
@@ -338,7 +318,7 @@ namespace Korot
                 string fileName = new FileInfo(ExtFile).Name;
                 File.Copy(ExtFile, korotThemeDirectory + fileName);
                 lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
-                label8.Invoke(new Action(() => label8.Text = installed));
+                lbInstallInfo.Invoke(new Action(() => lbInstallInfo.Text = installed));
                 Invoke(new Action(() => button3Mode(true)));
                 htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 300));
                 if (silentInstall)
@@ -366,39 +346,29 @@ namespace Korot
             pictureBox7.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._1_w : Properties.Resources._1;
             pictureBox2.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._2_w : Properties.Resources._2;
             pictureBox5.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._3_w : Properties.Resources._3;
-            string Playlist = HTAlt.Tools.ReadFile(Settings.LanguageFile, Encoding.UTF8);
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SplittedFase = Playlist.Split(token);
-            noPermission = SplittedFase[112].Substring(1).Replace(Environment.NewLine, "");
-            Initializing = SplittedFase[122].Substring(1).Replace(Environment.NewLine, "");
-            installed = SplittedFase[119].Substring(1).Replace(Environment.NewLine, "");
-            dc = SplittedFase[118].Substring(1).Replace(Environment.NewLine, "");
-            cd = SplittedFase[117].Substring(1).Replace(Environment.NewLine, "");
-            rof2 = SplittedFase[116].Substring(1).Replace(Environment.NewLine, "");
-            rof1 = SplittedFase[115].Substring(1).Replace(Environment.NewLine, "");
-            installing = SplittedFase[113].Substring(1).Replace(Environment.NewLine, "");
-            label9.Text = SplittedFase[111].Substring(1).Replace(Environment.NewLine, "");
-            label15.Text = SplittedFase[123].Substring(1).Replace(Environment.NewLine, "");
-            label16.Text = SplittedFase[124].Substring(1).Replace(Environment.NewLine, "");
-            label5.Text = SplittedFase[125].Substring(1).Replace(Environment.NewLine, "");
-            label10.Text = SplittedFase[126].Substring(1).Replace(Environment.NewLine, "");
-            label7.Text = SplittedFase[127].Substring(1).Replace(Environment.NewLine, "");
-            label14.Text = SplittedFase[128].Substring(1).Replace(Environment.NewLine, "");
-            button1.ButtonText = SplittedFase[121].Substring(1).Replace(Environment.NewLine, "");
-            button2.ButtonText = SplittedFase[87].Substring(1).Replace(Environment.NewLine, "");
-            button3.ButtonText = SplittedFase[120].Substring(1).Replace(Environment.NewLine, "");
-            button4.ButtonText = SplittedFase[120].Substring(1).Replace(Environment.NewLine, "");
-            label8.Text = SplittedFase[114].Substring(1).Replace(Environment.NewLine, "");
-            label6.Text = SplittedFase[113].Substring(1).Replace(Environment.NewLine, "");
-            reqError = SplittedFase[129].Substring(1).Replace(Environment.NewLine, "");
-            fileSizeError = SplittedFase[131].Substring(1).Replace(Environment.NewLine, "");
-            label1.Text = SplittedFase[132].Substring(1).Replace(Environment.NewLine, "");
-            label2.Text = SplittedFase[141].Substring(1).Replace(Environment.NewLine, "");
-            ext = SplittedFase[142].Substring(1).Replace(Environment.NewLine, "");
-            theme = SplittedFase[14].Substring(1).Replace(Environment.NewLine, "");
-            label4.Text = SplittedFase[180].Substring(1).Replace(Environment.NewLine, "");
-            label12.Text = SplittedFase[181].Substring(1).Replace(Environment.NewLine, "");
-            reqEmpty = SplittedFase[192].Substring(1).Replace(Environment.NewLine, "");
+            noPermission = Settings.LanguageSystem.GetItemText("ExtensionNoPermission");
+            Initializing = Settings.LanguageSystem.GetItemText("Initializing");
+            installed = Settings.LanguageSystem.GetItemText("Installed");
+            installing = Settings.LanguageSystem.GetItemText("Installing");
+            lbExtensionRequires.Text = Settings.LanguageSystem.GetItemText("ExtensionRequiresPermission");
+            lbAutoLoad.Text = Settings.LanguageSystem.GetItemText("autoLoad");
+            lbAutoLoadInfo.Text = Settings.LanguageSystem.GetItemText("autoLoadInfo");
+            lbCanAccess.Text = Settings.LanguageSystem.GetItemText("canAccessWebContent");
+            lbCanAccessInfo.Text = Settings.LanguageSystem.GetItemText("canAccessWebContentInfo");
+            lbOnlineFiles.Text = Settings.LanguageSystem.GetItemText("onlineFiles");
+            lbOnlineFilesInfo.Text = Settings.LanguageSystem.GetItemText("onlineFilesInfo");
+            btInstall.ButtonText = Settings.LanguageSystem.GetItemText("Install");
+            btClose2.ButtonText = Settings.LanguageSystem.GetItemText("Close");
+            btClose.ButtonText = Settings.LanguageSystem.GetItemText("Close");
+            btClose1.ButtonText = Settings.LanguageSystem.GetItemText("Close");
+            lbInstallInfo.Text = Settings.LanguageSystem.GetItemText("");
+            lbCannotInstall.Text = Settings.LanguageSystem.GetItemText("ExtensionInstallError");
+            lbPleaseWait.Text = Settings.LanguageSystem.GetItemText("PleaseWait");
+            lbInstallIt.Text = Settings.LanguageSystem.GetItemText("Installing");
+            ext = Settings.LanguageSystem.GetItemText("Extension");
+            theme = Settings.LanguageSystem.GetItemText("Theme");
+            lbNRContent.Text = Settings.LanguageSystem.GetItemText("NotRatedContent");
+            lbNRContentInfo.Text = Settings.LanguageSystem.GetItemText("NotRatedContentInfo");
         }
     }
 }

@@ -33,6 +33,10 @@ namespace Korot
             {
                 GeneratePanel(x);
             }
+            if (cookieLabels.Count == 0 && notificationLabels.Count == 0 && switches.Count == 0)
+            {
+                Controls.Add(lbEmpty);
+            }
         }
 
         void GeneratePanel(Site site)
@@ -207,6 +211,7 @@ namespace Korot
             }
             foreach (Label x in notificationLabels){x.Text = cefform.siteNotifications;}
             foreach (Label x in cookieLabels){x.Text = cefform.siteCookies;}
+            lbEmpty.Text = cefform.empty;
         }
     }
 }

@@ -13,11 +13,10 @@ namespace Korot
     public class MyJumplist
     {
         private JumpList list;
-        frmMain anaform;
-        public MyJumplist(IntPtr windowHandle,frmMain MainForm)
+        Settings Settings;
+        public MyJumplist(IntPtr windowHandle,Settings settings)
         {
-            
-            anaform = MainForm;
+            Settings = settings;
             list = JumpList.CreateJumpListForIndividualWindow(TaskbarManager.Instance.ApplicationId, windowHandle);
             list.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
             BuildList();
@@ -27,11 +26,8 @@ namespace Korot
         string NW = "New Window";
         private void BuildList()
         {
-            string Playlist = HTAlt.Tools.ReadFile(anaform.Settings.LanguageFile, Encoding.UTF8);
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SF = Playlist.Split(token);
-            NIW = SF[9].Substring(1).Replace(Environment.NewLine, "");
-            NW = SF[8].Substring(1).Replace(Environment.NewLine, "");
+            NIW = Settings.LanguageSystem.GetItemText("NewWindow");
+            NW = Settings.LanguageSystem.GetItemText("NewIncognitoWindow");
             JumpListCustomCategory userActionsCategory = new JumpListCustomCategory("Actions");
             userActionsCategory.AddJumpListItems();
             list.AddCustomCategories(userActionsCategory);

@@ -383,10 +383,10 @@
       <DependentUpon>frmNotificationPermission.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Lang\English.lang">
+    <None Include="Lang\English.klf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Lang\Türkçe.lang">
+    <None Include="Lang\Türkçe.klf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

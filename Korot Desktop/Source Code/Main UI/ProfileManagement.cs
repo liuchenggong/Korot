@@ -38,10 +38,10 @@ namespace Korot
         }
         public static bool DeleteProfile(string profilename, frmCEF cefform)
         {
-            Properties.Settings.Default.LastUser = new DirectoryInfo(Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\")[0]).Name;
+            Properties.Settings.Default.LastUser = new DirectoryInfo(Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\")[0]).Name;
             if (!cefform._Incognito) { Properties.Settings.Default.Save(); }
             frmCEF obj = (frmCEF)Application.OpenForms["frmCEF"]; obj.Close(); CefSharp.Cef.Shutdown();
-            Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + profilename + "\\", true);
+            Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + profilename + "\\", true);
             if (!cefform._Incognito) { Properties.Settings.Default.Save(); }
             Process.Start(Application.ExecutablePath);
             Application.Exit();
@@ -57,7 +57,7 @@ namespace Korot
                 { NewProfile(cefform); }
                 else
                 {
-                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Profiles\\" + newprof.TextValue);
+                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + newprof.TextValue);
                     SwitchProfile(newprof.TextValue, cefform);
                 }
             }

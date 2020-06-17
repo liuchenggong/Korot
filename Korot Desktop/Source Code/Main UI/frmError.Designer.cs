@@ -57,6 +57,7 @@ namespace Korot
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.lbErrorCode = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btRestart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -74,7 +75,7 @@ namespace Korot
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.Location = new System.Drawing.Point(12, 93);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(451, 44);
+            this.label2.Size = new System.Drawing.Size(385, 44);
             this.label2.TabIndex = 0;
             this.label2.Text = "Your Korot installation is safe but Korot cannot continue at this point.\r\nIf this" +
     " happens frequently, feel free to open issues on GitHub.";
@@ -102,7 +103,7 @@ namespace Korot
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(448, 274);
+            this.textBox1.Size = new System.Drawing.Size(382, 217);
             this.textBox1.TabIndex = 1;
             // 
             // lbErrorCode
@@ -116,7 +117,7 @@ namespace Korot
             this.lbErrorCode.Name = "lbErrorCode";
             this.lbErrorCode.ReadOnly = true;
             this.lbErrorCode.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.lbErrorCode.Size = new System.Drawing.Size(448, 65);
+            this.lbErrorCode.Size = new System.Drawing.Size(382, 65);
             this.lbErrorCode.TabIndex = 1;
             // 
             // timer1
@@ -124,12 +125,25 @@ namespace Korot
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // btRestart
+            // 
+            this.btRestart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btRestart.Location = new System.Drawing.Point(12, 376);
+            this.btRestart.Name = "btRestart";
+            this.btRestart.Size = new System.Drawing.Size(382, 23);
+            this.btRestart.TabIndex = 2;
+            this.btRestart.Text = "Restart";
+            this.btRestart.UseVisualStyleBackColor = true;
+            this.btRestart.Click += new System.EventHandler(this.btRestart_Click);
+            // 
             // frmError
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(475, 439);
+            this.ClientSize = new System.Drawing.Size(409, 411);
+            this.Controls.Add(this.btRestart);
             this.Controls.Add(this.lbErrorCode);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
@@ -156,5 +170,6 @@ namespace Korot
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox lbErrorCode;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btRestart;
     }
 }

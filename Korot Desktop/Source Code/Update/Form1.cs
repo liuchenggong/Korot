@@ -61,14 +61,10 @@ namespace Korot
 
         private void RefreshTranslate()
         {
-            if (!File.Exists(Settings.LanguageFile)) { Settings.LanguageFile = Application.StartupPath + "\\Lang\\English.lang"; }
-            string Playlist = HTAlt.Tools.ReadFile(Settings.LanguageFile, Encoding.UTF8);
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SplittedFase = Playlist.Split(token);
-            StatusType = SplittedFase[94].Substring(1).Replace(Environment.NewLine, "");
-            installStatus = SplittedFase[93].Substring(1).Replace(Environment.NewLine, "");
-            Text = SplittedFase[2].Substring(1).Replace(Environment.NewLine, "");
-            installingTxt = SplittedFase[265].Substring(1).Replace(Environment.NewLine, "");
+            StatusType = Settings.LanguageSystem.GetItemText("DownloadProgress");;
+            installStatus = Settings.LanguageSystem.GetItemText("UpdatingMessage");
+            Text = Settings.LanguageSystem.GetItemText("KorotUpdate");
+            installingTxt = Settings.LanguageSystem.GetItemText("Installing");
             label1.Text = installStatus;
             label2.Text = StatusType.Replace("[PERC]", "0").Replace("[CURRENT]", "0").Replace("[TOTAL]", "0");
 

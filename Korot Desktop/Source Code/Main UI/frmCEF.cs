@@ -85,6 +85,7 @@ namespace Korot
             siteman.Dock = DockStyle.Fill;
             siteman.Visible = true;
             pSite.Controls.Add(siteman);
+            Updater();
         }
         public void LoadDynamicMenu()
         {
@@ -408,7 +409,6 @@ namespace Korot
             ColMan = collectionManager;
             collectionManager.Show();
             panel3.Controls.Add(collectionManager);
-            Updater();
             if (File.Exists(Settings.Theme.ThemeFile))
             {
                 comboBox1.Text = new FileInfo(Settings.Theme.ThemeFile).Name.Replace(".ktf", "");
@@ -421,7 +421,7 @@ namespace Korot
             }
             tbHomepage.Text = Settings.Homepage;
             tbSearchEngine.Text = Settings.SearchEngine;
-            if (Settings.Homepage == "korot://newtab") { radioButton1.Enabled = true; }
+            if (Settings.Homepage == "korot://newtab") { rbNewTab.Enabled = true; }
             pbBack.BackColor = Settings.Theme.BackColor;
             pbOverlay.BackColor = Settings.Theme.OverlayColor;
             RefreshLangList();
@@ -468,8 +468,7 @@ namespace Korot
                 pbIncognito.Visible = false;
                 tbAddress.Size = new Size(tbAddress.Size.Width + pbIncognito.Size.Width, tbAddress.Size.Height);
             }
-            LoadLangFromFile(Settings.LanguageFile);
-            cbLang.Text = Path.GetFileNameWithoutExtension(Settings.LanguageFile);
+            cbLang.Text = Path.GetFileNameWithoutExtension(Settings.LanguageSystem.LangFile);
             Settings.Extensions.UpdateExtensions();
         }
         private void RefreshHistory()
@@ -757,428 +756,389 @@ namespace Korot
         public string UnmuteThisTab = "Unmute this tab";
         public string siteCookies = "Cookies:";
         public string siteNotifications = "Notifications:";
-        // CHANGE THIS WHEN YOU TOUCHED THE LANGUAGE SYSTEM EVEN BY ADDING SOMETHING OR DELETING
-        public Version KLangVer = new Version("0.7.0.0");
         private void dummyCMS_Opening(object sender, CancelEventArgs e)
         {
             Process.Start(Application.StartupPath + "//Lang//");
         }
         public void LoadLangFromFile(string fileLocation)
         {
-            string Playlist = HTAlt.Tools.ReadFile(fileLocation, Encoding.UTF8);
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SF = Playlist.Split(token);
-            while (SF.Length != 366) //ncı gün
+            Settings.LanguageSystem.ReadFromFile(fileLocation,true);
+            MuteThisTab = Settings.LanguageSystem.GetItemText("MuteThisTab");
+            UnmuteThisTab = Settings.LanguageSystem.GetItemText("UnmuteThisTab");
+            allowCookie = Settings.LanguageSystem.GetItemText("AllowCookie");
+            if (chromiumWebBrowser1 != null)
             {
-                Array.Resize<string>(ref SF, SF.Length + 1);
-                SF[SF.Length - 1] = "mmisingno";
-            }
-            Version langVersion = new Version(SF[0].ToString().Replace(Environment.NewLine, "") != "mmissingno" ? SF[0].ToString().Replace(Environment.NewLine, "") : "0.0.0.0");
-            int versionCompability = KLangVer.CompareTo(langVersion);
-            if (versionCompability < 0)
-            {
-                if (!Settings.DisableLanguageError && !NotificationListenerMode)
+                if (chromiumWebBrowser1.Address != null)
                 {
-                    Settings.DisableLanguageError = true;
-                    HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", "This language file is made for an older version of Korot. This can cause some problems. Do you wish to proceed?", new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true }) { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
-                    if (mesaj.ShowDialog() != DialogResult.Yes)
+                    if (Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)) != null)
                     {
-                        return;
-                    }
-                }
-            }
-            if (SF.Length >= 344)
-            {
-                MuteThisTab = SF[350].Substring(1).Replace(Environment.NewLine, "");
-                UnmuteThisTab = SF[351].Substring(1).Replace(Environment.NewLine, "");
-                MuteTS.Text = isMuted ? UnmuteThisTab : MuteThisTab;
-                btNotification.ButtonText = SF[324].Substring(1).Replace(Environment.NewLine, "");
-                lbNotifSetting.Text = SF[325].Substring(1).Replace(Environment.NewLine, "");
-                tpNotification.Text = SF[325].Substring(1).Replace(Environment.NewLine, "");
-                lbPlayNotifSound.Text = SF[326].Substring(1).Replace(Environment.NewLine, "");
-                lbSilentMode.Text = SF[327].Substring(1).Replace(Environment.NewLine, "");
-                lbSchedule.Text = SF[328].Substring(1).Replace(Environment.NewLine, "");
-                scheduleFrom.Text = SF[329].Substring(1).Replace(Environment.NewLine, "");
-                scheduleTo.Text = SF[330].Substring(1).Replace(Environment.NewLine, "");
-                lb24HType.Text = SF[331].Substring(1).Replace(Environment.NewLine, "");
-                scheduleEvery.Text = SF[332].Substring(1).Replace(Environment.NewLine, "");
-                lbSunday.Text = SF[333].Substring(1).Replace(Environment.NewLine, "");
-                lbMonday.Text = SF[334].Substring(1).Replace(Environment.NewLine, "");
-                lbTuesday.Text = SF[335].Substring(1).Replace(Environment.NewLine, "");
-                lbWednesday.Text = SF[336].Substring(1).Replace(Environment.NewLine, "");
-                lbThursday.Text = SF[337].Substring(1).Replace(Environment.NewLine, "");
-                lbFriday.Text = SF[338].Substring(1).Replace(Environment.NewLine, "");
-                lbSaturday.Text = SF[339].Substring(1).Replace(Environment.NewLine, "");
-                notificationPermission = SF[323].Substring(1).Replace(Environment.NewLine, "");
-                deny = SF[322].Substring(1).Replace(Environment.NewLine, "");
-                allow = SF[321].Substring(1).Replace(Environment.NewLine, "");
-                changeColID = SF[317].Substring(1).Replace(Environment.NewLine, "");
-                siteCookies = SF[231].Substring(1).Replace(Environment.NewLine, "");
-                siteNotifications = SF[230].Substring(1).Replace(Environment.NewLine, "");
-                changeColIDInfo = SF[318].Substring(1).Replace(Environment.NewLine, "");
-                changeColText = SF[319].Substring(1).Replace(Environment.NewLine, "");
-                changeColTextInfo = SF[320].Substring(1).Replace(Environment.NewLine, "");
-                importColItem = SF[316].Substring(1).Replace(Environment.NewLine, "");
-                importColItemInfo = SF[315].Substring(1).Replace(Environment.NewLine, "");
-                SetToDefault = SF[314].Substring(1).Replace(Environment.NewLine, "");
-                tsChangeTitleBack.Text = SF[312].Substring(1).Replace(Environment.NewLine, "");
-                titleBackInfo = SF[313].Substring(1).Replace(Environment.NewLine, "");
-                addToCollection = SF[311].Substring(1).Replace(Environment.NewLine, "");
-                newColInfo = SF[297].Substring(1).Replace(Environment.NewLine, "");
-                newColName = SF[298].Substring(1).Replace(Environment.NewLine, "");
-                importColInfo = SF[299].Substring(1).Replace(Environment.NewLine, "");
-                delColInfo = SF[300].Substring(1).Replace(Environment.NewLine, "");
-                clearColInfo = SF[301].Substring(1).Replace(Environment.NewLine, "");
-                okToClipboard = SF[302].Substring(1).Replace(Environment.NewLine, "");
-                newCollection = SF[303].Substring(1).Replace(Environment.NewLine, "");
-                deleteCollection = SF[304].Substring(1).Replace(Environment.NewLine, "");
-                clearCollection = SF[305].Substring(1).Replace(Environment.NewLine, "");
-                importCollection = SF[306].Substring(1).Replace(Environment.NewLine, "");
-                exportCollection = SF[307].Substring(1).Replace(Environment.NewLine, "");
-                deleteItem = SF[308].Substring(1).Replace(Environment.NewLine, "");
-                exportItem = SF[309].Substring(1).Replace(Environment.NewLine, "");
-                editItem = SF[310].Substring(1).Replace(Environment.NewLine, "");
-                catCommon = SF[276].Substring(1).Replace(Environment.NewLine, "");
-                catText = SF[277].Substring(1).Replace(Environment.NewLine, "");
-                catOnline = SF[278].Substring(1).Replace(Environment.NewLine, "");
-                catPicture = SF[279].Substring(1).Replace(Environment.NewLine, "");
-                TitleID = SF[280].Substring(1).Replace(Environment.NewLine, "");
-                TitleBackColor = SF[281].Substring(1).Replace(Environment.NewLine, "");
-                TitleText = SF[282].Substring(1).Replace(Environment.NewLine, "");
-                TitleFont = SF[283].Substring(1).Replace(Environment.NewLine, "");
-                TitleSize = SF[284].Substring(1).Replace(Environment.NewLine, "");
-                TitleProp = SF[285].Substring(1).Replace(Environment.NewLine, "");
-                TitleRegular = SF[286].Substring(1).Replace(Environment.NewLine, "");
-                TitleBold = SF[287].Substring(1).Replace(Environment.NewLine, "");
-                TitleItalic = SF[288].Substring(1).Replace(Environment.NewLine, "");
-                TitleUnderline = SF[289].Substring(1).Replace(Environment.NewLine, "");
-                TitleStrikeout = SF[290].Substring(1).Replace(Environment.NewLine, "");
-                TitleForeColor = SF[291].Substring(1).Replace(Environment.NewLine, "");
-                TitleSource = SF[292].Substring(1).Replace(Environment.NewLine, "");
-                TitleWidth = SF[293].Substring(1).Replace(Environment.NewLine, "");
-                TitleHeight = SF[294].Substring(1).Replace(Environment.NewLine, "");
-                TitleDone = SF[295].Substring(1).Replace(Environment.NewLine, "");
-                TitleEditItem = SF[296].Substring(1).Replace(Environment.NewLine, "");
-                image = SF[273].Substring(1).Replace(Environment.NewLine, "");
-                text = SF[274].Substring(1).Replace(Environment.NewLine, "");
-                link = SF[275].Substring(1).Replace(Environment.NewLine, "");
-                label9.Text = SF[272].Substring(1).Replace(Environment.NewLine, "");
-                tsCollections.Text = SF[272].Substring(1).Replace(Environment.NewLine, "");
-                tpCert.Text = SF[271].Substring(1).Replace(Environment.NewLine, "");
-                tpAbout.Text = SF[19].Substring(1).Replace(Environment.NewLine, "");
-                tpSettings.Text = SF[10].Substring(1).Replace(Environment.NewLine, "");
-                tpSite.Text = SF[197].Substring(1).Replace(Environment.NewLine, "");
-                tpCollection.Text = SF[272].Substring(1).Replace(Environment.NewLine, "");
-                tpDownload.Text = SF[39].Substring(1).Replace(Environment.NewLine, "");
-                tpHistory.Text = SF[11].Substring(1).Replace(Environment.NewLine, "");
-                tpTheme.Text = SF[14].Substring(1).Replace(Environment.NewLine, "");
-                lbautoRestore.Text = SF[270].Substring(1).Replace(Environment.NewLine, "");
-                Properties.Settings.Default.KorotErrorTitle = SF[262].Substring(1).Replace(Environment.NewLine, "");
-                Properties.Settings.Default.KorotErrorDesc = SF[263].Substring(1).Replace(Environment.NewLine, "");
-                Properties.Settings.Default.KorotErrorTI = SF[264].Substring(1).Replace(Environment.NewLine, "");
-                ubuntuLicense = SF[261].Substring(1).Replace(Environment.NewLine, "");
-                tsFullscreen.Text = SF[257].Substring(1).Replace(Environment.NewLine, "");
-                updateTitleTheme = SF[258].Substring(1).Replace(Environment.NewLine, "");
-                updateTitleExt = SF[259].Substring(1).Replace(Environment.NewLine, "");
-                updateExtInfo = SF[260].Substring(1).Replace(Environment.NewLine, "");
-                openInNewWindow = SF[252].Substring(1).Replace(Environment.NewLine, "");
-                openAllInNewWindow = SF[253].Substring(1).Replace(Environment.NewLine, "");
-                openInNewIncWindow = SF[254].Substring(1).Replace(Environment.NewLine, "");
-                openAllInNewIncWindow = SF[255].Substring(1).Replace(Environment.NewLine, "");
-                openAllInNewTab = SF[251].Substring(1).Replace(Environment.NewLine, "");
-                newFavorite = SF[244].Substring(1).Replace(Environment.NewLine, "");
-                nametd = SF[245].Substring(1).Replace(Environment.NewLine, "");
-                urltd = SF[246].Substring(1).Replace(Environment.NewLine, "");
-                add = SF[247].Substring(1).Replace(Environment.NewLine, "");
-                newFavoriteToolStripMenuItem.Text = SF[256].Substring(1).Replace(Environment.NewLine, "");
-                newFolderToolStripMenuItem.Text = SF[248].Substring(1).Replace(Environment.NewLine, "");
-                newFolder = SF[247 + 1].Substring(1).Replace(Environment.NewLine, "");
-                defaultFolderName = SF[248 + 1].Substring(1).Replace(Environment.NewLine, "");
-                folderInfo = SF[249 + 1].Substring(1).Replace(Environment.NewLine, "");
-                copyImage = SF[238 + 1].Substring(1).Replace(Environment.NewLine, "");
-                openLinkInNewWindow = SF[239 + 1].Substring(1).Replace(Environment.NewLine, "");
-                openLinkInNewIncWindow = SF[240 + 1].Substring(1).Replace(Environment.NewLine, "");
-                copyImageAddress = SF[241 + 1].Substring(1).Replace(Environment.NewLine, "");
-                saveLinkAs = SF[242 + 1].Substring(1).Replace(Environment.NewLine, "");
-                tsWebStore.Text = SF[237 + 1].Substring(1).Replace(Environment.NewLine, "");
-                tsEmptyExt.Text = SF[233 + 1].Substring(1).Replace(Environment.NewLine, "");
-                tsEmptyProfile.Text = SF[233 + 1].Substring(1).Replace(Environment.NewLine, "");
-                empty = SF[233 + 1].Substring(1).Replace(Environment.NewLine, "");
-                btCleanLog.ButtonText = SF[234 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label33.Text = SF[228 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label31.Text = SF[226 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label32.Text = SF[227 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbNone.Text = SF[218 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbTile.Text = SF[219 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbCenter.Text = SF[220 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbStretch.Text = SF[221 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbZoom.Text = SF[222 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbBackColor.Text = SF[223 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbForeColor.Text = SF[224 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbOverlayColor.Text = SF[225 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbBackColor1.Text = SF[223 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbForeColor1.Text = SF[224 + 1].Substring(1).Replace(Environment.NewLine, "");
-                rbOverlayColor1.Text = SF[225 + 1].Substring(1).Replace(Environment.NewLine, "");
-                licenseTitle = SF[211 + 1].Substring(1).Replace(Environment.NewLine, "");
-                kLicense = SF[212 + 1].Substring(1).Replace(Environment.NewLine, "");
-                vsLicense = SF[213 + 1].Substring(1).Replace(Environment.NewLine, "");
-                chLicense = SF[214 + 1].Substring(1).Replace(Environment.NewLine, "");
-                cefLicense = SF[215 + 1].Substring(1).Replace(Environment.NewLine, "");
-                etLicense = SF[216 + 1].Substring(1).Replace(Environment.NewLine, "");
-                specialThanks = SF[217 + 1].Substring(1).Replace(Environment.NewLine, "");
-                JSAlert = SF[210 + 1].Substring(1).Replace(Environment.NewLine, "");
-                JSConfirm = SF[209 + 1].Substring(1).Replace(Environment.NewLine, "");
-                selectAFolder = SF[208 + 1].Substring(1).Replace(Environment.NewLine, "");
-                showNewTabPageToolStripMenuItem.Text = SF[204 + 1].Substring(1).Replace(Environment.NewLine, "");
-                showHomepageToolStripMenuItem.Text = SF[205 + 1].Substring(1).Replace(Environment.NewLine, "");
-                showAWebsiteToolStripMenuItem.Text = SF[206 + 1].Substring(1).Replace(Environment.NewLine, "");
-                lbDownloadFolder.Text = SF[203 + 1].Substring(1).Replace(Environment.NewLine, "");
-                lbAutoDownload.Text = SF[202 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label28.Text = SF[201 + 1].Substring(1).Replace(Environment.NewLine, "");
-                btReset.ButtonText = SF[200 + 1].Substring(1).Replace(Environment.NewLine, "");
-                resetConfirm = SF[199 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label27.Text = SF[196 + 1].Substring(1).Replace(Environment.NewLine, "");
-                allowSelectedToolStripMenuItem.Text = SF[197 + 1].Substring(1).Replace(Environment.NewLine, "");
-                clearToolStripMenuItem1.Text = SF[17 + 1].Substring(1).Replace(Environment.NewLine, "");
-                btCookie.ButtonText = SF[198 + 1].Substring(1).Replace(Environment.NewLine, "");
-                ıncognitoModeToolStripMenuItem.Text = SF[193 + 1].Substring(1).Replace(Environment.NewLine, "");
-                thisSessionİsNotGoingToBeSavedToolStripMenuItem.Text = SF[194 + 1].Substring(1).Replace(Environment.NewLine, "");
-                clickHereToLearnMoreToolStripMenuItem.Text = SF[195 + 1].Substring(1).Replace(Environment.NewLine, "");
-                chStatus.Text = SF[192 + 1].Substring(1).Replace(Environment.NewLine, "");
-                lbLastProxy.Text = SF[186 + 1].Substring(1).Replace(Environment.NewLine, "");
-                findC = SF[187 + 1].Substring(1).Replace(Environment.NewLine, "");
-                findT = SF[188 + 1].Substring(1).Replace(Environment.NewLine, "");
-                findL = SF[189 + 1].Substring(1).Replace(Environment.NewLine, "");
-                noSearch = SF[190 + 1].Substring(1).Replace(Environment.NewLine, "");
-                tsSearchNext.Text = SF[185 + 1].Substring(1).Replace(Environment.NewLine, "");
-                anon = SF[183 + 1].Substring(1).Replace(Environment.NewLine, "");
-                noname = SF[184 + 1].Substring(1).Replace(Environment.NewLine, "");
-                themeInfo = SF[182 + 1].Substring(1).Replace(Environment.NewLine, "");
-                extensionToolStripMenuItem1.Text = SF[181 + 1].Substring(1).Replace(Environment.NewLine, "");
-                renderProcessDies = SF[178 + 1].Substring(1).Replace(Environment.NewLine, "");
-                enterAValidCode = SF[177 + 1].Substring(1).Replace(Environment.NewLine, "");
-                zoomInToolStripMenuItem.Text = SF[174 + 1].Substring(1).Replace(Environment.NewLine, "");
-                resetZoomToolStripMenuItem.Text = SF[175 + 1].Substring(1).Replace(Environment.NewLine, "");
-                zoomOutToolStripMenuItem.Text = SF[176 + 1].Substring(1).Replace(Environment.NewLine, "");
-                htmlFiles = SF[171 + 1].Substring(1).Replace(Environment.NewLine, "");
-                takeAScreenshotToolStripMenuItem.Text = SF[172 + 1].Substring(1).Replace(Environment.NewLine, "");
-                saveThisPageToolStripMenuItem.Text = SF[173 + 1].Substring(1).Replace(Environment.NewLine, "");
-                print = SF[170 + 1].Substring(1).Replace(Environment.NewLine, "");
-                IncognitoT = SF[160 + 1].Substring(1).Replace(Environment.NewLine, "");
-                IncognitoTitle = SF[160 + 1].Substring(1).Replace(Environment.NewLine, "");
-                IncognitoTitle1 = SF[161 + 1].Substring(1).Replace(Environment.NewLine, "");
-                IncognitoT1M1 = SF[163 + 1].Substring(1).Replace(Environment.NewLine, "");
-                IncognitoT1M2 = SF[164 + 1].Substring(1).Replace(Environment.NewLine, "");
-                IncognitoT1M3 = SF[165 + 1].Substring(1).Replace(Environment.NewLine, "");
-                IncognitoTitle2 = SF[166 + 1].Substring(1).Replace(Environment.NewLine, "");
-                IncognitoT2M1 = SF[167 + 1].Substring(1).Replace(Environment.NewLine, "");
-                IncognitoT2M2 = SF[168 + 1].Substring(1).Replace(Environment.NewLine, "");
-                IncognitoT2M3 = SF[169 + 1].Substring(1).Replace(Environment.NewLine, "");
-                disallowCookie = SF[158 + 1].Substring(1).Replace(Environment.NewLine, "");
-                allowCookie = SF[159 + 1].Substring(1).Replace(Environment.NewLine, "");
-                if (chromiumWebBrowser1 != null)
-                {
-                    if (chromiumWebBrowser1.Address != null)
-                    {
-                        if (Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)) != null)
+                        if (!Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)).AllowCookies)
                         {
-                            if (!Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser1.Address)).AllowCookies)
-                            {
-                                disallowThisPageForCookieAccessToolStripMenuItem.Text = SF[158 + 1].Substring(1).Replace(Environment.NewLine, "");
-                            }
-                            else
-                            {
-                                disallowThisPageForCookieAccessToolStripMenuItem.Text = SF[159 + 1].Substring(1).Replace(Environment.NewLine, "");
-                            }
+                            disallowThisPageForCookieAccessToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("DisallowCookie");
                         }
                         else
                         {
-                            disallowThisPageForCookieAccessToolStripMenuItem.Text = SF[159 + 1].Substring(1).Replace(Environment.NewLine, "");
+                            disallowThisPageForCookieAccessToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("AllowCookie");
                         }
                     }
                     else
                     {
-                        disallowThisPageForCookieAccessToolStripMenuItem.Text = SF[159 + 1].Substring(1).Replace(Environment.NewLine, "");
+                        disallowThisPageForCookieAccessToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("AllowCookie");
                     }
                 }
                 else
                 {
-                    disallowThisPageForCookieAccessToolStripMenuItem.Text = SF[159 + 1].Substring(1).Replace(Environment.NewLine, "");
+                    disallowThisPageForCookieAccessToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("AllowCookie");
                 }
-                label25.Text = SF[139 + 1].Substring(1).Replace(Environment.NewLine, "");
-                imageFiles = SF[136 + 1].Substring(1).Replace(Environment.NewLine, "");
-                allFiles = SF[137 + 1].Substring(1).Replace(Environment.NewLine, "");
-                selectBackImage = SF[138 + 1].Substring(1).Replace(Environment.NewLine, "");
-                colorToolStripMenuItem.Text = SF[132 + 1].Substring(1).Replace(Environment.NewLine, "");
-                usingBC = SF[133 + 1].Substring(1).Replace(Environment.NewLine, "");
-                ımageFromURLToolStripMenuItem.Text = SF[134 + 1].Substring(1).Replace(Environment.NewLine, "");
-                ımageFromLocalFileToolStripMenuItem.Text = SF[135 + 1].Substring(1).Replace(Environment.NewLine, "");
-                lbDNT.Text = SF[129 + 1].Substring(1).Replace(Environment.NewLine, "");
-                aboutInfo = SF[108 + 1].Substring(1).Replace(Environment.NewLine, "");
-                if (string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))
-                {
-                    label21.Text = SF[108 + 1].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine);
-                }
-                else
-                {
-                    label21.Text = SF[108 + 1].Substring(1).Replace(Environment.NewLine, "").Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + SF[182 + 1].Substring(1).Replace(Environment.NewLine, "").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? noname : Settings.Theme.Name);
-                }
-                linkLabel1.Text = SF[109 + 1].Substring(1).Replace(Environment.NewLine, "");
-                lbSettings.Text = SF[9 + 1].Substring(1).Replace(Environment.NewLine, "");
-                CertErrorPageButton = SF[107 + 1].Substring(1).Replace(Environment.NewLine, "");
-                CertErrorPageMessage = SF[106 + 1].Substring(1).Replace(Environment.NewLine, "");
-                CertErrorPageTitle = SF[105 + 1].Substring(1).Replace(Environment.NewLine, "");
-                usesCookies = SF[103 + 1].Substring(1).Replace(Environment.NewLine, "");
-                notUsesCookies = SF[104 + 1].Substring(1).Replace(Environment.NewLine, "");
-                showCertError = SF[102 + 1].Substring(1).Replace(Environment.NewLine, "");
-                CertificateErrorMenuTitle = SF[97 + 1].Substring(1).Replace(Environment.NewLine, "");
-                CertificateErrorTitle = SF[98 + 1].Substring(1).Replace(Environment.NewLine, "");
-                CertificateError = SF[99 + 1].Substring(1).Replace(Environment.NewLine, "");
-                CertificateOKTitle = SF[100 + 1].Substring(1).Replace(Environment.NewLine, "");
-                CertificateOK = SF[101 + 1].Substring(1).Replace(Environment.NewLine, "");
-                ErrorTheme = SF[96 + 1].Substring(1).Replace(Environment.NewLine, "");
-                ThemeMessage = SF[95 + 1].Substring(1).Replace(Environment.NewLine, "");
-                btUpdater.ButtonText = SF[90 + 1].Substring(1).Replace(Environment.NewLine, "");
-                btInstall.ButtonText = SF[91 + 1].Substring(1).Replace(Environment.NewLine, "");
-                checking = SF[88 + 1].Substring(1).Replace(Environment.NewLine, "");
-                uptodate = SF[89 + 1].Substring(1).Replace(Environment.NewLine, "");
-                installStatus = SF[92 + 1].Substring(1).Replace(Environment.NewLine, "");
-                StatusType = SF[93 + 1].Substring(1).Replace(Environment.NewLine, "");
-                radioButton1.Text = SF[4 + 1].Substring(1).Replace(Environment.NewLine, "");
-                if (updateProgress == 0)
-                {
-                    lbUpdateStatus.Text = SF[88 + 1].Substring(1).Replace(Environment.NewLine, "");
-                }
-                else if (updateProgress == 1)
-                {
-                    lbUpdateStatus.Text = SF[89 + 1].Substring(1).Replace(Environment.NewLine, "");
-                }
-                else if (updateProgress == 2)
-                {
-                    lbUpdateStatus.Text = SF[87 + 1].Substring(1).Replace(Environment.NewLine, "");
-                }
-                else if (updateProgress == 3)
-                {
-                    lbUpdateStatus.Text = SF[3 + 1].Substring(1).Replace(Environment.NewLine, "");
-                }
-                updateavailable = SF[87 + 1].Substring(1).Replace(Environment.NewLine, ""); ;
-                privatemode = SF[0 + 1].Substring(1).Replace(Environment.NewLine, "");
-                updateTitle = SF[1 + 1].Substring(1).Replace(Environment.NewLine, "");
-                updateMessage = SF[2 + 1].Substring(1).Replace(Environment.NewLine, "");
-                updateError = SF[3 + 1].Substring(1).Replace(Environment.NewLine, "");
-                NewTabtitle = SF[4 + 1].Substring(1).Replace(Environment.NewLine, "");
-                customSearchNote = SF[5 + 1].Substring(1).Replace(Environment.NewLine, "");
-                customSearchMessage = SF[6 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label12.Text = SF[16 + 1].Substring(1).Replace(Environment.NewLine, "");
-                newWindow = SF[7 + 1].Substring(1).Replace(Environment.NewLine, "");
-                newincognitoWindow = SF[8 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label6.Text = SF[38 + 1].Substring(1).Replace(Environment.NewLine, "");
-                downloadsToolStripMenuItem.Text = SF[38 + 1].Substring(1).Replace(Environment.NewLine, "");
-                aboutToolStripMenuItem.Text = SF[18 + 1].Substring(1).Replace(Environment.NewLine, "");
-                lbHomepage.Text = SF[11 + 1].Substring(1).Replace(Environment.NewLine, "");
-                SearchOnPage = SF[58 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label26.Text = SF[13 + 1].Substring(1).Replace(Environment.NewLine, "");
-                tsThemes.Text = SF[94 + 1].Substring(1).Replace(Environment.NewLine, "");
-                caseSensitiveToolStripMenuItem.Text = SF[59 + 1].Substring(1).Replace(Environment.NewLine, "");
-                customToolStripMenuItem.Text = SF[14 + 1].Substring(1).Replace(Environment.NewLine, "");
-                removeSelectedToolStripMenuItem.Text = SF[16].Substring(1).Replace(Environment.NewLine, "");
-                clearToolStripMenuItem.Text = SF[18].Substring(1).Replace(Environment.NewLine, "");
-                settingstitle = SF[9 + 1].Substring(1).Replace(Environment.NewLine, "");
-                historyToolStripMenuItem.Text = SF[10 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label4.Text = SF[10 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label22.Text = SF[50 + 1].Substring(1).Replace(Environment.NewLine, "");
-                goBack = SF[19 + 1].Substring(1).Replace(Environment.NewLine, "");
-                goForward = SF[20 + 1].Substring(1).Replace(Environment.NewLine, "");
-                refresh = SF[21 + 1].Substring(1).Replace(Environment.NewLine, "");
-                refreshNoCache = SF[22 + 1].Substring(1).Replace(Environment.NewLine, "");
-                stop = SF[23 + 1].Substring(1).Replace(Environment.NewLine, "");
-                selectAll = SF[24 + 1].Substring(1).Replace(Environment.NewLine, "");
-                openLinkInNewTab = SF[25 + 1].Substring(1).Replace(Environment.NewLine, "");
-                copyLink = SF[26 + 1].Substring(1).Replace(Environment.NewLine, "");
-                saveImageAs = SF[27 + 1].Substring(1).Replace(Environment.NewLine, "");
-                openImageInNewTab = SF[28 + 1].Substring(1).Replace(Environment.NewLine, "");
-                paste = SF[29 + 1].Substring(1).Replace(Environment.NewLine, "");
-                copy = SF[30 + 1].Substring(1).Replace(Environment.NewLine, "");
-                cut = SF[31 + 1].Substring(1).Replace(Environment.NewLine, "");
-                undo = SF[32 + 1].Substring(1).Replace(Environment.NewLine, "");
-                redo = SF[33 + 1].Substring(1).Replace(Environment.NewLine, "");
-                delete = SF[34 + 1].Substring(1).Replace(Environment.NewLine, "");
-                SearchOrOpenSelectedInNewTab = SF[35 + 1].Substring(1).Replace(Environment.NewLine, "");
-                developerTools = SF[36 + 1].Substring(1).Replace(Environment.NewLine, "");
-                viewSource = SF[37 + 1].Substring(1).Replace(Environment.NewLine, "");
-                restoreOldSessions = SF[82 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label14.Text = SF[39 + 1].Substring(1).Replace(Environment.NewLine, "");
-                enterAValidUrl = SF[80 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label16.Text = SF[40 + 1].Substring(1).Replace(Environment.NewLine, "");
-                chDate.Text = SF[45 + 1].Substring(1).Replace(Environment.NewLine, "");
-                chDateHistory.Text = SF[45 + 1].Substring(1).Replace(Environment.NewLine, "");
-                chTitle.Text = SF[235 + 1].Substring(1).Replace(Environment.NewLine, "");
-                chURL.Text = SF[236 + 1].Substring(1).Replace(Environment.NewLine, "");
-                fromtwodot = SF[47 + 1].Substring(1).Replace(Environment.NewLine, "");
-                chFrom.Text = SF[46 + 1].Substring(1).Replace(Environment.NewLine, "");
-                totwodot = SF[48 + 1].Substring(1).Replace(Environment.NewLine, "");
-                korotdownloading = SF[41 + 1].Substring(1).Replace(Environment.NewLine, "");
-                chTo.Text = SF[44 + 1].Substring(1).Replace(Environment.NewLine, "");
-                lbOpen.Text = SF[42 + 1].Substring(1).Replace(Environment.NewLine, "");
-                open = SF[43 + 1].Substring(1).Replace(Environment.NewLine, "");
-                openLinkİnNewTabToolStripMenuItem.Text = SF[25 + 1].Substring(1).Replace(Environment.NewLine, "");
-                openInNewTab = SF[55 + 1].Substring(1).Replace(Environment.NewLine, "");
-                removeSelectedTSMI.Text = SF[15 + 1].Substring(1).Replace(Environment.NewLine, "");
-                clearTSMI.Text = SF[17 + 1].Substring(1).Replace(Environment.NewLine, "");
-                openFileToolStripMenuItem.Text = SF[56 + 1].Substring(1).Replace(Environment.NewLine, "");
-                openFileİnExplorerToolStripMenuItem.Text = SF[57 + 1].Substring(1).Replace(Environment.NewLine, "");
-                removeSelectedToolStripMenuItem1.Text = SF[15 + 1].Substring(1).Replace(Environment.NewLine, "");
-                clearToolStripMenuItem2.Text = SF[17 + 1].Substring(1).Replace(Environment.NewLine, "");
-                DefaultProxyts.Text = SF[53 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label13.Text = SF[51 + 1].Substring(1).Replace(Environment.NewLine, "");
-                Yes = SF[83 + 1].Substring(1).Replace(Environment.NewLine, "");
-                No = SF[84 + 1].Substring(1).Replace(Environment.NewLine, "");
-                OK = SF[85 + 1].Substring(1).Replace(Environment.NewLine, "");
-                Cancel = SF[86 + 1].Substring(1).Replace(Environment.NewLine, "");
-                button10.Text = SF[52 + 1].Substring(1).Replace(Environment.NewLine, "");
-                label15.Text = SF[54 + 1].Substring(1).Replace(Environment.NewLine, "");
-                SearchOnWeb = SF[79 + 1].Substring(1).Replace(Environment.NewLine, "");
-                goTotxt = SF[78 + 1].Substring(1).Replace(Environment.NewLine, "");
-                newProfileInfo = SF[81 + 1].Substring(1).Replace(Environment.NewLine, "");
-                lbSearchEngine.Text = SF[12 + 1].Substring(1).Replace(Environment.NewLine, "");
-                MonthNames = SF[61 + 1].Substring(1).Replace(Environment.NewLine, "");
-                DayNames = SF[60 + 1].Substring(1).Replace(Environment.NewLine, "");
-                SearchHelpText = SF[62 + 1].Substring(1).Replace(Environment.NewLine, "");
-                ErrorPageTitle = SF[49 + 1].Substring(1).Replace(Environment.NewLine, "");
-                KT = SF[63 + 1].Substring(1).Replace(Environment.NewLine, "");
-                ET = SF[64 + 1].Substring(1).Replace(Environment.NewLine, "");
-                E1 = SF[65 + 1].Substring(1).Replace(Environment.NewLine, "");
-                E2 = SF[66 + 1].Substring(1).Replace(Environment.NewLine, "");
-                E3 = SF[67 + 1].Substring(1).Replace(Environment.NewLine, "");
-                E4 = SF[68 + 1].Substring(1).Replace(Environment.NewLine, "");
-                RT = SF[69 + 1].Substring(1).Replace(Environment.NewLine, "");
-                R1 = SF[70 + 1].Substring(1).Replace(Environment.NewLine, "");
-                R2 = SF[71 + 1].Substring(1).Replace(Environment.NewLine, "");
-                R3 = SF[72 + 1].Substring(1).Replace(Environment.NewLine, "");
-                R4 = SF[73 + 1].Substring(1).Replace(Environment.NewLine, "");
-                Search = SF[74 + 1].Substring(1).Replace(Environment.NewLine, "");
-                newprofile = SF[76 + 1].Substring(1).Replace(Environment.NewLine, "");
-                switchTo = SF[75 + 1].Substring(1).Replace(Environment.NewLine, "");
-                deleteProfile = SF[77 + 1].Substring(1).Replace(Environment.NewLine, "");
-                RefreshTranslation();
-                RefreshSizes();
             }
             else
             {
-                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(ErrorPageTitle, "This file does not suitable for this version of Korot.Please ask the creator of this language to update." + Environment.NewLine + " Error : Missing Line" + "[ Line Count: " + SF.Length + "]", new HTAlt.WinForms.HTDialogBoxContext() { OK = true}) { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
-                DialogResult diyalog = mesaj.ShowDialog();
-                Output.WriteLine(" [KOROT] Error at applying a language file : [ Line Count: " + SF.Length + "]");
+                disallowThisPageForCookieAccessToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("AllowCookie");
             }
-            Settings.LanguageFile = fileLocation;
+            aboutInfo = Settings.LanguageSystem.GetItemText("KorotAbout").Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? noname : Settings.Theme.Name) : "");
+            MuteTS.Text = isMuted ? UnmuteThisTab : MuteThisTab;
+            btNotification.ButtonText = Settings.LanguageSystem.GetItemText("NotificationSettingsButton");
+            lbNotifSetting.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
+            tpNotification.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
+            lbPlayNotifSound.Text = Settings.LanguageSystem.GetItemText("PlayNotificationSound");
+            lbSilentMode.Text = Settings.LanguageSystem.GetItemText("SilentMode");
+            lbSchedule.Text = Settings.LanguageSystem.GetItemText("ScheduleSilentMode");
+            scheduleFrom.Text = Settings.LanguageSystem.GetItemText("StartFrom");
+            scheduleTo.Text = Settings.LanguageSystem.GetItemText("EndAt");
+            lb24HType.Text = Settings.LanguageSystem.GetItemText("24HourInfo");
+            scheduleEvery.Text = Settings.LanguageSystem.GetItemText("Every");
+            lbSunday.Text = Settings.LanguageSystem.GetItemText("Su");
+            lbMonday.Text = Settings.LanguageSystem.GetItemText("M");
+            lbTuesday.Text = Settings.LanguageSystem.GetItemText("T");
+            lbWednesday.Text = Settings.LanguageSystem.GetItemText("W");
+            lbThursday.Text = Settings.LanguageSystem.GetItemText("Th");
+            lbFriday.Text = Settings.LanguageSystem.GetItemText("F");
+            lbSaturday.Text = Settings.LanguageSystem.GetItemText("S");
+            notificationPermission = Settings.LanguageSystem.GetItemText("NotificationInfo");
+            deny = Settings.LanguageSystem.GetItemText("Deny");
+            allow = Settings.LanguageSystem.GetItemText("Allow");
+            changeColID = Settings.LanguageSystem.GetItemText("ChangeCollectionID");
+            siteCookies = Settings.LanguageSystem.GetItemText("Cookies");
+            siteNotifications = Settings.LanguageSystem.GetItemText("Notifications");
+            changeColIDInfo = Settings.LanguageSystem.GetItemText("ChangeCollectionIDInfo");
+            changeColText = Settings.LanguageSystem.GetItemText("ChangeCollectionText");
+            changeColTextInfo = Settings.LanguageSystem.GetItemText("ChangeCollectionTextInfo");
+            importColItem = Settings.LanguageSystem.GetItemText("ImportItemInfo");
+            importColItemInfo = Settings.LanguageSystem.GetItemText("ImportItem");
+            SetToDefault = Settings.LanguageSystem.GetItemText("SetToDefault");
+            tsChangeTitleBack.Text = Settings.LanguageSystem.GetItemText("ChangeTitleColor");
+            titleBackInfo = Settings.LanguageSystem.GetItemText("ChangeTitleColorInfo");
+            addToCollection = Settings.LanguageSystem.GetItemText("AddToCollection");
+            newColInfo = Settings.LanguageSystem.GetItemText("NewCollectionInfo");
+            newColName = Settings.LanguageSystem.GetItemText("NewCollectionName");
+            importColInfo = Settings.LanguageSystem.GetItemText("ImportCollectionInfo");
+            delColInfo = Settings.LanguageSystem.GetItemText("CollectionDeleteInfo");
+            clearColInfo = Settings.LanguageSystem.GetItemText("CollectionClearInfo");
+            okToClipboard = Settings.LanguageSystem.GetItemText("OKTOClipboard");
+            
+            deleteCollection = Settings.LanguageSystem.GetItemText("DeleteCollection");
+
+            importCollection = Settings.LanguageSystem.GetItemText("Import");
+            exportCollection = Settings.LanguageSystem.GetItemText("Export");
+            deleteItem = Settings.LanguageSystem.GetItemText("DeleteItem");
+            exportItem = Settings.LanguageSystem.GetItemText("ExportItem");
+            editItem = Settings.LanguageSystem.GetItemText("EditItem");
+            catCommon = Settings.LanguageSystem.GetItemText("CollectionCommon");
+            catText = Settings.LanguageSystem.GetItemText("CollectionTextBased");
+            catOnline = Settings.LanguageSystem.GetItemText("CollectionOnline");
+            catPicture = Settings.LanguageSystem.GetItemText("CollectionPicture");
+            TitleID = Settings.LanguageSystem.GetItemText("CollectionID");
+            TitleBackColor = Settings.LanguageSystem.GetItemText("CollectionBackColor");
+            TitleText = Settings.LanguageSystem.GetItemText("CollectionText");
+            TitleFont = Settings.LanguageSystem.GetItemText("CollectionFont");
+            TitleSize = Settings.LanguageSystem.GetItemText("CollectionFontSize");
+            TitleProp = Settings.LanguageSystem.GetItemText("CollectionFontProperties");
+            TitleRegular = Settings.LanguageSystem.GetItemText("Regular");
+            TitleBold = Settings.LanguageSystem.GetItemText("Bold");
+            TitleItalic = Settings.LanguageSystem.GetItemText("Italic");
+            TitleUnderline = Settings.LanguageSystem.GetItemText("Underline");
+            TitleStrikeout = Settings.LanguageSystem.GetItemText("Strikeout");
+            TitleForeColor = Settings.LanguageSystem.GetItemText("CollectionForeColor");
+            TitleSource = Settings.LanguageSystem.GetItemText("CollectionSource");
+            TitleWidth = Settings.LanguageSystem.GetItemText("CollectionWidth");
+            TitleHeight = Settings.LanguageSystem.GetItemText("CollectionHeight");
+            TitleDone = Settings.LanguageSystem.GetItemText("CollectionDone");
+            TitleEditItem = Settings.LanguageSystem.GetItemText("EditCollectionItem");
+            image = Settings.LanguageSystem.GetItemText("CollectionItemImage");
+            text = Settings.LanguageSystem.GetItemText("CollectionItemText");
+            link = Settings.LanguageSystem.GetItemText("CollectionItemLink");
+            lbCollections.Text = Settings.LanguageSystem.GetItemText("Collections");
+            tsCollections.Text = Settings.LanguageSystem.GetItemText("Collections");
+            tpCert.Text = Settings.LanguageSystem.GetItemText("CertificateError");
+            tpAbout.Text = Settings.LanguageSystem.GetItemText("About");
+            tpSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
+            tpSite.Text = Settings.LanguageSystem.GetItemText("SiteSettings");
+            tpCollection.Text = Settings.LanguageSystem.GetItemText("Collections");
+            tpDownload.Text = Settings.LanguageSystem.GetItemText("Downloads");
+            tpHistory.Text = Settings.LanguageSystem.GetItemText("History");
+            tpTheme.Text = Settings.LanguageSystem.GetItemText("Theme");
+            lbautoRestore.Text = Settings.LanguageSystem.GetItemText("RestoreOldSessions");
+            Properties.Settings.Default.KorotErrorTitle = Settings.LanguageSystem.GetItemText("ErrorDesc1");
+            Properties.Settings.Default.KorotErrorDesc = Settings.LanguageSystem.GetItemText("ErrorDesc2");
+            Properties.Settings.Default.KorotErrorTI = Settings.LanguageSystem.GetItemText("ErrorTI");
+            ubuntuLicense = Settings.LanguageSystem.GetItemText("UbuntuFontLicense");
+            tsFullscreen.Text = Settings.LanguageSystem.GetItemText("FullScreen");
+            updateTitleTheme = Settings.LanguageSystem.GetItemText("KorotThemeUpdater");
+            updateTitleExt = Settings.LanguageSystem.GetItemText("KorotExtensionUpdater");
+            updateExtInfo = Settings.LanguageSystem.GetItemText("ExtensionUpdatingInfo");
+            openInNewWindow = Settings.LanguageSystem.GetItemText("OpeninNewWindow");
+            openAllInNewWindow = Settings.LanguageSystem.GetItemText("OpenAllinNewWindow");
+            openInNewIncWindow = Settings.LanguageSystem.GetItemText("OpeninNewIncognitoWindow");
+            openAllInNewIncWindow = Settings.LanguageSystem.GetItemText("OpenAllinNewIncognitoWindow");
+            openAllInNewTab = Settings.LanguageSystem.GetItemText("OpenAllInNewTab");
+            newFavorite = Settings.LanguageSystem.GetItemText("NewFavorite");
+            nametd = Settings.LanguageSystem.GetItemText("Name");
+            urltd = Settings.LanguageSystem.GetItemText("Url");
+            add = Settings.LanguageSystem.GetItemText("Add");
+            newFavoriteToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("NewFavorite");
+            newFolderToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("NewFolderButton");
+            newFolder = Settings.LanguageSystem.GetItemText("NewFolderButton");
+            defaultFolderName = Settings.LanguageSystem.GetItemText("NewFolder");
+            folderInfo = Settings.LanguageSystem.GetItemText("PleaseenteranamefornewFolder");
+            copyImage = Settings.LanguageSystem.GetItemText("CopyImage");
+            openLinkInNewWindow = Settings.LanguageSystem.GetItemText("OpenLinkinaNewWindow");
+            openLinkInNewIncWindow = Settings.LanguageSystem.GetItemText("OpenLinkinaNewIncognitoWindow");
+            copyImageAddress = Settings.LanguageSystem.GetItemText("CopyImageAddress");
+            saveLinkAs = Settings.LanguageSystem.GetItemText("SaveLinkAs");
+            tsWebStore.Text = Settings.LanguageSystem.GetItemText("WebStore");
+            tsEmptyExt.Text = Settings.LanguageSystem.GetItemText("Empty");
+            tsEmptyProfile.Text = Settings.LanguageSystem.GetItemText("Empty");
+            empty = Settings.LanguageSystem.GetItemText("Empty");
+            btCleanLog.ButtonText = Settings.LanguageSystem.GetItemText("CleanLogData");
+            lbShowFavorites.Text = Settings.LanguageSystem.GetItemText("ShowFavoritesMenu");
+            lbNewTabColor.Text = Settings.LanguageSystem.GetItemText("NewTabButtonColor");
+            lbCloseColor.Text = Settings.LanguageSystem.GetItemText("CloseButtonColor");
+            rbNone.Text = Settings.LanguageSystem.GetItemText("None");
+            rbTile.Text = Settings.LanguageSystem.GetItemText("Tile");
+            rbCenter.Text = Settings.LanguageSystem.GetItemText("Center");
+            rbStretch.Text = Settings.LanguageSystem.GetItemText("Stretch");
+            rbZoom.Text = Settings.LanguageSystem.GetItemText("Zoom");
+            rbBackColor.Text = Settings.LanguageSystem.GetItemText("BackColor");
+            rbForeColor.Text = Settings.LanguageSystem.GetItemText("ForeColor");
+            rbOverlayColor.Text = Settings.LanguageSystem.GetItemText("OverlayColor");
+            rbBackColor1.Text = Settings.LanguageSystem.GetItemText("BackColor");
+            rbForeColor1.Text = Settings.LanguageSystem.GetItemText("ForeColor");
+            rbOverlayColor1.Text = Settings.LanguageSystem.GetItemText("OverlayColor");
+            licenseTitle = Settings.LanguageSystem.GetItemText("TitleLicensesSpecialThanks");
+            kLicense = Settings.LanguageSystem.GetItemText("KorotLicense");
+            vsLicense = Settings.LanguageSystem.GetItemText("MSVS2019CLicense");
+            chLicense = Settings.LanguageSystem.GetItemText("ChromiumLicense");
+            cefLicense = Settings.LanguageSystem.GetItemText("CefSharpLicense");
+            etLicense = Settings.LanguageSystem.GetItemText("EasyTabsLicense");
+            specialThanks = Settings.LanguageSystem.GetItemText("SpecialThanks");
+            JSAlert = Settings.LanguageSystem.GetItemText("MessageDialog");
+            JSConfirm = Settings.LanguageSystem.GetItemText("ConfirmDialog");
+            selectAFolder = Settings.LanguageSystem.GetItemText("DownloadFolderInfo");
+            showNewTabPageToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ShowNewTabPage");
+            showHomepageToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ShowHomepage");
+            showAWebsiteToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("GoToURL");
+            lbDownloadFolder.Text = Settings.LanguageSystem.GetItemText("DownloadToFolder");
+            lbAutoDownload.Text = Settings.LanguageSystem.GetItemText("Auto-downloadFolder");
+            lbAtStartup.Text = Settings.LanguageSystem.GetItemText("AtStartup");
+            btReset.ButtonText = Settings.LanguageSystem.GetItemText("ResetKorotButton");
+            resetConfirm = Settings.LanguageSystem.GetItemText("ResetKorotInfo");
+            lbSiteSettings.Text = Settings.LanguageSystem.GetItemText("SiteSettings");
+            btCookie.ButtonText = Settings.LanguageSystem.GetItemText("SiteSettingsButton");
+            ıncognitoModeToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("IncognitoMode");
+            thisSessionİsNotGoingToBeSavedToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("IncognitoModeInfo");
+            clickHereToLearnMoreToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ClickToLearnMore");
+            chStatus.Text = Settings.LanguageSystem.GetItemText("Status");
+            lbLastProxy.Text = Settings.LanguageSystem.GetItemText("RememberLastProxy");
+            findC = Settings.LanguageSystem.GetItemText("Current");
+            findT = Settings.LanguageSystem.GetItemText("Total");
+            findL = Settings.LanguageSystem.GetItemText("Last");
+            noSearch = Settings.LanguageSystem.GetItemText("NotSearchingNoResults");
+            tsSearchNext.Text = Settings.LanguageSystem.GetItemText("FindNext");
+            anon = Settings.LanguageSystem.GetItemText("ThemeUnknownPerson");
+            noname = Settings.LanguageSystem.GetItemText("ThemeNameUnknown");
+            themeInfo = Settings.LanguageSystem.GetItemText("AboutInfoTheme");
+            extensionToolStripMenuItem1.Text = Settings.LanguageSystem.GetItemText("Extensions");
+            renderProcessDies = Settings.LanguageSystem.GetItemText("RenderProcessTerminated");
+            enterAValidCode = Settings.LanguageSystem.GetItemText("EnterValidBase64");
+            zoomInToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ZoomIn");
+            resetZoomToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ResetZoom");
+            zoomOutToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ZoomOut");
+            htmlFiles = Settings.LanguageSystem.GetItemText("HTMLFile");
+            takeAScreenshotToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("TakeScreenShot");
+            saveThisPageToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("SavePage");
+            print = Settings.LanguageSystem.GetItemText("Print");
+            
+            IncognitoTitle1 = Settings.LanguageSystem.GetItemText("IncognitoInfoTitle");
+            IncognitoT1M1 = Settings.LanguageSystem.GetItemText("IncognitoInfoT1M1");
+            IncognitoT1M2 = Settings.LanguageSystem.GetItemText("IncognitoInfoT1M2");
+            IncognitoT1M3 = Settings.LanguageSystem.GetItemText("IncognitoInfoT1M3");
+            IncognitoTitle2 = Settings.LanguageSystem.GetItemText("IncognitoInfoTitle2");
+            IncognitoT2M1 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M1");
+            IncognitoT2M2 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M2");
+            IncognitoT2M3 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M3");
+            disallowCookie = Settings.LanguageSystem.GetItemText("DisallowCookie");
+
+            lbBackImageStyle.Text = Settings.LanguageSystem.GetItemText("BackgroundImageLayout");
+            imageFiles = Settings.LanguageSystem.GetItemText("ImageFiles");
+            allFiles = Settings.LanguageSystem.GetItemText("AllFiles");
+            selectBackImage = Settings.LanguageSystem.GetItemText("SelectBackgroundImage");
+            colorToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("UseBackgroundColor");
+            usingBC = Settings.LanguageSystem.GetItemText("UsingBackgroundColor");
+            ımageFromURLToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImageFromBase64");
+            ımageFromLocalFileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImageFromFile");
+            lbDNT.Text = Settings.LanguageSystem.GetItemText("EnableDoNotTrack");
+            label21.Text = aboutInfo;
+            llLicenses.Text = Settings.LanguageSystem.GetItemText("LicensesSpecialThanks");
+            lbSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
+            CertErrorPageButton = Settings.LanguageSystem.GetItemText("UserUnderstandsRisks");
+            CertErrorPageMessage = Settings.LanguageSystem.GetItemText("WebsiteNotSafeInfo");
+            CertErrorPageTitle = Settings.LanguageSystem.GetItemText("WebsiteNotSafe");
+            usesCookies = Settings.LanguageSystem.GetItemText("WebsiteUsesCookies");
+            notUsesCookies = Settings.LanguageSystem.GetItemText("WebsiteNoCookies");
+            showCertError = Settings.LanguageSystem.GetItemText("ShowCertificateError");
+            CertificateErrorMenuTitle = Settings.LanguageSystem.GetItemText("CertificateErrorDetails");
+            CertificateErrorTitle = Settings.LanguageSystem.GetItemText("NotSafe");
+            CertificateError = Settings.LanguageSystem.GetItemText("WebsiteWithErrors");
+            CertificateOKTitle = Settings.LanguageSystem.GetItemText("Safe");
+            CertificateOK = Settings.LanguageSystem.GetItemText("WebsiteNoErrors");
+            ErrorTheme = Settings.LanguageSystem.GetItemText("ThemeFileCorrupted");
+            ThemeMessage = Settings.LanguageSystem.GetItemText("ApplyThemeInfo");
+            btUpdater.ButtonText = Settings.LanguageSystem.GetItemText("CheckForUpdates");
+            btInstall.ButtonText = Settings.LanguageSystem.GetItemText("InstallUpdate");
+            checking = Settings.LanguageSystem.GetItemText("CheckingForUpdates");
+            uptodate = Settings.LanguageSystem.GetItemText("UpToDate");
+            installStatus = Settings.LanguageSystem.GetItemText("UpdatingMessage");
+            StatusType = Settings.LanguageSystem.GetItemText("DownloadProgress");
+            rbNewTab.Text = Settings.LanguageSystem.GetItemText("NewTab");
+            switch (updateProgress)
+            {
+                case 0:
+                    lbUpdateStatus.Text = Settings.LanguageSystem.GetItemText("CheckingForUpdates");
+                    break;
+                case 1:
+                    lbUpdateStatus.Text = Settings.LanguageSystem.GetItemText("UpToDate");
+                    break;
+                case 2:
+                    lbUpdateStatus.Text = Settings.LanguageSystem.GetItemText("UpdateAvailable");
+                    break;
+                case 3:
+                    lbUpdateStatus.Text = Settings.LanguageSystem.GetItemText("KorotUpdateError");
+                    break;
+            }
+            updateavailable = Settings.LanguageSystem.GetItemText("UpdateAvailable"); ;
+            privatemode = Settings.LanguageSystem.GetItemText("Incognito");
+            updateTitle = Settings.LanguageSystem.GetItemText("KorotUpdate");
+            updateMessage = Settings.LanguageSystem.GetItemText("KorotUpdateAvailable");
+            updateError = Settings.LanguageSystem.GetItemText("KorotUpdateError");
+            NewTabtitle = Settings.LanguageSystem.GetItemText("NewTab");
+            customSearchNote = Settings.LanguageSystem.GetItemText("SearchEngineInfo");
+            customSearchMessage = Settings.LanguageSystem.GetItemText("SearchengineTitle");
+            lbBackImage.Text = Settings.LanguageSystem.GetItemText("BackgroundStyle");
+            newWindow = Settings.LanguageSystem.GetItemText("NewWindow");
+            newincognitoWindow = Settings.LanguageSystem.GetItemText("NewIncognitoWindow");
+            lbDownloads.Text = Settings.LanguageSystem.GetItemText("Downloads");
+            downloadsToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("Downloads");
+            aboutToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("About");
+            lbHomepage.Text = Settings.LanguageSystem.GetItemText("HomePage");
+            SearchOnPage = Settings.LanguageSystem.GetItemText("SearchOnThisPage");
+            lbTheme.Text = Settings.LanguageSystem.GetItemText("Theme");
+            tsThemes.Text = Settings.LanguageSystem.GetItemText("Themes");
+            caseSensitiveToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("CaseSensitive");
+            customToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("Custom");
+            removeSelectedToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("BackgroundStyle");
+            clearToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("About");
+            settingstitle = Settings.LanguageSystem.GetItemText("Settings");
+            historyToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("History");
+            lbHistory.Text = Settings.LanguageSystem.GetItemText("History");
+            lbAbout.Text = Settings.LanguageSystem.GetItemText("About");
+            IncognitoT = Settings.LanguageSystem.GetItemText("Incognito");
+            IncognitoTitle = Settings.LanguageSystem.GetItemText("IncognitoInfoTitle");
+            newCollection = Settings.LanguageSystem.GetItemText("NewCollectionName");
+            clearCollection = Settings.LanguageSystem.GetItemText("DeleteCollection");
+            goBack = Settings.LanguageSystem.GetItemText("GoBack");
+            goForward = Settings.LanguageSystem.GetItemText("GoForward");
+            refresh = Settings.LanguageSystem.GetItemText("Refresh");
+            refreshNoCache = Settings.LanguageSystem.GetItemText("RefreshNoCache");
+            stop = Settings.LanguageSystem.GetItemText("Stop");
+            selectAll = Settings.LanguageSystem.GetItemText("SelectAll");
+            openLinkInNewTab = Settings.LanguageSystem.GetItemText("OpenLinkInNewTab");
+            copyLink = Settings.LanguageSystem.GetItemText("CopyLink");
+            saveImageAs = Settings.LanguageSystem.GetItemText("SaveImageAs");
+            openImageInNewTab = Settings.LanguageSystem.GetItemText("OpenImageInNewTab");
+            paste = Settings.LanguageSystem.GetItemText("Paste");
+            copy = Settings.LanguageSystem.GetItemText("Copy");
+            cut = Settings.LanguageSystem.GetItemText("Cut");
+            undo = Settings.LanguageSystem.GetItemText("Undo");
+            redo = Settings.LanguageSystem.GetItemText("Redo");
+            delete = Settings.LanguageSystem.GetItemText("Delete");
+            SearchOrOpenSelectedInNewTab = Settings.LanguageSystem.GetItemText("SearchOpenTheSelected");
+            developerTools = Settings.LanguageSystem.GetItemText("DeveloperTools");
+            viewSource = Settings.LanguageSystem.GetItemText("ViewSource");
+            restoreOldSessions = Settings.LanguageSystem.GetItemText("RestoreLastSession");
+            lbBackColor.Text = Settings.LanguageSystem.GetItemText("BackgroundColor");
+            enterAValidUrl = Settings.LanguageSystem.GetItemText("EnterAValidURL");
+            lbOveralColor.Text = Settings.LanguageSystem.GetItemText("OverlayColor");
+            chDate.Text = Settings.LanguageSystem.GetItemText("Date");
+            chDateHistory.Text = Settings.LanguageSystem.GetItemText("Date");
+            chTitle.Text = Settings.LanguageSystem.GetItemText("Title");
+            chURL.Text = Settings.LanguageSystem.GetItemText("URL");
+            fromtwodot = Settings.LanguageSystem.GetItemText("From1");
+            chFrom.Text = Settings.LanguageSystem.GetItemText("From");
+            totwodot = Settings.LanguageSystem.GetItemText("To1");
+            korotdownloading = Settings.LanguageSystem.GetItemText("KorotDownloading");
+            chTo.Text = Settings.LanguageSystem.GetItemText("To");
+            lbOpen.Text = Settings.LanguageSystem.GetItemText("OpenFilesAfterDownload");
+            open = Settings.LanguageSystem.GetItemText("Open");
+            openLinkİnNewTabToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("OpenLinkInNewTab");
+            openInNewTab = Settings.LanguageSystem.GetItemText("OpenInNewTab");
+            removeSelectedTSMI.Text = Settings.LanguageSystem.GetItemText("RemoveSelected");
+            clearTSMI.Text = Settings.LanguageSystem.GetItemText("Clear");
+            openFileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("OpenFile");
+            openFileİnExplorerToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("OpenFolderContainingThisFile");
+            removeSelectedToolStripMenuItem1.Text = Settings.LanguageSystem.GetItemText("RemoveSelected");
+            clearToolStripMenuItem2.Text = Settings.LanguageSystem.GetItemText("Clear");
+            DefaultProxyts.Text = Settings.LanguageSystem.GetItemText("ResetToFefaultProxySetting");
+            lbThemeName.Text = Settings.LanguageSystem.GetItemText("ThemeName");
+            Yes = Settings.LanguageSystem.GetItemText("Yes");
+            No = Settings.LanguageSystem.GetItemText("No");
+            OK = Settings.LanguageSystem.GetItemText("OK");
+            Cancel = Settings.LanguageSystem.GetItemText("Cancel");
+            btCertError.Text = Settings.LanguageSystem.GetItemText("Save");
+            lbThemes.Text = Settings.LanguageSystem.GetItemText("Themes");
+            SearchOnWeb = Settings.LanguageSystem.GetItemText("AddressBar2");
+            goTotxt = Settings.LanguageSystem.GetItemText("AddressBar1");
+            newProfileInfo = Settings.LanguageSystem.GetItemText("EnterAProfileName");
+            lbSearchEngine.Text = Settings.LanguageSystem.GetItemText("SearchEngine");
+            MonthNames = Settings.LanguageSystem.GetItemText("NewTabMonths");
+            DayNames = Settings.LanguageSystem.GetItemText("NewTabDays");
+            SearchHelpText = Settings.LanguageSystem.GetItemText("NewTabSearch");
+            ErrorPageTitle = Settings.LanguageSystem.GetItemText("KorotError");
+            KT = Settings.LanguageSystem.GetItemText("ErrorTitle");
+            ET = Settings.LanguageSystem.GetItemText("ErrorTitle1");
+            E1 = Settings.LanguageSystem.GetItemText("ErrorT1M1");
+            E2 = Settings.LanguageSystem.GetItemText("ErrorT1M2");
+            E3 = Settings.LanguageSystem.GetItemText("ErrorT1M3");
+            E4 = Settings.LanguageSystem.GetItemText("ErrorT1M4");
+            RT = Settings.LanguageSystem.GetItemText("ErrorTitle2");
+            R1 = Settings.LanguageSystem.GetItemText("ErrorT2M1");
+            R2 = Settings.LanguageSystem.GetItemText("ErrorT2M2");
+            R3 = Settings.LanguageSystem.GetItemText("ErrorT2M3");
+            R4 = Settings.LanguageSystem.GetItemText("ErrorT2M4");
+            Search = Settings.LanguageSystem.GetItemText("Search");
+            newprofile = Settings.LanguageSystem.GetItemText("NewProfile");
+            switchTo = Settings.LanguageSystem.GetItemText("SwitchTo");
+            deleteProfile = Settings.LanguageSystem.GetItemText("DeleteThisProfile");
+            RefreshTranslation();
+            RefreshSizes();
         }
         public void RefreshLangList()
         {
             cbLang.Items.Clear();
-            foreach (string foundfile in Directory.GetFiles(Application.StartupPath + "//Lang//", "*.lang", SearchOption.TopDirectoryOnly))
+            foreach (string foundfile in Directory.GetFiles(Application.StartupPath + "//Lang//", "*.klf", SearchOption.TopDirectoryOnly))
             {
                 cbLang.Items.Add(Path.GetFileNameWithoutExtension(foundfile));
             }
-            cbLang.Text = Path.GetFileNameWithoutExtension(Settings.LanguageFile);
+            cbLang.Text = Path.GetFileNameWithoutExtension(Settings.LanguageSystem.LangFile);
         }
         #endregion
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1208,13 +1168,13 @@ namespace Korot
         {
             if (tbHomepage.Text.ToLower().StartsWith("korot://newtab"))
             {
-                radioButton1.Checked = true;
+                rbNewTab.Checked = true;
                 Settings.Homepage = tbHomepage.Text;
                 if (!_Incognito) { Properties.Settings.Default.Save(); }
             }
             else
             {
-                radioButton1.Checked = false;
+                rbNewTab.Checked = false;
                 Settings.Homepage = tbHomepage.Text;
                 if (!_Incognito) { Properties.Settings.Default.Save(); }
             }
@@ -1421,7 +1381,7 @@ namespace Korot
 
         private void RadioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if (rbNewTab.Checked)
             {
                 Settings.Homepage = "korot://newtab";
                 tbHomepage.Text = Settings.Homepage;
@@ -1505,7 +1465,7 @@ namespace Korot
         {
             hsDoNotTrack.Checked = Settings.DoNotTrack;
             tbHomepage.Text = Settings.Homepage;
-            radioButton1.Checked = Settings.Homepage == "korot://newtab";
+            rbNewTab.Checked = Settings.Homepage == "korot://newtab";
             tbSearchEngine.Text = Settings.SearchEngine;
             hsProxy.Checked = Settings.RememberLastProxy;
             hsNotificationSound.Checked = !Settings.QuietMode;
@@ -1517,6 +1477,7 @@ namespace Korot
             refreshThemeList();
             RefreshDownloadList();
             RefreshHistory();
+            RefreshFavorites();
             comboBox1.Text = !onThemeName ? (Settings.Theme.LoadedDefaults ? "((default))" : Settings.Theme.Name) : comboBox1.Text;
         }
         
@@ -1646,6 +1607,46 @@ namespace Korot
             }
         }
 
+        void updateAvailable()
+        {
+            if (alreadyCheckedForUpdatesOnce || Settings.DismissUpdate || _Incognito || NotificationListenerMode)
+            {
+                updateProgress = 2;
+                lbUpdateStatus.Text = updateavailable;
+                btUpdater.Visible = true;
+                btInstall.Visible = true;
+            }
+            else
+            {
+                alreadyCheckedForUpdatesOnce = true;
+                updateProgress = 2;
+                lbUpdateStatus.Text = updateavailable;
+                btInstall.Visible = true;
+                btUpdater.Visible = true;
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
+                    updateTitle,
+                    updateMessage,
+                    new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true })
+                { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
+                DialogResult diagres = mesaj.ShowDialog();
+                if (diagres == DialogResult.Yes)
+                {
+                    if (Application.OpenForms.OfType<Form1>().Count() < 1)
+                    {
+                        Process.Start(Application.ExecutablePath, "-update");
+                    }
+                    else
+                    {
+                        foreach (Form1 x in Application.OpenForms)
+                        {
+                            x.Focus();
+                        }
+                    }
+                }
+                Settings.DismissUpdate = true;
+            }
+        }
+        string NewestPreVer = "";
         private void UpdateResult(string info)
         {
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
@@ -1658,83 +1659,20 @@ namespace Korot
             {
                 if (preNo == "0") 
                 {
-                    if (alreadyCheckedForUpdatesOnce || Settings.DismissUpdate || _Incognito || NotificationListenerMode)
-                    {
-                        updateProgress = 2;
-                        lbUpdateStatus.Text = updateavailable;
-                        btUpdater.Visible = true;
-                        btInstall.Visible = true;
-                    }
-                    else
-                    {
-                        alreadyCheckedForUpdatesOnce = true;
-                        updateProgress = 2;
-                        lbUpdateStatus.Text = updateavailable;
-                        btInstall.Visible = true;
-                        btUpdater.Visible = true;
-                        HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
-                            updateTitle,
-                            updateMessage,
-                            new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true })
-                        { StartPosition = FormStartPosition.CenterParent,Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
-                        DialogResult diagres = mesaj.ShowDialog();
-                        if (diagres == DialogResult.Yes)
-                        {
-                            if (Application.OpenForms.OfType<Form1>().Count() < 1)
-                            {
-                                Process.Start(Application.ExecutablePath, "-update");
-                            }
-                            else
-                            {
-                                foreach (Form1 x in Application.OpenForms)
-                                {
-                                    x.Focus();
-                                }
-                            }
-                        }
-                        Settings.DismissUpdate = true;
-                    }
+                    updateAvailable();
                 }
                 else
                 {
-                    if (VersionInfo.PreReleaseNumber < Convert.ToInt32(preNo))
+                    NewestPreVer = preNewest;
+                    if (Convert.ToInt32(preNo) > VersionInfo.PreReleaseNumber)
                     {
-                        if (alreadyCheckedForUpdatesOnce || Settings.DismissUpdate || _Incognito || NotificationListenerMode)
-                        {
-                            updateProgress = 2;
-                            lbUpdateStatus.Text = updateavailable;
-                            btUpdater.Visible = true;
-                            btInstall.Visible = true;
-                        }
-                        else
-                        {
-                            alreadyCheckedForUpdatesOnce = true;
-                            updateProgress = 2;
-                            lbUpdateStatus.Text = updateavailable;
-                            btInstall.Visible = true;
-                            btUpdater.Visible = true;
-                            HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
-                                updateTitle,
-                                updateMessage,
-                                new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true })
-                            { StartPosition = FormStartPosition.CenterParent,Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
-                            DialogResult diagres = mesaj.ShowDialog();
-                            if (diagres == DialogResult.Yes)
-                            {
-                                if (Application.OpenForms.OfType<Form1>().Count() < 1)
-                                {
-                                    Process.Start(Application.ExecutablePath, "-update");
-                                }
-                                else
-                                {
-                                    foreach (Form1 x in Application.OpenForms)
-                                    {
-                                        x.Focus();
-                                    }
-                                }
-                            }
-                            Settings.DismissUpdate = true;
-                        }
+                        updateAvailable();
+                    }else
+                    {
+                        btUpdater.Visible = true;
+                        btInstall.Visible = false;
+                        updateProgress = 1;
+                        lbUpdateStatus.Text = uptodate;
                     }
                 }
             }
@@ -1742,42 +1680,7 @@ namespace Korot
             {
                 if (newest > current)
                 {
-                    if (alreadyCheckedForUpdatesOnce || Settings.DismissUpdate || _Incognito)
-                    {
-                        updateProgress = 2;
-                        lbUpdateStatus.Text = updateavailable;
-                        btUpdater.Visible = true;
-                        btInstall.Visible = true;
-                    }
-                    else
-                    {
-                        alreadyCheckedForUpdatesOnce = true;
-                        updateProgress = 2;
-                        lbUpdateStatus.Text = updateavailable;
-                        btInstall.Visible = true;
-                        btUpdater.Visible = true;
-                        HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
-                            updateTitle,
-                            updateMessage,
-                            new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true })
-                        { StartPosition = FormStartPosition.CenterParent,Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
-                        DialogResult diagres = mesaj.ShowDialog();
-                        if (diagres == DialogResult.Yes)
-                        {
-                            if (Application.OpenForms.OfType<Form1>().Count() < 1)
-                            {
-                                Process.Start(Application.ExecutablePath, "-update");
-                            }
-                            else
-                            {
-                                foreach (Form1 x in Application.OpenForms)
-                                {
-                                    x.Focus();
-                                }
-                            }
-                        }
-                        Settings.DismissUpdate = true;
-                    }
+                    updateAvailable();
                 }
                 else
                 {
@@ -1879,7 +1782,7 @@ namespace Korot
         public bool cookieUsage = false;
         public void ChangeStatus(string status)
         {
-            label2.Text = status;
+            lbStatus.Text = status;
         }
         public void CreateNewCollection()
         {
@@ -2594,8 +2497,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 {
                     UpdateFavoriteColor();
                     updateFavoritesImages();
-                    label2.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                    label2.BackColor = Settings.Theme.BackColor;
+                    lbStatus.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    lbStatus.BackColor = Settings.Theme.BackColor;
                     if (Cef.IsInitialized)
                     {
                         if (chromiumWebBrowser1.IsBrowserInitialized)
@@ -2651,7 +2554,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     comboBox1.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     tbHomepage.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     tbSearchEngine.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                    button10.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
+                    btCertError.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     hlvDownload.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     cbLang.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     hsNotificationSound.BackColor = Settings.Theme.BackColor;
@@ -2715,7 +2618,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     btNotification.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     panel1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     panel1.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                    button10.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    btCertError.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     tbHomepage.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     tbSearchEngine.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     cbLang.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
@@ -2730,7 +2633,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     cmsProfiles.BackColor = Settings.Theme.BackColor;
                     cmsHamburger.BackColor = Settings.Theme.BackColor;
                     cmsPrivacy.BackColor = Settings.Theme.BackColor;
-                    label2.BackColor = Settings.Theme.BackColor;
+                    lbStatus.BackColor = Settings.Theme.BackColor;
                     BackColor = Settings.Theme.BackColor;
                     extensionToolStripMenuItem1.DropDown.BackColor = Settings.Theme.BackColor;
                     aboutToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.about_w : Properties.Resources.about;
@@ -2741,7 +2644,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     cmsHamburger.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     cmsProfiles.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                    label2.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    lbStatus.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     toolStripTextBox1.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     cmsPrivacy.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     extensionToolStripMenuItem1.DropDown.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
@@ -2766,8 +2669,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     extensionToolStripMenuItem1.Image = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.ext : Properties.Resources.ext_w;
                     cmsBStyle.BackColor = Settings.Theme.BackColor;
                     cmsBStyle.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
-                    cmsCookie.BackColor = Settings.Theme.BackColor;
-                    cmsCookie.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     cmsBack.BackColor = Settings.Theme.BackColor;
                     cmsBack.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     cmsForward.BackColor = Settings.Theme.BackColor;
@@ -2954,49 +2855,41 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             flpTo.Location = new Point(scheduleTo.Location.X + scheduleTo.Width + 10, flpTo.Location.Y);
             flpEvery.Location = new Point(scheduleEvery.Location.X + scheduleEvery.Width + 10, flpEvery.Location.Y);
             lbVersion.Location = new Point(lbKorot.Location.X + lbKorot.Width, lbVersion.Location.Y);
-            flpClose.Location = new Point(label32.Location.X + label32.Width, flpClose.Location.Y);
-            flpClose.Width = tpTheme.Width - (label32.Width + label32.Location.X + 25);
-            flpNewTab.Location = new Point(label31.Location.X + label31.Width, flpNewTab.Location.Y);
-            flpNewTab.Width = tpTheme.Width - (label31.Width + label31.Location.X + 25);
+            flpClose.Location = new Point(lbCloseColor.Location.X + lbCloseColor.Width, flpClose.Location.Y);
+            flpClose.Width = tpTheme.Width - (lbCloseColor.Width + lbCloseColor.Location.X + 25);
+            flpNewTab.Location = new Point(lbNewTabColor.Location.X + lbNewTabColor.Width, flpNewTab.Location.Y);
+            flpNewTab.Width = tpTheme.Width - (lbNewTabColor.Width + lbNewTabColor.Location.X + 25);
             hsAutoRestore.Location = new Point(lbautoRestore.Location.X + lbautoRestore.Width + 5, hsAutoRestore.Location.Y);
-            hsFav.Location = new Point(label33.Location.X + label33.Width + 5, hsFav.Location.Y);
+            hsFav.Location = new Point(lbShowFavorites.Location.X + lbShowFavorites.Width + 5, hsFav.Location.Y);
             hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width + 5, hsDoNotTrack.Location.Y);
             hsOpen.Location = new Point(lbOpen.Location.X + lbOpen.Width + 5, hsOpen.Location.Y);
             hsDownload.Location = new Point(lbAutoDownload.Location.X + lbAutoDownload.Width + 5, hsDownload.Location.Y);
             hsProxy.Location = new Point(lbLastProxy.Location.X + lbLastProxy.Width + 5, hsProxy.Location.Y);
-            linkLabel1.LinkArea = new LinkArea(0, linkLabel1.Text.Length);
-            linkLabel1.Location = new Point(label21.Location.X, label21.Location.Y + label21.Size.Height);
-            textBox4.Location = new Point(label12.Location.X + label12.Width, textBox4.Location.Y);
-            textBox4.Width = tpTheme.Width - (label12.Width + label12.Location.X + 25);
-            tbStartup.Location = new Point(label28.Location.X + label28.Width, tbStartup.Location.Y);
-            tbStartup.Width = tpSettings.Width - (label28.Width + label28.Location.X + 15);
-            flpLayout.Location = new Point(label25.Location.X + label25.Width, flpLayout.Location.Y);
-            flpLayout.Width = tpTheme.Width - (label25.Width + label25.Location.X + 25);
-            pbBack.Location = new Point(label14.Location.X + label14.Width, pbBack.Location.Y);
-            pbOverlay.Location = new Point(label16.Location.X + label16.Width, pbOverlay.Location.Y);
+            llLicenses.LinkArea = new LinkArea(0, llLicenses.Text.Length);
+            llLicenses.Location = new Point(label21.Location.X, label21.Location.Y + label21.Size.Height);
+            textBox4.Location = new Point(lbBackImage.Location.X + lbBackImage.Width, textBox4.Location.Y);
+            textBox4.Width = tpTheme.Width - (lbBackImage.Width + lbBackImage.Location.X + 25);
+            tbStartup.Location = new Point(lbAtStartup.Location.X + lbAtStartup.Width, tbStartup.Location.Y);
+            tbStartup.Width = tpSettings.Width - (lbAtStartup.Width + lbAtStartup.Location.X + 15);
+            flpLayout.Location = new Point(lbBackImageStyle.Location.X + lbBackImageStyle.Width, flpLayout.Location.Y);
+            flpLayout.Width = tpTheme.Width - (lbBackImageStyle.Width + lbBackImageStyle.Location.X + 25);
+            pbBack.Location = new Point(lbBackColor.Location.X + lbBackColor.Width, pbBack.Location.Y);
+            pbOverlay.Location = new Point(lbOveralColor.Location.X + lbOveralColor.Width, pbOverlay.Location.Y);
             tbFolder.Location = new Point(lbDownloadFolder.Location.X + lbDownloadFolder.Width, tbFolder.Location.Y);
             tbFolder.Width = tpDownload.Width - (lbDownloadFolder.Location.X + lbDownloadFolder.Width + btDownloadFolder.Width + 25);
             btDownloadFolder.Location = new Point(tbFolder.Location.X + tbFolder.Width, btDownloadFolder.Location.Y);
-            comboBox1.Location = new Point(label13.Location.X + label13.Width, comboBox1.Location.Y);
-            comboBox1.Width = tpTheme.Width - (label13.Location.X + label13.Width + button12.Width + 25);
+            comboBox1.Location = new Point(lbThemeName.Location.X + lbThemeName.Width, comboBox1.Location.Y);
+            comboBox1.Width = tpTheme.Width - (lbThemeName.Location.X + lbThemeName.Width + button12.Width + 25);
             button12.Location = new Point(comboBox1.Location.X + comboBox1.Width, button12.Location.Y);
             tbHomepage.Location = new Point(lbHomepage.Location.X + lbHomepage.Width + 5, tbHomepage.Location.Y);
             tbHomepage.Width = tpSettings.Width - (lbHomepage.Location.X + lbHomepage.Width + 25);
-            radioButton1.Location = new Point(tbHomepage.Location.X, tbHomepage.Location.Y + tbHomepage.Height + 5);
+            rbNewTab.Location = new Point(tbHomepage.Location.X, tbHomepage.Location.Y + tbHomepage.Height + 5);
             tbSearchEngine.Location = new Point(lbSearchEngine.Location.X + lbSearchEngine.Width + 5, tbSearchEngine.Location.Y);
             tbSearchEngine.Width = tpSettings.Width - (lbSearchEngine.Location.X + lbSearchEngine.Width + 25);
         }
         public void RefreshTranslation()
         {
-            if (string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))
-            {
-                label21.Text = aboutInfo.Replace("[NEWLINE]", Environment.NewLine);
-            }
-            else
-            {
-                label21.Text = aboutInfo.Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + themeInfo.Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? noname : Settings.Theme.Name);
-            }
-
+            label21.Text = Settings.LanguageSystem.GetItemText("KorotAbout").Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? noname : Settings.Theme.Name) : "");
             hsOpen.Checked = Settings.Downloads.OpenDownload;
             hsAutoRestore.Checked = Settings.AutoRestore;
             hsFav.Checked = Settings.Favorites.ShowFavorites;
@@ -3059,9 +2952,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 ınfoToolStripMenuItem.Text = CertificateOK;
             }
             if (cookieUsage) { cookieInfoToolStripMenuItem.Text = usesCookies; } else { cookieInfoToolStripMenuItem.Text = notUsesCookies; }
-            label7.Text = CertErrorPageTitle;
-            label8.Text = CertErrorPageMessage;
-            button10.Text = CertErrorPageButton;
+            lbCertErrorTitle.Text = CertErrorPageTitle;
+            lbCertErrorInfo.Text = CertErrorPageMessage;
+            btCertError.Text = CertErrorPageButton;
             newWindowToolStripMenuItem.Text = newWindow;
             newIncognitoWindowToolStripMenuItem.Text = newincognitoWindow;
             settingsToolStripMenuItem.Text = settingstitle;
@@ -3196,7 +3089,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void TmrSlower_Tick(object sender, EventArgs e)
         {
-            RefreshFavorites();
+            
         }
 
         public void FrmCEF_SizeChanged(object sender, EventArgs e)
@@ -3232,7 +3125,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         public List<string> CertAllowedUrls = new List<string>();
         private void button10_Click(object sender, EventArgs e)
         {
-            CertAllowedUrls.Add(button10.Tag.ToString());
+            CertAllowedUrls.Add(btCertError.Tag.ToString());
             chromiumWebBrowser1.Refresh();
             pnlCert.Visible = false;
         }
@@ -3794,13 +3687,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void btCleanLog_Click(object sender, EventArgs e)
         {
-            int count = 0;
-            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Logs\\"))
-            {
-                File.Delete(x);
-                count += 1;
-            }
-            Output.WriteLine(" [Korot.CleanLogs] " + count + " files deleted.");
+            string x = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Logs\\";
+            Program.RemoveDirectory(x);
         }
 
         private void hsOpen_CheckedChanged(object sender, EventArgs e)
@@ -3876,9 +3764,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void cbLang_TextUpdate(object sender, EventArgs e)
         {
-            if (File.Exists(Application.StartupPath + "\\Lang\\" + cbLang.Text + ".lang"))
+            if (File.Exists(Application.StartupPath + "\\Lang\\" + cbLang.Text + ".klf"))
             {
-                LoadLangFromFile(Application.StartupPath + "\\Lang\\" + cbLang.Text + ".lang");
+                LoadLangFromFile(Application.StartupPath + "\\Lang\\" + cbLang.Text + ".klf");
             }
         }
 
@@ -4181,7 +4069,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void label2_TextChanged(object sender, EventArgs e)
         {
-            label2.Visible = !string.IsNullOrWhiteSpace(label2.Text);
+            lbStatus.Visible = !string.IsNullOrWhiteSpace(lbStatus.Text);
         }
 
         private void hsNotificationSound_CheckedChanged(object sender, EventArgs e)

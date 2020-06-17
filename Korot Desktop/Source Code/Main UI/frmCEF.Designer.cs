@@ -136,12 +136,11 @@ namespace Korot
             this.extensionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label5 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tmrSlower = new System.Windows.Forms.Timer(this.components);
+            this.lbStatus = new System.Windows.Forms.Label();
             this.pnlCert = new System.Windows.Forms.Panel();
-            this.button10 = new HTAlt.WinForms.HTButton();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.btCertError = new HTAlt.WinForms.HTButton();
+            this.lbCertErrorInfo = new System.Windows.Forms.Label();
+            this.lbCertErrorTitle = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpCef = new System.Windows.Forms.TabPage();
             this.pCEF = new System.Windows.Forms.Panel();
@@ -161,12 +160,12 @@ namespace Korot
             this.hsAutoRestore = new HTAlt.WinForms.HTSwitch();
             this.hsProxy = new HTAlt.WinForms.HTSwitch();
             this.btClose = new HTAlt.WinForms.HTButton();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
+            this.lbAtStartup = new System.Windows.Forms.Label();
+            this.lbLanguage = new System.Windows.Forms.Label();
+            this.lbShowFavorites = new System.Windows.Forms.Label();
             this.lbSettings = new System.Windows.Forms.Label();
             this.hsFav = new HTAlt.WinForms.HTSwitch();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.rbNewTab = new System.Windows.Forms.RadioButton();
             this.lbHomepage = new System.Windows.Forms.Label();
             this.lbSearchEngine = new System.Windows.Forms.Label();
             this.tbHomepage = new System.Windows.Forms.TextBox();
@@ -188,25 +187,25 @@ namespace Korot
             this.rbStretch = new System.Windows.Forms.RadioButton();
             this.rbZoom = new System.Windows.Forms.RadioButton();
             this.btClose2 = new HTAlt.WinForms.HTButton();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.lbBackImageStyle = new System.Windows.Forms.Label();
+            this.lbCloseColor = new System.Windows.Forms.Label();
+            this.lbNewTabColor = new System.Windows.Forms.Label();
+            this.lbBackImage = new System.Windows.Forms.Label();
             this.pbStore = new System.Windows.Forms.PictureBox();
             this.pbBack = new System.Windows.Forms.PictureBox();
             this.pbOverlay = new System.Windows.Forms.PictureBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
+            this.lbBackColor = new System.Windows.Forms.Label();
+            this.lbOveralColor = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.lbThemeName = new System.Windows.Forms.Label();
+            this.lbThemes = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button12 = new HTAlt.WinForms.HTButton();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.label26 = new System.Windows.Forms.Label();
+            this.lbTheme = new System.Windows.Forms.Label();
             this.tpHistory = new System.Windows.Forms.TabPage();
             this.btClose6 = new HTAlt.WinForms.HTButton();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lbHistory = new System.Windows.Forms.Label();
             this.hlvHistory = new HTAlt.WinForms.HTListView();
             this.chDateHistory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -216,7 +215,7 @@ namespace Korot
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tpDownload = new System.Windows.Forms.TabPage();
             this.btClose7 = new HTAlt.WinForms.HTButton();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lbDownloads = new System.Windows.Forms.Label();
             this.hlvDownload = new HTAlt.WinForms.HTListView();
             this.chStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -237,11 +236,11 @@ namespace Korot
             this.lbAutoDownload = new System.Windows.Forms.Label();
             this.tpAbout = new System.Windows.Forms.TabPage();
             this.btClose10 = new HTAlt.WinForms.HTButton();
-            this.label22 = new System.Windows.Forms.Label();
+            this.lbAbout = new System.Windows.Forms.Label();
             this.lbUpdateStatus = new System.Windows.Forms.Label();
             this.btInstall = new HTAlt.WinForms.HTButton();
             this.btUpdater = new HTAlt.WinForms.HTButton();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.llLicenses = new System.Windows.Forms.LinkLabel();
             this.label21 = new System.Windows.Forms.Label();
             this.lbVersion = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -251,11 +250,11 @@ namespace Korot
             this.pSite = new System.Windows.Forms.Panel();
             this.btCookieBack = new HTAlt.WinForms.HTButton();
             this.btClose8 = new HTAlt.WinForms.HTButton();
-            this.label27 = new System.Windows.Forms.Label();
+            this.lbSiteSettings = new System.Windows.Forms.Label();
             this.tpCollection = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btClose9 = new HTAlt.WinForms.HTButton();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lbCollections = new System.Windows.Forms.Label();
             this.tpNotification = new System.Windows.Forms.TabPage();
             this.btNotifBack = new HTAlt.WinForms.HTButton();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -287,9 +286,6 @@ namespace Korot
             this.hsNotificationSound = new HTAlt.WinForms.HTSwitch();
             this.btClose3 = new HTAlt.WinForms.HTButton();
             this.lbNotifSetting = new System.Windows.Forms.Label();
-            this.cmsCookie = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.allowSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsSearchEngine = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.googleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yandexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -355,7 +351,6 @@ namespace Korot
             this.flpTo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toHour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toMin)).BeginInit();
-            this.cmsCookie.SuspendLayout();
             this.cmsSearchEngine.SuspendLayout();
             this.cmsBStyle.SuspendLayout();
             this.cmsIncognito.SuspendLayout();
@@ -941,7 +936,7 @@ namespace Korot
             // deleteThisProfileToolStripMenuItem
             // 
             this.deleteThisProfileToolStripMenuItem.Name = "deleteThisProfileToolStripMenuItem";
-            this.deleteThisProfileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.deleteThisProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteThisProfileToolStripMenuItem.Text = "Delete this Profile";
             this.deleteThisProfileToolStripMenuItem.Click += new System.EventHandler(this.DeleteThisProfileToolStripMenuItem_Click);
             // 
@@ -957,7 +952,7 @@ namespace Korot
             // 
             this.tsEmptyProfile.Enabled = false;
             this.tsEmptyProfile.Name = "tsEmptyProfile";
-            this.tsEmptyProfile.Size = new System.Drawing.Size(116, 22);
+            this.tsEmptyProfile.Size = new System.Drawing.Size(180, 22);
             this.tsEmptyProfile.Text = "(empty)";
             // 
             // newProfileToolStripMenuItem
@@ -1126,7 +1121,8 @@ namespace Korot
             // dummyCMS
             // 
             this.dummyCMS.Name = "dummyCMS";
-            this.dummyCMS.Size = new System.Drawing.Size(61, 4);
+            this.dummyCMS.Size = new System.Drawing.Size(181, 26);
+            this.dummyCMS.Opening += new System.ComponentModel.CancelEventHandler(this.dummyCMS_Opening);
             // 
             // tmrFaster
             // 
@@ -1156,27 +1152,21 @@ namespace Korot
             this.label10.Size = new System.Drawing.Size(118, 13);
             this.label10.TabIndex = 0;
             // 
-            // label2
+            // lbStatus
             // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Location = new System.Drawing.Point(3, 462);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(562, 18);
-            this.label2.TabIndex = 0;
-            this.label2.TextChanged += new System.EventHandler(this.label2_TextChanged);
-            // 
-            // tmrSlower
-            // 
-            this.tmrSlower.Enabled = true;
-            this.tmrSlower.Interval = 750;
-            this.tmrSlower.Tick += new System.EventHandler(this.TmrSlower_Tick);
+            this.lbStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbStatus.Location = new System.Drawing.Point(3, 462);
+            this.lbStatus.Name = "lbStatus";
+            this.lbStatus.Size = new System.Drawing.Size(562, 18);
+            this.lbStatus.TabIndex = 0;
+            this.lbStatus.TextChanged += new System.EventHandler(this.label2_TextChanged);
             // 
             // pnlCert
             // 
             this.pnlCert.BackColor = System.Drawing.Color.Maroon;
-            this.pnlCert.Controls.Add(this.button10);
-            this.pnlCert.Controls.Add(this.label8);
-            this.pnlCert.Controls.Add(this.label7);
+            this.pnlCert.Controls.Add(this.btCertError);
+            this.pnlCert.Controls.Add(this.lbCertErrorInfo);
+            this.pnlCert.Controls.Add(this.lbCertErrorTitle);
             this.pnlCert.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCert.ForeColor = System.Drawing.Color.White;
             this.pnlCert.Location = new System.Drawing.Point(3, 3);
@@ -1185,38 +1175,38 @@ namespace Korot
             this.pnlCert.TabIndex = 8;
             this.pnlCert.Visible = false;
             // 
-            // button10
+            // btCertError
             // 
-            this.button10.ButtonText = "most of the time";
-            this.button10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button10.FlatAppearance.BorderSize = 0;
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Location = new System.Drawing.Point(0, 451);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(562, 26);
-            this.button10.TabIndex = 0;
-            this.button10.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.btCertError.ButtonText = "most of the time";
+            this.btCertError.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btCertError.FlatAppearance.BorderSize = 0;
+            this.btCertError.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btCertError.Location = new System.Drawing.Point(0, 451);
+            this.btCertError.Name = "btCertError";
+            this.btCertError.Size = new System.Drawing.Size(562, 26);
+            this.btCertError.TabIndex = 0;
+            this.btCertError.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btCertError.UseVisualStyleBackColor = true;
+            this.btCertError.Click += new System.EventHandler(this.button10_Click);
             // 
-            // label8
+            // lbCertErrorInfo
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(16, 53);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(45, 16);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "is hard";
+            this.lbCertErrorInfo.AutoSize = true;
+            this.lbCertErrorInfo.Location = new System.Drawing.Point(16, 53);
+            this.lbCertErrorInfo.Name = "lbCertErrorInfo";
+            this.lbCertErrorInfo.Size = new System.Drawing.Size(45, 16);
+            this.lbCertErrorInfo.TabIndex = 1;
+            this.lbCertErrorInfo.Text = "is hard";
             // 
-            // label7
+            // lbCertErrorTitle
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.label7.Location = new System.Drawing.Point(14, 17);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(135, 25);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "development";
+            this.lbCertErrorTitle.AutoSize = true;
+            this.lbCertErrorTitle.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbCertErrorTitle.Location = new System.Drawing.Point(14, 17);
+            this.lbCertErrorTitle.Name = "lbCertErrorTitle";
+            this.lbCertErrorTitle.Size = new System.Drawing.Size(135, 25);
+            this.lbCertErrorTitle.TabIndex = 1;
+            this.lbCertErrorTitle.Text = "development";
             // 
             // tabControl1
             // 
@@ -1243,7 +1233,7 @@ namespace Korot
             // 
             // tpCef
             // 
-            this.tpCef.Controls.Add(this.label2);
+            this.tpCef.Controls.Add(this.lbStatus);
             this.tpCef.Controls.Add(this.pCEF);
             this.tpCef.Location = new System.Drawing.Point(4, 25);
             this.tpCef.Name = "tpCef";
@@ -1315,12 +1305,12 @@ namespace Korot
             this.tpSettings.Controls.Add(this.hsAutoRestore);
             this.tpSettings.Controls.Add(this.hsProxy);
             this.tpSettings.Controls.Add(this.btClose);
-            this.tpSettings.Controls.Add(this.label28);
-            this.tpSettings.Controls.Add(this.label3);
-            this.tpSettings.Controls.Add(this.label33);
+            this.tpSettings.Controls.Add(this.lbAtStartup);
+            this.tpSettings.Controls.Add(this.lbLanguage);
+            this.tpSettings.Controls.Add(this.lbShowFavorites);
             this.tpSettings.Controls.Add(this.lbSettings);
             this.tpSettings.Controls.Add(this.hsFav);
-            this.tpSettings.Controls.Add(this.radioButton1);
+            this.tpSettings.Controls.Add(this.rbNewTab);
             this.tpSettings.Controls.Add(this.lbHomepage);
             this.tpSettings.Controls.Add(this.lbSearchEngine);
             this.tpSettings.Controls.Add(this.tbHomepage);
@@ -1483,35 +1473,35 @@ namespace Korot
             this.btClose.Click += new System.EventHandler(this.button1_Click);
             this.btClose.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
             // 
-            // label28
+            // lbAtStartup
             // 
-            this.label28.AutoSize = true;
-            this.label28.BackColor = System.Drawing.Color.Transparent;
-            this.label28.Location = new System.Drawing.Point(13, 187);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(73, 16);
-            this.label28.TabIndex = 29;
-            this.label28.Text = "At Startup: ";
+            this.lbAtStartup.AutoSize = true;
+            this.lbAtStartup.BackColor = System.Drawing.Color.Transparent;
+            this.lbAtStartup.Location = new System.Drawing.Point(13, 187);
+            this.lbAtStartup.Name = "lbAtStartup";
+            this.lbAtStartup.Size = new System.Drawing.Size(73, 16);
+            this.lbAtStartup.TabIndex = 29;
+            this.lbAtStartup.Text = "At Startup: ";
             // 
-            // label3
+            // lbLanguage
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(13, 133);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 16);
-            this.label3.TabIndex = 29;
-            this.label3.Text = "Language:";
+            this.lbLanguage.AutoSize = true;
+            this.lbLanguage.BackColor = System.Drawing.Color.Transparent;
+            this.lbLanguage.Location = new System.Drawing.Point(13, 133);
+            this.lbLanguage.Name = "lbLanguage";
+            this.lbLanguage.Size = new System.Drawing.Size(64, 16);
+            this.lbLanguage.TabIndex = 29;
+            this.lbLanguage.Text = "Language:";
             // 
-            // label33
+            // lbShowFavorites
             // 
-            this.label33.AutoSize = true;
-            this.label33.BackColor = System.Drawing.Color.Transparent;
-            this.label33.Location = new System.Drawing.Point(13, 161);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(128, 16);
-            this.label33.TabIndex = 29;
-            this.label33.Text = "Show Favorites Menu:";
+            this.lbShowFavorites.AutoSize = true;
+            this.lbShowFavorites.BackColor = System.Drawing.Color.Transparent;
+            this.lbShowFavorites.Location = new System.Drawing.Point(13, 161);
+            this.lbShowFavorites.Name = "lbShowFavorites";
+            this.lbShowFavorites.Size = new System.Drawing.Size(128, 16);
+            this.lbShowFavorites.TabIndex = 29;
+            this.lbShowFavorites.Text = "Show Favorites Menu:";
             // 
             // lbSettings
             // 
@@ -1532,19 +1522,19 @@ namespace Korot
             this.hsFav.TabIndex = 5;
             this.hsFav.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsFav_CheckedChanged);
             // 
-            // radioButton1
+            // rbNewTab
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.BackColor = System.Drawing.Color.Transparent;
-            this.radioButton1.Location = new System.Drawing.Point(91, 75);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(73, 20);
-            this.radioButton1.TabIndex = 2;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Tag = "";
-            this.radioButton1.Text = "New Tab";
-            this.radioButton1.UseVisualStyleBackColor = false;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
+            this.rbNewTab.AutoSize = true;
+            this.rbNewTab.BackColor = System.Drawing.Color.Transparent;
+            this.rbNewTab.Location = new System.Drawing.Point(91, 75);
+            this.rbNewTab.Name = "rbNewTab";
+            this.rbNewTab.Size = new System.Drawing.Size(73, 20);
+            this.rbNewTab.TabIndex = 2;
+            this.rbNewTab.TabStop = true;
+            this.rbNewTab.Tag = "";
+            this.rbNewTab.Text = "New Tab";
+            this.rbNewTab.UseVisualStyleBackColor = false;
+            this.rbNewTab.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
             // 
             // lbHomepage
             // 
@@ -1610,22 +1600,22 @@ namespace Korot
             this.tpTheme.Controls.Add(this.flpNewTab);
             this.tpTheme.Controls.Add(this.flpLayout);
             this.tpTheme.Controls.Add(this.btClose2);
-            this.tpTheme.Controls.Add(this.label25);
-            this.tpTheme.Controls.Add(this.label32);
-            this.tpTheme.Controls.Add(this.label31);
-            this.tpTheme.Controls.Add(this.label12);
+            this.tpTheme.Controls.Add(this.lbBackImageStyle);
+            this.tpTheme.Controls.Add(this.lbCloseColor);
+            this.tpTheme.Controls.Add(this.lbNewTabColor);
+            this.tpTheme.Controls.Add(this.lbBackImage);
             this.tpTheme.Controls.Add(this.pbStore);
             this.tpTheme.Controls.Add(this.pbBack);
             this.tpTheme.Controls.Add(this.pbOverlay);
-            this.tpTheme.Controls.Add(this.label14);
-            this.tpTheme.Controls.Add(this.label16);
+            this.tpTheme.Controls.Add(this.lbBackColor);
+            this.tpTheme.Controls.Add(this.lbOveralColor);
             this.tpTheme.Controls.Add(this.textBox4);
-            this.tpTheme.Controls.Add(this.label13);
-            this.tpTheme.Controls.Add(this.label15);
+            this.tpTheme.Controls.Add(this.lbThemeName);
+            this.tpTheme.Controls.Add(this.lbThemes);
             this.tpTheme.Controls.Add(this.comboBox1);
             this.tpTheme.Controls.Add(this.button12);
             this.tpTheme.Controls.Add(this.listBox2);
-            this.tpTheme.Controls.Add(this.label26);
+            this.tpTheme.Controls.Add(this.lbTheme);
             this.tpTheme.Location = new System.Drawing.Point(4, 25);
             this.tpTheme.Name = "tpTheme";
             this.tpTheme.Size = new System.Drawing.Size(568, 483);
@@ -1822,53 +1812,53 @@ namespace Korot
             this.btClose2.UseVisualStyleBackColor = false;
             this.btClose2.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label25
+            // lbBackImageStyle
             // 
-            this.label25.AutoSize = true;
-            this.label25.BackColor = System.Drawing.Color.Transparent;
-            this.label25.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label25.Location = new System.Drawing.Point(18, 100);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(158, 17);
-            this.label25.TabIndex = 25;
-            this.label25.Tag = "";
-            this.label25.Text = "Background Image Style:";
+            this.lbBackImageStyle.AutoSize = true;
+            this.lbBackImageStyle.BackColor = System.Drawing.Color.Transparent;
+            this.lbBackImageStyle.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbBackImageStyle.Location = new System.Drawing.Point(18, 100);
+            this.lbBackImageStyle.Name = "lbBackImageStyle";
+            this.lbBackImageStyle.Size = new System.Drawing.Size(158, 17);
+            this.lbBackImageStyle.TabIndex = 25;
+            this.lbBackImageStyle.Tag = "";
+            this.lbBackImageStyle.Text = "Background Image Style:";
             // 
-            // label32
+            // lbCloseColor
             // 
-            this.label32.AutoSize = true;
-            this.label32.BackColor = System.Drawing.Color.Transparent;
-            this.label32.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label32.Location = new System.Drawing.Point(18, 197);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(128, 17);
-            this.label32.TabIndex = 25;
-            this.label32.Tag = "";
-            this.label32.Text = "Close Button Color:";
+            this.lbCloseColor.AutoSize = true;
+            this.lbCloseColor.BackColor = System.Drawing.Color.Transparent;
+            this.lbCloseColor.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbCloseColor.Location = new System.Drawing.Point(18, 197);
+            this.lbCloseColor.Name = "lbCloseColor";
+            this.lbCloseColor.Size = new System.Drawing.Size(128, 17);
+            this.lbCloseColor.TabIndex = 25;
+            this.lbCloseColor.Tag = "";
+            this.lbCloseColor.Text = "Close Button Color:";
             // 
-            // label31
+            // lbNewTabColor
             // 
-            this.label31.AutoSize = true;
-            this.label31.BackColor = System.Drawing.Color.Transparent;
-            this.label31.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label31.Location = new System.Drawing.Point(17, 166);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(143, 17);
-            this.label31.TabIndex = 25;
-            this.label31.Tag = "";
-            this.label31.Text = "New Tab Button Color:";
+            this.lbNewTabColor.AutoSize = true;
+            this.lbNewTabColor.BackColor = System.Drawing.Color.Transparent;
+            this.lbNewTabColor.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbNewTabColor.Location = new System.Drawing.Point(17, 166);
+            this.lbNewTabColor.Name = "lbNewTabColor";
+            this.lbNewTabColor.Size = new System.Drawing.Size(143, 17);
+            this.lbNewTabColor.TabIndex = 25;
+            this.lbNewTabColor.Tag = "";
+            this.lbNewTabColor.Text = "New Tab Button Color:";
             // 
-            // label12
+            // lbBackImage
             // 
-            this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.Color.Transparent;
-            this.label12.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label12.Location = new System.Drawing.Point(17, 132);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(126, 17);
-            this.label12.TabIndex = 25;
-            this.label12.Tag = "";
-            this.label12.Text = "Background Image :";
+            this.lbBackImage.AutoSize = true;
+            this.lbBackImage.BackColor = System.Drawing.Color.Transparent;
+            this.lbBackImage.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbBackImage.Location = new System.Drawing.Point(17, 132);
+            this.lbBackImage.Name = "lbBackImage";
+            this.lbBackImage.Size = new System.Drawing.Size(126, 17);
+            this.lbBackImage.TabIndex = 25;
+            this.lbBackImage.Tag = "";
+            this.lbBackImage.Text = "Background Image :";
             // 
             // pbStore
             // 
@@ -1905,29 +1895,29 @@ namespace Korot
             this.pbOverlay.Tag = "";
             this.pbOverlay.Click += new System.EventHandler(this.PictureBox4_Click);
             // 
-            // label14
+            // lbBackColor
             // 
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label14.Location = new System.Drawing.Point(18, 38);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(126, 17);
-            this.label14.TabIndex = 25;
-            this.label14.Tag = "";
-            this.label14.Text = "Background Color : ";
+            this.lbBackColor.AutoSize = true;
+            this.lbBackColor.BackColor = System.Drawing.Color.Transparent;
+            this.lbBackColor.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbBackColor.Location = new System.Drawing.Point(18, 38);
+            this.lbBackColor.Name = "lbBackColor";
+            this.lbBackColor.Size = new System.Drawing.Size(126, 17);
+            this.lbBackColor.TabIndex = 25;
+            this.lbBackColor.Tag = "";
+            this.lbBackColor.Text = "Background Color : ";
             // 
-            // label16
+            // lbOveralColor
             // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Transparent;
-            this.label16.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label16.Location = new System.Drawing.Point(18, 67);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(95, 17);
-            this.label16.TabIndex = 26;
-            this.label16.Tag = "Overall theme (Selected Tab background,Loading Bar Color etc.)";
-            this.label16.Text = "Overal Color : ";
+            this.lbOveralColor.AutoSize = true;
+            this.lbOveralColor.BackColor = System.Drawing.Color.Transparent;
+            this.lbOveralColor.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbOveralColor.Location = new System.Drawing.Point(18, 67);
+            this.lbOveralColor.Name = "lbOveralColor";
+            this.lbOveralColor.Size = new System.Drawing.Size(95, 17);
+            this.lbOveralColor.TabIndex = 26;
+            this.lbOveralColor.Tag = "Overall theme (Selected Tab background,Loading Bar Color etc.)";
+            this.lbOveralColor.Text = "Overal Color : ";
             // 
             // textBox4
             // 
@@ -1942,29 +1932,29 @@ namespace Korot
             this.textBox4.Text = "this is a certified home classic";
             this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
             // 
-            // label13
+            // lbThemeName
             // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label13.Location = new System.Drawing.Point(17, 224);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(97, 17);
-            this.label13.TabIndex = 25;
-            this.label13.Tag = "";
-            this.label13.Text = "Theme Name : ";
+            this.lbThemeName.AutoSize = true;
+            this.lbThemeName.BackColor = System.Drawing.Color.Transparent;
+            this.lbThemeName.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbThemeName.Location = new System.Drawing.Point(17, 224);
+            this.lbThemeName.Name = "lbThemeName";
+            this.lbThemeName.Size = new System.Drawing.Size(97, 17);
+            this.lbThemeName.TabIndex = 25;
+            this.lbThemeName.Tag = "";
+            this.lbThemeName.Text = "Theme Name : ";
             // 
-            // label15
+            // lbThemes
             // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.Transparent;
-            this.label15.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label15.Location = new System.Drawing.Point(17, 252);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(65, 17);
-            this.label15.TabIndex = 25;
-            this.label15.Tag = "";
-            this.label15.Text = "Themes : ";
+            this.lbThemes.AutoSize = true;
+            this.lbThemes.BackColor = System.Drawing.Color.Transparent;
+            this.lbThemes.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbThemes.Location = new System.Drawing.Point(17, 252);
+            this.lbThemes.Name = "lbThemes";
+            this.lbThemes.Size = new System.Drawing.Size(65, 17);
+            this.lbThemes.TabIndex = 25;
+            this.lbThemes.Tag = "";
+            this.lbThemes.Text = "Themes : ";
             // 
             // comboBox1
             // 
@@ -2014,20 +2004,20 @@ namespace Korot
             this.listBox2.TabIndex = 10;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
-            // label26
+            // lbTheme
             // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.label26.Location = new System.Drawing.Point(15, 6);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(74, 25);
-            this.label26.TabIndex = 34;
-            this.label26.Text = "Theme";
+            this.lbTheme.AutoSize = true;
+            this.lbTheme.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbTheme.Location = new System.Drawing.Point(15, 6);
+            this.lbTheme.Name = "lbTheme";
+            this.lbTheme.Size = new System.Drawing.Size(74, 25);
+            this.lbTheme.TabIndex = 34;
+            this.lbTheme.Text = "Theme";
             // 
             // tpHistory
             // 
             this.tpHistory.Controls.Add(this.btClose6);
-            this.tpHistory.Controls.Add(this.label4);
+            this.tpHistory.Controls.Add(this.lbHistory);
             this.tpHistory.Controls.Add(this.hlvHistory);
             this.tpHistory.Location = new System.Drawing.Point(4, 25);
             this.tpHistory.Name = "tpHistory";
@@ -2052,15 +2042,15 @@ namespace Korot
             this.btClose6.UseVisualStyleBackColor = false;
             this.btClose6.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label4
+            // lbHistory
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.label4.Location = new System.Drawing.Point(8, 6);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(78, 25);
-            this.label4.TabIndex = 36;
-            this.label4.Text = "History";
+            this.lbHistory.AutoSize = true;
+            this.lbHistory.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbHistory.Location = new System.Drawing.Point(8, 6);
+            this.lbHistory.Name = "lbHistory";
+            this.lbHistory.Size = new System.Drawing.Size(78, 25);
+            this.lbHistory.TabIndex = 36;
+            this.lbHistory.Text = "History";
             // 
             // hlvHistory
             // 
@@ -2130,7 +2120,7 @@ namespace Korot
             // tpDownload
             // 
             this.tpDownload.Controls.Add(this.btClose7);
-            this.tpDownload.Controls.Add(this.label6);
+            this.tpDownload.Controls.Add(this.lbDownloads);
             this.tpDownload.Controls.Add(this.hlvDownload);
             this.tpDownload.Controls.Add(this.hsOpen);
             this.tpDownload.Controls.Add(this.hsDownload);
@@ -2162,15 +2152,15 @@ namespace Korot
             this.btClose7.UseVisualStyleBackColor = false;
             this.btClose7.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label6
+            // lbDownloads
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.label6.Location = new System.Drawing.Point(8, 6);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(114, 25);
-            this.label6.TabIndex = 36;
-            this.label6.Text = "Downloads";
+            this.lbDownloads.AutoSize = true;
+            this.lbDownloads.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbDownloads.Location = new System.Drawing.Point(8, 6);
+            this.lbDownloads.Name = "lbDownloads";
+            this.lbDownloads.Size = new System.Drawing.Size(114, 25);
+            this.lbDownloads.TabIndex = 36;
+            this.lbDownloads.Text = "Downloads";
             // 
             // hlvDownload
             // 
@@ -2351,11 +2341,11 @@ namespace Korot
             this.tpAbout.AutoScroll = true;
             this.tpAbout.BackColor = System.Drawing.Color.White;
             this.tpAbout.Controls.Add(this.btClose10);
-            this.tpAbout.Controls.Add(this.label22);
+            this.tpAbout.Controls.Add(this.lbAbout);
             this.tpAbout.Controls.Add(this.lbUpdateStatus);
             this.tpAbout.Controls.Add(this.btInstall);
             this.tpAbout.Controls.Add(this.btUpdater);
-            this.tpAbout.Controls.Add(this.linkLabel1);
+            this.tpAbout.Controls.Add(this.llLicenses);
             this.tpAbout.Controls.Add(this.label21);
             this.tpAbout.Controls.Add(this.lbVersion);
             this.tpAbout.Controls.Add(this.label20);
@@ -2384,15 +2374,15 @@ namespace Korot
             this.btClose10.UseVisualStyleBackColor = false;
             this.btClose10.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label22
+            // lbAbout
             // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.label22.Location = new System.Drawing.Point(8, 6);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(69, 25);
-            this.label22.TabIndex = 36;
-            this.label22.Text = "About";
+            this.lbAbout.AutoSize = true;
+            this.lbAbout.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbAbout.Location = new System.Drawing.Point(8, 6);
+            this.lbAbout.Name = "lbAbout";
+            this.lbAbout.Size = new System.Drawing.Size(69, 25);
+            this.lbAbout.TabIndex = 36;
+            this.lbAbout.Text = "About";
             // 
             // lbUpdateStatus
             // 
@@ -2437,17 +2427,17 @@ namespace Korot
             this.btUpdater.UseVisualStyleBackColor = false;
             this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
             // 
-            // linkLabel1
+            // llLicenses
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel1.Location = new System.Drawing.Point(15, 172);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(161, 16);
-            this.linkLabel1.TabIndex = 1;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Licenses && Special Thanks...";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.llLicenses.AutoSize = true;
+            this.llLicenses.BackColor = System.Drawing.Color.Transparent;
+            this.llLicenses.Location = new System.Drawing.Point(15, 172);
+            this.llLicenses.Name = "llLicenses";
+            this.llLicenses.Size = new System.Drawing.Size(161, 16);
+            this.llLicenses.TabIndex = 1;
+            this.llLicenses.TabStop = true;
+            this.llLicenses.Text = "Licenses && Special Thanks...";
+            this.llLicenses.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label21
             // 
@@ -2512,7 +2502,7 @@ namespace Korot
             this.tpSite.Controls.Add(this.pSite);
             this.tpSite.Controls.Add(this.btCookieBack);
             this.tpSite.Controls.Add(this.btClose8);
-            this.tpSite.Controls.Add(this.label27);
+            this.tpSite.Controls.Add(this.lbSiteSettings);
             this.tpSite.Location = new System.Drawing.Point(4, 25);
             this.tpSite.Name = "tpSite";
             this.tpSite.Size = new System.Drawing.Size(568, 483);
@@ -2562,21 +2552,21 @@ namespace Korot
             this.btClose8.UseVisualStyleBackColor = false;
             this.btClose8.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label27
+            // lbSiteSettings
             // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.label27.Location = new System.Drawing.Point(50, 4);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(130, 25);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "Site Settings";
+            this.lbSiteSettings.AutoSize = true;
+            this.lbSiteSettings.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbSiteSettings.Location = new System.Drawing.Point(50, 4);
+            this.lbSiteSettings.Name = "lbSiteSettings";
+            this.lbSiteSettings.Size = new System.Drawing.Size(130, 25);
+            this.lbSiteSettings.TabIndex = 0;
+            this.lbSiteSettings.Text = "Site Settings";
             // 
             // tpCollection
             // 
             this.tpCollection.Controls.Add(this.panel3);
             this.tpCollection.Controls.Add(this.btClose9);
-            this.tpCollection.Controls.Add(this.label9);
+            this.tpCollection.Controls.Add(this.lbCollections);
             this.tpCollection.Location = new System.Drawing.Point(4, 25);
             this.tpCollection.Name = "tpCollection";
             this.tpCollection.Size = new System.Drawing.Size(568, 483);
@@ -2611,15 +2601,15 @@ namespace Korot
             this.btClose9.UseVisualStyleBackColor = false;
             this.btClose9.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label9
+            // lbCollections
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.label9.Location = new System.Drawing.Point(8, 6);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(116, 25);
-            this.label9.TabIndex = 38;
-            this.label9.Text = "Collections";
+            this.lbCollections.AutoSize = true;
+            this.lbCollections.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbCollections.Location = new System.Drawing.Point(8, 6);
+            this.lbCollections.Name = "lbCollections";
+            this.lbCollections.Size = new System.Drawing.Size(116, 25);
+            this.lbCollections.TabIndex = 38;
+            this.lbCollections.Text = "Collections";
             // 
             // tpNotification
             // 
@@ -3013,29 +3003,6 @@ namespace Korot
             this.lbNotifSetting.TabIndex = 38;
             this.lbNotifSetting.Text = "Notification Settings";
             // 
-            // cmsCookie
-            // 
-            this.cmsCookie.BackColor = System.Drawing.Color.White;
-            this.cmsCookie.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.allowSelectedToolStripMenuItem,
-            this.clearToolStripMenuItem1});
-            this.cmsCookie.Name = "cmsCookie";
-            this.cmsCookie.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsCookie.ShowImageMargin = false;
-            this.cmsCookie.Size = new System.Drawing.Size(127, 48);
-            // 
-            // allowSelectedToolStripMenuItem
-            // 
-            this.allowSelectedToolStripMenuItem.Name = "allowSelectedToolStripMenuItem";
-            this.allowSelectedToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.allowSelectedToolStripMenuItem.Text = "Allow Selected";
-            // 
-            // clearToolStripMenuItem1
-            // 
-            this.clearToolStripMenuItem1.Name = "clearToolStripMenuItem1";
-            this.clearToolStripMenuItem1.Size = new System.Drawing.Size(126, 22);
-            this.clearToolStripMenuItem1.Text = "Clear";
-            // 
             // cmsSearchEngine
             // 
             this.cmsSearchEngine.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -3341,7 +3308,6 @@ namespace Korot
             this.flpTo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toHour)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toMin)).EndInit();
-            this.cmsCookie.ResumeLayout(false);
             this.cmsSearchEngine.ResumeLayout(false);
             this.cmsBStyle.ResumeLayout(false);
             this.cmsIncognito.ResumeLayout(false);
@@ -3377,7 +3343,6 @@ namespace Korot
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Timer tmrSlower;
         private System.Windows.Forms.PictureBox pbProgress;
         public System.Windows.Forms.PictureBox pbPrivacy;
         public System.Windows.Forms.ContextMenuStrip cmsPrivacy;
@@ -3386,8 +3351,8 @@ namespace Korot
         public System.Windows.Forms.ToolStripMenuItem showCertificateErrorsToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem cookieInfoToolStripMenuItem;
         public System.Windows.Forms.Panel pnlCert;
-        public System.Windows.Forms.Label label8;
-        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.Label lbCertErrorInfo;
+        public System.Windows.Forms.Label lbCertErrorTitle;
         public HTAlt.WinForms.HTButton btHamburger;
         private System.Windows.Forms.ContextMenuStrip cmsHamburger;
         private System.Windows.Forms.ToolStripMenuItem newWindowToolStripMenuItem;
@@ -3396,7 +3361,7 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem restoreLastSessionToolStripMenuItem;
         private System.Windows.Forms.TabPage tpCef;
         private System.Windows.Forms.TabPage tpSettings;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rbNewTab;
         private System.Windows.Forms.Label lbHomepage;
         private System.Windows.Forms.Label lbSearchEngine;
         private System.Windows.Forms.TextBox tbSearchEngine;
@@ -3404,11 +3369,11 @@ namespace Korot
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.ListBox listBox2;
         public System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label lbBackImage;
+        private System.Windows.Forms.Label lbThemes;
+        private System.Windows.Forms.Label lbThemeName;
+        private System.Windows.Forms.Label lbBackColor;
+        private System.Windows.Forms.Label lbOveralColor;
         private System.Windows.Forms.PictureBox pbOverlay;
         private System.Windows.Forms.PictureBox pbBack;
         private HTAlt.WinForms.HTListView hlvHistory;
@@ -3452,7 +3417,7 @@ namespace Korot
         public HTAlt.WinForms.HTButton btClose;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel llLicenses;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ToolStripMenuItem ınternetArchiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yaaniToolStripMenuItem;
@@ -3460,7 +3425,7 @@ namespace Korot
         private System.Windows.Forms.Label lbDNT;
         private HTAlt.WinForms.HTSwitch hsDoNotTrack;
         private System.Windows.Forms.ToolStripMenuItem ımageFromURLToolStripMenuItem;
-        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label lbBackImageStyle;
         private System.Windows.Forms.ToolStripMenuItem disallowThisPageForCookieAccessToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip cmsFavorite;
         private System.Windows.Forms.ToolStripMenuItem tsopenInNewTab;
@@ -3488,17 +3453,17 @@ namespace Korot
         public System.Windows.Forms.TabPage tpCert;
         private System.Windows.Forms.TabPage tpHistory;
         public HTAlt.WinForms.HTButton btClose6;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lbHistory;
         private System.Windows.Forms.TabPage tpDownload;
         public HTAlt.WinForms.HTButton btClose7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbDownloads;
+        private System.Windows.Forms.Label lbStatus;
         public HTAlt.WinForms.HTButton btClose10;
-        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label lbAbout;
         private System.Windows.Forms.ToolStripMenuItem historyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label lbTheme;
         private System.Windows.Forms.ToolStripMenuItem ımageFromLocalFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsSearchNext;
         private System.Windows.Forms.ToolStripMenuItem tsSearchStatus;
@@ -3515,11 +3480,8 @@ namespace Korot
         private HTAlt.WinForms.HTButton btCookie;
         private System.Windows.Forms.TabPage tpSite;
         public HTAlt.WinForms.HTButton btClose8;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.ContextMenuStrip cmsCookie;
-        private System.Windows.Forms.ToolStripMenuItem allowSelectedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem1;
-        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label lbSiteSettings;
+        private System.Windows.Forms.Label lbAtStartup;
         private System.Windows.Forms.TextBox tbStartup;
         private HTAlt.WinForms.HTButton btDownloadFolder;
         private System.Windows.Forms.Label lbAutoDownload;
@@ -3531,9 +3493,9 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem showHomepageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAWebsiteToolStripMenuItem;
         private HTAlt.WinForms.HTButton btReset;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label lbCloseColor;
+        private System.Windows.Forms.Label lbNewTabColor;
+        private System.Windows.Forms.Label lbShowFavorites;
         private HTAlt.WinForms.HTSwitch hsFav;
         private System.Windows.Forms.ToolStripMenuItem tsFullscreen;
         private HTAlt.WinForms.HTButton btCleanLog;
@@ -3549,7 +3511,7 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem openİnNewWindowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openİnNewIncognitoWindowToolStripMenuItem;
         private System.Windows.Forms.ComboBox cbLang;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbLanguage;
         private System.Windows.Forms.Panel pCEF;
         private System.Windows.Forms.ToolStripMenuItem tsEmptyExt;
         private System.Windows.Forms.ToolStripMenuItem tsEmptyProfile;
@@ -3562,7 +3524,7 @@ namespace Korot
         private System.Windows.Forms.TabPage tpCollection;
         private System.Windows.Forms.Panel panel3;
         public HTAlt.WinForms.HTButton btClose9;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lbCollections;
         private System.Windows.Forms.ToolStripMenuItem tsCollections;
         private System.Windows.Forms.ToolStripMenuItem tsChangeTitleBack;
         private System.Windows.Forms.FlowLayoutPanel flpClose;
@@ -3613,7 +3575,7 @@ namespace Korot
         public HTAlt.WinForms.HTButton btNotifBack;
         public HTAlt.WinForms.HTButton btCookieBack;
         private System.Windows.Forms.ToolStripMenuItem MuteTS;
-        public HTAlt.WinForms.HTButton button10;
+        public HTAlt.WinForms.HTButton btCertError;
         private HTAlt.WinForms.HTButton button12;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel pSite;

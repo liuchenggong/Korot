@@ -114,7 +114,7 @@ namespace Korot
                 cefform.Invoke(new Action(() =>
                 {
                     cefform.pnlCert.Visible = true;
-                    cefform.button10.Tag = requestUrl;
+                    cefform.btCertError.Tag = requestUrl;
                     cefform.tabControl1.SelectedTab = cefform.tpCert;
                 }));
                 callback.Cancel();

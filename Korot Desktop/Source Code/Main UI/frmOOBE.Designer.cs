@@ -56,7 +56,7 @@ namespace Korot
             this.lbCont = new System.Windows.Forms.Label();
             this.btContinue2 = new HTAlt.WinForms.HTButton();
             this.lbLang = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbChooseLang = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lbContinueBack = new System.Windows.Forms.Label();
             this.btBack = new HTAlt.WinForms.HTButton();
@@ -140,7 +140,7 @@ namespace Korot
             this.tabPage1.Controls.Add(this.lbCont);
             this.tabPage1.Controls.Add(this.btContinue2);
             this.tabPage1.Controls.Add(this.lbLang);
-            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.lbChooseLang);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Name = "tabPage1";
@@ -194,16 +194,16 @@ namespace Korot
             this.lbLang.SelectedIndexChanged += new System.EventHandler(this.lbLang_SelectedIndexChanged);
             this.lbLang.DoubleClick += new System.EventHandler(this.lbLang_DoubleClick);
             // 
-            // label2
+            // lbChooseLang
             // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.Location = new System.Drawing.Point(3, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(615, 43);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Choose a language.";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbChooseLang.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lbChooseLang.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbChooseLang.Location = new System.Drawing.Point(3, 4);
+            this.lbChooseLang.Name = "lbChooseLang";
+            this.lbChooseLang.Size = new System.Drawing.Size(615, 43);
+            this.lbChooseLang.TabIndex = 3;
+            this.lbChooseLang.Text = "Choose a language.";
+            this.lbChooseLang.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabPage2
             // 
@@ -731,7 +731,7 @@ namespace Korot
         private System.Windows.Forms.TabPage tabPage2;
         private HTAlt.WinForms.HTButton btContinue2;
         private System.Windows.Forms.ListBox lbLang;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbChooseLang;
         private HTAlt.WinForms.HTButton btContinue;
         private System.Windows.Forms.Label lbProfileInfo;
         private System.Windows.Forms.TextBox textBox1;

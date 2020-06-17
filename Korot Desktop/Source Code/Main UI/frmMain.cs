@@ -75,16 +75,13 @@ namespace Korot
         private NotifyIcon NLEditor = new NotifyIcon() { Text = "Korot", Icon = Properties.Resources.KorotIcon, Visible = true};
         private void InitNL()
         {
-            string Playlist = HTAlt.Tools.ReadFile(Settings.LanguageFile, Encoding.UTF8);
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SF = Playlist.Split(token);
-            closeAll = SF[346].Substring(1).Replace(Environment.NewLine, "");
-            closeAllMessage = SF[348].Substring(1).Replace(Environment.NewLine, "");
-            closeKorot = SF[347].Substring(1).Replace(Environment.NewLine, "");
-            closeKorotMessage = SF[349].Substring(1).Replace(Environment.NewLine, "");
-            Yes = SF[84].Substring(1).Replace(Environment.NewLine, "");
-            No = SF[85].Substring(1).Replace(Environment.NewLine, "");
-            Cancel = SF[87].Substring(1).Replace(Environment.NewLine, "");
+            closeAll = Settings.LanguageSystem.GetItemText("CloseAll");
+            closeAllMessage = Settings.LanguageSystem.GetItemText("CloseAllInfo");
+            closeKorot = Settings.LanguageSystem.GetItemText("CloseKorot");
+            closeKorotMessage = Settings.LanguageSystem.GetItemText("CloseKorotInfo");
+            Yes = Settings.LanguageSystem.GetItemText("Yes");
+            No = Settings.LanguageSystem.GetItemText("No");
+            Cancel = Settings.LanguageSystem.GetItemText("Cancel");
             cmsNL.Items.Clear();
             foreach (frmCEF x in notifListeners)
             {
@@ -199,7 +196,7 @@ namespace Korot
                 tmrNL.Tick += tmrNL_Tick;
                 tmrNL.Start();
             }
-            list = new MyJumplist(this.Handle, this);
+            list = new MyJumplist(this.Handle, settings);
         }
         public void removeThisDownloadItem(DownloadItem removeItem)
         {

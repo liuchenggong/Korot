@@ -83,5 +83,17 @@ namespace Korot.Properties {
                 this["KorotErrorTI"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Restart")]
+        public string KorotErrorRestart {
+            get {
+                return ((string)(this["KorotErrorRestart"]));
+            }
+            set {
+                this["KorotErrorRestart"] = value;
+            }
+        }
     }
 }
