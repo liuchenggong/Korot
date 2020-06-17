@@ -110,9 +110,11 @@ namespace Korot
             this.cmsProfiles = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.profilenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteThisProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportThisProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsEmptyProfile = new System.Windows.Forms.ToolStripMenuItem();
             this.newProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ımportProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new HTAlt.WinForms.HTButton();
             this.cmsFavorite = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsopenInNewTab = new System.Windows.Forms.ToolStripMenuItem();
@@ -919,18 +921,20 @@ namespace Korot
             this.cmsProfiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.profilenameToolStripMenuItem,
             this.switchToToolStripMenuItem,
-            this.newProfileToolStripMenuItem});
+            this.newProfileToolStripMenuItem,
+            this.ımportProfileToolStripMenuItem});
             this.cmsProfiles.Name = "cmsProfiles";
             this.cmsProfiles.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsProfiles.ShowImageMargin = false;
-            this.cmsProfiles.Size = new System.Drawing.Size(122, 70);
+            this.cmsProfiles.Size = new System.Drawing.Size(123, 92);
             // 
             // profilenameToolStripMenuItem
             // 
             this.profilenameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteThisProfileToolStripMenuItem});
+            this.deleteThisProfileToolStripMenuItem,
+            this.exportThisProfileToolStripMenuItem});
             this.profilenameToolStripMenuItem.Name = "profilenameToolStripMenuItem";
-            this.profilenameToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.profilenameToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.profilenameToolStripMenuItem.Text = "[profilename]";
             // 
             // deleteThisProfileToolStripMenuItem
@@ -940,27 +944,41 @@ namespace Korot
             this.deleteThisProfileToolStripMenuItem.Text = "Delete this Profile";
             this.deleteThisProfileToolStripMenuItem.Click += new System.EventHandler(this.DeleteThisProfileToolStripMenuItem_Click);
             // 
+            // exportThisProfileToolStripMenuItem
+            // 
+            this.exportThisProfileToolStripMenuItem.Name = "exportThisProfileToolStripMenuItem";
+            this.exportThisProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportThisProfileToolStripMenuItem.Text = "Export this Profile";
+            this.exportThisProfileToolStripMenuItem.Click += new System.EventHandler(this.exportThisProfileToolStripMenuItem_Click);
+            // 
             // switchToToolStripMenuItem
             // 
             this.switchToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsEmptyProfile});
             this.switchToToolStripMenuItem.Name = "switchToToolStripMenuItem";
-            this.switchToToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.switchToToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.switchToToolStripMenuItem.Text = "Switch to:";
             // 
             // tsEmptyProfile
             // 
             this.tsEmptyProfile.Enabled = false;
             this.tsEmptyProfile.Name = "tsEmptyProfile";
-            this.tsEmptyProfile.Size = new System.Drawing.Size(180, 22);
+            this.tsEmptyProfile.Size = new System.Drawing.Size(116, 22);
             this.tsEmptyProfile.Text = "(empty)";
             // 
             // newProfileToolStripMenuItem
             // 
             this.newProfileToolStripMenuItem.Name = "newProfileToolStripMenuItem";
-            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.newProfileToolStripMenuItem.Text = "New Profile";
             this.newProfileToolStripMenuItem.Click += new System.EventHandler(this.NewProfileToolStripMenuItem_Click);
+            // 
+            // ımportProfileToolStripMenuItem
+            // 
+            this.ımportProfileToolStripMenuItem.Name = "ımportProfileToolStripMenuItem";
+            this.ımportProfileToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.ımportProfileToolStripMenuItem.Text = "Import Profile";
+            this.ımportProfileToolStripMenuItem.Click += new System.EventHandler(this.ımportProfileToolStripMenuItem_Click);
             // 
             // btRefresh
             // 
@@ -1121,7 +1139,7 @@ namespace Korot
             // dummyCMS
             // 
             this.dummyCMS.Name = "dummyCMS";
-            this.dummyCMS.Size = new System.Drawing.Size(181, 26);
+            this.dummyCMS.Size = new System.Drawing.Size(61, 4);
             this.dummyCMS.Opening += new System.ComponentModel.CancelEventHandler(this.dummyCMS_Opening);
             // 
             // tmrFaster
@@ -3579,5 +3597,7 @@ namespace Korot
         private HTAlt.WinForms.HTButton button12;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel pSite;
+        private System.Windows.Forms.ToolStripMenuItem exportThisProfileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ımportProfileToolStripMenuItem;
     }
 }

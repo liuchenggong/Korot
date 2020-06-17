@@ -101,9 +101,6 @@ namespace Korot
             }
             return "NT " + fullName;
         }
-        /// <summary>
-        /// Uygulamanın ana girdi noktası.
-        /// </summary>
         [STAThread]
         private static void Main(string[] args)
         {
@@ -534,7 +531,7 @@ new HTTitleTab(testApp)
         private bool _DoNotPlaySound = false;
         private bool _QuietMode = false;
         private string _AutoSilentMode = "";
-        private string _ProfileName = "skrillex";
+        private string _ProfileName = "feyzullah";
         private bool _DismissUpdate = false;
         private string _Homepage = "korot://newtab";
         private Size _MenuSize = new Size(720, 720);

@@ -28,6 +28,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -756,6 +757,9 @@ namespace Korot
         public string UnmuteThisTab = "Unmute this tab";
         public string siteCookies = "Cookies:";
         public string siteNotifications = "Notifications:";
+        public string importProfileInfo = "Import Profile from...";
+        public string exportProfileInfo = "Export Profile to...";
+        public string ProfileFileInfo = "Korot Profile Archive";
         private void dummyCMS_Opening(object sender, CancelEventArgs e)
         {
             Process.Start(Application.StartupPath + "//Lang//");
@@ -797,6 +801,12 @@ namespace Korot
             }
             aboutInfo = Settings.LanguageSystem.GetItemText("KorotAbout").Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? noname : Settings.Theme.Name) : "");
             MuteTS.Text = isMuted ? UnmuteThisTab : MuteThisTab;
+            ımportProfileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImportProfile");
+            importProfileInfo = Settings.LanguageSystem.GetItemText("ImportProfileInfo");
+            exportThisProfileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ExportProfile");
+            exportProfileInfo = Settings.LanguageSystem.GetItemText("ExportProfileInfo");
+            ProfileFileInfo = Settings.LanguageSystem.GetItemText("ProfileFileInfo");
+            Properties.Settings.Default.KorotErrorRestart = Settings.LanguageSystem.GetItemText("ErrorRestart");
             btNotification.ButtonText = Settings.LanguageSystem.GetItemText("NotificationSettingsButton");
             lbNotifSetting.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
             tpNotification.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
@@ -4192,6 +4202,26 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void comboBox1_Leave(object sender, EventArgs e)
         {
             onThemeName = false;
+        }
+
+        private void ımportProfileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog() { Title = importProfileInfo, Filter = ProfileFileInfo + "|*.kpa", };
+            DialogResult dialog = fileDialog.ShowDialog();
+            if (dialog == DialogResult.OK)
+            {
+                ZipFile.ExtractToDirectory(fileDialog.FileName, Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\",Encoding.UTF8);
+            }
+        }
+
+        private void exportThisProfileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog fileDialog = new SaveFileDialog() { Title = exportProfileInfo, Filter = ProfileFileInfo + "|*.kpa", };
+            DialogResult dialog = fileDialog.ShowDialog();
+            if (dialog == DialogResult.OK)
+            {
+                ZipFile.CreateFromDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\", fileDialog.FileName,CompressionLevel.Optimal,true ,Encoding.UTF8);
+            }
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

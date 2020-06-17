@@ -1,5 +1,2 @@
  - Add an easter egg to OOBE menu (20 switches unlocks random mode & finish picks random one)
- - Add Import/Export profile thing
  - Replace month numbers with name in dates.
- - copy the easter egg from make-ext to theme creator
- - replace "not in demo" with "not in pre-release jk"

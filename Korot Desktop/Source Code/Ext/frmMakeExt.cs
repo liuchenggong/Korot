@@ -607,8 +607,8 @@ namespace Korot
                     {
                         HTAlt.Tools.WriteFile(dialog.FileName, BuildExtManifest(), Encoding.UTF8);
                     }
-                    // Retareded guy making easter eggs dating back to probably 2014.
-                    textBox4.Text = ((tbAuthor.Text.ToLower() == "zone" || tbAuthor.Text.ToLower() == "zone-tan" || tbAuthor.Text.ToLower() == "zone-sama") ? "Built package with 1 issue(s): " + Environment.NewLine +  "NOT IN BETA" + Environment.NewLine + "https://haltroy.com/Korot.html" : "Successfully built package.");
+                    // Put a parody reference here
+                    textBox4.Text = "Successfully built package.";
                     cooldownMode = true;
                     tmrCooldown.Start();
                 }

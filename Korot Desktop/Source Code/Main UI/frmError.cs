@@ -51,6 +51,7 @@ namespace Korot
             label1.Text = Properties.Settings.Default.KorotErrorTitle;
             label2.Text = Properties.Settings.Default.KorotErrorDesc.Replace("[NEWLINE]", Environment.NewLine);
             label3.Text = Properties.Settings.Default.KorotErrorTI;
+            btRestart.Text = Properties.Settings.Default.KorotErrorRestart;
             BackColor = Settings.Theme.BackColor;
             ForeColor = HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.Black : Color.White;
             textBox1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
