@@ -1,2 +1,0 @@
- - Add an easter egg to OOBE menu (20 switches unlocks random mode & finish picks random one)
- - Replace month numbers with name in dates.

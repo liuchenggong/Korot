@@ -41,6 +41,7 @@ namespace Korot
 {
     public partial class frmCEF : Form
     {
+        public string DateFormat = "dd/MM/yy HH:mm:ss";
         public frmSites siteman;
         public Settings Settings;
         private frmCollection ColMan;
@@ -479,7 +480,7 @@ namespace Korot
             hlvHistory.Items.Clear();
             foreach(Site x in Settings.History)
             {
-                ListViewItem listV = new ListViewItem(x.Date);
+                ListViewItem listV = new ListViewItem(GetDateInfo(DateTime.ParseExact(x.Date, DateFormat, null)));
                 listV.SubItems.Add(x.Name);
                 listV.SubItems.Add(x.Url);
                 hlvHistory.Items.Add(listV);
@@ -554,6 +555,19 @@ namespace Korot
             }
         }
         #region "Translate"
+        public string Month1 = "January";
+        public string Month2 = "February";
+        public string Month3 = "March";
+        public string Month4 = "April";
+        public string Month5 = "May";
+        public string Month6 = "June";
+        public string Month7 = "July";
+        public string Month8 = "August";
+        public string Month9 = "September";
+        public string Month10 = "October";
+        public string Month11 = "November";
+        public string Month12 = "December";
+        public string Month0 = "Haltroy";
         public string notificationPermission = "Allow [URL] for sending notifications?";
         public string allow = "Allow";
         public string deny = "Deny";
@@ -1089,6 +1103,19 @@ namespace Korot
             enterAValidUrl = Settings.LanguageSystem.GetItemText("EnterAValidURL");
             lbOveralColor.Text = Settings.LanguageSystem.GetItemText("OverlayColor");
             chDate.Text = Settings.LanguageSystem.GetItemText("Date");
+            Month1 = Settings.LanguageSystem.GetItemText("Month1");
+            Month2 = Settings.LanguageSystem.GetItemText("Month2");
+            Month3 = Settings.LanguageSystem.GetItemText("Month3");
+            Month4 = Settings.LanguageSystem.GetItemText("Month4");
+            Month5 = Settings.LanguageSystem.GetItemText("Month5");
+            Month6 = Settings.LanguageSystem.GetItemText("Month6");
+            Month7 = Settings.LanguageSystem.GetItemText("Month7");
+            Month8 = Settings.LanguageSystem.GetItemText("Month8");
+            Month9 = Settings.LanguageSystem.GetItemText("Month9");
+            Month10 = Settings.LanguageSystem.GetItemText("Month10");
+            Month11 = Settings.LanguageSystem.GetItemText("Month11");
+            Month12 = Settings.LanguageSystem.GetItemText("Month12");
+            Month0 = Settings.LanguageSystem.GetItemText("Month0");
             chDateHistory.Text = Settings.LanguageSystem.GetItemText("Date");
             chTitle.Text = Settings.LanguageSystem.GetItemText("Title");
             chURL.Text = Settings.LanguageSystem.GetItemText("URL");
@@ -1235,7 +1262,43 @@ namespace Korot
                 pbOverlay.BackColor = colorpicker.Color;
                 ChangeTheme();
             }
-            
+        }
+
+        string GetMonthNameOfDate(int month)
+        {
+            switch (month)
+            {
+                case 1:
+                    return Month1;
+                case 2:
+                    return Month2;
+                case 3:
+                    return Month3;
+                case 4:
+                    return Month4;
+                case 5:
+                    return Month5;
+                case 6:
+                    return Month6;
+                case 7:
+                    return Month7;
+                case 8:
+                    return Month8;
+                case 9:
+                    return Month9;
+                case 10:
+                    return Month10;
+                case 11:
+                    return Month11;
+                case 12:
+                    return Month12;
+                default:
+                    return Month0; // You cannot see this month in an ordinary usage of Korot. This means that this month is not real so I put my name which I should not exist too.
+            }
+        }
+        string GetDateInfo(DateTime date)
+        {
+            return date.Day + " " + GetMonthNameOfDate(date.Month) + " " + date.Year + " " + date.Hour.ToString("00") + ":" + date.Minute.ToString("00") + ":" + date.Second.ToString("00");
         }
 
         public void RefreshDownloadList()
@@ -1251,7 +1314,7 @@ namespace Korot
                     {
                         Text = item.PercentComplete + "%"
                     };
-                    listV.SubItems.Add(DateTime.Now.ToString("dd/MM/yy hh:mm:ss"));
+                    listV.SubItems.Add(GetDateInfo(DateTime.Now));
                     listV.SubItems.Add(item.FullPath);
                     listV.SubItems.Add(item.Url);
                     hlvDownload.Items.Add(listV);
@@ -1263,7 +1326,7 @@ namespace Korot
                 {
                     Text = x.Name
                 };
-                listV.SubItems.Add(x.Date);
+                listV.SubItems.Add(GetDateInfo(DateTime.ParseExact(x.Date, DateFormat, null)));
                 listV.SubItems.Add(x.LocalUrl);
                 listV.SubItems.Add(x.Url);
                 listV.Tag = x;
@@ -1838,7 +1901,7 @@ namespace Korot
                     if (_Incognito) { }
                     else
                     {
-                        Invoke(new Action(() => Settings.History.Add(new Korot.Site() { Date = DateTime.Now.ToString("dd/MM/yy hh:mm:ss"), Name = Text, Url = tbAddress.Text })));
+                        Invoke(new Action(() => Settings.History.Add(new Korot.Site() { Date = DateTime.Now.ToString(DateFormat), Name = Text, Url = tbAddress.Text })));
 
                     }
                     if (HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130)

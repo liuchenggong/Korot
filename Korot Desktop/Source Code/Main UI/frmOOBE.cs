@@ -62,6 +62,7 @@ namespace Korot
             }
             try { lbLang.SelectedIndex = savedValue; } catch { }
         }
+        int switchedTimes = 0;
         private void lbLang_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbLang.SelectedItem != null)
@@ -72,6 +73,7 @@ namespace Korot
                 }
                 else
                 {
+                    switchedTimes++;
                     Settings.LanguageSystem.ReadFromFile(Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".klf", true);
                     Text = Settings.LanguageSystem.GetItemText("OOBETitle");
                     btContinue.ButtonText = Settings.LanguageSystem.GetItemText("OOBEContinue");
@@ -279,6 +281,13 @@ namespace Korot
 
         private void tmrLang_Tick(object sender, EventArgs e)
         {
+            if (switchedTimes > 19)
+            {
+                Random rn = new Random();
+                int randomgen = rn.Next(0, lbLang.Items.Count - 1);
+                lbLang.SelectedIndex = randomgen;
+                return;
+            }
             lbLang.SelectedIndex = lbLang.SelectedIndex == lbLang.Items.Count - 1 ? 0 : lbLang.SelectedIndex + 1;
         }
 

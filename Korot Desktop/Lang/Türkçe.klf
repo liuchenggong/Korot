@@ -339,4 +339,17 @@
   <Translate ID="ImportProfile" Text="Profili içe aktar" />
   <Translate ID="ExportProfile" Text="Profili dışa aktar" />
   <Translate ID="ProfileFileInfo" Text="Korot Profil Arşivi" />
+  <Translate ID="Month1" Text="Ocak" />
+  <Translate ID="Month2" Text="Şubat" />
+  <Translate ID="Month3" Text="Mart" />
+  <Translate ID="Month4" Text="Nisan" />
+  <Translate ID="Month5" Text="Mayıs" />
+  <Translate ID="Month6" Text="Haziran" />
+  <Translate ID="Month7" Text="Temmuz" />
+  <Translate ID="Month8" Text="Ağustos" />
+  <Translate ID="Month9" Text="Eylül" />
+  <Translate ID="Month10" Text="Ekim" />
+  <Translate ID="Month11" Text="Kasım" />
+  <Translate ID="Month12" Text="Aralık" />
+  <Translate ID="Month0" Text="Haltroy" />
 </Language>

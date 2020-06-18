@@ -116,7 +116,7 @@ namespace Korot
             {
                 anaform().CurrentDownloads.Remove(downloadItem);
                 Site site = new Site();
-                site.Date = DateTime.Now.ToString("dd/MM/yy hh:mm:ss");
+                site.Date = DateTime.Now.ToString(ActiveForm.DateFormat);
                 site.Url = downloadItem.Url;
                 site.LocalUrl = downloadItem.FullPath;
                 site.Status = DownloadStatus.Cancelled;
@@ -130,7 +130,7 @@ namespace Korot
                     ınstallExt.Show();
                 }
                 Site site = new Site();
-                site.Date = DateTime.Now.ToString("dd/MM/yy hh:mm:ss");
+                site.Date = DateTime.Now.ToString(ActiveForm.DateFormat);
                 site.Url = downloadItem.Url;
                 site.LocalUrl = downloadItem.FullPath;
                 site.Status = DownloadStatus.Downloaded;

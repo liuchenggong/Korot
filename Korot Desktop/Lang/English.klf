@@ -339,4 +339,17 @@
   <Translate ID="ImportProfile" Text="Import Profile" />
   <Translate ID="ExportProfile" Text="Export this Profile" />
   <Translate ID="ProfileFileInfo" Text="Korot Profile Archive" />
+  <Translate ID="Month1" Text="January" />
+  <Translate ID="Month2" Text="February" />
+  <Translate ID="Month3" Text="March" />
+  <Translate ID="Month4" Text="April" />
+  <Translate ID="Month5" Text="May" />
+  <Translate ID="Month6" Text="June" />
+  <Translate ID="Month7" Text="July" />
+  <Translate ID="Month8" Text="August" />
+  <Translate ID="Month9" Text="September" />
+  <Translate ID="Month10" Text="October" />
+  <Translate ID="Month11" Text="November" />
+  <Translate ID="Month12" Text="December" />
+  <Translate ID="Month0" Text="Haltroy" />
 </Language>
