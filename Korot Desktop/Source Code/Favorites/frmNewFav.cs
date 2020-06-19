@@ -24,7 +24,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml;
 
 namespace Korot
 {
@@ -147,7 +146,7 @@ namespace Korot
                     {
                         Text = HTInputBox.TextValue,
                         Name = HTInputBox.TextValue.Replace(" ", "").Replace(Environment.NewLine, ""),
-                        Tag = new Folder() { Text = HTInputBox.TextValue , Name = HTInputBox.TextValue.Replace(" ", "").Replace(Environment.NewLine, ""), ParentFolder = (treeView1.SelectedNode.Tag != null ? (treeView1.SelectedNode.Tag as Folder) : null), }
+                        Tag = new Folder() { Text = HTInputBox.TextValue, Name = HTInputBox.TextValue.Replace(" ", "").Replace(Environment.NewLine, ""), ParentFolder = (treeView1.SelectedNode.Tag != null ? (treeView1.SelectedNode.Tag as Folder) : null), }
                     };
                     treeView1.SelectedNode.Nodes.Add(newFolder);
                     treeView1.ExpandAll();

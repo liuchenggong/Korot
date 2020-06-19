@@ -115,25 +115,29 @@ namespace Korot
             if (downloadItem.IsCancelled)
             {
                 anaform().CurrentDownloads.Remove(downloadItem);
-                Site site = new Site();
-                site.Date = DateTime.Now.ToString(ActiveForm.DateFormat);
-                site.Url = downloadItem.Url;
-                site.LocalUrl = downloadItem.FullPath;
-                site.Status = DownloadStatus.Cancelled;
+                Site site = new Site
+                {
+                    Date = DateTime.Now.ToString(ActiveForm.DateFormat),
+                    Url = downloadItem.Url,
+                    LocalUrl = downloadItem.FullPath,
+                    Status = DownloadStatus.Cancelled
+                };
                 ActiveForm.Settings.Downloads.Downloads.Add(site);
             }
             if (downloadItem.IsComplete)
             {
                 if (downloadItem.FullPath.ToLower().EndsWith(".kef") || downloadItem.FullPath.ToLower().EndsWith(".ktf"))
                 {
-                    frmInstallExt ınstallExt = new frmInstallExt(ActiveForm.Settings,downloadItem.FullPath, Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser +"\\Extensions" + Path.GetFileNameWithoutExtension(downloadItem.FullPath)));
+                    frmInstallExt ınstallExt = new frmInstallExt(ActiveForm.Settings, downloadItem.FullPath, Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Extensions" + Path.GetFileNameWithoutExtension(downloadItem.FullPath)));
                     ınstallExt.Show();
                 }
-                Site site = new Site();
-                site.Date = DateTime.Now.ToString(ActiveForm.DateFormat);
-                site.Url = downloadItem.Url;
-                site.LocalUrl = downloadItem.FullPath;
-                site.Status = DownloadStatus.Downloaded;
+                Site site = new Site
+                {
+                    Date = DateTime.Now.ToString(ActiveForm.DateFormat),
+                    Url = downloadItem.Url,
+                    LocalUrl = downloadItem.FullPath,
+                    Status = DownloadStatus.Downloaded
+                };
                 ActiveForm.Settings.Downloads.Downloads.Add(site);
                 anaform().CurrentDownloads.Remove(downloadItem);
                 ActiveForm.Invoke(new Action(() => ActiveForm.RefreshDownloadList()));

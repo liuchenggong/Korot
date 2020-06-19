@@ -87,7 +87,7 @@ namespace Korot
             if (cefform == null) { cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this))); Close(); return; }
             if (cefform.IsDisposed) { cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this))); Close(); return; }
             if (cefform.closing) { cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this))); Close(); return; }
-            if (string.IsNullOrWhiteSpace(notification.action)) 
+            if (string.IsNullOrWhiteSpace(notification.action))
             {
                 cefform.Invoke(new Action(() => cefform.NewTab(notification.url)));
             }
@@ -95,7 +95,7 @@ namespace Korot
             {
                 cefform.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsync(@" " + notification.action)));
             }
-                cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this)));
+            cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this)));
             Close();
         }
         private void frmNotification_Load(object sender, EventArgs e)
@@ -174,7 +174,8 @@ namespace Korot
             cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this)));
             Close();
         }
-        string ilkImage = "";
+
+        private string ilkImage = "";
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (ilkImage != notification.imageUrl)

@@ -24,14 +24,11 @@ using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml;
-using Win32Interop.Enums;
 
 namespace Korot
 {
@@ -39,7 +36,7 @@ namespace Korot
     public partial class frmMain : HTAlt.WinForms.HTTitleTabs
     {
         public Settings Settings;
-        private MyJumplist list;
+        private readonly MyJumplist list;
         public List<DownloadItem> CurrentDownloads = new List<DownloadItem>();
         public List<string> CancelledDownloads = new List<string>();
         public List<string> notificationAsked = new List<string>();
@@ -67,12 +64,12 @@ namespace Korot
         private string Yes = "Yes";
         private string No = "No";
         private string Cancel = "Cancel";
-        ToolStripMenuItem tsCloseK;
-        ToolStripMenuItem tsCloseAll;
-        ToolStripSeparator tsSepNL;
+        private ToolStripMenuItem tsCloseK;
+        private ToolStripMenuItem tsCloseAll;
+        private ToolStripSeparator tsSepNL;
         public Collection<frmCEF> notifListeners = new Collection<frmCEF>();
-        ContextMenuStrip cmsNL = new ContextMenuStrip() { RenderMode = ToolStripRenderMode.System, ShowImageMargin = false,};
-        private NotifyIcon NLEditor = new NotifyIcon() { Text = "Korot", Icon = Properties.Resources.KorotIcon, Visible = true};
+        private readonly ContextMenuStrip cmsNL = new ContextMenuStrip() { RenderMode = ToolStripRenderMode.System, ShowImageMargin = false, };
+        private readonly NotifyIcon NLEditor = new NotifyIcon() { Text = "Korot", Icon = Properties.Resources.KorotIcon, Visible = true };
         private void InitNL()
         {
             closeAll = Settings.LanguageSystem.GetItemText("CloseAll");
@@ -85,10 +82,12 @@ namespace Korot
             cmsNL.Items.Clear();
             foreach (frmCEF x in notifListeners)
             {
-                ToolStripMenuItem tsItem = new ToolStripMenuItem();
-                tsItem.Text = x.Text;
-                tsItem.Tag = x;
-                tsItem.Name = HTAlt.Tools.GenerateRandomText(12);
+                ToolStripMenuItem tsItem = new ToolStripMenuItem
+                {
+                    Text = x.Text,
+                    Tag = x,
+                    Name = HTAlt.Tools.GenerateRandomText(12)
+                };
                 tsItem.Click += closeNL_Click;
                 cmsNL.Items.Add(tsItem);
             }
@@ -118,18 +117,18 @@ namespace Korot
             {
                 x.BackColor = Settings.Theme.BackColor;
                 x.ForeColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
-            } 
+            }
         }
-        private void tmrNL_Tick(object sender,EventArgs e)
+        private void tmrNL_Tick(object sender, EventArgs e)
         {
             InitNL();
         }
-        private void closeNL_Click(object sender,EventArgs e)
+        private void closeNL_Click(object sender, EventArgs e)
         {
             if (sender is ToolStripMenuItem)
             {
-                var tsSender = sender as ToolStripItem;
-                var tsForm = tsSender.Tag as Form;
+                ToolStripItem tsSender = sender as ToolStripItem;
+                Form tsForm = tsSender.Tag as Form;
                 cmsNL.Items.Remove(tsSender);
                 tsForm.Close();
                 NotifListeners.Remove(tsForm as frmCEF);
@@ -139,7 +138,7 @@ namespace Korot
         {
             HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot",
                                                       closeAllMessage,
-                                                      new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true }) 
+                                                      new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
             { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor };
             DialogResult diares = mesaj.ShowDialog();
             if (diares == DialogResult.Yes)
@@ -184,9 +183,11 @@ namespace Korot
                 foreach (Site x in Settings.Sites)
                 {
                     if (!x.AllowNotifications) { return; }
-                    frmCEF notfiListener = new frmCEF(Settings,isIncognito, x.Url, Properties.Settings.Default.LastUser, true);
-                    notfiListener.Visible = true;
-                    notfiListener.Enabled = true;
+                    frmCEF notfiListener = new frmCEF(Settings, isIncognito, x.Url, Properties.Settings.Default.LastUser, true)
+                    {
+                        Visible = true,
+                        Enabled = true
+                    };
                     notfiListener.Show();
                     NotifListeners.Add(notfiListener);
                     notfiListener.Hide();
@@ -196,7 +197,7 @@ namespace Korot
                 tmrNL.Tick += tmrNL_Tick;
                 tmrNL.Start();
             }
-            list = new MyJumplist(this.Handle, settings);
+            list = new MyJumplist(Handle, settings);
         }
         public void removeThisDownloadItem(DownloadItem removeItem)
         {
@@ -286,7 +287,7 @@ namespace Korot
             document.Load(stream);
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                frmCEF cefform = new frmCEF(Settings,isIncognito, "korot://newtab", Properties.Settings.Default.LastUser);
+                frmCEF cefform = new frmCEF(Settings, isIncognito, "korot://newtab", Properties.Settings.Default.LastUser);
                 cefform.lbURL.Items.Clear();
                 cefform.lbTitle.Items.Clear();
                 string[] SplittedFase = node.Attributes["Content"].Value.Split(';');
@@ -350,7 +351,7 @@ namespace Korot
             {
                 BackColor = referenceTab.BackColor,
                 UseDefaultBackColor = referenceTab.UseDefaultBackColor,
-                Content = new frmCEF(Settings,isIncognito, url, Properties.Settings.Default.LastUser)
+                Content = new frmCEF(Settings, isIncognito, url, Properties.Settings.Default.LastUser)
             };
             Tabs.Insert(Tabs.IndexOf(referenceTab) + 1, newTab);
             SelectedTabIndex = Tabs.IndexOf(referenceTab) + 1;
@@ -362,7 +363,7 @@ namespace Korot
             {
                 BackColor = Settings.Theme.BackColor,
                 UseDefaultBackColor = true,
-                Content = new frmCEF(Settings,isIncognito, url, Properties.Settings.Default.LastUser)
+                Content = new frmCEF(Settings, isIncognito, url, Properties.Settings.Default.LastUser)
             };
             Tabs.Add(newTab);
             SelectedTabIndex = Tabs.Count - 1;
@@ -373,7 +374,7 @@ namespace Korot
             {
                 BackColor = Settings.Theme.BackColor,
                 UseDefaultBackColor = true,
-                Content = new frmCEF(Settings,isIncognito, "korot://newtab", Properties.Settings.Default.LastUser)
+                Content = new frmCEF(Settings, isIncognito, "korot://newtab", Properties.Settings.Default.LastUser)
             };
         }
         private void timer1_Tick(object sender, EventArgs e)

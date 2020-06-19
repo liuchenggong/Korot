@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Korot
@@ -17,7 +15,7 @@ namespace Korot
         {
             ExtensionList = new List<Extension>();
             ExtensionCodeNames = new List<string>();
-            if(string.IsNullOrWhiteSpace(ExtList) || ExtList.ToLower().Replace(Environment.NewLine,"") == "<extensions></extensions>")
+            if (string.IsNullOrWhiteSpace(ExtList) || ExtList.ToLower().Replace(Environment.NewLine, "") == "<extensions></extensions>")
             {
                 return;
             }
@@ -33,12 +31,12 @@ namespace Korot
             }
             LoadExtensions();
         }
-        public string ExtractList 
+        public string ExtractList
         {
             get
             {
                 string extList = "<Extensions>" + Environment.NewLine;
-                foreach(string x in ExtensionCodeNames)
+                foreach (string x in ExtensionCodeNames)
                 {
                     extList += "<Extension>" + x + "</Extension>" + Environment.NewLine;
                 }
@@ -46,13 +44,7 @@ namespace Korot
                 return extList;
             }
         }
-        public string ExtensionDirectory
-        {
-            get
-            {
-                return Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + ProfileName + "\\Extensions";
-            }
-        }
+        public string ExtensionDirectory => Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + ProfileName + "\\Extensions";
 
         public List<Extension> ExtensionList { get; set; }
         public List<string> ExtensionCodeNames { get; set; }
@@ -71,16 +63,16 @@ namespace Korot
                 x.Update();
             }
         }
-        public void InstallExtension(string ExtFile,bool Silent = false)
+        public void InstallExtension(string ExtFile, bool Silent = false)
         {
-            frmInstallExt installExt = new frmInstallExt(Settings,ExtFile, Silent);
+            frmInstallExt installExt = new frmInstallExt(Settings, ExtFile, Silent);
             installExt.Show();
         }
     }
     public class Extension
     {
         public Settings LocalSettings { get; set; }
-        public Extension (string ManifestFileLocation)
+        public Extension(string ManifestFileLocation)
         {
             ManifestFile = ManifestFileLocation;
             // Read the file
@@ -116,7 +108,7 @@ namespace Korot
                 }
                 else if (node.Name.ToLower() == "startupfile")
                 {
-                    Startup = node.InnerText.Replace("[EXTFOLDER]",ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                    Startup = node.InnerText.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                 }
                 else if (node.Name.ToLower() == "popupfile")
                 {
@@ -202,15 +194,15 @@ namespace Korot
         {
             if (Settings.useHaltroyUpdater)
             {
-                frmUpdateExt frmUpdate = new frmUpdateExt(ManifestFile, false,LocalSettings);
+                frmUpdateExt frmUpdate = new frmUpdateExt(ManifestFile, false, LocalSettings);
                 frmUpdate.Show();
             }
         }
     }
-   public class ExtensionSettings
+    public class ExtensionSettings
     {
         private bool _autoLoad = false;
-        private bool _onlineFiles= false;
+        private bool _onlineFiles = false;
         private bool _showPopupMenu = false;
         private bool _activateScript = false;
         private bool _hasProxy = false;

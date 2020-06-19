@@ -41,7 +41,7 @@ namespace Korot
         private string ext = "Extension";
         private string theme = "Theme";
         private readonly bool silentInstall = false;
-        public frmInstallExt(Settings settings,string installFrom, bool silent = false)
+        public frmInstallExt(Settings settings, string installFrom, bool silent = false)
         {
             Settings = settings;
             ExtFile = installFrom;
@@ -122,8 +122,9 @@ namespace Korot
             Extension extension;
             try
             {
-               extension = new Extension(fileLocation);
-                Invoke(new Action(() => {
+                extension = new Extension(fileLocation);
+                Invoke(new Action(() =>
+                {
                     lbName.Text = extension.Name;
                     lbVersion.Text = extension.Version.ToString();
                     lbAuthor.Text = extension.Author;
@@ -154,7 +155,8 @@ namespace Korot
                 {
                     Close();
                     return;
-                }else
+                }
+                else
                 {
                     Invoke(new Action(() =>
                     {
@@ -165,7 +167,7 @@ namespace Korot
                     return;
                 }
             }
-            
+
         }
 
         private void ReadKTF(string fileLocation)
@@ -174,7 +176,8 @@ namespace Korot
             try
             {
                 extension = new Theme(fileLocation);
-                Invoke(new Action(() => {
+                Invoke(new Action(() =>
+                {
                     lbName.Text = extension.Name;
                     lbVersion.Text = extension.Version.ToString();
                     lbAuthor.Text = extension.Author;

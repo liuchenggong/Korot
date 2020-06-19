@@ -39,9 +39,9 @@ namespace Korot
         private Version currentVersion;
         private string fileLocation;
         private string fileURL;
-        public string info = "Updating [NAME]..." + Environment.NewLine +  "Please wait...";
+        public string info = "Updating [NAME]..." + Environment.NewLine + "Please wait...";
         public string infoTemp = "[PERC]% | [CURRENT] KiB downloaded out of [TOTAL] KiB.";
-        public frmUpdateExt(string manifest, bool theme,Settings settings)
+        public frmUpdateExt(string manifest, bool theme, Settings settings)
         {
             Settings = settings;
             isTheme = theme;
@@ -57,7 +57,7 @@ namespace Korot
         private void Lang()
         {
             Text = Settings.LanguageSystem.GetItemText("KorotExtensionUpdater");
-            info = Settings.LanguageSystem.GetItemText("ExtensionUpdatingInfo").Replace("[NEWLINE]",Environment.NewLine);
+            info = Settings.LanguageSystem.GetItemText("ExtensionUpdatingInfo").Replace("[NEWLINE]", Environment.NewLine);
             infoTemp = Settings.LanguageSystem.GetItemText("DownloadProgress");
         }
 
@@ -147,9 +147,9 @@ namespace Korot
             else
             {
                 webC.Dispose();
-                frmInstallExt installExt = new frmInstallExt(Settings,fileLocation, true);
+                frmInstallExt installExt = new frmInstallExt(Settings, fileLocation, true);
                 installExt.ShowDialog();
-                Directory.Delete(new FileInfo(fileLocation).DirectoryName,true);
+                Directory.Delete(new FileInfo(fileLocation).DirectoryName, true);
                 Close();
             }
         }

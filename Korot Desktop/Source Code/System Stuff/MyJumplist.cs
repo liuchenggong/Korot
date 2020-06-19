@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Taskbar;
-using System.IO;
-using System.Reflection;
-using Microsoft.WindowsAPICodePack.Shell;
+using System;
 using System.Windows.Forms;
 
 namespace Korot
 {
     public class MyJumplist
     {
-        private JumpList list;
-        Settings Settings;
-        public MyJumplist(IntPtr windowHandle,Settings settings)
+        private readonly JumpList list;
+        private readonly Settings Settings;
+        public MyJumplist(IntPtr windowHandle, Settings settings)
         {
             Settings = settings;
             list = JumpList.CreateJumpListForIndividualWindow(TaskbarManager.Instance.ApplicationId, windowHandle);
@@ -22,8 +17,9 @@ namespace Korot
             BuildList();
 
         }
-        string NIW = "New Incognito Window";
-        string NW = "New Window";
+
+        private string NIW = "New Incognito Window";
+        private string NW = "New Window";
         private void BuildList()
         {
             NIW = Settings.LanguageSystem.GetItemText("NewWindow");
@@ -32,11 +28,15 @@ namespace Korot
             userActionsCategory.AddJumpListItems();
             list.AddCustomCategories(userActionsCategory);
             list.ClearAllUserTasks();
-            JumpListLink jlIncognito = new JumpListLink(Application.ExecutablePath + " -incognito", NIW);
-            jlIncognito.IconReference = new IconReference(Application.ExecutablePath, 0);
+            JumpListLink jlIncognito = new JumpListLink(Application.ExecutablePath + " -incognito", NIW)
+            {
+                IconReference = new IconReference(Application.ExecutablePath, 0)
+            };
             list.AddUserTasks(jlIncognito);
-            JumpListLink jlN = new JumpListLink(Application.ExecutablePath, NW);
-            jlN.IconReference = new IconReference(Application.ExecutablePath, 0);
+            JumpListLink jlN = new JumpListLink(Application.ExecutablePath, NW)
+            {
+                IconReference = new IconReference(Application.ExecutablePath, 0)
+            };
             list.AddUserTasks(jlN);
             list.Refresh();
         }

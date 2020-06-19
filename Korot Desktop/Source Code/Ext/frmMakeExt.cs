@@ -2,13 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -20,17 +16,18 @@ namespace Korot
         {
             InitializeComponent();
         }
-        private void anything_MouseEnter(object sender,EventArgs e)
+        private void anything_MouseEnter(object sender, EventArgs e)
         {
-            var cntrl = sender as Control;
+            Control cntrl = sender as Control;
             if (cooldownMode) { return; }
-            if (cntrl != null) 
+            if (cntrl != null)
             {
-                if (cntrl.Tag != null) 
+                if (cntrl.Tag != null)
                 {
                     textBox4.Text = cntrl.Tag.ToString();
                     return;
-                }else
+                }
+                else
                 {
                     textBox4.Text = textBox4.Tag.ToString();
                     return;
@@ -47,11 +44,7 @@ namespace Korot
             if (cooldownMode) { return; }
             textBox4.Text = textBox4.Tag.ToString();
         }
-        private bool isEmptyWorkSpace
-        {
-            get
-            {
-                return (string.IsNullOrWhiteSpace(tbName.Text) &&
+        private bool isEmptyWorkSpace => (string.IsNullOrWhiteSpace(tbName.Text) &&
                 string.IsNullOrWhiteSpace(tbVersion.Text) &&
                 string.IsNullOrWhiteSpace(tbAuthor.Text) &&
                 string.IsNullOrWhiteSpace(cbIcon.Text) &&
@@ -73,8 +66,6 @@ namespace Korot
                 hasProxy.Checked == false &&
                 useHaltroyUpdater.Checked == false &&
                 lbLocation.Items.Count == 0);
-            }
-        }
         private string isIncompleteWorkSpace
         {
             get
@@ -89,7 +80,7 @@ namespace Korot
 
                 incompleteError = incompleteError + (string.IsNullOrWhiteSpace(cbIcon.Text) ? "\"Icon\" is empty." + Environment.NewLine : "");
 
-                bool autoLoadError = ((autoLoad.Checked ||activateScript.Checked) ? (!string.IsNullOrWhiteSpace(cbStartup.Text) ? (lbSafeName.Items.Contains(cbStartup.Text.Replace("[EXTFOLDER]", "")) ? false : true) : true) : false);
+                bool autoLoadError = ((autoLoad.Checked || activateScript.Checked) ? (!string.IsNullOrWhiteSpace(cbStartup.Text) ? (lbSafeName.Items.Contains(cbStartup.Text.Replace("[EXTFOLDER]", "")) ? false : true) : true) : false);
                 incompleteError = incompleteError + (autoLoadError ? "\"StartupFile\" is empty." + Environment.NewLine : "");
 
                 bool popupError = (showPopupMenu.Checked ? (!string.IsNullOrWhiteSpace(cbMenu.Text) ? (lbSafeName.Items.Contains(cbMenu.Text.Replace("[EXTFOLDER]", "")) ? false : true) : true) : false);
@@ -130,9 +121,9 @@ namespace Korot
                          "<Setting ID=\"useHaltroyUpdater\">" + (useHaltroyUpdater.Checked ? "true" : "false") + "</Setting>" + Environment.NewLine +
                          "</Settings>" + Environment.NewLine +
                          "<Files>" + Environment.NewLine;
-            foreach (var i in lbSafeName.Items) 
-            { 
-              extManifest += "<File Location=\"" + i.ToString().Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />" + Environment.NewLine;
+            foreach (object i in lbSafeName.Items)
+            {
+                extManifest += "<File Location=\"" + i.ToString().Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />" + Environment.NewLine;
             }
             extManifest += "</Files>" + Environment.NewLine;
             extManifest += "</KorotExtension>" + Environment.NewLine;
@@ -186,7 +177,7 @@ namespace Korot
         {
             if (!isEmptyWorkSpace)
             {
-                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "This action clears current workspace. Do you wish to continue?", new HTAlt.WinForms.HTDialogBoxContext() { Yes= true,No = true,Cancel = true, })
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "This action clears current workspace. Do you wish to continue?", new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true, })
                 {
                     Icon = Icon,
                     BackgroundColor = BackColor,
@@ -215,10 +206,10 @@ namespace Korot
                 TemporaryFiles.Add(workspace);
                 if (Directory.Exists(workspace)) { Directory.Delete(workspace, true); }
                 Directory.CreateDirectory(workspace);
-                ZipFile.ExtractToDirectory(dialog.FileName, workspace,Encoding.UTF8);
-                foreach(string x in Directory.GetFiles(workspace))
+                ZipFile.ExtractToDirectory(dialog.FileName, workspace, Encoding.UTF8);
+                foreach (string x in Directory.GetFiles(workspace))
                 {
-                    if(x != workspace + "ext.kem") 
+                    if (x != workspace + "ext.kem")
                     {
                         lbLocation.Items.Add(x);
                     }
@@ -229,13 +220,13 @@ namespace Korot
             {
                 LoadKEM(dialog.FileName);
                 FileInfo info = new FileInfo(dialog.FileName);
-                foreach(var item in lbSafeName.Items)
+                foreach (object item in lbSafeName.Items)
                 {
                     lbLocation.Items.Add(info.DirectoryName + "\\" + item.ToString());
                 }
             }
         }
-        private List<string> TemporaryFiles = new List<string>();
+        private readonly List<string> TemporaryFiles = new List<string>();
         private void LoadKEM(string kemloc)
         {
             // Read the file
@@ -256,7 +247,7 @@ namespace Korot
             {
                 if (node.Name.ToLower() == "name")
                 {
-                    if (!string.IsNullOrWhiteSpace(tbName.Text)) 
+                    if (!string.IsNullOrWhiteSpace(tbName.Text))
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext() { OK = true, })
                         {
@@ -266,7 +257,8 @@ namespace Korot
                         };
                         mesaj.ShowDialog(); clear();
                         return;
-                    }else
+                    }
+                    else
                     {
                         tbName.Text = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     }
@@ -293,7 +285,7 @@ namespace Korot
                 {
                     if (!string.IsNullOrWhiteSpace(tbAuthor.Text))
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() +"\" nodes.", new HTDialogBoxContext() { OK = true, })
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext() { OK = true, })
                         {
                             BackgroundColor = BackColor,
                             OK = "OK",
@@ -479,7 +471,8 @@ namespace Korot
                                 return;
                             }
                             autoLoad.Checked = subnode.InnerText == "true";
-                        }else if (subnode.Name == "onlineFiles")
+                        }
+                        else if (subnode.Name == "onlineFiles")
                         {
                             if (subnode.InnerText == "true" || subnode.InnerText == "false")
                             {
@@ -564,7 +557,7 @@ namespace Korot
             string incompleteError = isIncompleteWorkSpace;
             if (!string.IsNullOrWhiteSpace(incompleteError))
             {
-                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Cannot create an extension. Workspace is incomplete. Please fill all informations correctly." + Environment.NewLine + incompleteError, new HTAlt.WinForms.HTDialogBoxContext() { OK = true,})
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Cannot create an extension. Workspace is incomplete. Please fill all informations correctly." + Environment.NewLine + incompleteError, new HTAlt.WinForms.HTDialogBoxContext() { OK = true, })
                 {
                     Icon = Icon,
                     BackgroundColor = BackColor,
@@ -573,14 +566,14 @@ namespace Korot
                 mesaj.ShowDialog();
                 return;
             }
-            SaveFileDialog dialog = new SaveFileDialog() 
+            SaveFileDialog dialog = new SaveFileDialog()
             {
-               Filter = "Korot Extension File|*.kef|Korot Extension Manifest|*.kem",
-               Title = "Build package to...",
-               FileName = tbAuthor.Text + "." + tbName.Text + ".kef",
+                Filter = "Korot Extension File|*.kef|Korot Extension Manifest|*.kem",
+                Title = "Build package to...",
+                FileName = tbAuthor.Text + "." + tbName.Text + ".kef",
             };
             DialogResult dialogResult = dialog.ShowDialog();
-            if (dialogResult == DialogResult.OK) 
+            if (dialogResult == DialogResult.OK)
             {
                 try
                 {
@@ -594,13 +587,13 @@ namespace Korot
                         }
                         Directory.CreateDirectory(workspace);
                         HTAlt.Tools.WriteFile(workspace + "ext.kem", BuildExtManifest(), Encoding.UTF8);
-                        foreach (var i in lbSafeName.Items)
+                        foreach (object i in lbSafeName.Items)
                         {
                             int ii = lbSafeName.Items.IndexOf(i);
                             File.Copy(lbLocation.Items[ii].ToString(), workspace + i.ToString());
 
                         }
-                        ZipFile.CreateFromDirectory(workspace, dialog.FileName, CompressionLevel.Optimal,false,Encoding.UTF8);
+                        ZipFile.CreateFromDirectory(workspace, dialog.FileName, CompressionLevel.Optimal, false, Encoding.UTF8);
                         Directory.Delete(workspace, true);
                     }
                     else if (dialog.FileName.ToLower().EndsWith(".kem"))
@@ -612,7 +605,7 @@ namespace Korot
                     cooldownMode = true;
                     tmrCooldown.Start();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     textBox4.Text = "Error while building package." + Environment.NewLine + ex.ToString();
                     cooldownMode = true;
@@ -660,8 +653,9 @@ namespace Korot
             lbLocation.Items.Clear();
             lbSafeName.Items.Clear();
         }
-        bool cooldownMode = false;
-        int cooldown = 0;
+
+        private bool cooldownMode = false;
+        private int cooldown = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
             cooldown += 1;
@@ -680,7 +674,7 @@ namespace Korot
             cbBackground.Items.Clear();
             cbStartup.Items.Clear();
             cbProxy.Items.Clear();
-            foreach (var item in lbSafeName.Items)
+            foreach (object item in lbSafeName.Items)
             {
                 // javascript
                 if (item.ToString().ToLower().EndsWith(".js"))
@@ -747,7 +741,7 @@ namespace Korot
                 {
                     string defaultValue = lbLocation.SelectedItem.ToString();
                     int index = lbLocation.SelectedIndex;
-                    HTInputBox input = new HTInputBox(Text, "Please enter a valid address for source.", new HTDialogBoxContext() { OK = true, Cancel = true, SetToDefault = true,}, defaultValue) 
+                    HTInputBox input = new HTInputBox(Text, "Please enter a valid address for source.", new HTDialogBoxContext() { OK = true, Cancel = true, SetToDefault = true, }, defaultValue)
                     {
                         SetToDefault = "Revert",
                         OK = "OK",
@@ -756,7 +750,7 @@ namespace Korot
                         Icon = Icon,
                     };
                     DialogResult res = input.ShowDialog();
-                    if(res == DialogResult.OK)
+                    if (res == DialogResult.OK)
                     {
                         lbLocation.Items.RemoveAt(index);
                         lbLocation.Items.Insert(index, input.TextValue);

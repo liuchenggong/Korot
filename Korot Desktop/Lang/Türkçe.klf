@@ -94,7 +94,7 @@
   <Translate ID="InstallUpdate" Text="Güncellemeyi Kur" />
   <Translate ID="UpdatingMessage" Text="Güncelleme indiriliyor ve kuruluyor..." />
   <Translate ID="DownloadProgress" Text="[PERC]% | [TOTAL] KB&apos;dan [CURRENT] KB indirildi." />
-  <Translate ID="Themes" Text="Temalar" />
+  <Translate ID="Themes2" Text="Temalar" />
   <Translate ID="ApplyThemeInfo" Text="Bu temayı uygulamak istediğinizden emin misiniz?" />
   <Translate ID="ThemeFileCorrupted" Text="Bu tema dosyası bozulmuş veya bu sürüm ile uyumlu değil." />
   <Translate ID="CertificateErrorDetails" Text="Sertifika Hata Detayları" />
@@ -216,7 +216,7 @@
   <Translate ID="Zoom" Text="Büyüt" />
   <Translate ID="BackColor" Text="Arkaplan rengi" />
   <Translate ID="ForeColor" Text="Yazı rengi" />
-  <Translate ID="OverlayColor" Text="Tema Rengi" />
+  <Translate ID="OverlayColor2" Text="Tema Rengi" />
   <Translate ID="NewTabButtonColor" Text="Yeni sekme butonu rengi:" />
   <Translate ID="CloseButtonColor" Text="Sekme kapatma butonu rengi:" />
   <Translate ID="ShowFavoritesMenu" Text="Favoriler menüsünü göster:" />

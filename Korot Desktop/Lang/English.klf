@@ -54,7 +54,7 @@
   <Translate ID="ThemeName" Text="Theme Name :" />
   <Translate ID="Save" Text="Save" />
   <Translate ID="ResetToFefaultProxySetting" Text="Reset to default proxy setting" />
-  <Translate ID="Themes" Text="Themes :" />
+  <Translate ID="Themes2" Text="Themes :" />
   <Translate ID="OpenInNewTab" Text="Open in New Tab" />
   <Translate ID="OpenFile" Text="Open File" />
   <Translate ID="OpenFolderContainingThisFile" Text="Open Folder containing this file" />
@@ -216,7 +216,7 @@
   <Translate ID="Zoom" Text="Zoom" />
   <Translate ID="BackColor" Text="Back Color" />
   <Translate ID="ForeColor" Text="Fore Color" />
-  <Translate ID="OverlayColor" Text="Overlay Color" />
+  <Translate ID="OverlayColor2" Text="Overlay Color" />
   <Translate ID="NewTabButtonColor" Text="New Tab Button Color:" />
   <Translate ID="CloseButtonColor" Text="Close Button Color:" />
   <Translate ID="ShowFavoritesMenu" Text="Show Favorites Menu:" />

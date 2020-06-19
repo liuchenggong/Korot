@@ -1,12 +1,6 @@
 ﻿using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
@@ -20,9 +14,10 @@ namespace Korot
             InitializeComponent();
             GenerateUI();
         }
-        List<Label> cookieLabels = new List<Label>();
-        List<Label> notificationLabels = new List<Label>();
-        List<HTSwitch> switches = new List<HTSwitch>();
+
+        private readonly List<Label> cookieLabels = new List<Label>();
+        private readonly List<Label> notificationLabels = new List<Label>();
+        private readonly List<HTSwitch> switches = new List<HTSwitch>();
         public void GenerateUI()
         {
             cookieLabels.Clear();
@@ -39,7 +34,7 @@ namespace Korot
             }
         }
 
-        void GeneratePanel(Site site)
+        private void GeneratePanel(Site site)
         {
             Panel pSite = new Panel();
             FlowLayoutPanel flowLayoutPanel1 = new FlowLayoutPanel();
@@ -120,7 +115,7 @@ namespace Korot
             // 
             // lbClose
             // 
-            lbClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            lbClose.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
             lbClose.AutoSize = true;
             lbClose.Font = new System.Drawing.Font("Ubuntu", 12F);
             lbClose.Location = new System.Drawing.Point(Width - 30, 8);
@@ -147,34 +142,35 @@ namespace Korot
             lbTitle.Size = new System.Drawing.Size(49, 25);
             lbTitle.TabIndex = 0;
             lbTitle.Text = site.Name;
-            this.Controls.Add(pSite);
+            Controls.Add(pSite);
         }
 
         private void hsNotification_CheckedChanged(object sender, EventArgs e)
         {
-            var hsN = sender as HTSwitch;
-            var site = hsN.Tag as Site;
+            HTSwitch hsN = sender as HTSwitch;
+            Site site = hsN.Tag as Site;
             if (hsN == null || site == null) { return; }
             site.AllowNotifications = hsN.Checked;
         }
 
         private void hsCookie_CheckedChanged(object sender, EventArgs e)
         {
-            var hsC = sender as HTSwitch;
-            var site = hsC.Tag as Site;
+            HTSwitch hsC = sender as HTSwitch;
+            Site site = hsC.Tag as Site;
             if (hsC == null || site == null) { return; }
             site.AllowCookies = hsC.Checked;
         }
 
         private void lbClose_Click(object sender, EventArgs e)
         {
-            var lbC = sender as Label;
-            var site = lbC.Tag as Site;
+            Label lbC = sender as Label;
+            Site site = lbC.Tag as Site;
             if (lbC == null || site == null) { return; }
             cefform.Settings.Sites.Remove(site);
             Controls.Remove(lbC.Parent);
         }
-        bool didLostFocus = false;
+
+        private bool didLostFocus = false;
         private void frmSites_Leave(object sender, EventArgs e)
         {
             didLostFocus = true;
@@ -191,13 +187,13 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.BackColor = cefform.Settings.Theme.BackColor;
-            this.ForeColor = HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
+            BackColor = cefform.Settings.Theme.BackColor;
+            ForeColor = HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
             foreach (Control x in Controls)
             {
                 if (x is Panel)
                 {
-                    x.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor,20,false);
+                    x.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
                     x.ForeColor = HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
                 }
             }
@@ -209,8 +205,8 @@ namespace Korot
                 x.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 60, false), false);
 
             }
-            foreach (Label x in notificationLabels){x.Text = cefform.siteNotifications;}
-            foreach (Label x in cookieLabels){x.Text = cefform.siteCookies;}
+            foreach (Label x in notificationLabels) { x.Text = cefform.siteNotifications; }
+            foreach (Label x in cookieLabels) { x.Text = cefform.siteCookies; }
             lbEmpty.Text = cefform.empty;
         }
     }

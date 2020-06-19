@@ -22,7 +22,6 @@
 using CefSharp;
 using HTAlt.WinForms;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -37,8 +36,8 @@ namespace Korot
     public static class VersionInfo
     {
         public static string CodeName => "Laika";
-        public static bool IsPreRelease => true;
-        public static int PreReleaseNumber => 2;
+        public static bool IsPreRelease => false;
+        public static int PreReleaseNumber => 0;
     }
     internal static class Program
     {
@@ -118,7 +117,7 @@ namespace Korot
             List<frmNotification> notifications = new List<frmNotification>();
             try
             {
-                    
+
                 if (args.Contains("-update"))
                 {
                     if (UACControl.IsProcessElevated)
@@ -164,11 +163,11 @@ namespace Korot
                         if (x == Application.ExecutablePath || x == "-oobe" || x == "-update") { }
                         else if (x == "-incognito")
                         {
-                            testApp.Tabs.Add(new HTTitleTab(testApp) { Content = new frmCEF(settings,true, "korot://incognito", Properties.Settings.Default.LastUser) { } });
+                            testApp.Tabs.Add(new HTTitleTab(testApp) { Content = new frmCEF(settings, true, "korot://incognito", Properties.Settings.Default.LastUser) { } });
                         }
                         else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
                         {
-                            Application.Run(new frmInstallExt(settings,x));
+                            Application.Run(new frmInstallExt(settings, x));
                             appStarted = true;
                         }
                         else
@@ -181,7 +180,7 @@ namespace Korot
                         testApp.Tabs.Add(
 new HTTitleTab(testApp)
 {
-    Content = new frmCEF(settings,isIncognito, settings.Startup, Properties.Settings.Default.LastUser)
+    Content = new frmCEF(settings, isIncognito, settings.Startup, Properties.Settings.Default.LastUser)
 });
                     }
                     testApp.SelectedTabIndex = 0;
@@ -194,16 +193,16 @@ new HTTitleTab(testApp)
             catch (Exception ex)
             {
                 Output.WriteLine(" [Korot] FATAL_ERROR: " + ex.ToString());
-                frmError form = new frmError(ex,settings);
+                frmError form = new frmError(ex, settings);
                 if (!appStarted) { Application.Run(form); } else { form.Show(); }
             }
         }
-        public static void RemoveDirectory(string directory,bool displayresult = true)
+        public static void RemoveDirectory(string directory, bool displayresult = true)
         {
             List<FileFolderError> errors = new List<FileFolderError>();
-            foreach (String x in Directory.GetFiles(directory)) { try { File.Delete(x); } catch (Exception ex) { errors.Add(new FileFolderError(x, ex, false)); } }
-            foreach (String x in Directory.GetDirectories(directory)) { try { Directory.Delete(x, true); } catch (Exception ex) { errors.Add(new FileFolderError(x, ex, true)); } }
-            if (displayresult){if (errors.Count == 0){Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with no errors."); }else {Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with " + errors.Count + " error(s).");foreach (FileFolderError x in errors) { Output.WriteLine(" [RemoveDirectory] " + (x.isDirectory ? "Directory" : "File") + " Error: " + x.Location + " [" + x.Error.ToString() + "]"); } }}
+            foreach (string x in Directory.GetFiles(directory)) { try { File.Delete(x); } catch (Exception ex) { errors.Add(new FileFolderError(x, ex, false)); } }
+            foreach (string x in Directory.GetDirectories(directory)) { try { Directory.Delete(x, true); } catch (Exception ex) { errors.Add(new FileFolderError(x, ex, true)); } }
+            if (displayresult) { if (errors.Count == 0) { Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with no errors."); } else { Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with " + errors.Count + " error(s)."); foreach (FileFolderError x in errors) { Output.WriteLine(" [RemoveDirectory] " + (x.isDirectory ? "Directory" : "File") + " Error: " + x.Location + " [" + x.Error.ToString() + "]"); } } }
         }
         public static bool createThemes()
         {
@@ -275,8 +274,8 @@ new HTTitleTab(testApp)
         }
     }
     public class Settings
-    { 
-        public Settings (string Profile)
+    {
+        public Settings(string Profile)
         {
             ProfileName = Profile;
             Extensions.Settings = this;
@@ -445,11 +444,13 @@ new HTTitleTab(testApp)
                     Sites = new List<Site>();
                     foreach (XmlNode sitenode in node.ChildNodes)
                     {
-                        Site site = new Site();
-                        site.AllowCookies = sitenode.Attributes["AllowCookies"] != null ? (sitenode.Attributes["AllowCookies"].Value == "true") : false;
-                        site.AllowNotifications = sitenode.Attributes["AllowNotifications"] != null ? (sitenode.Attributes["AllowNotifications"].Value == "true") : false;
-                        site.Name = sitenode.Attributes["Name"] != null ? sitenode.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
-                        site.Url = sitenode.Attributes["Url"] != null ? sitenode.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
+                        Site site = new Site
+                        {
+                            AllowCookies = sitenode.Attributes["AllowCookies"] != null ? (sitenode.Attributes["AllowCookies"].Value == "true") : false,
+                            AllowNotifications = sitenode.Attributes["AllowNotifications"] != null ? (sitenode.Attributes["AllowNotifications"].Value == "true") : false,
+                            Name = sitenode.Attributes["Name"] != null ? sitenode.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "",
+                            Url = sitenode.Attributes["Url"] != null ? sitenode.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : ""
+                        };
                         Sites.Add(site);
                     }
                 }
@@ -463,14 +464,16 @@ new HTTitleTab(testApp)
                 }
                 else if (node.Name.ToLower() == "history")
                 {
-                   foreach (XmlNode subnode in node.ChildNodes)
+                    foreach (XmlNode subnode in node.ChildNodes)
                     {
                         if (subnode.Name.ToLower() == "site")
                         {
-                            Site newSite = new Site();
-                            newSite.Date = subnode.Attributes["Date"] != null ? subnode.Attributes["Date"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
-                            newSite.Name = subnode.Attributes["Name"] != null ? subnode.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
-                            newSite.Url = subnode.Attributes["Url"] != null ? subnode.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
+                            Site newSite = new Site
+                            {
+                                Date = subnode.Attributes["Date"] != null ? subnode.Attributes["Date"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "",
+                                Name = subnode.Attributes["Name"] != null ? subnode.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "",
+                                Url = subnode.Attributes["Url"] != null ? subnode.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : ""
+                            };
                             History.Add(newSite);
                         }
                     }
@@ -484,11 +487,13 @@ new HTTitleTab(testApp)
                     {
                         if (subnode.Name.ToLower() == "site")
                         {
-                            Site newSite = new Site();
-                            newSite.Name = subnode.Attributes["Name"] != null ? subnode.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
-                            newSite.Url = subnode.Attributes["Url"] != null ? subnode.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
-                            newSite.Date = subnode.Attributes["Date"] != null ? subnode.Attributes["Date"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
-                            newSite.LocalUrl = subnode.Attributes["LocalUrl"] != null ? subnode.Attributes["LocalUrl"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
+                            Site newSite = new Site
+                            {
+                                Name = subnode.Attributes["Name"] != null ? subnode.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "",
+                                Url = subnode.Attributes["Url"] != null ? subnode.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "",
+                                Date = subnode.Attributes["Date"] != null ? subnode.Attributes["Date"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "",
+                                LocalUrl = subnode.Attributes["LocalUrl"] != null ? subnode.Attributes["LocalUrl"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : ""
+                            };
                             int status = Convert.ToInt32(subnode.Attributes["Status"] != null ? subnode.Attributes["Status"].Value : "0");
                             if (status == 0)
                             {
@@ -660,7 +665,7 @@ new HTTitleTab(testApp)
             get => _CollectionManager;
             set => _CollectionManager = value;
         }
-        public List<Site> History 
+        public List<Site> History
         {
             get => _History;
             set => _History = value;
@@ -693,9 +698,9 @@ new HTTitleTab(testApp)
             "<Profile>" + Environment.NewLine +
             "<Homepage>" + Homepage.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Homepage>" + Environment.NewLine +
             "<MenuSize>" + MenuSize.Width + ";" + MenuSize.Height + "</MenuSize>" + Environment.NewLine +
-            "<MenuPoint>" + MenuPoint.X +";" + MenuPoint.Y + "</MenuPoint>" + Environment.NewLine +
+            "<MenuPoint>" + MenuPoint.X + ";" + MenuPoint.Y + "</MenuPoint>" + Environment.NewLine +
             "<SearchEngine>" + SearchEngine.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</SearchEngine>" + Environment.NewLine +
-            "<LanguageFile>" + LanguageSystem.LangFile.Replace(Application.StartupPath,"[KOROTPATH]").Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LanguageFile>" + Environment.NewLine +
+            "<LanguageFile>" + LanguageSystem.LangFile.Replace(Application.StartupPath, "[KOROTPATH]").Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LanguageFile>" + Environment.NewLine +
             "<Startup>" + Startup.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Startup>" + Environment.NewLine +
             "<LastProxy>" + LastProxy.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LastProxy>" + Environment.NewLine +
             "<MenuWasMaximized>" + (MenuWasMaximized ? "true" : "false") + "</MenuWasMaximized>" + Environment.NewLine +
@@ -729,7 +734,7 @@ new HTTitleTab(testApp)
             "<OverlayColor>" + HTAlt.Tools.ColorToHex(Theme.OverlayColor) + "</OverlayColor>" + Environment.NewLine +
             "<BackgroundStyle Layout=\"" + Theme.BackgroundStyleLayout + "\">" + Theme.BackgroundStyle.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</BackgroundStyle>" + Environment.NewLine +
             "<NewTabColor>" + (int)Theme.NewTabColor + "</NewTabColor>" + Environment.NewLine +
-            "<CloseButtonColor>"+ (int)Theme.CloseButtonColor + "</CloseButtonColor>" + Environment.NewLine +
+            "<CloseButtonColor>" + (int)Theme.CloseButtonColor + "</CloseButtonColor>" + Environment.NewLine +
             "</Theme>" + Environment.NewLine + Extensions.ExtractList + CollectionManager.writeCollections + "<History>" + Environment.NewLine;
             foreach (Site site in History)
             {
@@ -762,18 +767,12 @@ new HTTitleTab(testApp)
             x += "</Downloads>" + Environment.NewLine + Favorites.outXml + "</Profile>" + Environment.NewLine;
             HTAlt.Tools.WriteFile(ProfileDirectory + "settings.kpf", x, Encoding.UTF8);
         }
-        public string ProfileDirectory
-        {
-            get
-            {
-                return Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + ProfileName + "\\";
-            }
-        }
+        public string ProfileDirectory => Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + ProfileName + "\\";
         public Site GetSiteFromUrl(string Url)
         {
             return Sites.Find(i => i.Url == Url);
         }
-        
+
     }
     public class Theme
     {
@@ -943,12 +942,14 @@ new HTTitleTab(testApp)
             if (folder.IsTopFavorite)
             {
                 Favorites.Remove(folder);
-            }else
+            }
+            else
             {
                 if (folder is Favorite)
                 {
                     folder.ParentFolder.Favorites.Remove(folder);
-                }else
+                }
+                else
                 {
                     folder.Favorites.Clear();
                     folder.ParentFolder.Favorites.Remove(folder);
@@ -1036,7 +1037,7 @@ new HTTitleTab(testApp)
                 return x;
             }
         }
-        private void RecursiveFWNF(Folder folder,List<Favorite> list)
+        private void RecursiveFWNF(Folder folder, List<Favorite> list)
         {
             foreach (Folder x in folder.Favorites)
             {
@@ -1046,7 +1047,7 @@ new HTTitleTab(testApp)
                 }
                 else
                 {
-                    RecursiveFWNF(x,list);
+                    RecursiveFWNF(x, list);
                 }
             }
         }
@@ -1060,9 +1061,10 @@ new HTTitleTab(testApp)
                     if (x is Favorite)
                     {
                         fav.Add(x as Favorite);
-                    }else
+                    }
+                    else
                     {
-                        RecursiveFWNF(x,fav);
+                        RecursiveFWNF(x, fav);
                     }
                 }
                 return fav;
@@ -1086,9 +1088,10 @@ new HTTitleTab(testApp)
                 string x = "<" + (isNotFolder ? "Favorite" : "Folder") + " Name=\"" + Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Text=\"" + Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\"";
                 if (isNotFolder)
                 {
-                    var favorite = this as Favorite;
+                    Favorite favorite = this as Favorite;
                     x += " Url=\"" + favorite.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" IconPath=\"" + favorite.IconPath.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />";
-                }else
+                }
+                else
                 {
                     x += ">" + Environment.NewLine;
                     foreach (Folder y in Favorites)
@@ -1106,11 +1109,11 @@ new HTTitleTab(testApp)
         public new List<Folder> Favorites => null;
         public string Url { get; set; }
         public string IconPath { get; set; }
-        public Image Icon => HTAlt.Tools.ReadFile(IconPath,"ignored"); 
+        public Image Icon => HTAlt.Tools.ReadFile(IconPath, "ignored");
     }
     public class FileFolderError
     {
-        public FileFolderError(string _Location,Exception _Error,bool IsDirectory)
+        public FileFolderError(string _Location, Exception _Error, bool IsDirectory)
         {
             isDirectory = IsDirectory;
             Location = _Location;
@@ -1130,7 +1133,8 @@ new HTTitleTab(testApp)
             {
                 Output.WriteLine(" [Language] Missing Item [ID=\"" + ID + "\" LangFile=\"" + _LangFile + "\" ItemCount=\"" + LanguageItems.Count + "\"]");
                 return "[MI] " + ID;
-            }else
+            }
+            else
             {
                 return item.Text.Replace("[NEWLINE]", Environment.NewLine);
             }
@@ -1147,16 +1151,16 @@ new HTTitleTab(testApp)
             string code = HTAlt.Tools.ReadFile(fileLoc, Encoding.UTF8);
             ReadCode(code, clear);
         }
-        public void ReadFromFile(string fileLoc,bool clear = true)
+        public void ReadFromFile(string fileLoc, bool clear = true)
         {
             if (_LangFile != fileLoc || LanguageItems.Count == 0)
             {
                 ForceReadFromFile(fileLoc, clear);
             }
         }
-        public void ReadCode(string xmlCode,bool clear = true)
+        public void ReadCode(string xmlCode, bool clear = true)
         {
-            if(clear) { LanguageItems.Clear(); }
+            if (clear) { LanguageItems.Clear(); }
             XmlDocument document = new XmlDocument();
             document.LoadXml(xmlCode);
             foreach (XmlNode node in document.FirstChild.ChildNodes)
@@ -1164,7 +1168,7 @@ new HTTitleTab(testApp)
                 if (node.Name == "Translate")
                 {
                     string id = node.Attributes["ID"] != null ? node.Attributes["ID"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"") : HTAlt.Tools.GenerateRandomText(12);
-                    string text = node.Attributes["Text"] != null ? node.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;","\"") : id;
+                    string text = node.Attributes["Text"] != null ? node.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"") : id;
                     if (!string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(text))
                     {
                         LanguageItems.Add(new LanguageItem() { ID = id, Text = text });

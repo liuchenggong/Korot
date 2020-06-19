@@ -34,9 +34,11 @@ namespace Korot
         public bool CanSaveCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, Cookie cookie)
         {
             setCookie(chromiumWebBrowser);
-            if (Cefform.Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser.Address)) != null) {
+            if (Cefform.Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser.Address)) != null)
+            {
                 return Cefform.Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser.Address)).AllowCookies;
-            }else
+            }
+            else
             {
                 return true;
             }

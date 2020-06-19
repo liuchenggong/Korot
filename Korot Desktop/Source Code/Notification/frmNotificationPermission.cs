@@ -7,7 +7,7 @@ namespace Korot
 {
     public partial class frmNotificationPermission : Form
     {
-        private bool alreadyAddedAllow { get { return cefform.Settings.GetSiteFromUrl(baseUrl).AllowNotifications; } }
+        private bool alreadyAddedAllow => cefform.Settings.GetSiteFromUrl(baseUrl).AllowNotifications;
         private readonly string baseUrl;
         private readonly frmCEF cefform;
         public frmNotificationPermission(frmCEF _frmCEF, string url)

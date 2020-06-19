@@ -20,18 +20,16 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Korot
 {
     public partial class frmOOBE : Form
     {
-        Settings Settings;
+        private readonly Settings Settings;
         public frmOOBE(Settings settings)
         {
             Settings = settings;
@@ -62,7 +60,8 @@ namespace Korot
             }
             try { lbLang.SelectedIndex = savedValue; } catch { }
         }
-        int switchedTimes = 0;
+
+        private int switchedTimes = 0;
         private void lbLang_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbLang.SelectedItem != null)
@@ -130,7 +129,7 @@ namespace Korot
             RefreshLangList();
         }
 
-        
+
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -180,7 +179,7 @@ namespace Korot
             Process.Start(Application.ExecutablePath);
             Application.Exit();
         }
-        
+
         private void frmOOBE_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!allowClose)

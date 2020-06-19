@@ -22,8 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Text;
 using System.Xml;
 
 namespace Korot
@@ -903,7 +901,7 @@ namespace Korot
                     else if (item is LinkItem)
                     {
                         LinkItem ti = (item as LinkItem);
-                        
+
                         cCode += Environment.NewLine + ti.outXML;
                     }
                     else if (item is ImageItem)

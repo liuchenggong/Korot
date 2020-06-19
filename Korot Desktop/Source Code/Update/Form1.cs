@@ -61,7 +61,7 @@ namespace Korot
 
         private void RefreshTranslate()
         {
-            StatusType = Settings.LanguageSystem.GetItemText("DownloadProgress");;
+            StatusType = Settings.LanguageSystem.GetItemText("DownloadProgress"); ;
             installStatus = Settings.LanguageSystem.GetItemText("UpdatingMessage");
             Text = Settings.LanguageSystem.GetItemText("KorotUpdate");
             installingTxt = Settings.LanguageSystem.GetItemText("Installing");
@@ -118,7 +118,7 @@ namespace Korot
                 Version MinVersion = new Version(minmv);
                 if (VersionInfo.IsPreRelease)
                 {
-                    if (preNo == "0") 
+                    if (preNo == "0")
                     {
                         UpdateType = 0;
                         fileName = ".hup";
