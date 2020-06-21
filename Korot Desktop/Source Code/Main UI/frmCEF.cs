@@ -902,7 +902,7 @@ namespace Korot
             tpCollection.Text = Settings.LanguageSystem.GetItemText("Collections");
             tpDownload.Text = Settings.LanguageSystem.GetItemText("Downloads");
             tpHistory.Text = Settings.LanguageSystem.GetItemText("History");
-            tpTheme.Text = Settings.LanguageSystem.GetItemText("Theme");
+            tpTheme.Text = Settings.LanguageSystem.GetItemText("Themes");
             lbautoRestore.Text = Settings.LanguageSystem.GetItemText("RestoreOldSessions");
             Properties.Settings.Default.KorotErrorTitle = Settings.LanguageSystem.GetItemText("ErrorDesc1");
             Properties.Settings.Default.KorotErrorDesc = Settings.LanguageSystem.GetItemText("ErrorDesc2");
@@ -1067,8 +1067,8 @@ namespace Korot
             aboutToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("About");
             lbHomepage.Text = Settings.LanguageSystem.GetItemText("HomePage");
             SearchOnPage = Settings.LanguageSystem.GetItemText("SearchOnThisPage");
-            lbTheme.Text = Settings.LanguageSystem.GetItemText("Theme");
-            tsThemes.Text = Settings.LanguageSystem.GetItemText("Themes2");
+            lbTheme.Text = Settings.LanguageSystem.GetItemText("Themes");
+            tsThemes.Text = Settings.LanguageSystem.GetItemText("Themes");
             caseSensitiveToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("CaseSensitive");
             customToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("Custom");
             removeSelectedToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("RemoveSelected");
@@ -1143,7 +1143,7 @@ namespace Korot
             OK = Settings.LanguageSystem.GetItemText("OK");
             Cancel = Settings.LanguageSystem.GetItemText("Cancel");
             btCertError.Text = Settings.LanguageSystem.GetItemText("Save");
-            lbThemes.Text = Settings.LanguageSystem.GetItemText("Themes");
+            lbThemes.Text = Settings.LanguageSystem.GetItemText("ThemeList");
             SearchOnWeb = Settings.LanguageSystem.GetItemText("AddressBar2");
             goTotxt = Settings.LanguageSystem.GetItemText("AddressBar1");
             newProfileInfo = Settings.LanguageSystem.GetItemText("EnterAProfileName");

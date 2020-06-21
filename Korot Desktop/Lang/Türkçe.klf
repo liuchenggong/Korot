@@ -51,10 +51,10 @@
   <Translate ID="To1" Text="Hedef :" />
   <Translate ID="KorotError" Text="Korot - Hata" />
   <Translate ID="About" Text="Hakkında" />
+  <Translate ID="Themes" Text="Temalar" />
   <Translate ID="ThemeName" Text="Tema Adı :" />
   <Translate ID="Save" Text="Kaydet" />
   <Translate ID="ResetToFefaultProxySetting" Text="Varsayılan proxy ayarına sıfırla" />
-  <Translate ID="Themes" Text="Temalar :" />
   <Translate ID="OpenInNewTab" Text="Yeni sekmede aç" />
   <Translate ID="OpenFile" Text="Dosyayı Aç" />
   <Translate ID="OpenFolderContainingThisFile" Text="Dosyayı içeren klasörü aç" />
@@ -94,7 +94,7 @@
   <Translate ID="InstallUpdate" Text="Güncellemeyi Kur" />
   <Translate ID="UpdatingMessage" Text="Güncelleme indiriliyor ve kuruluyor..." />
   <Translate ID="DownloadProgress" Text="[PERC]% | [TOTAL] KB&apos;dan [CURRENT] KB indirildi." />
-  <Translate ID="Themes2" Text="Temalar" />
+  <Translate ID="ThemeList" Text="Temalar :" />
   <Translate ID="ApplyThemeInfo" Text="Bu temayı uygulamak istediğinizden emin misiniz?" />
   <Translate ID="ThemeFileCorrupted" Text="Bu tema dosyası bozulmuş veya bu sürüm ile uyumlu değil." />
   <Translate ID="CertificateErrorDetails" Text="Sertifika Hata Detayları" />
@@ -147,7 +147,7 @@
   <Translate ID="OOBEBack" Text="Geriye git" />
   <Translate ID="OOBEFinishBack" Text="Bitirmek için lütfen aşağıdaki &quot;Bitir&quot; butonuna basın.[NEWLINE]Geriye gitmek için lütfen aşağıdaki &quot;Geriye git&quot; butonuna basın." />
   <Translate ID="OOBEExtensionInfo" Text="3-nokta menüsünden eklentilere erişebilirsiniz.[NEWLINE][NEWLINE]&quot;Web Store&quot; seçeneğine dokunarak yeni eklentileri yükleyebilirsiniz." />
-  <Translate ID="OOBEBEstWishes" Text="Hayırlı Olsun" />
+  <Translate ID="OOBEBestWishes" Text="Hayırlı Olsun" />
   <Translate ID="OOBEProfilesTitle" Text="Profiller" />
   <Translate ID="OOBEContinueBack" Text="Devam etmek için lütfen aşağıdaki &quot;Devam et&quot; butonuna basın.[NEWLINE]Geriye gitmek için lütfen aşağıdaki &quot;Geriye git&quot; butonuna basın." />
   <Translate ID="OOBEButtonFinish" Text="Kurulumu bitir ve Korot&apos;u başlat." />
