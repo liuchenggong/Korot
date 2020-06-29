@@ -278,6 +278,7 @@
     <Compile Include="Source Code\Ext\Extensions.cs" />
     <Compile Include="Source Code\System Stuff\MyJumplist.cs" />
     <Compile Include="Source Code\Main UI\ProfileManagement.cs" />
+    <Compile Include="Source Code\System Stuff\SafeFileSettingOrganiseClass.cs" />
     <Compile Include="Source Code\System Stuff\UACControl.cs" />
     <Compile Include="Source Code\Collections\CollectionManagement.cs" />
     <Compile Include="Source Code\System Stuff\ConsoleOutputLog.cs" />
@@ -391,15 +392,6 @@
     </None>
     <None Include="packages.config" />
     <None Include="Source Code\app.manifest" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <None Include="ubuntu\Ubuntu-B.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

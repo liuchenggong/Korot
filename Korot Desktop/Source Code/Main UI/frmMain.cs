@@ -183,7 +183,7 @@ namespace Korot
                 foreach (Site x in Settings.Sites)
                 {
                     if (!x.AllowNotifications) { return; }
-                    frmCEF notfiListener = new frmCEF(Settings, isIncognito, x.Url, Properties.Settings.Default.LastUser, true)
+                    frmCEF notfiListener = new frmCEF(Settings, isIncognito, x.Url, SafeFileSettingOrganizedClass.LastUser, true)
                     {
                         Visible = true,
                         Enabled = true
@@ -260,11 +260,11 @@ namespace Korot
             PrintImages();
             if (Settings.AutoRestore)
             {
-                ReadSession(Properties.Settings.Default.LastSessionURIs);
+                ReadSession(SafeFileSettingOrganizedClass.LastSession);
             }
             else
             {
-                OldSessions = Properties.Settings.Default.LastSessionURIs;
+                OldSessions = SafeFileSettingOrganizedClass.LastSession;
             }
             SessionLogger.Start();
             MinimumSize = new System.Drawing.Size(660, 340);
@@ -287,7 +287,7 @@ namespace Korot
             document.Load(stream);
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                frmCEF cefform = new frmCEF(Settings, isIncognito, "korot://newtab", Properties.Settings.Default.LastUser);
+                frmCEF cefform = new frmCEF(Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser);
                 cefform.lbURL.Items.Clear();
                 cefform.lbTitle.Items.Clear();
                 string[] SplittedFase = node.Attributes["Content"].Value.Split(';');
@@ -311,14 +311,7 @@ namespace Korot
         }
         public void WriteSessions(string Session)
         {
-            try
-            {
-                Properties.Settings.Default.LastSessionURIs = Session;
-                if (!isIncognito) { Properties.Settings.Default.Save(); }
-            }
-            catch
-            {
-            }
+            SafeFileSettingOrganizedClass.LastSession = Session;
         }
         public void WriteCurrentSession()
         {
@@ -351,7 +344,7 @@ namespace Korot
             {
                 BackColor = referenceTab.BackColor,
                 UseDefaultBackColor = referenceTab.UseDefaultBackColor,
-                Content = new frmCEF(Settings, isIncognito, url, Properties.Settings.Default.LastUser)
+                Content = new frmCEF(Settings, isIncognito, url, SafeFileSettingOrganizedClass.LastUser)
             };
             Tabs.Insert(Tabs.IndexOf(referenceTab) + 1, newTab);
             SelectedTabIndex = Tabs.IndexOf(referenceTab) + 1;
@@ -363,7 +356,7 @@ namespace Korot
             {
                 BackColor = Settings.Theme.BackColor,
                 UseDefaultBackColor = true,
-                Content = new frmCEF(Settings, isIncognito, url, Properties.Settings.Default.LastUser)
+                Content = new frmCEF(Settings, isIncognito, url, SafeFileSettingOrganizedClass.LastUser)
             };
             Tabs.Add(newTab);
             SelectedTabIndex = Tabs.Count - 1;
@@ -374,7 +367,7 @@ namespace Korot
             {
                 BackColor = Settings.Theme.BackColor,
                 UseDefaultBackColor = true,
-                Content = new frmCEF(Settings, isIncognito, "korot://newtab", Properties.Settings.Default.LastUser)
+                Content = new frmCEF(Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser)
             };
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -425,11 +418,11 @@ namespace Korot
 
                 if (e.CloseReason != CloseReason.None || e.CloseReason != CloseReason.WindowsShutDown || e.CloseReason != CloseReason.TaskManagerClosing)
                 {
-                    Korot.Properties.Settings.Default.LastSessionURIs = "";
+                    Korot.SafeFileSettingOrganizedClass.LastSession = "";
                 }
                 else
                 {
-                    Korot.Properties.Settings.Default.LastSessionURIs = "[root]";
+                    Korot.SafeFileSettingOrganizedClass.LastSession = "[root]";
                     foreach (HTTitleTab x in Tabs)
                     {
                         frmCEF cefform = (frmCEF)x.Content;
@@ -443,12 +436,11 @@ namespace Korot
                                 ";";
                             i += 1;
                         }
-                        Korot.Properties.Settings.Default.LastSessionURIs += "[Session Index=\"" + cefform.lbURL.SelectedIndex + "\" Content=\"" + text + "\" /]";
+                        Korot.SafeFileSettingOrganizedClass.LastSession += "[Session Index=\"" + cefform.lbURL.SelectedIndex + "\" Content=\"" + text + "\" /]";
                     }
-                    Korot.Properties.Settings.Default.LastSessionURIs += "[/root]";
+                    Korot.SafeFileSettingOrganizedClass.LastSession += "[/root]";
 
                 }
-                if (!isIncognito) { Properties.Settings.Default.Save(); }
                 Settings.Save();
             }
         }

@@ -567,7 +567,7 @@ namespace Korot
                 HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true }) { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
-                    LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\" + listBox2.SelectedItem.ToString());
+                    LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + listBox2.SelectedItem.ToString());
                     comboBox1.Text = listBox2.SelectedItem.ToString().Replace(".ktf", "");
                 }
             }
@@ -838,7 +838,8 @@ namespace Korot
             exportThisProfileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ExportProfile");
             exportProfileInfo = Settings.LanguageSystem.GetItemText("ExportProfileInfo");
             ProfileFileInfo = Settings.LanguageSystem.GetItemText("ProfileFileInfo");
-            Properties.Settings.Default.KorotErrorRestart = Settings.LanguageSystem.GetItemText("ErrorRestart");
+            string[] errormenu = new string[] { Settings.LanguageSystem.GetItemText("ErrorRestart"),Settings.LanguageSystem.GetItemText("ErrorDesc1"),Settings.LanguageSystem.GetItemText("ErrorDesc2"),Settings.LanguageSystem.GetItemText("ErrorTI")};
+            SafeFileSettingOrganizedClass.ErrorMenu = errormenu;
             btNotification.ButtonText = Settings.LanguageSystem.GetItemText("NotificationSettingsButton");
             lbNotifSetting.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
             tpNotification.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
@@ -920,9 +921,7 @@ namespace Korot
             tpHistory.Text = Settings.LanguageSystem.GetItemText("History");
             tpTheme.Text = Settings.LanguageSystem.GetItemText("Themes");
             lbautoRestore.Text = Settings.LanguageSystem.GetItemText("RestoreOldSessions");
-            Properties.Settings.Default.KorotErrorTitle = Settings.LanguageSystem.GetItemText("ErrorDesc1");
-            Properties.Settings.Default.KorotErrorDesc = Settings.LanguageSystem.GetItemText("ErrorDesc2");
-            Properties.Settings.Default.KorotErrorTI = Settings.LanguageSystem.GetItemText("ErrorTI");
+
             ubuntuLicense = Settings.LanguageSystem.GetItemText("UbuntuFontLicense");
             tsFullscreen.Text = Settings.LanguageSystem.GetItemText("FullScreen");
             updateTitleTheme = Settings.LanguageSystem.GetItemText("KorotThemeUpdater");
@@ -1240,13 +1239,11 @@ namespace Korot
             {
                 rbNewTab.Checked = true;
                 Settings.Homepage = tbHomepage.Text;
-                if (!_Incognito) { Properties.Settings.Default.Save(); }
             }
             else
             {
                 rbNewTab.Checked = false;
                 Settings.Homepage = tbHomepage.Text;
-                if (!_Incognito) { Properties.Settings.Default.Save(); }
             }
         }
         private void textBox3_Click(object sender, EventArgs e)
@@ -1402,7 +1399,6 @@ namespace Korot
                     Settings.Downloads.Downloads.Remove(hlvDownload.SelectedItems[0].Tag as Site);
                 }
                 else { anaform.CancelledDownloads.Add(hlvDownload.SelectedItems[0].SubItems[3].Text); }
-                if (!_Incognito) { Properties.Settings.Default.Save(); }
                 RefreshDownloadList();
             }
         }
@@ -1410,7 +1406,6 @@ namespace Korot
         private void ClearToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             Settings.Downloads.Downloads.Clear();
-            if (!_Incognito) { Properties.Settings.Default.Save(); }
             RefreshDownloadList();
         }
 
@@ -1628,7 +1623,6 @@ namespace Korot
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Settings.History.Clear();
-            if (!_Incognito) { Properties.Settings.Default.Save(); }
             RefreshHistory();
         }
 
@@ -1648,7 +1642,7 @@ namespace Korot
             int savedValue = listBox2.SelectedIndex;
             int scroll = listBox2.TopIndex;
             listBox2.Items.Clear();
-            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\"))
+            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\"))
             {
                 if (x.EndsWith(".ktf", StringComparison.OrdinalIgnoreCase))
                 {
@@ -1665,11 +1659,11 @@ namespace Korot
 
         private void Button12_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\"); }
-            string themeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf";
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\"); }
+            string themeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf";
             Theme saveTheme = new Theme("")
             {
-                ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf",
+                ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf",
                 BackColor = Settings.Theme.BackColor,
                 OverlayColor = Settings.Theme.OverlayColor,
                 MininmumKorotVersion = new Version(Application.ProductVersion),
@@ -1867,7 +1861,7 @@ namespace Korot
         }
         public void updateThemes()
         {
-            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\", "*.*", SearchOption.AllDirectories))
+            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\", "*.*", SearchOption.AllDirectories))
             {
                 if (x.EndsWith(".ktf", StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -3808,7 +3802,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void btCleanLog_Click(object sender, EventArgs e)
         {
-            string x = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Logs\\";
+            string x = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Logs\\";
             Program.RemoveDirectory(x);
         }
 
@@ -4325,7 +4319,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             DialogResult dialog = fileDialog.ShowDialog();
             if (dialog == DialogResult.OK)
             {
-                ZipFile.CreateFromDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\", fileDialog.FileName, CompressionLevel.Optimal, true, Encoding.UTF8);
+                ZipFile.CreateFromDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\", fileDialog.FileName, CompressionLevel.Optimal, true, Encoding.UTF8);
             }
         }
 

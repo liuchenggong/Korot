@@ -110,7 +110,7 @@ namespace Korot
             {
                 FixDefaultLanguage();
             }
-            Settings settings = new Settings(Properties.Settings.Default.LastUser);
+            Settings settings = new Settings(SafeFileSettingOrganizedClass.LastUser);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             bool appStarted = false;
@@ -157,13 +157,13 @@ namespace Korot
                         isIncognito = args.Contains("-incognito")
                     };
                     bool isIncognito = args.Contains("-incognito");
-                    if (Properties.Settings.Default.LastUser == "") { Properties.Settings.Default.LastUser = "user0"; }
+                    if (SafeFileSettingOrganizedClass.LastUser == "") { SafeFileSettingOrganizedClass.LastUser = "user0"; }
                     foreach (string x in args)
                     {
                         if (x == Application.ExecutablePath || x == "-oobe" || x == "-update") { }
                         else if (x == "-incognito")
                         {
-                            testApp.Tabs.Add(new HTTitleTab(testApp) { Content = new frmCEF(settings, true, "korot://incognito", Properties.Settings.Default.LastUser) { } });
+                            testApp.Tabs.Add(new HTTitleTab(testApp) { Content = new frmCEF(settings, true, "korot://incognito", SafeFileSettingOrganizedClass.LastUser) { } });
                         }
                         else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
                         {
@@ -180,7 +180,7 @@ namespace Korot
                         testApp.Tabs.Add(
 new HTTitleTab(testApp)
 {
-    Content = new frmCEF(settings, isIncognito, settings.Startup, Properties.Settings.Default.LastUser)
+    Content = new frmCEF(settings, isIncognito, settings.Startup, SafeFileSettingOrganizedClass.LastUser)
 });
                     }
                     testApp.SelectedTabIndex = 0;
@@ -206,7 +206,7 @@ new HTTitleTab(testApp)
         }
         public static bool createThemes()
         {
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Light.ktf"))
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Light.ktf"))
             {
                 string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
                                   "<Name>Korot Light</Name>" + Environment.NewLine +
@@ -219,9 +219,9 @@ new HTTitleTab(testApp)
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
                                    "</Theme>" + Environment.NewLine;
-                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
+                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Light.ktf", newTheme, Encoding.UTF8);
             }
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Dark.ktf"))
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Dark.ktf"))
             {
                 string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
                                   "<Name>Korot Dark</Name>" + Environment.NewLine +
@@ -234,9 +234,9 @@ new HTTitleTab(testApp)
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
                                    "</Theme>" + Environment.NewLine;
-                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
+                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Dark.ktf", newTheme, Encoding.UTF8);
             }
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Midnight.ktf"))
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Midnight.ktf"))
             {
                 string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
                                   "<Name>Korot Midnight</Name>" + Environment.NewLine +
@@ -249,18 +249,18 @@ new HTTitleTab(testApp)
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
                                    "</Theme>" + Environment.NewLine;
-                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\Korot Midnight.ktf", newTheme, Encoding.UTF8);
+                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Midnight.ktf", newTheme, Encoding.UTF8);
             }
             return true;
         }
         public static bool createFolders()
         {
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"); }
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\"); }
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Themes\\"); }
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Extensions\\"); }
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Logs\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Logs\\"); }
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\IconStorage\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\IconStorage\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Extensions\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Extensions\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Logs\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Logs\\"); }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\IconStorage\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\IconStorage\\"); }
             return true;
         }
         public static bool FixDefaultLanguage()

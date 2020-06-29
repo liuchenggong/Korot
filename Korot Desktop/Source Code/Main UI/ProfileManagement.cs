@@ -30,19 +30,16 @@ namespace Korot
     {
         public static bool SwitchProfile(string profilename, frmCEF cefform)
         {
-            Properties.Settings.Default.LastUser = profilename;
-            if (!cefform._Incognito) { Properties.Settings.Default.Save(); }
+            SafeFileSettingOrganizedClass.LastUser = profilename;
             Process.Start(Application.ExecutablePath);
             Application.Exit();
             return true;
         }
         public static bool DeleteProfile(string profilename, frmCEF cefform)
         {
-            Properties.Settings.Default.LastUser = new DirectoryInfo(Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\")[0]).Name;
-            if (!cefform._Incognito) { Properties.Settings.Default.Save(); }
+            SafeFileSettingOrganizedClass.LastUser = new DirectoryInfo(Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\")[0]).Name;
             frmCEF obj = (frmCEF)Application.OpenForms["frmCEF"]; obj.Close(); CefSharp.Cef.Shutdown();
             Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + profilename + "\\", true);
-            if (!cefform._Incognito) { Properties.Settings.Default.Save(); }
             Process.Start(Application.ExecutablePath);
             Application.Exit();
             return true;

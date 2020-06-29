@@ -128,7 +128,7 @@ namespace Korot
             {
                 if (downloadItem.FullPath.ToLower().EndsWith(".kef") || downloadItem.FullPath.ToLower().EndsWith(".ktf"))
                 {
-                    frmInstallExt ınstallExt = new frmInstallExt(ActiveForm.Settings, downloadItem.FullPath, Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Extensions" + Path.GetFileNameWithoutExtension(downloadItem.FullPath)));
+                    frmInstallExt ınstallExt = new frmInstallExt(ActiveForm.Settings, downloadItem.FullPath, Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Extensions" + Path.GetFileNameWithoutExtension(downloadItem.FullPath)));
                     ınstallExt.Show();
                 }
                 Site site = new Site

@@ -167,14 +167,13 @@ namespace Korot
         private bool allowClose = false;
         private void button2_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.LastUser = textBox1.Text;
-            profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\Profiles\\";
+            SafeFileSettingOrganizedClass.LastUser = textBox1.Text;
+            profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Profiles\\";
             Directory.CreateDirectory(profilePath);
             Program.createFolders();
             Program.createThemes();
             Settings.ProfileName = textBox1.Text;
             Settings.Save();
-            Properties.Settings.Default.Save();
             allowClose = true;
             Process.Start(Application.ExecutablePath);
             Application.Exit();
