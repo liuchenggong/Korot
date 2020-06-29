@@ -1,6 +1,8 @@
-<Language>
-  <Translate ID="CompatibleVersion" Text="0.7.0.0" />
+<Language CompabileVersion="0.7.1.0">
   <Translate ID="Incognito" Text="Incognito" />
+  <Translate ID="EnableFlash" Text="Enable Flash:" />
+  <Translate ID="DisableGPUAcc" Text="Disable GPU acceleration:" />
+  <Translate ID="FlashInfo" Text="Changes to Flash &amp; GPU Acceleration settings requires a restart to take effect." />
   <Translate ID="KorotUpdate" Text="Korot - Update" />
   <Translate ID="KorotUpdateAvailable" Text="Update available.Do you want to update?" />
   <Translate ID="KorotUpdateError" Text="Error while checking for the updates." />

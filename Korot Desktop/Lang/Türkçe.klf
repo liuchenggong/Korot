@@ -1,5 +1,7 @@
-<Language>
-  <Translate ID="CompatibleVersion" Text="0.7.0.0" />
+<Language CompabileVersion="0.7.1.0">
+  <Translate ID="EnableFlash" Text="Flash'ı etkinleştir:" />
+  <Translate ID="DisableGPUAcc" Text="GPU hızlandırmasını devre dışı bırak:" />
+  <Translate ID="FlashInfo" Text="Flash ve GPU hızlandırma ayarı değiştirildikten sonra etkisini göstermesi için yeniden başlatın." />
   <Translate ID="Incognito" Text="Gizli Mod" />
   <Translate ID="KorotUpdate" Text="Korot - Güncelleme" />
   <Translate ID="KorotUpdateAvailable" Text="Güncelleme bulundu.Güncellemek ister misiniz?" />

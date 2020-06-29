@@ -84,6 +84,7 @@ namespace Korot
             this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsThemes = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsLanguages = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -150,11 +151,13 @@ namespace Korot
             this.lbURL = new System.Windows.Forms.ListBox();
             this.tpCert = new System.Windows.Forms.TabPage();
             this.tpSettings = new System.Windows.Forms.TabPage();
+            this.lbFlashInfo = new System.Windows.Forms.Label();
+            this.lbFlash = new System.Windows.Forms.Label();
+            this.hsFlash = new HTAlt.WinForms.HTSwitch();
             this.btCookie = new HTAlt.WinForms.HTButton();
             this.btNotification = new HTAlt.WinForms.HTButton();
             this.btReset = new HTAlt.WinForms.HTButton();
             this.btCleanLog = new HTAlt.WinForms.HTButton();
-            this.cbLang = new System.Windows.Forms.ComboBox();
             this.lbDNT = new System.Windows.Forms.Label();
             this.hsDoNotTrack = new HTAlt.WinForms.HTSwitch();
             this.lbautoRestore = new System.Windows.Forms.Label();
@@ -163,7 +166,6 @@ namespace Korot
             this.hsProxy = new HTAlt.WinForms.HTSwitch();
             this.btClose = new HTAlt.WinForms.HTButton();
             this.lbAtStartup = new System.Windows.Forms.Label();
-            this.lbLanguage = new System.Windows.Forms.Label();
             this.lbShowFavorites = new System.Windows.Forms.Label();
             this.lbSettings = new System.Windows.Forms.Label();
             this.hsFav = new HTAlt.WinForms.HTSwitch();
@@ -315,6 +317,8 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lbGPU = new System.Windows.Forms.Label();
+            this.hsGPU = new HTAlt.WinForms.HTSwitch();
             this.pNavigate.SuspendLayout();
             this.cmsHamburger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
@@ -423,6 +427,7 @@ namespace Korot
             this.historyToolStripMenuItem,
             this.downloadsToolStripMenuItem,
             this.tsThemes,
+            this.tsLanguages,
             this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.toolStripSeparator4,
@@ -430,7 +435,7 @@ namespace Korot
             this.spRestorer});
             this.cmsHamburger.Name = "cmsHamburger";
             this.cmsHamburger.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsHamburger.Size = new System.Drawing.Size(281, 581);
+            this.cmsHamburger.Size = new System.Drawing.Size(281, 603);
             this.cmsHamburger.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.cmsHamburger_Closing);
             this.cmsHamburger.Opening += new System.ComponentModel.CancelEventHandler(this.cmsHamburger_Opening);
             // 
@@ -657,6 +662,13 @@ namespace Korot
             this.tsThemes.Size = new System.Drawing.Size(280, 22);
             this.tsThemes.Text = "Themes";
             this.tsThemes.Click += new System.EventHandler(this.tsThemes_Click);
+            // 
+            // tsLanguages
+            // 
+            this.tsLanguages.Image = global::Korot.Properties.Resources.lang;
+            this.tsLanguages.Name = "tsLanguages";
+            this.tsLanguages.Size = new System.Drawing.Size(280, 22);
+            this.tsLanguages.Text = "Languages";
             // 
             // settingsToolStripMenuItem
             // 
@@ -940,14 +952,14 @@ namespace Korot
             // deleteThisProfileToolStripMenuItem
             // 
             this.deleteThisProfileToolStripMenuItem.Name = "deleteThisProfileToolStripMenuItem";
-            this.deleteThisProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteThisProfileToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.deleteThisProfileToolStripMenuItem.Text = "Delete this Profile";
             this.deleteThisProfileToolStripMenuItem.Click += new System.EventHandler(this.DeleteThisProfileToolStripMenuItem_Click);
             // 
             // exportThisProfileToolStripMenuItem
             // 
             this.exportThisProfileToolStripMenuItem.Name = "exportThisProfileToolStripMenuItem";
-            this.exportThisProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportThisProfileToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.exportThisProfileToolStripMenuItem.Text = "Export this Profile";
             this.exportThisProfileToolStripMenuItem.Click += new System.EventHandler(this.exportThisProfileToolStripMenuItem_Click);
             // 
@@ -1311,11 +1323,15 @@ namespace Korot
             // 
             // tpSettings
             // 
+            this.tpSettings.Controls.Add(this.lbGPU);
+            this.tpSettings.Controls.Add(this.hsGPU);
+            this.tpSettings.Controls.Add(this.lbFlashInfo);
+            this.tpSettings.Controls.Add(this.lbFlash);
+            this.tpSettings.Controls.Add(this.hsFlash);
             this.tpSettings.Controls.Add(this.btCookie);
             this.tpSettings.Controls.Add(this.btNotification);
             this.tpSettings.Controls.Add(this.btReset);
             this.tpSettings.Controls.Add(this.btCleanLog);
-            this.tpSettings.Controls.Add(this.cbLang);
             this.tpSettings.Controls.Add(this.lbDNT);
             this.tpSettings.Controls.Add(this.hsDoNotTrack);
             this.tpSettings.Controls.Add(this.lbautoRestore);
@@ -1324,7 +1340,6 @@ namespace Korot
             this.tpSettings.Controls.Add(this.hsProxy);
             this.tpSettings.Controls.Add(this.btClose);
             this.tpSettings.Controls.Add(this.lbAtStartup);
-            this.tpSettings.Controls.Add(this.lbLanguage);
             this.tpSettings.Controls.Add(this.lbShowFavorites);
             this.tpSettings.Controls.Add(this.lbSettings);
             this.tpSettings.Controls.Add(this.hsFav);
@@ -1340,6 +1355,34 @@ namespace Korot
             this.tpSettings.TabIndex = 2;
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
+            // 
+            // lbFlashInfo
+            // 
+            this.lbFlashInfo.AutoSize = true;
+            this.lbFlashInfo.BackColor = System.Drawing.Color.Transparent;
+            this.lbFlashInfo.Location = new System.Drawing.Point(10, 263);
+            this.lbFlashInfo.Name = "lbFlashInfo";
+            this.lbFlashInfo.Size = new System.Drawing.Size(455, 16);
+            this.lbFlashInfo.TabIndex = 36;
+            this.lbFlashInfo.Text = "Changes to Flash && GPU Acceleration settings requires a restart to take effect.";
+            // 
+            // lbFlash
+            // 
+            this.lbFlash.AutoSize = true;
+            this.lbFlash.BackColor = System.Drawing.Color.Transparent;
+            this.lbFlash.Location = new System.Drawing.Point(10, 214);
+            this.lbFlash.Name = "lbFlash";
+            this.lbFlash.Size = new System.Drawing.Size(82, 16);
+            this.lbFlash.TabIndex = 36;
+            this.lbFlash.Text = "Enable Flash :";
+            // 
+            // hsFlash
+            // 
+            this.hsFlash.Location = new System.Drawing.Point(98, 214);
+            this.hsFlash.Name = "hsFlash";
+            this.hsFlash.Size = new System.Drawing.Size(50, 19);
+            this.hsFlash.TabIndex = 35;
+            this.hsFlash.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsFlash_CheckedChanged);
             // 
             // btCookie
             // 
@@ -1405,26 +1448,11 @@ namespace Korot
             this.btCleanLog.UseVisualStyleBackColor = false;
             this.btCleanLog.Click += new System.EventHandler(this.btCleanLog_Click);
             // 
-            // cbLang
-            // 
-            this.cbLang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLang.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbLang.FormattingEnabled = true;
-            this.cbLang.Location = new System.Drawing.Point(76, 130);
-            this.cbLang.Name = "cbLang";
-            this.cbLang.Size = new System.Drawing.Size(492, 24);
-            this.cbLang.TabIndex = 4;
-            this.cbLang.SelectedIndexChanged += new System.EventHandler(this.cbLang_TextUpdate);
-            this.cbLang.SelectionChangeCommitted += new System.EventHandler(this.cbLang_TextUpdate);
-            this.cbLang.TextChanged += new System.EventHandler(this.cbLang_TextUpdate);
-            // 
             // lbDNT
             // 
             this.lbDNT.AutoSize = true;
             this.lbDNT.BackColor = System.Drawing.Color.Transparent;
-            this.lbDNT.Location = new System.Drawing.Point(13, 208);
+            this.lbDNT.Location = new System.Drawing.Point(13, 189);
             this.lbDNT.Name = "lbDNT";
             this.lbDNT.Size = new System.Drawing.Size(123, 16);
             this.lbDNT.TabIndex = 29;
@@ -1432,7 +1460,7 @@ namespace Korot
             // 
             // hsDoNotTrack
             // 
-            this.hsDoNotTrack.Location = new System.Drawing.Point(142, 208);
+            this.hsDoNotTrack.Location = new System.Drawing.Point(142, 189);
             this.hsDoNotTrack.Name = "hsDoNotTrack";
             this.hsDoNotTrack.Size = new System.Drawing.Size(50, 19);
             this.hsDoNotTrack.TabIndex = 7;
@@ -1442,7 +1470,7 @@ namespace Korot
             // 
             this.lbautoRestore.AutoSize = true;
             this.lbautoRestore.BackColor = System.Drawing.Color.Transparent;
-            this.lbautoRestore.Location = new System.Drawing.Point(13, 253);
+            this.lbautoRestore.Location = new System.Drawing.Point(13, 169);
             this.lbautoRestore.Name = "lbautoRestore";
             this.lbautoRestore.Size = new System.Drawing.Size(171, 16);
             this.lbautoRestore.TabIndex = 29;
@@ -1452,7 +1480,7 @@ namespace Korot
             // 
             this.lbLastProxy.AutoSize = true;
             this.lbLastProxy.BackColor = System.Drawing.Color.Transparent;
-            this.lbLastProxy.Location = new System.Drawing.Point(13, 232);
+            this.lbLastProxy.Location = new System.Drawing.Point(13, 148);
             this.lbLastProxy.Name = "lbLastProxy";
             this.lbLastProxy.Size = new System.Drawing.Size(154, 16);
             this.lbLastProxy.TabIndex = 29;
@@ -1460,7 +1488,7 @@ namespace Korot
             // 
             // hsAutoRestore
             // 
-            this.hsAutoRestore.Location = new System.Drawing.Point(190, 252);
+            this.hsAutoRestore.Location = new System.Drawing.Point(190, 168);
             this.hsAutoRestore.Name = "hsAutoRestore";
             this.hsAutoRestore.Size = new System.Drawing.Size(50, 19);
             this.hsAutoRestore.TabIndex = 9;
@@ -1468,7 +1496,7 @@ namespace Korot
             // 
             // hsProxy
             // 
-            this.hsProxy.Location = new System.Drawing.Point(173, 231);
+            this.hsProxy.Location = new System.Drawing.Point(173, 147);
             this.hsProxy.Name = "hsProxy";
             this.hsProxy.Size = new System.Drawing.Size(50, 19);
             this.hsProxy.TabIndex = 8;
@@ -1495,27 +1523,17 @@ namespace Korot
             // 
             this.lbAtStartup.AutoSize = true;
             this.lbAtStartup.BackColor = System.Drawing.Color.Transparent;
-            this.lbAtStartup.Location = new System.Drawing.Point(13, 187);
+            this.lbAtStartup.Location = new System.Drawing.Point(13, 106);
             this.lbAtStartup.Name = "lbAtStartup";
             this.lbAtStartup.Size = new System.Drawing.Size(73, 16);
             this.lbAtStartup.TabIndex = 29;
             this.lbAtStartup.Text = "At Startup: ";
             // 
-            // lbLanguage
-            // 
-            this.lbLanguage.AutoSize = true;
-            this.lbLanguage.BackColor = System.Drawing.Color.Transparent;
-            this.lbLanguage.Location = new System.Drawing.Point(13, 133);
-            this.lbLanguage.Name = "lbLanguage";
-            this.lbLanguage.Size = new System.Drawing.Size(64, 16);
-            this.lbLanguage.TabIndex = 29;
-            this.lbLanguage.Text = "Language:";
-            // 
             // lbShowFavorites
             // 
             this.lbShowFavorites.AutoSize = true;
             this.lbShowFavorites.BackColor = System.Drawing.Color.Transparent;
-            this.lbShowFavorites.Location = new System.Drawing.Point(13, 161);
+            this.lbShowFavorites.Location = new System.Drawing.Point(13, 127);
             this.lbShowFavorites.Name = "lbShowFavorites";
             this.lbShowFavorites.Size = new System.Drawing.Size(128, 16);
             this.lbShowFavorites.TabIndex = 29;
@@ -1534,7 +1552,7 @@ namespace Korot
             // hsFav
             // 
             this.hsFav.Checked = true;
-            this.hsFav.Location = new System.Drawing.Point(144, 160);
+            this.hsFav.Location = new System.Drawing.Point(144, 126);
             this.hsFav.Name = "hsFav";
             this.hsFav.Size = new System.Drawing.Size(50, 19);
             this.hsFav.TabIndex = 5;
@@ -1542,9 +1560,10 @@ namespace Korot
             // 
             // rbNewTab
             // 
+            this.rbNewTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbNewTab.AutoSize = true;
             this.rbNewTab.BackColor = System.Drawing.Color.Transparent;
-            this.rbNewTab.Location = new System.Drawing.Point(91, 75);
+            this.rbNewTab.Location = new System.Drawing.Point(484, 49);
             this.rbNewTab.Name = "rbNewTab";
             this.rbNewTab.Size = new System.Drawing.Size(73, 20);
             this.rbNewTab.TabIndex = 2;
@@ -1569,7 +1588,7 @@ namespace Korot
             // 
             this.lbSearchEngine.AutoSize = true;
             this.lbSearchEngine.BackColor = System.Drawing.Color.Transparent;
-            this.lbSearchEngine.Location = new System.Drawing.Point(13, 106);
+            this.lbSearchEngine.Location = new System.Drawing.Point(13, 78);
             this.lbSearchEngine.Name = "lbSearchEngine";
             this.lbSearchEngine.Size = new System.Drawing.Size(93, 16);
             this.lbSearchEngine.TabIndex = 16;
@@ -1582,7 +1601,7 @@ namespace Korot
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHomepage.Location = new System.Drawing.Point(91, 48);
             this.tbHomepage.Name = "tbHomepage";
-            this.tbHomepage.Size = new System.Drawing.Size(480, 21);
+            this.tbHomepage.Size = new System.Drawing.Size(387, 21);
             this.tbHomepage.TabIndex = 1;
             this.tbHomepage.Tag = "";
             this.tbHomepage.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
@@ -1591,10 +1610,10 @@ namespace Korot
             // 
             this.tbStartup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbStartup.Location = new System.Drawing.Point(91, 184);
+            this.tbStartup.Location = new System.Drawing.Point(91, 103);
             this.tbStartup.Name = "tbStartup";
             this.tbStartup.ReadOnly = true;
-            this.tbStartup.Size = new System.Drawing.Size(480, 21);
+            this.tbStartup.Size = new System.Drawing.Size(466, 21);
             this.tbStartup.TabIndex = 6;
             this.tbStartup.Tag = "";
             this.tbStartup.Click += new System.EventHandler(this.tbStartup_Click);
@@ -1604,10 +1623,10 @@ namespace Korot
             this.tbSearchEngine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSearchEngine.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.tbSearchEngine.Location = new System.Drawing.Point(112, 103);
+            this.tbSearchEngine.Location = new System.Drawing.Point(112, 75);
             this.tbSearchEngine.Name = "tbSearchEngine";
             this.tbSearchEngine.ReadOnly = true;
-            this.tbSearchEngine.Size = new System.Drawing.Size(459, 21);
+            this.tbSearchEngine.Size = new System.Drawing.Size(445, 21);
             this.tbSearchEngine.TabIndex = 3;
             this.tbSearchEngine.Tag = "";
             this.tbSearchEngine.Click += new System.EventHandler(this.textBox3_Click);
@@ -3247,6 +3266,23 @@ namespace Korot
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
             // 
+            // lbGPU
+            // 
+            this.lbGPU.AutoSize = true;
+            this.lbGPU.BackColor = System.Drawing.Color.Transparent;
+            this.lbGPU.Location = new System.Drawing.Point(10, 241);
+            this.lbGPU.Name = "lbGPU";
+            this.lbGPU.Size = new System.Drawing.Size(152, 16);
+            this.lbGPU.TabIndex = 38;
+            this.lbGPU.Text = "Disable GPU acceleration:";
+            // 
+            // hsGPU
+            // 
+            this.hsGPU.Location = new System.Drawing.Point(168, 241);
+            this.hsGPU.Name = "hsGPU";
+            this.hsGPU.Size = new System.Drawing.Size(50, 19);
+            this.hsGPU.TabIndex = 37;
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -3528,8 +3564,6 @@ namespace Korot
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem openİnNewWindowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openİnNewIncognitoWindowToolStripMenuItem;
-        private System.Windows.Forms.ComboBox cbLang;
-        private System.Windows.Forms.Label lbLanguage;
         private System.Windows.Forms.Panel pCEF;
         private System.Windows.Forms.ToolStripMenuItem tsEmptyExt;
         private System.Windows.Forms.ToolStripMenuItem tsEmptyProfile;
@@ -3599,5 +3633,11 @@ namespace Korot
         private System.Windows.Forms.Panel pSite;
         private System.Windows.Forms.ToolStripMenuItem exportThisProfileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ımportProfileToolStripMenuItem;
+        private System.Windows.Forms.Label lbFlash;
+        private HTAlt.WinForms.HTSwitch hsFlash;
+        private System.Windows.Forms.Label lbFlashInfo;
+        private System.Windows.Forms.ToolStripMenuItem tsLanguages;
+        private System.Windows.Forms.Label lbGPU;
+        private HTAlt.WinForms.HTSwitch hsGPU;
     }
 }

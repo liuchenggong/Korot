@@ -232,9 +232,12 @@ namespace Korot
                 }
             });
             // Initialize cef with the provided settings
+            if (Settings.DisableGPUAcc) { settings.DisableGpuAcceleration(); }
+            if (Settings.Flash) { settings.CefCommandLineArgs.Add("enable-system-flash"); }
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
             chromiumWebBrowser1 = new ChromiumWebBrowser(string.IsNullOrWhiteSpace(loaduri) ? "korot://newtab" : loaduri);
             pCEF.Controls.Add(chromiumWebBrowser1);
+            chromiumWebBrowser1.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
             chromiumWebBrowser1.ConsoleMessage += cef_consoleMessage;
             chromiumWebBrowser1.FindHandler = new FindHandler(this);
             chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this);
@@ -345,6 +348,21 @@ namespace Korot
                 }
             }));
         }
+        private void OnIsBrowserInitializedChanged(object sender, EventArgs e)
+        {
+            //Get the underlying browser host wrapper
+            var browserHost = chromiumWebBrowser1.GetBrowser().GetHost();
+            var requestContext = browserHost.RequestContext;
+            string errorMessage;
+            // Browser must be initialized before getting/setting preferences
+            if (!Settings.DoNotTrack) { return; }
+            var success = requestContext.SetPreference("enable_do_not_track", true, out errorMessage);
+            if (!success)
+            {
+                Output.WriteLine("Unable to set preference enable_do_not_track [errorMessage: " + errorMessage + "]");
+            }
+        }
+
         public void refreshPage()
         {
             chromiumWebBrowser1.Reload();
@@ -439,7 +457,6 @@ namespace Korot
             profilenameToolStripMenuItem.Text = userName;
             showCertificateErrorsToolStripMenuItem.Text = showCertError;
             chromiumWebBrowser1.Select();
-            hsDoNotTrack.Checked = Settings.DoNotTrack;
             EasterEggs();
             RefreshTranslation();
             RefreshSizes();
@@ -472,7 +489,6 @@ namespace Korot
                 pbIncognito.Visible = false;
                 tbAddress.Size = new Size(tbAddress.Size.Width + pbIncognito.Size.Width, tbAddress.Size.Height);
             }
-            cbLang.Text = Path.GetFileNameWithoutExtension(Settings.LanguageSystem.LangFile);
             Settings.Extensions.UpdateExtensions();
         }
         private void RefreshHistory()
@@ -1003,7 +1019,7 @@ namespace Korot
             IncognitoT2M2 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M2");
             IncognitoT2M3 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M3");
             disallowCookie = Settings.LanguageSystem.GetItemText("DisallowCookie");
-
+            lbGPU.Text = Settings.LanguageSystem.GetItemText("DisableGPUAcc");
             lbBackImageStyle.Text = Settings.LanguageSystem.GetItemText("BackgroundImageLayout");
             imageFiles = Settings.LanguageSystem.GetItemText("ImageFiles");
             allFiles = Settings.LanguageSystem.GetItemText("AllFiles");
@@ -1013,6 +1029,8 @@ namespace Korot
             ımageFromURLToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImageFromBase64");
             ımageFromLocalFileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImageFromFile");
             lbDNT.Text = Settings.LanguageSystem.GetItemText("EnableDoNotTrack");
+            lbFlash.Text = Settings.LanguageSystem.GetItemText("EnableFlash");
+            lbFlashInfo.Text = Settings.LanguageSystem.GetItemText("FlashInfo");
             label21.Text = aboutInfo;
             llLicenses.Text = Settings.LanguageSystem.GetItemText("LicensesSpecialThanks");
             lbSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
@@ -1170,14 +1188,27 @@ namespace Korot
             RefreshTranslation();
             RefreshSizes();
         }
+        private void langItem_Click(object sender,EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            if (item == null) { return; }
+            if (item.Tag == null) { return; }
+            var tag = item.Tag as string;
+            if (string.IsNullOrWhiteSpace(tag)) { return; }
+            Settings.LanguageSystem.ReadFromFile(tag,true);
+        }
         public void RefreshLangList()
         {
-            cbLang.Items.Clear();
+            tsLanguages.DropDownItems.Clear();
             foreach (string foundfile in Directory.GetFiles(Application.StartupPath + "//Lang//", "*.klf", SearchOption.TopDirectoryOnly))
             {
-                cbLang.Items.Add(Path.GetFileNameWithoutExtension(foundfile));
+                ToolStripMenuItem item = new ToolStripMenuItem();
+                item.Text = Path.GetFileNameWithoutExtension(foundfile);
+                item.Tag = foundfile;
+                item.Checked = (foundfile == Settings.LanguageSystem.LangFile);
+                item.Click += langItem_Click;
+                tsLanguages.DropDownItems.Add(item);
             }
-            cbLang.Text = Path.GetFileNameWithoutExtension(Settings.LanguageSystem.LangFile);
         }
         #endregion
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1540,6 +1571,7 @@ namespace Korot
         private void tmrRefresher_Tick(object sender, EventArgs e)
         {
             hsDoNotTrack.Checked = Settings.DoNotTrack;
+            hsFlash.Checked = Settings.Flash;
             tbHomepage.Text = Settings.Homepage;
             rbNewTab.Checked = Settings.Homepage == "korot://newtab";
             tbSearchEngine.Text = Settings.SearchEngine;
@@ -2637,7 +2669,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     tbSearchEngine.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     btCertError.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     hlvDownload.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                    cbLang.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     hsNotificationSound.BackColor = Settings.Theme.BackColor;
                     hsNotificationSound.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
                     hsNotificationSound.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
@@ -2674,8 +2705,15 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     hsOpen.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
                     hsOpen.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
                     hsOpen.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
+                    hsFlash.BackColor = Settings.Theme.BackColor;
+                    hsFlash.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
+                    hsFlash.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
+                    hsFlash.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
+                    hsGPU.BackColor = Settings.Theme.BackColor;
+                    hsGPU.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
+                    hsGPU.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
+                    hsGPU.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
                     hlvHistory.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                    cbLang.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     cmsHistory.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     cmsSearchEngine.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     listBox2.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
@@ -2702,8 +2740,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     btCertError.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     tbHomepage.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     tbSearchEngine.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                    cbLang.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                    cbLang.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     toolStripTextBox1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     flpLayout.BackColor = Settings.Theme.BackColor;
                     flpLayout.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
@@ -2744,6 +2780,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     //button4.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.go : Properties.Resources.go_w;
                     btHome.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.home : Properties.Resources.home_w;
                     btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
+                    tsLanguages.Image = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.lang : Properties.Resources.lang_w;
                     tbAddress.BackColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.B, 20, 255));
                     textBox4.BackColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.B, 20, 255));
                     mFavorites.BackColor = Settings.Theme.BackColor;
@@ -2759,6 +2796,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     foreach (ToolStripItem x in cmsBack.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
                     foreach (ToolStripItem x in cmsProfiles.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
                     foreach (ToolStripItem x in extensionToolStripMenuItem1.DropDownItems) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
+                    foreach (ToolStripItem x in tsLanguages.DropDownItems) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
                     foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black; }
                     foreach (Control c in Controls)
                     {
@@ -2944,6 +2982,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             hsAutoRestore.Location = new Point(lbautoRestore.Location.X + lbautoRestore.Width + 5, hsAutoRestore.Location.Y);
             hsFav.Location = new Point(lbShowFavorites.Location.X + lbShowFavorites.Width + 5, hsFav.Location.Y);
             hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width + 5, hsDoNotTrack.Location.Y);
+            hsFlash.Location = new Point(lbFlash.Location.X + lbFlash.Width + 5, hsFlash.Location.Y);
             hsOpen.Location = new Point(lbOpen.Location.X + lbOpen.Width + 5, hsOpen.Location.Y);
             hsDownload.Location = new Point(lbAutoDownload.Location.X + lbAutoDownload.Width + 5, hsDownload.Location.Y);
             hsProxy.Location = new Point(lbLastProxy.Location.X + lbLastProxy.Width + 5, hsProxy.Location.Y);
@@ -2964,8 +3003,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             comboBox1.Width = tpTheme.Width - (lbThemeName.Location.X + lbThemeName.Width + button12.Width + 25);
             button12.Location = new Point(comboBox1.Location.X + comboBox1.Width, button12.Location.Y);
             tbHomepage.Location = new Point(lbHomepage.Location.X + lbHomepage.Width + 5, tbHomepage.Location.Y);
-            tbHomepage.Width = tpSettings.Width - (lbHomepage.Location.X + lbHomepage.Width + 25);
-            rbNewTab.Location = new Point(tbHomepage.Location.X, tbHomepage.Location.Y + tbHomepage.Height + 5);
+            tbHomepage.Width = tpSettings.Width - (lbHomepage.Location.X + lbHomepage.Width + rbNewTab.Width + 30);
+            rbNewTab.Location = new Point(tbHomepage.Location.X + tbHomepage.Width + 5, rbNewTab.Location.Y);
             tbSearchEngine.Location = new Point(lbSearchEngine.Location.X + lbSearchEngine.Width + 5, tbSearchEngine.Location.Y);
             tbSearchEngine.Width = tpSettings.Width - (lbSearchEngine.Location.X + lbSearchEngine.Width + 25);
         }
@@ -3844,14 +3883,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private bool isLeftPressed, isRightPressed = false;
 
-        private void cbLang_TextUpdate(object sender, EventArgs e)
-        {
-            if (File.Exists(Application.StartupPath + "\\Lang\\" + cbLang.Text + ".klf"))
-            {
-                LoadLangFromFile(Application.StartupPath + "\\Lang\\" + cbLang.Text + ".klf");
-            }
-        }
-
         private void frmCEF_FormClosing(object sender, FormClosingEventArgs e)
         {
             closing = true;
@@ -4296,6 +4327,11 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 ZipFile.CreateFromDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Properties.Settings.Default.LastUser + "\\", fileDialog.FileName, CompressionLevel.Optimal, true, Encoding.UTF8);
             }
+        }
+
+        private void hsFlash_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Flash = hsFlash.Checked;
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

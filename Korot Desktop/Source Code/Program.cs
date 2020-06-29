@@ -35,7 +35,7 @@ namespace Korot
 {
     public static class VersionInfo
     {
-        public static string CodeName => "Laika";
+        public static string CodeName => "Laika Extended";
         public static bool IsPreRelease => false;
         public static int PreReleaseNumber => 0;
     }
@@ -343,6 +343,14 @@ new HTTitleTab(testApp)
                 {
                     DoNotTrack = node.InnerText == "true";
                 }
+                else if (node.Name.ToLower() == "flash")
+                {
+                    Flash = node.InnerText == "true";
+                }
+                else if (node.Name.ToLower() == "disablegpuacc")
+                {
+                    DisableGPUAcc = node.InnerText == "true";
+                }
                 else if (node.Name.ToLower() == "autorestore")
                 {
                     AutoRestore = node.InnerText == "true";
@@ -529,6 +537,8 @@ new HTTitleTab(testApp)
             }
         }
         #region Defaults
+        public bool _DisableGPUAcc = false;
+        public bool _Flash = false;
         public bool LoadedDefaults = false;
         private bool _Silent = false;
         private List<Site> _Sites = new List<Site>();
@@ -536,7 +546,7 @@ new HTTitleTab(testApp)
         private bool _DoNotPlaySound = false;
         private bool _QuietMode = false;
         private string _AutoSilentMode = "";
-        private string _ProfileName = "feyzullah";
+        private string _ProfileName = "Helvetica Standard";
         private bool _DismissUpdate = false;
         private string _Homepage = "korot://newtab";
         private Size _MenuSize = new Size(720, 720);
@@ -558,6 +568,16 @@ new HTTitleTab(testApp)
         private Extensions _Extensions = new Extensions("");
         #endregion
         #region Properties
+        public bool DisableGPUAcc
+        {
+            get => _DisableGPUAcc;
+            set => _DisableGPUAcc = value;
+        }
+        public bool Flash 
+        { 
+            get => _Flash; 
+            set => _Flash = value; 
+        }
         public bool Silent
         {
             get => _Silent;
@@ -704,6 +724,8 @@ new HTTitleTab(testApp)
             "<Startup>" + Startup.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Startup>" + Environment.NewLine +
             "<LastProxy>" + LastProxy.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LastProxy>" + Environment.NewLine +
             "<MenuWasMaximized>" + (MenuWasMaximized ? "true" : "false") + "</MenuWasMaximized>" + Environment.NewLine +
+            "<DisableGPUAcc>" + (DisableGPUAcc ? "true" : "false") + "</DisableGPUAcc>" + Environment.NewLine +
+            "<Flash>" + (Flash ? "true" : "false") + "</Flash>" + Environment.NewLine +
             "<DoNotTrack>" + (DoNotTrack ? "true" : "false") + "</DoNotTrack>" + Environment.NewLine +
             "<AutoRestore>" + (AutoRestore ? "true" : "false") + "</AutoRestore>" + Environment.NewLine +
             "<RememberLastProxy>" + (RememberLastProxy ? "true" : "false") + "</RememberLastProxy>" + Environment.NewLine +
