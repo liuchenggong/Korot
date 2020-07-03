@@ -503,6 +503,10 @@
     <None Include="Resources\collection.png" />
     <None Include="Resources\collection-w.png" />
     <None Include="Resources\notificationDefault.js" />
+    <None Include="Resources\download-i1.png" />
+    <None Include="Resources\download-i-w1.png" />
+    <None Include="Resources\hamburger-i1.png" />
+    <None Include="Resources\hamburger-i-w1.png" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

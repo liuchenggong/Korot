@@ -752,6 +752,8 @@ namespace Korot
         public string empty = "((empty))";
         public string SetToDefault = "Set to default";
         //Collection Manager
+        public string Clear = "Clear";
+        public string RemoveSelected = "Remove Selected";
         public string newColInfo = "Enter a name for new collection";
         public string newColName = "New Collection";
         public string importColInfo = "Enter code for new collection";
@@ -816,6 +818,8 @@ namespace Korot
             }
             aboutInfo = Settings.LanguageSystem.GetItemText("KorotAbout").Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? noname : Settings.Theme.Name) : "");
             MuteTS.Text = isMuted ? UnmuteThisTab : MuteThisTab;
+            Clear = Settings.LanguageSystem.GetItemText("Clear");
+            RemoveSelected = Settings.LanguageSystem.GetItemText("RemoveSelected");
             ımportProfileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImportProfile");
             importProfileInfo = Settings.LanguageSystem.GetItemText("ImportProfileInfo");
             exportThisProfileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ExportProfile");
@@ -1167,12 +1171,13 @@ namespace Korot
         }
         private void langItem_Click(object sender,EventArgs e)
         {
+            if(sender == null) { return; }
             var item = sender as ToolStripMenuItem;
             if (item == null) { return; }
             if (item.Tag == null) { return; }
             var tag = item.Tag as string;
             if (string.IsNullOrWhiteSpace(tag)) { return; }
-            Settings.LanguageSystem.ReadFromFile(tag,true);
+            LoadLangFromFile(tag);
         }
         public void RefreshLangList()
         {
@@ -1184,6 +1189,7 @@ namespace Korot
                 item.Tag = foundfile;
                 item.Checked = (foundfile == Settings.LanguageSystem.LangFile);
                 item.Click += langItem_Click;
+                if(item.Checked) { langItem_Click(item,null); }
                 tsLanguages.DropDownItems.Add(item);
             }
         }
@@ -1546,10 +1552,11 @@ namespace Korot
             hsSchedule.Checked = Settings.AutoSilent;
             panel1.Enabled = Settings.AutoSilent;
             RefreshScheduledSiletMode();
-            RefreshLangList();
             refreshThemeList();
             RefreshDownloadList();
             RefreshFavorites();
+            downloadsToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? (anaform.newDownload ? Properties.Resources.download_i_w : Properties.Resources.download_w) : (anaform.newDownload ? Properties.Resources.download_i : Properties.Resources.download);
+            btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w);
             comboBox1.Text = !onThemeName ? (Settings.Theme.LoadedDefaults ? "((default))" : Settings.Theme.Name) : comboBox1.Text;
         }
 
@@ -2689,8 +2696,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     lbStatus.BackColor = Settings.Theme.BackColor;
                     BackColor = Settings.Theme.BackColor;
                     extensionToolStripMenuItem1.DropDown.BackColor = Settings.Theme.BackColor;
+                    tsLanguages.DropDown.BackColor = Settings.Theme.BackColor;
                     aboutToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.about_w : Properties.Resources.about;
-                    downloadsToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.download_w : Properties.Resources.download;
                     historyToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.history_w : Properties.Resources.history;
                     pbIncognito.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.inctab_w : Properties.Resources.inctab;
                     tbAddress.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
@@ -2701,6 +2708,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     toolStripTextBox1.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     cmsPrivacy.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     extensionToolStripMenuItem1.DropDown.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
+                    tsLanguages.DropDown.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     textBox4.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
                     if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.ButtonImage = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { btFav.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; }
                     mFavorites.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White;
@@ -2715,7 +2723,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     btCookieBack.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                     //button4.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.go : Properties.Resources.go_w;
                     btHome.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.home : Properties.Resources.home_w;
-                    btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.hamburger : Properties.Resources.hamburger_w;
+                    downloadsToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? (anaform.newDownload ? Properties.Resources.download_i_w : Properties.Resources.download_w) : (anaform.newDownload ? Properties.Resources.download_i : Properties.Resources.download);
+                    btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? ( anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w);
                     tsLanguages.Image = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.lang : Properties.Resources.lang_w;
                     tbAddress.BackColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.B, 20, 255));
                     textBox4.BackColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.FromArgb(HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.R, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.G, 20), HTAlt.Tools.SubtractIfNeeded(Settings.Theme.BackColor.B, 20)) : Color.FromArgb(HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.R, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.G, 20, 255), HTAlt.Tools.AddIfNeeded(Settings.Theme.BackColor.B, 20, 255));
@@ -2732,7 +2741,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     foreach (ToolStripItem x in cmsBack.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
                     foreach (ToolStripItem x in cmsProfiles.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
                     foreach (ToolStripItem x in extensionToolStripMenuItem1.DropDownItems) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
-                    foreach (ToolStripItem x in tsLanguages.DropDownItems) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
+                    foreach (ToolStripItem x in tsLanguages.DropDown.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Color.Black : Color.White; }
                     foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black; }
                     foreach (Control c in Controls)
                     {
@@ -3575,10 +3584,12 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             if (anaform.downloadTab != null)
             {
                 anaform.SelectedTab = anaform.downloadTab;
+                anaform.newDownload = false;
             }
             else
             {
                 anaform.downloadTab = ParentTab;
+                anaform.newDownload = false;
                 btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpDownload;
@@ -4268,6 +4279,16 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void hsFlash_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Flash = hsFlash.Checked;
+        }
+
+        private void tpHistory_Enter(object sender, EventArgs e)
+        {
+            hisman.RefreshList();
+        }
+
+        private void tsLanguages_DropDownOpening(object sender, EventArgs e)
+        {
+            RefreshLangList();
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

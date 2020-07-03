@@ -33,6 +33,25 @@ namespace Korot
                 Controls.Add(lbEmpty);
             }
         }
+        private List<Site> selectedSites = new List<Site>();
+        private List<Panel> selectedPanels = new List<Panel>();
+        private void item_Clicked(object sender,EventArgs e)
+        {
+            if (sender == null) { return; }
+            var cntrl = sender as Control;
+            var panel = cntrl is Panel ? cntrl as Panel : (cntrl.Parent is FlowLayoutPanel ? cntrl.Parent.Parent as Panel : cntrl.Parent as Panel);
+            if (panel.Tag == null || !(panel.Tag is Site)) { return; }
+            var tag = panel.Tag as Site;
+            if (selectedPanels.Contains(panel) && selectedSites.Contains(tag))
+            {
+                selectedPanels.Remove(panel);
+                selectedSites.Remove(tag);
+            }else
+            {
+                selectedPanels.Add(panel);
+                selectedSites.Add(tag);
+            }
+        }
 
         private void GeneratePanel(Site site)
         {
@@ -53,6 +72,7 @@ namespace Korot
             pSite.Controls.Add(lbAddress);
             pSite.Controls.Add(lbTitle);
             pSite.Dock = System.Windows.Forms.DockStyle.Top;
+            pSite.Click += item_Clicked;
             pSite.Location = new System.Drawing.Point(0, 0);
             pSite.Margin = new System.Windows.Forms.Padding(5);
             pSite.Padding = new System.Windows.Forms.Padding(5);
@@ -64,6 +84,7 @@ namespace Korot
             flowLayoutPanel1.Controls.Add(lbCookie);
             flowLayoutPanel1.Controls.Add(hsNotification);
             flowLayoutPanel1.Controls.Add(lbNotif);
+            flowLayoutPanel1.Click += item_Clicked;
             flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             flowLayoutPanel1.Location = new System.Drawing.Point(5, 68);
@@ -121,6 +142,7 @@ namespace Korot
             // lbAddress
             // 
             lbAddress.AutoSize = true;
+            lbAddress.Click += item_Clicked;
             lbAddress.Font = new System.Drawing.Font("Ubuntu", 10F);
             lbAddress.Location = new System.Drawing.Point(10, 33);
             lbAddress.Size = new System.Drawing.Size(60, 17);
@@ -129,13 +151,14 @@ namespace Korot
             // lbTitle
             // 
             lbTitle.AutoSize = true;
+            lbTitle.Click += item_Clicked;
             lbTitle.Font = new System.Drawing.Font("Ubuntu", 15F);
             lbTitle.Location = new System.Drawing.Point(8, 8);
             lbTitle.Size = new System.Drawing.Size(49, 25);
             lbTitle.Text = site.Name;
             Controls.Add(pSite);
         }
-
+        bool rsMode = false;
         private void hsNotification_CheckedChanged(object sender, EventArgs e)
         {
             HTSwitch hsN = sender as HTSwitch;
@@ -185,8 +208,10 @@ namespace Korot
             {
                 if (x is Panel)
                 {
-                    x.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
-                    x.ForeColor = HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
+                    x.BackColor = selectedPanels.Contains(x as Panel)
+                        ? cefform.Settings.Theme.OverlayColor
+                        : HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+                    x.ForeColor = HTAlt.Tools.AutoWhiteBlack(x.BackColor);
                 }
             }
             foreach (HTSwitch x in switches)
@@ -197,9 +222,29 @@ namespace Korot
                 x.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 60, false), false);
 
             }
+            htButton1.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            htButton1.ForeColor = HTAlt.Tools.AutoWhiteBlack(htButton1.BackColor);
             foreach (Label x in notificationLabels) { x.Text = cefform.siteNotifications; }
             foreach (Label x in cookieLabels) { x.Text = cefform.siteCookies; }
             lbEmpty.Text = cefform.empty;
+            rsMode = (selectedPanels.Count != 0 && selectedSites.Count != 0);
+            htButton1.Visible = (cookieLabels.Count == 0 && notificationLabels.Count == 0 && switches.Count == 0);
+            htButton1.ButtonText = rsMode ? cefform.RemoveSelected : cefform.Clear;
+        }
+
+        private void htButton1_Click(object sender, EventArgs e)
+        {
+            if (rsMode)
+            {
+                foreach (Site x in selectedSites)
+                {
+                    cefform.Settings.Sites.Remove(x);
+                }
+            }else
+            {
+                cefform.Settings.Sites.Clear();
+            }
+            GenerateUI();
         }
     }
 }

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.htButton1 = new HTAlt.WinForms.HTButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lbEmpty = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // htButton1
@@ -52,12 +53,23 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // lbEmpty
+            // 
+            this.lbEmpty.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lbEmpty.Location = new System.Drawing.Point(0, 0);
+            this.lbEmpty.Name = "lbEmpty";
+            this.lbEmpty.Size = new System.Drawing.Size(618, 13);
+            this.lbEmpty.TabIndex = 2;
+            this.lbEmpty.Text = "((empty))";
+            this.lbEmpty.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // frmHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(618, 400);
+            this.Controls.Add(this.lbEmpty);
             this.Controls.Add(this.htButton1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmHistory";
@@ -71,5 +83,6 @@
         #endregion
         private HTAlt.WinForms.HTButton htButton1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lbEmpty;
     }
 }

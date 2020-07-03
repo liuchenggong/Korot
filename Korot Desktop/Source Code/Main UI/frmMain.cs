@@ -42,7 +42,7 @@ namespace Korot
         public List<string> notificationAsked = new List<string>();
         public List<frmNotification> notifications { get; set; }
         public Collection<frmCEF> NotifListeners { get => notifListeners; set => notifListeners = value; }
-
+        public bool newDownload = false;
         public bool isIncognito = false;
         public HTTabRenderer tabRenderer;
         public HTTitleTab settingTab = null;

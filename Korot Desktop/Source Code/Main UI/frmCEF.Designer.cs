@@ -662,6 +662,7 @@ namespace Korot
             this.tsLanguages.Name = "tsLanguages";
             this.tsLanguages.Size = new System.Drawing.Size(280, 22);
             this.tsLanguages.Text = "Languages";
+            this.tsLanguages.DropDownOpening += new System.EventHandler(this.tsLanguages_DropDownOpening);
             // 
             // settingsToolStripMenuItem
             // 
@@ -2072,6 +2073,7 @@ namespace Korot
             this.tpHistory.TabIndex = 3;
             this.tpHistory.Text = "History";
             this.tpHistory.UseVisualStyleBackColor = true;
+            this.tpHistory.Enter += new System.EventHandler(this.tpHistory_Enter);
             // 
             // pHisMan
             // 

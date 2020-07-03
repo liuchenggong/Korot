@@ -1162,6 +1162,7 @@ new HTTitleTab(testApp)
             }
         }
         private string _LangFile = Application.StartupPath + "\\Lang\\English.klf";
+        public int ItemCount => LanguageItems.Count;
         public string LangFile => _LangFile;
         public LanguageSystem(string fileLoc)
         {

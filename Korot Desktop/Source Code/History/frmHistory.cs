@@ -21,7 +21,7 @@ namespace Korot
             InitializeComponent();
         }
         List<Panel> panelList = new List<Panel>();
-        void RefreshList()
+        public void RefreshList()
         {
             foreach (Site x in cefecik.Settings.History)
             {
@@ -158,8 +158,8 @@ namespace Korot
         }
         void switchRSMode()
         {
-            rsMode = (selectedPanels.Count == 0 && selectedSites.Count == 0);
-            htButton1.ButtonText = rsMode ? cefecik.Settings.LanguageSystem.GetItemText("RemoveSelected") : cefecik.Settings.LanguageSystem.GetItemText("Clear");
+            rsMode = !(selectedPanels.Count == 0 && selectedSites.Count == 0);
+            htButton1.ButtonText = rsMode ? cefecik.RemoveSelected : cefecik.Clear;
         }
         bool rsMode = false;
         private void htButton1_Click(object sender, EventArgs e)
@@ -207,6 +207,9 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             Enabled = !cefecik._Incognito;
+            lbEmpty.Visible = panelList.Count == 0;
+            htButton1.Visible = panelList.Count != 0;
+            lbEmpty.Text = cefecik.empty;
             BackColor = cefecik.Settings.Theme.BackColor;
             ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
             htButton1.BackColor = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);

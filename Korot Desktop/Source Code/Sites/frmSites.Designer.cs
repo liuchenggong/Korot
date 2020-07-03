@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lbEmpty = new System.Windows.Forms.Label();
+            this.htButton1 = new HTAlt.WinForms.HTButton();
             this.SuspendLayout();
             // 
             // timer1
@@ -48,11 +49,26 @@
             this.lbEmpty.Text = "((empty))";
             this.lbEmpty.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // htButton1
+            // 
+            this.htButton1.ButtonText = "Clear";
+            this.htButton1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.htButton1.FlatAppearance.BorderSize = 0;
+            this.htButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.htButton1.Location = new System.Drawing.Point(0, 427);
+            this.htButton1.Name = "htButton1";
+            this.htButton1.Size = new System.Drawing.Size(475, 23);
+            this.htButton1.TabIndex = 2;
+            this.htButton1.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.htButton1.UseVisualStyleBackColor = true;
+            this.htButton1.Click += new System.EventHandler(this.htButton1_Click);
+            // 
             // frmSites
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(475, 450);
+            this.Controls.Add(this.htButton1);
             this.Controls.Add(this.lbEmpty);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmSites";
@@ -67,5 +83,6 @@
 
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lbEmpty;
+        private HTAlt.WinForms.HTButton htButton1;
     }
 }

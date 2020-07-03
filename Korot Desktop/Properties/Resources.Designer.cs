@@ -213,6 +213,26 @@ namespace Korot.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap download_i {
+            get {
+                object obj = ResourceManager.GetObject("download-i", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap download_i_w {
+            get {
+                object obj = ResourceManager.GetObject("download-i-w", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap download_w {
             get {
                 object obj = ResourceManager.GetObject("download_w", resourceCulture);
@@ -297,6 +317,26 @@ namespace Korot.Properties {
         internal static System.Drawing.Bitmap hamburger {
             get {
                 object obj = ResourceManager.GetObject("hamburger", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hamburger_i {
+            get {
+                object obj = ResourceManager.GetObject("hamburger-i", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hamburger_i_w {
+            get {
+                object obj = ResourceManager.GetObject("hamburger-i-w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
