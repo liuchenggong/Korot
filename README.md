@@ -1,10 +1,18 @@
+<p align="center" style="text-align: center;">
+  <img width="128" height="128" src="https://haltroy.com/assets/images/Korot-s.png" />
+</p>
 
 # [Korot](https://haltroy.com/Korot.html "Korot's Page")
-An advanced Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy's Website").
+A Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy's Website").
 
 Latest Stable Version: [`0.7.0.0`](https://github.com/Haltroy/Korot/tree/0.7.0.0).
 
 Latest Dev Version: `0.7.1.0`
+
+<p align="center" style="text-align: center;">
+  <img width="641" height="523" src="https://haltroy.com/assets/images/korot-0600pre0.png" />
+</p>
+
 
 ## Features:
  - HTML5, CSS3, JS, HTML5 Video, WebGL 3D, etc. supported. (Except `H.264` and many non-free codecs. See [#12](https://github.com/Haltroy/Korot/issues/12))
