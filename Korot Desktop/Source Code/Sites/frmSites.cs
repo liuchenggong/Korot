@@ -57,7 +57,6 @@ namespace Korot
             pSite.Margin = new System.Windows.Forms.Padding(5);
             pSite.Padding = new System.Windows.Forms.Padding(5);
             pSite.Size = new System.Drawing.Size(Width, 100);
-            pSite.TabIndex = 1;
             // 
             // flowLayoutPanel1
             // 
@@ -69,13 +68,11 @@ namespace Korot
             flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             flowLayoutPanel1.Location = new System.Drawing.Point(5, 68);
             flowLayoutPanel1.Size = new System.Drawing.Size(Width - 10, 27);
-            flowLayoutPanel1.TabIndex = 2;
             // 
             // hsCookie
             // 
             hsCookie.Location = new System.Drawing.Point(412, 3);
             hsCookie.Size = new System.Drawing.Size(50, 19);
-            hsCookie.TabIndex = 1;
             hsCookie.Tag = site;
             hsCookie.Checked = site.AllowCookies;
             switches.Add(hsCookie);
@@ -87,7 +84,6 @@ namespace Korot
             lbCookie.Dock = System.Windows.Forms.DockStyle.Fill;
             lbCookie.Location = new System.Drawing.Point(358, 0);
             lbCookie.Size = new System.Drawing.Size(48, 25);
-            lbCookie.TabIndex = 0;
             lbCookie.Text = "Cookies:";
             cookieLabels.Add(lbCookie);
             lbCookie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -96,7 +92,6 @@ namespace Korot
             // 
             hsNotification.Location = new System.Drawing.Point(302, 3);
             hsNotification.Size = new System.Drawing.Size(50, 19);
-            hsNotification.TabIndex = 3;
             hsNotification.Tag = site;
             hsNotification.Checked = site.AllowNotifications;
             switches.Add(hsNotification);
@@ -108,7 +103,6 @@ namespace Korot
             lbNotif.Dock = System.Windows.Forms.DockStyle.Fill;
             lbNotif.Location = new System.Drawing.Point(228, 0);
             lbNotif.Size = new System.Drawing.Size(68, 25);
-            lbNotif.TabIndex = 2;
             lbNotif.Text = "Notifications:";
             notificationLabels.Add(lbNotif);
             lbNotif.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -120,7 +114,6 @@ namespace Korot
             lbClose.Font = new System.Drawing.Font("Ubuntu", 12F);
             lbClose.Location = new System.Drawing.Point(Width - 30, 8);
             lbClose.Size = new System.Drawing.Size(20, 20);
-            lbClose.TabIndex = 1;
             lbClose.Text = "X";
             lbClose.Tag = site;
             lbClose.Click += new System.EventHandler(lbClose_Click);
@@ -131,7 +124,6 @@ namespace Korot
             lbAddress.Font = new System.Drawing.Font("Ubuntu", 10F);
             lbAddress.Location = new System.Drawing.Point(10, 33);
             lbAddress.Size = new System.Drawing.Size(60, 17);
-            lbAddress.TabIndex = 0;
             lbAddress.Text = site.Url;
             // 
             // lbTitle
@@ -140,7 +132,6 @@ namespace Korot
             lbTitle.Font = new System.Drawing.Font("Ubuntu", 15F);
             lbTitle.Location = new System.Drawing.Point(8, 8);
             lbTitle.Size = new System.Drawing.Size(49, 25);
-            lbTitle.TabIndex = 0;
             lbTitle.Text = site.Name;
             Controls.Add(pSite);
         }
@@ -187,6 +178,7 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            Enabled = !cefform._Incognito;
             BackColor = cefform.Settings.Theme.BackColor;
             ForeColor = HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
             foreach (Control x in Controls)

@@ -43,6 +43,7 @@ namespace Korot
     {
         public string DateFormat = "dd/MM/yy HH:mm:ss";
         public frmSites siteman;
+        public frmHistory hisman;
         public Settings Settings;
         private frmCollection ColMan;
         public bool closing;
@@ -88,6 +89,14 @@ namespace Korot
                 Dock = DockStyle.Fill,
                 Visible = true
             };
+            hisman = new frmHistory(this)
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill,
+                Visible = true
+            };
+            pHisMan.Controls.Add(hisman);
             pSite.Controls.Add(siteman);
             Updater();
         }
@@ -472,12 +481,9 @@ namespace Korot
                 cmsBStyle.Enabled = false;
                 cmsSearchEngine.Enabled = false;
                 btFav.Enabled = false;
-                cmsHistory.Enabled = false;
                 cmsProfiles.Enabled = false;
                 removeSelectedToolStripMenuItem1.Enabled = false;
                 clearToolStripMenuItem2.Enabled = false;
-                removeSelectedToolStripMenuItem.Enabled = false;
-                clearToolStripMenuItem.Enabled = false;
                 disallowThisPageForCookieAccessToolStripMenuItem.Enabled = false;
                 removeSelectedTSMI.Enabled = false;
                 clearTSMI.Enabled = false;
@@ -490,29 +496,6 @@ namespace Korot
                 tbAddress.Size = new Size(tbAddress.Size.Width + pbIncognito.Size.Width, tbAddress.Size.Height);
             }
             Settings.Extensions.UpdateExtensions();
-        }
-        private void RefreshHistory()
-        {
-            int selectedValue = hlvHistory.SelectedIndices.Count > 0 ? hlvHistory.SelectedIndices[0] : 0;
-            ListViewItem scroll = hlvHistory.TopItem;
-            hlvHistory.Items.Clear();
-            foreach (Site x in Settings.History)
-            {
-                ListViewItem listV = new ListViewItem(GetDateInfo(DateTime.ParseExact(x.Date, DateFormat, null)));
-                listV.SubItems.Add(x.Name);
-                listV.SubItems.Add(x.Url);
-                hlvHistory.Items.Add(listV);
-            }
-            if (selectedValue <= (hlvHistory.Items.Count - 1))
-            {
-                hlvHistory.SelectedIndices.Clear();
-                if (selectedValue < (hlvHistory.Items.Count - 1))
-                {
-                    hlvHistory.Items[selectedValue].Selected = true;
-                    hlvHistory.TopItem = scroll;
-                }
-            }
-            hlvHistory.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         private readonly string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\IconStorage\\";
@@ -1088,8 +1071,6 @@ namespace Korot
             tsThemes.Text = Settings.LanguageSystem.GetItemText("Themes");
             caseSensitiveToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("CaseSensitive");
             customToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("Custom");
-            removeSelectedToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("RemoveSelected");
-            clearToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("Clear");
             settingstitle = Settings.LanguageSystem.GetItemText("Settings");
             historyToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("History");
             lbHistory.Text = Settings.LanguageSystem.GetItemText("History");
@@ -1135,9 +1116,6 @@ namespace Korot
             Month11 = Settings.LanguageSystem.GetItemText("Month11");
             Month12 = Settings.LanguageSystem.GetItemText("Month12");
             Month0 = Settings.LanguageSystem.GetItemText("Month0");
-            chDateHistory.Text = Settings.LanguageSystem.GetItemText("Date");
-            chTitle.Text = Settings.LanguageSystem.GetItemText("Title");
-            chURL.Text = Settings.LanguageSystem.GetItemText("URL");
             fromtwodot = Settings.LanguageSystem.GetItemText("From1");
             chFrom.Text = Settings.LanguageSystem.GetItemText("From");
             totwodot = Settings.LanguageSystem.GetItemText("To1");
@@ -1294,7 +1272,7 @@ namespace Korot
             }
         }
 
-        private string GetMonthNameOfDate(int month)
+        public string GetMonthNameOfDate(int month)
         {
             switch (month)
             {
@@ -1327,7 +1305,7 @@ namespace Korot
             }
         }
 
-        private string GetDateInfo(DateTime date)
+        public string GetDateInfo(DateTime date)
         {
             return date.Day + " " + GetMonthNameOfDate(date.Month) + " " + date.Year + " " + date.Hour.ToString("00") + ":" + date.Minute.ToString("00") + ":" + date.Second.ToString("00");
         }
@@ -1407,14 +1385,6 @@ namespace Korot
         {
             Settings.Downloads.Downloads.Clear();
             RefreshDownloadList();
-        }
-
-        private void HlvHistory_DoubleClick(object sender, EventArgs e)
-        {
-            if (hlvHistory.SelectedItems.Count > 0)
-            {
-                anaform.Invoke(new Action(() => anaform.CreateTab(hlvHistory.SelectedItems[0].SubItems[2].Text)));
-            }
         }
 
         private void NewWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1579,7 +1549,6 @@ namespace Korot
             RefreshLangList();
             refreshThemeList();
             RefreshDownloadList();
-            RefreshHistory();
             RefreshFavorites();
             comboBox1.Text = !onThemeName ? (Settings.Theme.LoadedDefaults ? "((default))" : Settings.Theme.Name) : comboBox1.Text;
         }
@@ -1608,26 +1577,6 @@ namespace Korot
             UpdateWebC.DownloadStringAsync(new Uri("https://haltroy.com/Update/Korot.htupdate"));
             updateProgress = 0;
         }
-        private void Timer2_Tick(object sender, EventArgs e)
-        {
-            RefreshHistory();
-            RefreshDownloadList();
-        }
-        private void removeSelectedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Settings.History.Remove(hlvHistory.SelectedItems[0].Tag as Site);
-            RefreshHistory();
-        }
-
-
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Settings.History.Clear();
-            RefreshHistory();
-        }
-
-
-
         private void Label2_Click(object sender, EventArgs e)
         {
             NewTab("https://haltroy.com/Korot.html");
@@ -2590,7 +2539,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     hsFav.OverlayColor = Settings.Theme.OverlayColor;
                     hsOpen.OverlayColor = Settings.Theme.OverlayColor;
                     hlvDownload.OverlayColor = Settings.Theme.OverlayColor;
-                    hlvHistory.OverlayColor = Settings.Theme.OverlayColor;
                     if (Cef.IsInitialized)
                     {
                         if (chromiumWebBrowser1.IsBrowserInitialized)
@@ -2637,7 +2585,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     hlvDownload.BackColor = Settings.Theme.BackColor;
                     hlvDownload.HeaderBackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     hlvDownload.HeaderForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                    hlvHistory.BackColor = Settings.Theme.BackColor;
                     pbPrivacy.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     tbAddress.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     pbIncognito.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
@@ -2649,10 +2596,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     toHour.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     toMin.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     toMin.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                    hlvHistory.HeaderBackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                    hlvHistory.HeaderForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     cmsDownload.BackColor = Settings.Theme.BackColor;
-                    cmsHistory.BackColor = Settings.Theme.BackColor;
                     cmsSearchEngine.BackColor = Settings.Theme.BackColor;
                     profilenameToolStripMenuItem.DropDown.BackColor = Settings.Theme.BackColor;
                     profilenameToolStripMenuItem.DropDown.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
@@ -2707,8 +2651,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     hsGPU.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false), false);
                     hsGPU.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), false);
                     hsGPU.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false), false);
-                    hlvHistory.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
-                    cmsHistory.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     cmsSearchEngine.ForeColor = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.White : Color.Black;
                     listBox2.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                     comboBox1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);

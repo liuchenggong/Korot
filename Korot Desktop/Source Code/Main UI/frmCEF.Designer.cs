@@ -151,6 +151,8 @@ namespace Korot
             this.lbURL = new System.Windows.Forms.ListBox();
             this.tpCert = new System.Windows.Forms.TabPage();
             this.tpSettings = new System.Windows.Forms.TabPage();
+            this.lbGPU = new System.Windows.Forms.Label();
+            this.hsGPU = new HTAlt.WinForms.HTSwitch();
             this.lbFlashInfo = new System.Windows.Forms.Label();
             this.lbFlash = new System.Windows.Forms.Label();
             this.hsFlash = new HTAlt.WinForms.HTSwitch();
@@ -208,15 +210,9 @@ namespace Korot
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.lbTheme = new System.Windows.Forms.Label();
             this.tpHistory = new System.Windows.Forms.TabPage();
+            this.pHisMan = new System.Windows.Forms.Panel();
             this.btClose6 = new HTAlt.WinForms.HTButton();
             this.lbHistory = new System.Windows.Forms.Label();
-            this.hlvHistory = new HTAlt.WinForms.HTListView();
-            this.chDateHistory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.cmsHistory = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tpDownload = new System.Windows.Forms.TabPage();
             this.btClose7 = new HTAlt.WinForms.HTButton();
             this.lbDownloads = new System.Windows.Forms.Label();
@@ -317,8 +313,6 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.lbGPU = new System.Windows.Forms.Label();
-            this.hsGPU = new HTAlt.WinForms.HTSwitch();
             this.pNavigate.SuspendLayout();
             this.cmsHamburger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
@@ -341,7 +335,6 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbOverlay)).BeginInit();
             this.tpHistory.SuspendLayout();
-            this.cmsHistory.SuspendLayout();
             this.tpDownload.SuspendLayout();
             this.cmsDownload.SuspendLayout();
             this.tpAbout.SuspendLayout();
@@ -368,7 +361,7 @@ namespace Korot
             this.tbAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbAddress.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.tbAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.tbAddress.Location = new System.Drawing.Point(140, 4);
             this.tbAddress.MaxLength = 2147483647;
             this.tbAddress.Name = "tbAddress";
@@ -446,7 +439,7 @@ namespace Korot
             // 
             // toolStripTextBox1
             // 
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.toolStripTextBox1.MaxLength = 2147483647;
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(220, 21);
@@ -735,7 +728,7 @@ namespace Korot
             // 
             // safeStatusToolStripMenuItem
             // 
-            this.safeStatusToolStripMenuItem.Font = new System.Drawing.Font("Ubuntu", 12F);
+            this.safeStatusToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.safeStatusToolStripMenuItem.Name = "safeStatusToolStripMenuItem";
             this.safeStatusToolStripMenuItem.ShortcutKeyDisplayString = "X";
             this.safeStatusToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
@@ -952,14 +945,14 @@ namespace Korot
             // deleteThisProfileToolStripMenuItem
             // 
             this.deleteThisProfileToolStripMenuItem.Name = "deleteThisProfileToolStripMenuItem";
-            this.deleteThisProfileToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.deleteThisProfileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.deleteThisProfileToolStripMenuItem.Text = "Delete this Profile";
             this.deleteThisProfileToolStripMenuItem.Click += new System.EventHandler(this.DeleteThisProfileToolStripMenuItem_Click);
             // 
             // exportThisProfileToolStripMenuItem
             // 
             this.exportThisProfileToolStripMenuItem.Name = "exportThisProfileToolStripMenuItem";
-            this.exportThisProfileToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.exportThisProfileToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.exportThisProfileToolStripMenuItem.Text = "Export this Profile";
             this.exportThisProfileToolStripMenuItem.Click += new System.EventHandler(this.exportThisProfileToolStripMenuItem_Click);
             // 
@@ -1097,7 +1090,7 @@ namespace Korot
             // lErrorTitle2Text
             // 
             this.lErrorTitle2Text.AutoSize = true;
-            this.lErrorTitle2Text.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.lErrorTitle2Text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.lErrorTitle2Text.Location = new System.Drawing.Point(8, 165);
             this.lErrorTitle2Text.Name = "lErrorTitle2Text";
             this.lErrorTitle2Text.Size = new System.Drawing.Size(393, 68);
@@ -1106,7 +1099,7 @@ namespace Korot
             // lErrorTitle1Text
             // 
             this.lErrorTitle1Text.AutoSize = true;
-            this.lErrorTitle1Text.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.lErrorTitle1Text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.lErrorTitle1Text.Location = new System.Drawing.Point(8, 63);
             this.lErrorTitle1Text.Name = "lErrorTitle1Text";
             this.lErrorTitle1Text.Size = new System.Drawing.Size(510, 68);
@@ -1115,7 +1108,7 @@ namespace Korot
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.label1.Location = new System.Drawing.Point(7, 251);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(117, 25);
@@ -1124,7 +1117,7 @@ namespace Korot
             // lErrorTitle2
             // 
             this.lErrorTitle2.AutoSize = true;
-            this.lErrorTitle2.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lErrorTitle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lErrorTitle2.Location = new System.Drawing.Point(6, 140);
             this.lErrorTitle2.Name = "lErrorTitle2";
             this.lErrorTitle2.Size = new System.Drawing.Size(157, 25);
@@ -1133,7 +1126,7 @@ namespace Korot
             // lErrorTitle1
             // 
             this.lErrorTitle1.AutoSize = true;
-            this.lErrorTitle1.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lErrorTitle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lErrorTitle1.Location = new System.Drawing.Point(6, 38);
             this.lErrorTitle1.Name = "lErrorTitle1";
             this.lErrorTitle1.Size = new System.Drawing.Size(432, 25);
@@ -1142,7 +1135,7 @@ namespace Korot
             // lErrorTitle
             // 
             this.lErrorTitle.AutoSize = true;
-            this.lErrorTitle.Font = new System.Drawing.Font("Ubuntu", 20F);
+            this.lErrorTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.lErrorTitle.Location = new System.Drawing.Point(6, 7);
             this.lErrorTitle.Name = "lErrorTitle";
             this.lErrorTitle.Size = new System.Drawing.Size(319, 31);
@@ -1185,7 +1178,7 @@ namespace Korot
             // lbStatus
             // 
             this.lbStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbStatus.Location = new System.Drawing.Point(3, 462);
+            this.lbStatus.Location = new System.Drawing.Point(3, 463);
             this.lbStatus.Name = "lbStatus";
             this.lbStatus.Size = new System.Drawing.Size(562, 18);
             this.lbStatus.TabIndex = 0;
@@ -1201,7 +1194,7 @@ namespace Korot
             this.pnlCert.ForeColor = System.Drawing.Color.White;
             this.pnlCert.Location = new System.Drawing.Point(3, 3);
             this.pnlCert.Name = "pnlCert";
-            this.pnlCert.Size = new System.Drawing.Size(562, 477);
+            this.pnlCert.Size = new System.Drawing.Size(562, 478);
             this.pnlCert.TabIndex = 8;
             this.pnlCert.Visible = false;
             // 
@@ -1211,7 +1204,7 @@ namespace Korot
             this.btCertError.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btCertError.FlatAppearance.BorderSize = 0;
             this.btCertError.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCertError.Location = new System.Drawing.Point(0, 451);
+            this.btCertError.Location = new System.Drawing.Point(0, 452);
             this.btCertError.Name = "btCertError";
             this.btCertError.Size = new System.Drawing.Size(562, 26);
             this.btCertError.TabIndex = 0;
@@ -1224,17 +1217,17 @@ namespace Korot
             this.lbCertErrorInfo.AutoSize = true;
             this.lbCertErrorInfo.Location = new System.Drawing.Point(16, 53);
             this.lbCertErrorInfo.Name = "lbCertErrorInfo";
-            this.lbCertErrorInfo.Size = new System.Drawing.Size(45, 16);
+            this.lbCertErrorInfo.Size = new System.Drawing.Size(44, 15);
             this.lbCertErrorInfo.TabIndex = 1;
             this.lbCertErrorInfo.Text = "is hard";
             // 
             // lbCertErrorTitle
             // 
             this.lbCertErrorTitle.AutoSize = true;
-            this.lbCertErrorTitle.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbCertErrorTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lbCertErrorTitle.Location = new System.Drawing.Point(14, 17);
             this.lbCertErrorTitle.Name = "lbCertErrorTitle";
-            this.lbCertErrorTitle.Size = new System.Drawing.Size(135, 25);
+            this.lbCertErrorTitle.Size = new System.Drawing.Size(124, 25);
             this.lbCertErrorTitle.TabIndex = 1;
             this.lbCertErrorTitle.Text = "development";
             // 
@@ -1265,10 +1258,10 @@ namespace Korot
             // 
             this.tpCef.Controls.Add(this.lbStatus);
             this.tpCef.Controls.Add(this.pCEF);
-            this.tpCef.Location = new System.Drawing.Point(4, 25);
+            this.tpCef.Location = new System.Drawing.Point(4, 24);
             this.tpCef.Name = "tpCef";
             this.tpCef.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCef.Size = new System.Drawing.Size(568, 483);
+            this.tpCef.Size = new System.Drawing.Size(568, 484);
             this.tpCef.TabIndex = 0;
             this.tpCef.Text = "Korot";
             this.tpCef.UseVisualStyleBackColor = true;
@@ -1281,7 +1274,7 @@ namespace Korot
             this.pCEF.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCEF.Location = new System.Drawing.Point(3, 3);
             this.pCEF.Name = "pCEF";
-            this.pCEF.Size = new System.Drawing.Size(562, 477);
+            this.pCEF.Size = new System.Drawing.Size(562, 478);
             this.pCEF.TabIndex = 0;
             this.pCEF.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
             // 
@@ -1290,10 +1283,10 @@ namespace Korot
             this.lbTitle.BackColor = System.Drawing.Color.Black;
             this.lbTitle.ForeColor = System.Drawing.Color.White;
             this.lbTitle.FormattingEnabled = true;
-            this.lbTitle.ItemHeight = 16;
+            this.lbTitle.ItemHeight = 15;
             this.lbTitle.Location = new System.Drawing.Point(118, 248);
             this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(46, 20);
+            this.lbTitle.Size = new System.Drawing.Size(46, 19);
             this.lbTitle.TabIndex = 1;
             this.lbTitle.Visible = false;
             // 
@@ -1302,10 +1295,10 @@ namespace Korot
             this.lbURL.BackColor = System.Drawing.Color.Black;
             this.lbURL.ForeColor = System.Drawing.Color.White;
             this.lbURL.FormattingEnabled = true;
-            this.lbURL.ItemHeight = 16;
+            this.lbURL.ItemHeight = 15;
             this.lbURL.Location = new System.Drawing.Point(118, 47);
             this.lbURL.Name = "lbURL";
-            this.lbURL.Size = new System.Drawing.Size(46, 20);
+            this.lbURL.Size = new System.Drawing.Size(46, 19);
             this.lbURL.TabIndex = 0;
             this.lbURL.Visible = false;
             this.lbURL.SelectedIndexChanged += new System.EventHandler(this.lbURL_SelectedIndexChanged);
@@ -1313,10 +1306,10 @@ namespace Korot
             // tpCert
             // 
             this.tpCert.Controls.Add(this.pnlCert);
-            this.tpCert.Location = new System.Drawing.Point(4, 25);
+            this.tpCert.Location = new System.Drawing.Point(4, 24);
             this.tpCert.Name = "tpCert";
             this.tpCert.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCert.Size = new System.Drawing.Size(568, 483);
+            this.tpCert.Size = new System.Drawing.Size(568, 484);
             this.tpCert.TabIndex = 1;
             this.tpCert.Text = "Certificate Error";
             this.tpCert.UseVisualStyleBackColor = true;
@@ -1349,12 +1342,29 @@ namespace Korot
             this.tpSettings.Controls.Add(this.tbHomepage);
             this.tpSettings.Controls.Add(this.tbStartup);
             this.tpSettings.Controls.Add(this.tbSearchEngine);
-            this.tpSettings.Location = new System.Drawing.Point(4, 25);
+            this.tpSettings.Location = new System.Drawing.Point(4, 24);
             this.tpSettings.Name = "tpSettings";
-            this.tpSettings.Size = new System.Drawing.Size(568, 483);
+            this.tpSettings.Size = new System.Drawing.Size(568, 484);
             this.tpSettings.TabIndex = 2;
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
+            // 
+            // lbGPU
+            // 
+            this.lbGPU.AutoSize = true;
+            this.lbGPU.BackColor = System.Drawing.Color.Transparent;
+            this.lbGPU.Location = new System.Drawing.Point(10, 241);
+            this.lbGPU.Name = "lbGPU";
+            this.lbGPU.Size = new System.Drawing.Size(151, 15);
+            this.lbGPU.TabIndex = 38;
+            this.lbGPU.Text = "Disable GPU acceleration:";
+            // 
+            // hsGPU
+            // 
+            this.hsGPU.Location = new System.Drawing.Point(168, 241);
+            this.hsGPU.Name = "hsGPU";
+            this.hsGPU.Size = new System.Drawing.Size(50, 19);
+            this.hsGPU.TabIndex = 37;
             // 
             // lbFlashInfo
             // 
@@ -1362,7 +1372,7 @@ namespace Korot
             this.lbFlashInfo.BackColor = System.Drawing.Color.Transparent;
             this.lbFlashInfo.Location = new System.Drawing.Point(10, 263);
             this.lbFlashInfo.Name = "lbFlashInfo";
-            this.lbFlashInfo.Size = new System.Drawing.Size(455, 16);
+            this.lbFlashInfo.Size = new System.Drawing.Size(426, 15);
             this.lbFlashInfo.TabIndex = 36;
             this.lbFlashInfo.Text = "Changes to Flash && GPU Acceleration settings requires a restart to take effect.";
             // 
@@ -1372,7 +1382,7 @@ namespace Korot
             this.lbFlash.BackColor = System.Drawing.Color.Transparent;
             this.lbFlash.Location = new System.Drawing.Point(10, 214);
             this.lbFlash.Name = "lbFlash";
-            this.lbFlash.Size = new System.Drawing.Size(82, 16);
+            this.lbFlash.Size = new System.Drawing.Size(85, 15);
             this.lbFlash.TabIndex = 36;
             this.lbFlash.Text = "Enable Flash :";
             // 
@@ -1391,8 +1401,8 @@ namespace Korot
             this.btCookie.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btCookie.FlatAppearance.BorderSize = 0;
             this.btCookie.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCookie.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.btCookie.Location = new System.Drawing.Point(0, 371);
+            this.btCookie.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btCookie.Location = new System.Drawing.Point(0, 372);
             this.btCookie.Name = "btCookie";
             this.btCookie.Size = new System.Drawing.Size(568, 28);
             this.btCookie.TabIndex = 11;
@@ -1407,8 +1417,8 @@ namespace Korot
             this.btNotification.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btNotification.FlatAppearance.BorderSize = 0;
             this.btNotification.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btNotification.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.btNotification.Location = new System.Drawing.Point(0, 399);
+            this.btNotification.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btNotification.Location = new System.Drawing.Point(0, 400);
             this.btNotification.Name = "btNotification";
             this.btNotification.Size = new System.Drawing.Size(568, 28);
             this.btNotification.TabIndex = 12;
@@ -1423,8 +1433,8 @@ namespace Korot
             this.btReset.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btReset.FlatAppearance.BorderSize = 0;
             this.btReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btReset.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.btReset.Location = new System.Drawing.Point(0, 427);
+            this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btReset.Location = new System.Drawing.Point(0, 428);
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(568, 28);
             this.btReset.TabIndex = 14;
@@ -1439,8 +1449,8 @@ namespace Korot
             this.btCleanLog.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btCleanLog.FlatAppearance.BorderSize = 0;
             this.btCleanLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCleanLog.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.btCleanLog.Location = new System.Drawing.Point(0, 455);
+            this.btCleanLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btCleanLog.Location = new System.Drawing.Point(0, 456);
             this.btCleanLog.Name = "btCleanLog";
             this.btCleanLog.Size = new System.Drawing.Size(568, 28);
             this.btCleanLog.TabIndex = 13;
@@ -1454,7 +1464,7 @@ namespace Korot
             this.lbDNT.BackColor = System.Drawing.Color.Transparent;
             this.lbDNT.Location = new System.Drawing.Point(13, 189);
             this.lbDNT.Name = "lbDNT";
-            this.lbDNT.Size = new System.Drawing.Size(123, 16);
+            this.lbDNT.Size = new System.Drawing.Size(120, 15);
             this.lbDNT.TabIndex = 29;
             this.lbDNT.Text = "Enable DoNotTrack :";
             // 
@@ -1472,7 +1482,7 @@ namespace Korot
             this.lbautoRestore.BackColor = System.Drawing.Color.Transparent;
             this.lbautoRestore.Location = new System.Drawing.Point(13, 169);
             this.lbautoRestore.Name = "lbautoRestore";
-            this.lbautoRestore.Size = new System.Drawing.Size(171, 16);
+            this.lbautoRestore.Size = new System.Drawing.Size(163, 15);
             this.lbautoRestore.TabIndex = 29;
             this.lbautoRestore.Text = "Restore Old Session at Start:";
             // 
@@ -1482,7 +1492,7 @@ namespace Korot
             this.lbLastProxy.BackColor = System.Drawing.Color.Transparent;
             this.lbLastProxy.Location = new System.Drawing.Point(13, 148);
             this.lbLastProxy.Name = "lbLastProxy";
-            this.lbLastProxy.Size = new System.Drawing.Size(154, 16);
+            this.lbLastProxy.Size = new System.Drawing.Size(147, 15);
             this.lbLastProxy.TabIndex = 29;
             this.lbLastProxy.Text = "Remember the last proxy:";
             // 
@@ -1525,7 +1535,7 @@ namespace Korot
             this.lbAtStartup.BackColor = System.Drawing.Color.Transparent;
             this.lbAtStartup.Location = new System.Drawing.Point(13, 106);
             this.lbAtStartup.Name = "lbAtStartup";
-            this.lbAtStartup.Size = new System.Drawing.Size(73, 16);
+            this.lbAtStartup.Size = new System.Drawing.Size(65, 15);
             this.lbAtStartup.TabIndex = 29;
             this.lbAtStartup.Text = "At Startup: ";
             // 
@@ -1535,17 +1545,17 @@ namespace Korot
             this.lbShowFavorites.BackColor = System.Drawing.Color.Transparent;
             this.lbShowFavorites.Location = new System.Drawing.Point(13, 127);
             this.lbShowFavorites.Name = "lbShowFavorites";
-            this.lbShowFavorites.Size = new System.Drawing.Size(128, 16);
+            this.lbShowFavorites.Size = new System.Drawing.Size(128, 15);
             this.lbShowFavorites.TabIndex = 29;
             this.lbShowFavorites.Text = "Show Favorites Menu:";
             // 
             // lbSettings
             // 
             this.lbSettings.AutoSize = true;
-            this.lbSettings.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lbSettings.Location = new System.Drawing.Point(8, 6);
             this.lbSettings.Name = "lbSettings";
-            this.lbSettings.Size = new System.Drawing.Size(89, 25);
+            this.lbSettings.Size = new System.Drawing.Size(83, 25);
             this.lbSettings.TabIndex = 34;
             this.lbSettings.Text = "Settings";
             // 
@@ -1563,9 +1573,9 @@ namespace Korot
             this.rbNewTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbNewTab.AutoSize = true;
             this.rbNewTab.BackColor = System.Drawing.Color.Transparent;
-            this.rbNewTab.Location = new System.Drawing.Point(484, 49);
+            this.rbNewTab.Location = new System.Drawing.Point(483, 49);
             this.rbNewTab.Name = "rbNewTab";
-            this.rbNewTab.Size = new System.Drawing.Size(73, 20);
+            this.rbNewTab.Size = new System.Drawing.Size(74, 19);
             this.rbNewTab.TabIndex = 2;
             this.rbNewTab.TabStop = true;
             this.rbNewTab.Tag = "";
@@ -1579,7 +1589,7 @@ namespace Korot
             this.lbHomepage.BackColor = System.Drawing.Color.Transparent;
             this.lbHomepage.Location = new System.Drawing.Point(13, 51);
             this.lbHomepage.Name = "lbHomepage";
-            this.lbHomepage.Size = new System.Drawing.Size(77, 16);
+            this.lbHomepage.Size = new System.Drawing.Size(79, 15);
             this.lbHomepage.TabIndex = 17;
             this.lbHomepage.Tag = "";
             this.lbHomepage.Text = "Home Page :";
@@ -1590,7 +1600,7 @@ namespace Korot
             this.lbSearchEngine.BackColor = System.Drawing.Color.Transparent;
             this.lbSearchEngine.Location = new System.Drawing.Point(13, 78);
             this.lbSearchEngine.Name = "lbSearchEngine";
-            this.lbSearchEngine.Size = new System.Drawing.Size(93, 16);
+            this.lbSearchEngine.Size = new System.Drawing.Size(94, 15);
             this.lbSearchEngine.TabIndex = 16;
             this.lbSearchEngine.Tag = "";
             this.lbSearchEngine.Text = "Search Engine :";
@@ -1653,9 +1663,9 @@ namespace Korot
             this.tpTheme.Controls.Add(this.button12);
             this.tpTheme.Controls.Add(this.listBox2);
             this.tpTheme.Controls.Add(this.lbTheme);
-            this.tpTheme.Location = new System.Drawing.Point(4, 25);
+            this.tpTheme.Location = new System.Drawing.Point(4, 24);
             this.tpTheme.Name = "tpTheme";
-            this.tpTheme.Size = new System.Drawing.Size(568, 483);
+            this.tpTheme.Size = new System.Drawing.Size(568, 484);
             this.tpTheme.TabIndex = 6;
             this.tpTheme.Text = "Theme";
             this.tpTheme.UseVisualStyleBackColor = true;
@@ -1678,7 +1688,7 @@ namespace Korot
             this.rbBackColor1.AutoSize = true;
             this.rbBackColor1.Location = new System.Drawing.Point(3, 3);
             this.rbBackColor1.Name = "rbBackColor1";
-            this.rbBackColor1.Size = new System.Drawing.Size(86, 20);
+            this.rbBackColor1.Size = new System.Drawing.Size(84, 19);
             this.rbBackColor1.TabIndex = 6;
             this.rbBackColor1.TabStop = true;
             this.rbBackColor1.Text = "Back Color";
@@ -1688,9 +1698,9 @@ namespace Korot
             // rbForeColor1
             // 
             this.rbForeColor1.AutoSize = true;
-            this.rbForeColor1.Location = new System.Drawing.Point(95, 3);
+            this.rbForeColor1.Location = new System.Drawing.Point(93, 3);
             this.rbForeColor1.Name = "rbForeColor1";
-            this.rbForeColor1.Size = new System.Drawing.Size(84, 20);
+            this.rbForeColor1.Size = new System.Drawing.Size(82, 19);
             this.rbForeColor1.TabIndex = 6;
             this.rbForeColor1.TabStop = true;
             this.rbForeColor1.Text = "Fore Color";
@@ -1700,9 +1710,9 @@ namespace Korot
             // rbOverlayColor1
             // 
             this.rbOverlayColor1.AutoSize = true;
-            this.rbOverlayColor1.Location = new System.Drawing.Point(185, 3);
+            this.rbOverlayColor1.Location = new System.Drawing.Point(181, 3);
             this.rbOverlayColor1.Name = "rbOverlayColor1";
-            this.rbOverlayColor1.Size = new System.Drawing.Size(99, 20);
+            this.rbOverlayColor1.Size = new System.Drawing.Size(97, 19);
             this.rbOverlayColor1.TabIndex = 6;
             this.rbOverlayColor1.TabStop = true;
             this.rbOverlayColor1.Text = "Overlay Color";
@@ -1727,7 +1737,7 @@ namespace Korot
             this.rbBackColor.AutoSize = true;
             this.rbBackColor.Location = new System.Drawing.Point(3, 3);
             this.rbBackColor.Name = "rbBackColor";
-            this.rbBackColor.Size = new System.Drawing.Size(86, 20);
+            this.rbBackColor.Size = new System.Drawing.Size(84, 19);
             this.rbBackColor.TabIndex = 5;
             this.rbBackColor.TabStop = true;
             this.rbBackColor.Text = "Back Color";
@@ -1737,9 +1747,9 @@ namespace Korot
             // rbForeColor
             // 
             this.rbForeColor.AutoSize = true;
-            this.rbForeColor.Location = new System.Drawing.Point(95, 3);
+            this.rbForeColor.Location = new System.Drawing.Point(93, 3);
             this.rbForeColor.Name = "rbForeColor";
-            this.rbForeColor.Size = new System.Drawing.Size(84, 20);
+            this.rbForeColor.Size = new System.Drawing.Size(82, 19);
             this.rbForeColor.TabIndex = 5;
             this.rbForeColor.TabStop = true;
             this.rbForeColor.Text = "Fore Color";
@@ -1749,9 +1759,9 @@ namespace Korot
             // rbOverlayColor
             // 
             this.rbOverlayColor.AutoSize = true;
-            this.rbOverlayColor.Location = new System.Drawing.Point(185, 3);
+            this.rbOverlayColor.Location = new System.Drawing.Point(181, 3);
             this.rbOverlayColor.Name = "rbOverlayColor";
-            this.rbOverlayColor.Size = new System.Drawing.Size(99, 20);
+            this.rbOverlayColor.Size = new System.Drawing.Size(97, 19);
             this.rbOverlayColor.TabIndex = 5;
             this.rbOverlayColor.TabStop = true;
             this.rbOverlayColor.Text = "Overlay Color";
@@ -1778,7 +1788,7 @@ namespace Korot
             this.rbNone.AutoSize = true;
             this.rbNone.Location = new System.Drawing.Point(3, 3);
             this.rbNone.Name = "rbNone";
-            this.rbNone.Size = new System.Drawing.Size(56, 20);
+            this.rbNone.Size = new System.Drawing.Size(55, 19);
             this.rbNone.TabIndex = 3;
             this.rbNone.TabStop = true;
             this.rbNone.Text = "None";
@@ -1788,9 +1798,9 @@ namespace Korot
             // rbTile
             // 
             this.rbTile.AutoSize = true;
-            this.rbTile.Location = new System.Drawing.Point(65, 3);
+            this.rbTile.Location = new System.Drawing.Point(64, 3);
             this.rbTile.Name = "rbTile";
-            this.rbTile.Size = new System.Drawing.Size(46, 20);
+            this.rbTile.Size = new System.Drawing.Size(45, 19);
             this.rbTile.TabIndex = 3;
             this.rbTile.TabStop = true;
             this.rbTile.Text = "Tile";
@@ -1800,9 +1810,9 @@ namespace Korot
             // rbCenter
             // 
             this.rbCenter.AutoSize = true;
-            this.rbCenter.Location = new System.Drawing.Point(117, 3);
+            this.rbCenter.Location = new System.Drawing.Point(115, 3);
             this.rbCenter.Name = "rbCenter";
-            this.rbCenter.Size = new System.Drawing.Size(66, 20);
+            this.rbCenter.Size = new System.Drawing.Size(61, 19);
             this.rbCenter.TabIndex = 3;
             this.rbCenter.TabStop = true;
             this.rbCenter.Text = "Center";
@@ -1812,9 +1822,9 @@ namespace Korot
             // rbStretch
             // 
             this.rbStretch.AutoSize = true;
-            this.rbStretch.Location = new System.Drawing.Point(189, 3);
+            this.rbStretch.Location = new System.Drawing.Point(182, 3);
             this.rbStretch.Name = "rbStretch";
-            this.rbStretch.Size = new System.Drawing.Size(70, 20);
+            this.rbStretch.Size = new System.Drawing.Size(63, 19);
             this.rbStretch.TabIndex = 3;
             this.rbStretch.TabStop = true;
             this.rbStretch.Text = "Stretch";
@@ -1824,9 +1834,9 @@ namespace Korot
             // rbZoom
             // 
             this.rbZoom.AutoSize = true;
-            this.rbZoom.Location = new System.Drawing.Point(265, 3);
+            this.rbZoom.Location = new System.Drawing.Point(251, 3);
             this.rbZoom.Name = "rbZoom";
-            this.rbZoom.Size = new System.Drawing.Size(58, 20);
+            this.rbZoom.Size = new System.Drawing.Size(57, 19);
             this.rbZoom.TabIndex = 3;
             this.rbZoom.TabStop = true;
             this.rbZoom.Text = "Zoom";
@@ -1853,10 +1863,10 @@ namespace Korot
             // 
             this.lbBackImageStyle.AutoSize = true;
             this.lbBackImageStyle.BackColor = System.Drawing.Color.Transparent;
-            this.lbBackImageStyle.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbBackImageStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbBackImageStyle.Location = new System.Drawing.Point(18, 100);
             this.lbBackImageStyle.Name = "lbBackImageStyle";
-            this.lbBackImageStyle.Size = new System.Drawing.Size(158, 17);
+            this.lbBackImageStyle.Size = new System.Drawing.Size(158, 16);
             this.lbBackImageStyle.TabIndex = 25;
             this.lbBackImageStyle.Tag = "";
             this.lbBackImageStyle.Text = "Background Image Style:";
@@ -1865,10 +1875,10 @@ namespace Korot
             // 
             this.lbCloseColor.AutoSize = true;
             this.lbCloseColor.BackColor = System.Drawing.Color.Transparent;
-            this.lbCloseColor.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbCloseColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbCloseColor.Location = new System.Drawing.Point(18, 197);
             this.lbCloseColor.Name = "lbCloseColor";
-            this.lbCloseColor.Size = new System.Drawing.Size(128, 17);
+            this.lbCloseColor.Size = new System.Drawing.Size(121, 16);
             this.lbCloseColor.TabIndex = 25;
             this.lbCloseColor.Tag = "";
             this.lbCloseColor.Text = "Close Button Color:";
@@ -1877,10 +1887,10 @@ namespace Korot
             // 
             this.lbNewTabColor.AutoSize = true;
             this.lbNewTabColor.BackColor = System.Drawing.Color.Transparent;
-            this.lbNewTabColor.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbNewTabColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbNewTabColor.Location = new System.Drawing.Point(17, 166);
             this.lbNewTabColor.Name = "lbNewTabColor";
-            this.lbNewTabColor.Size = new System.Drawing.Size(143, 17);
+            this.lbNewTabColor.Size = new System.Drawing.Size(141, 16);
             this.lbNewTabColor.TabIndex = 25;
             this.lbNewTabColor.Tag = "";
             this.lbNewTabColor.Text = "New Tab Button Color:";
@@ -1889,10 +1899,10 @@ namespace Korot
             // 
             this.lbBackImage.AutoSize = true;
             this.lbBackImage.BackColor = System.Drawing.Color.Transparent;
-            this.lbBackImage.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbBackImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbBackImage.Location = new System.Drawing.Point(17, 132);
             this.lbBackImage.Name = "lbBackImage";
-            this.lbBackImage.Size = new System.Drawing.Size(126, 17);
+            this.lbBackImage.Size = new System.Drawing.Size(128, 16);
             this.lbBackImage.TabIndex = 25;
             this.lbBackImage.Tag = "";
             this.lbBackImage.Text = "Background Image :";
@@ -1936,10 +1946,10 @@ namespace Korot
             // 
             this.lbBackColor.AutoSize = true;
             this.lbBackColor.BackColor = System.Drawing.Color.Transparent;
-            this.lbBackColor.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbBackColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbBackColor.Location = new System.Drawing.Point(18, 38);
             this.lbBackColor.Name = "lbBackColor";
-            this.lbBackColor.Size = new System.Drawing.Size(126, 17);
+            this.lbBackColor.Size = new System.Drawing.Size(125, 16);
             this.lbBackColor.TabIndex = 25;
             this.lbBackColor.Tag = "";
             this.lbBackColor.Text = "Background Color : ";
@@ -1948,10 +1958,10 @@ namespace Korot
             // 
             this.lbOveralColor.AutoSize = true;
             this.lbOveralColor.BackColor = System.Drawing.Color.Transparent;
-            this.lbOveralColor.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbOveralColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbOveralColor.Location = new System.Drawing.Point(18, 67);
             this.lbOveralColor.Name = "lbOveralColor";
-            this.lbOveralColor.Size = new System.Drawing.Size(95, 17);
+            this.lbOveralColor.Size = new System.Drawing.Size(92, 16);
             this.lbOveralColor.TabIndex = 26;
             this.lbOveralColor.Tag = "Overall theme (Selected Tab background,Loading Bar Color etc.)";
             this.lbOveralColor.Text = "Overal Color : ";
@@ -1973,10 +1983,10 @@ namespace Korot
             // 
             this.lbThemeName.AutoSize = true;
             this.lbThemeName.BackColor = System.Drawing.Color.Transparent;
-            this.lbThemeName.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbThemeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbThemeName.Location = new System.Drawing.Point(17, 224);
             this.lbThemeName.Name = "lbThemeName";
-            this.lbThemeName.Size = new System.Drawing.Size(97, 17);
+            this.lbThemeName.Size = new System.Drawing.Size(100, 16);
             this.lbThemeName.TabIndex = 25;
             this.lbThemeName.Tag = "";
             this.lbThemeName.Text = "Theme Name : ";
@@ -1985,10 +1995,10 @@ namespace Korot
             // 
             this.lbThemes.AutoSize = true;
             this.lbThemes.BackColor = System.Drawing.Color.Transparent;
-            this.lbThemes.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbThemes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbThemes.Location = new System.Drawing.Point(17, 252);
             this.lbThemes.Name = "lbThemes";
-            this.lbThemes.Size = new System.Drawing.Size(65, 17);
+            this.lbThemes.Size = new System.Drawing.Size(67, 16);
             this.lbThemes.TabIndex = 25;
             this.lbThemes.Tag = "";
             this.lbThemes.Text = "Themes : ";
@@ -2000,10 +2010,10 @@ namespace Korot
             this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.comboBox1.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.comboBox1.Location = new System.Drawing.Point(130, 221);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(376, 25);
+            this.comboBox1.Size = new System.Drawing.Size(376, 24);
             this.comboBox1.TabIndex = 7;
             this.comboBox1.Tag = "";
             this.comboBox1.Enter += new System.EventHandler(this.comboBox1_Enter);
@@ -2034,17 +2044,17 @@ namespace Korot
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 16;
+            this.listBox2.ItemHeight = 15;
             this.listBox2.Location = new System.Drawing.Point(20, 275);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(526, 196);
+            this.listBox2.Size = new System.Drawing.Size(526, 184);
             this.listBox2.TabIndex = 10;
             this.listBox2.DoubleClick += new System.EventHandler(this.ListBox2_DoubleClick);
             // 
             // lbTheme
             // 
             this.lbTheme.AutoSize = true;
-            this.lbTheme.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbTheme.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lbTheme.Location = new System.Drawing.Point(15, 6);
             this.lbTheme.Name = "lbTheme";
             this.lbTheme.Size = new System.Drawing.Size(74, 25);
@@ -2053,15 +2063,25 @@ namespace Korot
             // 
             // tpHistory
             // 
+            this.tpHistory.Controls.Add(this.pHisMan);
             this.tpHistory.Controls.Add(this.btClose6);
             this.tpHistory.Controls.Add(this.lbHistory);
-            this.tpHistory.Controls.Add(this.hlvHistory);
-            this.tpHistory.Location = new System.Drawing.Point(4, 25);
+            this.tpHistory.Location = new System.Drawing.Point(4, 24);
             this.tpHistory.Name = "tpHistory";
-            this.tpHistory.Size = new System.Drawing.Size(568, 483);
+            this.tpHistory.Size = new System.Drawing.Size(568, 484);
             this.tpHistory.TabIndex = 3;
             this.tpHistory.Text = "History";
             this.tpHistory.UseVisualStyleBackColor = true;
+            // 
+            // pHisMan
+            // 
+            this.pHisMan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pHisMan.Location = new System.Drawing.Point(13, 45);
+            this.pHisMan.Name = "pHisMan";
+            this.pHisMan.Size = new System.Drawing.Size(544, 424);
+            this.pHisMan.TabIndex = 37;
             // 
             // btClose6
             // 
@@ -2082,77 +2102,12 @@ namespace Korot
             // lbHistory
             // 
             this.lbHistory.AutoSize = true;
-            this.lbHistory.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lbHistory.Location = new System.Drawing.Point(8, 6);
             this.lbHistory.Name = "lbHistory";
-            this.lbHistory.Size = new System.Drawing.Size(78, 25);
+            this.lbHistory.Size = new System.Drawing.Size(72, 25);
             this.lbHistory.TabIndex = 36;
             this.lbHistory.Text = "History";
-            // 
-            // hlvHistory
-            // 
-            this.hlvHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlvHistory.BackColor = System.Drawing.Color.White;
-            this.hlvHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chDateHistory,
-            this.chTitle,
-            this.chURL});
-            this.hlvHistory.ContextMenuStrip = this.cmsHistory;
-            this.hlvHistory.ForeColor = System.Drawing.Color.Black;
-            this.hlvHistory.FullRowSelect = true;
-            this.hlvHistory.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.hlvHistory.HeaderBorderThickness = 2;
-            this.hlvHistory.HeaderForeColor = System.Drawing.Color.Black;
-            this.hlvHistory.HideSelection = false;
-            this.hlvHistory.Location = new System.Drawing.Point(13, 38);
-            this.hlvHistory.Name = "hlvHistory";
-            this.hlvHistory.OverlayColor = System.Drawing.Color.DodgerBlue;
-            this.hlvHistory.Size = new System.Drawing.Size(540, 501);
-            this.hlvHistory.TabIndex = 1;
-            this.hlvHistory.UseCompatibleStateImageBehavior = false;
-            this.hlvHistory.View = System.Windows.Forms.View.Details;
-            this.hlvHistory.DoubleClick += new System.EventHandler(this.HlvHistory_DoubleClick);
-            // 
-            // chDateHistory
-            // 
-            this.chDateHistory.Text = "Date";
-            this.chDateHistory.Width = 130;
-            // 
-            // chTitle
-            // 
-            this.chTitle.Text = "Title";
-            this.chTitle.Width = 233;
-            // 
-            // chURL
-            // 
-            this.chURL.Text = "URL";
-            this.chURL.Width = 707;
-            // 
-            // cmsHistory
-            // 
-            this.cmsHistory.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeSelectedToolStripMenuItem,
-            this.clearToolStripMenuItem});
-            this.cmsHistory.Name = "contextMenuStrip1";
-            this.cmsHistory.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsHistory.ShowImageMargin = false;
-            this.cmsHistory.Size = new System.Drawing.Size(140, 48);
-            // 
-            // removeSelectedToolStripMenuItem
-            // 
-            this.removeSelectedToolStripMenuItem.Name = "removeSelectedToolStripMenuItem";
-            this.removeSelectedToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.removeSelectedToolStripMenuItem.Text = "Remove Selected";
-            this.removeSelectedToolStripMenuItem.Click += new System.EventHandler(this.removeSelectedToolStripMenuItem_Click);
-            // 
-            // clearToolStripMenuItem
-            // 
-            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.clearToolStripMenuItem.Text = "Clear";
-            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // tpDownload
             // 
@@ -2166,9 +2121,9 @@ namespace Korot
             this.tpDownload.Controls.Add(this.lbDownloadFolder);
             this.tpDownload.Controls.Add(this.lbOpen);
             this.tpDownload.Controls.Add(this.lbAutoDownload);
-            this.tpDownload.Location = new System.Drawing.Point(4, 25);
+            this.tpDownload.Location = new System.Drawing.Point(4, 24);
             this.tpDownload.Name = "tpDownload";
-            this.tpDownload.Size = new System.Drawing.Size(568, 483);
+            this.tpDownload.Size = new System.Drawing.Size(568, 484);
             this.tpDownload.TabIndex = 4;
             this.tpDownload.Text = "Downloads";
             this.tpDownload.UseVisualStyleBackColor = true;
@@ -2192,10 +2147,10 @@ namespace Korot
             // lbDownloads
             // 
             this.lbDownloads.AutoSize = true;
-            this.lbDownloads.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbDownloads.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lbDownloads.Location = new System.Drawing.Point(8, 6);
             this.lbDownloads.Name = "lbDownloads";
-            this.lbDownloads.Size = new System.Drawing.Size(114, 25);
+            this.lbDownloads.Size = new System.Drawing.Size(109, 25);
             this.lbDownloads.TabIndex = 36;
             this.lbDownloads.Text = "Downloads";
             // 
@@ -2260,40 +2215,40 @@ namespace Korot
             this.cmsDownload.Name = "cmsDownload";
             this.cmsDownload.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsDownload.ShowImageMargin = false;
-            this.cmsDownload.Size = new System.Drawing.Size(275, 114);
+            this.cmsDownload.Size = new System.Drawing.Size(274, 114);
             // 
             // openLinkİnNewTabToolStripMenuItem
             // 
             this.openLinkİnNewTabToolStripMenuItem.Name = "openLinkİnNewTabToolStripMenuItem";
-            this.openLinkİnNewTabToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.openLinkİnNewTabToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.openLinkİnNewTabToolStripMenuItem.Text = "Open Link in New Tab";
             this.openLinkİnNewTabToolStripMenuItem.Click += new System.EventHandler(this.OpenLinkİnNewTabToolStripMenuItem_Click);
             // 
             // openFileToolStripMenuItem
             // 
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
-            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.openFileToolStripMenuItem.Text = "Open File";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.OpenFileToolStripMenuItem_Click);
             // 
             // openFileİnExplorerToolStripMenuItem
             // 
             this.openFileİnExplorerToolStripMenuItem.Name = "openFileİnExplorerToolStripMenuItem";
-            this.openFileİnExplorerToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.openFileİnExplorerToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.openFileİnExplorerToolStripMenuItem.Text = "Open the Folder containing File in Explorer";
             this.openFileİnExplorerToolStripMenuItem.Click += new System.EventHandler(this.OpenFileİnExplorerToolStripMenuItem_Click);
             // 
             // removeSelectedToolStripMenuItem1
             // 
             this.removeSelectedToolStripMenuItem1.Name = "removeSelectedToolStripMenuItem1";
-            this.removeSelectedToolStripMenuItem1.Size = new System.Drawing.Size(274, 22);
+            this.removeSelectedToolStripMenuItem1.Size = new System.Drawing.Size(273, 22);
             this.removeSelectedToolStripMenuItem1.Text = "Remove Selected";
             this.removeSelectedToolStripMenuItem1.Click += new System.EventHandler(this.RemoveSelectedToolStripMenuItem1_Click);
             // 
             // clearToolStripMenuItem2
             // 
             this.clearToolStripMenuItem2.Name = "clearToolStripMenuItem2";
-            this.clearToolStripMenuItem2.Size = new System.Drawing.Size(274, 22);
+            this.clearToolStripMenuItem2.Size = new System.Drawing.Size(273, 22);
             this.clearToolStripMenuItem2.Text = "Clear";
             this.clearToolStripMenuItem2.Click += new System.EventHandler(this.ClearToolStripMenuItem2_Click);
             // 
@@ -2344,7 +2299,7 @@ namespace Korot
             this.lbDownloadFolder.BackColor = System.Drawing.Color.Transparent;
             this.lbDownloadFolder.Location = new System.Drawing.Point(10, 86);
             this.lbDownloadFolder.Name = "lbDownloadFolder";
-            this.lbDownloadFolder.Size = new System.Drawing.Size(144, 16);
+            this.lbDownloadFolder.Size = new System.Drawing.Size(135, 15);
             this.lbDownloadFolder.TabIndex = 17;
             this.lbDownloadFolder.Tag = "";
             this.lbDownloadFolder.Text = "Download to this folder:";
@@ -2353,10 +2308,10 @@ namespace Korot
             // 
             this.lbOpen.AutoSize = true;
             this.lbOpen.BackColor = System.Drawing.Color.Transparent;
-            this.lbOpen.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.lbOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.lbOpen.Location = new System.Drawing.Point(10, 38);
             this.lbOpen.Name = "lbOpen";
-            this.lbOpen.Size = new System.Drawing.Size(156, 16);
+            this.lbOpen.Size = new System.Drawing.Size(149, 15);
             this.lbOpen.TabIndex = 36;
             this.lbOpen.Tag = "";
             this.lbOpen.Text = "Open files after download:";
@@ -2365,10 +2320,10 @@ namespace Korot
             // 
             this.lbAutoDownload.AutoSize = true;
             this.lbAutoDownload.BackColor = System.Drawing.Color.Transparent;
-            this.lbAutoDownload.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.lbAutoDownload.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.lbAutoDownload.Location = new System.Drawing.Point(10, 62);
             this.lbAutoDownload.Name = "lbAutoDownload";
-            this.lbAutoDownload.Size = new System.Drawing.Size(158, 16);
+            this.lbAutoDownload.Size = new System.Drawing.Size(149, 15);
             this.lbAutoDownload.TabIndex = 36;
             this.lbAutoDownload.Tag = "";
             this.lbAutoDownload.Text = "Auto-download to a folder:";
@@ -2388,10 +2343,10 @@ namespace Korot
             this.tpAbout.Controls.Add(this.label20);
             this.tpAbout.Controls.Add(this.lbKorot);
             this.tpAbout.Controls.Add(this.pictureBox5);
-            this.tpAbout.Location = new System.Drawing.Point(4, 25);
+            this.tpAbout.Location = new System.Drawing.Point(4, 24);
             this.tpAbout.Name = "tpAbout";
             this.tpAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAbout.Size = new System.Drawing.Size(568, 483);
+            this.tpAbout.Size = new System.Drawing.Size(568, 484);
             this.tpAbout.TabIndex = 5;
             this.tpAbout.Text = "About";
             // 
@@ -2414,10 +2369,10 @@ namespace Korot
             // lbAbout
             // 
             this.lbAbout.AutoSize = true;
-            this.lbAbout.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lbAbout.Location = new System.Drawing.Point(8, 6);
             this.lbAbout.Name = "lbAbout";
-            this.lbAbout.Size = new System.Drawing.Size(69, 25);
+            this.lbAbout.Size = new System.Drawing.Size(64, 25);
             this.lbAbout.TabIndex = 36;
             this.lbAbout.Text = "About";
             // 
@@ -2425,8 +2380,8 @@ namespace Korot
             // 
             this.lbUpdateStatus.BackColor = System.Drawing.Color.Transparent;
             this.lbUpdateStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbUpdateStatus.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.lbUpdateStatus.Location = new System.Drawing.Point(3, 401);
+            this.lbUpdateStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbUpdateStatus.Location = new System.Drawing.Point(3, 402);
             this.lbUpdateStatus.Name = "lbUpdateStatus";
             this.lbUpdateStatus.Size = new System.Drawing.Size(562, 17);
             this.lbUpdateStatus.TabIndex = 1;
@@ -2440,7 +2395,7 @@ namespace Korot
             this.btInstall.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btInstall.FlatAppearance.BorderSize = 0;
             this.btInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btInstall.Location = new System.Drawing.Point(3, 418);
+            this.btInstall.Location = new System.Drawing.Point(3, 419);
             this.btInstall.Name = "btInstall";
             this.btInstall.Size = new System.Drawing.Size(562, 31);
             this.btInstall.TabIndex = 3;
@@ -2456,7 +2411,7 @@ namespace Korot
             this.btUpdater.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btUpdater.FlatAppearance.BorderSize = 0;
             this.btUpdater.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btUpdater.Location = new System.Drawing.Point(3, 449);
+            this.btUpdater.Location = new System.Drawing.Point(3, 450);
             this.btUpdater.Name = "btUpdater";
             this.btUpdater.Size = new System.Drawing.Size(562, 31);
             this.btUpdater.TabIndex = 2;
@@ -2470,7 +2425,7 @@ namespace Korot
             this.llLicenses.BackColor = System.Drawing.Color.Transparent;
             this.llLicenses.Location = new System.Drawing.Point(15, 172);
             this.llLicenses.Name = "llLicenses";
-            this.llLicenses.Size = new System.Drawing.Size(161, 16);
+            this.llLicenses.Size = new System.Drawing.Size(163, 15);
             this.llLicenses.TabIndex = 1;
             this.llLicenses.TabStop = true;
             this.llLicenses.Text = "Licenses && Special Thanks...";
@@ -2482,7 +2437,7 @@ namespace Korot
             this.label21.BackColor = System.Drawing.Color.Transparent;
             this.label21.Location = new System.Drawing.Point(15, 124);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(384, 48);
+            this.label21.Size = new System.Drawing.Size(361, 45);
             this.label21.TabIndex = 4;
             this.label21.Text = "Korot uses Chromium by Google using CefSharp.\r\nKorot is written in C# using Visua" +
     "l Studio Community by Microsoft.\r\nKorot uses modified version of EasyTabs.";
@@ -2491,10 +2446,10 @@ namespace Korot
             // 
             this.lbVersion.AutoSize = true;
             this.lbVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lbVersion.Font = new System.Drawing.Font("Ubuntu", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbVersion.Location = new System.Drawing.Point(171, 40);
             this.lbVersion.Name = "lbVersion";
-            this.lbVersion.Size = new System.Drawing.Size(52, 17);
+            this.lbVersion.Size = new System.Drawing.Size(52, 16);
             this.lbVersion.TabIndex = 1;
             this.lbVersion.Text = "version";
             // 
@@ -2502,10 +2457,10 @@ namespace Korot
             // 
             this.label20.AutoSize = true;
             this.label20.BackColor = System.Drawing.Color.Transparent;
-            this.label20.Font = new System.Drawing.Font("Ubuntu", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label20.Location = new System.Drawing.Point(71, 82);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(79, 25);
+            this.label20.Size = new System.Drawing.Size(73, 25);
             this.label20.TabIndex = 1;
             this.label20.Text = "Haltroy";
             this.label20.MouseClick += new System.Windows.Forms.MouseEventHandler(this.label20_MouseClick);
@@ -2514,10 +2469,10 @@ namespace Korot
             // 
             this.lbKorot.AutoSize = true;
             this.lbKorot.BackColor = System.Drawing.Color.Transparent;
-            this.lbKorot.Font = new System.Drawing.Font("Ubuntu", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbKorot.Font = new System.Drawing.Font("Microsoft Sans Serif", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbKorot.Location = new System.Drawing.Point(64, 40);
             this.lbKorot.Name = "lbKorot";
-            this.lbKorot.Size = new System.Drawing.Size(101, 40);
+            this.lbKorot.Size = new System.Drawing.Size(95, 38);
             this.lbKorot.TabIndex = 1;
             this.lbKorot.Text = "Korot";
             // 
@@ -2540,9 +2495,9 @@ namespace Korot
             this.tpSite.Controls.Add(this.btCookieBack);
             this.tpSite.Controls.Add(this.btClose8);
             this.tpSite.Controls.Add(this.lbSiteSettings);
-            this.tpSite.Location = new System.Drawing.Point(4, 25);
+            this.tpSite.Location = new System.Drawing.Point(4, 24);
             this.tpSite.Name = "tpSite";
-            this.tpSite.Size = new System.Drawing.Size(568, 483);
+            this.tpSite.Size = new System.Drawing.Size(568, 484);
             this.tpSite.TabIndex = 7;
             this.tpSite.Text = "Site Settings";
             this.tpSite.UseVisualStyleBackColor = true;
@@ -2592,10 +2547,10 @@ namespace Korot
             // lbSiteSettings
             // 
             this.lbSiteSettings.AutoSize = true;
-            this.lbSiteSettings.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbSiteSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lbSiteSettings.Location = new System.Drawing.Point(50, 4);
             this.lbSiteSettings.Name = "lbSiteSettings";
-            this.lbSiteSettings.Size = new System.Drawing.Size(130, 25);
+            this.lbSiteSettings.Size = new System.Drawing.Size(122, 25);
             this.lbSiteSettings.TabIndex = 0;
             this.lbSiteSettings.Text = "Site Settings";
             // 
@@ -2604,9 +2559,9 @@ namespace Korot
             this.tpCollection.Controls.Add(this.panel3);
             this.tpCollection.Controls.Add(this.btClose9);
             this.tpCollection.Controls.Add(this.lbCollections);
-            this.tpCollection.Location = new System.Drawing.Point(4, 25);
+            this.tpCollection.Location = new System.Drawing.Point(4, 24);
             this.tpCollection.Name = "tpCollection";
-            this.tpCollection.Size = new System.Drawing.Size(568, 483);
+            this.tpCollection.Size = new System.Drawing.Size(568, 484);
             this.tpCollection.TabIndex = 8;
             this.tpCollection.Text = "Collection";
             this.tpCollection.UseVisualStyleBackColor = true;
@@ -2641,10 +2596,10 @@ namespace Korot
             // lbCollections
             // 
             this.lbCollections.AutoSize = true;
-            this.lbCollections.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbCollections.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lbCollections.Location = new System.Drawing.Point(8, 6);
             this.lbCollections.Name = "lbCollections";
-            this.lbCollections.Size = new System.Drawing.Size(116, 25);
+            this.lbCollections.Size = new System.Drawing.Size(108, 25);
             this.lbCollections.TabIndex = 38;
             this.lbCollections.Text = "Collections";
             // 
@@ -2660,9 +2615,9 @@ namespace Korot
             this.tpNotification.Controls.Add(this.hsNotificationSound);
             this.tpNotification.Controls.Add(this.btClose3);
             this.tpNotification.Controls.Add(this.lbNotifSetting);
-            this.tpNotification.Location = new System.Drawing.Point(4, 25);
+            this.tpNotification.Location = new System.Drawing.Point(4, 24);
             this.tpNotification.Name = "tpNotification";
-            this.tpNotification.Size = new System.Drawing.Size(568, 483);
+            this.tpNotification.Size = new System.Drawing.Size(568, 484);
             this.tpNotification.TabIndex = 9;
             this.tpNotification.Text = "Notification Setting";
             this.tpNotification.UseVisualStyleBackColor = true;
@@ -2708,7 +2663,7 @@ namespace Korot
             this.flpFrom.Controls.Add(this.fromMin);
             this.flpFrom.Location = new System.Drawing.Point(58, 11);
             this.flpFrom.Name = "flpFrom";
-            this.flpFrom.Size = new System.Drawing.Size(97, 27);
+            this.flpFrom.Size = new System.Drawing.Size(96, 27);
             this.flpFrom.TabIndex = 43;
             // 
             // fromHour
@@ -2735,13 +2690,13 @@ namespace Korot
             this.label40.Location = new System.Drawing.Point(43, 3);
             this.label40.Margin = new System.Windows.Forms.Padding(3);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(11, 16);
+            this.label40.Size = new System.Drawing.Size(10, 15);
             this.label40.TabIndex = 45;
             this.label40.Text = ":";
             // 
             // fromMin
             // 
-            this.fromMin.Location = new System.Drawing.Point(60, 3);
+            this.fromMin.Location = new System.Drawing.Point(59, 3);
             this.fromMin.Maximum = new decimal(new int[] {
             59,
             0,
@@ -2770,7 +2725,7 @@ namespace Korot
             this.flpEvery.Controls.Add(this.lbSaturday);
             this.flpEvery.Location = new System.Drawing.Point(60, 77);
             this.flpEvery.Name = "flpEvery";
-            this.flpEvery.Size = new System.Drawing.Size(209, 28);
+            this.flpEvery.Size = new System.Drawing.Size(208, 27);
             this.flpEvery.TabIndex = 43;
             // 
             // lbSunday
@@ -2780,7 +2735,7 @@ namespace Korot
             this.lbSunday.Margin = new System.Windows.Forms.Padding(3);
             this.lbSunday.Name = "lbSunday";
             this.lbSunday.Padding = new System.Windows.Forms.Padding(3);
-            this.lbSunday.Size = new System.Drawing.Size(27, 22);
+            this.lbSunday.Size = new System.Drawing.Size(28, 21);
             this.lbSunday.TabIndex = 0;
             this.lbSunday.Tag = "0";
             this.lbSunday.Text = "Su";
@@ -2789,11 +2744,11 @@ namespace Korot
             // lbMonday
             // 
             this.lbMonday.AutoSize = true;
-            this.lbMonday.Location = new System.Drawing.Point(36, 3);
+            this.lbMonday.Location = new System.Drawing.Point(37, 3);
             this.lbMonday.Margin = new System.Windows.Forms.Padding(3);
             this.lbMonday.Name = "lbMonday";
             this.lbMonday.Padding = new System.Windows.Forms.Padding(3);
-            this.lbMonday.Size = new System.Drawing.Size(25, 22);
+            this.lbMonday.Size = new System.Drawing.Size(24, 21);
             this.lbMonday.TabIndex = 1;
             this.lbMonday.Tag = "0";
             this.lbMonday.Text = "M";
@@ -2806,7 +2761,7 @@ namespace Korot
             this.lbTuesday.Margin = new System.Windows.Forms.Padding(3);
             this.lbTuesday.Name = "lbTuesday";
             this.lbTuesday.Padding = new System.Windows.Forms.Padding(3);
-            this.lbTuesday.Size = new System.Drawing.Size(21, 22);
+            this.lbTuesday.Size = new System.Drawing.Size(20, 21);
             this.lbTuesday.TabIndex = 2;
             this.lbTuesday.Tag = "0";
             this.lbTuesday.Text = "T";
@@ -2815,11 +2770,11 @@ namespace Korot
             // lbWednesday
             // 
             this.lbWednesday.AutoSize = true;
-            this.lbWednesday.Location = new System.Drawing.Point(94, 3);
+            this.lbWednesday.Location = new System.Drawing.Point(93, 3);
             this.lbWednesday.Margin = new System.Windows.Forms.Padding(3);
             this.lbWednesday.Name = "lbWednesday";
             this.lbWednesday.Padding = new System.Windows.Forms.Padding(3);
-            this.lbWednesday.Size = new System.Drawing.Size(25, 22);
+            this.lbWednesday.Size = new System.Drawing.Size(24, 21);
             this.lbWednesday.TabIndex = 3;
             this.lbWednesday.Tag = "0";
             this.lbWednesday.Text = "W";
@@ -2828,11 +2783,11 @@ namespace Korot
             // lbThursday
             // 
             this.lbThursday.AutoSize = true;
-            this.lbThursday.Location = new System.Drawing.Point(125, 3);
+            this.lbThursday.Location = new System.Drawing.Point(123, 3);
             this.lbThursday.Margin = new System.Windows.Forms.Padding(3);
             this.lbThursday.Name = "lbThursday";
             this.lbThursday.Padding = new System.Windows.Forms.Padding(3);
-            this.lbThursday.Size = new System.Drawing.Size(29, 22);
+            this.lbThursday.Size = new System.Drawing.Size(29, 21);
             this.lbThursday.TabIndex = 4;
             this.lbThursday.Tag = "0";
             this.lbThursday.Text = "TH";
@@ -2841,11 +2796,11 @@ namespace Korot
             // lbFriday
             // 
             this.lbFriday.AutoSize = true;
-            this.lbFriday.Location = new System.Drawing.Point(160, 3);
+            this.lbFriday.Location = new System.Drawing.Point(158, 3);
             this.lbFriday.Margin = new System.Windows.Forms.Padding(3);
             this.lbFriday.Name = "lbFriday";
             this.lbFriday.Padding = new System.Windows.Forms.Padding(3);
-            this.lbFriday.Size = new System.Drawing.Size(20, 22);
+            this.lbFriday.Size = new System.Drawing.Size(20, 21);
             this.lbFriday.TabIndex = 5;
             this.lbFriday.Tag = "0";
             this.lbFriday.Text = "F";
@@ -2854,11 +2809,11 @@ namespace Korot
             // lbSaturday
             // 
             this.lbSaturday.AutoSize = true;
-            this.lbSaturday.Location = new System.Drawing.Point(186, 3);
+            this.lbSaturday.Location = new System.Drawing.Point(184, 3);
             this.lbSaturday.Margin = new System.Windows.Forms.Padding(3);
             this.lbSaturday.Name = "lbSaturday";
             this.lbSaturday.Padding = new System.Windows.Forms.Padding(3);
-            this.lbSaturday.Size = new System.Drawing.Size(20, 22);
+            this.lbSaturday.Size = new System.Drawing.Size(21, 21);
             this.lbSaturday.TabIndex = 6;
             this.lbSaturday.Tag = "0";
             this.lbSaturday.Text = "S";
@@ -2880,7 +2835,7 @@ namespace Korot
             this.scheduleFrom.AutoSize = true;
             this.scheduleFrom.Location = new System.Drawing.Point(12, 16);
             this.scheduleFrom.Name = "scheduleFrom";
-            this.scheduleFrom.Size = new System.Drawing.Size(40, 16);
+            this.scheduleFrom.Size = new System.Drawing.Size(39, 15);
             this.scheduleFrom.TabIndex = 41;
             this.scheduleFrom.Text = "From:";
             // 
@@ -2893,7 +2848,7 @@ namespace Korot
             this.flpTo.Controls.Add(this.toMin);
             this.flpTo.Location = new System.Drawing.Point(193, 11);
             this.flpTo.Name = "flpTo";
-            this.flpTo.Size = new System.Drawing.Size(97, 27);
+            this.flpTo.Size = new System.Drawing.Size(96, 27);
             this.flpTo.TabIndex = 48;
             // 
             // toHour
@@ -2920,13 +2875,13 @@ namespace Korot
             this.label41.Location = new System.Drawing.Point(43, 3);
             this.label41.Margin = new System.Windows.Forms.Padding(3);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(11, 16);
+            this.label41.Size = new System.Drawing.Size(10, 15);
             this.label41.TabIndex = 45;
             this.label41.Text = ":";
             // 
             // toMin
             // 
-            this.toMin.Location = new System.Drawing.Point(60, 3);
+            this.toMin.Location = new System.Drawing.Point(59, 3);
             this.toMin.Maximum = new decimal(new int[] {
             59,
             0,
@@ -2947,7 +2902,7 @@ namespace Korot
             this.scheduleEvery.AutoSize = true;
             this.scheduleEvery.Location = new System.Drawing.Point(14, 83);
             this.scheduleEvery.Name = "scheduleEvery";
-            this.scheduleEvery.Size = new System.Drawing.Size(40, 16);
+            this.scheduleEvery.Size = new System.Drawing.Size(39, 15);
             this.scheduleEvery.TabIndex = 41;
             this.scheduleEvery.Text = "Every:";
             // 
@@ -2956,7 +2911,7 @@ namespace Korot
             this.scheduleTo.AutoSize = true;
             this.scheduleTo.Location = new System.Drawing.Point(163, 17);
             this.scheduleTo.Name = "scheduleTo";
-            this.scheduleTo.Size = new System.Drawing.Size(24, 16);
+            this.scheduleTo.Size = new System.Drawing.Size(24, 15);
             this.scheduleTo.TabIndex = 41;
             this.scheduleTo.Text = "To:";
             // 
@@ -2966,7 +2921,7 @@ namespace Korot
             this.lbSchedule.BackColor = System.Drawing.Color.Transparent;
             this.lbSchedule.Location = new System.Drawing.Point(15, 119);
             this.lbSchedule.Name = "lbSchedule";
-            this.lbSchedule.Size = new System.Drawing.Size(132, 16);
+            this.lbSchedule.Size = new System.Drawing.Size(131, 15);
             this.lbSchedule.TabIndex = 40;
             this.lbSchedule.Text = "Schedule Silent Mode:";
             // 
@@ -2976,7 +2931,7 @@ namespace Korot
             this.lbSilentMode.BackColor = System.Drawing.Color.Transparent;
             this.lbSilentMode.Location = new System.Drawing.Point(13, 88);
             this.lbSilentMode.Name = "lbSilentMode";
-            this.lbSilentMode.Size = new System.Drawing.Size(78, 16);
+            this.lbSilentMode.Size = new System.Drawing.Size(76, 15);
             this.lbSilentMode.TabIndex = 40;
             this.lbSilentMode.Text = "Silent Mode:";
             // 
@@ -3002,7 +2957,7 @@ namespace Korot
             this.lbPlayNotifSound.BackColor = System.Drawing.Color.Transparent;
             this.lbPlayNotifSound.Location = new System.Drawing.Point(13, 56);
             this.lbPlayNotifSound.Name = "lbPlayNotifSound";
-            this.lbPlayNotifSound.Size = new System.Drawing.Size(141, 16);
+            this.lbPlayNotifSound.Size = new System.Drawing.Size(136, 15);
             this.lbPlayNotifSound.TabIndex = 40;
             this.lbPlayNotifSound.Text = "Play Notification Sound:";
             // 
@@ -3033,10 +2988,10 @@ namespace Korot
             // lbNotifSetting
             // 
             this.lbNotifSetting.AutoSize = true;
-            this.lbNotifSetting.Font = new System.Drawing.Font("Ubuntu", 15F);
+            this.lbNotifSetting.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lbNotifSetting.Location = new System.Drawing.Point(50, 8);
             this.lbNotifSetting.Name = "lbNotifSetting";
-            this.lbNotifSetting.Size = new System.Drawing.Size(206, 25);
+            this.lbNotifSetting.Size = new System.Drawing.Size(183, 25);
             this.lbNotifSetting.TabIndex = 38;
             this.lbNotifSetting.Text = "Notification Settings";
             // 
@@ -3204,14 +3159,14 @@ namespace Korot
             this.clickHereToLearnMoreToolStripMenuItem});
             this.cmsIncognito.Name = "cmsIncognito";
             this.cmsIncognito.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsIncognito.Size = new System.Drawing.Size(269, 76);
+            this.cmsIncognito.Size = new System.Drawing.Size(270, 76);
             // 
             // ıncognitoModeToolStripMenuItem
             // 
-            this.ıncognitoModeToolStripMenuItem.Font = new System.Drawing.Font("Ubuntu", 12F);
+            this.ıncognitoModeToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.ıncognitoModeToolStripMenuItem.Name = "ıncognitoModeToolStripMenuItem";
             this.ıncognitoModeToolStripMenuItem.ShortcutKeyDisplayString = "X";
-            this.ıncognitoModeToolStripMenuItem.Size = new System.Drawing.Size(268, 24);
+            this.ıncognitoModeToolStripMenuItem.Size = new System.Drawing.Size(269, 24);
             this.ıncognitoModeToolStripMenuItem.Text = "Incognito Mode";
             this.ıncognitoModeToolStripMenuItem.Click += new System.EventHandler(this.ıncognitoModeToolStripMenuItem_Click);
             // 
@@ -3219,13 +3174,13 @@ namespace Korot
             // 
             this.thisSessionİsNotGoingToBeSavedToolStripMenuItem.Enabled = false;
             this.thisSessionİsNotGoingToBeSavedToolStripMenuItem.Name = "thisSessionİsNotGoingToBeSavedToolStripMenuItem";
-            this.thisSessionİsNotGoingToBeSavedToolStripMenuItem.Size = new System.Drawing.Size(268, 24);
+            this.thisSessionİsNotGoingToBeSavedToolStripMenuItem.Size = new System.Drawing.Size(269, 24);
             this.thisSessionİsNotGoingToBeSavedToolStripMenuItem.Text = "This session is not going to be saved.";
             // 
             // clickHereToLearnMoreToolStripMenuItem
             // 
             this.clickHereToLearnMoreToolStripMenuItem.Name = "clickHereToLearnMoreToolStripMenuItem";
-            this.clickHereToLearnMoreToolStripMenuItem.Size = new System.Drawing.Size(268, 24);
+            this.clickHereToLearnMoreToolStripMenuItem.Size = new System.Drawing.Size(269, 24);
             this.clickHereToLearnMoreToolStripMenuItem.Text = "Click here to learn more.";
             this.clickHereToLearnMoreToolStripMenuItem.Click += new System.EventHandler(this.clickHereToLearnMoreToolStripMenuItem_Click);
             // 
@@ -3238,26 +3193,26 @@ namespace Korot
             this.cmsStartup.Name = "cmsStartup";
             this.cmsStartup.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsStartup.ShowImageMargin = false;
-            this.cmsStartup.Size = new System.Drawing.Size(156, 70);
+            this.cmsStartup.Size = new System.Drawing.Size(157, 70);
             // 
             // showNewTabPageToolStripMenuItem
             // 
             this.showNewTabPageToolStripMenuItem.Name = "showNewTabPageToolStripMenuItem";
-            this.showNewTabPageToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.showNewTabPageToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.showNewTabPageToolStripMenuItem.Text = "Show New Tab page";
             this.showNewTabPageToolStripMenuItem.Click += new System.EventHandler(this.showNewTabPageToolStripMenuItem_Click);
             // 
             // showHomepageToolStripMenuItem
             // 
             this.showHomepageToolStripMenuItem.Name = "showHomepageToolStripMenuItem";
-            this.showHomepageToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.showHomepageToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.showHomepageToolStripMenuItem.Text = "Show homepage";
             this.showHomepageToolStripMenuItem.Click += new System.EventHandler(this.showHomepageToolStripMenuItem_Click);
             // 
             // showAWebsiteToolStripMenuItem
             // 
             this.showAWebsiteToolStripMenuItem.Name = "showAWebsiteToolStripMenuItem";
-            this.showAWebsiteToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.showAWebsiteToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.showAWebsiteToolStripMenuItem.Text = "Show a website";
             this.showAWebsiteToolStripMenuItem.Click += new System.EventHandler(this.showAWebsiteToolStripMenuItem_Click);
             // 
@@ -3266,32 +3221,15 @@ namespace Korot
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
             // 
-            // lbGPU
-            // 
-            this.lbGPU.AutoSize = true;
-            this.lbGPU.BackColor = System.Drawing.Color.Transparent;
-            this.lbGPU.Location = new System.Drawing.Point(10, 241);
-            this.lbGPU.Name = "lbGPU";
-            this.lbGPU.Size = new System.Drawing.Size(152, 16);
-            this.lbGPU.TabIndex = 38;
-            this.lbGPU.Text = "Disable GPU acceleration:";
-            // 
-            // hsGPU
-            // 
-            this.hsGPU.Location = new System.Drawing.Point(168, 241);
-            this.hsGPU.Name = "hsGPU";
-            this.hsGPU.Size = new System.Drawing.Size(50, 19);
-            this.hsGPU.TabIndex = 37;
-            // 
             // frmCEF
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(562, 537);
             this.Controls.Add(this.pNavigate);
             this.Controls.Add(this.tabControl1);
-            this.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -3337,7 +3275,6 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pbOverlay)).EndInit();
             this.tpHistory.ResumeLayout(false);
             this.tpHistory.PerformLayout();
-            this.cmsHistory.ResumeLayout(false);
             this.tpDownload.ResumeLayout(false);
             this.tpDownload.PerformLayout();
             this.cmsDownload.ResumeLayout(false);
@@ -3430,10 +3367,6 @@ namespace Korot
         private System.Windows.Forms.Label lbOveralColor;
         private System.Windows.Forms.PictureBox pbOverlay;
         private System.Windows.Forms.PictureBox pbBack;
-        private HTAlt.WinForms.HTListView hlvHistory;
-        private System.Windows.Forms.ColumnHeader chDateHistory;
-        private System.Windows.Forms.ColumnHeader chTitle;
-        private System.Windows.Forms.ColumnHeader chURL;
         private HTAlt.WinForms.HTListView hlvDownload;
         private System.Windows.Forms.ColumnHeader chDate;
         private System.Windows.Forms.ColumnHeader chTo;
@@ -3444,9 +3377,6 @@ namespace Korot
         private System.Windows.Forms.Label lbUpdateStatus;
         private System.Windows.Forms.Label lbVersion;
         private System.Windows.Forms.Label lbKorot;
-        private System.Windows.Forms.ContextMenuStrip cmsHistory;
-        private System.Windows.Forms.ToolStripMenuItem removeSelectedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip cmsDownload;
         private System.Windows.Forms.ToolStripMenuItem openLinkİnNewTabToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
@@ -3639,5 +3569,6 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem tsLanguages;
         private System.Windows.Forms.Label lbGPU;
         private HTAlt.WinForms.HTSwitch hsGPU;
+        private System.Windows.Forms.Panel pHisMan;
     }
 }

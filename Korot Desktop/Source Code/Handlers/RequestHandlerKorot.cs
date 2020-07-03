@@ -173,5 +173,10 @@ namespace Korot
 
             return true;
         }
+
+        public void OnDocumentAvailableInMainFrame(IWebBrowser chromiumWebBrowser, IBrowser browser)
+        {
+            // absolutely do nothing
+        }
     }
 }
