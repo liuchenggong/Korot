@@ -1,3 +1,4 @@
+
 # [Korot](https://haltroy.com/Korot.html "Korot's Page")
 An advanced Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy's Website").
 
@@ -6,9 +7,9 @@ Latest Stable Version: [`0.7.0.0`](https://github.com/Haltroy/Korot/tree/0.7.0.0
 Latest Dev Version: `0.7.1.0`
 
 ## Features:
- - HTML5, CSS3, JS, HTML5 Video, WebGL 3D, etc. supported. (Except `H.264` codec. See [#12](https://github.com/Haltroy/Korot/issues/12))
- - Tabbed, built-in search mode inside of address bar (auto-detecting URLs).
- - Developer tools & View Source
+ - HTML5, CSS3, JS, HTML5 Video, WebGL 3D, etc. supported. (Except `H.264` and many non-free codecs. See [#12](https://github.com/Haltroy/Korot/issues/12))
+ - Tabbed, built-in search bar that auto-detects URLs.
+ - Developer tools ,View Source ,Page screnshot, Print, Keyboard Shortcuts, Save page & Zoom in page
  - UI language system (Comes with [`English`](https://haltroy.com/store/item/Haltroy.KorotEnglish/) and [`Türkçe`](https://haltroy.com/store/item/Haltroy.KorotTürkçe/) languages)
  - Theme system (Comes with [`Light`](https://haltroy.com/store/item/Haltroy.KorotLight/) and [`Dark`](https://haltroy.com/store/item/Haltroy.KorotDark/) theme) & [Theme Store](https://haltroy.com/store/Korot/Themes/)
  - Built-in Extension system (with support for proxies) & [Extension Store](https://haltroy.com/store/Korot/Extensions/)
@@ -17,8 +18,6 @@ Latest Dev Version: `0.7.1.0`
  - Download manager
  - Custom pages (New Tab, Incognito, Error Page etc.)
  - View local & online webpages
- - Page screnshot, Print, Save page & Zoom in page
- - Keyboard Shortcuts
  
  ## Release Branches
 
@@ -27,7 +26,7 @@ Latest Dev Version: `0.7.1.0`
  | Branch                                                              | CEFSharp Version | VC++ Version | .Net | HTAlt  | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-----|-------------------|
 | [`master`](https://github.com/haltroy/korot)                      | 83 | 2015 | Framework 4.8 | >= b1.5 | Development | `1.0.0.0`: Unknown |
-| `0.7.1.0` | 83 | 2015 | Framework 4.8 | >= b1.5 | *Developing* | ?? July 2020 |
+| `0.7.1.0` | 83 | 2015 | Framework 4.8 | >= b1.5 | *Developing* | 5-6 July 2020 |
 | [`0.7.0.0`](https://github.com/Haltroy/Korot/tree/0.7.0.0) | 81 | 2015 | Framework 4.8 | b1.4.2 | **Latest Release** | 19 June 2020 |
 | [`0.6.1.0`](https://github.com/Haltroy/Korot/tree/0.6.1.0) | 79 | 2015 | Framework 4.8 | b1.3h2 | Unsupported | 14 May 2020 |
 | [`0.6.0.0`](https://github.com/Haltroy/Korot/tree/0.6.0.0) | 79 | 2015 | Framework 4.8 | b1.3h2| Unsupported | 26 April 2020 |
