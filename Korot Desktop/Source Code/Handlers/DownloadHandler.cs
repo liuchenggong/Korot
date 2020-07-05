@@ -140,7 +140,7 @@ namespace Korot
                 };
                 ActiveForm.Settings.Downloads.Downloads.Add(site);
                 anaform().CurrentDownloads.Remove(downloadItem);
-                ActiveForm.Invoke(new Action(() => ActiveForm.RefreshDownloadList()));
+                ActiveForm.Invoke(new Action(() => ActiveForm.dowman.RefreshList()));
             }
 
         }

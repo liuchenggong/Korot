@@ -35,9 +35,9 @@ namespace Korot
 {
     public static class VersionInfo
     {
-        public static string CodeName => "Laika Extended";
-        public static bool IsPreRelease => false;
-        public static int PreReleaseNumber => 0;
+        public static string CodeName => "WAITING POLL ANSWERS ON INSTAGRAM @haltroy_";
+        public static bool IsPreRelease => true;
+        public static int PreReleaseNumber => 1;
     }
     internal static class Program
     {

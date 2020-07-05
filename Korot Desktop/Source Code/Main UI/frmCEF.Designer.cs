@@ -216,17 +216,6 @@ namespace Korot
             this.tpDownload = new System.Windows.Forms.TabPage();
             this.btClose7 = new HTAlt.WinForms.HTButton();
             this.lbDownloads = new System.Windows.Forms.Label();
-            this.hlvDownload = new HTAlt.WinForms.HTListView();
-            this.chStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chFrom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.cmsDownload = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.openLinkİnNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileİnExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeSelectedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.hsOpen = new HTAlt.WinForms.HTSwitch();
             this.hsDownload = new HTAlt.WinForms.HTSwitch();
             this.tbFolder = new System.Windows.Forms.TextBox();
@@ -313,6 +302,7 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pDowMan = new System.Windows.Forms.Panel();
             this.pNavigate.SuspendLayout();
             this.cmsHamburger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
@@ -336,7 +326,6 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pbOverlay)).BeginInit();
             this.tpHistory.SuspendLayout();
             this.tpDownload.SuspendLayout();
-            this.cmsDownload.SuspendLayout();
             this.tpAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.tpSite.SuspendLayout();
@@ -1145,7 +1134,7 @@ namespace Korot
             // dummyCMS
             // 
             this.dummyCMS.Name = "dummyCMS";
-            this.dummyCMS.Size = new System.Drawing.Size(61, 4);
+            this.dummyCMS.Size = new System.Drawing.Size(181, 26);
             this.dummyCMS.Opening += new System.ComponentModel.CancelEventHandler(this.dummyCMS_Opening);
             // 
             // tmrFaster
@@ -2113,9 +2102,9 @@ namespace Korot
             // 
             // tpDownload
             // 
+            this.tpDownload.Controls.Add(this.pDowMan);
             this.tpDownload.Controls.Add(this.btClose7);
             this.tpDownload.Controls.Add(this.lbDownloads);
-            this.tpDownload.Controls.Add(this.hlvDownload);
             this.tpDownload.Controls.Add(this.hsOpen);
             this.tpDownload.Controls.Add(this.hsDownload);
             this.tpDownload.Controls.Add(this.tbFolder);
@@ -2155,104 +2144,6 @@ namespace Korot
             this.lbDownloads.Size = new System.Drawing.Size(109, 25);
             this.lbDownloads.TabIndex = 36;
             this.lbDownloads.Text = "Downloads";
-            // 
-            // hlvDownload
-            // 
-            this.hlvDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlvDownload.BackColor = System.Drawing.Color.White;
-            this.hlvDownload.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chStatus,
-            this.chDate,
-            this.chTo,
-            this.chFrom});
-            this.hlvDownload.ContextMenuStrip = this.cmsDownload;
-            this.hlvDownload.ForeColor = System.Drawing.Color.Black;
-            this.hlvDownload.FullRowSelect = true;
-            this.hlvDownload.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.hlvDownload.HeaderBorderThickness = 2;
-            this.hlvDownload.HeaderForeColor = System.Drawing.Color.Black;
-            this.hlvDownload.HideSelection = false;
-            this.hlvDownload.Location = new System.Drawing.Point(15, 111);
-            this.hlvDownload.MultiSelect = false;
-            this.hlvDownload.Name = "hlvDownload";
-            this.hlvDownload.OverlayColor = System.Drawing.Color.DodgerBlue;
-            this.hlvDownload.Size = new System.Drawing.Size(536, 432);
-            this.hlvDownload.TabIndex = 5;
-            this.hlvDownload.UseCompatibleStateImageBehavior = false;
-            this.hlvDownload.View = System.Windows.Forms.View.Details;
-            this.hlvDownload.DoubleClick += new System.EventHandler(this.ListView2_DoubleClick);
-            // 
-            // chStatus
-            // 
-            this.chStatus.Text = "Status";
-            this.chStatus.Width = 63;
-            // 
-            // chDate
-            // 
-            this.chDate.Text = "Date";
-            this.chDate.Width = 122;
-            // 
-            // chTo
-            // 
-            this.chTo.DisplayIndex = 3;
-            this.chTo.Text = "To";
-            this.chTo.Width = 174;
-            // 
-            // chFrom
-            // 
-            this.chFrom.DisplayIndex = 2;
-            this.chFrom.Text = "From";
-            this.chFrom.Width = 200;
-            // 
-            // cmsDownload
-            // 
-            this.cmsDownload.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openLinkİnNewTabToolStripMenuItem,
-            this.openFileToolStripMenuItem,
-            this.openFileİnExplorerToolStripMenuItem,
-            this.removeSelectedToolStripMenuItem1,
-            this.clearToolStripMenuItem2});
-            this.cmsDownload.Name = "cmsDownload";
-            this.cmsDownload.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsDownload.ShowImageMargin = false;
-            this.cmsDownload.Size = new System.Drawing.Size(274, 114);
-            // 
-            // openLinkİnNewTabToolStripMenuItem
-            // 
-            this.openLinkİnNewTabToolStripMenuItem.Name = "openLinkİnNewTabToolStripMenuItem";
-            this.openLinkİnNewTabToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.openLinkİnNewTabToolStripMenuItem.Text = "Open Link in New Tab";
-            this.openLinkİnNewTabToolStripMenuItem.Click += new System.EventHandler(this.OpenLinkİnNewTabToolStripMenuItem_Click);
-            // 
-            // openFileToolStripMenuItem
-            // 
-            this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
-            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.openFileToolStripMenuItem.Text = "Open File";
-            this.openFileToolStripMenuItem.Click += new System.EventHandler(this.OpenFileToolStripMenuItem_Click);
-            // 
-            // openFileİnExplorerToolStripMenuItem
-            // 
-            this.openFileİnExplorerToolStripMenuItem.Name = "openFileİnExplorerToolStripMenuItem";
-            this.openFileİnExplorerToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.openFileİnExplorerToolStripMenuItem.Text = "Open the Folder containing File in Explorer";
-            this.openFileİnExplorerToolStripMenuItem.Click += new System.EventHandler(this.OpenFileİnExplorerToolStripMenuItem_Click);
-            // 
-            // removeSelectedToolStripMenuItem1
-            // 
-            this.removeSelectedToolStripMenuItem1.Name = "removeSelectedToolStripMenuItem1";
-            this.removeSelectedToolStripMenuItem1.Size = new System.Drawing.Size(273, 22);
-            this.removeSelectedToolStripMenuItem1.Text = "Remove Selected";
-            this.removeSelectedToolStripMenuItem1.Click += new System.EventHandler(this.RemoveSelectedToolStripMenuItem1_Click);
-            // 
-            // clearToolStripMenuItem2
-            // 
-            this.clearToolStripMenuItem2.Name = "clearToolStripMenuItem2";
-            this.clearToolStripMenuItem2.Size = new System.Drawing.Size(273, 22);
-            this.clearToolStripMenuItem2.Text = "Clear";
-            this.clearToolStripMenuItem2.Click += new System.EventHandler(this.ClearToolStripMenuItem2_Click);
             // 
             // hsOpen
             // 
@@ -3223,6 +3114,16 @@ namespace Korot
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
             // 
+            // pDowMan
+            // 
+            this.pDowMan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pDowMan.Location = new System.Drawing.Point(13, 111);
+            this.pDowMan.Name = "pDowMan";
+            this.pDowMan.Size = new System.Drawing.Size(544, 358);
+            this.pDowMan.TabIndex = 37;
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -3279,7 +3180,6 @@ namespace Korot
             this.tpHistory.PerformLayout();
             this.tpDownload.ResumeLayout(false);
             this.tpDownload.PerformLayout();
-            this.cmsDownload.ResumeLayout(false);
             this.tpAbout.ResumeLayout(false);
             this.tpAbout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
@@ -3369,22 +3269,12 @@ namespace Korot
         private System.Windows.Forms.Label lbOveralColor;
         private System.Windows.Forms.PictureBox pbOverlay;
         private System.Windows.Forms.PictureBox pbBack;
-        private HTAlt.WinForms.HTListView hlvDownload;
-        private System.Windows.Forms.ColumnHeader chDate;
-        private System.Windows.Forms.ColumnHeader chTo;
-        private System.Windows.Forms.ColumnHeader chFrom;
         private System.Windows.Forms.TabPage tpAbout;
         private HTAlt.WinForms.HTButton btInstall;
         private HTAlt.WinForms.HTButton btUpdater;
         private System.Windows.Forms.Label lbUpdateStatus;
         private System.Windows.Forms.Label lbVersion;
         private System.Windows.Forms.Label lbKorot;
-        private System.Windows.Forms.ContextMenuStrip cmsDownload;
-        private System.Windows.Forms.ToolStripMenuItem openLinkİnNewTabToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openFileİnExplorerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removeSelectedToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem2;
         private System.Windows.Forms.ContextMenuStrip cmsSearchEngine;
         private System.Windows.Forms.ToolStripMenuItem googleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yandexToolStripMenuItem;
@@ -3429,7 +3319,6 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zOOMLEVELToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator spRestorer;
-        private System.Windows.Forms.ColumnHeader chStatus;
         private System.Windows.Forms.ToolStripMenuItem extensionToolStripMenuItem1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
@@ -3572,5 +3461,6 @@ namespace Korot
         private System.Windows.Forms.Label lbGPU;
         private HTAlt.WinForms.HTSwitch hsGPU;
         private System.Windows.Forms.Panel pHisMan;
+        private System.Windows.Forms.Panel pDowMan;
     }
 }
