@@ -35,7 +35,7 @@ namespace Korot
 {
     public static class VersionInfo
     {
-        public static string CodeName => "WAITING POLL ANSWERS ON INSTAGRAM @haltroy_";
+        public static string CodeName => "Mors orbis terrarum";
         public static bool IsPreRelease => true;
         public static int PreReleaseNumber => 1;
     }
