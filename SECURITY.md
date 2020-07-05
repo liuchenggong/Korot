@@ -10,6 +10,7 @@ This section currently tells which versions of Korot is supported
 | Version | Supported          | Available on GitHub | Status |
 | ------- | ------------------ |---------------------|--------|
 | 0.8.0.0 | :white_check_mark: | :x:                 | *Developing*|
+| 0.7.1.0 | :x:                | :x:                 | ~Cancelled~|
 | 0.7.0.0 | :white_check_mark: | :white_check_mark:  | **Latest** | 
 | 0.6.1.0 | :x:                | :white_check_mark:  | End of support |
 | 0.6.0.0 | :x:                | :white_check_mark:  | End of support |

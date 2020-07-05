@@ -49,6 +49,7 @@ namespace Korot
                 dish.DownloadItem = x;
                 dishList.Add(dish);
             }
+            this.SuspendLayout();
             foreach (DownloadItemSiteHybrid x in dishList)
             {
                 // Search and find an existing panel with same Site tag, if exist then don't duplicate it (return).
@@ -57,9 +58,92 @@ namespace Korot
                     return;
                 }
                 // otherwise, create new one.
-
+                Panel panel2 = new System.Windows.Forms.Panel();
+                Label lbTarih = new System.Windows.Forms.Label();
+                Label label4 = new System.Windows.Forms.Label();
+                Label label5 = new System.Windows.Forms.Label();
+                Label label6 = new System.Windows.Forms.Label();
+                HTProgressBar htProgressBar1 = new HTAlt.WinForms.HTProgressBar();
+                panel2.SuspendLayout();
+                // 
+                // panel2
+                // 
+                panel2.Controls.Add(lbTarih);
+                panel2.Controls.Add(label4);
+                panel2.Controls.Add(label5);
+                panel2.Controls.Add(label6);
+                if (!x.IsSite) { panel2.Controls.Add(htProgressBar1); }
+                panel2.Dock = System.Windows.Forms.DockStyle.Top;
+                panel2.Location = new System.Drawing.Point(0, 13);
+                panel2.Margin = new System.Windows.Forms.Padding(5);
+                panel2.Padding = new System.Windows.Forms.Padding(5);
+                panel2.Size = new System.Drawing.Size(Width, x.IsSite ? 85 : 95);
+                panel2.Tag = x;
+                panel2.Click += Item_Click;
+                // 
+                // lbTarih
+                // 
+                lbTarih.AutoSize = true;
+                lbTarih.Dock = System.Windows.Forms.DockStyle.Bottom;
+                lbTarih.Font = new System.Drawing.Font("Ubuntu", 8F);
+                lbTarih.Location = new System.Drawing.Point(5, 26);
+                lbTarih.Tag = x;
+                lbTarih.Click += Item_Click;
+                lbTarih.Text = cefecik.GetDateInfo(x.IsSite ? DateTime.ParseExact(x.Site.Date, cefecik.DateFormat, null) : DateTime.Now);
+                // 
+                // label4
+                // 
+                label4.AutoSize = true;
+                label4.Dock = System.Windows.Forms.DockStyle.Bottom;
+                label4.Font = new System.Drawing.Font("Ubuntu", 15F);
+                label4.Location = new System.Drawing.Point(5, 42);
+                label4.Name = "label4";
+                label4.TabIndex = 0;
+                label4.Tag = x;
+                label4.Text = Path.GetFileNameWithoutExtension(x.IsSite ? x.Site.LocalUrl : x.DownloadItem.FullPath);
+                label4.Click += ItemText_Click;
+                if (!x.IsSite)
+                {
+                    // 
+                    // htProgressBar1
+                    // 
+                    htProgressBar1.BorderThickness = 1;
+                    htProgressBar1.DrawBorder = true;
+                    htProgressBar1.BorderColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
+                    htProgressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+                    htProgressBar1.Location = new System.Drawing.Point(5, 80);
+                    htProgressBar1.Size = new System.Drawing.Size(Width, 10);
+                    htProgressBar1.Value = Math.Abs(x.DownloadItem.PercentComplete);
+                    htProgressBar1.Click += Item_Click;
+                    htProgressBar1.Tag = x;
+                    x.ProgressBar = htProgressBar1;
+                }
+                // 
+                // label5
+                // 
+                label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+                label5.AutoSize = true;
+                label5.Font = new System.Drawing.Font("Ubuntu", 12F);
+                label5.Location = new System.Drawing.Point(595, 0);
+                label5.Click += lbClose_Click;
+                label5.Tag = x;
+                label5.Text = "X";
+                // 
+                // label6
+                // 
+                label6.AutoSize = true;
+                label6.Dock = System.Windows.Forms.DockStyle.Bottom;
+                label6.Location = new System.Drawing.Point(5, 67);
+                label6.Tag = x;
+                label6.Click += ItemUrl_Click;
+                label6.Text = x.IsSite ? x.Site.Url : x.DownloadItem.Url;
+                Controls.Add(panel2);
                 panelList.Add(panel2);
+                panel2.ResumeLayout(false);
+                panel2.PerformLayout();
             }
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         private void ItemText_Click(object sender, EventArgs e)
