@@ -35,7 +35,7 @@ namespace Korot
 {
     public static class VersionInfo
     {
-        public static string CodeName => "Mors orbis terrarum";
+        public static string CodeName => "Shisha no kodo"; //死者のコード
         public static bool IsPreRelease => true;
         public static int PreReleaseNumber => 1;
     }
