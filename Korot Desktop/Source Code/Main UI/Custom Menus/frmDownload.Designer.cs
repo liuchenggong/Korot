@@ -78,7 +78,6 @@ namespace Korot
             this.Text = "Ꮆ工ᐯ㠪 爪㠪 ㄒ廾㠪 ⼕ㄩ爪 丂⼕闩尺";
             this.Enter += new System.EventHandler(this.frmHistory_Enter);
             this.Leave += new System.EventHandler(this.frmHistory_Leave);
-
             this.ResumeLayout(false);
 
         }

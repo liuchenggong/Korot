@@ -45,6 +45,8 @@ namespace Korot
         public bool newDownload = false;
         public bool isIncognito = false;
         public HTTabRenderer tabRenderer;
+        public HTTitleTab licenseTab = null;
+        public HTTitleTab newtabeditTab = null;
         public HTTitleTab settingTab = null;
         public HTTitleTab themeTab = null;
         public HTTitleTab historyTab = null;

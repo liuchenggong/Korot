@@ -183,6 +183,16 @@ namespace Korot.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cancelled {
+            get {
+                object obj = ResourceManager.GetObject("cancelled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap collection {
             get {
                 object obj = ResourceManager.GetObject("collection", resourceCulture);
@@ -241,12 +251,42 @@ namespace Korot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap downloaded {
+            get {
+                object obj = ResourceManager.GetObject("downloaded", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap downloading {
+            get {
+                object obj = ResourceManager.GetObject("downloading", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] English {
             get {
                 object obj = ResourceManager.GetObject("English", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap error {
+            get {
+                object obj = ResourceManager.GetObject("error", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -888,6 +928,16 @@ namespace Korot.Properties {
         internal static System.Drawing.Bitmap tip_tema {
             get {
                 object obj = ResourceManager.GetObject("tip-tema", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap unknown {
+            get {
+                object obj = ResourceManager.GetObject("unknown", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

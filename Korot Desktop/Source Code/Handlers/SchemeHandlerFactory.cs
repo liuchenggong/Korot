@@ -21,6 +21,7 @@
 //SOFTWARE.
 using CefSharp;
 using System;
+using System.Drawing;
 using System.Text.RegularExpressions;
 
 namespace Korot
@@ -65,6 +66,26 @@ namespace Korot
         {
             return "background-color: rgb(" + CefForm.Settings.Theme.BackColor.R + " ," + CefForm.Settings.Theme.BackColor.G + " , " + CefForm.Settings.Theme.BackColor.B + "); color: " + (HTAlt.Tools.IsBright(CefForm.Settings.Theme.BackColor) ? "black" : "white") + ";";
         }
+        public string GetBackStyle3()
+        {
+            Color altBackColor = HTAlt.Tools.ShiftBrightness(CefForm.Settings.Theme.BackColor, 20, false);
+            return "background-color: rgb(" + altBackColor.R + " ," + altBackColor.G + " , " + altBackColor.B + "); color: " + (HTAlt.Tools.IsBright(altBackColor) ? "black" : "white") + ";";
+        }
+        public string GetNewTabItems()
+        {
+            string x = "";
+            if(CefForm.Settings.NewTabSites.FavoritedSite0 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite0) + "</div>" + Environment.NewLine; }
+            if(CefForm.Settings.NewTabSites.FavoritedSite1 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite1) + "</div>" + Environment.NewLine; }
+            if(CefForm.Settings.NewTabSites.FavoritedSite2 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite2) + "</div>" + Environment.NewLine; }
+            if(CefForm.Settings.NewTabSites.FavoritedSite3 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite3) + "</div>" + Environment.NewLine; }
+            if(CefForm.Settings.NewTabSites.FavoritedSite4 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite4) + "</div>" + Environment.NewLine; }
+            if(CefForm.Settings.NewTabSites.FavoritedSite5 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite5) + "</div>" + Environment.NewLine; }
+            if(CefForm.Settings.NewTabSites.FavoritedSite6 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite6) + "</div>" + Environment.NewLine; }
+            if(CefForm.Settings.NewTabSites.FavoritedSite7 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite7) + "</div>" + Environment.NewLine; }
+            if(CefForm.Settings.NewTabSites.FavoritedSite8 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite8) + "</div>" + Environment.NewLine; }
+            if(CefForm.Settings.NewTabSites.FavoritedSite9 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite9) + "</div>" + Environment.NewLine; }
+            return x;
+        }
         public static bool ValidHttpURL(string s)
         {
             string Pattern = @"^(?:chrome\:\/\/)|(?:about\:\/\/)|(?:file\:\/\/)|(?:https\:\/\/)|(?:korot\:\/\/)|(?:http:\/\/)|(?:\:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$";
@@ -78,7 +99,7 @@ namespace Korot
             {
                 if (request.Url == "korot://newtab/")
                 {
-                    return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.SearchHelpText).Replace("§SEARCH§", CefForm.Search).Replace("§DAYS§", CefForm.DayNames).Replace("§MONTHS§", CefForm.MonthNames).Replace("§TITLE§", CefForm.NewTabtitle));
+                    return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§ITEMS§",GetNewTabItems()).Replace("§BACKSTYLE3§",GetBackStyle3()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.SearchHelpText).Replace("§SEARCH§", CefForm.Search).Replace("§DAYS§", CefForm.DayNames).Replace("§MONTHS§", CefForm.MonthNames).Replace("§TITLE§", CefForm.NewTabtitle));
                 }
                 else if (request.Url == "korot://incognito/")
                 {

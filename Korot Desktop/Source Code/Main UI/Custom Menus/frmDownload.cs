@@ -30,6 +30,24 @@ namespace Korot
             cefecik = cefcik;
             InitializeComponent();
         }
+        public Image GetStatusImage(DownloadStatus? status)
+        {
+            switch (status)
+            {
+                case DownloadStatus.Cancelled:
+                    return Properties.Resources.cancelled;
+                case DownloadStatus.Downloaded:
+                    return Properties.Resources.downloaded;
+                case DownloadStatus.Error:
+                    return Properties.Resources.error;
+                case DownloadStatus.None:
+                    return Properties.Resources.unknown;
+                case DownloadStatus.Downloading:
+                    return Properties.Resources.downloading;
+                default:
+                    return Properties.Resources.unknown;
+            }
+        }
         List<Panel> panelList = new List<Panel>();
         List<HTProgressBar> pbList = new List<HTProgressBar>();
         public void RefreshList()
@@ -87,9 +105,11 @@ namespace Korot
                 lbTarih.Dock = System.Windows.Forms.DockStyle.Bottom;
                 lbTarih.Font = new System.Drawing.Font("Ubuntu", 8F);
                 lbTarih.Location = new System.Drawing.Point(5, 26);
+                lbTarih.ImageAlign = ContentAlignment.MiddleLeft;
+                lbTarih.Image = GetStatusImage(x.IsSite ? x.Site.Status : DownloadStatus.Downloading);
                 lbTarih.Tag = x;
                 lbTarih.Click += Item_Click;
-                lbTarih.Text = cefecik.GetDateInfo(x.IsSite ? DateTime.ParseExact(x.Site.Date, cefecik.DateFormat, null) : DateTime.Now);
+                lbTarih.Text = "       " +  cefecik.GetDateInfo(x.IsSite ? DateTime.ParseExact(x.Site.Date, cefecik.DateFormat, null) : DateTime.Now);
                 // 
                 // label4
                 // 
@@ -264,7 +284,9 @@ namespace Korot
                 cefecik.Settings.Downloads.Downloads.Clear();
                 foreach (Panel x in panelList)
                 {
-                    Controls.Remove(x);
+                    if (x.Tag == null) { return; }
+                    var tag = x.Tag as DownloadItemSiteHybrid;
+                    if (tag.IsSite) { Controls.Remove(x); }
                 }
                 panelList.Clear();
                 selectedPanels.Clear();

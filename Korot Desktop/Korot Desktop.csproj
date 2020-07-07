@@ -459,7 +459,6 @@
     <None Include="Resources\history-w.png" />
     <None Include="Resources\history.png" />
     <None Include="Resources\Korot.png" />
-    <None Include="Resources\yerli.png" />
     <None Include="Resources\inctab.png" />
     <None Include="Resources\home-w.png" />
     <None Include="Resources\cancel-w.png" />
@@ -516,6 +515,11 @@
     <None Include="Resources\download-i-w1.png" />
     <None Include="Resources\hamburger-i1.png" />
     <None Include="Resources\hamburger-i-w1.png" />
+    <None Include="Resources\downloaded.png" />
+    <None Include="Resources\cancelled.png" />
+    <None Include="Resources\error.png" />
+    <None Include="Resources\unknown.png" />
+    <None Include="Resources\downloading.png" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -214,6 +214,7 @@ namespace Korot
             this.btClose6 = new HTAlt.WinForms.HTButton();
             this.lbHistory = new System.Windows.Forms.Label();
             this.tpDownload = new System.Windows.Forms.TabPage();
+            this.pDowMan = new System.Windows.Forms.Panel();
             this.btClose7 = new HTAlt.WinForms.HTButton();
             this.lbDownloads = new System.Windows.Forms.Label();
             this.hsOpen = new HTAlt.WinForms.HTSwitch();
@@ -275,6 +276,17 @@ namespace Korot
             this.hsNotificationSound = new HTAlt.WinForms.HTSwitch();
             this.btClose3 = new HTAlt.WinForms.HTButton();
             this.lbNotifSetting = new System.Windows.Forms.Label();
+            this.tpNewTab = new System.Windows.Forms.TabPage();
+            this.tbUrl = new System.Windows.Forms.TextBox();
+            this.tbTitle = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.htButton3 = new HTAlt.WinForms.HTButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btNewTabBack = new HTAlt.WinForms.HTButton();
+            this.btClose5 = new HTAlt.WinForms.HTButton();
+            this.lbNewTabTitle = new System.Windows.Forms.Label();
             this.cmsSearchEngine = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.googleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yandexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -302,7 +314,10 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pDowMan = new System.Windows.Forms.Panel();
+            this.tsExtFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSepLang = new System.Windows.Forms.ToolStripSeparator();
+            this.tsLangFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsLangStore = new System.Windows.Forms.ToolStripMenuItem();
             this.pNavigate.SuspendLayout();
             this.cmsHamburger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
@@ -339,6 +354,7 @@ namespace Korot
             this.flpTo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toHour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toMin)).BeginInit();
+            this.tpNewTab.SuspendLayout();
             this.cmsSearchEngine.SuspendLayout();
             this.cmsBStyle.SuspendLayout();
             this.cmsIncognito.SuspendLayout();
@@ -471,6 +487,7 @@ namespace Korot
             this.extensionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsEmptyExt,
             this.tsExt,
+            this.tsExtFolder,
             this.tsWebStore});
             this.extensionToolStripMenuItem1.Image = global::Korot.Properties.Resources.ext;
             this.extensionToolStripMenuItem1.Name = "extensionToolStripMenuItem1";
@@ -481,19 +498,19 @@ namespace Korot
             // 
             this.tsEmptyExt.Enabled = false;
             this.tsEmptyExt.Name = "tsEmptyExt";
-            this.tsEmptyExt.Size = new System.Drawing.Size(128, 22);
+            this.tsEmptyExt.Size = new System.Drawing.Size(180, 22);
             this.tsEmptyExt.Text = "(empty)";
             // 
             // tsExt
             // 
             this.tsExt.Name = "tsExt";
-            this.tsExt.Size = new System.Drawing.Size(125, 6);
+            this.tsExt.Size = new System.Drawing.Size(177, 6);
             // 
             // tsWebStore
             // 
             this.tsWebStore.Image = global::Korot.Properties.Resources.store;
             this.tsWebStore.Name = "tsWebStore";
-            this.tsWebStore.Size = new System.Drawing.Size(128, 22);
+            this.tsWebStore.Size = new System.Drawing.Size(180, 22);
             this.tsWebStore.Text = "Web Store";
             this.tsWebStore.Click += new System.EventHandler(this.tsWebStore_Click);
             // 
@@ -647,6 +664,10 @@ namespace Korot
             // 
             // tsLanguages
             // 
+            this.tsLanguages.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsSepLang,
+            this.tsLangFolder,
+            this.tsLangStore});
             this.tsLanguages.Image = global::Korot.Properties.Resources.lang;
             this.tsLanguages.Name = "tsLanguages";
             this.tsLanguages.Size = new System.Drawing.Size(280, 22);
@@ -1134,7 +1155,7 @@ namespace Korot
             // dummyCMS
             // 
             this.dummyCMS.Name = "dummyCMS";
-            this.dummyCMS.Size = new System.Drawing.Size(181, 26);
+            this.dummyCMS.Size = new System.Drawing.Size(61, 4);
             this.dummyCMS.Opening += new System.ComponentModel.CancelEventHandler(this.dummyCMS_Opening);
             // 
             // tmrFaster
@@ -1236,6 +1257,7 @@ namespace Korot
             this.tabControl1.Controls.Add(this.tpSite);
             this.tabControl1.Controls.Add(this.tpCollection);
             this.tabControl1.Controls.Add(this.tpNotification);
+            this.tabControl1.Controls.Add(this.tpNewTab);
             this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControl1.Location = new System.Drawing.Point(-7, 32);
             this.tabControl1.Name = "tabControl1";
@@ -2119,6 +2141,16 @@ namespace Korot
             this.tpDownload.Text = "Downloads";
             this.tpDownload.UseVisualStyleBackColor = true;
             // 
+            // pDowMan
+            // 
+            this.pDowMan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pDowMan.Location = new System.Drawing.Point(13, 111);
+            this.pDowMan.Name = "pDowMan";
+            this.pDowMan.Size = new System.Drawing.Size(544, 358);
+            this.pDowMan.TabIndex = 37;
+            // 
             // btClose7
             // 
             this.btClose7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -2888,6 +2920,149 @@ namespace Korot
             this.lbNotifSetting.TabIndex = 38;
             this.lbNotifSetting.Text = "Notification Settings";
             // 
+            // tpNewTab
+            // 
+            this.tpNewTab.Controls.Add(this.tbUrl);
+            this.tpNewTab.Controls.Add(this.tbTitle);
+            this.tpNewTab.Controls.Add(this.tableLayoutPanel1);
+            this.tpNewTab.Controls.Add(this.htButton3);
+            this.tpNewTab.Controls.Add(this.label4);
+            this.tpNewTab.Controls.Add(this.label3);
+            this.tpNewTab.Controls.Add(this.label2);
+            this.tpNewTab.Controls.Add(this.btNewTabBack);
+            this.tpNewTab.Controls.Add(this.btClose5);
+            this.tpNewTab.Controls.Add(this.lbNewTabTitle);
+            this.tpNewTab.Location = new System.Drawing.Point(4, 24);
+            this.tpNewTab.Name = "tpNewTab";
+            this.tpNewTab.Size = new System.Drawing.Size(568, 484);
+            this.tpNewTab.TabIndex = 10;
+            this.tpNewTab.Text = "Customizations";
+            this.tpNewTab.UseVisualStyleBackColor = true;
+            // 
+            // tbUrl
+            // 
+            this.tbUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbUrl.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.tbUrl.Location = new System.Drawing.Point(58, 126);
+            this.tbUrl.Name = "tbUrl";
+            this.tbUrl.Size = new System.Drawing.Size(497, 21);
+            this.tbUrl.TabIndex = 54;
+            // 
+            // tbTitle
+            // 
+            this.tbTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbTitle.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.tbTitle.Location = new System.Drawing.Point(62, 93);
+            this.tbTitle.Name = "tbTitle";
+            this.tbTitle.Size = new System.Drawing.Size(493, 21);
+            this.tbTitle.TabIndex = 53;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(19, 182);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(534, 100);
+            this.tableLayoutPanel1.TabIndex = 52;
+            // 
+            // htButton3
+            // 
+            this.htButton3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.htButton3.ButtonText = "Clear";
+            this.htButton3.FlatAppearance.BorderSize = 0;
+            this.htButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.htButton3.Location = new System.Drawing.Point(23, 153);
+            this.htButton3.Name = "htButton3";
+            this.htButton3.Size = new System.Drawing.Size(532, 23);
+            this.htButton3.TabIndex = 51;
+            this.htButton3.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.htButton3.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Ubuntu", 12F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(15, 55);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(120, 21);
+            this.label4.TabIndex = 50;
+            this.label4.Text = "Attached Sites";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.label3.Location = new System.Drawing.Point(19, 126);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(33, 19);
+            this.label3.TabIndex = 49;
+            this.label3.Text = "Url:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.label2.Location = new System.Drawing.Point(19, 91);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 19);
+            this.label2.TabIndex = 48;
+            this.label2.Text = "Title:";
+            // 
+            // btNewTabBack
+            // 
+            this.btNewTabBack.BackColor = System.Drawing.Color.Transparent;
+            this.btNewTabBack.ButtonImage = global::Korot.Properties.Resources.leftarrow;
+            this.btNewTabBack.ContextMenuStrip = this.cmsBack;
+            this.btNewTabBack.FlatAppearance.BorderSize = 0;
+            this.btNewTabBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btNewTabBack.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
+            this.btNewTabBack.Location = new System.Drawing.Point(13, 8);
+            this.btNewTabBack.Name = "btNewTabBack";
+            this.btNewTabBack.Size = new System.Drawing.Size(30, 28);
+            this.btNewTabBack.TabIndex = 47;
+            this.btNewTabBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNewTabBack.UseVisualStyleBackColor = false;
+            this.btNewTabBack.Click += new System.EventHandler(this.htButton1_Click);
+            // 
+            // btClose5
+            // 
+            this.btClose5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btClose5.BackColor = System.Drawing.Color.Transparent;
+            this.btClose5.ButtonImage = global::Korot.Properties.Resources.cancel;
+            this.btClose5.FlatAppearance.BorderSize = 0;
+            this.btClose5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btClose5.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
+            this.btClose5.Location = new System.Drawing.Point(525, 6);
+            this.btClose5.Name = "btClose5";
+            this.btClose5.Size = new System.Drawing.Size(30, 30);
+            this.btClose5.TabIndex = 45;
+            this.btClose5.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose5.UseVisualStyleBackColor = false;
+            this.btClose5.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // lbNewTabTitle
+            // 
+            this.lbNewTabTitle.AutoSize = true;
+            this.lbNewTabTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.lbNewTabTitle.Location = new System.Drawing.Point(48, 9);
+            this.lbNewTabTitle.Name = "lbNewTabTitle";
+            this.lbNewTabTitle.Size = new System.Drawing.Size(216, 25);
+            this.lbNewTabTitle.TabIndex = 46;
+            this.lbNewTabTitle.Text = "New Tab Page Content";
+            // 
             // cmsSearchEngine
             // 
             this.cmsSearchEngine.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -3114,15 +3289,32 @@ namespace Korot
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
             // 
-            // pDowMan
+            // tsExtFolder
             // 
-            this.pDowMan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pDowMan.Location = new System.Drawing.Point(13, 111);
-            this.pDowMan.Name = "pDowMan";
-            this.pDowMan.Size = new System.Drawing.Size(544, 358);
-            this.pDowMan.TabIndex = 37;
+            this.tsExtFolder.Name = "tsExtFolder";
+            this.tsExtFolder.Size = new System.Drawing.Size(180, 22);
+            this.tsExtFolder.Text = "Extensions Folder";
+            this.tsExtFolder.Click += new System.EventHandler(this.tsExtFolder_Click);
+            // 
+            // tsSepLang
+            // 
+            this.tsSepLang.Name = "tsSepLang";
+            this.tsSepLang.Size = new System.Drawing.Size(177, 6);
+            // 
+            // tsLangFolder
+            // 
+            this.tsLangFolder.Name = "tsLangFolder";
+            this.tsLangFolder.Size = new System.Drawing.Size(180, 22);
+            this.tsLangFolder.Text = "Languages Folder";
+            this.tsLangFolder.Click += new System.EventHandler(this.tsLangFolder_Click);
+            // 
+            // tsLangStore
+            // 
+            this.tsLangStore.Image = global::Korot.Properties.Resources.store;
+            this.tsLangStore.Name = "tsLangStore";
+            this.tsLangStore.Size = new System.Drawing.Size(180, 22);
+            this.tsLangStore.Text = "Web Store";
+            this.tsLangStore.Click += new System.EventHandler(this.tsLangStore_Click);
             // 
             // frmCEF
             // 
@@ -3201,6 +3393,8 @@ namespace Korot
             this.flpTo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toHour)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toMin)).EndInit();
+            this.tpNewTab.ResumeLayout(false);
+            this.tpNewTab.PerformLayout();
             this.cmsSearchEngine.ResumeLayout(false);
             this.cmsBStyle.ResumeLayout(false);
             this.cmsIncognito.ResumeLayout(false);
@@ -3462,5 +3656,20 @@ namespace Korot
         private HTAlt.WinForms.HTSwitch hsGPU;
         private System.Windows.Forms.Panel pHisMan;
         private System.Windows.Forms.Panel pDowMan;
+        private System.Windows.Forms.TabPage tpNewTab;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        public HTAlt.WinForms.HTButton btNewTabBack;
+        public HTAlt.WinForms.HTButton btClose5;
+        private System.Windows.Forms.Label lbNewTabTitle;
+        private System.Windows.Forms.TextBox tbUrl;
+        private System.Windows.Forms.TextBox tbTitle;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private HTAlt.WinForms.HTButton htButton3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolStripMenuItem tsExtFolder;
+        private System.Windows.Forms.ToolStripSeparator tsSepLang;
+        private System.Windows.Forms.ToolStripMenuItem tsLangFolder;
+        private System.Windows.Forms.ToolStripMenuItem tsLangStore;
     }
 }

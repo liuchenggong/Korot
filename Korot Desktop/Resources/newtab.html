@@ -22,6 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
 <head>
     <title>§TITLE§</title>
+		<script>
+			function EditItem() 
+		{
+		CefSharp.PostMessage("[Korot.EditNewTabItem]");
+		}
+	</script>
     <style>
         body {
             §BACKSTYLE§
@@ -55,6 +61,27 @@ SOFTWARE. -->
             input[type=text] {
                 width: 35%;
             }
+			.grid-container {
+			§BACKSTYLE2§
+  display: grid;
+  font-family: Ubuntu;
+  grid-template-columns: auto auto auto auto auto;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.grid-container > div {
+§BACKSTYLE3§
+font-family: Ubuntu;
+  text-align: center;
+  font-size: 30px;
+}
+.editItem 
+{
+font-family: Ubuntu;
+font-size: small;
+ grid-area: 3 / 1 / 3 / 6;
+}
     </style>
 
     <script>
@@ -75,7 +102,9 @@ SOFTWARE. -->
         if (i < 10) {i = "0" + i}; 
         return i;
         }
+
     </script>
+
 </head>
 <body onload="startTime()">
 	<panel class="merkez">
@@ -85,6 +114,12 @@ SOFTWARE. -->
 			<input type=text name="q" placeholder="§SEARCHHELP§" />
 		<input type=submit value="§SEARCH§" />
 		</form>
+<div class="grid-container">
+  §ITEMS§
+    <div class="editItem">
+  	<a onclick="EditItem()" style="§BACKSTYLE3§">Edit</a>
+  </div>
+</div>
 	</panel>
 </body>
 </html>

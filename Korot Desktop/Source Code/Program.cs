@@ -36,8 +36,8 @@ namespace Korot
     public static class VersionInfo
     {
         public static string CodeName => "Shisha no kodo"; //死者のコード
-        public static bool IsPreRelease => true;
-        public static int PreReleaseNumber => 1;
+        public static bool IsPreRelease => false;
+        public static int PreReleaseNumber => 0;
     }
     internal static class Program
     {
@@ -251,6 +251,81 @@ new HTTitleTab(testApp)
                                    "</Theme>" + Environment.NewLine;
                 HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Midnight.ktf", newTheme, Encoding.UTF8);
             }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Emerald.ktf"))
+            {
+                string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
+                                  "<Name>Korot Emerald</Name>" + Environment.NewLine +
+                                   "<Author>Haltroy</Author>" + Environment.NewLine +
+                                   "<Version>1.0.0.0</Version>" + Environment.NewLine +
+                                   "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
+                                   "<BackColor>#78ff95</BackColor>" + Environment.NewLine +
+                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
+                                   "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
+                                   "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
+                                   "</Theme>" + Environment.NewLine;
+                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Emerald.ktf", newTheme, Encoding.UTF8);
+            }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot DarkLeaf.ktf"))
+            {
+                string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
+                                  "<Name>Korot DarkLeaf</Name>" + Environment.NewLine +
+                                   "<Author>Haltroy</Author>" + Environment.NewLine +
+                                   "<Version>1.0.0.0</Version>" + Environment.NewLine +
+                                   "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
+                                   "<BackColor>#005212</BackColor>" + Environment.NewLine +
+                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
+                                   "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
+                                   "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
+                                   "</Theme>" + Environment.NewLine;
+                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot DarkLeaf.ktf", newTheme, Encoding.UTF8);
+            }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Strawberry.ktf"))
+            {
+                string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
+                                  "<Name>Korot Strawberry</Name>" + Environment.NewLine +
+                                   "<Author>Haltroy</Author>" + Environment.NewLine +
+                                   "<Version>1.0.0.0</Version>" + Environment.NewLine +
+                                   "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
+                                   "<BackColor>#ffabab</BackColor>" + Environment.NewLine +
+                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
+                                   "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
+                                   "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
+                                   "</Theme>" + Environment.NewLine;
+                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Strawberry.ktf", newTheme, Encoding.UTF8);
+            }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Crimson.ktf"))
+            {
+                string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
+                                  "<Name>Korot Crimson</Name>" + Environment.NewLine +
+                                   "<Author>Haltroy</Author>" + Environment.NewLine +
+                                   "<Version>1.0.0.0</Version>" + Environment.NewLine +
+                                   "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
+                                   "<BackColor>#4a0000</BackColor>" + Environment.NewLine +
+                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
+                                   "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
+                                   "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
+                                   "</Theme>" + Environment.NewLine;
+                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Crimson.ktf", newTheme, Encoding.UTF8);
+            }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Sunrise.ktf"))
+            {
+                string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
+                                  "<Name>Korot Sunrise</Name>" + Environment.NewLine +
+                                   "<Author>Haltroy</Author>" + Environment.NewLine +
+                                   "<Version>1.0.0.0</Version>" + Environment.NewLine +
+                                   "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
+                                   "<BackColor>#bfffff</BackColor>" + Environment.NewLine +
+                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
+                                   "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
+                                   "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
+                                   "</Theme>" + Environment.NewLine;
+                HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Sunrise.ktf", newTheme, Encoding.UTF8);
+            }
             return true;
         }
         public static bool createFolders()
@@ -427,7 +502,11 @@ new HTTitleTab(testApp)
                         }
                     }
                 }
-                if (node.Name.ToLower() == "autosilent")
+                else if (node.Name.ToLower() == "newtabmenu")
+                {
+                    NewTabSites = new NewTabSites(node.OuterXml);
+                }
+                else if (node.Name.ToLower() == "autosilent")
                 {
                     AutoSilent = node.InnerText == "true";
                 }
@@ -537,8 +616,9 @@ new HTTitleTab(testApp)
             }
         }
         #region Defaults
-        public bool _DisableGPUAcc = false;
-        public bool _Flash = false;
+        private NewTabSites _NewTabSites = new NewTabSites("");
+        private bool _DisableGPUAcc = false;
+        private bool _Flash = false;
         public bool LoadedDefaults = false;
         private bool _Silent = false;
         private List<Site> _Sites = new List<Site>();
@@ -568,6 +648,11 @@ new HTTitleTab(testApp)
         private Extensions _Extensions = new Extensions("");
         #endregion
         #region Properties
+        public NewTabSites NewTabSites
+        {
+            get => _NewTabSites;
+            set => _NewTabSites = value;
+        }
         public bool DisableGPUAcc
         {
             get => _DisableGPUAcc;
@@ -757,7 +842,7 @@ new HTTitleTab(testApp)
             "<BackgroundStyle Layout=\"" + Theme.BackgroundStyleLayout + "\">" + Theme.BackgroundStyle.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</BackgroundStyle>" + Environment.NewLine +
             "<NewTabColor>" + (int)Theme.NewTabColor + "</NewTabColor>" + Environment.NewLine +
             "<CloseButtonColor>" + (int)Theme.CloseButtonColor + "</CloseButtonColor>" + Environment.NewLine +
-            "</Theme>" + Environment.NewLine + Extensions.ExtractList + CollectionManager.writeCollections + "<History>" + Environment.NewLine;
+            "</Theme>" + Environment.NewLine + NewTabSites.XMLOut + Environment.NewLine + Extensions.ExtractList + CollectionManager.writeCollections + "<History>" + Environment.NewLine;
             foreach (Site site in History)
             {
                 x += "<Site Name=\""
@@ -818,12 +903,12 @@ new HTTitleTab(testApp)
         {
             if (string.IsNullOrWhiteSpace(themeFile))
             {
-                Name = "Korot Midnight";
+                Name = "Korot Light";
                 Author = "Haltroy";
                 UseHaltroyUpdate = false;
                 Version = new Version(Application.ProductVersion);
                 MininmumKorotVersion = Version;
-                BackColor = Color.FromArgb(255, 5, 0, 36);
+                BackColor = Color.FromArgb(255, 255, 255, 255);
                 OverlayColor = Color.FromArgb(255, 85, 180, 212);
                 BackgroundStyle = "BACKCOLOR";
                 BackgroundStyleLayout = 0;
@@ -954,7 +1039,8 @@ new HTTitleTab(testApp)
         None,
         Cancelled,
         Downloaded,
-        Error
+        Error,
+        Downloading
     }
     public class FavoritesSettings
     {
@@ -1204,5 +1290,150 @@ new HTTitleTab(testApp)
     {
         public string ID { get; set; }
         public string Text { get; set; }
+    }
+    public class NewTabSites
+    {
+        public string XMLOut
+        {
+            get
+            {
+                string x = "<NewTabMenu>" + Environment.NewLine +
+                   (FavoritedSite0 != null ? "<Attached0 Name=\"" + FavoritedSite0.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + " Url=\"" + FavoritedSite0.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + "/>" + Environment.NewLine : "") +
+                   (FavoritedSite1 != null ? "<Attached1 Name=\"" + FavoritedSite1.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + " Url=\"" + FavoritedSite1.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + "/>" + Environment.NewLine : "") +
+                   (FavoritedSite2 != null ? "<Attached2 Name=\"" + FavoritedSite2.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + " Url=\"" + FavoritedSite2.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + "/>" + Environment.NewLine : "") +
+                   (FavoritedSite3 != null ? "<Attached3 Name=\"" + FavoritedSite3.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + " Url=\"" + FavoritedSite3.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + "/>" + Environment.NewLine : "") +
+                   (FavoritedSite4 != null ? "<Attached4 Name=\"" + FavoritedSite4.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + " Url=\"" + FavoritedSite4.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + "/>" + Environment.NewLine : "") +
+                   (FavoritedSite5 != null ? "<Attached5 Name=\"" + FavoritedSite5.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + " Url=\"" + FavoritedSite5.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + "/>" + Environment.NewLine : "") +
+                   (FavoritedSite6 != null ? "<Attached6 Name=\"" + FavoritedSite6.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + " Url=\"" + FavoritedSite6.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + "/>" + Environment.NewLine : "") +
+                   (FavoritedSite7 != null ? "<Attached7 Name=\"" + FavoritedSite7.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + " Url=\"" + FavoritedSite7.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + "/>" + Environment.NewLine : "") +
+                   (FavoritedSite8 != null ? "<Attached8 Name=\"" + FavoritedSite8.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + " Url=\"" + FavoritedSite8.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + "/>" + Environment.NewLine : "") +
+                   (FavoritedSite9 != null ? "<Attached9 Name=\"" + FavoritedSite9.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + " Url=\"" + FavoritedSite9.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")  + "/>" + Environment.NewLine : "") +
+                    "<Load>" + Environment.NewLine;
+                foreach (Site s in LoadPageList)
+                {
+                    x += "<Site Name=\"" + s.Name + "\" Url=\"" + s.Url + "\" />" + Environment.NewLine;
+                }
+                x += "</Load>" + Environment.NewLine + "</NewTabMenu>";
+                return x;
+            }
+        }
+        public NewTabSites(string xmlCode)
+        {
+            LoadPageList = new List<Site>();
+            if (string.IsNullOrWhiteSpace(xmlCode))
+            {
+                return;
+            }
+            if (!string.IsNullOrWhiteSpace(xmlCode))
+            {
+                XmlDocument document = new XmlDocument();
+                document.LoadXml(xmlCode);
+                foreach (XmlNode node in document.FirstChild.ChildNodes) 
+                {
+                    if (node.Name.ToLower() == "attached0")
+                    {
+                        if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
+                        FavoritedSite0 = new Site();
+                        FavoritedSite0.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite0.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                    }
+                    else if (node.Name.ToLower() == "attached1")
+                    {
+                        if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
+                        FavoritedSite1 = new Site();
+                        FavoritedSite1.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite1.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                    }
+                    else if (node.Name.ToLower() == "attached2")
+                    {
+                        if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
+                        FavoritedSite2 = new Site();
+                        FavoritedSite2.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite2.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                    }
+                    else if (node.Name.ToLower() == "attached3")
+                    {
+                        if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
+                        FavoritedSite3 = new Site();
+                        FavoritedSite3.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite3.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                    }
+                    else if (node.Name.ToLower() == "attached4")
+                    {
+                        if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
+                        FavoritedSite4 = new Site();
+                        FavoritedSite4.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite4.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                    }
+                    else if (node.Name.ToLower() == "attached5")
+                    {
+                        if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
+                        FavoritedSite5 = new Site();
+                        FavoritedSite5.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite5.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                    }
+                    else if (node.Name.ToLower() == "attached6")
+                    {
+                        if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
+                        FavoritedSite6 = new Site();
+                        FavoritedSite6.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite6.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                    }
+                    else if (node.Name.ToLower() == "attached7")
+                    {
+                        if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
+                        FavoritedSite7 = new Site();
+                        FavoritedSite7.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite7.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                    }
+                    else if (node.Name.ToLower() == "attached8")
+                    {
+                        if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
+                        FavoritedSite8 = new Site();
+                        FavoritedSite8.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite8.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                    }
+                    else if (node.Name.ToLower() == "attached9")
+                    {
+                        if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
+                        FavoritedSite9 = new Site();
+                        FavoritedSite9.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite9.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                    }
+                    else if (node.Name.ToLower() == "load")
+                    {
+                        foreach(XmlNode subnode in node.ChildNodes)
+                        {
+                            if (subnode.Name.ToLower() == "site")
+                            {
+                                if (subnode.Attributes["Name"] == null || subnode.Attributes["Url"] == null) { return; }
+                                Site site = new Site();
+                                site.Name = subnode.Attributes["Name"].Value;
+                                site.Url = subnode.Attributes["Url"].Value;
+                                LoadPageList.Add(site);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public string SiteToHTMLData(Site site)
+        {
+            string x = "<a href=\"" + site.Url + "\" style=\"§BACKSTYLE3§\">" + site.Name + "</a>" +
+    "</br>" +
+   "<a href=\"" + site.Url + "\" style=\"§BACKSTYLE3§font-size: small;\">" + site.Url.Substring(0,10)  + "</a>";
+            return x;
+        }
+        public Site FavoritedSite0 { get; set; }
+        public Site FavoritedSite1 { get; set; }
+        public Site FavoritedSite2 { get; set; }
+        public Site FavoritedSite3 { get; set; }
+        public Site FavoritedSite4 { get; set; }
+        public Site FavoritedSite5 { get; set; }
+        public Site FavoritedSite6 { get; set; }
+        public Site FavoritedSite7 { get; set; }
+        public Site FavoritedSite8 { get; set; }
+        public Site FavoritedSite9 { get; set; }
+        public List<Site> LoadPageList { get; set; }
     }
 }
