@@ -39,7 +39,7 @@ namespace Korot
             InitializeComponent();
             tabform = CefForm;
             loadurl = url;
-            userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + profileName + "\\cache\\";
+            userCache = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Users\\" + profileName + "\\cache\\";
             Text = "Korot";
             InitializeChromium();
         }

@@ -18,7 +18,7 @@ Latest Dev Version: `0.8.0.0`
  - Tabbed, built-in search bar that auto-detects URLs.
  - Developer tools ,View Source ,Page screnshot, Print, Keyboard Shortcuts, Save page & Zoom in page
  - UI language system (Comes with [`English`](https://haltroy.com/store/item/Haltroy.KorotEnglish/) and [`Türkçe`](https://haltroy.com/store/item/Haltroy.KorotTürkçe/) languages)
- - Theme system (Comes with [`Light`](https://haltroy.com/store/item/Haltroy.KorotLight/) and [`Dark`](https://haltroy.com/store/item/Haltroy.KorotDark/) theme) & [Theme Store](https://haltroy.com/store/Korot/Themes/)
+ - Theme system (Comes with [`Light`](https://haltroy.com/store/item/Haltroy.KorotLight/), [`Midnight`](https://haltroy.com/store/item/Haltroy.KorotMidnight/), [`Crimson`](https://haltroy.com/store/item/Haltroy.KorotCrimson/), [`Strawberry`](https://haltroy.com/store/item/Haltroy.KorotStrawberry/), [`Emerald`](https://haltroy.com/store/item/Haltroy.KorotEmerald/), [`DarkLeaf`](https://haltroy.com/store/item/Haltroy.KorotDarkLeaf/), [`Sunrise`](https://haltroy.com/store/item/Haltroy.KorotSunrise/), [`Dark`](https://haltroy.com/store/item/Haltroy.KorotDark/) themes) & [Theme Store](https://haltroy.com/store/Korot/Themes/)
  - Built-in Extension system (with support for proxies) & [Extension Store](https://haltroy.com/store/Korot/Extensions/)
  - Profiles
  - Notifications
@@ -34,7 +34,6 @@ Latest Dev Version: `0.8.0.0`
 |----------------------------------------------------------------------|------|------|-------|-----------------|-----|-------------------|
 | [`master`](https://github.com/haltroy/korot)                      | 83 | 2015 | Framework 4.8 | >= b1.5 | Development | `1.0.0.0`: Unknown |
 | `0.8.0.0` | 83 | 2015 | Framework 4.8 | b1.4.2 | *Developing* | ?? July 2020 |
-| `0.7.1.0` | 83 | 2015 | Framework 4.8 | b1.4.2 | ~Cancelled~ | 5 July 2020 |
 | [`0.7.0.0`](https://github.com/Haltroy/Korot/tree/0.7.0.0) | 81 | 2015 | Framework 4.8 | b1.4.2 | **Latest Release** | 19 June 2020 |
 | [`0.6.1.0`](https://github.com/Haltroy/Korot/tree/0.6.1.0) | 79 | 2015 | Framework 4.8 | b1.3h2 | Unsupported | 14 May 2020 |
 | [`0.6.0.0`](https://github.com/Haltroy/Korot/tree/0.6.0.0) | 79 | 2015 | Framework 4.8 | b1.3h2| Unsupported | 26 April 2020 |

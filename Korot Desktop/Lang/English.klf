@@ -1,4 +1,12 @@
-<Language CompabileVersion="0.7.1.0">
+<Language CompabileVersion="0.8.0.0">
+  <Translate ID="LangFolder" Text="Languages Folder" />
+  <Translate ID="ExtFolder" Text="Extensions Folder" />
+  <Translate ID="NewTabEditorTitle" Text="New Tab Page Content" />
+  <Translate ID="NewTabEditButton" Text="New Tab Content..." />
+  <Translate ID="NewTabEditTitle" Text="Title:" />
+  <Translate ID="NewTabEditUrl" Text="Url:" />
+  <Translate ID="NewTabEditClear" Text="Clear" />
+  <Translate ID="NewTabEdit" Text="Edit" />
   <Translate ID="Incognito" Text="Incognito" />
   <Translate ID="EnableFlash" Text="Enable Flash:" />
   <Translate ID="DisableGPUAcc" Text="Disable GPU acceleration:" />

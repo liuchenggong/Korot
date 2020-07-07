@@ -43,7 +43,7 @@ namespace Korot
             tabform = CefForm;
             ExtManifestFile = manifestFile;
             //anaform = rmmain;
-            userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Users\\" + profileName + "\\cache\\";
+            userCache = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Users\\" + profileName + "\\cache\\";
             Text = "Korot";
             allowWebContent = _allowWebContent;
             ExtensionPopupPath = popupHTML;

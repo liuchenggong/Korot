@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using System.IO;
 using HTAlt;
 
+
 namespace Korot
 {
     class SafeFileSettingOrganizedClass
     {
-        public static string GetUserFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\";
+        public static string GetUserFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\";
         public static string LastUser
         {
             get

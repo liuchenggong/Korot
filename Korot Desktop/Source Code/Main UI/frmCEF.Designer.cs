@@ -63,6 +63,7 @@ namespace Korot
             this.extensionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsEmptyExt = new System.Windows.Forms.ToolStripMenuItem();
             this.tsExt = new System.Windows.Forms.ToolStripSeparator();
+            this.tsExtFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.tsWebStore = new System.Windows.Forms.ToolStripMenuItem();
             this.DefaultProxyts = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -85,6 +86,9 @@ namespace Korot
             this.downloadsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsThemes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsLanguages = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSepLang = new System.Windows.Forms.ToolStripSeparator();
+            this.tsLangFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsLangStore = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -151,6 +155,7 @@ namespace Korot
             this.lbURL = new System.Windows.Forms.ListBox();
             this.tpCert = new System.Windows.Forms.TabPage();
             this.tpSettings = new System.Windows.Forms.TabPage();
+            this.btNewTab = new HTAlt.WinForms.HTButton();
             this.lbGPU = new System.Windows.Forms.Label();
             this.hsGPU = new HTAlt.WinForms.HTSwitch();
             this.lbFlashInfo = new System.Windows.Forms.Label();
@@ -279,11 +284,40 @@ namespace Korot
             this.tpNewTab = new System.Windows.Forms.TabPage();
             this.tbUrl = new System.Windows.Forms.TextBox();
             this.tbTitle = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.htButton3 = new HTAlt.WinForms.HTButton();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.tlpNewTab = new System.Windows.Forms.TableLayoutPanel();
+            this.L9 = new System.Windows.Forms.Panel();
+            this.L9T = new System.Windows.Forms.Label();
+            this.L9U = new System.Windows.Forms.Label();
+            this.L8 = new System.Windows.Forms.Panel();
+            this.L8T = new System.Windows.Forms.Label();
+            this.L8U = new System.Windows.Forms.Label();
+            this.L7 = new System.Windows.Forms.Panel();
+            this.L7T = new System.Windows.Forms.Label();
+            this.L7U = new System.Windows.Forms.Label();
+            this.L6 = new System.Windows.Forms.Panel();
+            this.L6T = new System.Windows.Forms.Label();
+            this.L6U = new System.Windows.Forms.Label();
+            this.L5 = new System.Windows.Forms.Panel();
+            this.L5T = new System.Windows.Forms.Label();
+            this.L5U = new System.Windows.Forms.Label();
+            this.L4 = new System.Windows.Forms.Panel();
+            this.L4T = new System.Windows.Forms.Label();
+            this.L4U = new System.Windows.Forms.Label();
+            this.L3 = new System.Windows.Forms.Panel();
+            this.L3T = new System.Windows.Forms.Label();
+            this.L3U = new System.Windows.Forms.Label();
+            this.L2 = new System.Windows.Forms.Panel();
+            this.L2T = new System.Windows.Forms.Label();
+            this.L2U = new System.Windows.Forms.Label();
+            this.L1 = new System.Windows.Forms.Panel();
+            this.L1T = new System.Windows.Forms.Label();
+            this.L1U = new System.Windows.Forms.Label();
+            this.L0 = new System.Windows.Forms.Panel();
+            this.L0T = new System.Windows.Forms.Label();
+            this.L0U = new System.Windows.Forms.Label();
+            this.btClear = new HTAlt.WinForms.HTButton();
+            this.lbNTUrl = new System.Windows.Forms.Label();
+            this.lbNTTitle = new System.Windows.Forms.Label();
             this.btNewTabBack = new HTAlt.WinForms.HTButton();
             this.btClose5 = new HTAlt.WinForms.HTButton();
             this.lbNewTabTitle = new System.Windows.Forms.Label();
@@ -314,10 +348,6 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tsExtFolder = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSepLang = new System.Windows.Forms.ToolStripSeparator();
-            this.tsLangFolder = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsLangStore = new System.Windows.Forms.ToolStripMenuItem();
             this.pNavigate.SuspendLayout();
             this.cmsHamburger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
@@ -355,6 +385,17 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.toHour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toMin)).BeginInit();
             this.tpNewTab.SuspendLayout();
+            this.tlpNewTab.SuspendLayout();
+            this.L9.SuspendLayout();
+            this.L8.SuspendLayout();
+            this.L7.SuspendLayout();
+            this.L6.SuspendLayout();
+            this.L5.SuspendLayout();
+            this.L4.SuspendLayout();
+            this.L3.SuspendLayout();
+            this.L2.SuspendLayout();
+            this.L1.SuspendLayout();
+            this.L0.SuspendLayout();
             this.cmsSearchEngine.SuspendLayout();
             this.cmsBStyle.SuspendLayout();
             this.cmsIncognito.SuspendLayout();
@@ -498,19 +539,26 @@ namespace Korot
             // 
             this.tsEmptyExt.Enabled = false;
             this.tsEmptyExt.Name = "tsEmptyExt";
-            this.tsEmptyExt.Size = new System.Drawing.Size(180, 22);
+            this.tsEmptyExt.Size = new System.Drawing.Size(165, 22);
             this.tsEmptyExt.Text = "(empty)";
             // 
             // tsExt
             // 
             this.tsExt.Name = "tsExt";
-            this.tsExt.Size = new System.Drawing.Size(177, 6);
+            this.tsExt.Size = new System.Drawing.Size(162, 6);
+            // 
+            // tsExtFolder
+            // 
+            this.tsExtFolder.Name = "tsExtFolder";
+            this.tsExtFolder.Size = new System.Drawing.Size(165, 22);
+            this.tsExtFolder.Text = "Extensions Folder";
+            this.tsExtFolder.Click += new System.EventHandler(this.tsExtFolder_Click);
             // 
             // tsWebStore
             // 
             this.tsWebStore.Image = global::Korot.Properties.Resources.store;
             this.tsWebStore.Name = "tsWebStore";
-            this.tsWebStore.Size = new System.Drawing.Size(180, 22);
+            this.tsWebStore.Size = new System.Drawing.Size(165, 22);
             this.tsWebStore.Text = "Web Store";
             this.tsWebStore.Click += new System.EventHandler(this.tsWebStore_Click);
             // 
@@ -673,6 +721,26 @@ namespace Korot
             this.tsLanguages.Size = new System.Drawing.Size(280, 22);
             this.tsLanguages.Text = "Languages";
             this.tsLanguages.DropDownOpening += new System.EventHandler(this.tsLanguages_DropDownOpening);
+            // 
+            // tsSepLang
+            // 
+            this.tsSepLang.Name = "tsSepLang";
+            this.tsSepLang.Size = new System.Drawing.Size(164, 6);
+            // 
+            // tsLangFolder
+            // 
+            this.tsLangFolder.Name = "tsLangFolder";
+            this.tsLangFolder.Size = new System.Drawing.Size(167, 22);
+            this.tsLangFolder.Text = "Languages Folder";
+            this.tsLangFolder.Click += new System.EventHandler(this.tsLangFolder_Click);
+            // 
+            // tsLangStore
+            // 
+            this.tsLangStore.Image = global::Korot.Properties.Resources.store;
+            this.tsLangStore.Name = "tsLangStore";
+            this.tsLangStore.Size = new System.Drawing.Size(167, 22);
+            this.tsLangStore.Text = "Web Store";
+            this.tsLangStore.Click += new System.EventHandler(this.tsLangStore_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -1328,6 +1396,7 @@ namespace Korot
             // 
             // tpSettings
             // 
+            this.tpSettings.Controls.Add(this.btNewTab);
             this.tpSettings.Controls.Add(this.lbGPU);
             this.tpSettings.Controls.Add(this.hsGPU);
             this.tpSettings.Controls.Add(this.lbFlashInfo);
@@ -1360,6 +1429,22 @@ namespace Korot
             this.tpSettings.TabIndex = 2;
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
+            // 
+            // btNewTab
+            // 
+            this.btNewTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btNewTab.ButtonText = "New Tab Content...";
+            this.btNewTab.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btNewTab.FlatAppearance.BorderSize = 0;
+            this.btNewTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btNewTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btNewTab.Location = new System.Drawing.Point(0, 344);
+            this.btNewTab.Name = "btNewTab";
+            this.btNewTab.Size = new System.Drawing.Size(568, 28);
+            this.btNewTab.TabIndex = 39;
+            this.btNewTab.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNewTab.UseVisualStyleBackColor = false;
+            this.btNewTab.Click += new System.EventHandler(this.btNewTab_Click);
             // 
             // lbGPU
             // 
@@ -2924,11 +3009,10 @@ namespace Korot
             // 
             this.tpNewTab.Controls.Add(this.tbUrl);
             this.tpNewTab.Controls.Add(this.tbTitle);
-            this.tpNewTab.Controls.Add(this.tableLayoutPanel1);
-            this.tpNewTab.Controls.Add(this.htButton3);
-            this.tpNewTab.Controls.Add(this.label4);
-            this.tpNewTab.Controls.Add(this.label3);
-            this.tpNewTab.Controls.Add(this.label2);
+            this.tpNewTab.Controls.Add(this.tlpNewTab);
+            this.tpNewTab.Controls.Add(this.btClear);
+            this.tpNewTab.Controls.Add(this.lbNTUrl);
+            this.tpNewTab.Controls.Add(this.lbNTTitle);
             this.tpNewTab.Controls.Add(this.btNewTabBack);
             this.tpNewTab.Controls.Add(this.btClose5);
             this.tpNewTab.Controls.Add(this.lbNewTabTitle);
@@ -2936,7 +3020,7 @@ namespace Korot
             this.tpNewTab.Name = "tpNewTab";
             this.tpNewTab.Size = new System.Drawing.Size(568, 484);
             this.tpNewTab.TabIndex = 10;
-            this.tpNewTab.Text = "Customizations";
+            this.tpNewTab.Text = "New Tab Page Content";
             this.tpNewTab.UseVisualStyleBackColor = true;
             // 
             // tbUrl
@@ -2944,82 +3028,466 @@ namespace Korot
             this.tbUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbUrl.Font = new System.Drawing.Font("Ubuntu", 9F);
-            this.tbUrl.Location = new System.Drawing.Point(58, 126);
+            this.tbUrl.Location = new System.Drawing.Point(54, 86);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(497, 21);
+            this.tbUrl.Size = new System.Drawing.Size(501, 21);
             this.tbUrl.TabIndex = 54;
+            this.tbUrl.TextChanged += new System.EventHandler(this.tbUrl_TextChanged);
             // 
             // tbTitle
             // 
             this.tbTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbTitle.Font = new System.Drawing.Font("Ubuntu", 9F);
-            this.tbTitle.Location = new System.Drawing.Point(62, 93);
+            this.tbTitle.Location = new System.Drawing.Point(58, 53);
             this.tbTitle.Name = "tbTitle";
-            this.tbTitle.Size = new System.Drawing.Size(493, 21);
+            this.tbTitle.Size = new System.Drawing.Size(497, 21);
             this.tbTitle.TabIndex = 53;
+            this.tbTitle.TextChanged += new System.EventHandler(this.tbTitle_TextChanged);
             // 
-            // tableLayoutPanel1
+            // tlpNewTab
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tlpNewTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(19, 182);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(534, 100);
-            this.tableLayoutPanel1.TabIndex = 52;
+            this.tlpNewTab.ColumnCount = 5;
+            this.tlpNewTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpNewTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpNewTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpNewTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpNewTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpNewTab.Controls.Add(this.L9, 4, 1);
+            this.tlpNewTab.Controls.Add(this.L8, 3, 1);
+            this.tlpNewTab.Controls.Add(this.L7, 2, 1);
+            this.tlpNewTab.Controls.Add(this.L6, 1, 1);
+            this.tlpNewTab.Controls.Add(this.L5, 0, 1);
+            this.tlpNewTab.Controls.Add(this.L4, 4, 0);
+            this.tlpNewTab.Controls.Add(this.L3, 3, 0);
+            this.tlpNewTab.Controls.Add(this.L2, 2, 0);
+            this.tlpNewTab.Controls.Add(this.L1, 1, 0);
+            this.tlpNewTab.Controls.Add(this.L0, 0, 0);
+            this.tlpNewTab.Location = new System.Drawing.Point(19, 147);
+            this.tlpNewTab.Name = "tlpNewTab";
+            this.tlpNewTab.RowCount = 2;
+            this.tlpNewTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpNewTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpNewTab.Size = new System.Drawing.Size(536, 133);
+            this.tlpNewTab.TabIndex = 52;
             // 
-            // htButton3
+            // L9
             // 
-            this.htButton3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.L9.Controls.Add(this.L9T);
+            this.L9.Controls.Add(this.L9U);
+            this.L9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L9.Location = new System.Drawing.Point(431, 69);
+            this.L9.Name = "L9";
+            this.L9.Size = new System.Drawing.Size(102, 61);
+            this.L9.TabIndex = 9;
+            this.L9.Tag = "9";
+            this.L9.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L9T
+            // 
+            this.L9T.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L9T.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.L9T.Location = new System.Drawing.Point(0, 20);
+            this.L9T.Name = "L9T";
+            this.L9T.Size = new System.Drawing.Size(102, 22);
+            this.L9T.TabIndex = 0;
+            this.L9T.Tag = "9";
+            this.L9T.Text = "Title";
+            this.L9T.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L9T.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L9U
+            // 
+            this.L9U.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L9U.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.L9U.Location = new System.Drawing.Point(0, 42);
+            this.L9U.Name = "L9U";
+            this.L9U.Size = new System.Drawing.Size(102, 19);
+            this.L9U.TabIndex = 1;
+            this.L9U.Tag = "9";
+            this.L9U.Text = "Title";
+            this.L9U.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L9U.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L8
+            // 
+            this.L8.Controls.Add(this.L8T);
+            this.L8.Controls.Add(this.L8U);
+            this.L8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L8.Location = new System.Drawing.Point(324, 69);
+            this.L8.Name = "L8";
+            this.L8.Size = new System.Drawing.Size(101, 61);
+            this.L8.TabIndex = 8;
+            this.L8.Tag = "8";
+            this.L8.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L8T
+            // 
+            this.L8T.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L8T.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.L8T.Location = new System.Drawing.Point(0, 20);
+            this.L8T.Name = "L8T";
+            this.L8T.Size = new System.Drawing.Size(101, 22);
+            this.L8T.TabIndex = 0;
+            this.L8T.Tag = "8";
+            this.L8T.Text = "Title";
+            this.L8T.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L8T.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L8U
+            // 
+            this.L8U.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L8U.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.L8U.Location = new System.Drawing.Point(0, 42);
+            this.L8U.Name = "L8U";
+            this.L8U.Size = new System.Drawing.Size(101, 19);
+            this.L8U.TabIndex = 1;
+            this.L8U.Tag = "8";
+            this.L8U.Text = "Title";
+            this.L8U.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L8U.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L7
+            // 
+            this.L7.Controls.Add(this.L7T);
+            this.L7.Controls.Add(this.L7U);
+            this.L7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L7.Location = new System.Drawing.Point(217, 69);
+            this.L7.Name = "L7";
+            this.L7.Size = new System.Drawing.Size(101, 61);
+            this.L7.TabIndex = 7;
+            this.L7.Tag = "7";
+            this.L7.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L7T
+            // 
+            this.L7T.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L7T.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.L7T.Location = new System.Drawing.Point(0, 20);
+            this.L7T.Name = "L7T";
+            this.L7T.Size = new System.Drawing.Size(101, 22);
+            this.L7T.TabIndex = 0;
+            this.L7T.Tag = "7";
+            this.L7T.Text = "Title";
+            this.L7T.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L7T.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L7U
+            // 
+            this.L7U.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L7U.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.L7U.Location = new System.Drawing.Point(0, 42);
+            this.L7U.Name = "L7U";
+            this.L7U.Size = new System.Drawing.Size(101, 19);
+            this.L7U.TabIndex = 1;
+            this.L7U.Tag = "7";
+            this.L7U.Text = "Title";
+            this.L7U.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L7U.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L6
+            // 
+            this.L6.Controls.Add(this.L6T);
+            this.L6.Controls.Add(this.L6U);
+            this.L6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L6.Location = new System.Drawing.Point(110, 69);
+            this.L6.Name = "L6";
+            this.L6.Size = new System.Drawing.Size(101, 61);
+            this.L6.TabIndex = 6;
+            this.L6.Tag = "6";
+            this.L6.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L6T
+            // 
+            this.L6T.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L6T.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.L6T.Location = new System.Drawing.Point(0, 20);
+            this.L6T.Name = "L6T";
+            this.L6T.Size = new System.Drawing.Size(101, 22);
+            this.L6T.TabIndex = 0;
+            this.L6T.Tag = "6";
+            this.L6T.Text = "Title";
+            this.L6T.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L6T.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L6U
+            // 
+            this.L6U.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L6U.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.L6U.Location = new System.Drawing.Point(0, 42);
+            this.L6U.Name = "L6U";
+            this.L6U.Size = new System.Drawing.Size(101, 19);
+            this.L6U.TabIndex = 1;
+            this.L6U.Tag = "6";
+            this.L6U.Text = "Title";
+            this.L6U.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L6U.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L5
+            // 
+            this.L5.Controls.Add(this.L5T);
+            this.L5.Controls.Add(this.L5U);
+            this.L5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L5.Location = new System.Drawing.Point(3, 69);
+            this.L5.Name = "L5";
+            this.L5.Size = new System.Drawing.Size(101, 61);
+            this.L5.TabIndex = 5;
+            this.L5.Tag = "5";
+            this.L5.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L5T
+            // 
+            this.L5T.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L5T.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.L5T.Location = new System.Drawing.Point(0, 20);
+            this.L5T.Name = "L5T";
+            this.L5T.Size = new System.Drawing.Size(101, 22);
+            this.L5T.TabIndex = 0;
+            this.L5T.Tag = "5";
+            this.L5T.Text = "Title";
+            this.L5T.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L5T.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L5U
+            // 
+            this.L5U.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L5U.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.L5U.Location = new System.Drawing.Point(0, 42);
+            this.L5U.Name = "L5U";
+            this.L5U.Size = new System.Drawing.Size(101, 19);
+            this.L5U.TabIndex = 1;
+            this.L5U.Tag = "5";
+            this.L5U.Text = "Title";
+            this.L5U.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L5U.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L4
+            // 
+            this.L4.Controls.Add(this.L4T);
+            this.L4.Controls.Add(this.L4U);
+            this.L4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L4.Location = new System.Drawing.Point(431, 3);
+            this.L4.Name = "L4";
+            this.L4.Size = new System.Drawing.Size(102, 60);
+            this.L4.TabIndex = 4;
+            this.L4.Tag = "4";
+            this.L4.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L4T
+            // 
+            this.L4T.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L4T.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.L4T.Location = new System.Drawing.Point(0, 19);
+            this.L4T.Name = "L4T";
+            this.L4T.Size = new System.Drawing.Size(102, 22);
+            this.L4T.TabIndex = 0;
+            this.L4T.Tag = "4";
+            this.L4T.Text = "Title";
+            this.L4T.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L4T.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L4U
+            // 
+            this.L4U.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L4U.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.L4U.Location = new System.Drawing.Point(0, 41);
+            this.L4U.Name = "L4U";
+            this.L4U.Size = new System.Drawing.Size(102, 19);
+            this.L4U.TabIndex = 1;
+            this.L4U.Tag = "4";
+            this.L4U.Text = "Title";
+            this.L4U.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L4U.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L3
+            // 
+            this.L3.Controls.Add(this.L3T);
+            this.L3.Controls.Add(this.L3U);
+            this.L3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L3.Location = new System.Drawing.Point(324, 3);
+            this.L3.Name = "L3";
+            this.L3.Size = new System.Drawing.Size(101, 60);
+            this.L3.TabIndex = 3;
+            this.L3.Tag = "3";
+            this.L3.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L3T
+            // 
+            this.L3T.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L3T.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.L3T.Location = new System.Drawing.Point(0, 19);
+            this.L3T.Name = "L3T";
+            this.L3T.Size = new System.Drawing.Size(101, 22);
+            this.L3T.TabIndex = 0;
+            this.L3T.Tag = "3";
+            this.L3T.Text = "Title";
+            this.L3T.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L3T.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L3U
+            // 
+            this.L3U.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L3U.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.L3U.Location = new System.Drawing.Point(0, 41);
+            this.L3U.Name = "L3U";
+            this.L3U.Size = new System.Drawing.Size(101, 19);
+            this.L3U.TabIndex = 1;
+            this.L3U.Tag = "3";
+            this.L3U.Text = "Title";
+            this.L3U.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L3U.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L2
+            // 
+            this.L2.Controls.Add(this.L2T);
+            this.L2.Controls.Add(this.L2U);
+            this.L2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L2.Location = new System.Drawing.Point(217, 3);
+            this.L2.Name = "L2";
+            this.L2.Size = new System.Drawing.Size(101, 60);
+            this.L2.TabIndex = 2;
+            this.L2.Tag = "2";
+            this.L2.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L2T
+            // 
+            this.L2T.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L2T.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.L2T.Location = new System.Drawing.Point(0, 19);
+            this.L2T.Name = "L2T";
+            this.L2T.Size = new System.Drawing.Size(101, 22);
+            this.L2T.TabIndex = 0;
+            this.L2T.Tag = "2";
+            this.L2T.Text = "Title";
+            this.L2T.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L2T.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L2U
+            // 
+            this.L2U.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L2U.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.L2U.Location = new System.Drawing.Point(0, 41);
+            this.L2U.Name = "L2U";
+            this.L2U.Size = new System.Drawing.Size(101, 19);
+            this.L2U.TabIndex = 1;
+            this.L2U.Tag = "2";
+            this.L2U.Text = "Title";
+            this.L2U.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L2U.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L1
+            // 
+            this.L1.Controls.Add(this.L1T);
+            this.L1.Controls.Add(this.L1U);
+            this.L1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L1.Location = new System.Drawing.Point(110, 3);
+            this.L1.Name = "L1";
+            this.L1.Size = new System.Drawing.Size(101, 60);
+            this.L1.TabIndex = 1;
+            this.L1.Tag = "1";
+            this.L1.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L1T
+            // 
+            this.L1T.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L1T.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.L1T.Location = new System.Drawing.Point(0, 19);
+            this.L1T.Name = "L1T";
+            this.L1T.Size = new System.Drawing.Size(101, 22);
+            this.L1T.TabIndex = 0;
+            this.L1T.Tag = "1";
+            this.L1T.Text = "Title";
+            this.L1T.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L1T.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L1U
+            // 
+            this.L1U.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L1U.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.L1U.Location = new System.Drawing.Point(0, 41);
+            this.L1U.Name = "L1U";
+            this.L1U.Size = new System.Drawing.Size(101, 19);
+            this.L1U.TabIndex = 1;
+            this.L1U.Tag = "1";
+            this.L1U.Text = "Title";
+            this.L1U.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L1U.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L0
+            // 
+            this.L0.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.L0.Controls.Add(this.L0T);
+            this.L0.Controls.Add(this.L0U);
+            this.L0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.L0.Location = new System.Drawing.Point(3, 3);
+            this.L0.Name = "L0";
+            this.L0.Size = new System.Drawing.Size(101, 60);
+            this.L0.TabIndex = 0;
+            this.L0.Tag = "0";
+            this.L0.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L0T
+            // 
+            this.L0T.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L0T.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.L0T.Location = new System.Drawing.Point(0, 17);
+            this.L0T.Name = "L0T";
+            this.L0T.Size = new System.Drawing.Size(99, 22);
+            this.L0T.TabIndex = 0;
+            this.L0T.Tag = "0";
+            this.L0T.Text = "Title";
+            this.L0T.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L0T.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // L0U
+            // 
+            this.L0U.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.L0U.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.L0U.Location = new System.Drawing.Point(0, 39);
+            this.L0U.Name = "L0U";
+            this.L0U.Size = new System.Drawing.Size(99, 19);
+            this.L0U.TabIndex = 1;
+            this.L0U.Tag = "0";
+            this.L0U.Text = "Title";
+            this.L0U.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.L0U.Click += new System.EventHandler(this.siteItem_Click);
+            // 
+            // btClear
+            // 
+            this.btClear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.htButton3.ButtonText = "Clear";
-            this.htButton3.FlatAppearance.BorderSize = 0;
-            this.htButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.htButton3.Location = new System.Drawing.Point(23, 153);
-            this.htButton3.Name = "htButton3";
-            this.htButton3.Size = new System.Drawing.Size(532, 23);
-            this.htButton3.TabIndex = 51;
-            this.htButton3.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.htButton3.UseVisualStyleBackColor = true;
+            this.btClear.ButtonText = "Clear";
+            this.btClear.FlatAppearance.BorderSize = 0;
+            this.btClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btClear.Location = new System.Drawing.Point(19, 118);
+            this.btClear.Name = "btClear";
+            this.btClear.Size = new System.Drawing.Size(536, 23);
+            this.btClear.TabIndex = 51;
+            this.btClear.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
             // 
-            // label4
+            // lbNTUrl
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Ubuntu", 12F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(15, 55);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 21);
-            this.label4.TabIndex = 50;
-            this.label4.Text = "Attached Sites";
+            this.lbNTUrl.AutoSize = true;
+            this.lbNTUrl.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.lbNTUrl.Location = new System.Drawing.Point(15, 86);
+            this.lbNTUrl.Name = "lbNTUrl";
+            this.lbNTUrl.Size = new System.Drawing.Size(33, 19);
+            this.lbNTUrl.TabIndex = 49;
+            this.lbNTUrl.Text = "Url:";
             // 
-            // label3
+            // lbNTTitle
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Ubuntu", 11F);
-            this.label3.Location = new System.Drawing.Point(19, 126);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 19);
-            this.label3.TabIndex = 49;
-            this.label3.Text = "Url:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Ubuntu", 11F);
-            this.label2.Location = new System.Drawing.Point(19, 91);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 19);
-            this.label2.TabIndex = 48;
-            this.label2.Text = "Title:";
+            this.lbNTTitle.AutoSize = true;
+            this.lbNTTitle.Font = new System.Drawing.Font("Ubuntu", 11F);
+            this.lbNTTitle.Location = new System.Drawing.Point(15, 51);
+            this.lbNTTitle.Name = "lbNTTitle";
+            this.lbNTTitle.Size = new System.Drawing.Size(44, 19);
+            this.lbNTTitle.TabIndex = 48;
+            this.lbNTTitle.Text = "Title:";
             // 
             // btNewTabBack
             // 
@@ -3289,33 +3757,6 @@ namespace Korot
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
             // 
-            // tsExtFolder
-            // 
-            this.tsExtFolder.Name = "tsExtFolder";
-            this.tsExtFolder.Size = new System.Drawing.Size(180, 22);
-            this.tsExtFolder.Text = "Extensions Folder";
-            this.tsExtFolder.Click += new System.EventHandler(this.tsExtFolder_Click);
-            // 
-            // tsSepLang
-            // 
-            this.tsSepLang.Name = "tsSepLang";
-            this.tsSepLang.Size = new System.Drawing.Size(177, 6);
-            // 
-            // tsLangFolder
-            // 
-            this.tsLangFolder.Name = "tsLangFolder";
-            this.tsLangFolder.Size = new System.Drawing.Size(180, 22);
-            this.tsLangFolder.Text = "Languages Folder";
-            this.tsLangFolder.Click += new System.EventHandler(this.tsLangFolder_Click);
-            // 
-            // tsLangStore
-            // 
-            this.tsLangStore.Image = global::Korot.Properties.Resources.store;
-            this.tsLangStore.Name = "tsLangStore";
-            this.tsLangStore.Size = new System.Drawing.Size(180, 22);
-            this.tsLangStore.Text = "Web Store";
-            this.tsLangStore.Click += new System.EventHandler(this.tsLangStore_Click);
-            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -3395,6 +3836,17 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.toMin)).EndInit();
             this.tpNewTab.ResumeLayout(false);
             this.tpNewTab.PerformLayout();
+            this.tlpNewTab.ResumeLayout(false);
+            this.L9.ResumeLayout(false);
+            this.L8.ResumeLayout(false);
+            this.L7.ResumeLayout(false);
+            this.L6.ResumeLayout(false);
+            this.L5.ResumeLayout(false);
+            this.L4.ResumeLayout(false);
+            this.L3.ResumeLayout(false);
+            this.L2.ResumeLayout(false);
+            this.L1.ResumeLayout(false);
+            this.L0.ResumeLayout(false);
             this.cmsSearchEngine.ResumeLayout(false);
             this.cmsBStyle.ResumeLayout(false);
             this.cmsIncognito.ResumeLayout(false);
@@ -3657,19 +4109,49 @@ namespace Korot
         private System.Windows.Forms.Panel pHisMan;
         private System.Windows.Forms.Panel pDowMan;
         private System.Windows.Forms.TabPage tpNewTab;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbNTUrl;
+        private System.Windows.Forms.Label lbNTTitle;
         public HTAlt.WinForms.HTButton btNewTabBack;
         public HTAlt.WinForms.HTButton btClose5;
         private System.Windows.Forms.Label lbNewTabTitle;
         private System.Windows.Forms.TextBox tbUrl;
         private System.Windows.Forms.TextBox tbTitle;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private HTAlt.WinForms.HTButton htButton3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TableLayoutPanel tlpNewTab;
+        private HTAlt.WinForms.HTButton btClear;
         private System.Windows.Forms.ToolStripMenuItem tsExtFolder;
         private System.Windows.Forms.ToolStripSeparator tsSepLang;
         private System.Windows.Forms.ToolStripMenuItem tsLangFolder;
         private System.Windows.Forms.ToolStripMenuItem tsLangStore;
+        private System.Windows.Forms.Panel L9;
+        private System.Windows.Forms.Label L9T;
+        private System.Windows.Forms.Label L9U;
+        private System.Windows.Forms.Panel L8;
+        private System.Windows.Forms.Label L8T;
+        private System.Windows.Forms.Label L8U;
+        private System.Windows.Forms.Panel L7;
+        private System.Windows.Forms.Label L7T;
+        private System.Windows.Forms.Label L7U;
+        private System.Windows.Forms.Panel L6;
+        private System.Windows.Forms.Label L6T;
+        private System.Windows.Forms.Label L6U;
+        private System.Windows.Forms.Panel L5;
+        private System.Windows.Forms.Label L5T;
+        private System.Windows.Forms.Label L5U;
+        private System.Windows.Forms.Panel L4;
+        private System.Windows.Forms.Label L4T;
+        private System.Windows.Forms.Label L4U;
+        private System.Windows.Forms.Panel L3;
+        private System.Windows.Forms.Label L3T;
+        private System.Windows.Forms.Label L3U;
+        private System.Windows.Forms.Panel L2;
+        private System.Windows.Forms.Label L2T;
+        private System.Windows.Forms.Label L2U;
+        private System.Windows.Forms.Panel L1;
+        private System.Windows.Forms.Label L1T;
+        private System.Windows.Forms.Label L1U;
+        private System.Windows.Forms.Panel L0;
+        private System.Windows.Forms.Label L0T;
+        private System.Windows.Forms.Label L0U;
+        private HTAlt.WinForms.HTButton btNewTab;
     }
 }

@@ -37,6 +37,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Win32Interop.Enums;
 
 namespace Korot
 {
@@ -76,8 +77,8 @@ namespace Korot
             loaduri = loadurl;
             _Incognito = isIncognito;
             userName = profileName;
-            profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + profileName + "\\";
-            userCache = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + profileName + "\\cache\\";
+            profilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + profileName + "\\";
+            userCache = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + profileName + "\\cache\\";
             InitializeComponent();
             InitializeChromium();
             foreach (Control x in Controls)
@@ -539,7 +540,7 @@ namespace Korot
             Settings.Extensions.UpdateExtensions();
         }
 
-        private readonly string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\IconStorage\\";
+        private readonly string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\IconStorage\\";
 
         private void updateFavoritesImages()
         {
@@ -591,7 +592,7 @@ namespace Korot
                 HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", listBox2.SelectedItem.ToString() + Environment.NewLine + ThemeMessage, new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true }) { StartPosition = FormStartPosition.CenterParent, Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
-                    LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + listBox2.SelectedItem.ToString());
+                    LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + listBox2.SelectedItem.ToString());
                     comboBox1.Text = listBox2.SelectedItem.ToString().Replace(".ktf", "");
                 }
             }
@@ -821,6 +822,7 @@ namespace Korot
         public string importProfileInfo = "Import Profile from...";
         public string exportProfileInfo = "Export Profile to...";
         public string ProfileFileInfo = "Korot Profile Archive";
+        public string NewTabEdit = "Edit";
         private void dummyCMS_Opening(object sender, CancelEventArgs e)
         {
             Process.Start(Application.StartupPath + "//Lang//");
@@ -862,6 +864,16 @@ namespace Korot
             }
             aboutInfo = Settings.LanguageSystem.GetItemText("KorotAbout").Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? noname : Settings.Theme.Name) : "");
             MuteTS.Text = isMuted ? UnmuteThisTab : MuteThisTab;
+            NewTabEdit = Settings.LanguageSystem.GetItemText("NewTabEdit");
+            tsLangStore.Text = Settings.LanguageSystem.GetItemText("WebStore");
+            tsLangFolder.Text = Settings.LanguageSystem.GetItemText("LangFolder");
+            tsExtFolder.Text = Settings.LanguageSystem.GetItemText("ExtFolder");
+            tpNewTab.Text = Settings.LanguageSystem.GetItemText("NewTabEditorTitle");
+            lbNewTabTitle.Text = Settings.LanguageSystem.GetItemText("NewTabEditorTitle");
+            lbNTTitle.Text = Settings.LanguageSystem.GetItemText("NewTabEditTitle");
+            lbNTUrl.Text = Settings.LanguageSystem.GetItemText("NewTabEditUrl");
+            btClear.ButtonText = Settings.LanguageSystem.GetItemText("NewTabEditClear");
+            btNewTab.ButtonText = Settings.LanguageSystem.GetItemText("NewTabEditButton");
             Clear = Settings.LanguageSystem.GetItemText("Clear");
             RemoveSelected = Settings.LanguageSystem.GetItemText("RemoveSelected");
             ımportProfileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImportProfile");
@@ -1517,6 +1529,7 @@ namespace Korot
             RefreshScheduledSiletMode();
             refreshThemeList();
             RefreshFavorites();
+            LoadNewTabSites();
             downloadsToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? (anaform.newDownload ? Properties.Resources.download_i_w : Properties.Resources.download_w) : (anaform.newDownload ? Properties.Resources.download_i : Properties.Resources.download);
             btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w);
             comboBox1.Text = !onThemeName ? (Settings.Theme.LoadedDefaults ? "((default))" : Settings.Theme.Name) : comboBox1.Text;
@@ -1530,7 +1543,7 @@ namespace Korot
             }
             else if (e.Button == MouseButtons.Right)
             {
-                Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes\\" + "\"");
+                Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Themes\\" + "\"");
             }
         }
 
@@ -1560,7 +1573,7 @@ namespace Korot
             int savedValue = listBox2.SelectedIndex;
             int scroll = listBox2.TopIndex;
             listBox2.Items.Clear();
-            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\"))
+            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\"))
             {
                 if (x.EndsWith(".ktf", StringComparison.OrdinalIgnoreCase))
                 {
@@ -1577,11 +1590,11 @@ namespace Korot
 
         private void Button12_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\"); }
-            string themeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf";
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\"); }
+            string themeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf";
             Theme saveTheme = new Theme("")
             {
-                ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf",
+                ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf",
                 BackColor = Settings.Theme.BackColor,
                 OverlayColor = Settings.Theme.OverlayColor,
                 MininmumKorotVersion = new Version(Application.ProductVersion),
@@ -1779,7 +1792,7 @@ namespace Korot
         }
         public void updateThemes()
         {
-            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\", "*.*", SearchOption.AllDirectories))
+            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\", "*.*", SearchOption.AllDirectories))
             {
                 if (x.EndsWith(".ktf", StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -2588,6 +2601,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     tbHomepage.ForeColor = foreColor;
                     tbSearchEngine.ForeColor = foreColor;
                     btCertError.ForeColor = foreColor;
+                    btNewTab.BackColor = backcolor2;
+                    btNewTab.ForeColor = foreColor;
                     hsNotificationSound.BackColor = Settings.Theme.BackColor;
                     hsNotificationSound.ButtonColor = rbc2;
                     hsNotificationSound.ButtonHoverColor = rbc3;
@@ -2704,6 +2719,28 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     downloadsToolStripMenuItem.Image = isbright ? (anaform.newDownload ? Properties.Resources.download_i_w : Properties.Resources.download_w) : (anaform.newDownload ? Properties.Resources.download_i : Properties.Resources.download);
                     btHamburger.ButtonImage = isbright ? ( anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w);
                     tsLanguages.Image = isbright ? Properties.Resources.lang : Properties.Resources.lang_w;
+                    L0.BackColor = backcolor2;
+                    L0.ForeColor = foreColor;
+                    L1.BackColor = backcolor2;
+                    L1.ForeColor = foreColor;
+                    L2.BackColor = backcolor2;
+                    L2.ForeColor = foreColor;
+                    L3.BackColor = backcolor2;
+                    L3.ForeColor = foreColor;
+                    L4.BackColor = backcolor2;
+                    L4.ForeColor = foreColor;
+                    L5.BackColor = backcolor2;
+                    L5.ForeColor = foreColor;
+                    L6.BackColor = backcolor2;
+                    L6.ForeColor = foreColor;
+                    L7.BackColor = backcolor2;
+                    L7.ForeColor = foreColor;
+                    L8.BackColor = backcolor2;
+                    L8.ForeColor = foreColor;
+                    L9.BackColor = backcolor2;
+                    L9.ForeColor = foreColor;
+                    btClear.BackColor = backcolor2;
+                    btClear.ForeColor = foreColor;
                     tbAddress.BackColor = backcolor2;
                     textBox4.BackColor = backcolor2;
                     mFavorites.BackColor = Settings.Theme.BackColor;
@@ -2869,7 +2906,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void RefreshProfiles()
         {
             switchToToolStripMenuItem.DropDownItems.Clear();
-            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
+            foreach (string x in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\"))
             {
                 if (x != profilePath)
                 {
@@ -2906,6 +2943,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             hsFav.Location = new Point(lbShowFavorites.Location.X + lbShowFavorites.Width + 5, hsFav.Location.Y);
             hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width + 5, hsDoNotTrack.Location.Y);
             hsFlash.Location = new Point(lbFlash.Location.X + lbFlash.Width + 5, hsFlash.Location.Y);
+            hsGPU.Location = new Point(lbGPU.Location.X + lbGPU.Width + 5, hsGPU.Location.Y);
             hsOpen.Location = new Point(lbOpen.Location.X + lbOpen.Width + 5, hsOpen.Location.Y);
             hsDownload.Location = new Point(lbAutoDownload.Location.X + lbAutoDownload.Width + 5, hsDownload.Location.Y);
             hsProxy.Location = new Point(lbLastProxy.Location.X + lbLastProxy.Width + 5, hsProxy.Location.Y);
@@ -2915,6 +2953,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             textBox4.Width = tpTheme.Width - (lbBackImage.Width + lbBackImage.Location.X + 25);
             tbStartup.Location = new Point(lbAtStartup.Location.X + lbAtStartup.Width, tbStartup.Location.Y);
             tbStartup.Width = tpSettings.Width - (lbAtStartup.Width + lbAtStartup.Location.X + 15);
+            tbTitle.Location = new Point(lbNTTitle.Location.X + lbNTTitle.Width, tbTitle.Location.Y);
+            tbTitle.Width = tpNewTab.Width - (lbNTTitle.Width + lbNTTitle.Location.X + 15);
+            tbUrl.Location = new Point(lbNTUrl.Location.X + lbNTUrl.Width, tbUrl.Location.Y);
+            tbUrl.Width = tpNewTab.Width - (lbNTUrl.Width + lbNTUrl.Location.X + 15);
             flpLayout.Location = new Point(lbBackImageStyle.Location.X + lbBackImageStyle.Width, flpLayout.Location.Y);
             flpLayout.Width = tpTheme.Width - (lbBackImageStyle.Width + lbBackImageStyle.Location.X + 25);
             pbBack.Location = new Point(lbBackColor.Location.X + lbBackColor.Width, pbBack.Location.Y);
@@ -3231,7 +3273,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         private void contextMenuStrip4_Opening(object sender, CancelEventArgs e)
         {
-            Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions\\\"");
+            Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Extensions\\\"");
             e.Cancel = true;
         }
 
@@ -3729,7 +3771,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void btCleanLog_Click(object sender, EventArgs e)
         {
-            string x = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Logs\\";
+            string x = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Logs\\";
             Program.RemoveDirectory(x);
         }
 
@@ -4236,7 +4278,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             DialogResult dialog = fileDialog.ShowDialog();
             if (dialog == DialogResult.OK)
             {
-                ZipFile.ExtractToDirectory(fileDialog.FileName, Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\", Encoding.UTF8);
+                ZipFile.ExtractToDirectory(fileDialog.FileName, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\", Encoding.UTF8);
             }
         }
 
@@ -4246,7 +4288,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             DialogResult dialog = fileDialog.ShowDialog();
             if (dialog == DialogResult.OK)
             {
-                ZipFile.CreateFromDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\", fileDialog.FileName, CompressionLevel.Optimal, true, Encoding.UTF8);
+                ZipFile.CreateFromDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\", fileDialog.FileName, CompressionLevel.Optimal, true, Encoding.UTF8);
             }
         }
 
@@ -4283,7 +4325,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void tsExtFolder_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + Settings.ProfileName + "\\Extensions\\\"");
+            Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + Settings.ProfileName + "\\Extensions\\\"");
         }
 
         private void tsLangFolder_Click(object sender, EventArgs e)
@@ -4294,6 +4336,353 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void tsLangStore_Click(object sender, EventArgs e)
         {
             NewTab("https://haltroy.com/store/Korot/Languages/index.html");
+        }
+
+        private void btNewTab_Click(object sender, EventArgs e)
+        {
+            EditNewTabItem();
+        }
+
+        void LoadNewTabSites()
+        {
+            NTRefreshNotDone = true;
+            //l0
+            if (Settings.NewTabSites.FavoritedSite0 != null)
+            {
+                L0T.Text = Settings.NewTabSites.FavoritedSite0.Name;
+                L0U.Text = Settings.NewTabSites.FavoritedSite0.Url;
+            }else
+            {
+                L0T.Text = "...";
+                L0U.Text = "...";
+            }
+            //l1
+            if (Settings.NewTabSites.FavoritedSite1 != null)
+            {
+                L1T.Text = Settings.NewTabSites.FavoritedSite1.Name;
+                L1U.Text = Settings.NewTabSites.FavoritedSite1.Url;
+            }
+            else
+            {
+                L1T.Text = "...";
+                L1U.Text = "...";
+            }
+            //l2
+            if (Settings.NewTabSites.FavoritedSite2 != null)
+            {
+                L2T.Text = Settings.NewTabSites.FavoritedSite2.Name;
+                L2U.Text = Settings.NewTabSites.FavoritedSite2.Url;
+            }
+            else
+            {
+                L2T.Text = "...";
+                L2U.Text = "...";
+            }
+            //l3
+            if (Settings.NewTabSites.FavoritedSite3 != null)
+            {
+                L3T.Text = Settings.NewTabSites.FavoritedSite3.Name;
+                L3U.Text = Settings.NewTabSites.FavoritedSite3.Url;
+            }
+            else
+            {
+                L3T.Text = "...";
+                L3U.Text = "...";
+            }
+            //l4
+            if (Settings.NewTabSites.FavoritedSite4 != null)
+            {
+                L4T.Text = Settings.NewTabSites.FavoritedSite4.Name;
+                L4U.Text = Settings.NewTabSites.FavoritedSite4.Url;
+            }
+            else
+            {
+                L4T.Text = "...";
+                L4U.Text = "...";
+            }
+            //l5
+            if (Settings.NewTabSites.FavoritedSite5 != null)
+            {
+                L5T.Text = Settings.NewTabSites.FavoritedSite5.Name;
+                L5U.Text = Settings.NewTabSites.FavoritedSite5.Url;
+            }
+            else
+            {
+                L5T.Text = "...";
+                L5U.Text = "...";
+            }
+            //l6
+            if (Settings.NewTabSites.FavoritedSite6 != null)
+            {
+                L6T.Text = Settings.NewTabSites.FavoritedSite6.Name;
+                L6U.Text = Settings.NewTabSites.FavoritedSite6.Url;
+            }
+            else
+            {
+                L6T.Text = "...";
+                L6U.Text = "...";
+            }
+            //l7
+            if (Settings.NewTabSites.FavoritedSite7 != null)
+            {
+                L7T.Text = Settings.NewTabSites.FavoritedSite7.Name;
+                L7U.Text = Settings.NewTabSites.FavoritedSite7.Url;
+            }
+            else
+            {
+                L7T.Text = "...";
+                L7U.Text = "...";
+            }
+            //l8
+            if (Settings.NewTabSites.FavoritedSite8 != null)
+            {
+                L8T.Text = Settings.NewTabSites.FavoritedSite8.Name;
+                L8U.Text = Settings.NewTabSites.FavoritedSite8.Url;
+            }
+            else
+            {
+                L8T.Text = "...";
+                L8U.Text = "...";
+            }
+            //l9
+            if (Settings.NewTabSites.FavoritedSite9 != null)
+            {
+                L9T.Text = Settings.NewTabSites.FavoritedSite9.Name;
+                L9U.Text = Settings.NewTabSites.FavoritedSite9.Url;
+            }
+            else
+            {
+                L9T.Text = "...";
+                L9U.Text = "...";
+            }
+            L0.BorderStyle = editL == 0 ? BorderStyle.FixedSingle : BorderStyle.None;
+            L1.BorderStyle = editL == 1 ? BorderStyle.FixedSingle : BorderStyle.None;
+            L2.BorderStyle = editL == 2 ? BorderStyle.FixedSingle : BorderStyle.None;
+            L3.BorderStyle = editL == 3 ? BorderStyle.FixedSingle : BorderStyle.None;
+            L4.BorderStyle = editL == 4 ? BorderStyle.FixedSingle : BorderStyle.None;
+            L5.BorderStyle = editL == 5 ? BorderStyle.FixedSingle : BorderStyle.None;
+            L6.BorderStyle = editL == 6 ? BorderStyle.FixedSingle : BorderStyle.None;
+            L7.BorderStyle = editL == 7 ? BorderStyle.FixedSingle : BorderStyle.None;
+            L8.BorderStyle = editL == 8 ? BorderStyle.FixedSingle : BorderStyle.None;
+            L9.BorderStyle = editL == 9 ? BorderStyle.FixedSingle : BorderStyle.None;
+            NTRefreshNotDone = false;
+        }
+        int editL = 0;
+
+        private void tbTitle_TextChanged(object sender, EventArgs e)
+        {
+            if (NTRefreshNotDone) { return; }
+            if (editL == 0)
+            {
+                if (Settings.NewTabSites.FavoritedSite0 == null) { Settings.NewTabSites.FavoritedSite0 = new Site(); }
+                Settings.NewTabSites.FavoritedSite0.Name = tbTitle.Text;
+            }
+            else if (editL == 1)
+            {
+                if (Settings.NewTabSites.FavoritedSite1 == null) { Settings.NewTabSites.FavoritedSite1 = new Site(); }
+                Settings.NewTabSites.FavoritedSite1.Name = tbTitle.Text;
+            }
+            else if (editL == 2)
+            {
+                if (Settings.NewTabSites.FavoritedSite2 == null) { Settings.NewTabSites.FavoritedSite2 = new Site(); }
+                Settings.NewTabSites.FavoritedSite2.Name = tbTitle.Text;
+            }
+            else if (editL == 3)
+            {
+                if (Settings.NewTabSites.FavoritedSite3 == null) { Settings.NewTabSites.FavoritedSite3 = new Site(); }
+                Settings.NewTabSites.FavoritedSite3.Name = tbTitle.Text;
+            }
+            else if (editL == 4)
+            {
+                if (Settings.NewTabSites.FavoritedSite4 == null) { Settings.NewTabSites.FavoritedSite4 = new Site(); }
+                Settings.NewTabSites.FavoritedSite4.Name = tbTitle.Text;
+            }
+            else if (editL == 5)
+            {
+                if (Settings.NewTabSites.FavoritedSite5 == null) { Settings.NewTabSites.FavoritedSite5 = new Site(); }
+                Settings.NewTabSites.FavoritedSite5.Name = tbTitle.Text;
+            }
+            else if (editL == 6)
+            {
+                if (Settings.NewTabSites.FavoritedSite6 == null) { Settings.NewTabSites.FavoritedSite6 = new Site(); }
+                Settings.NewTabSites.FavoritedSite6.Name = tbTitle.Text;
+            }
+            else if (editL == 7)
+            {
+                if (Settings.NewTabSites.FavoritedSite7 == null) { Settings.NewTabSites.FavoritedSite7 = new Site(); }
+                Settings.NewTabSites.FavoritedSite7.Name = tbTitle.Text;
+            }
+            else if (editL == 8)
+            {
+                if (Settings.NewTabSites.FavoritedSite8 == null) { Settings.NewTabSites.FavoritedSite8 = new Site(); }
+                Settings.NewTabSites.FavoritedSite8.Name = tbTitle.Text;
+            }
+            else if (editL == 9)
+            {
+                if (Settings.NewTabSites.FavoritedSite9 == null) { Settings.NewTabSites.FavoritedSite9 = new Site(); }
+                Settings.NewTabSites.FavoritedSite9.Name = tbTitle.Text;
+            }
+            LoadNewTabSites();
+        }
+
+        private void tbUrl_TextChanged(object sender, EventArgs e)
+        {
+            if (NTRefreshNotDone) { return; }
+            if (editL == 0)
+            {
+                if (Settings.NewTabSites.FavoritedSite0 == null) { Settings.NewTabSites.FavoritedSite0 = new Site(); }
+                Settings.NewTabSites.FavoritedSite0.Url = tbUrl.Text;
+            }
+            else if (editL == 1)
+            {
+                if (Settings.NewTabSites.FavoritedSite1 == null) { Settings.NewTabSites.FavoritedSite1 = new Site(); }
+                Settings.NewTabSites.FavoritedSite1.Url = tbUrl.Text;
+            }
+            else if (editL == 2)
+            {
+                if (Settings.NewTabSites.FavoritedSite2 == null) { Settings.NewTabSites.FavoritedSite2 = new Site(); }
+                Settings.NewTabSites.FavoritedSite2.Url = tbUrl.Text;
+            }
+            else if (editL == 3)
+            {
+                if (Settings.NewTabSites.FavoritedSite3 == null) { Settings.NewTabSites.FavoritedSite3 = new Site(); }
+                Settings.NewTabSites.FavoritedSite3.Url = tbUrl.Text;
+            }
+            else if (editL == 4)
+            {
+                if (Settings.NewTabSites.FavoritedSite4 == null) { Settings.NewTabSites.FavoritedSite4 = new Site(); }
+                Settings.NewTabSites.FavoritedSite4.Url = tbUrl.Text;
+            }
+            else if (editL == 5)
+            {
+                if (Settings.NewTabSites.FavoritedSite5 == null) { Settings.NewTabSites.FavoritedSite5 = new Site(); }
+                Settings.NewTabSites.FavoritedSite5.Url = tbUrl.Text;
+            }
+            else if (editL == 6)
+            {
+                if (Settings.NewTabSites.FavoritedSite6 == null) { Settings.NewTabSites.FavoritedSite6 = new Site(); }
+                Settings.NewTabSites.FavoritedSite6.Url = tbUrl.Text;
+            }
+            else if (editL == 7)
+            {
+                if (Settings.NewTabSites.FavoritedSite7 == null) { Settings.NewTabSites.FavoritedSite7 = new Site(); }
+                Settings.NewTabSites.FavoritedSite7.Url = tbUrl.Text;
+            }
+            else if (editL == 8)
+            {
+                if (Settings.NewTabSites.FavoritedSite8 == null) { Settings.NewTabSites.FavoritedSite8 = new Site(); }
+                Settings.NewTabSites.FavoritedSite8.Url = tbUrl.Text;
+            }
+            else if (editL == 9)
+            {
+                if (Settings.NewTabSites.FavoritedSite9 == null) { Settings.NewTabSites.FavoritedSite9 = new Site(); }
+                Settings.NewTabSites.FavoritedSite9.Url = tbUrl.Text;
+            }
+            LoadNewTabSites();
+        }
+        bool NTRefreshNotDone = false;
+        private void siteItem_Click(object sender,EventArgs e)
+        {
+            if (sender == null) { return; }
+            var cntrl = sender as Control;
+            Panel pnl = cntrl is Panel ? cntrl as Panel : cntrl.Parent as Panel;
+            if (pnl == null) { return; }
+            if (pnl.Tag == null) { return; }
+            var itemid = Convert.ToInt32(pnl.Tag);
+            editL = itemid;
+            NTRefreshNotDone = true;
+            LoadNewTabSites();
+            if (itemid == 0)
+            {
+                if (Settings.NewTabSites.FavoritedSite0 == null) { tbTitle.Text = ""; tbUrl.Text = ""; }else { tbTitle.Text = Settings.NewTabSites.FavoritedSite0.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite0.Url; }
+                tbTitle.Enabled = true;
+                tbUrl.Enabled = true;
+                btClear.Enabled = true;
+            }
+            else if (itemid == 1)
+            {
+                if (Settings.NewTabSites.FavoritedSite1 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite1.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite1.Url; }
+                tbTitle.Enabled = true;
+                tbUrl.Enabled = true;
+                btClear.Enabled = true;
+            }
+            else if (itemid == 2)
+            {
+                if (Settings.NewTabSites.FavoritedSite2 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite2.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite2.Url; }
+                tbTitle.Enabled = true;
+                tbUrl.Enabled = true;
+                btClear.Enabled = true;
+            }
+            else if (itemid == 3)
+            {
+                if (Settings.NewTabSites.FavoritedSite3 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite3.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite3.Url; }
+                tbTitle.Enabled = true;
+                tbUrl.Enabled = true;
+                btClear.Enabled = true;
+            }
+            else if (itemid == 4)
+            {
+                if (Settings.NewTabSites.FavoritedSite4 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite4.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite4.Url; }
+                tbTitle.Enabled = true;
+                tbUrl.Enabled = true;
+                btClear.Enabled = true;
+            }
+            else if (itemid == 5)
+            {
+                if (Settings.NewTabSites.FavoritedSite5 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite5.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite5.Url; }
+                tbTitle.Enabled = true;
+                tbUrl.Enabled = true;
+                btClear.Enabled = true;
+            }
+            else if (itemid == 6)
+            {
+                if (Settings.NewTabSites.FavoritedSite6 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite6.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite6.Url; }
+                tbTitle.Enabled = true;
+                tbUrl.Enabled = true;
+                btClear.Enabled = true;
+            }
+            else if (itemid == 7)
+            {
+                if (Settings.NewTabSites.FavoritedSite7 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite7.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite7.Url; }
+                tbTitle.Enabled = true;
+                tbUrl.Enabled = true;
+                btClear.Enabled = true;
+            }
+            else if (itemid == 8)
+            {
+                if (Settings.NewTabSites.FavoritedSite8 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite8.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite8.Url; }
+                tbTitle.Enabled = true;
+                tbUrl.Enabled = true;
+                btClear.Enabled = true;
+            }
+            else if (itemid == 9)
+            {
+                if (Settings.NewTabSites.FavoritedSite9 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite9.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite9.Url; }
+                tbTitle.Enabled = true;
+                tbUrl.Enabled = true;
+                btClear.Enabled = true;
+            }
+            NTRefreshNotDone = false;
+        }
+
+        private void btClear_Click(object sender, EventArgs e)
+        {
+            if (!NTRefreshNotDone)
+            {
+                if (editL == 0) { Settings.NewTabSites.FavoritedSite0 = null; }
+                else if (editL == 1) { Settings.NewTabSites.FavoritedSite1 = null; }
+                else if (editL == 2) { Settings.NewTabSites.FavoritedSite2 = null; }
+                else if (editL == 3) { Settings.NewTabSites.FavoritedSite3 = null; }
+                else if (editL == 4) { Settings.NewTabSites.FavoritedSite4 = null; }
+                else if (editL == 5) { Settings.NewTabSites.FavoritedSite5 = null; }
+                else if (editL == 6) { Settings.NewTabSites.FavoritedSite6 = null; }
+                else if (editL == 7) { Settings.NewTabSites.FavoritedSite7 = null; }
+                else if (editL == 8) { Settings.NewTabSites.FavoritedSite8 = null; }
+                else if (editL == 9) { Settings.NewTabSites.FavoritedSite9 = null; }
+                tbTitle.Text = "";
+                tbUrl.Text = "";
+                LoadNewTabSites();
+            }
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

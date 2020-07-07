@@ -44,7 +44,7 @@ namespace Korot
                 return extList;
             }
         }
-        public string ExtensionDirectory => Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + ProfileName + "\\Extensions";
+        public string ExtensionDirectory => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + ProfileName + "\\Extensions";
 
         public List<Extension> ExtensionList { get; set; }
         public List<string> ExtensionCodeNames { get; set; }

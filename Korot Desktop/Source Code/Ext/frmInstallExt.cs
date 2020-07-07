@@ -270,8 +270,8 @@ namespace Korot
             btClose.Enabled = ev;
         }
 
-        private readonly string korotExtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Extensions";
-        private readonly string korotThemeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\Themes";
+        private readonly string korotExtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Extensions";
+        private readonly string korotThemeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Themes";
         private string extCodeName;
         private async void installKEM()
         {

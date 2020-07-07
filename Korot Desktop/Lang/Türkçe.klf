@@ -1,4 +1,12 @@
-<Language CompabileVersion="0.7.1.0">
+<Language CompabileVersion="0.8.0.0">
+  <Translate ID="LangFolder" Text="Diller Klasörü" />
+  <Translate ID="ExtFolder" Text="Eklentiler Klasörü" />
+  <Translate ID="NewTabEditorTitle" Text="Yeni Sekme Sayfası İçeriği" />
+  <Translate ID="NewTabEditButton" Text="Yeni Sekme İçeriği..." />
+  <Translate ID="NewTabEditTitle" Text="Başlık:" />
+  <Translate ID="NewTabEditUrl" Text="Url:" />
+  <Translate ID="NewTabEditClear" Text="Temizle" />
+  <Translate ID="NewTabEdit" Text="Düzenle" />
   <Translate ID="EnableFlash" Text="Flash'ı etkinleştir:" />
   <Translate ID="DisableGPUAcc" Text="GPU hızlandırmasını devre dışı bırak:" />
   <Translate ID="FlashInfo" Text="Flash ve GPU hızlandırma ayarı değiştirildikten sonra etkisini göstermesi için yeniden başlatın." />

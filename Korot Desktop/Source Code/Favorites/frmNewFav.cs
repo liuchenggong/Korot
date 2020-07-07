@@ -159,7 +159,7 @@ namespace Korot
 
         }
 
-        private readonly string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\IconStorage\\";
+        private readonly string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\IconStorage\\";
 
         private void button2_Click(object sender, EventArgs e)
         {

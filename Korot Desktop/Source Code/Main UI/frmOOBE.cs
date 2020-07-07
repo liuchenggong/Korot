@@ -122,9 +122,9 @@ namespace Korot
 
         private void frmOOBE_Load(object sender, EventArgs e)
         {
-            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\"))
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\"))
             {
-                Program.RemoveDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\");
+                Program.RemoveDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\");
             }
             RefreshLangList();
         }
@@ -168,7 +168,7 @@ namespace Korot
         private void button2_Click(object sender, EventArgs e)
         {
             SafeFileSettingOrganizedClass.LastUser = textBox1.Text;
-            profilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Profiles\\";
+            profilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Profiles\\";
             Directory.CreateDirectory(profilePath);
             Program.createFolders();
             Program.createThemes();
