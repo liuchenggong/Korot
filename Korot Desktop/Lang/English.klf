@@ -1,4 +1,9 @@
 <Language CompabileVersion="0.8.0.0">
+  <Translate ID="ChangePicInfop" Text="Do you want to reset the image or select new one?" />
+  <Translate ID="ResetImage" Text="Reset image" />
+  <Translate ID="SelectNewImage" Text="Select a new image" />
+  <Translate ID="ProfileNameTemp" Text="Hello, [NAME] !" />
+  <Translate ID="ChangePic" Text="Change picture" />
   <Translate ID="LangFolder" Text="Languages Folder" />
   <Translate ID="ExtFolder" Text="Extensions Folder" />
   <Translate ID="NewTabEditorTitle" Text="New Tab Page Content" />
@@ -85,7 +90,7 @@
   <Translate ID="ErrorT2M3" Text="Wait a few minutes and try again." />
   <Translate ID="ErrorT2M4" Text="Disable Antivirus or add this browser to whitelist of Antivirus." />
   <Translate ID="Search" Text="Search" />
-  <Translate ID="SwitchTo" Text="Switch to:" />
+  <Translate ID="SwitchTo" Text="Switch to another profile..." />
   <Translate ID="NewProfile" Text="New Profile" />
   <Translate ID="DeleteThisProfile" Text="Delete this profile" />
   <Translate ID="AddressBar1" Text="Go to &quot;[TEXT]&quot;" />

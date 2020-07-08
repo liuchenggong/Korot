@@ -311,8 +311,11 @@ namespace Korot
             }
 
         }
+        private string writtenSession = "";
         public void WriteSessions(string Session)
         {
+            if (writtenSession == Session) { return; }
+            writtenSession = Session;
             SafeFileSettingOrganizedClass.LastSession = Session;
         }
         public void WriteCurrentSession()

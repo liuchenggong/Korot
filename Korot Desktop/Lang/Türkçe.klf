@@ -1,4 +1,9 @@
 <Language CompabileVersion="0.8.0.0">
+  <Translate ID="ChangePicInfop" Text="Yeni bir resim mi seçmek istersiniz yoksa sıfırlamak mı?" />
+  <Translate ID="ResetImage" Text="Resmi sıfırla" />
+  <Translate ID="SelectNewImage" Text="Yeni resim seç" />
+  <Translate ID="ProfileNameTemp" Text="Selam, [NAME] !" />
+  <Translate ID="ChangePic" Text="Resmi değiştir" />
   <Translate ID="LangFolder" Text="Diller Klasörü" />
   <Translate ID="ExtFolder" Text="Eklentiler Klasörü" />
   <Translate ID="NewTabEditorTitle" Text="Yeni Sekme Sayfası İçeriği" />
@@ -85,7 +90,7 @@
   <Translate ID="ErrorT2M3" Text="Bir süre sonra tekrar deneyin." />
   <Translate ID="ErrorT2M4" Text="Antivürüs programını geçici olarak kapatın veya bu tarayıcıyı güvenilir listesine alın." />
   <Translate ID="Search" Text="Ara" />
-  <Translate ID="SwitchTo" Text="Şuna Geç:" />
+  <Translate ID="SwitchTo" Text="Başka bir profile geç..." />
   <Translate ID="NewProfile" Text="Yeni Profil" />
   <Translate ID="DeleteThisProfile" Text="Bu profili sil" />
   <Translate ID="AddressBar1" Text="&quot;[TEXT]&quot; adresine git" />

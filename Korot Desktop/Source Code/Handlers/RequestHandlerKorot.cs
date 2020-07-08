@@ -97,11 +97,9 @@ namespace Korot
                 + sslInfo.X509Certificate.ToString();
             cefform.Invoke(new Action(() =>
             {
-                cefform.safeStatusToolStripMenuItem.Text = cefform.CertificateErrorTitle;
-                cefform.ınfoToolStripMenuItem.Text = cefform.CertificateError;
-                cefform.showCertificateErrorsToolStripMenuItem.Tag = certError;
+                cefform.certificatedetails = certError;
                 cefform.certError = true;
-                cefform.showCertificateErrorsToolStripMenuItem.Visible = true;
+
                 cefform.pbPrivacy.Image = Properties.Resources.lockr;
             }));
             if (cefform.CertAllowedUrls.Contains(requestUrl))
