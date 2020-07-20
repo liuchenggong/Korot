@@ -874,6 +874,11 @@ namespace Korot
         public string ResetToDefaultProxy = "Reset to default proxy";
         public string ResetZoom = "Reset Zoom";
         public string Collections = "Collections";
+        public string SettingsText = "Settings";
+        public string ThemesText = "Themes";
+        public string AboutText = "About";
+        public string DownloadsText = "Downloads";
+        public string HistoryText = "History";
 
         public void LoadLangFromFile(string fileLocation)
         {
@@ -976,12 +981,17 @@ namespace Korot
             Collections = Settings.LanguageSystem.GetItemText("Collections");
             tpCert.Text = Settings.LanguageSystem.GetItemText("CertificateError");
             tpAbout.Text = Settings.LanguageSystem.GetItemText("About");
+            AboutText = Settings.LanguageSystem.GetItemText("About");
             tpSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
+            SettingsText = Settings.LanguageSystem.GetItemText("Settings");
             tpSite.Text = Settings.LanguageSystem.GetItemText("SiteSettings");
             tpCollection.Text = Settings.LanguageSystem.GetItemText("Collections");
             tpDownload.Text = Settings.LanguageSystem.GetItemText("Downloads");
+            DownloadsText = Settings.LanguageSystem.GetItemText("Downloads");
             tpHistory.Text = Settings.LanguageSystem.GetItemText("History");
+            HistoryText = Settings.LanguageSystem.GetItemText("History");
             tpTheme.Text = Settings.LanguageSystem.GetItemText("Themes");
+            ThemesText = Settings.LanguageSystem.GetItemText("Themes");
             lbautoRestore.Text = Settings.LanguageSystem.GetItemText("RestoreOldSessions");
 
             ubuntuLicense = Settings.LanguageSystem.GetItemText("UbuntuFontLicense");

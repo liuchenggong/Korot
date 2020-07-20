@@ -47,6 +47,12 @@ namespace Korot
                 lbZoom.Invoke(new Action(() => lbZoom.Text = ((zlvl * 100) + 100) + "%"));
             });
         }
+        private bool meCol = false;
+        private bool meHis = false;
+        private bool meDown = false;
+        private bool meTheme = false;
+        private bool meSet = false;
+        private bool meAb = false;
         private int tmr1int = 0;
         private Color _Back;
         private Color _Overlay;
@@ -57,6 +63,7 @@ namespace Korot
                 _Back = cefform.Settings.Theme.BackColor;
                 BackColor = cefform.Settings.Theme.BackColor;
                 ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
+                bool isbright = HTAlt.Tools.IsBright(BackColor);
                 Color back2 = HTAlt.Tools.ShiftBrightness(BackColor,20,false);
                 flpExtensions.BackColor = back2;
                 tsSearch.BackColor = back2;
@@ -64,6 +71,33 @@ namespace Korot
                 btMute.ButtonImage = cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w);
                 btFullScreen.ButtonImage = cefform.anaform.isFullScreen ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.normalscreen : Properties.Resources.normalscreen_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.fullscreen : Properties.Resources.fullscreen_w);
                 btCaseSensitive.ForeColor = cs ? cefform.Settings.Theme.OverlayColor : HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
+                btFindNext.ButtonImage = isbright ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
+                htButton4.ButtonImage = isbright ? Properties.Resources.cancel : Properties.Resources.cancel_w;
+                btNewWindow.ButtonImage = isbright ? Properties.Resources.newwindow : Properties.Resources.newwindow_w;
+                btNewIncWindow.ButtonImage = isbright ? Properties.Resources.inctab : Properties.Resources.inctab_w;
+                btScreenShot.ButtonImage = isbright ? Properties.Resources.screenshot : Properties.Resources.screenshot_w;
+                btSave.ButtonImage = isbright ? Properties.Resources.collection : Properties.Resources.collection_w;
+                btTabColor.ButtonImage = isbright ? Properties.Resources.tab : Properties.Resources.tab_w;
+                btRestore.ButtonImage = isbright ? Properties.Resources.restore : Properties.Resources.restore_w;
+                btExtStore.ButtonImage = isbright ? Properties.Resources.store : Properties.Resources.store_w;
+                btExtFolder.ButtonImage = isbright ? Properties.Resources.extfolder : Properties.Resources.extfolder_w;
+                pbcollections.Image = isbright ? Properties.Resources.collections : Properties.Resources.collections_w;
+                pbABout.Image = isbright ? Properties.Resources.about : Properties.Resources.about_w;
+                pbHistory.Image = isbright ? Properties.Resources.history : Properties.Resources.history_w;
+                pbThemes.Image = isbright ? Properties.Resources.theme : Properties.Resources.theme_w;
+                pbSettings.Image = isbright ? Properties.Resources.Settings : Properties.Resources.Settings_w;
+                pbcollections.BackColor = meCol ? back2 : BackColor;
+                lbCollections.BackColor = meCol ? back2 : BackColor;
+                pbHistory.BackColor = meHis ? back2 : BackColor;
+                lbHistory.BackColor = meHis ? back2 : BackColor;
+                pbDownloads.BackColor = meDown ? back2 : BackColor;
+                lbDownloads.BackColor = meDown ? back2 : BackColor;
+                pbThemes.BackColor = meTheme ? back2 : BackColor;
+                lbThemes.BackColor = meTheme ? back2 : BackColor;
+                lbSettings.BackColor = meSet ? back2 : BackColor;
+                pbSettings.BackColor = meSet ? back2 : BackColor;
+                lbAbout.BackColor = meAb ? back2 : BackColor;
+                pbABout.BackColor = meAb ? back2 : BackColor;
             }
 
             if (_Overlay != cefform.Settings.Theme.OverlayColor)
@@ -71,7 +105,16 @@ namespace Korot
                 _Overlay = cefform.Settings.Theme.OverlayColor;
                 btCaseSensitive.ForeColor = cs ? cefform.Settings.Theme.OverlayColor : HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
             }
-
+            pbDownloads.Image = cefform.anaform.newDownload ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download : Properties.Resources.download_w);
+            tsSearch.Text = isSearchOn ? tsSearch.Text : cefform.SearchOnPage;
+            btResetZoom.ButtonText = cefform.ResetZoom;
+            btDefaultProxy.ButtonText = cefform.ResetToDefaultProxy;
+            lbCollections.Text = cefform.Collections;
+            lbDownloads.Text = cefform.DownloadsText;
+            lbHistory.Text = cefform.HistoryText;
+            lbThemes.Text = cefform.ThemesText;
+            lbSettings.Text = cefform.SettingsText;
+            lbAbout.Text = cefform.AboutText;
             btDefaultProxy.Enabled = cefform.defaultProxy != null;
             if (cefform != null)
             {
@@ -158,15 +201,17 @@ namespace Korot
         {
            if (!tsSearch.Focused) { tsSearch.SelectAll(); }
         }
-
+        bool isSearchOn = false;
         private void tsSearch_TextChanged(object sender, EventArgs e)
         {
             if ((!string.IsNullOrEmpty(tsSearch.Text)) && tsSearch.Text != cefform.SearchOnPage)
             {
+                isSearchOn = true;
                 cefform.chromiumWebBrowser1.Find(0, tsSearch.Text, true, cs, false);
             }
             else
             {
+                isSearchOn = false;
                 cefform.chromiumWebBrowser1.StopFinding(true);
             }
         }
@@ -314,12 +359,107 @@ namespace Korot
                 itemButton.Click += extItem_Click;
                 flpExtensions.Controls.Add(itemButton);
             }
-
         }
 
         private void htButton4_Click(object sender, EventArgs e)
         {
             Hide();
+        }
+
+        private void Collections_MouseEnter(object sender, EventArgs e)
+        {
+            meCol = true;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            pbcollections.BackColor = meCol ? back2 : BackColor;
+            lbCollections.BackColor = meCol ? back2 : BackColor;
+        }
+
+        private void Collections_MouseLeave(object sender, EventArgs e)
+        {
+            meCol = false;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            pbcollections.BackColor = meCol ? back2 : BackColor;
+            lbCollections.BackColor = meCol ? back2 : BackColor;
+        }
+
+        private void Downloads_MouseEnter(object sender, EventArgs e)
+        {
+            meDown = true;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            pbDownloads.BackColor = meDown ? back2 : BackColor;
+            lbDownloads.BackColor = meDown ? back2 : BackColor;
+        }
+
+        private void Downloads_MouseLeave(object sender, EventArgs e)
+        {
+            meDown = false;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            pbDownloads.BackColor = meDown ? back2 : BackColor;
+            lbDownloads.BackColor = meDown ? back2 : BackColor;
+        }
+
+        private void Settings_MouseEnter(object sender, EventArgs e)
+        {
+            meSet  = true;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            lbSettings.BackColor = meSet ? back2 : BackColor;
+            pbSettings.BackColor = meSet ? back2 : BackColor;
+        }
+
+        private void Settings_MouseLeave(object sender, EventArgs e)
+        {
+            meSet = false;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            lbSettings.BackColor = meSet ? back2 : BackColor;
+            pbSettings.BackColor = meSet ? back2 : BackColor;
+        }
+
+        private void History_MouseEnter(object sender, EventArgs e)
+        {
+            meHis = true;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            pbHistory.BackColor = meHis ? back2 : BackColor;
+            lbHistory.BackColor = meHis ? back2 : BackColor;
+        }
+
+        private void History_MouseLeave(object sender, EventArgs e)
+        {
+            meHis = false;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            pbHistory.BackColor = meHis ? back2 : BackColor;
+            lbHistory.BackColor = meHis ? back2 : BackColor;
+        }
+
+        private void About_MouseEnter(object sender, EventArgs e)
+        {
+            meAb = true;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            lbAbout.BackColor = meAb ? back2 : BackColor;
+            pbABout.BackColor = meAb ? back2 : BackColor;
+        }
+
+        private void About_MouseLeave(object sender, EventArgs e)
+        {
+            meAb = false;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            lbAbout.BackColor = meAb ? back2 : BackColor;
+            pbABout.BackColor = meAb ? back2 : BackColor;
+        }
+
+        private void Themes_MouseEnter(object sender, EventArgs e)
+        {
+            meTheme = true;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            pbThemes.BackColor = meTheme ? back2 : BackColor;
+            lbThemes.BackColor = meTheme ? back2 : BackColor;
+        }
+
+        private void Themes_MouseLeave(object sender, EventArgs e)
+        {
+            meTheme = false;
+            Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            pbThemes.BackColor = meTheme ? back2 : BackColor;
+            lbThemes.BackColor = meTheme ? back2 : BackColor;
         }
     }
     internal class FindHandler : IFindHandler

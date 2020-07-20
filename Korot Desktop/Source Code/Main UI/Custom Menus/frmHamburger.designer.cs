@@ -307,6 +307,7 @@
             // 
             this.btZoomMinus.ButtonText = "-";
             this.btZoomMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btZoomMinus.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.btZoomMinus.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btZoomMinus.Location = new System.Drawing.Point(12, 117);
             this.btZoomMinus.Name = "btZoomMinus";
@@ -320,6 +321,7 @@
             this.btZoomPlus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btZoomPlus.ButtonText = "+";
             this.btZoomPlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btZoomPlus.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.btZoomPlus.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btZoomPlus.Location = new System.Drawing.Point(242, 117);
             this.btZoomPlus.Name = "btZoomPlus";
@@ -360,17 +362,21 @@
             this.pbcollections.TabIndex = 14;
             this.pbcollections.TabStop = false;
             this.pbcollections.Click += new System.EventHandler(this.lbCollections_Click);
+            this.pbcollections.MouseEnter += new System.EventHandler(this.Collections_MouseEnter);
+            this.pbcollections.MouseLeave += new System.EventHandler(this.Collections_MouseLeave);
             // 
             // lbCollections
             // 
             this.lbCollections.AutoSize = true;
             this.lbCollections.Font = new System.Drawing.Font("Ubuntu", 11F);
-            this.lbCollections.Location = new System.Drawing.Point(38, 180);
+            this.lbCollections.Location = new System.Drawing.Point(38, 179);
             this.lbCollections.Name = "lbCollections";
             this.lbCollections.Size = new System.Drawing.Size(87, 19);
             this.lbCollections.TabIndex = 15;
             this.lbCollections.Text = "Collections";
             this.lbCollections.Click += new System.EventHandler(this.lbCollections_Click);
+            this.lbCollections.MouseEnter += new System.EventHandler(this.Collections_MouseEnter);
+            this.lbCollections.MouseLeave += new System.EventHandler(this.Collections_MouseLeave);
             // 
             // pbHistory
             // 
@@ -382,28 +388,34 @@
             this.pbHistory.TabIndex = 14;
             this.pbHistory.TabStop = false;
             this.pbHistory.Click += new System.EventHandler(this.lbHistory_Click);
+            this.pbHistory.MouseEnter += new System.EventHandler(this.History_MouseEnter);
+            this.pbHistory.MouseLeave += new System.EventHandler(this.History_MouseLeave);
             // 
             // lbHistory
             // 
             this.lbHistory.AutoSize = true;
             this.lbHistory.Font = new System.Drawing.Font("Ubuntu", 11F);
-            this.lbHistory.Location = new System.Drawing.Point(38, 206);
+            this.lbHistory.Location = new System.Drawing.Point(38, 205);
             this.lbHistory.Name = "lbHistory";
             this.lbHistory.Size = new System.Drawing.Size(58, 19);
             this.lbHistory.TabIndex = 15;
             this.lbHistory.Text = "History";
             this.lbHistory.Click += new System.EventHandler(this.lbHistory_Click);
+            this.lbHistory.MouseEnter += new System.EventHandler(this.History_MouseEnter);
+            this.lbHistory.MouseLeave += new System.EventHandler(this.History_MouseLeave);
             // 
             // lbDownloads
             // 
             this.lbDownloads.AutoSize = true;
             this.lbDownloads.Font = new System.Drawing.Font("Ubuntu", 11F);
-            this.lbDownloads.Location = new System.Drawing.Point(38, 232);
+            this.lbDownloads.Location = new System.Drawing.Point(38, 231);
             this.lbDownloads.Name = "lbDownloads";
             this.lbDownloads.Size = new System.Drawing.Size(88, 19);
             this.lbDownloads.TabIndex = 17;
             this.lbDownloads.Text = "Downloads";
             this.lbDownloads.Click += new System.EventHandler(this.pbDownloads_Click);
+            this.lbDownloads.MouseEnter += new System.EventHandler(this.Downloads_MouseEnter);
+            this.lbDownloads.MouseLeave += new System.EventHandler(this.Downloads_MouseLeave);
             // 
             // pbDownloads
             // 
@@ -415,17 +427,21 @@
             this.pbDownloads.TabIndex = 16;
             this.pbDownloads.TabStop = false;
             this.pbDownloads.Click += new System.EventHandler(this.pbDownloads_Click);
+            this.pbDownloads.MouseEnter += new System.EventHandler(this.Downloads_MouseEnter);
+            this.pbDownloads.MouseLeave += new System.EventHandler(this.Downloads_MouseLeave);
             // 
             // lbThemes
             // 
             this.lbThemes.AutoSize = true;
             this.lbThemes.Font = new System.Drawing.Font("Ubuntu", 11F);
-            this.lbThemes.Location = new System.Drawing.Point(38, 258);
+            this.lbThemes.Location = new System.Drawing.Point(38, 257);
             this.lbThemes.Name = "lbThemes";
             this.lbThemes.Size = new System.Drawing.Size(65, 19);
             this.lbThemes.TabIndex = 19;
             this.lbThemes.Text = "Themes";
             this.lbThemes.Click += new System.EventHandler(this.pbThemes_Click);
+            this.lbThemes.MouseEnter += new System.EventHandler(this.Themes_MouseEnter);
+            this.lbThemes.MouseLeave += new System.EventHandler(this.Themes_MouseLeave);
             // 
             // pbThemes
             // 
@@ -437,17 +453,21 @@
             this.pbThemes.TabIndex = 18;
             this.pbThemes.TabStop = false;
             this.pbThemes.Click += new System.EventHandler(this.pbThemes_Click);
+            this.pbThemes.MouseEnter += new System.EventHandler(this.Themes_MouseEnter);
+            this.pbThemes.MouseLeave += new System.EventHandler(this.Themes_MouseLeave);
             // 
             // lbSettings
             // 
             this.lbSettings.AutoSize = true;
             this.lbSettings.Font = new System.Drawing.Font("Ubuntu", 11F);
-            this.lbSettings.Location = new System.Drawing.Point(38, 284);
+            this.lbSettings.Location = new System.Drawing.Point(38, 283);
             this.lbSettings.Name = "lbSettings";
             this.lbSettings.Size = new System.Drawing.Size(66, 19);
             this.lbSettings.TabIndex = 21;
             this.lbSettings.Text = "Settings";
             this.lbSettings.Click += new System.EventHandler(this.pbSettings_Click);
+            this.lbSettings.MouseEnter += new System.EventHandler(this.Settings_MouseEnter);
+            this.lbSettings.MouseLeave += new System.EventHandler(this.Settings_MouseLeave);
             // 
             // pbSettings
             // 
@@ -459,17 +479,21 @@
             this.pbSettings.TabIndex = 20;
             this.pbSettings.TabStop = false;
             this.pbSettings.Click += new System.EventHandler(this.pbSettings_Click);
+            this.pbSettings.MouseEnter += new System.EventHandler(this.Settings_MouseEnter);
+            this.pbSettings.MouseLeave += new System.EventHandler(this.Settings_MouseLeave);
             // 
             // lbAbout
             // 
             this.lbAbout.AutoSize = true;
             this.lbAbout.Font = new System.Drawing.Font("Ubuntu", 11F);
-            this.lbAbout.Location = new System.Drawing.Point(38, 310);
+            this.lbAbout.Location = new System.Drawing.Point(38, 309);
             this.lbAbout.Name = "lbAbout";
             this.lbAbout.Size = new System.Drawing.Size(51, 19);
             this.lbAbout.TabIndex = 23;
             this.lbAbout.Text = "About";
             this.lbAbout.Click += new System.EventHandler(this.pbABout_Click);
+            this.lbAbout.MouseEnter += new System.EventHandler(this.About_MouseEnter);
+            this.lbAbout.MouseLeave += new System.EventHandler(this.About_MouseLeave);
             // 
             // pbABout
             // 
@@ -481,6 +505,8 @@
             this.pbABout.TabIndex = 22;
             this.pbABout.TabStop = false;
             this.pbABout.Click += new System.EventHandler(this.pbABout_Click);
+            this.pbABout.MouseEnter += new System.EventHandler(this.About_MouseEnter);
+            this.pbABout.MouseLeave += new System.EventHandler(this.About_MouseLeave);
             // 
             // pictureBox10
             // 
