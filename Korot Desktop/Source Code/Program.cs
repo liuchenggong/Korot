@@ -422,10 +422,6 @@ new HTTitleTab(testApp)
                 {
                     Flash = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "disablegpuacc")
-                {
-                    DisableGPUAcc = node.InnerText == "true";
-                }
                 else if (node.Name.ToLower() == "autorestore")
                 {
                     AutoRestore = node.InnerText == "true";
@@ -617,7 +613,6 @@ new HTTitleTab(testApp)
         }
         #region Defaults
         private NewTabSites _NewTabSites = new NewTabSites("");
-        private bool _DisableGPUAcc = false;
         private bool _Flash = false;
         public bool LoadedDefaults = false;
         private bool _Silent = false;
@@ -652,11 +647,6 @@ new HTTitleTab(testApp)
         {
             get => _NewTabSites;
             set => _NewTabSites = value;
-        }
-        public bool DisableGPUAcc
-        {
-            get => _DisableGPUAcc;
-            set => _DisableGPUAcc = value;
         }
         public bool Flash 
         { 
@@ -809,7 +799,6 @@ new HTTitleTab(testApp)
             "<Startup>" + Startup.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Startup>" + Environment.NewLine +
             "<LastProxy>" + LastProxy.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LastProxy>" + Environment.NewLine +
             "<MenuWasMaximized>" + (MenuWasMaximized ? "true" : "false") + "</MenuWasMaximized>" + Environment.NewLine +
-            "<DisableGPUAcc>" + (DisableGPUAcc ? "true" : "false") + "</DisableGPUAcc>" + Environment.NewLine +
             "<Flash>" + (Flash ? "true" : "false") + "</Flash>" + Environment.NewLine +
             "<DoNotTrack>" + (DoNotTrack ? "true" : "false") + "</DoNotTrack>" + Environment.NewLine +
             "<AutoRestore>" + (AutoRestore ? "true" : "false") + "</AutoRestore>" + Environment.NewLine +

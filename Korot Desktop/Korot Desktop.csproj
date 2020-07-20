@@ -192,6 +192,12 @@
     <Compile Include="Source Code\Main UI\Custom Menus\frmDownload.Designer.cs">
       <DependentUpon>frmDownload.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Main UI\Custom Menus\frmHamburger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Main UI\Custom Menus\frmHamburger.designer.cs">
+      <DependentUpon>frmHamburger.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Main UI\Custom Menus\frmHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -296,7 +302,6 @@
     <Compile Include="Source Code\Notification\frmNotificationPermission.Designer.cs">
       <DependentUpon>frmNotificationPermission.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source Code\Handlers\FindHandler.cs" />
     <Compile Include="Source Code\Handlers\KeyboardHandler.cs" />
     <Compile Include="Source Code\Handlers\ResReqHandler.cs" />
     <Compile Include="Source Code\Custom Controls\CustomLinkLabel.cs">
@@ -356,6 +361,9 @@
     <Compile Include="Source Code\System Stuff\WindowsMessageHelper.cs" />
     <EmbeddedResource Include="Source Code\Main UI\Custom Menus\frmDownload.resx">
       <DependentUpon>frmDownload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Main UI\Custom Menus\frmHamburger.resx">
+      <DependentUpon>frmHamburger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\Custom Menus\frmHistory.resx">
       <DependentUpon>frmHistory.cs</DependentUpon>
@@ -547,6 +555,24 @@
     <None Include="Resources\error.png" />
     <None Include="Resources\unknown.png" />
     <None Include="Resources\downloading.png" />
+    <None Include="Resources\collections.png" />
+    <None Include="Resources\collections-w.png" />
+    <None Include="Resources\extfolder.png" />
+    <None Include="Resources\extfolder-w.png" />
+    <None Include="Resources\fullscreen.png" />
+    <None Include="Resources\fullscreen-w.png" />
+    <None Include="Resources\mute.png" />
+    <None Include="Resources\mute-w.png" />
+    <None Include="Resources\normalscreen.png" />
+    <None Include="Resources\normalscreen-w.png" />
+    <None Include="Resources\screenshot.png" />
+    <None Include="Resources\screenshot-w.png" />
+    <None Include="Resources\tab.png" />
+    <None Include="Resources\tab-w.png" />
+    <None Include="Resources\restore.png" />
+    <None Include="Resources\restore-w.png" />
+    <None Include="Resources\unmute.png" />
+    <None Include="Resources\unmute-w.png" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

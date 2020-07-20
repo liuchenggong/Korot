@@ -1,5 +1,5 @@
 <Language CompabileVersion="0.8.0.0">
-  <Translate ID="ChangePicInfop" Text="Do you want to reset the image or select new one?" />
+  <Translate ID="ChangePicInfo" Text="Do you want to reset the image or select new one?" />
   <Translate ID="ResetImage" Text="Reset image" />
   <Translate ID="SelectNewImage" Text="Select a new image" />
   <Translate ID="ProfileNameTemp" Text="Hello, [NAME] !" />
@@ -14,8 +14,7 @@
   <Translate ID="NewTabEdit" Text="Edit" />
   <Translate ID="Incognito" Text="Incognito" />
   <Translate ID="EnableFlash" Text="Enable Flash:" />
-  <Translate ID="DisableGPUAcc" Text="Disable GPU acceleration:" />
-  <Translate ID="FlashInfo" Text="Changes to Flash &amp; GPU Acceleration settings requires a restart to take effect." />
+  <Translate ID="FlashInfo" Text="Changes to Flash setting requires a restart to take effect." />
   <Translate ID="KorotUpdate" Text="Korot - Update" />
   <Translate ID="KorotUpdateAvailable" Text="Update available.Do you want to update?" />
   <Translate ID="KorotUpdateError" Text="Error while checking for the updates." />

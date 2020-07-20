@@ -67,7 +67,7 @@ namespace Korot
                 SchemeName = "korot",
                 SchemeHandlerFactory = new SchemeHandlerFactory(tabform)
                 {
-                    extKEM = null,
+                    ext = null,
                     isExt = false,
                     extForm = null
                 }

@@ -35,7 +35,7 @@ namespace Korot
 
         private readonly frmCEF CefForm;
         public bool isExt = false;
-        public string extKEM;
+        public Extension ext;
         public frmExt extForm;
         public SchemeHandlerFactory(frmCEF _CefForm)
         {
@@ -152,9 +152,9 @@ namespace Korot
                 {
                     if (isExt)
                     {
-                        if (!string.IsNullOrWhiteSpace(extKEM) && extForm != null)
+                        if (!string.IsNullOrWhiteSpace(ext.ManifestFile) && extForm != null)
                         {
-                            CefForm.Invoke(new Action(() => CefForm.applyExtension(extKEM)));
+                            CefForm.Invoke(new Action(() => CefForm.applyExtension(ext)));
                             extForm.Invoke(new Action(() => extForm.Close()));
                             return ResourceHandler.FromString("");
                         }

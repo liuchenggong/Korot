@@ -1,0 +1,337 @@
+﻿using CefSharp;
+using CefSharp.Structs;
+using HTAlt.WinForms;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Korot
+{
+    
+    public partial class frmHamburger : Form
+    {
+        frmCEF cefform;
+        public frmHamburger(frmCEF _frmCEF)
+        {
+            cefform = _frmCEF;
+            InitializeComponent();
+            LoadExt();
+        }
+
+        private void frmHamburger_Leave(object sender, EventArgs e)
+        {
+            Hide();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            Hide();
+        }
+        public async void getZoomLevel()
+        {
+            await Task.Run(() =>
+            {
+                double zlvl = 0;
+                cefform.Invoke(new Action(() => 
+                { 
+                Task<double> zoomLevel = cefform.chromiumWebBrowser1.GetZoomLevelAsync();
+                    zlvl = zoomLevel.Result;
+                }));
+                lbZoom.Invoke(new Action(() => lbZoom.Text = ((zlvl * 100) + 100) + "%"));
+            });
+        }
+        private int tmr1int = 0;
+        private Color _Back;
+        private Color _Overlay;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (_Back != cefform.Settings.Theme.BackColor)
+            {
+                _Back = cefform.Settings.Theme.BackColor;
+                BackColor = cefform.Settings.Theme.BackColor;
+                ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
+                Color back2 = HTAlt.Tools.ShiftBrightness(BackColor,20,false);
+                flpExtensions.BackColor = back2;
+                tsSearch.BackColor = back2;
+                tsSearch.ForeColor = ForeColor;
+                btMute.ButtonImage = cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w);
+                btFullScreen.ButtonImage = cefform.anaform.isFullScreen ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.normalscreen : Properties.Resources.normalscreen_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.fullscreen : Properties.Resources.fullscreen_w);
+                btCaseSensitive.ForeColor = cs ? cefform.Settings.Theme.OverlayColor : HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
+            }
+
+            if (_Overlay != cefform.Settings.Theme.OverlayColor)
+            {
+                _Overlay = cefform.Settings.Theme.OverlayColor;
+                btCaseSensitive.ForeColor = cs ? cefform.Settings.Theme.OverlayColor : HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
+            }
+
+            btDefaultProxy.Enabled = cefform.defaultProxy != null;
+            if (cefform != null)
+            {
+                if (cefform.anaform != null)
+                {
+                    btRestore.Visible = cefform.anaform.OldSessions != "";
+                }
+            }
+            if (tmr1int == 50)
+            {
+                tmr1int = 0;
+                Task.Run(() => getZoomLevel());
+            }else
+            {
+                tmr1int++;
+            }
+            if (findLast)
+            {
+                lbFindStatus.Text = cefform.findC + " " + findCurrent + " " + cefform.findL + " " + cefform.findT + " " + findTotal;
+            }
+            else if (findCurrent == 0 && findTotal == 0)
+            {
+                lbFindStatus.Text = cefform.noSearch;
+            }
+            else
+            {
+                lbFindStatus.Text = cefform.findC + " " + findCurrent + " " + cefform.findL + " " + cefform.findT + " " + findTotal;
+            }
+        }
+
+        private void htButton5_Click(object sender, EventArgs e)
+        {
+            Process.Start(Application.ExecutablePath);
+        }
+
+        private void htButton6_Click(object sender, EventArgs e)
+        {
+            Process.Start(Application.ExecutablePath, "-incognito");
+        }
+#pragma warning disable IDE0052
+        private int findIdentifier;
+#pragma warning restore IDE0052
+        private int findTotal;
+        private int findCurrent;
+        private bool findLast;
+        public void FindUpdate(int identifier, int count, int activeMatchOrdinal, bool finalUpdate)
+        {
+            findIdentifier = identifier;
+            findTotal = count;
+            findCurrent = activeMatchOrdinal;
+            findLast = finalUpdate;
+        }
+        private void btFindNext_Click(object sender, EventArgs e)
+        {
+            if (tsSearch.Text != cefform.SearchOnPage && !string.IsNullOrWhiteSpace(tsSearch.Text))
+            {
+                cefform.chromiumWebBrowser1.Find(0, tsSearch.Text, true, cs, true);
+            }
+        }
+        public void zoomIn()
+        {
+            Task<double> zoomLevel = cefform.chromiumWebBrowser1.GetZoomLevelAsync();
+            if (zoomLevel.Result <= 8)
+            {
+                cefform.chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result + 0.25);
+            }
+        }
+        public void zoomOut()
+        {
+            Task<double> zoomLevel = cefform.chromiumWebBrowser1.GetZoomLevelAsync();
+            if (zoomLevel.Result >= -0.75)
+            {
+                cefform.chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result - 0.25);
+            }
+        }
+        bool cs = false;
+        private void btCaseSensitive_Click(object sender, EventArgs e)
+        {
+            cs = !cs;
+            btCaseSensitive.ForeColor = cs ? cefform.Settings.Theme.OverlayColor : HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
+        }
+
+        private void tsSearch_Click(object sender, EventArgs e)
+        {
+           if (!tsSearch.Focused) { tsSearch.SelectAll(); }
+        }
+
+        private void tsSearch_TextChanged(object sender, EventArgs e)
+        {
+            if ((!string.IsNullOrEmpty(tsSearch.Text)) && tsSearch.Text != cefform.SearchOnPage)
+            {
+                cefform.chromiumWebBrowser1.Find(0, tsSearch.Text, true, cs, false);
+            }
+            else
+            {
+                cefform.chromiumWebBrowser1.StopFinding(true);
+            }
+        }
+
+        private void btDefaultProxy_Click(object sender, EventArgs e)
+        {
+            cefform.Invoke(new Action(() => cefform.SetProxy(cefform.chromiumWebBrowser1, cefform.defaultProxy)));
+            btDefaultProxy.Enabled = false;
+        }
+
+        private void btScreenShot_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog()
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                FileName = "Korot Screenshot.png",
+                Filter = cefform.imageFiles + "|*.png|" + cefform.allFiles + "|*.*"
+            };
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                HTAlt.Tools.WriteFile(save.FileName, TakeScrenshot.ImageToByte2(TakeScrenshot.Snapshot(cefform.chromiumWebBrowser1)));
+            }
+        }
+
+        private void btSave_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog()
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                FileName = Text + ".html",
+                Filter = cefform.htmlFiles + "|*.html;*.htm|" + cefform.allFiles + "|*.*"
+            };
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                Task<string> htmlText = cefform.chromiumWebBrowser1.GetSourceAsync();
+                HTAlt.Tools.WriteFile(save.FileName, htmlText.Result, Encoding.UTF8);
+            }
+        }
+
+        private void btFullScreen_Click(object sender, EventArgs e)
+        {
+            cefform.Invoke(new Action(() => cefform.Fullscreenmode(!cefform.anaform.isFullScreen)));
+            btFullScreen.ButtonImage = cefform.anaform.isFullScreen ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.normalscreen : Properties.Resources.normalscreen_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.fullscreen : Properties.Resources.fullscreen_w);
+        }
+
+        private void btTabColor_Click(object sender, EventArgs e)
+        {
+            frmChangeTBTBack dialog = new frmChangeTBTBack(cefform);
+            switch (dialog.ShowDialog())
+            {
+                case DialogResult.OK:
+                    cefform.ParentTab.BackColor = dialog.Color;
+                    cefform.ParentTab.UseDefaultBackColor = false;
+                    break;
+                case DialogResult.Abort:
+                    cefform.ParentTab.BackColor = BackColor;
+                    cefform.ParentTab.UseDefaultBackColor = true;
+                    break;
+            }
+        }
+
+        private void btRestore_Click(object sender, EventArgs e)
+        {
+            cefform.anaform.Invoke(new Action(() => cefform.anaform.ReadSession(cefform.anaform.OldSessions)));
+            btRestore.Visible = false;
+        }
+        private void btMute_Click(object sender, EventArgs e)
+        {
+            cefform.isMuted = !cefform.isMuted;
+            btMute.ButtonImage = cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : ( HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w);
+            cefform.chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(cefform.isMuted);
+        }
+
+        private void btResetZoom_Click(object sender, EventArgs e)
+        {
+            cefform.chromiumWebBrowser1.SetZoomLevel(0.0);
+        }
+
+        private void btExtFolder_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + cefform.Settings.ProfileName + "\\Extensions\\\"");
+        }
+
+        private void btExtStore_Click(object sender, EventArgs e)
+        {
+            cefform.Invoke(new Action(() => cefform.NewTab("https://haltroy.com/store/Korot/Extensions/index.html")));
+        }
+
+        private void lbCollections_Click(object sender, EventArgs e)
+        {
+            cefform.Invoke(new Action(() => cefform.SwitchToCollections()));
+            Hide();
+        }
+
+        private void lbHistory_Click(object sender, EventArgs e)
+        {
+            cefform.Invoke(new Action(() => cefform.SwitchToHistory()));
+            Hide();
+        }
+
+        private void pbDownloads_Click(object sender, EventArgs e)
+        {
+            cefform.Invoke(new Action(() => cefform.SwitchToDownloads()));
+            Hide();
+        }
+
+        private void pbThemes_Click(object sender, EventArgs e)
+        {
+            cefform.Invoke(new Action(() => cefform.SwitchToThemes()));
+            Hide();
+        }
+
+        private void pbSettings_Click(object sender, EventArgs e)
+        {
+            cefform.Invoke(new Action(() => cefform.SwitchToSettings()));
+            Hide();
+        }
+
+        private void pbABout_Click(object sender, EventArgs e)
+        {
+            cefform.Invoke(new Action(() => cefform.SwitchToAbout()));
+            Hide();
+        }
+        private void extItem_Click(object sender,EventArgs e)
+        {
+            if(sender == null) { return; }
+            var cntrl = sender as Control;
+            if (cntrl.Tag == null) { return; }
+            if(!(cntrl.Tag is Extension)) { return; }
+            var ext = cntrl.Tag as Extension;
+            cefform.applyExtension(ext);
+        }
+        public void LoadExt()
+        {
+            flpExtensions.Controls.Clear();
+            foreach (Extension x in cefform.Settings.Extensions.ExtensionList)
+            {
+                HTButton itemButton = new HTButton()
+                {
+                    ImageSizeMode = HTButton.ButtonImageSizeMode.Zoom,
+                    Image = HTAlt.Tools.ReadFile(x.Icon, "ignore"),
+                    Size = new System.Drawing.Size(32,32),
+                    Tag = x,
+                };
+                itemButton.Click += extItem_Click;
+                flpExtensions.Controls.Add(itemButton);
+            }
+
+        }
+
+        private void htButton4_Click(object sender, EventArgs e)
+        {
+            Hide();
+        }
+    }
+    internal class FindHandler : IFindHandler
+    {
+        private readonly frmHamburger frmHam;
+        public FindHandler(frmHamburger _frmHam)
+        {
+            frmHam = _frmHam;
+        }
+        public void OnFindResult(IWebBrowser chromiumWebBrowser, IBrowser browser, int identifier, int count, Rect selectionRect, int activeMatchOrdinal, bool finalUpdate)
+        {
+            frmHam.Invoke(new Action(() => frmHam.FindUpdate(identifier, count, activeMatchOrdinal, finalUpdate)));
+        }
+    }
+}

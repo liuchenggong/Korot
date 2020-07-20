@@ -29,40 +29,19 @@ namespace Korot
 {
     public partial class frmExt : Form
     {
-        private readonly string ExtensionPopupPath;
+        private readonly Extension ext;
         private readonly frmCEF tabform;
         private readonly string userCache;
-
-        //frmMain anaform;
-        private readonly bool allowWebContent;
-        private readonly string ExtManifestFile;
         private ChromiumWebBrowser chromiumWebBrowser1;
-        public frmExt(frmCEF CefForm, string profileName, string manifestFile, string popupHTML, bool _allowWebContent)
+        public frmExt(frmCEF CefForm, string profileName, Extension _ext)
         {
             InitializeComponent();
             tabform = CefForm;
-            ExtManifestFile = manifestFile;
-            //anaform = rmmain;
+            ext = _ext;
             userCache = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Users\\" + profileName + "\\cache\\";
             Text = "Korot";
-            allowWebContent = _allowWebContent;
-            ExtensionPopupPath = popupHTML;
             InitializeChromium();
         }
-        private static bool IsLocalPath(string p)
-        {
-            if (p.ToLower().StartsWith("http:\\") | p.ToLower().StartsWith("https:\\") | p.ToLower().StartsWith("ftp:\\"))
-            {
-                return false;
-            }
-            else if (p.ToLower().StartsWith("file:\\"))
-            {
-                return true;
-            }
-
-            return new Uri(p).IsFile;
-        }
-
         private void FrmExt_Load(object sender, EventArgs e) { }
         public void InitializeChromium()
         {
@@ -86,7 +65,7 @@ namespace Korot
                 SchemeName = "korot",
                 SchemeHandlerFactory = new SchemeHandlerFactory(tabform)
                 {
-                    extKEM = ExtManifestFile,
+                    ext = ext,
                     isExt = true,
                     extForm = this
                 }
@@ -94,7 +73,7 @@ namespace Korot
             });
             // Initialize cef with the provided settings
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
-            chromiumWebBrowser1 = new ChromiumWebBrowser(ExtensionPopupPath);
+            chromiumWebBrowser1 = new ChromiumWebBrowser(ext.Popup);
             Controls.Add(chromiumWebBrowser1);
             chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(tabform);
             chromiumWebBrowser1.DisplayHandler = new DisplayHandler(tabform);
@@ -108,13 +87,10 @@ namespace Korot
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
         }
-        private void cef_TitleChanged(object sender, TitleChangedEventArgs e)
-        {
-            Invoke(new Action(() => Text = e.Title));
-        }
+        private void cef_TitleChanged(object sender, TitleChangedEventArgs e) => Invoke(new Action(() => Text = e.Title));
         private void cef_onLoadError(object sender, LoadErrorEventArgs e)
         {
-            if (e == null) //User Asked
+            if (e == null)
             {
                 chromiumWebBrowser1.Load("http://korot://error?e=TEST");
             }
@@ -131,10 +107,6 @@ namespace Korot
             }
         }
 
-        private void frmExt_Leave(object sender, EventArgs e)
-        {
-
-            Close();
-        }
+        private void frmExt_Leave(object sender, EventArgs e) => Close();
     }
 }

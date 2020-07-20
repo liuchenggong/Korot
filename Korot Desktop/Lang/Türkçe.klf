@@ -1,5 +1,5 @@
 <Language CompabileVersion="0.8.0.0">
-  <Translate ID="ChangePicInfop" Text="Yeni bir resim mi seçmek istersiniz yoksa sıfırlamak mı?" />
+  <Translate ID="ChangePicInfo" Text="Yeni bir resim mi seçmek istersiniz yoksa sıfırlamak mı?" />
   <Translate ID="ResetImage" Text="Resmi sıfırla" />
   <Translate ID="SelectNewImage" Text="Yeni resim seç" />
   <Translate ID="ProfileNameTemp" Text="Selam, [NAME] !" />
@@ -13,8 +13,7 @@
   <Translate ID="NewTabEditClear" Text="Temizle" />
   <Translate ID="NewTabEdit" Text="Düzenle" />
   <Translate ID="EnableFlash" Text="Flash'ı etkinleştir:" />
-  <Translate ID="DisableGPUAcc" Text="GPU hızlandırmasını devre dışı bırak:" />
-  <Translate ID="FlashInfo" Text="Flash ve GPU hızlandırma ayarı değiştirildikten sonra etkisini göstermesi için yeniden başlatın." />
+  <Translate ID="FlashInfo" Text="Flash ayarı değiştirildikten sonra etkisini göstermesi için yeniden başlatın." />
   <Translate ID="Incognito" Text="Gizli Mod" />
   <Translate ID="KorotUpdate" Text="Korot - Güncelleme" />
   <Translate ID="KorotUpdateAvailable" Text="Güncelleme bulundu.Güncellemek ister misiniz?" />

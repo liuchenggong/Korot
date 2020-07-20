@@ -44,6 +44,7 @@ namespace Korot
 {
     public partial class frmCEF : Form
     {
+        public frmHamburger hammenu;
         public frmProfile profmenu;
         public frmIncognito incognitomenu;
         public frmPrivacy privmenu;
@@ -62,13 +63,8 @@ namespace Korot
         public string userName;
         public string profilePath;
         private readonly string userCache;
-#pragma warning disable IDE0052 //(we don't need this for now)
-        private int findIdentifier;
-#pragma warning restore IDE0052
-        private int findTotal;
-        private int findCurrent;
-        private bool findLast;
-        private string defaultProxy = null;
+
+        public string defaultProxy = null;
         public ChromiumWebBrowser chromiumWebBrowser1;
         private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
         private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
@@ -95,12 +91,26 @@ namespace Korot
             profilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + profileName + "\\";
             userCache = profilePath + "cache\\";
             InitializeComponent();
+            LoadMenus();
             InitializeChromium();
             RefreshProfilePic();
             foreach (Control x in Controls)
             {
                 try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
+            Updater();
+        }
+        public void LoadMenus()
+        {
+            hammenu = new frmHamburger(this)
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Anchor = (AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom),
+                Dock = DockStyle.Right,
+                Visible = true,
+                Height = Height,
+            };
             profmenu = new frmProfile(this)
             {
                 TopLevel = false,
@@ -142,13 +152,13 @@ namespace Korot
                 Dock = DockStyle.Fill,
                 Visible = true
             };
+            Controls.Add(hammenu);
             Controls.Add(profmenu);
             Controls.Add(incognitomenu);
             Controls.Add(privmenu);
             pDowMan.Controls.Add(dowman);
             pHisMan.Controls.Add(hisman);
             pSite.Controls.Add(siteman);
-            Updater();
         }
         public void LoadDynamicMenu()
         {
@@ -263,6 +273,7 @@ namespace Korot
                 }
             }
         }
+
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings
@@ -285,20 +296,20 @@ namespace Korot
                 SchemeName = "korot",
                 SchemeHandlerFactory = new SchemeHandlerFactory(this)
                 {
-                    extKEM = "",
+                    ext = null,
                     isExt = false,
                     extForm = null
                 }
             });
             // Initialize cef with the provided settings
-            if (Settings.DisableGPUAcc) { settings.DisableGpuAcceleration(); }
+            settings.DisableGpuAcceleration(); 
             if (Settings.Flash) { settings.CefCommandLineArgs.Add("enable-system-flash"); }
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
             chromiumWebBrowser1 = new ChromiumWebBrowser(string.IsNullOrWhiteSpace(loaduri) ? "korot://newtab" : loaduri);
             pCEF.Controls.Add(chromiumWebBrowser1);
             chromiumWebBrowser1.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
             chromiumWebBrowser1.ConsoleMessage += cef_consoleMessage;
-            chromiumWebBrowser1.FindHandler = new FindHandler(this);
+            chromiumWebBrowser1.FindHandler = new FindHandler(hammenu);
             chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this);
             chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(this);
             chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this);
@@ -509,7 +520,7 @@ namespace Korot
                 defaultProxy = aUri.AbsoluteUri;
             }
 
-            if (defaultProxy == null) { DefaultProxyts.Visible = false; DefaultProxyts.Enabled = false; }
+
             else
             {
                 if (Settings.RememberLastProxy && !string.IsNullOrWhiteSpace(Settings.LastProxy)) { SetProxy(chromiumWebBrowser1, Settings.LastProxy); }
@@ -544,7 +555,6 @@ namespace Korot
             ChangeTheme();
             lbVersion.Text = Application.ProductVersion.ToString() + (VersionInfo.IsPreRelease ? "-pre" + VersionInfo.PreReleaseNumber : "") + " " + "[" + VersionInfo.CodeName + "]" + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
             RefreshFavorites();
-            LoadExt();
             chromiumWebBrowser1.Select();
             EasterEggs();
             RefreshTranslation();
@@ -612,13 +622,7 @@ namespace Korot
                 }
             }
         }
-        public void FindUpdate(int identifier, int count, int activeMatchOrdinal, bool finalUpdate)
-        {
-            findIdentifier = identifier;
-            findTotal = count;
-            findCurrent = activeMatchOrdinal;
-            findLast = finalUpdate;
-        }
+
         private void ListBox2_DoubleClick(object sender, EventArgs e)
         {
             if (listBox2.SelectedItem != null)
@@ -753,7 +757,7 @@ namespace Korot
         public string goTotxt = "Go to \"[TEXT]\"";
         public string SearchOnWeb = "Search \"[TEXT]\"";
         public string defaultproxytext = "Default Proxy";
-        public string SearchOnPage = "Search: ";
+        public string SearchOnPage = "Search on this page";
         //public string CaseSensitive = "Case Sensitive";
         public string privatemode = "Incognito";
         public string updateTitle = "Korot - Update";
@@ -867,6 +871,9 @@ namespace Korot
         public string ChangePicInfo = "Do you want to reset the image or select new one?";
         public string ResetImage = "Reset image";
         public string SelectNewImage = "Select a new image";
+        public string ResetToDefaultProxy = "Reset to default proxy";
+        public string ResetZoom = "Reset Zoom";
+        public string Collections = "Collections";
 
         public void LoadLangFromFile(string fileLocation)
         {
@@ -880,11 +887,7 @@ namespace Korot
             UnmuteThisTab = Settings.LanguageSystem.GetItemText("UnmuteThisTab");
             allowCookie = Settings.LanguageSystem.GetItemText("AllowCookie");
             aboutInfo = Settings.LanguageSystem.GetItemText("KorotAbout").Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? noname : Settings.Theme.Name) : "");
-            MuteTS.Text = isMuted ? UnmuteThisTab : MuteThisTab;
             NewTabEdit = Settings.LanguageSystem.GetItemText("NewTabEdit");
-            tsLangStore.Text = Settings.LanguageSystem.GetItemText("WebStore");
-            tsLangFolder.Text = Settings.LanguageSystem.GetItemText("LangFolder");
-            tsExtFolder.Text = Settings.LanguageSystem.GetItemText("ExtFolder");
             tpNewTab.Text = Settings.LanguageSystem.GetItemText("NewTabEditorTitle");
             lbNewTabTitle.Text = Settings.LanguageSystem.GetItemText("NewTabEditorTitle");
             lbNTTitle.Text = Settings.LanguageSystem.GetItemText("NewTabEditTitle");
@@ -929,7 +932,6 @@ namespace Korot
             importColItem = Settings.LanguageSystem.GetItemText("ImportItemInfo");
             importColItemInfo = Settings.LanguageSystem.GetItemText("ImportItem");
             SetToDefault = Settings.LanguageSystem.GetItemText("SetToDefault");
-            tsChangeTitleBack.Text = Settings.LanguageSystem.GetItemText("ChangeTitleColor");
             titleBackInfo = Settings.LanguageSystem.GetItemText("ChangeTitleColorInfo");
             addToCollection = Settings.LanguageSystem.GetItemText("AddToCollection");
             newColInfo = Settings.LanguageSystem.GetItemText("NewCollectionInfo");
@@ -971,7 +973,7 @@ namespace Korot
             text = Settings.LanguageSystem.GetItemText("CollectionItemText");
             link = Settings.LanguageSystem.GetItemText("CollectionItemLink");
             lbCollections.Text = Settings.LanguageSystem.GetItemText("Collections");
-            tsCollections.Text = Settings.LanguageSystem.GetItemText("Collections");
+            Collections = Settings.LanguageSystem.GetItemText("Collections");
             tpCert.Text = Settings.LanguageSystem.GetItemText("CertificateError");
             tpAbout.Text = Settings.LanguageSystem.GetItemText("About");
             tpSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
@@ -983,7 +985,6 @@ namespace Korot
             lbautoRestore.Text = Settings.LanguageSystem.GetItemText("RestoreOldSessions");
 
             ubuntuLicense = Settings.LanguageSystem.GetItemText("UbuntuFontLicense");
-            tsFullscreen.Text = Settings.LanguageSystem.GetItemText("FullScreen");
             updateTitleTheme = Settings.LanguageSystem.GetItemText("KorotThemeUpdater");
             updateTitleExt = Settings.LanguageSystem.GetItemText("KorotExtensionUpdater");
             updateExtInfo = Settings.LanguageSystem.GetItemText("ExtensionUpdatingInfo");
@@ -1006,8 +1007,6 @@ namespace Korot
             openLinkInNewIncWindow = Settings.LanguageSystem.GetItemText("OpenLinkinaNewIncognitoWindow");
             copyImageAddress = Settings.LanguageSystem.GetItemText("CopyImageAddress");
             saveLinkAs = Settings.LanguageSystem.GetItemText("SaveLinkAs");
-            tsWebStore.Text = Settings.LanguageSystem.GetItemText("WebStore");
-            tsEmptyExt.Text = Settings.LanguageSystem.GetItemText("Empty");
             empty = Settings.LanguageSystem.GetItemText("Empty");
             btCleanLog.ButtonText = Settings.LanguageSystem.GetItemText("CleanLogData");
             lbShowFavorites.Text = Settings.LanguageSystem.GetItemText("ShowFavoritesMenu");
@@ -1052,19 +1051,13 @@ namespace Korot
             findT = Settings.LanguageSystem.GetItemText("Total");
             findL = Settings.LanguageSystem.GetItemText("Last");
             noSearch = Settings.LanguageSystem.GetItemText("NotSearchingNoResults");
-            tsSearchNext.Text = Settings.LanguageSystem.GetItemText("FindNext");
             anon = Settings.LanguageSystem.GetItemText("ThemeUnknownPerson");
             noname = Settings.LanguageSystem.GetItemText("ThemeNameUnknown");
             themeInfo = Settings.LanguageSystem.GetItemText("AboutInfoTheme");
-            extensionToolStripMenuItem1.Text = Settings.LanguageSystem.GetItemText("Extensions");
             renderProcessDies = Settings.LanguageSystem.GetItemText("RenderProcessTerminated");
             enterAValidCode = Settings.LanguageSystem.GetItemText("EnterValidBase64");
-            zoomInToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ZoomIn");
-            resetZoomToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ResetZoom");
-            zoomOutToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ZoomOut");
+            ResetZoom = Settings.LanguageSystem.GetItemText("ResetZoom");
             htmlFiles = Settings.LanguageSystem.GetItemText("HTMLFile");
-            takeAScreenshotToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("TakeScreenShot");
-            saveThisPageToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("SavePage");
             print = Settings.LanguageSystem.GetItemText("Print");
 
             IncognitoTitle1 = Settings.LanguageSystem.GetItemText("IncognitoInfoTitle");
@@ -1076,7 +1069,6 @@ namespace Korot
             IncognitoT2M2 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M2");
             IncognitoT2M3 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M3");
             disallowCookie = Settings.LanguageSystem.GetItemText("DisallowCookie");
-            lbGPU.Text = Settings.LanguageSystem.GetItemText("DisableGPUAcc");
             lbBackImageStyle.Text = Settings.LanguageSystem.GetItemText("BackgroundImageLayout");
             imageFiles = Settings.LanguageSystem.GetItemText("ImageFiles");
             allFiles = Settings.LanguageSystem.GetItemText("AllFiles");
@@ -1138,16 +1130,11 @@ namespace Korot
             newWindow = Settings.LanguageSystem.GetItemText("NewWindow");
             newincognitoWindow = Settings.LanguageSystem.GetItemText("NewIncognitoWindow");
             lbDownloads.Text = Settings.LanguageSystem.GetItemText("Downloads");
-            downloadsToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("Downloads");
-            aboutToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("About");
             lbHomepage.Text = Settings.LanguageSystem.GetItemText("HomePage");
             SearchOnPage = Settings.LanguageSystem.GetItemText("SearchOnThisPage");
             lbTheme.Text = Settings.LanguageSystem.GetItemText("Themes");
-            tsThemes.Text = Settings.LanguageSystem.GetItemText("Themes");
-            caseSensitiveToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("CaseSensitive");
             customToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("Custom");
             settingstitle = Settings.LanguageSystem.GetItemText("Settings");
-            historyToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("History");
             lbHistory.Text = Settings.LanguageSystem.GetItemText("History");
             lbAbout.Text = Settings.LanguageSystem.GetItemText("About");
             IncognitoT = Settings.LanguageSystem.GetItemText("Incognito");
@@ -1201,7 +1188,7 @@ namespace Korot
             OpenInNewTab = Settings.LanguageSystem.GetItemText("OpenInNewTab");
             OpenFile = Settings.LanguageSystem.GetItemText("OpenFile");
             OpenFileInExplorert = Settings.LanguageSystem.GetItemText("OpenFolderContainingThisFile");
-            DefaultProxyts.Text = Settings.LanguageSystem.GetItemText("ResetToFefaultProxySetting");
+            ResetToDefaultProxy = Settings.LanguageSystem.GetItemText("ResetToFefaultProxySetting");
             lbThemeName.Text = Settings.LanguageSystem.GetItemText("ThemeName");
             Yes = Settings.LanguageSystem.GetItemText("Yes");
             No = Settings.LanguageSystem.GetItemText("No");
@@ -1235,32 +1222,16 @@ namespace Korot
             RefreshTranslation();
             RefreshSizes();
         }
-        private void langItem_Click(object sender,EventArgs e)
-        {
-            if(sender == null) { return; }
-            var item = sender as ToolStripMenuItem;
-            if (item == null) { return; }
-            if (item.Tag == null) { return; }
-            var tag = item.Tag as string;
-            if (string.IsNullOrWhiteSpace(tag)) { return; }
-            LoadLangFromFile(tag);
-        }
         public void RefreshLangList()
         {
-            tsLanguages.DropDownItems.Clear();
+            cbLang.Items.Clear();
             foreach (string foundfile in Directory.GetFiles(Application.StartupPath + "//Lang//", "*.klf", SearchOption.TopDirectoryOnly))
             {
-                ToolStripMenuItem item = new ToolStripMenuItem();
-                item.Text = Path.GetFileNameWithoutExtension(foundfile);
-                item.Tag = foundfile;
-                item.Checked = (foundfile == Settings.LanguageSystem.LangFile);
-                item.Click += langItem_Click;
-                if(item.Checked) { langItem_Click(item,null); }
-                tsLanguages.DropDownItems.Add(item);
+                cbLang.Items.Add(Path.GetFileNameWithoutExtension(foundfile));
             }
-            tsLanguages.DropDownItems.Add(tsSepLang);
-            tsLanguages.DropDownItems.Add(tsLangFolder);
-            tsLanguages.DropDownItems.Add(tsLangStore);
+            string selected = Path.GetFileNameWithoutExtension(Settings.LanguageSystem.LangFile);
+            cbLang.SelectedItem = selected;
+            cbLang.Text = selected;
         }
         #endregion
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1383,15 +1354,6 @@ namespace Korot
         public string GetDateInfo(DateTime date)
         {
             return date.Day + " " + GetMonthNameOfDate(date.Month) + " " + date.Year + " " + date.Hour.ToString("00") + ":" + date.Minute.ToString("00") + ":" + date.Second.ToString("00");
-        }
-        private void NewWindowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Application.ExecutablePath);
-        }
-
-        private void NewIncognitoWindowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Application.ExecutablePath, "-incognito");
         }
 
         private void ColorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1532,23 +1494,6 @@ namespace Korot
         }
         private void tmrRefresher_Tick(object sender, EventArgs e)
         {
-            hsDoNotTrack.Checked = Settings.DoNotTrack;
-            hsFlash.Checked = Settings.Flash;
-            tbHomepage.Text = Settings.Homepage;
-            rbNewTab.Checked = Settings.Homepage == "korot://newtab";
-            tbSearchEngine.Text = Settings.SearchEngine;
-            hsProxy.Checked = Settings.RememberLastProxy;
-            hsNotificationSound.Checked = !Settings.QuietMode;
-            hsSilent.Checked = Settings.Silent;
-            hsSchedule.Checked = Settings.AutoSilent;
-            panel1.Enabled = Settings.AutoSilent;
-            RefreshScheduledSiletMode();
-            refreshThemeList();
-            RefreshFavorites();
-            LoadNewTabSites();
-            downloadsToolStripMenuItem.Image = !HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? (anaform.newDownload ? Properties.Resources.download_i_w : Properties.Resources.download_w) : (anaform.newDownload ? Properties.Resources.download_i : Properties.Resources.download);
-            btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w);
-            comboBox1.Text = !onThemeName ? (Settings.Theme.LoadedDefaults ? "((default))" : Settings.Theme.Name) : comboBox1.Text;
         }
 
         private void label15_MouseClick(object sender, MouseEventArgs e)
@@ -1757,7 +1702,7 @@ namespace Korot
                 return (tabIndexes.Count > 0 ? ParentTabs.Tabs[tabIndexes[0]] : null);
             }
         }
-        private async void SetProxy(ChromiumWebBrowser cwb, string Address)
+        public async void SetProxy(ChromiumWebBrowser cwb, string Address)
         {
             if (Address == null) { }
             else
@@ -1782,11 +1727,7 @@ namespace Korot
                 privmenu.Hide();
                 incognitomenu.Hide();
                 profmenu.Hide();
-                if (!doNotDestroyFind)
-                {
-                    cmsHamburger.Hide();
-                    cmsHamburger.Close();
-                }
+                hammenu.Hide();
             }));
         }
         private void cef_LostFocus(object sender, EventArgs e)
@@ -2275,48 +2216,55 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         public void showHideSearchMenu()
         {
-            if (cmsHamburger.Visible)
+            if (hammenu.Visible)
             {
-                cmsHamburger.Close();
-                toolStripTextBox1.Text = SearchOnPage;
-                chromiumWebBrowser1.StopFinding(true);
+                hammenu.Visible = false;
+                hammenu.Hide();
             }
             else
             {
-                cmsHamburger.Show(btHamburger, 0, 0);
-                toolStripTextBox1.Text = SearchOnPage;
-                chromiumWebBrowser1.StopFinding(true);
+                hammenu.Visible = true;
+                hammenu.Show();
+                hammenu.BringToFront();
             }
         }
         public void retrieveKey(int code)
         {
+            KeyEventArgs newE;
             if (code == 0) //BrowserBack
             {
-                button1_Click(null, null);
+                newE = new KeyEventArgs(Keys.BrowserBack);
+                tabform_KeyDown(this, newE);
             }
             else if (code == 1) //BrowserForward
             {
-                button3_Click(null, null);
+                newE = new KeyEventArgs(Keys.BrowserForward);
+                tabform_KeyDown(this, newE);
             }
             else if (code == 2) //BrowserRefresh
             {
-                button2_Click(null, null);
+                newE = new KeyEventArgs(Keys.BrowserRefresh);
+                tabform_KeyDown(this, newE);
             }
             else if (code == 3) //BrowserStop
             {
-                button2_Click(null, null);
+                newE = new KeyEventArgs(Keys.BrowserStop);
+                tabform_KeyDown(this, newE);
             }
             else if (code == 4) //BrowserHome
             {
-                button5_Click(null, null);
+                newE = new KeyEventArgs(Keys.BrowserHome);
+                tabform_KeyDown(this, newE);
             }
             else if (code == 5) //Fullscreen
             {
-                tsFullscreen_Click(null, null);
+                newE = new KeyEventArgs((Keys.Control | Keys.F));
+                tabform_KeyDown(this, newE);
             }
             else if (code == 6) //Mute
             {
-                MuteTS_Click(null, null);
+                newE = new KeyEventArgs((Keys.Control | Keys.M));
+                tabform_KeyDown(this, newE);
             }
         }
 
@@ -2396,37 +2344,37 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
             else if ((e.KeyData == Keys.Up || e.KeyData == Keys.PageUp) && isControlKeyPressed)
             {
-                zoomInToolStripMenuItem_Click(sender, null);
+                Console.WriteLine("[TODO] Ctrl+Up ZoomIn Key Press");
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
             else if ((e.KeyData == Keys.Down || e.KeyData == Keys.PageDown) && isControlKeyPressed)
             {
-                zoomOutToolStripMenuItem_Click(sender, null);
+                Console.WriteLine("[TODO] Ctrl+Down ZoomOut Key Press");
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.PrintScreen && isControlKeyPressed)
             {
-                takeScreenShot();
+                Console.WriteLine("[TODO] Ctrl+PrntScrn ScreenShot Key Press");
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.S && isControlKeyPressed)
             {
-                savePage();
+                Console.WriteLine("[TODO] Ctrl+S SavePage Key Press");
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
             else if (isControlKeyPressed && e.Shift && e.KeyData == Keys.N)
             {
-                NewIncognitoWindowToolStripMenuItem_Click(null, null);
+                Process.Start(Application.ExecutablePath, "-incognito");
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
             else if (isControlKeyPressed && e.Alt && e.KeyData == Keys.N)
             {
-                NewWindowToolStripMenuItem_Click(null, null);
+                Process.Start(Application.ExecutablePath);
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
@@ -2438,20 +2386,16 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
             else if (e.KeyData == Keys.F11)
             {
-                tsFullscreen_Click(null, null);
+                Console.WriteLine("[TODO] F11 FullScreen Key Press");
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.M && isControlKeyPressed)
             {
-                MuteTS_Click(sender, e);
+                Console.WriteLine("[TODO] Ctrl+M Mute Key Press");
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
-        }
-        public void tsFullscreen_Click(object sender, EventArgs e)
-        {
-            Invoke(new Action(() => Fullscreenmode(!anaform.isFullScreen)));
         }
         private Image GetImageFromURL(string URL)
         {
@@ -2560,12 +2504,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     cmsFavorite.BackColor = Settings.Theme.BackColor;
                     oldBackColor = Settings.Theme.BackColor;
                     cmsFavorite.ForeColor = foreColor;
-                    tsCollections.Image = !isbright ? Properties.Resources.collection_w : Properties.Resources.collection;
                     button12.ButtonImage = !isbright ? Properties.Resources.collection_w : Properties.Resources.collection;
                     pbStore.Image = !isbright ? Properties.Resources.store_w : Properties.Resources.store;
-                    tsWebStore.Image = !isbright ? Properties.Resources.store_w : Properties.Resources.store;
-                    tsLangStore.Image = !isbright ? Properties.Resources.store_w : Properties.Resources.store;
-                    tsThemes.Image = !isbright ? Properties.Resources.theme_w : Properties.Resources.theme;
+                    btLangStore.ButtonImage = !isbright ? Properties.Resources.store_w : Properties.Resources.store;
+                    btlangFolder.ButtonImage = !isbright ? Properties.Resources.extfolder_w : Properties.Resources.extfolder;
                     btClose6.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                     btClose2.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                     btClose7.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
@@ -2636,10 +2578,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     hsFlash.ButtonColor = rbc2;
                     hsFlash.ButtonHoverColor = rbc3;
                     hsFlash.ButtonPressedColor = rbc4;
-                    hsGPU.BackColor = Settings.Theme.BackColor;
-                    hsGPU.ButtonColor = rbc2;
-                    hsGPU.ButtonHoverColor = rbc3;
-                    hsGPU.ButtonPressedColor = rbc4;
                     cmsSearchEngine.ForeColor = foreColor;
                     listBox2.BackColor = backcolor2;
                     comboBox1.BackColor = backcolor2;
@@ -2665,38 +2603,27 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     btCertError.BackColor = backcolor2;
                     tbHomepage.BackColor = backcolor2;
                     tbSearchEngine.BackColor = backcolor2;
-                    toolStripTextBox1.BackColor = backcolor2;
                     flpLayout.BackColor = Settings.Theme.BackColor;
                     flpLayout.ForeColor = foreColor;
                     flpNewTab.BackColor = Settings.Theme.BackColor;
                     flpNewTab.ForeColor = foreColor;
                     flpClose.BackColor = Settings.Theme.BackColor;
                     flpClose.ForeColor = foreColor;
-                    cmsHamburger.BackColor = Settings.Theme.BackColor;
                     lbStatus.BackColor = Settings.Theme.BackColor;
                     BackColor = Settings.Theme.BackColor;
-                    extensionToolStripMenuItem1.DropDown.BackColor = Settings.Theme.BackColor;
-                    tsLanguages.DropDown.BackColor = Settings.Theme.BackColor;
-                    aboutToolStripMenuItem.Image = !isbright ? Properties.Resources.about_w : Properties.Resources.about;
-                    historyToolStripMenuItem.Image = !isbright ? Properties.Resources.history_w : Properties.Resources.history;
+                    cbLang.BackColor = Settings.Theme.BackColor;
                     pbIncognito.Image = !isbright ? Properties.Resources.inctab_w : Properties.Resources.inctab;
                     tbAddress.ForeColor = foreColor;
-                    cmsHamburger.ForeColor = foreColor;
                     ForeColor = foreColor;
                     tbTitle.BackColor = backcolor2;
                     tbTitle.ForeColor = foreColor;
                     tbUrl.BackColor = backcolor2;
                     tbUrl.ForeColor = foreColor;
                     lbStatus.ForeColor = foreColor;
-                    toolStripTextBox1.ForeColor = foreColor;
-                    extensionToolStripMenuItem1.DropDown.ForeColor = foreColor;
-                    tsLanguages.DropDown.ForeColor = foreColor;
+                    cbLang.ForeColor = foreColor;
                     textBox4.ForeColor = foreColor;
                     if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.ButtonImage = !isbright ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { btFav.ButtonImage = isbright ? Properties.Resources.star : Properties.Resources.star_w; }
                     mFavorites.ForeColor = foreColor;
-                    settingsToolStripMenuItem.Image = isbright ? Properties.Resources.Settings : Properties.Resources.Settings_w;
-                    newWindowToolStripMenuItem.Image = isbright ? Properties.Resources.newwindow : Properties.Resources.newwindow_w;
-                    newIncognitoWindowToolStripMenuItem.Image = isbright ? Properties.Resources.inctab : Properties.Resources.inctab_w;
                     if (!noProfilePic) { btProfile.ButtonImage = profilePic; } else { btProfile.ButtonImage = isbright ? Properties.Resources.profiles : Properties.Resources.profiles_w; }
                     btBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                     btRefresh.ButtonImage = isbright ? Properties.Resources.refresh : Properties.Resources.refresh_w;
@@ -2705,9 +2632,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     btNewTabBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                     btCookieBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                     btHome.ButtonImage = isbright ? Properties.Resources.home : Properties.Resources.home_w;
-                    downloadsToolStripMenuItem.Image = isbright ? (anaform.newDownload ? Properties.Resources.download_i_w : Properties.Resources.download_w) : (anaform.newDownload ? Properties.Resources.download_i : Properties.Resources.download);
                     btHamburger.ButtonImage = isbright ? ( anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w);
-                    tsLanguages.Image = isbright ? Properties.Resources.lang : Properties.Resources.lang_w;
                     L0.BackColor = backcolor2;
                     L0.ForeColor = foreColor;
                     L1.BackColor = backcolor2;
@@ -2733,7 +2658,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     tbAddress.BackColor = backcolor2;
                     textBox4.BackColor = backcolor2;
                     mFavorites.BackColor = Settings.Theme.BackColor;
-                    extensionToolStripMenuItem1.Image = isbright ? Properties.Resources.ext : Properties.Resources.ext_w;
                     cmsBStyle.BackColor = Settings.Theme.BackColor;
                     cmsBStyle.ForeColor = foreColor;
                     cmsBack.BackColor = Settings.Theme.BackColor;
@@ -2742,8 +2666,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     cmsForward.ForeColor = foreColor;
                     foreach (ToolStripItem x in cmsForward.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = foreColor; }
                     foreach (ToolStripItem x in cmsBack.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = foreColor; }
-                    foreach (ToolStripItem x in extensionToolStripMenuItem1.DropDownItems) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = foreColor; }
-                    foreach (ToolStripItem x in tsLanguages.DropDown.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = foreColor; }
                     foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = foreColor; }
                     foreach (Control c in Controls)
                     {
@@ -2825,6 +2747,27 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 pbProgress.Width = Convert.ToInt32(Convert.ToDouble(Width / 100) * Convert.ToDouble(value * 100));
             }
         }
+        private void execTimer50Events()
+        {
+            hsDoNotTrack.Checked = Settings.DoNotTrack;
+            hsFlash.Checked = Settings.Flash;
+            tbHomepage.Text = Settings.Homepage;
+            rbNewTab.Checked = Settings.Homepage == "korot://newtab";
+            tbSearchEngine.Text = Settings.SearchEngine;
+            hsProxy.Checked = Settings.RememberLastProxy;
+            hsNotificationSound.Checked = !Settings.QuietMode;
+            hsSilent.Checked = Settings.Silent;
+            hsSchedule.Checked = Settings.AutoSilent;
+            panel1.Enabled = Settings.AutoSilent;
+            RefreshScheduledSiletMode();
+            refreshThemeList();
+            RefreshFavorites();
+            LoadNewTabSites();
+            btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w);
+            comboBox1.Text = !onThemeName ? (Settings.Theme.LoadedDefaults ? "((default))" : Settings.Theme.Name) : comboBox1.Text;
+
+        }
+        private int timer1int = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (chromiumWebBrowser1.IsDisposed)
@@ -2832,17 +2775,13 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 Close();
             }
 
-            if (findLast)
+            if (timer1int != 50)
             {
-                tsSearchStatus.Text = findC + " " + findCurrent + " " + findL + " " + findT + " " + findTotal;
-            }
-            else if (findCurrent == 0 && findTotal == 0)
+                timer1int++;
+            }else
             {
-                tsSearchStatus.Text = noSearch;
-            }
-            else
-            {
-                tsSearchStatus.Text = findC + " " + findCurrent + " " + findL + " " + findT + " " + findTotal;
+                timer1int = 0;
+                execTimer50Events();
             }
 
             onCEFTab = (tabControl1.SelectedTab == tpCef);
@@ -2852,15 +2791,11 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 Parent.Text = Text;
             }
             RefreshTranslation();
-            if (anaform != null)
-            {
-                if (anaform.OldSessions == "") { spRestorer.Visible = false; restoreLastSessionToolStripMenuItem.Visible = false; } else { spRestorer.Visible = true; restoreLastSessionToolStripMenuItem.Visible = true; }
-            }
+
             Text = tabControl1.SelectedTab.Text;
             if (NotificationListenerMode)
             {
                 isMuted = true;
-                MuteTS.Text = "NOTIFICATION LISTENER MODE! MUTED";
                 chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(true);
             }
         }
@@ -2905,7 +2840,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             hsFav.Location = new Point(lbShowFavorites.Location.X + lbShowFavorites.Width + 5, hsFav.Location.Y);
             hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width + 5, hsDoNotTrack.Location.Y);
             hsFlash.Location = new Point(lbFlash.Location.X + lbFlash.Width + 5, hsFlash.Location.Y);
-            hsGPU.Location = new Point(lbGPU.Location.X + lbGPU.Width + 5, hsGPU.Location.Y);
             hsOpen.Location = new Point(lbOpen.Location.X + lbOpen.Width + 5, hsOpen.Location.Y);
             hsDownload.Location = new Point(lbAutoDownload.Location.X + lbAutoDownload.Width + 5, hsDownload.Location.Y);
             hsProxy.Location = new Point(lbLastProxy.Location.X + lbLastProxy.Width + 5, hsProxy.Location.Y);
@@ -2988,10 +2922,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             lbCertErrorTitle.Text = CertErrorPageTitle;
             lbCertErrorInfo.Text = CertErrorPageMessage;
             btCertError.Text = CertErrorPageButton;
-            newWindowToolStripMenuItem.Text = newWindow;
-            newIncognitoWindowToolStripMenuItem.Text = newincognitoWindow;
-            settingsToolStripMenuItem.Text = settingstitle;
-            restoreLastSessionToolStripMenuItem.Text = restoreOldSessions;
             if (Settings.Startup.ToLower() == "korot://newtab")
             {
                 tbStartup.Text = showNewTabPageToolStripMenuItem.Text;
@@ -3042,49 +2972,29 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 profmenu.BringToFront();
             }
         }
-        private void DefaultProxyts_Click(object sender, EventArgs e)
+        public void applyExtension(Extension ext)
         {
-            SetProxy(chromiumWebBrowser1, defaultProxy);
-            DefaultProxyts.Enabled = false;
-        }
-        public void applyExtension(string fileLocation)
-        {
-            string Playlist = HTAlt.Tools.ReadFile(fileLocation, Encoding.UTF8);
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SplittedFase = Playlist.Split(token);
-            if (SplittedFase.Length >= 11)
+            if (ext.Settings.activateScript)
             {
-                if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(3, 1) == "1" && (new FileInfo(fileLocation).Length < 1048576) && (new FileInfo(SplittedFase[5].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\")).Length < 5242880))
-                {
-                    chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(HTAlt.Tools.ReadFile(SplittedFase[8].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"), Encoding.UTF8));
-                }
-                if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(4, 1) == "1" && !string.IsNullOrWhiteSpace(SplittedFase[7].Substring(1).Replace(Environment.NewLine, "")) && defaultProxy != null)
-                {
-                    SetProxy(chromiumWebBrowser1, SplittedFase[7].Substring(1).Replace(Environment.NewLine, ""));
-                    DefaultProxyts.Enabled = true;
-                    if (Settings.RememberLastProxy) { Settings.LastProxy = SplittedFase[7].Substring(1).Replace(Environment.NewLine, ""); }
-                }
-                bool allowWebContent = false;
-                if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(1, 1) == "1") { allowWebContent = true; }
-                if (SplittedFase[4].Substring(1).Replace(Environment.NewLine, "").Substring(2, 1) == "1")
-                {
-                    frmExt formext = new frmExt(this, userName, fileLocation, SplittedFase[6].Substring(1).Replace(Environment.NewLine, "").Replace("[EXTFOLDER]", new FileInfo(fileLocation).Directory + "\\"), allowWebContent)
-                    {
-                        TopLevel = false,
-                        FormBorderStyle = FormBorderStyle.None,
-                        Size = new Size(Convert.ToInt32(SplittedFase[10].Substring(1).Replace(Environment.NewLine, "")), Convert.ToInt32(SplittedFase[9].Substring(1).Replace(Environment.NewLine, "")))
-                    };
-                    Controls.Add(formext);
-                    formext.Visible = true;
-                    formext.BringToFront();
-                    formext.Show();
-                }
+                chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(HTAlt.Tools.ReadFile(ext.Startup,Encoding.UTF8), "korot://extension/" + ext.CodeName);
             }
-        }
-        private void ExtensionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            applyExtension(((ToolStripMenuItem)sender).Tag.ToString());
-
+            if (defaultProxy != null && ext.Settings.hasProxy)
+            {
+                SetProxy(chromiumWebBrowser1, ext.Proxy);
+            }
+            if (ext.Settings.showPopupMenu)
+            {
+                frmExt formext = new frmExt(this, userName, ext)
+                {
+                    TopLevel = false,
+                    FormBorderStyle = FormBorderStyle.None,
+                    Size = ext.Size
+                };
+                Controls.Add(formext);
+                formext.Visible = true;
+                formext.BringToFront();
+                formext.Show();
+            }
         }
         public void showDevTools()
         {
@@ -3093,27 +3003,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 chromiumWebBrowser1.GetBrowser().ShowDevTools();
             }
         }
-        public void LoadExt()
-        {
-            extensionToolStripMenuItem1.DropDownItems.Clear();
-            foreach (Extension x in Settings.Extensions.ExtensionList)
-            {
-                ToolStripMenuItem extItem = new ToolStripMenuItem
-                {
-                    Text = x.Name,
-                    Tag = x.ManifestFile
-                };
-                extItem.Click += ExtensionToolStripMenuItem_Click;
-                extensionToolStripMenuItem1.DropDown.Items.Add(extItem);
-            }
-            if (extensionToolStripMenuItem1.DropDownItems.Count == 0)
-            {
-                extensionToolStripMenuItem1.DropDown.Items.Add(tsEmptyExt);
-            }
-            extensionToolStripMenuItem1.DropDown.Items.Add(tsExt);
-            extensionToolStripMenuItem1.DropDown.Items.Add(tsExtFolder);
-            extensionToolStripMenuItem1.DropDown.Items.Add(tsWebStore);
-        }
+        
 
         public string certificatedetails = "";
         public bool isCertError = false;
@@ -3148,7 +3038,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             pnlCert.Visible = false;
         }
 
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void SwitchToSettings()
         {
             if (anaform.settingTab != null)
             {
@@ -3165,21 +3055,28 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void button11_Click(object sender, EventArgs e)
         {
-            if (cmsHamburger.Visible) { cmsHamburger.Close(); } else { cmsHamburger.Show(btHamburger, 0, 0); }
-            btHamburger.FlatAppearance.BorderSize = 0;
+            if (hammenu.Visible)
+            {
+                hammenu.Hide();
+            }
+            else
+            {
+                hammenu.Location = new Point(btHamburger.Location.X - hammenu.Width, btHamburger.Location.Y + btHamburger.Height);
+                hammenu.Show();
+                hammenu.BringToFront();
+            }
         }
 
         private void restoreLastSessionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            anaform.Invoke(new Action(() => anaform.ReadSession(anaform.OldSessions)));
-            restoreLastSessionToolStripMenuItem.Visible = false;
+
         }
 
         private bool allowSwitching = false;
         private bool onCEFTab = true;
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (allowSwitching == false) { e.Cancel = true; } else { toolStripTextBox1.Text = SearchOnPage; chromiumWebBrowser1.StopFinding(true); e.Cancel = false; allowSwitching = false; }
+            if (allowSwitching == false) { e.Cancel = true; } else { chromiumWebBrowser1.StopFinding(true); e.Cancel = false; allowSwitching = false; }
             onCEFTab = (tabControl1.SelectedTab == tpCef);
             if (tabControl1.SelectedTab == tpCef)
             {
@@ -3380,131 +3277,18 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tabControl1.SelectedTab = tpCef;
                 if (e.Delta > 0)
                 {
-                    zoomInToolStripMenuItem_Click(sender, null);
+                    KeyEventArgs newE = new KeyEventArgs((Keys.Control | Keys.Up));
+                    tabform_KeyDown(this, newE);
                 }
                 else if (e.Delta < 0)
                 {
-                    zoomOutToolStripMenuItem_Click(sender, null);
+                    KeyEventArgs newE = new KeyEventArgs((Keys.Control | Keys.Down));
+                    tabform_KeyDown(this, newE);
                 }
             }
         }
 
-        private void resetZoomToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpCef;
-            chromiumWebBrowser1.SetZoomLevel(0.0);
-            cmsHamburger.Show(btHamburger, 0, 0);
-            cmsHamburger.Show(btHamburger, 0, 0);
-            doNotDestroyFind = true;
-            toolStripTextBox1.Text = searchPrev;
-            toolStripTextBox_TextChanged(null, e);
-        }
-        public void zoomIn()
-        {
-            Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
-            if (zoomLevel.Result <= 8)
-            {
-                chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result + 0.25);
-            }
-        }
-        public void zoomOut()
-        {
-            Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
-            if (zoomLevel.Result >= -0.75)
-            {
-                chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result - 0.25);
-            }
-        }
-        public void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpCef;
-            zoomIn();
-            cmsHamburger.Show(btHamburger, 0, 0);
-            doNotDestroyFind = true;
-            toolStripTextBox1.Text = searchPrev;
-            toolStripTextBox_TextChanged(null, e);
-
-        }
-
-        public void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            allowSwitching = true;
-            tabControl1.SelectedTab = tpCef;
-            zoomOut();
-            cmsHamburger.Show(btHamburger, 0, 0);
-            cmsHamburger.Show(btHamburger, 0, 0);
-            doNotDestroyFind = true;
-            toolStripTextBox1.Text = searchPrev;
-            toolStripTextBox_TextChanged(null, e);
-        }
-
-        private bool doNotDestroyFind = false;
-        private void cmsHamburger_Opening(object sender, CancelEventArgs e)
-        {
-            if (!doNotDestroyFind)
-            {
-                toolStripTextBox1.Text = SearchOnPage;
-                chromiumWebBrowser1.StopFinding(true);
-                doNotDestroyFind = false;
-            }
-            LoadExt();
-            Task.Run(new Action(() => getZoomLevel()));
-        }
-
-        private async void getZoomLevel()
-        {
-            await Task.Run(() =>
-            {
-                Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
-                zOOMLEVELToolStripMenuItem.Text = ((zoomLevel.Result * 100) + 100) + "%";
-            });
-
-        }
-
-        private string searchPrev;
-        private void toolStripTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if ((!string.IsNullOrEmpty(toolStripTextBox1.Text)) & toolStripTextBox1.Text != SearchOnPage)
-            {
-                searchPrev = toolStripTextBox1.Text;
-                chromiumWebBrowser1.Find(0, toolStripTextBox1.Text, true, caseSensitiveToolStripMenuItem.Checked, false);
-            }
-            else
-            {
-                doNotDestroyFind = false;
-                toolStripTextBox1.Text = SearchOnPage;
-                chromiumWebBrowser1.StopFinding(true);
-            }
-        }
-
-        private void cmsHamburger_Closing(object sender, ToolStripDropDownClosingEventArgs e)
-        {
-            if (!doNotDestroyFind)
-            {
-                toolStripTextBox1.Text = SearchOnPage;
-                chromiumWebBrowser1.StopFinding(true);
-                doNotDestroyFind = false;
-            }
-        }
-
-        private void caseSensitiveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cmsHamburger.Show(btHamburger, 0, 0);
-            doNotDestroyFind = true;
-            toolStripTextBox1.Text = searchPrev;
-            toolStripTextBox_TextChanged(null, e);
-        }
-        private void toolStripTextBox1_Click(object sender, EventArgs e)
-        {
-            if (!toolStripTextBox1.Selected)
-            {
-                toolStripTextBox1.SelectAll();
-            }
-        }
-
-        private void historyToolStripMenuItem_Click(object sender, EventArgs e)
+        public void SwitchToHistory()
         {
             if (anaform.historyTab != null)
             {
@@ -3519,7 +3303,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
         }
 
-        private void downloadsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void SwitchToDownloads()
         {
             if (anaform.downloadTab != null)
             {
@@ -3535,15 +3319,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tabControl1.SelectedTab = tpDownload;
             }
         }
-        private void tsSearchNext_Click(object sender, EventArgs e)
-        {
-            chromiumWebBrowser1.Find(0, toolStripTextBox1.Text, true, caseSensitiveToolStripMenuItem.Checked, true);
-            cmsHamburger.Show(btHamburger, 0, 0);
-            doNotDestroyFind = true;
-            toolStripTextBox1.Text = searchPrev;
-            toolStripTextBox_TextChanged(null, e);
-        }
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        public void SwitchToAbout()
         {
             if (anaform.aboutTab != null)
             {
@@ -3563,7 +3339,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             Settings.RememberLastProxy = hsProxy.Checked;
         }
 
-        private void tsThemes_Click(object sender, EventArgs e)
+        public void SwitchToThemes()
         {
             if (anaform.themeTab != null)
             {
@@ -3702,7 +3478,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void tsWebStore_Click(object sender, EventArgs e)
         {
-            NewTab("https://haltroy.com/store/Korot/Extensions/index.html");
+            
         }
 
         private void pictureBox6_Click(object sender, EventArgs e)
@@ -3890,7 +3666,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
 
 
-        private void tsCollections_Click(object sender, EventArgs e)
+        public void SwitchToCollections()
         {
             if (anaform.collectionTab != null)
             {
@@ -3902,22 +3678,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 btNext.Enabled = true;
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpCollection;
-            }
-        }
-
-        private void tsChangeTitleBack_Click(object sender, EventArgs e)
-        {
-            frmChangeTBTBack dialog = new frmChangeTBTBack(this);
-            switch (dialog.ShowDialog())
-            {
-                case DialogResult.OK:
-                    ParentTab.BackColor = dialog.Color;
-                    ParentTab.UseDefaultBackColor = false;
-                    break;
-                case DialogResult.Abort:
-                    ParentTab.BackColor = BackColor;
-                    ParentTab.UseDefaultBackColor = true;
-                    break;
             }
         }
 
@@ -4164,12 +3924,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
         }
 
-        private bool isMuted = false;
+        public bool isMuted = false;
         private void MuteTS_Click(object sender, EventArgs e)
         {
-            isMuted = isMuted ? false : true;
-            chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(isMuted);
-            MuteTS.Text = isMuted ? UnmuteThisTab : MuteThisTab;
+
         }
 
         private void tmrNotifListener_Tick(object sender, EventArgs e)
@@ -4245,17 +4003,16 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void tsExtFolder_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + Settings.ProfileName + "\\Extensions\\\"");
         }
 
         private void tsLangFolder_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", "\"" + Application.StartupPath + "\\Lang\\\"");
+            
         }
 
         private void tsLangStore_Click(object sender, EventArgs e)
         {
-            NewTab("https://haltroy.com/store/Korot/Languages/index.html");
+            
         }
 
         private void btNewTab_Click(object sender, EventArgs e)
@@ -4603,6 +4360,21 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tbUrl.Text = "";
                 LoadNewTabSites();
             }
+        }
+
+        private void btlangFolder_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "\"" + Application.StartupPath + "\\Lang\\\"");
+        }
+
+        private void btLangStore_Click(object sender, EventArgs e)
+        {
+            NewTab("https://haltroy.com/store/Korot/Languages/index.html");
+        }
+
+        private void cbLang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadLangFromFile(Application.StartupPath + "//Lang//" + cbLang.Text + ".klf");
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)
