@@ -22,6 +22,8 @@
 using CefSharp;
 using System;
 using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Korot
@@ -119,6 +121,18 @@ namespace Korot
                         return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + CefForm.Settings.SearchEngine + x + "\" />");
                     }
                 }
+                else if (request.Url.StartsWith("korot://search/"))
+                {
+                    string x = request.Url.Substring(request.Url.IndexOf("/",11) + 1);
+                    if (ValidHttpURL(x))
+                    {
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + x + "\" />");
+                    }
+                    else
+                    {
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + CefForm.Settings.SearchEngine + x + "\" />");
+                    }
+                }
                 else if (request.Url == "korot://empty/")
                 {
                     return ResourceHandler.FromString("");
@@ -147,6 +161,35 @@ namespace Korot
                 else if (request.Url == "korot://links/")
                 {
                     return ResourceHandler.FromString(Properties.Resources.korotlinks.Replace("§BACKSTYLE2§", GetBackStyle2()));
+                }
+                else if (request.Url == "korot://blocked/")
+                {
+                    return ResourceHandler.FromString("<head><title>Korot</title></head><body><h1>BLOCKED</h1></body>");
+                }
+                else if (request.Url.StartsWith("korot://extension/"))
+                {
+                    string x = request.Url.Substring(request.Url.IndexOf("/",11) + 1);
+                    // "<meta http-equiv=\"Refresh\" content=\"0; url =" + x + "\" />"
+                    if (x.Count(i => (i == '/')) >= 4)
+                    {
+                        string codename = x.Substring(0, x.IndexOf("/"));
+                        if (CefForm.Settings.Extensions.Exists(codename))
+                        {
+                            Extension cext = CefForm.Settings.Extensions.GetExtensionByCodeName(codename);
+                            if (x.Count(i => (i == '/')) >= 5)
+                            {
+                                string fileLoc = x.Substring(x.IndexOf(codename + "/"));
+                                if (cext.FileExists(fileLoc))
+                                {
+                                    return ResourceHandler.FromString(HTAlt.Tools.ReadFile(cext.Folder + fileLoc,Encoding.UTF8));
+                                }
+                            }else
+                            {
+                                return ResourceHandler.FromString(HTAlt.Tools.ReadFile(cext.Popup, Encoding.UTF8));
+                            }
+                        }
+                    }
+                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://blocked/ \" />");
                 }
                 else if (request.Url == "korot://refresh/")
                 {

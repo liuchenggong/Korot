@@ -1403,4 +1403,10 @@ new HTTitleTab(testApp)
         public Site FavoritedSite8 { get; set; }
         public Site FavoritedSite9 { get; set; }
     }
+    public class Proxy
+    {
+        public string ID { get; set; }
+        public string Address { get; set; }
+        public Exception Exception { get; set; }
+    }
 }

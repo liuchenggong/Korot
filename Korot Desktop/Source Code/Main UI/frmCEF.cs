@@ -333,7 +333,7 @@ namespace Korot
             chromiumWebBrowser1.Show();
             if (defaultProxy != null && Settings.RememberLastProxy && !string.IsNullOrWhiteSpace(Settings.LastProxy))
             {
-                SetProxy(chromiumWebBrowser1, Settings.LastProxy);
+                SetProxyAddress(Settings.LastProxy);
             }
         }
         private bool startupScriptsExecuted = false;
@@ -523,7 +523,7 @@ namespace Korot
 
             else
             {
-                if (Settings.RememberLastProxy && !string.IsNullOrWhiteSpace(Settings.LastProxy)) { SetProxy(chromiumWebBrowser1, Settings.LastProxy); }
+                if (Settings.RememberLastProxy && !string.IsNullOrWhiteSpace(Settings.LastProxy)) { SetProxyAddress(Settings.LastProxy); }
             }
             frmCollection collectionManager = new frmCollection(this)
             {
@@ -1712,14 +1712,51 @@ namespace Korot
                 return (tabIndexes.Count > 0 ? ParentTabs.Tabs[tabIndexes[0]] : null);
             }
         }
-        public async void SetProxy(ChromiumWebBrowser cwb, string Address)
+        public void SetProxy(string ProxyFile)
+        {
+            List<Proxy> ProxyList = new List<Proxy>();
+            List<Proxy> ErrorProxies = new List<Proxy>();
+            XmlDocument document = new XmlDocument();
+            document.LoadXml(HTAlt.Tools.ReadFile(ProxyFile,Encoding.UTF8));
+            foreach (XmlNode node in document.FirstChild.ChildNodes)
+            {
+                if (node.Name.ToLower() == "proxy")
+                {
+                    if (node.Attributes["IP"] == null) { return; }
+                    Proxy prx = new Proxy();
+                    prx.ID = node.Attributes["ID"] != null ? node.Attributes["ID"].Value : HTAlt.Tools.GenerateRandomText(12);
+                    prx.Address = node.Attributes["IP"].Value;
+                    ProxyList.Add(prx);
+                }
+            }
+            foreach (Proxy prx in ProxyList)
+            {
+                try
+                {
+                    SetProxyAddress(prx.Address);
+                    Settings.LastProxy = prx.Address;
+                    Output.WriteLine(" [Korot.Proxy] Set proxy to \"" + prx.Address + "\" (ID=\"" + prx.ID + "\" File=\"" + ProxyFile + "\")");
+                    break;
+                }catch (Exception ex)
+                {
+                    prx.Exception = ex;
+                    ProxyList.Remove(prx);
+                    ErrorProxies.Add(prx);
+                }
+            }
+            foreach(Proxy prx in ErrorProxies)
+            {
+                Output.WriteLine(" [Korot.Proxy] Cannot set proxy to \"" + prx.Address + "\" (ID=\"" + prx.ID + "\" File=\"" + ProxyFile + "\" Exception=\"" + prx.Exception.ToString() + "\")");
+            }
+        }
+        public async void SetProxyAddress(string Address)
         {
             if (Address == null) { }
             else
             {
                 await Cef.UIThreadTaskFactory.StartNew(delegate
                 {
-                    IRequestContext rc = cwb.GetBrowser().GetHost().RequestContext;
+                    IRequestContext rc = chromiumWebBrowser1.GetBrowser().GetHost().RequestContext;
                     Dictionary<string, object> v = new Dictionary<string, object>
                     {
                         ["mode"] = "fixed_servers",
@@ -2990,7 +3027,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
             if (defaultProxy != null && ext.Settings.hasProxy)
             {
-                SetProxy(chromiumWebBrowser1, ext.Proxy);
+                SetProxy(ext.Proxy);
             }
             if (ext.Settings.showPopupMenu)
             {

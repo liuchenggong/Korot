@@ -63,6 +63,37 @@ namespace Korot
                 x.Update();
             }
         }
+        public Extension GetExtensionByCodeName(string CodeName)
+        {
+            List<Extension> foundext = ExtensionList.FindAll(i => i.CodeName == CodeName);
+            if (foundext == null) { return null; }
+            else
+            {
+                if (foundext.Count == 0)
+                {
+                    return null;
+                }else
+                {
+                    return foundext[0];
+                }
+            }
+        }
+        public bool Exists(string CodeName)
+        {
+            List<Extension> foundext = ExtensionList.FindAll(i => i.CodeName == CodeName);
+            if (foundext == null) { return false; }
+            else
+            {
+                if (foundext.Count == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
         public void InstallExtension(string ExtFile, bool Silent = false)
         {
             frmInstallExt installExt = new frmInstallExt(Settings, ExtFile, Silent);
@@ -78,6 +109,7 @@ namespace Korot
             // Read the file
             string ManifestXML = HTAlt.Tools.ReadFile(ManifestFileLocation, Encoding.UTF8);
             string ExtFolder = new FileInfo(ManifestFileLocation).DirectoryName + "\\";
+            Folder = ExtFolder;
             // Write XML to Stream so we don't need to load the same file again.
             MemoryStream stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);
@@ -176,6 +208,17 @@ namespace Korot
                     }
                 }
             }
+        }
+        public string Folder { get; set; }
+        public bool FileExists(string filePath)
+        {
+            string fileLoc = Folder + filePath;
+            string fileShortLoc = "[EXTFOLDER]" + filePath;
+            if (Files.Contains(fileShortLoc))
+            {
+                if (File.Exists(fileLoc)) { return true; }else { return false; }
+            }
+            else { return false; }
         }
         public string ManifestFile { get; set; }
         public string CodeName => Author + "." + Name;

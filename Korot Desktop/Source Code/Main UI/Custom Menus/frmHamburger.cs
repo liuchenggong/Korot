@@ -241,7 +241,7 @@ namespace Korot
             SaveFileDialog save = new SaveFileDialog()
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                FileName = Text + ".html",
+                FileName = cefform.Text + ".html",
                 Filter = cefform.htmlFiles + "|*.html;*.htm|" + cefform.allFiles + "|*.*"
             };
             if (save.ShowDialog() == DialogResult.OK)
