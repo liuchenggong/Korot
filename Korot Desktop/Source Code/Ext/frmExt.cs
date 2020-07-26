@@ -87,7 +87,11 @@ namespace Korot
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
         }
-        private void cef_TitleChanged(object sender, TitleChangedEventArgs e) => Invoke(new Action(() => Text = e.Title));
+        private void cef_TitleChanged(object sender, TitleChangedEventArgs e)
+        {
+            Invoke(new Action(() => Text = e.Title));
+        }
+
         private void cef_onLoadError(object sender, LoadErrorEventArgs e)
         {
             if (e == null)
@@ -107,6 +111,9 @@ namespace Korot
             }
         }
 
-        private void frmExt_Leave(object sender, EventArgs e) => Close();
+        private void frmExt_Leave(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

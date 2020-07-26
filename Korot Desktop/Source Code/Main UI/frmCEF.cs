@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -37,8 +36,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using System.Xml.Serialization;
-using Win32Interop.Enums;
 
 namespace Korot
 {
@@ -302,7 +299,7 @@ namespace Korot
                 }
             });
             // Initialize cef with the provided settings
-            settings.DisableGpuAcceleration(); 
+            settings.DisableGpuAcceleration();
             if (Settings.Flash) { settings.CefCommandLineArgs.Add("enable-system-flash"); }
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
             chromiumWebBrowser1 = new ChromiumWebBrowser(string.IsNullOrWhiteSpace(loaduri) ? "korot://newtab" : loaduri);
@@ -421,18 +418,18 @@ namespace Korot
         private void OnIsBrowserInitializedChanged(object sender, EventArgs e)
         {
             //Get the underlying browser host wrapper
-            var browserHost = chromiumWebBrowser1.GetBrowser().GetHost();
-            var requestContext = browserHost.RequestContext;
-            string errorMessage;
+            IBrowserHost browserHost = chromiumWebBrowser1.GetBrowser().GetHost();
+            IRequestContext requestContext = browserHost.RequestContext;
             // Browser must be initialized before getting/setting preferences
             if (!Settings.DoNotTrack) { return; }
-            var success = requestContext.SetPreference("enable_do_not_track", true, out errorMessage);
+            bool success = requestContext.SetPreference("enable_do_not_track", true, out string errorMessage);
             if (!success)
             {
                 Output.WriteLine("Unable to set preference enable_do_not_track [errorMessage: " + errorMessage + "]");
             }
         }
-        void EditNewTabItem()
+
+        private void EditNewTabItem()
         {
             if (anaform.newtabeditTab != null)
             {
@@ -442,12 +439,13 @@ namespace Korot
             {
                 if (InvokeRequired)
                 {
-                    Invoke(new Action(() => { 
-                    resetPage(true);
-                    anaform.newtabeditTab = ParentTab;
-                    btNext.Enabled = true;
-                    allowSwitching = true;
-                    tabControl1.SelectedTab = tpNewTab;
+                    Invoke(new Action(() =>
+                    {
+                        resetPage(true);
+                        anaform.newtabeditTab = ParentTab;
+                        btNext.Enabled = true;
+                        allowSwitching = true;
+                        tabControl1.SelectedTab = tpNewTab;
                     }));
                 }
                 else
@@ -472,7 +470,8 @@ namespace Korot
             ChromiumWebBrowser browser = (sender as ChromiumWebBrowser);
             if (string.Equals(message, "[Korot.EditNewTabItem]"))
             {
-                if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot")) {
+                if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot"))
+                {
                     EditNewTabItem();
                 }
             }
@@ -636,6 +635,7 @@ namespace Korot
             }
         }
         #region "Translate"
+        public string NewItem = "<New>";
         public string OpenInNewTab = "Open in new tab";
         public string OpenFile = "Open file";
         public string OpenFileInExplorert = "Open folder containing this file";
@@ -883,6 +883,8 @@ namespace Korot
         public void LoadLangFromFile(string fileLocation)
         {
             Settings.LanguageSystem.ReadFromFile(fileLocation, true);
+            NewItem = Settings.LanguageSystem.GetItemText("NewItem");
+            RefreshBlock();
             ChangePicInfo = Settings.LanguageSystem.GetItemText("ChangePicInfo");
             ResetImage = Settings.LanguageSystem.GetItemText("ResetImage");
             SelectNewImage = Settings.LanguageSystem.GetItemText("SelectNewImage");
@@ -906,7 +908,7 @@ namespace Korot
             ExportProfile = Settings.LanguageSystem.GetItemText("ExportProfile");
             exportProfileInfo = Settings.LanguageSystem.GetItemText("ExportProfileInfo");
             ProfileFileInfo = Settings.LanguageSystem.GetItemText("ProfileFileInfo");
-            string[] errormenu = new string[] { Settings.LanguageSystem.GetItemText("ErrorRestart"),Settings.LanguageSystem.GetItemText("ErrorDesc1"),Settings.LanguageSystem.GetItemText("ErrorDesc2"),Settings.LanguageSystem.GetItemText("ErrorTI")};
+            string[] errormenu = new string[] { Settings.LanguageSystem.GetItemText("ErrorRestart"), Settings.LanguageSystem.GetItemText("ErrorDesc1"), Settings.LanguageSystem.GetItemText("ErrorDesc2"), Settings.LanguageSystem.GetItemText("ErrorTI") };
             SafeFileSettingOrganizedClass.ErrorMenu = errormenu;
             btNotification.ButtonText = Settings.LanguageSystem.GetItemText("NotificationSettingsButton");
             lbNotifSetting.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
@@ -1717,15 +1719,17 @@ namespace Korot
             List<Proxy> ProxyList = new List<Proxy>();
             List<Proxy> ErrorProxies = new List<Proxy>();
             XmlDocument document = new XmlDocument();
-            document.LoadXml(HTAlt.Tools.ReadFile(ProxyFile,Encoding.UTF8));
+            document.LoadXml(HTAlt.Tools.ReadFile(ProxyFile, Encoding.UTF8));
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
                 if (node.Name.ToLower() == "proxy")
                 {
                     if (node.Attributes["IP"] == null) { return; }
-                    Proxy prx = new Proxy();
-                    prx.ID = node.Attributes["ID"] != null ? node.Attributes["ID"].Value : HTAlt.Tools.GenerateRandomText(12);
-                    prx.Address = node.Attributes["IP"].Value;
+                    Proxy prx = new Proxy
+                    {
+                        ID = node.Attributes["ID"] != null ? node.Attributes["ID"].Value : HTAlt.Tools.GenerateRandomText(12),
+                        Address = node.Attributes["IP"].Value
+                    };
                     ProxyList.Add(prx);
                 }
             }
@@ -1737,14 +1741,15 @@ namespace Korot
                     Settings.LastProxy = prx.Address;
                     Output.WriteLine(" [Korot.Proxy] Set proxy to \"" + prx.Address + "\" (ID=\"" + prx.ID + "\" File=\"" + ProxyFile + "\")");
                     break;
-                }catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     prx.Exception = ex;
                     ProxyList.Remove(prx);
                     ErrorProxies.Add(prx);
                 }
             }
-            foreach(Proxy prx in ErrorProxies)
+            foreach (Proxy prx in ErrorProxies)
             {
                 Output.WriteLine(" [Korot.Proxy] Cannot set proxy to \"" + prx.Address + "\" (ID=\"" + prx.ID + "\" File=\"" + ProxyFile + "\" Exception=\"" + prx.Exception.ToString() + "\")");
             }
@@ -2108,53 +2113,25 @@ namespace Korot
                      || tabControl1.SelectedTab == tpCollection
                      || tabControl1.SelectedTab == tpSite
                      || tabControl1.SelectedTab == tpNotification
-                     || tabControl1.SelectedTab == tpNewTab) //Menu
+                     || tabControl1.SelectedTab == tpNewTab
+                     || tabControl1.SelectedTab == tpBlock) //Menu
             {
                 resetPage();
             }
         }
         public void resetPage(bool doNotGoToCEFTab = false)
         {
-            if (anaform.settingTab == ParentTab)
-            {
-                anaform.settingTab = null;
-            }
-            if (anaform.themeTab == ParentTab)
-            {
-                anaform.themeTab = null;
-            }
-            if (anaform.historyTab == ParentTab)
-            {
-                anaform.historyTab = null;
-            }
-            if (anaform.downloadTab == ParentTab)
-            {
-                anaform.downloadTab = null;
-            }
-            if (anaform.siteTab == ParentTab)
-            {
-                anaform.siteTab = null;
-            }
-            if (anaform.aboutTab == ParentTab)
-            {
-                anaform.aboutTab = null;
-            }
-            if (anaform.collectionTab == ParentTab)
-            {
-                anaform.collectionTab = null;
-            }
-            if (anaform.notificationTab == ParentTab)
-            {
-                anaform.notificationTab = null;
-            }
-            if (anaform.newtabeditTab == ParentTab)
-            {
-                anaform.newtabeditTab = null;
-            }
-            if (anaform.licenseTab == ParentTab)
-            {
-                anaform.licenseTab = null;
-            }
+            anaform.settingTab = anaform.settingTab == ParentTab ? null : anaform.settingTab;
+            anaform.themeTab = anaform.themeTab == ParentTab ? null : anaform.themeTab;
+            anaform.historyTab = anaform.historyTab == ParentTab ? null : anaform.historyTab;
+            anaform.downloadTab = anaform.downloadTab == ParentTab ? null : anaform.downloadTab;
+            anaform.siteTab = anaform.siteTab == ParentTab ? null: anaform.siteTab;
+            anaform.aboutTab = anaform.aboutTab == ParentTab ? null: anaform.aboutTab;
+            anaform.collectionTab = anaform.collectionTab == ParentTab ? null:anaform.collectionTab;
+            anaform.notificationTab = anaform.notificationTab == ParentTab ? null:anaform.notificationTab;
+            anaform.newtabeditTab = anaform.newtabeditTab == ParentTab ? null:anaform.newtabeditTab;
+            anaform.licenseTab = anaform.licenseTab == ParentTab ? null:anaform.licenseTab;
+            anaform.blockTab = anaform.blockTab == ParentTab ? null:anaform.blockTab;
             if (!doNotGoToCEFTab)
             {
                 allowSwitching = true;
@@ -2530,14 +2507,14 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 {
                     UpdateFavoriteColor();
                     updateFavoritesImages();
-                    var isbright = HTAlt.Tools.IsBright(Settings.Theme.BackColor);
-                    var foreColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
-                    var backcolor2 = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                    var backcolor3 = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false);
-                    var backcolor4 = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false);
-                    var rbc2 = HTAlt.Tools.ReverseColor(backcolor2,false);
-                    var rbc3 = HTAlt.Tools.ReverseColor(backcolor3, false);
-                    var rbc4 = HTAlt.Tools.ReverseColor(backcolor4, false);
+                    bool isbright = HTAlt.Tools.IsBright(Settings.Theme.BackColor);
+                    Color foreColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
+                    Color backcolor2 = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                    Color backcolor3 = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false);
+                    Color backcolor4 = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false);
+                    Color rbc2 = HTAlt.Tools.ReverseColor(backcolor2, false);
+                    Color rbc3 = HTAlt.Tools.ReverseColor(backcolor3, false);
+                    Color rbc4 = HTAlt.Tools.ReverseColor(backcolor4, false);
                     lbStatus.ForeColor = foreColor;
                     lbStatus.BackColor = Settings.Theme.BackColor;
                     if (Cef.IsInitialized)
@@ -2557,6 +2534,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     btlangFolder.ButtonImage = !isbright ? Properties.Resources.extfolder_w : Properties.Resources.extfolder;
                     btClose6.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                     btClose2.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                    btClose4.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                     btClose7.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                     btClose.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                     btClose5.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
@@ -2567,6 +2545,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     lbSettings.BackColor = Color.Transparent;
                     lbSettings.ForeColor = foreColor;
                     pbPrivacy.BackColor = backcolor2;
+                    tbRegex.BackColor = backcolor2;
+                    lbRegex.BackColor = backcolor2;
+                    tbRegex.ForeColor = ForeColor;
+                    lbRegex.ForeColor = foreColor;
                     tbAddress.BackColor = backcolor2;
                     pbIncognito.BackColor = backcolor2;
                     fromHour.BackColor = backcolor2;
@@ -2676,10 +2658,11 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     btRefresh.ButtonImage = isbright ? Properties.Resources.refresh : Properties.Resources.refresh_w;
                     btNext.ButtonImage = isbright ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
                     btNotifBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                    btBlockBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                     btNewTabBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                     btCookieBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                     btHome.ButtonImage = isbright ? Properties.Resources.home : Properties.Resources.home_w;
-                    btHamburger.ButtonImage = isbright ? ( anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w);
+                    btHamburger.ButtonImage = isbright ? (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w);
                     L0.BackColor = backcolor2;
                     L0.ForeColor = foreColor;
                     L1.BackColor = backcolor2;
@@ -2825,7 +2808,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             if (timer1int != 50)
             {
                 timer1int++;
-            }else
+            }
+            else
             {
                 timer1int = 0;
                 execTimer50Events();
@@ -2871,7 +2855,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             RefreshFavorites();
         }
 
-        
+
         public void RefreshSizes()
         {
             flpFrom.Location = new Point(scheduleFrom.Location.X + scheduleFrom.Width + 10, flpFrom.Location.Y);
@@ -3023,7 +3007,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             if (ext.Settings.activateScript)
             {
-                chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(HTAlt.Tools.ReadFile(ext.Startup,Encoding.UTF8), "korot://extension/" + ext.CodeName);
+                chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(HTAlt.Tools.ReadFile(ext.Startup, Encoding.UTF8), "korot://extension/" + ext.CodeName);
             }
             if (defaultProxy != null && ext.Settings.hasProxy)
             {
@@ -3050,7 +3034,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 chromiumWebBrowser1.GetBrowser().ShowDevTools();
             }
         }
-        
+
 
         public string certificatedetails = "";
         public bool isCertError = false;
@@ -3066,7 +3050,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            if (privmenu.Visible) 
+            if (privmenu.Visible)
             {
                 privmenu.Hide();
             }
@@ -3411,6 +3395,17 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             cmsFavorite_Opening(null, null);
         }
+        void RefreshBlock()
+        {
+            int i = lbRegex.SelectedIndex;
+            lbRegex.Items.Clear();
+            foreach (string filter in Settings.Filters)
+            {
+                lbRegex.Items.Add(filter);
+            }
+            lbRegex.Items.Insert(0, NewItem);
+            lbRegex.SelectedIndex = i < lbRegex.Items.Count ? i : 0;
+        }
         public void OpenSiteSettings()
         {
             Invoke(new Action(() =>
@@ -3429,6 +3424,25 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                         siteman.GenerateUI();
                     }
                 }));
+        }
+        public void OpenBlockSettings()
+        {
+            Invoke(new Action(() =>
+            {
+                if (anaform.blockTab != null)
+                {
+                    anaform.SelectedTab = anaform.blockTab;
+                }
+                else
+                {
+                    resetPage(true);
+                    anaform.blockTab = ParentTab;
+                    btNext.Enabled = true;
+                    allowSwitching = true;
+                    tabControl1.SelectedTab = tpBlock;
+                    RefreshBlock();
+                }
+            }));
         }
 
         private void button15_Click(object sender, EventArgs e)
@@ -3525,7 +3539,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void tsWebStore_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void pictureBox6_Click(object sender, EventArgs e)
@@ -3945,20 +3959,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
         }
 
-        private void btNBlockBack_Click(object sender, EventArgs e)
+        private void btBlockBack_Click(object sender, EventArgs e)
         {
-            if (anaform.notificationTab != null)
-            {
-                anaform.SelectedTab = anaform.notificationTab;
-            }
-            else
-            {
-                resetPage(true);
-                anaform.notificationTab = ParentTab;
-                btNext.Enabled = true;
-                allowSwitching = true;
-                tabControl1.SelectedTab = tpNotification;
-            }
+            OpenSiteSettings();
         }
 
         private void tbAddress_KeyDown(object sender, KeyEventArgs e)
@@ -3972,16 +3975,19 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
 
         public bool isMuted = false;
-        private void MuteTS_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void tmrNotifListener_Tick(object sender, EventArgs e)
         {
             if (NotificationListenerMode)
             {
                 chromiumWebBrowser1.Refresh();
+                isMuted = true;
+                chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(true);
+            }
+            var c = Settings.IsQuietTime;
+            if (Settings.QuietMode)
+            {
+                isMuted = true;
                 chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(true);
             }
         }
@@ -4054,12 +4060,12 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void tsLangFolder_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void tsLangStore_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btNewTab_Click(object sender, EventArgs e)
@@ -4067,7 +4073,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             EditNewTabItem();
         }
 
-        void LoadNewTabSites()
+        private void LoadNewTabSites()
         {
             NTRefreshNotDone = true;
             //l0
@@ -4075,7 +4081,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 L0T.Text = Settings.NewTabSites.FavoritedSite0.Name;
                 L0U.Text = Settings.NewTabSites.FavoritedSite0.Url;
-            }else
+            }
+            else
             {
                 L0T.Text = "...";
                 L0U.Text = "...";
@@ -4191,7 +4198,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             L9.BorderStyle = editL == 9 ? BorderStyle.FixedSingle : BorderStyle.None;
             NTRefreshNotDone = false;
         }
-        int editL = 0;
+
+        private int editL = 0;
 
         private void tbTitle_TextChanged(object sender, EventArgs e)
         {
@@ -4304,21 +4312,22 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
             LoadNewTabSites();
         }
-        bool NTRefreshNotDone = false;
-        private void siteItem_Click(object sender,EventArgs e)
+
+        private bool NTRefreshNotDone = false;
+        private void siteItem_Click(object sender, EventArgs e)
         {
             if (sender == null) { return; }
-            var cntrl = sender as Control;
+            Control cntrl = sender as Control;
             Panel pnl = cntrl is Panel ? cntrl as Panel : cntrl.Parent as Panel;
             if (pnl == null) { return; }
             if (pnl.Tag == null) { return; }
-            var itemid = Convert.ToInt32(pnl.Tag);
+            int itemid = Convert.ToInt32(pnl.Tag);
             editL = itemid;
             NTRefreshNotDone = true;
             LoadNewTabSites();
             if (itemid == 0)
             {
-                if (Settings.NewTabSites.FavoritedSite0 == null) { tbTitle.Text = ""; tbUrl.Text = ""; }else { tbTitle.Text = Settings.NewTabSites.FavoritedSite0.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite0.Url; }
+                if (Settings.NewTabSites.FavoritedSite0 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite0.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite0.Url; }
                 tbTitle.Enabled = true;
                 tbUrl.Enabled = true;
                 btClear.Enabled = true;
@@ -4422,6 +4431,11 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void cbLang_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadLangFromFile(Application.StartupPath + "//Lang//" + cbLang.Text + ".klf");
+        }
+
+        private void btBlocked_Click(object sender, EventArgs e)
+        {
+            OpenBlockSettings();
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

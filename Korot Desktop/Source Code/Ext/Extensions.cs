@@ -72,7 +72,8 @@ namespace Korot
                 if (foundext.Count == 0)
                 {
                     return null;
-                }else
+                }
+                else
                 {
                     return foundext[0];
                 }
@@ -216,7 +217,7 @@ namespace Korot
             string fileShortLoc = "[EXTFOLDER]" + filePath;
             if (Files.Contains(fileShortLoc))
             {
-                if (File.Exists(fileLoc)) { return true; }else { return false; }
+                if (File.Exists(fileLoc)) { return true; } else { return false; }
             }
             else { return false; }
         }

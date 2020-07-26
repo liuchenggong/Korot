@@ -33,20 +33,21 @@ namespace Korot
                 Controls.Add(lbEmpty);
             }
         }
-        private List<Site> selectedSites = new List<Site>();
-        private List<Panel> selectedPanels = new List<Panel>();
-        private void item_Clicked(object sender,EventArgs e)
+        private readonly List<Site> selectedSites = new List<Site>();
+        private readonly List<Panel> selectedPanels = new List<Panel>();
+        private void item_Clicked(object sender, EventArgs e)
         {
             if (sender == null) { return; }
-            var cntrl = sender as Control;
-            var panel = cntrl is Panel ? cntrl as Panel : (cntrl.Parent is FlowLayoutPanel ? cntrl.Parent.Parent as Panel : cntrl.Parent as Panel);
+            Control cntrl = sender as Control;
+            Panel panel = cntrl is Panel ? cntrl as Panel : (cntrl.Parent is FlowLayoutPanel ? cntrl.Parent.Parent as Panel : cntrl.Parent as Panel);
             if (panel.Tag == null || !(panel.Tag is Site)) { return; }
-            var tag = panel.Tag as Site;
+            Site tag = panel.Tag as Site;
             if (selectedPanels.Contains(panel) && selectedSites.Contains(tag))
             {
                 selectedPanels.Remove(panel);
                 selectedSites.Remove(tag);
-            }else
+            }
+            else
             {
                 selectedPanels.Add(panel);
                 selectedSites.Add(tag);
@@ -158,7 +159,8 @@ namespace Korot
             lbTitle.Text = site.Name;
             Controls.Add(pSite);
         }
-        bool rsMode = false;
+
+        private bool rsMode = false;
         private void hsNotification_CheckedChanged(object sender, EventArgs e)
         {
             HTSwitch hsN = sender as HTSwitch;
@@ -240,7 +242,8 @@ namespace Korot
                 {
                     cefform.Settings.Sites.Remove(x);
                 }
-            }else
+            }
+            else
             {
                 cefform.Settings.Sites.Clear();
             }

@@ -1,16 +1,10 @@
 ﻿using CefSharp;
 using HTAlt.WinForms;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
@@ -24,8 +18,9 @@ namespace Korot
             public DownloadItem DownloadItem { get; set; }
             public HTProgressBar ProgressBar { get; set; }
         }
-        frmCEF cefecik;
-        public frmDownload(frmCEF cefcik) 
+
+        private readonly frmCEF cefecik;
+        public frmDownload(frmCEF cefcik)
         {
             cefecik = cefcik;
             InitializeComponent();
@@ -48,26 +43,31 @@ namespace Korot
                     return Properties.Resources.unknown;
             }
         }
-        List<Panel> panelList = new List<Panel>();
-        List<HTProgressBar> pbList = new List<HTProgressBar>();
+
+        private readonly List<Panel> panelList = new List<Panel>();
+        private readonly List<HTProgressBar> pbList = new List<HTProgressBar>();
         public void RefreshList()
         {
             List<DownloadItemSiteHybrid> dishList = new List<DownloadItemSiteHybrid>();
             foreach (Site x in cefecik.Settings.Downloads.Downloads)
             {
-                DownloadItemSiteHybrid dish = new DownloadItemSiteHybrid();
-                dish.IsSite = true;
-                dish.Site = x;
+                DownloadItemSiteHybrid dish = new DownloadItemSiteHybrid
+                {
+                    IsSite = true,
+                    Site = x
+                };
                 dishList.Add(dish);
             }
             foreach (DownloadItem x in cefecik.anaform.CurrentDownloads)
             {
-                DownloadItemSiteHybrid dish = new DownloadItemSiteHybrid();
-                dish.IsSite = false;
-                dish.DownloadItem = x;
+                DownloadItemSiteHybrid dish = new DownloadItemSiteHybrid
+                {
+                    IsSite = false,
+                    DownloadItem = x
+                };
                 dishList.Add(dish);
             }
-            this.SuspendLayout();
+            SuspendLayout();
             foreach (DownloadItemSiteHybrid x in dishList)
             {
                 // Search and find an existing panel with same Site tag, if exist then don't duplicate it (return).
@@ -109,7 +109,7 @@ namespace Korot
                 lbTarih.Image = GetStatusImage(x.IsSite ? x.Site.Status : DownloadStatus.Downloading);
                 lbTarih.Tag = x;
                 lbTarih.Click += Item_Click;
-                lbTarih.Text = "       " +  cefecik.GetDateInfo(x.IsSite ? DateTime.ParseExact(x.Site.Date, cefecik.DateFormat, null) : DateTime.Now);
+                lbTarih.Text = "       " + cefecik.GetDateInfo(x.IsSite ? DateTime.ParseExact(x.Site.Date, cefecik.DateFormat, null) : DateTime.Now);
                 // 
                 // label4
                 // 
@@ -141,7 +141,7 @@ namespace Korot
                 // 
                 // label5
                 // 
-                label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+                label5.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
                 label5.AutoSize = true;
                 label5.Font = new System.Drawing.Font("Ubuntu", 12F);
                 label5.Location = new System.Drawing.Point(595, 0);
@@ -162,19 +162,19 @@ namespace Korot
                 panel2.ResumeLayout(false);
                 panel2.PerformLayout();
             }
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private void ItemText_Click(object sender, EventArgs e)
         {
             if (sender == null) { return; }
-            var cntrl = sender as Control;
+            Control cntrl = sender as Control;
             if (cntrl.Tag == null) { return; }
-            var dish = cntrl.Tag as DownloadItemSiteHybrid;
+            DownloadItemSiteHybrid dish = cntrl.Tag as DownloadItemSiteHybrid;
             if (dish.IsSite)
             {
-                try 
+                try
                 {
                     Process.Start(dish.Site.LocalUrl);
                 }
@@ -182,7 +182,8 @@ namespace Korot
                 {
                     Process.Start("explorer.exe", "/select," + dish.Site.LocalUrl);
                 }
-            }else
+            }
+            else
             {
                 try
                 {
@@ -197,42 +198,44 @@ namespace Korot
 
         private void lbClose_Click(object sender, EventArgs e)
         {
-            var lb = sender as Label;
+            Label lb = sender as Label;
             if (sender == null) { return; }
             if (lb.Tag == null) { return; }
-            var panel = lb.Parent as Panel;
+            Panel panel = lb.Parent as Panel;
             if (panel == null) { return; }
-            var dish = lb.Tag as DownloadItemSiteHybrid;
+            DownloadItemSiteHybrid dish = lb.Tag as DownloadItemSiteHybrid;
             if (dish.IsSite)
             {
                 cefecik.Settings.Downloads.Downloads.Remove(dish.Site);
-            }else
+            }
+            else
             {
                 cefecik.anaform.CancelledDownloads.Add(dish.DownloadItem.FullPath);
             }
             panelList.Remove(panel);
             Controls.Remove(panel);
         }
-        private void ItemUrl_Click(object sender,EventArgs e)
+        private void ItemUrl_Click(object sender, EventArgs e)
         {
-            var lb = sender as Label;
+            Label lb = sender as Label;
             if (sender == null) { return; }
-            var tag = lb.Tag;
+            object tag = lb.Tag;
             if (tag == null) { return; }
-            var dish = tag as DownloadItemSiteHybrid;
+            DownloadItemSiteHybrid dish = tag as DownloadItemSiteHybrid;
             cefecik.NewTab(dish.IsSite ? dish.Site.Url : dish.DownloadItem.Url);
         }
-        List<DownloadItemSiteHybrid> selectedDISHes = new List<DownloadItemSiteHybrid>();
-        List<Panel> selectedPanels = new List<Panel>();
+
+        private readonly List<DownloadItemSiteHybrid> selectedDISHes = new List<DownloadItemSiteHybrid>();
+        private readonly List<Panel> selectedPanels = new List<Panel>();
         private void Item_Click(object sender, EventArgs e)
         {
-            var cntrl = sender as Control;
+            Control cntrl = sender as Control;
             if (cntrl == null) { return; }
             Panel panelcik = cntrl is Panel ? (cntrl as Panel) : (cntrl.Parent as Panel);
             if (panelcik.Tag == null) { return; }
-            var site = panelcik.Tag as DownloadItemSiteHybrid;
+            DownloadItemSiteHybrid site = panelcik.Tag as DownloadItemSiteHybrid;
             if (site == null) { return; }
-            if (panelcik.BackColor == cefecik.Settings.Theme.BackColor || ( !selectedPanels.Contains(panelcik) && !selectedDISHes.Contains(site)))
+            if (panelcik.BackColor == cefecik.Settings.Theme.BackColor || (!selectedPanels.Contains(panelcik) && !selectedDISHes.Contains(site)))
             {
                 // Not selected, select it
                 selectedDISHes.Add(site);
@@ -245,33 +248,36 @@ namespace Korot
             {
                 // Selected, unselect it
                 selectedDISHes.Remove(site);
-                selectedPanels.Remove (panelcik);
+                selectedPanels.Remove(panelcik);
                 panelcik.BackColor = HTAlt.Tools.ShiftBrightness(cefecik.Settings.Theme.BackColor, 20, false);
                 panelcik.ForeColor = HTAlt.Tools.AutoWhiteBlack(panelcik.BackColor);
                 switchRSMode();
             }
         }
-        void switchRSMode()
+
+        private void switchRSMode()
         {
             rsMode = !(selectedPanels.Count == 0 && selectedDISHes.Count == 0);
             htButton1.ButtonText = rsMode ? cefecik.RemoveSelected : cefecik.Clear;
         }
-        bool rsMode = false;
+
+        private bool rsMode = false;
         private void htButton1_Click(object sender, EventArgs e)
         {
             if (rsMode)
             {
-                foreach(DownloadItemSiteHybrid site in selectedDISHes)
+                foreach (DownloadItemSiteHybrid site in selectedDISHes)
                 {
                     if (site.IsSite)
                     {
                         cefecik.Settings.Downloads.Downloads.Remove(site.Site);
-                    }else
+                    }
+                    else
                     {
                         cefecik.anaform.CancelledDownloads.Add(site.DownloadItem.FullPath);
                     }
                 }
-                foreach(Panel panel in selectedPanels)
+                foreach (Panel panel in selectedPanels)
                 {
                     Controls.Remove(panel);
                     panelList.Remove(panel);
@@ -279,13 +285,14 @@ namespace Korot
                 selectedPanels.Clear();
                 selectedDISHes.Clear();
                 rsMode = false;
-            }else
+            }
+            else
             {
                 cefecik.Settings.Downloads.Downloads.Clear();
                 foreach (Panel x in panelList)
                 {
                     if (x.Tag == null) { return; }
-                    var tag = x.Tag as DownloadItemSiteHybrid;
+                    DownloadItemSiteHybrid tag = x.Tag as DownloadItemSiteHybrid;
                     if (tag.IsSite) { Controls.Remove(x); }
                 }
                 panelList.Clear();

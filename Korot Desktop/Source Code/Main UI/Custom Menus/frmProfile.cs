@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
 {
     public partial class frmProfile : Form
     {
-        frmCEF cefform;
+        private readonly frmCEF cefform;
         public frmProfile(frmCEF _frmCEF)
         {
             cefform = _frmCEF;
@@ -148,13 +143,15 @@ namespace Korot
         }
         private void NewProfilePic()
         {
-            OpenFileDialog filedialog = new OpenFileDialog();
-            filedialog.Title = "Korot";
-            filedialog.Filter = cefform.imageFiles + "|*.png";
-            filedialog.Multiselect = false;
+            OpenFileDialog filedialog = new OpenFileDialog
+            {
+                Title = "Korot",
+                Filter = cefform.imageFiles + "|*.png",
+                Multiselect = false
+            };
             if (filedialog.ShowDialog() == DialogResult.OK)
             {
-                File.Copy(filedialog.FileName, cefform.profilePath + "img.png",true);
+                File.Copy(filedialog.FileName, cefform.profilePath + "img.png", true);
                 cefform.RefreshProfilePic();
             }
         }

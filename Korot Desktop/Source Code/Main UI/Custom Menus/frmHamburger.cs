@@ -2,22 +2,18 @@
 using CefSharp.Structs;
 using HTAlt.WinForms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
 {
-    
+
     public partial class frmHamburger : Form
     {
-        frmCEF cefform;
+        private readonly frmCEF cefform;
         public frmHamburger(frmCEF _frmCEF)
         {
             cefform = _frmCEF;
@@ -39,9 +35,9 @@ namespace Korot
             await Task.Run(() =>
             {
                 double zlvl = 0;
-                cefform.Invoke(new Action(() => 
-                { 
-                Task<double> zoomLevel = cefform.chromiumWebBrowser1.GetZoomLevelAsync();
+                cefform.Invoke(new Action(() =>
+                {
+                    Task<double> zoomLevel = cefform.chromiumWebBrowser1.GetZoomLevelAsync();
                     zlvl = zoomLevel.Result;
                 }));
                 lbZoom.Invoke(new Action(() => lbZoom.Text = ((zlvl * 100) + 100) + "%"));
@@ -64,11 +60,10 @@ namespace Korot
                 BackColor = cefform.Settings.Theme.BackColor;
                 ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
                 bool isbright = HTAlt.Tools.IsBright(BackColor);
-                Color back2 = HTAlt.Tools.ShiftBrightness(BackColor,20,false);
+                Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
                 flpExtensions.BackColor = back2;
                 tsSearch.BackColor = back2;
                 tsSearch.ForeColor = ForeColor;
-                btMute.ButtonImage = cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w);
                 btFullScreen.ButtonImage = cefform.anaform.isFullScreen ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.normalscreen : Properties.Resources.normalscreen_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.fullscreen : Properties.Resources.fullscreen_w);
                 btCaseSensitive.ForeColor = cs ? cefform.Settings.Theme.OverlayColor : HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
                 btFindNext.ButtonImage = isbright ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
@@ -105,6 +100,9 @@ namespace Korot
                 _Overlay = cefform.Settings.Theme.OverlayColor;
                 btCaseSensitive.ForeColor = cs ? cefform.Settings.Theme.OverlayColor : HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
             }
+            var c = cefform.Settings.IsQuietTime;
+            btMute.Enabled = !cefform.Settings.QuietMode;
+            btMute.ButtonImage = cefform.Settings.QuietMode ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w));
             pbDownloads.Image = cefform.anaform.newDownload ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download : Properties.Resources.download_w);
             tsSearch.Text = isSearchOn ? tsSearch.Text : cefform.SearchOnPage;
             btResetZoom.ButtonText = cefform.ResetZoom;
@@ -127,7 +125,8 @@ namespace Korot
             {
                 tmr1int = 0;
                 Task.Run(() => getZoomLevel());
-            }else
+            }
+            else
             {
                 tmr1int++;
             }
@@ -190,7 +189,8 @@ namespace Korot
                 cefform.chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result - 0.25);
             }
         }
-        bool cs = false;
+
+        private bool cs = false;
         private void btCaseSensitive_Click(object sender, EventArgs e)
         {
             cs = !cs;
@@ -199,9 +199,10 @@ namespace Korot
 
         private void tsSearch_Click(object sender, EventArgs e)
         {
-           if (!tsSearch.Focused) { tsSearch.SelectAll(); }
+            if (!tsSearch.Focused) { tsSearch.SelectAll(); }
         }
-        bool isSearchOn = false;
+
+        private bool isSearchOn = false;
         private void tsSearch_TextChanged(object sender, EventArgs e)
         {
             if ((!string.IsNullOrEmpty(tsSearch.Text)) && tsSearch.Text != cefform.SearchOnPage)
@@ -218,7 +219,7 @@ namespace Korot
 
         private void btDefaultProxy_Click(object sender, EventArgs e)
         {
-            cefform.Invoke(new Action(() => cefform.SetProxy(cefform.chromiumWebBrowser1, cefform.defaultProxy)));
+            cefform.Invoke(new Action(() => cefform.SetProxyAddress(cefform.defaultProxy)));
             btDefaultProxy.Enabled = false;
         }
 
@@ -281,7 +282,7 @@ namespace Korot
         private void btMute_Click(object sender, EventArgs e)
         {
             cefform.isMuted = !cefform.isMuted;
-            btMute.ButtonImage = cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : ( HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w);
+            btMute.ButtonImage = cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w);
             cefform.chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(cefform.isMuted);
         }
 
@@ -335,13 +336,13 @@ namespace Korot
             cefform.Invoke(new Action(() => cefform.SwitchToAbout()));
             Hide();
         }
-        private void extItem_Click(object sender,EventArgs e)
+        private void extItem_Click(object sender, EventArgs e)
         {
-            if(sender == null) { return; }
-            var cntrl = sender as Control;
+            if (sender == null) { return; }
+            Control cntrl = sender as Control;
             if (cntrl.Tag == null) { return; }
-            if(!(cntrl.Tag is Extension)) { return; }
-            var ext = cntrl.Tag as Extension;
+            if (!(cntrl.Tag is Extension)) { return; }
+            Extension ext = cntrl.Tag as Extension;
             cefform.applyExtension(ext);
         }
         public void LoadExt()
@@ -353,7 +354,7 @@ namespace Korot
                 {
                     ImageSizeMode = HTButton.ButtonImageSizeMode.Zoom,
                     Image = HTAlt.Tools.ReadFile(x.Icon, "ignore"),
-                    Size = new System.Drawing.Size(32,32),
+                    Size = new System.Drawing.Size(32, 32),
                     Tag = x,
                 };
                 itemButton.Click += extItem_Click;
@@ -400,7 +401,7 @@ namespace Korot
 
         private void Settings_MouseEnter(object sender, EventArgs e)
         {
-            meSet  = true;
+            meSet = true;
             Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
             lbSettings.BackColor = meSet ? back2 : BackColor;
             pbSettings.BackColor = meSet ? back2 : BackColor;

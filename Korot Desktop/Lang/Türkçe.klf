@@ -1,4 +1,8 @@
 <Language CompabileVersion="0.8.0.0">
+  <Translate ID="NewItem" Text="&lt;Yeni&gt;" />
+  <Translate ID="RegexInfo" Text="Korot, bir sitenin iznini düzenli ifadeler (RegEx) ile denetler." />
+  <Translate ID="BlockMenuTitle" Text="Blocklu Siteler" />
+  <Translate ID="BlockMenuButton" Text="Blocklu Siteler..." />
   <Translate ID="ChangePicInfo" Text="Yeni bir resim mi seçmek istersiniz yoksa sıfırlamak mı?" />
   <Translate ID="ResetImage" Text="Resmi sıfırla" />
   <Translate ID="SelectNewImage" Text="Yeni resim seç" />

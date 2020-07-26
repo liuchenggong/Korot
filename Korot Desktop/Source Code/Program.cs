@@ -28,6 +28,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -561,6 +562,19 @@ new HTTitleTab(testApp)
                         }
                     }
                 }
+                else if (node.Name.ToLower() == "siteblocks")
+                {
+                    foreach (XmlNode subnode in node.ChildNodes)
+                    {
+                        if (subnode.Name.ToLower() == "block")
+                        {
+                            if (!string.IsNullOrWhiteSpace(subnode.InnerXml))
+                            {
+                                Filters.Add(subnode.InnerXml);
+                            }
+                        }
+                    }
+                }
                 else if (node.Name.ToLower() == "downloads")
                 {
                     Downloads.DownloadDirectory = node.Attributes["directory"] != null ? node.Attributes["directory"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
@@ -612,6 +626,7 @@ new HTTitleTab(testApp)
             }
         }
         #region Defaults
+        private List<string> _Filters = new List<string>();
         private NewTabSites _NewTabSites = new NewTabSites("");
         private bool _Flash = false;
         public bool LoadedDefaults = false;
@@ -643,15 +658,44 @@ new HTTitleTab(testApp)
         private Extensions _Extensions = new Extensions("");
         #endregion
         #region Properties
+        public class BlockLevels
+        {
+            public string Level0 = @"((http)|(https))\:\/\/§SITE§";
+            public string Level1 = @"((http)|(https))\:\/\/[^\/]*?§SITE§";
+            public string Level2 = @"§SITE§";
+            public string Convert(string Url, string Level)
+            {
+                return Level.Replace("§SITE§", Url.Replace(".", @"\."));
+            }
+            public string ConvertToLevel0(string Url)
+            {
+                return Convert(Url, Level0);
+            }
+
+            public string ConvertToLevel1(string Url)
+            {
+                return Convert(Url, Level1);
+            }
+
+            public string ConvertToLevel2(string Url)
+            {
+                return Convert(Url, Level2);
+            }
+        }
+        public List<string> Filters
+        {
+            get => _Filters;
+            set => _Filters = value;
+        }
         public NewTabSites NewTabSites
         {
             get => _NewTabSites;
             set => _NewTabSites = value;
         }
-        public bool Flash 
-        { 
-            get => _Flash; 
-            set => _Flash = value; 
+        public bool Flash
+        {
+            get => _Flash;
+            set => _Flash = value;
         }
         public bool Silent
         {
@@ -786,6 +830,121 @@ new HTTitleTab(testApp)
             set => _AutoRestore = value;
         }
         #endregion
+        public bool IsQuietTime
+        {
+            get
+            {
+                int fromH = -1;
+                int fromM = -1;
+                int toH = -1;
+                int toM = -1;
+                bool Nsunday = false;
+                bool Nmonday = false;
+                bool Ntuesday = false;
+                bool Nwednesday = false;
+                bool Nthursday = false;
+                bool Nfriday = false;
+                bool Nsaturday = false;
+                string Playlist = AutoSilentMode;
+                string[] SplittedFase = Playlist.Split(':');
+                if (SplittedFase.Length - 1 > 9)
+                {
+
+                    fromH = Convert.ToInt32(SplittedFase[0]);
+                    fromM = Convert.ToInt32(SplittedFase[1]);
+                    toH = Convert.ToInt32(SplittedFase[2]);
+                    toM = Convert.ToInt32(SplittedFase[3]);
+                    bool sunday = SplittedFase[4] == "1";
+                    bool monday = SplittedFase[5] == "1";
+                    bool tuesday = SplittedFase[6] == "1";
+                    bool wednesday = SplittedFase[7] == "1";
+                    bool thursday = SplittedFase[8] == "1";
+                    bool friday = SplittedFase[9] == "1";
+                    bool saturday = SplittedFase[10] == "1";
+                    fromH = Convert.ToInt32(SplittedFase[0]);
+                    fromM = Convert.ToInt32(SplittedFase[1]);
+                    toH = Convert.ToInt32(SplittedFase[2]);
+                    toM = Convert.ToInt32(SplittedFase[3]);
+                    Nsunday = sunday;
+                    Nmonday = monday;
+                    Ntuesday = tuesday;
+                    Nwednesday = wednesday;
+                    Nthursday = thursday;
+                    Nfriday = friday;
+                    Nsaturday = saturday;
+                    if (AutoSilent)
+                    {
+                        DayOfWeek wk = DateTime.Today.DayOfWeek;
+                        if ((Nsunday && wk == DayOfWeek.Sunday)
+                            || (Nmonday && wk == DayOfWeek.Monday)
+                            || (Ntuesday && wk == DayOfWeek.Tuesday)
+                            || (Nwednesday && wk == DayOfWeek.Wednesday)
+                            || (Nthursday && wk == DayOfWeek.Thursday)
+                            || (Nfriday && wk == DayOfWeek.Friday)
+                            || (Nsaturday && wk == DayOfWeek.Saturday))
+                        {
+                            //it passed the first test to be silent.
+                            DateTime date = DateTime.Now;
+                            int h = date.Hour;
+                            int m = date.Minute;
+                            if (fromH < h)
+                            {
+                                if (toH > h)
+                                {
+                                    QuietMode = true;
+                                }
+                                else if (toH == h)
+                                {
+                                    if (m >= toM)
+                                    {
+                                        QuietMode = true;
+                                    }
+                                    else
+                                    {
+                                        QuietMode = false;
+                                    }
+                                }
+                                else
+                                {
+                                    QuietMode = false;
+                                }
+                            }
+                            else if (fromH == h)
+                            {
+                                if (m >= fromM)
+                                {
+                                    QuietMode = true;
+                                }
+                                else
+                                {
+                                    QuietMode = false;
+                                }
+                            }
+                            else
+                            {
+                                QuietMode = false;
+                            }
+                        }
+                        else
+                        {
+                            QuietMode = false;
+                        }
+                    }
+                    if (Silent) { QuietMode = true; }
+                }
+                return QuietMode;
+            }
+        }
+        public bool IsUrlAllowed(string url)
+        {
+            bool allowed = true;
+            foreach (string x in Filters)
+            {
+                Regex Rgx = new Regex(x, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                allowed = !Rgx.IsMatch(url);
+            }
+            return allowed;
+        }
         public void Save()
         {
             string x =
@@ -822,8 +981,12 @@ new HTTitleTab(testApp)
                      + "\" />"
                      + Environment.NewLine;
             }
-            x += "</Sites> " + Environment.NewLine +
-            "<Theme File=\"" + (!string.IsNullOrWhiteSpace(Theme.ThemeFile) ? Theme.ThemeFile.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") : "") + "\">" + Environment.NewLine +
+            x += "</Sites>" + Environment.NewLine + "<SiteBlocks>" + Environment.NewLine;
+            foreach (string block in Filters)
+            {
+                x += "<Block>" + block.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Block>" + Environment.NewLine;
+            }
+            x += "<SiteBlocks>" + Environment.NewLine + "<Theme File=\"" + (!string.IsNullOrWhiteSpace(Theme.ThemeFile) ? Theme.ThemeFile.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") : "") + "\">" + Environment.NewLine +
             "<Name>" + Theme.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Name>" + Environment.NewLine +
             "<Author>" + Theme.Author.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Author>" + Environment.NewLine +
             "<BackColor>" + HTAlt.Tools.ColorToHex(Theme.BackColor) + "</BackColor>" + Environment.NewLine +
@@ -868,7 +1031,6 @@ new HTTitleTab(testApp)
         {
             return Sites.Find(i => i.Url == Url);
         }
-
     }
     public class Theme
     {
@@ -987,6 +1149,7 @@ new HTTitleTab(testApp)
                 }
             }
         }
+        
         public Theme(string themeFile)
         {
             LoadFromFile(themeFile);
@@ -1282,11 +1445,7 @@ new HTTitleTab(testApp)
     }
     public class NewTabSites
     {
-        public string XMLOut
-        {
-            get
-            {
-                return "<NewTabMenu>" + Environment.NewLine +
+        public string XMLOut => "<NewTabMenu>" + Environment.NewLine +
                    (FavoritedSite0 != null ? "<Attached0 Name=\"" + FavoritedSite0.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Url=\"" + FavoritedSite0.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />" + Environment.NewLine : "") +
                    (FavoritedSite1 != null ? "<Attached1 Name=\"" + FavoritedSite1.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Url=\"" + FavoritedSite1.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />" + Environment.NewLine : "") +
                    (FavoritedSite2 != null ? "<Attached2 Name=\"" + FavoritedSite2.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Url=\"" + FavoritedSite2.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />" + Environment.NewLine : "") +
@@ -1298,8 +1457,6 @@ new HTTitleTab(testApp)
                    (FavoritedSite8 != null ? "<Attached8 Name=\"" + FavoritedSite8.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Url=\"" + FavoritedSite8.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />" + Environment.NewLine : "") +
                    (FavoritedSite9 != null ? "<Attached9 Name=\"" + FavoritedSite9.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Url=\"" + FavoritedSite9.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />" + Environment.NewLine : "") +
                     "</NewTabMenu>";
-            }
-        }
         public NewTabSites(string xmlCode)
         {
             if (string.IsNullOrWhiteSpace(xmlCode))
@@ -1310,77 +1467,97 @@ new HTTitleTab(testApp)
             {
                 XmlDocument document = new XmlDocument();
                 document.LoadXml(xmlCode);
-                foreach (XmlNode node in document.FirstChild.ChildNodes) 
+                foreach (XmlNode node in document.FirstChild.ChildNodes)
                 {
                     if (node.Name.ToLower() == "attached0")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
-                        FavoritedSite0 = new Site();
-                        FavoritedSite0.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
-                        FavoritedSite0.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite0 = new Site
+                        {
+                            Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\""),
+                            Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
+                        };
                     }
                     else if (node.Name.ToLower() == "attached1")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
-                        FavoritedSite1 = new Site();
-                        FavoritedSite1.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
-                        FavoritedSite1.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite1 = new Site
+                        {
+                            Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\""),
+                            Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
+                        };
                     }
                     else if (node.Name.ToLower() == "attached2")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
-                        FavoritedSite2 = new Site();
-                        FavoritedSite2.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
-                        FavoritedSite2.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite2 = new Site
+                        {
+                            Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\""),
+                            Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
+                        };
                     }
                     else if (node.Name.ToLower() == "attached3")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
-                        FavoritedSite3 = new Site();
-                        FavoritedSite3.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
-                        FavoritedSite3.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite3 = new Site
+                        {
+                            Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\""),
+                            Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
+                        };
                     }
                     else if (node.Name.ToLower() == "attached4")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
-                        FavoritedSite4 = new Site();
-                        FavoritedSite4.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
-                        FavoritedSite4.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite4 = new Site
+                        {
+                            Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\""),
+                            Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
+                        };
                     }
                     else if (node.Name.ToLower() == "attached5")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
-                        FavoritedSite5 = new Site();
-                        FavoritedSite5.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
-                        FavoritedSite5.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite5 = new Site
+                        {
+                            Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\""),
+                            Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
+                        };
                     }
                     else if (node.Name.ToLower() == "attached6")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
-                        FavoritedSite6 = new Site();
-                        FavoritedSite6.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
-                        FavoritedSite6.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite6 = new Site
+                        {
+                            Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\""),
+                            Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
+                        };
                     }
                     else if (node.Name.ToLower() == "attached7")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
-                        FavoritedSite7 = new Site();
-                        FavoritedSite7.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
-                        FavoritedSite7.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite7 = new Site
+                        {
+                            Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\""),
+                            Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
+                        };
                     }
                     else if (node.Name.ToLower() == "attached8")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
-                        FavoritedSite8 = new Site();
-                        FavoritedSite8.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
-                        FavoritedSite8.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite8 = new Site
+                        {
+                            Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\""),
+                            Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
+                        };
                     }
                     else if (node.Name.ToLower() == "attached9")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
-                        FavoritedSite9 = new Site();
-                        FavoritedSite9.Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
-                        FavoritedSite9.Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"");
+                        FavoritedSite9 = new Site
+                        {
+                            Name = node.Attributes["Name"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\""),
+                            Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
+                        };
                     }
                 }
             }
@@ -1389,7 +1566,7 @@ new HTTitleTab(testApp)
         {
             string x = "<a href=\"" + site.Url + "\" style=\"§BACKSTYLE3§\">" + site.Name + "</a>" +
     "</br>" +
-   "<a href=\"" + site.Url + "\" style=\"§BACKSTYLE3§font-size: small;\">" + site.Url.Substring(0,10)  + "</a>";
+   "<a href=\"" + site.Url + "\" style=\"§BACKSTYLE3§font-size: small;\">" + site.Url.Substring(0, 10) + "</a>";
             return x;
         }
         public Site FavoritedSite0 { get; set; }

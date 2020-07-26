@@ -1,34 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using HTAlt;
+using System.Text;
 
 
 namespace Korot
 {
-    class SafeFileSettingOrganizedClass
+    internal class SafeFileSettingOrganizedClass
     {
         public static string GetUserFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\";
         public static string LastUser
         {
             get
             {
-                if (File.Exists(GetUserFolder + "LASTUSER.SFSOC")) 
+                if (File.Exists(GetUserFolder + "LASTUSER.SFSOC"))
                 {
                     return HTAlt.Tools.ReadFile(GetUserFolder + "LASTUSER.SFSOC", Encoding.UTF8);
-                }else
+                }
+                else
                 {
-                    HTAlt.Tools.WriteFile(GetUserFolder + "LASTUSER.SFSOC", "",Encoding.UTF8);
+                    HTAlt.Tools.WriteFile(GetUserFolder + "LASTUSER.SFSOC", "", Encoding.UTF8);
                     return LastUser;
                 }
             }
-            set
-            {
-                HTAlt.Tools.WriteFile(GetUserFolder + "LASTUSER.SFSOC", value, Encoding.UTF8);
-            }
+            set => HTAlt.Tools.WriteFile(GetUserFolder + "LASTUSER.SFSOC", value, Encoding.UTF8);
         }
         public static string LastSession
         {
@@ -44,10 +38,7 @@ namespace Korot
                     return LastSession;
                 }
             }
-            set
-            {
-                HTAlt.Tools.WriteFile(GetUserFolder + "LASTSESSION.SFSOC", value, Encoding.UTF8);
-            }
+            set => HTAlt.Tools.WriteFile(GetUserFolder + "LASTSESSION.SFSOC", value, Encoding.UTF8);
         }
         public static string[] ErrorMenu
         {

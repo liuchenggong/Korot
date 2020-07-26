@@ -76,16 +76,16 @@ namespace Korot
         public string GetNewTabItems()
         {
             string x = "";
-            if(CefForm.Settings.NewTabSites.FavoritedSite0 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite0) + "</div>" + Environment.NewLine; }
-            if(CefForm.Settings.NewTabSites.FavoritedSite1 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite1) + "</div>" + Environment.NewLine; }
-            if(CefForm.Settings.NewTabSites.FavoritedSite2 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite2) + "</div>" + Environment.NewLine; }
-            if(CefForm.Settings.NewTabSites.FavoritedSite3 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite3) + "</div>" + Environment.NewLine; }
-            if(CefForm.Settings.NewTabSites.FavoritedSite4 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite4) + "</div>" + Environment.NewLine; }
-            if(CefForm.Settings.NewTabSites.FavoritedSite5 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite5) + "</div>" + Environment.NewLine; }
-            if(CefForm.Settings.NewTabSites.FavoritedSite6 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite6) + "</div>" + Environment.NewLine; }
-            if(CefForm.Settings.NewTabSites.FavoritedSite7 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite7) + "</div>" + Environment.NewLine; }
-            if(CefForm.Settings.NewTabSites.FavoritedSite8 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite8) + "</div>" + Environment.NewLine; }
-            if(CefForm.Settings.NewTabSites.FavoritedSite9 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite9) + "</div>" + Environment.NewLine; }
+            if (CefForm.Settings.NewTabSites.FavoritedSite0 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite0) + "</div>" + Environment.NewLine; }
+            if (CefForm.Settings.NewTabSites.FavoritedSite1 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite1) + "</div>" + Environment.NewLine; }
+            if (CefForm.Settings.NewTabSites.FavoritedSite2 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite2) + "</div>" + Environment.NewLine; }
+            if (CefForm.Settings.NewTabSites.FavoritedSite3 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite3) + "</div>" + Environment.NewLine; }
+            if (CefForm.Settings.NewTabSites.FavoritedSite4 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite4) + "</div>" + Environment.NewLine; }
+            if (CefForm.Settings.NewTabSites.FavoritedSite5 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite5) + "</div>" + Environment.NewLine; }
+            if (CefForm.Settings.NewTabSites.FavoritedSite6 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite6) + "</div>" + Environment.NewLine; }
+            if (CefForm.Settings.NewTabSites.FavoritedSite7 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite7) + "</div>" + Environment.NewLine; }
+            if (CefForm.Settings.NewTabSites.FavoritedSite8 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite8) + "</div>" + Environment.NewLine; }
+            if (CefForm.Settings.NewTabSites.FavoritedSite9 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite9) + "</div>" + Environment.NewLine; }
             return x;
         }
         public static bool ValidHttpURL(string s)
@@ -101,7 +101,7 @@ namespace Korot
             {
                 if (request.Url == "korot://newtab/")
                 {
-                    return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§ITEMS§",GetNewTabItems()).Replace("§BACKSTYLE3§",GetBackStyle3()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.SearchHelpText).Replace("§SEARCH§", CefForm.Search).Replace("§DAYS§", CefForm.DayNames).Replace("§MONTHS§", CefForm.MonthNames).Replace("§TITLE§", CefForm.NewTabtitle).Replace("§EDIT§", CefForm.NewTabEdit));
+                    return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§ITEMS§", GetNewTabItems()).Replace("§BACKSTYLE3§", GetBackStyle3()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.SearchHelpText).Replace("§SEARCH§", CefForm.Search).Replace("§DAYS§", CefForm.DayNames).Replace("§MONTHS§", CefForm.MonthNames).Replace("§TITLE§", CefForm.NewTabtitle).Replace("§EDIT§", CefForm.NewTabEdit));
                 }
                 else if (request.Url == "korot://incognito/")
                 {
@@ -123,7 +123,7 @@ namespace Korot
                 }
                 else if (request.Url.StartsWith("korot://search/"))
                 {
-                    string x = request.Url.Substring(request.Url.IndexOf("/",11) + 1);
+                    string x = request.Url.Substring(request.Url.IndexOf("/", 11) + 1);
                     if (ValidHttpURL(x))
                     {
                         return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + x + "\" />");
@@ -162,13 +162,9 @@ namespace Korot
                 {
                     return ResourceHandler.FromString(Properties.Resources.korotlinks.Replace("§BACKSTYLE2§", GetBackStyle2()));
                 }
-                else if (request.Url == "korot://blocked/")
-                {
-                    return ResourceHandler.FromString("<head><title>Korot</title></head><body><h1>BLOCKED</h1></body>");
-                }
                 else if (request.Url.StartsWith("korot://extension/"))
                 {
-                    string x = request.Url.Substring(request.Url.IndexOf("/",11) + 1);
+                    string x = request.Url.Substring(request.Url.IndexOf("/", 11) + 1);
                     // "<meta http-equiv=\"Refresh\" content=\"0; url =" + x + "\" />"
                     if (x.Count(i => (i == '/')) >= 4)
                     {
@@ -181,15 +177,16 @@ namespace Korot
                                 string fileLoc = x.Substring(x.IndexOf(codename + "/"));
                                 if (cext.FileExists(fileLoc))
                                 {
-                                    return ResourceHandler.FromString(HTAlt.Tools.ReadFile(cext.Folder + fileLoc,Encoding.UTF8));
+                                    return ResourceHandler.FromString(HTAlt.Tools.ReadFile(cext.Folder + fileLoc, Encoding.UTF8));
                                 }
-                            }else
+                            }
+                            else
                             {
                                 return ResourceHandler.FromString(HTAlt.Tools.ReadFile(cext.Popup, Encoding.UTF8));
                             }
                         }
                     }
-                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://blocked/ \" />");
+                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=BLOCKED \" />");
                 }
                 else if (request.Url == "korot://refresh/")
                 {
@@ -220,7 +217,14 @@ namespace Korot
                     return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = http://korot://error/?e=FILE_NOT_FOUND \" />");
                 }
             }
-            return new ResourceHandler();
+            if (CefForm.Settings.IsUrlAllowed(request.Url))
+            {
+                return new ResourceHandler();
+            }
+            else
+            {
+                return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =  http://korot://error/?e=BLOCKED \" />");
+            }
         }
     }
 }

@@ -1,32 +1,26 @@
-﻿using CefSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
 {
     public partial class frmHistory : Form
     {
-        frmCEF cefecik; //bunu kim yazdı -gogle
+        private readonly frmCEF cefecik; //bunu kim yazdı -gogle
         public frmHistory(frmCEF cefcik) //ben yazdım ağam -ht
         {
             cefecik = cefcik; //şaka mı bu abi sikerim belanı ha yavşak -gologe
             //this is so sad can we get 31 likes sjsjsjsj
             InitializeComponent();
         }
-        List<Panel> panelList = new List<Panel>();
+
+        private readonly List<Panel> panelList = new List<Panel>();
         public void RefreshList()
         {
             foreach (Site x in cefecik.Settings.History)
             {
                 // Search and find an existing panel with same Site tag, if exist then don't duplicate it (return).
-                if(panelList.Find(i => i.Tag == x) != null)
+                if (panelList.Find(i => i.Tag == x) != null)
                 {
                     return;
                 }
@@ -40,7 +34,7 @@ namespace Korot
                 // 
                 // panel2
                 // 
-                panel2.BackColor = HTAlt.Tools.ShiftBrightness(cefecik.Settings.Theme.BackColor,20,false);
+                panel2.BackColor = HTAlt.Tools.ShiftBrightness(cefecik.Settings.Theme.BackColor, 20, false);
                 panel2.ForeColor = HTAlt.Tools.AutoWhiteBlack(cefecik.Settings.Theme.BackColor);
                 panel2.Controls.Add(label4);
                 panel2.Controls.Add(label5);
@@ -62,7 +56,7 @@ namespace Korot
                 lbTarih.AutoSize = true;
                 lbTarih.DoubleClick += historyItem_DoubleClick;
                 lbTarih.Click += historyItem_Click;
-                lbTarih.Text = cefecik.GetDateInfo(DateTime.ParseExact(x.Date,cefecik.DateFormat,null));
+                lbTarih.Text = cefecik.GetDateInfo(DateTime.ParseExact(x.Date, cefecik.DateFormat, null));
                 lbTarih.Tag = x;
                 // 
                 // label4
@@ -78,7 +72,7 @@ namespace Korot
                 // 
                 // label5
                 // 
-                label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+                label5.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
                 label5.AutoSize = true;
                 label5.Font = new System.Drawing.Font("Ubuntu", 12F);
                 label5.Location = new System.Drawing.Point(Width - 25, 9);
@@ -102,42 +96,43 @@ namespace Korot
                 panelList.Add(panel2);
             }
         }
-       
+
         private void lbClose_Click(object sender, EventArgs e)
         {
-            var lb = sender as Label;
+            Label lb = sender as Label;
             if (sender == null) { return; }
-            var tag = lb.Tag;
+            object tag = lb.Tag;
             if (tag == null) { return; }
             Site site = tag as Site;
             if (site == null) { return; }
-            var panel = lb.Parent as Panel;
+            Panel panel = lb.Parent as Panel;
             if (panel == null) { return; }
             panelList.Remove(panel);
             Controls.Remove(panel);
             cefecik.Settings.History.Remove(site);
         }
-        private void historyItem_DoubleClick(object sender,EventArgs e)
+        private void historyItem_DoubleClick(object sender, EventArgs e)
         {
-            var lb = sender as Label;
+            Label lb = sender as Label;
             if (sender == null) { return; }
-            var tag = lb.Tag;
+            object tag = lb.Tag;
             if (tag == null) { return; }
             Site site = tag as Site;
             if (site == null) { return; }
             cefecik.NewTab(site.Url);
         }
-        List<Site> selectedSites = new List<Site>();
-        List<Panel> selectedPanels = new List<Panel>();
+
+        private readonly List<Site> selectedSites = new List<Site>();
+        private readonly List<Panel> selectedPanels = new List<Panel>();
         private void historyItem_Click(object sender, EventArgs e)
         {
-            var cntrl = sender as Control;
+            Control cntrl = sender as Control;
             if (cntrl == null) { return; }
             Panel panelcik = cntrl is Panel ? (cntrl as Panel) : (cntrl.Parent as Panel);
             if (panelcik.Tag == null) { return; }
-            var site = panelcik.Tag as Site;
+            Site site = panelcik.Tag as Site;
             if (site == null) { return; }
-            if (panelcik.BackColor == cefecik.Settings.Theme.BackColor || ( !selectedPanels.Contains(panelcik) && !selectedSites.Contains(site)))
+            if (panelcik.BackColor == cefecik.Settings.Theme.BackColor || (!selectedPanels.Contains(panelcik) && !selectedSites.Contains(site)))
             {
                 // Not selected, select it
                 selectedSites.Add(site);
@@ -150,27 +145,29 @@ namespace Korot
             {
                 // Selected, unselect it
                 selectedSites.Remove(site);
-                selectedPanels.Remove (panelcik);
+                selectedPanels.Remove(panelcik);
                 panelcik.BackColor = HTAlt.Tools.ShiftBrightness(cefecik.Settings.Theme.BackColor, 20, false);
                 panelcik.ForeColor = HTAlt.Tools.AutoWhiteBlack(panelcik.BackColor);
                 switchRSMode();
             }
         }
-        void switchRSMode()
+
+        private void switchRSMode()
         {
             rsMode = !(selectedPanels.Count == 0 && selectedSites.Count == 0);
             htButton1.ButtonText = rsMode ? cefecik.RemoveSelected : cefecik.Clear;
         }
-        bool rsMode = false;
+
+        private bool rsMode = false;
         private void htButton1_Click(object sender, EventArgs e)
         {
             if (rsMode)
             {
-                foreach(Site site in selectedSites)
+                foreach (Site site in selectedSites)
                 {
                     cefecik.Settings.History.Remove(site);
                 }
-                foreach(Panel panel in selectedPanels)
+                foreach (Panel panel in selectedPanels)
                 {
                     Controls.Remove(panel);
                     panelList.Remove(panel);
@@ -178,7 +175,8 @@ namespace Korot
                 selectedPanels.Clear();
                 selectedSites.Clear();
                 rsMode = false;
-            }else
+            }
+            else
             {
                 cefecik.Settings.History.Clear();
                 foreach (Panel x in panelList)

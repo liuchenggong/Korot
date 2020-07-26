@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
 {
     public partial class frmIncognito : Form
     {
-        frmCEF cefform;
+        private readonly frmCEF cefform;
         public frmIncognito(frmCEF _frmCEF)
         {
             cefform = _frmCEF;

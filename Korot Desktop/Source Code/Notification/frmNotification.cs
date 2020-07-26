@@ -100,74 +100,12 @@ namespace Korot
         }
         private void frmNotification_Load(object sender, EventArgs e)
         {
-            checkSilentMode();
+            var n = cefform.Settings.IsQuietTime;
             if (cefform.Settings.DoNotPlaySound) { PlayNotificationSound(); }
             if (!cefform.Settings.QuietMode) { Hide(); }
             lbKorot.Text = "Korot " + Application.ProductVersion.ToString() + (VersionInfo.IsPreRelease ? "-pre" + VersionInfo.PreReleaseNumber : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)") + " (" + VersionInfo.CodeName + ")";
         }
 
-        private void checkSilentMode()
-        {
-            if (cefform.Settings.AutoSilent)
-            {
-                DayOfWeek wk = DateTime.Today.DayOfWeek;
-                if ((cefform.Nsunday && wk == DayOfWeek.Sunday)
-                    || (cefform.Nmonday && wk == DayOfWeek.Monday)
-                    || (cefform.Ntuesday && wk == DayOfWeek.Tuesday)
-                    || (cefform.Nwednesday && wk == DayOfWeek.Wednesday)
-                    || (cefform.Nthursday && wk == DayOfWeek.Thursday)
-                    || (cefform.Nfriday && wk == DayOfWeek.Friday)
-                    || (cefform.Nsaturday && wk == DayOfWeek.Saturday))
-                {
-                    //it passed the first test to be silent.
-                    DateTime date = DateTime.Now;
-                    int h = date.Hour;
-                    int m = date.Minute;
-                    if (cefform.fromH < h)
-                    {
-                        if (cefform.toH > h)
-                        {
-                            cefform.Settings.QuietMode = true;
-                        }
-                        else if (cefform.toH == h)
-                        {
-                            if (m >= cefform.toM)
-                            {
-                                cefform.Settings.QuietMode = true;
-                            }
-                            else
-                            {
-                                cefform.Settings.QuietMode = false;
-                            }
-                        }
-                        else
-                        {
-                            cefform.Settings.QuietMode = false;
-                        }
-                    }
-                    else if (cefform.fromH == h)
-                    {
-                        if (m >= cefform.fromM)
-                        {
-                            cefform.Settings.QuietMode = true;
-                        }
-                        else
-                        {
-                            cefform.Settings.QuietMode = false;
-                        }
-                    }
-                    else
-                    {
-                        cefform.Settings.QuietMode = false;
-                    }
-                }
-                else
-                {
-                    cefform.Settings.QuietMode = false;
-                }
-            }
-            if (cefform.Settings.Silent) { cefform.Settings.QuietMode = true; }
-        }
 
         private void lbClose_Click(object sender, EventArgs e)
         {
@@ -186,7 +124,7 @@ namespace Korot
             lbSource.Text = notification.url;
             lbTitle.Text = notification.title;
             lbMessage.Text = notification.message;
-            checkSilentMode();
+            var n = cefform.Settings.IsQuietTime;
             if (cefform.Settings.QuietMode) { Hide(); } else { Show(); }
             if (!cefform.Settings.QuietMode) { PlayNotificationSound(); }
             Rectangle screenSize = Screen.GetWorkingArea(this);

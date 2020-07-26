@@ -1,4 +1,8 @@
 <Language CompabileVersion="0.8.0.0">
+  <Translate ID="NewItem" Text="&lt;New&gt;" />
+  <Translate ID="RegexInfo" Text="Korot uses Regular Expressions (RegEx) for detecting if a website is allowed." />
+  <Translate ID="BlockMenuTitle" Text="Blocked Sites" />
+  <Translate ID="BlockMenuButton" Text="Blocked Sites..." />
   <Translate ID="ChangePicInfo" Text="Do you want to reset the image or select new one?" />
   <Translate ID="ResetImage" Text="Reset image" />
   <Translate ID="SelectNewImage" Text="Select a new image" />
