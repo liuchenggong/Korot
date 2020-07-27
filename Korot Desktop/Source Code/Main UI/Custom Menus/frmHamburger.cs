@@ -384,7 +384,7 @@ namespace Korot
                     HTButton itemButton = new HTButton()
                     {
                         ImageSizeMode = HTButton.ButtonImageSizeMode.Zoom,
-                        Image = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Properties.Resources.script : Properties.Resources.script_w,
+                        Image = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Properties.Resources.script : Properties.Resources.script_2,
                         Size = new System.Drawing.Size(32, 32),
                         Tag = x,
                     };
