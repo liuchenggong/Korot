@@ -100,7 +100,7 @@ namespace Korot
         }
         private void frmNotification_Load(object sender, EventArgs e)
         {
-            var n = cefform.Settings.IsQuietTime;
+            bool n = cefform.Settings.IsQuietTime;
             if (cefform.Settings.DoNotPlaySound) { PlayNotificationSound(); }
             if (!cefform.Settings.QuietMode) { Hide(); }
             lbKorot.Text = "Korot " + Application.ProductVersion.ToString() + (VersionInfo.IsPreRelease ? "-pre" + VersionInfo.PreReleaseNumber : "") + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)") + " (" + VersionInfo.CodeName + ")";
@@ -124,7 +124,7 @@ namespace Korot
             lbSource.Text = notification.url;
             lbTitle.Text = notification.title;
             lbMessage.Text = notification.message;
-            var n = cefform.Settings.IsQuietTime;
+            bool n = cefform.Settings.IsQuietTime;
             if (cefform.Settings.QuietMode) { Hide(); } else { Show(); }
             if (!cefform.Settings.QuietMode) { PlayNotificationSound(); }
             Rectangle screenSize = Screen.GetWorkingArea(this);

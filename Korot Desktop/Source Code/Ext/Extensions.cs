@@ -185,11 +185,12 @@ namespace Korot
                         {
                             if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
                             {
-                                RightClickOption option = new RightClickOption() { 
-                                Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]",ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                Option = RightClickOptionStyle.None,
+                                RightClickOption option = new RightClickOption()
+                                {
+                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Option = RightClickOptionStyle.None,
                                 };
                                 RightClickOptions.Add(option);
                             }

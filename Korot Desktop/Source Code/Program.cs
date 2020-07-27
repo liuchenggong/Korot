@@ -568,7 +568,8 @@ new HTTitleTab(testApp)
                     {
                         if (subnode.Name.ToLower() == "block")
                         {
-                            if (subnode.Attributes["Level"] == null || subnode.Attributes["Filter"] == null || subnode.Attributes["Url"] == null) { }else
+                            if (subnode.Attributes["Level"] == null || subnode.Attributes["Filter"] == null || subnode.Attributes["Url"] == null) { }
+                            else
                             {
                                 BlockSite bs = new BlockSite() { Address = subnode.Attributes["Url"].Value, BlockLevel = Convert.ToInt32(subnode.Attributes["Level"].Value), Filter = subnode.Attributes["Filter"].Value };
                                 Filters.Add(bs);
@@ -676,7 +677,7 @@ new HTTitleTab(testApp)
 
             public static string ConvertToLevel1(string Url)
             {
-                return Convert(HTAlt.Tools.GetBaseURL(Url).Replace("https://","").Replace("http://",""), Level1);
+                return Convert(HTAlt.Tools.GetBaseURL(Url).Replace("https://", "").Replace("http://", ""), Level1);
             }
 
             public static string ConvertToLevel2(string Url)
@@ -1156,7 +1157,7 @@ new HTTitleTab(testApp)
                 }
             }
         }
-        
+
         public Theme(string themeFile)
         {
             LoadFromFile(themeFile);

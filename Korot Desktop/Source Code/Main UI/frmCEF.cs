@@ -2163,13 +2163,13 @@ namespace Korot
             anaform.themeTab = anaform.themeTab == ParentTab ? null : anaform.themeTab;
             anaform.historyTab = anaform.historyTab == ParentTab ? null : anaform.historyTab;
             anaform.downloadTab = anaform.downloadTab == ParentTab ? null : anaform.downloadTab;
-            anaform.siteTab = anaform.siteTab == ParentTab ? null: anaform.siteTab;
-            anaform.aboutTab = anaform.aboutTab == ParentTab ? null: anaform.aboutTab;
-            anaform.collectionTab = anaform.collectionTab == ParentTab ? null:anaform.collectionTab;
-            anaform.notificationTab = anaform.notificationTab == ParentTab ? null:anaform.notificationTab;
-            anaform.newtabeditTab = anaform.newtabeditTab == ParentTab ? null:anaform.newtabeditTab;
-            anaform.licenseTab = anaform.licenseTab == ParentTab ? null:anaform.licenseTab;
-            anaform.blockTab = anaform.blockTab == ParentTab ? null:anaform.blockTab;
+            anaform.siteTab = anaform.siteTab == ParentTab ? null : anaform.siteTab;
+            anaform.aboutTab = anaform.aboutTab == ParentTab ? null : anaform.aboutTab;
+            anaform.collectionTab = anaform.collectionTab == ParentTab ? null : anaform.collectionTab;
+            anaform.notificationTab = anaform.notificationTab == ParentTab ? null : anaform.notificationTab;
+            anaform.newtabeditTab = anaform.newtabeditTab == ParentTab ? null : anaform.newtabeditTab;
+            anaform.licenseTab = anaform.licenseTab == ParentTab ? null : anaform.licenseTab;
+            anaform.blockTab = anaform.blockTab == ParentTab ? null : anaform.blockTab;
             if (!doNotGoToCEFTab)
             {
                 allowSwitching = true;
@@ -3431,7 +3431,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             cmsFavorite_Opening(null, null);
         }
-        void RefreshBlock()
+
+        private void RefreshBlock()
         {
             blockmenu.GenerateUI();
         }
@@ -4013,7 +4014,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 isMuted = true;
                 chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(true);
             }
-            var c = Settings.IsQuietTime;
+            bool c = Settings.IsQuietTime;
             if (Settings.QuietMode)
             {
                 isMuted = true;

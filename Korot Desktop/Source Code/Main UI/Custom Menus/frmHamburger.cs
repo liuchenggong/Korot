@@ -8,7 +8,6 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Win32Interop.Enums;
 
 namespace Korot
 {
@@ -102,7 +101,7 @@ namespace Korot
                 _Overlay = cefform.Settings.Theme.OverlayColor;
                 btCaseSensitive.ForeColor = cs ? cefform.Settings.Theme.OverlayColor : HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
             }
-            var c = cefform.Settings.IsQuietTime;
+            bool c = cefform.Settings.IsQuietTime;
             btMute.Enabled = !cefform.Settings.QuietMode;
             btMute.ButtonImage = cefform.Settings.QuietMode ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w));
             pbDownloads.Image = cefform.anaform.newDownload ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download : Properties.Resources.download_w);
@@ -212,8 +211,8 @@ namespace Korot
             {
                 if ((!string.IsNullOrEmpty(tsSearch.Text)) && tsSearch.Text != cefform.SearchOnPage)
                 {
-                        isSearchOn = true;
-                        cefform.chromiumWebBrowser1.Find(0, tsSearch.Text, true, cs, false);
+                    isSearchOn = true;
+                    cefform.chromiumWebBrowser1.Find(0, tsSearch.Text, true, cs, false);
                 }
                 else
                 {
@@ -356,9 +355,10 @@ namespace Korot
             {
                 Extension ext = cntrl.Tag as Extension;
                 cefform.applyExtension(ext);
-            }else if (cntrl.Tag is string)
+            }
+            else if (cntrl.Tag is string)
             {
-                var loc = cntrl.Tag as string;
+                string loc = cntrl.Tag as string;
                 cefform.chromiumWebBrowser1.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsyncWhenPageLoaded(HTAlt.Tools.ReadFile(loc, Encoding.UTF8))));
             }
         }
@@ -497,12 +497,13 @@ namespace Korot
 
         private void btBlock_Click(object sender, EventArgs e)
         {
-            var item = cefform.Settings.Filters.Find(i => i.Address == cefform.chromiumWebBrowser1.Address);
+            BlockSite item = cefform.Settings.Filters.Find(i => i.Address == cefform.chromiumWebBrowser1.Address);
             if (item != null)
             {
                 frmBlockSite fbs = new frmBlockSite(cefform, item);
                 fbs.ShowDialog();
-            }else
+            }
+            else
             {
                 frmBlockSite fbs = new frmBlockSite(cefform, cefform.chromiumWebBrowser1.Address);
                 fbs.ShowDialog();

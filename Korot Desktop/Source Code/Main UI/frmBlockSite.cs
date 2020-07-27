@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
 {
     public partial class frmBlockSite : Form
     {
-        frmCEF cefform;
-        BlockSite site;
-        BlockSite msite;
-        public frmBlockSite(frmCEF _frmCEF,BlockSite _site)
+        private readonly frmCEF cefform;
+        private readonly BlockSite site;
+        private readonly BlockSite msite;
+        public frmBlockSite(frmCEF _frmCEF, BlockSite _site)
         {
             cefform = _frmCEF;
             msite = _site;
@@ -52,7 +45,10 @@ namespace Korot
                 rbL3.Checked = true;
             }
         }
-        public frmBlockSite(frmCEF _frmCEF, string Url) => new frmBlockSite(_frmCEF, new BlockSite() { Address = Url, BlockLevel = 0, Filter = Settings.BlockLevels.ConvertToLevel0(Url) });
+        public frmBlockSite(frmCEF _frmCEF, string Url)
+        {
+            new frmBlockSite(_frmCEF, new BlockSite() { Address = Url, BlockLevel = 0, Filter = Settings.BlockLevels.ConvertToLevel0(Url) });
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -158,7 +154,7 @@ namespace Korot
 
         private void btDone_Click(object sender, EventArgs e)
         {
-            if (msite == null) 
+            if (msite == null)
             {
                 cefform.Settings.Filters.Add(site);
                 DialogResult = DialogResult.OK;

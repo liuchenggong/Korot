@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace Korot
 {
@@ -15,7 +14,8 @@ namespace Korot
             InitializeComponent();
             GenerateUI();
         }
-        int PanelCount = 0;
+
+        private int PanelCount = 0;
         public void GenerateUI()
         {
             Controls.Clear();
@@ -51,7 +51,7 @@ namespace Korot
                 selectedSites.Add(tag);
             }
         }
-        private void edit_Click(object sender,EventArgs e)
+        private void edit_Click(object sender, EventArgs e)
         {
             if (sender == null) { return; }
             Control cntrl = sender as Control;
@@ -64,7 +64,8 @@ namespace Korot
                 GenerateUI();
             }
         }
-        List<HTButton> buttonList = new List<HTButton>();
+
+        private readonly List<HTButton> buttonList = new List<HTButton>();
         private void GeneratePanel(BlockSite site)
         {
             Panel pSite = new Panel();
