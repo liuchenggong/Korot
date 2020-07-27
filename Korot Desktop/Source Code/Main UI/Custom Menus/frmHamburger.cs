@@ -109,6 +109,7 @@ namespace Korot
             btDefaultProxy.ButtonText = cefform.ResetToDefaultProxy;
             lbCollections.Text = cefform.Collections;
             lbDownloads.Text = cefform.DownloadsText;
+            btBlock.ButtonText = cefform.BlockThisSite;
             lbHistory.Text = cefform.HistoryText;
             lbThemes.Text = cefform.ThemesText;
             lbSettings.Text = cefform.SettingsText;
@@ -205,15 +206,22 @@ namespace Korot
         private bool isSearchOn = false;
         private void tsSearch_TextChanged(object sender, EventArgs e)
         {
-            if ((!string.IsNullOrEmpty(tsSearch.Text)) && tsSearch.Text != cefform.SearchOnPage)
+            if (cefform.chromiumWebBrowser1.IsBrowserInitialized)
             {
-                isSearchOn = true;
-                cefform.chromiumWebBrowser1.Find(0, tsSearch.Text, true, cs, false);
+                if ((!string.IsNullOrEmpty(tsSearch.Text)) && tsSearch.Text != cefform.SearchOnPage)
+                {
+                        isSearchOn = true;
+                        cefform.chromiumWebBrowser1.Find(0, tsSearch.Text, true, cs, false);
+                }
+                else
+                {
+                    isSearchOn = false;
+                    cefform.chromiumWebBrowser1.StopFinding(true);
+                }
             }
             else
             {
                 isSearchOn = false;
-                cefform.chromiumWebBrowser1.StopFinding(true);
             }
         }
 
@@ -461,6 +469,20 @@ namespace Korot
             Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
             pbThemes.BackColor = meTheme ? back2 : BackColor;
             lbThemes.BackColor = meTheme ? back2 : BackColor;
+        }
+
+        private void btBlock_Click(object sender, EventArgs e)
+        {
+            var item = cefform.Settings.Filters.Find(i => i.Address == cefform.chromiumWebBrowser1.Address);
+            if (item != null)
+            {
+                frmBlockSite fbs = new frmBlockSite(cefform, item);
+                fbs.ShowDialog();
+            }else
+            {
+                frmBlockSite fbs = new frmBlockSite(cefform, cefform.chromiumWebBrowser1.Address);
+                fbs.ShowDialog();
+            }
         }
     }
     internal class FindHandler : IFindHandler

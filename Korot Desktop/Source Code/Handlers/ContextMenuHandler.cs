@@ -20,9 +20,13 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using CefSharp;
+using HTAlt;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Text;
+using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace Korot
@@ -36,6 +40,7 @@ namespace Korot
         {
             cmsCef = new System.Windows.Forms.ContextMenuStrip();
             backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            extensionsTSMI = new System.Windows.Forms.ToolStripMenuItem();
             forwardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             refreshNoCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,6 +84,7 @@ namespace Korot
             stopToolStripMenuItem,
             selectAllToolStripMenuItem,
             addToCollection,
+            extensionsTSMI,
             tsSep1,
             openLinkInNewTabToolStripMenuItem,
             openLinkINWTSMI,
@@ -119,6 +125,13 @@ namespace Korot
             forwardToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             forwardToolStripMenuItem.Text = ActiveForm.goForward;
             forwardToolStripMenuItem.Click += new System.EventHandler(forwardToolStripMenuItem_Click);
+            // 
+            // extensionsTSMI
+            // 
+            extensionsTSMI.Name = "extensionsTSMI";
+            extensionsTSMI.Size = new System.Drawing.Size(240, 22);
+            extensionsTSMI.Text = ActiveForm.Extensions;
+            extensionsTSMI.Image = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Properties.Resources.ext : Properties.Resources.ext_w;
             // 
             // refreshToolStripMenuItem
             // 
@@ -337,6 +350,7 @@ namespace Korot
         public System.Windows.Forms.ToolStripMenuItem addToCollection;
         public System.Windows.Forms.ToolStripMenuItem newCollection;
         public System.Windows.Forms.ToolStripSeparator tsSepCol;
+        public System.Windows.Forms.ToolStripMenuItem extensionsTSMI;
         public System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem openLinkInNewTabToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem copyLinkAddressToolStripMenuItem;
@@ -363,6 +377,71 @@ namespace Korot
         public System.Windows.Forms.ToolStripSeparator tsSep3;
         #endregion
         #region "CMS"
+        private void extitem_Click(object sender, EventArgs e)
+        {
+            if (sender == null) { return; }
+            var item = sender as ToolStripMenuItem;
+            if (item.Tag == null || !(item.Tag is RightClickOption)) { return; }
+            var rco = item.Tag as RightClickOption;
+            chromiumWebBrowser1.ExecuteScriptAsyncWhenPageLoaded(HTAlt.Tools.ReadFile(rco.Script, Encoding.UTF8), true);
+        }
+        private void RefreshRCO()
+        {
+            extensionsTSMI.DropDownItems.Clear();
+            List<RightClickOption> options = new List<RightClickOption>();
+            foreach(Extension ext in ActiveForm.Settings.Extensions.ExtensionList)
+            {
+                foreach(RightClickOption option in ext.RightClickOptions)
+                {
+                    if (option.Option == RightClickOptionStyle.Always)
+                    {
+                        options.Add(option);
+                    }
+                    else if(option.Option == RightClickOptionStyle.Edit)
+                    {
+                        if(isEditable) { options.Add(option); }
+                    }
+                    else if (option.Option == RightClickOptionStyle.Image)
+                    {
+                        if(hasImageContents && !string.IsNullOrWhiteSpace(SourceURL)) { options.Add(option); }
+                    }
+                    else if (option.Option == RightClickOptionStyle.Link)
+                    {
+                        if (!string.IsNullOrWhiteSpace(LinkURL)) { options.Add(option); }
+                    }
+                    else if (option.Option == RightClickOptionStyle.None)
+                    {
+                        if(!isEditable && !hasImageContents && string.IsNullOrWhiteSpace(SourceURL) && string.IsNullOrWhiteSpace(LinkURL) && string.IsNullOrWhiteSpace(SelectedText)) { options.Add(option); }
+                    }
+                    else if (option.Option == RightClickOptionStyle.Text)
+                    {
+                        if (!string.IsNullOrWhiteSpace(SelectedText)) { options.Add(option); }
+                    }
+                }
+            }
+            int i = 0;
+            foreach (RightClickOption option in options)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem();
+                item.Image = HTAlt.Tools.ReadFile(option.Icon, "ignored");
+                item.BackColor = ActiveForm.Settings.Theme.BackColor;
+                item.ForeColor = HTAlt.Tools.AutoWhiteBlack(item.BackColor);
+                item.Tag = option;
+                item.Text = option.Text;
+                item.Click += extitem_Click;
+                i++;
+                extensionsTSMI.DropDown.Items.Add(item);
+            }
+            if(i == 0)
+            {
+                ToolStripMenuItem empty = new ToolStripMenuItem();
+                empty.Text = ActiveForm.empty;
+                empty.BackColor = ActiveForm.Settings.Theme.BackColor;
+                empty.ForeColor = HTAlt.Tools.AutoWhiteBlack(empty.BackColor);
+                empty.Enabled = false;
+                extensionsTSMI.DropDown.Items.Add(empty);
+            }
+        }
         private void item_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
@@ -442,11 +521,14 @@ namespace Korot
             cmsCef.ForeColor = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Color.Black : Color.White;
             addToCollection.DropDown.BackColor = ActiveForm.Settings.Theme.BackColor;
             addToCollection.DropDown.ForeColor = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            extensionsTSMI.DropDown.BackColor = ActiveForm.Settings.Theme.BackColor;
+            extensionsTSMI.DropDown.ForeColor = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Color.Black : Color.White;
             LinkURL = link;
             hasImageContents = hasimage;
             SourceURL = source;
             isEditable = editable;
             SelectedText = selected;
+            RefreshRCO();
             CollectionList();
             // Links
             openLinkInNewTabToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(LinkURL);

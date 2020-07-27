@@ -186,6 +186,12 @@
     <Compile Include="Source Code\Ext\frmProxyGen.Designer.cs">
       <DependentUpon>frmProxyGen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Main UI\Custom Menus\frmBlock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Main UI\Custom Menus\frmBlock.designer.cs">
+      <DependentUpon>frmBlock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Main UI\Custom Menus\frmDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -229,6 +235,12 @@
       <DependentUpon>frmSites.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Handlers\StreamResponseFilter.cs" />
+    <Compile Include="Source Code\Main UI\frmBlockSite.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Main UI\frmBlockSite.Designer.cs">
+      <DependentUpon>frmBlockSite.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Main UI\frmChangeTBTBack.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -359,6 +371,9 @@
     </Compile>
     <Compile Include="Source Code\Main UI\TakeScrenshot.cs" />
     <Compile Include="Source Code\System Stuff\WindowsMessageHelper.cs" />
+    <EmbeddedResource Include="Source Code\Main UI\Custom Menus\frmBlock.resx">
+      <DependentUpon>frmBlock.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\Custom Menus\frmDownload.resx">
       <DependentUpon>frmDownload.cs</DependentUpon>
     </EmbeddedResource>
@@ -376,6 +391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\Custom Menus\frmProfile.resx">
       <DependentUpon>frmProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Main UI\frmBlockSite.resx">
+      <DependentUpon>frmBlockSite.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Update\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

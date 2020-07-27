@@ -1,6 +1,17 @@
-<Language CompabileVersion="0.8.0.0">
-  <Translate ID="NewItem" Text="&lt;New&gt;" />
-  <Translate ID="RegexInfo" Text="Korot uses Regular Expressions (RegEx) for detecting if a website is allowed." />
+<Language CompatibleVersion="0.8.0.0">
+  <Translate ID="EditBlockItem" Text="Edit block..." />
+  <Translate ID="AddBlockItem" Text="Create new block..." />
+  <Translate ID="Lv0" Text="Level 0" />
+  <Translate ID="Lv1" Text="Level 1" />
+  <Translate ID="Lv2" Text="Level 2" />
+  <Translate ID="Lv3" Text="Level 3" />
+  <Translate ID="BlockLevel" Text="Block Level:" />
+  <Translate ID="Done" Text="Done" />
+  <Translate ID="LV0Info" Text="Blocks the Url in its host website." />
+  <Translate ID="LV1Info" Text="Blocks the Url's website." />
+  <Translate ID="LV2Info" Text="Block the Url's website with its subnomains." />
+  <Translate ID="LV3Info" Text="Blocks when address includes this Url." />
+  <Translate ID="BlockThisSite" Text="Block this site..." />
   <Translate ID="BlockMenuTitle" Text="Blocked Sites" />
   <Translate ID="BlockMenuButton" Text="Blocked Sites..." />
   <Translate ID="ChangePicInfo" Text="Do you want to reset the image or select new one?" />

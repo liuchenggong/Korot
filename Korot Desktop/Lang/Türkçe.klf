@@ -1,8 +1,19 @@
-<Language CompabileVersion="0.8.0.0">
-  <Translate ID="NewItem" Text="&lt;Yeni&gt;" />
-  <Translate ID="RegexInfo" Text="Korot, bir sitenin iznini düzenli ifadeler (RegEx) ile denetler." />
-  <Translate ID="BlockMenuTitle" Text="Blocklu Siteler" />
-  <Translate ID="BlockMenuButton" Text="Blocklu Siteler..." />
+<Language CompatibleVersion="0.8.0.0">
+  <Translate ID="EditBlockItem" Text="Bloğu düzenle..." />
+  <Translate ID="AddBlockItem" Text="Yeni blok ekle..." />
+  <Translate ID="Lv0" Text="Seviye 0" />
+  <Translate ID="Lv1" Text="Seviye 1" />
+  <Translate ID="Lv2" Text="Seviye 2" />
+  <Translate ID="Lv3" Text="Seviye 3" />
+  <Translate ID="BlockLevel" Text="Blok Seviyesi:" />
+  <Translate ID="Done" Text="Bitti" />
+  <Translate ID="LV0Info" Text="Url'ün websitesinde bloklar." />
+  <Translate ID="LV1Info" Text="Url'ün websitesini bloklar." />
+  <Translate ID="LV2Info" Text="Url'ün websitesini alt alan adları ile bloklar" />
+  <Translate ID="LV3Info" Text="Url'ü içeren her siteyi bloklar." />
+  <Translate ID="BlockThisSite" Text="Bu siteyi blokla..." />
+  <Translate ID="BlockMenuTitle" Text="Bloklu Siteler" />
+  <Translate ID="BlockMenuButton" Text="Bloklu Siteler..." />
   <Translate ID="ChangePicInfo" Text="Yeni bir resim mi seçmek istersiniz yoksa sıfırlamak mı?" />
   <Translate ID="ResetImage" Text="Resmi sıfırla" />
   <Translate ID="SelectNewImage" Text="Yeni resim seç" />

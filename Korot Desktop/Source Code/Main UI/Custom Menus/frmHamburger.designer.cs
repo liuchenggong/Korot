@@ -71,6 +71,8 @@
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.btBlock = new HTAlt.WinForms.HTButton();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -85,6 +87,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -542,7 +545,7 @@
             this.btDefaultProxy.FlatAppearance.BorderSize = 0;
             this.btDefaultProxy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDefaultProxy.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btDefaultProxy.Location = new System.Drawing.Point(5, 342);
+            this.btDefaultProxy.Location = new System.Drawing.Point(5, 378);
             this.btDefaultProxy.Name = "btDefaultProxy";
             this.btDefaultProxy.Size = new System.Drawing.Size(257, 20);
             this.btDefaultProxy.TabIndex = 28;
@@ -556,9 +559,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpExtensions.AutoScroll = true;
-            this.flpExtensions.Location = new System.Drawing.Point(5, 394);
+            this.flpExtensions.Location = new System.Drawing.Point(5, 430);
             this.flpExtensions.Name = "flpExtensions";
-            this.flpExtensions.Size = new System.Drawing.Size(257, 113);
+            this.flpExtensions.Size = new System.Drawing.Size(257, 77);
             this.flpExtensions.TabIndex = 29;
             // 
             // btExtStore
@@ -569,7 +572,7 @@
             this.btExtStore.FlatAppearance.BorderSize = 0;
             this.btExtStore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btExtStore.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btExtStore.Location = new System.Drawing.Point(105, 368);
+            this.btExtStore.Location = new System.Drawing.Point(105, 404);
             this.btExtStore.Name = "btExtStore";
             this.btExtStore.Size = new System.Drawing.Size(20, 20);
             this.btExtStore.TabIndex = 31;
@@ -585,7 +588,7 @@
             this.btExtFolder.FlatAppearance.BorderSize = 0;
             this.btExtFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btExtFolder.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btExtFolder.Location = new System.Drawing.Point(131, 368);
+            this.btExtFolder.Location = new System.Drawing.Point(131, 404);
             this.btExtFolder.Name = "btExtFolder";
             this.btExtFolder.Size = new System.Drawing.Size(20, 20);
             this.btExtFolder.TabIndex = 32;
@@ -633,6 +636,33 @@
             this.pictureBox7.TabIndex = 36;
             this.pictureBox7.TabStop = false;
             // 
+            // btBlock
+            // 
+            this.btBlock.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btBlock.ButtonText = "Block this site...";
+            this.btBlock.FlatAppearance.BorderSize = 0;
+            this.btBlock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btBlock.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
+            this.btBlock.Location = new System.Drawing.Point(7, 342);
+            this.btBlock.Name = "btBlock";
+            this.btBlock.Size = new System.Drawing.Size(257, 20);
+            this.btBlock.TabIndex = 37;
+            this.btBlock.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btBlock.UseVisualStyleBackColor = true;
+            this.btBlock.Click += new System.EventHandler(this.btBlock_Click);
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox8.BackColor = System.Drawing.Color.Black;
+            this.pictureBox8.Location = new System.Drawing.Point(-8, 368);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(286, 1);
+            this.pictureBox8.TabIndex = 38;
+            this.pictureBox8.TabStop = false;
+            // 
             // frmHamburger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -640,6 +670,8 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(270, 515);
             this.ControlBox = false;
+            this.Controls.Add(this.pictureBox8);
+            this.Controls.Add(this.btBlock);
             this.Controls.Add(this.pictureBox7);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pictureBox5);
@@ -707,6 +739,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -755,5 +788,7 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pictureBox7;
+        private HTAlt.WinForms.HTButton btBlock;
+        private System.Windows.Forms.PictureBox pictureBox8;
     }
 }

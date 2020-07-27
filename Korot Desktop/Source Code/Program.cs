@@ -83,23 +83,22 @@ namespace Korot
                 .Replace(" X", "")
                 .Replace(" with Bing", "")
                 .Replace(" ", "");
-            string versionNumber;
+
             switch (fullName)
             {
                 case "XP":
-                    versionNumber = "5.1";
-                    break;
+                    return "NT 5.1";
+
                 case "Vista":
-                    versionNumber = "6.0";
-                    break;
+                    return "NT 6.0";
+
                 case "7":
-                    versionNumber = "6.1";
-                    break;
+                    return "NT 6.1";
+
                 default:
-                    versionNumber = fullName;
-                    break;
+                    return "NT " + fullName;
+
             }
-            return "NT " + fullName;
         }
         [STAThread]
         private static void Main(string[] args)
@@ -568,9 +567,10 @@ new HTTitleTab(testApp)
                     {
                         if (subnode.Name.ToLower() == "block")
                         {
-                            if (!string.IsNullOrWhiteSpace(subnode.InnerXml))
+                            if (subnode.Attributes["Level"] == null || subnode.Attributes["Filter"] == null || subnode.Attributes["Url"] == null) { }else
                             {
-                                Filters.Add(subnode.InnerXml);
+                                BlockSite bs = new BlockSite() { Address = subnode.Attributes["Url"].Value, BlockLevel = Convert.ToInt32(subnode.Attributes["Level"].Value), Filter = subnode.Attributes["Filter"].Value };
+                                Filters.Add(bs);
                             }
                         }
                     }
@@ -626,7 +626,7 @@ new HTTitleTab(testApp)
             }
         }
         #region Defaults
-        private List<string> _Filters = new List<string>();
+        private List<BlockSite> _Filters = new List<BlockSite>();
         private NewTabSites _NewTabSites = new NewTabSites("");
         private bool _Flash = false;
         public bool LoadedDefaults = false;
@@ -660,29 +660,34 @@ new HTTitleTab(testApp)
         #region Properties
         public class BlockLevels
         {
-            public string Level0 = @"((http)|(https))\:\/\/§SITE§";
-            public string Level1 = @"((http)|(https))\:\/\/[^\/]*?§SITE§";
-            public string Level2 = @"§SITE§";
-            public string Convert(string Url, string Level)
+            public static string Level0 = @"((http)|(https))\:\/\/§SITE§";
+            public static string Level1 = @"((http)|(https))\:\/\/§SITE§";
+            public static string Level2 = @"((http)|(https))\:\/\/[^\/]*?§SITE§";
+            public static string Level3 = @"§SITE§";
+            public static string Convert(string Url, string Level)
             {
                 return Level.Replace("§SITE§", Url.Replace(".", @"\."));
             }
-            public string ConvertToLevel0(string Url)
+            public static string ConvertToLevel0(string Url)
             {
-                return Convert(Url, Level0);
+                return Convert(Url.Replace("https://", "").Replace("http://", ""), Level0);
             }
 
-            public string ConvertToLevel1(string Url)
+            public static string ConvertToLevel1(string Url)
             {
-                return Convert(Url, Level1);
+                return Convert(HTAlt.Tools.GetBaseURL(Url).Replace("https://","").Replace("http://",""), Level1);
             }
 
-            public string ConvertToLevel2(string Url)
+            public static string ConvertToLevel2(string Url)
             {
-                return Convert(Url, Level2);
+                return Convert(HTAlt.Tools.GetBaseURL(Url).Replace("https://", "").Replace("http://", ""), Level2);
+            }
+            public static string ConvertToLevel3(string Url)
+            {
+                return Convert(HTAlt.Tools.GetBaseURL(Url).Replace("https://", "").Replace("http://", ""), Level3);
             }
         }
-        public List<string> Filters
+        public List<BlockSite> Filters
         {
             get => _Filters;
             set => _Filters = value;
@@ -938,9 +943,9 @@ new HTTitleTab(testApp)
         public bool IsUrlAllowed(string url)
         {
             bool allowed = true;
-            foreach (string x in Filters)
+            foreach (BlockSite x in Filters)
             {
-                Regex Rgx = new Regex(x, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                Regex Rgx = new Regex(x.Filter, RegexOptions.Compiled | RegexOptions.IgnoreCase);
                 allowed = !Rgx.IsMatch(url);
             }
             return allowed;
@@ -982,11 +987,12 @@ new HTTitleTab(testApp)
                      + Environment.NewLine;
             }
             x += "</Sites>" + Environment.NewLine + "<SiteBlocks>" + Environment.NewLine;
-            foreach (string block in Filters)
+            foreach (BlockSite block in Filters)
             {
-                x += "<Block>" + block.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Block>" + Environment.NewLine;
+                // .Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
+                x += "<Block Level=\"" + block.BlockLevel + "\" Url=\"" + block.Address + "\" Filter=\"" + block.Filter + "\" />" + Environment.NewLine;
             }
-            x += "<SiteBlocks>" + Environment.NewLine + "<Theme File=\"" + (!string.IsNullOrWhiteSpace(Theme.ThemeFile) ? Theme.ThemeFile.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") : "") + "\">" + Environment.NewLine +
+            x += "</SiteBlocks>" + Environment.NewLine + "<Theme File=\"" + (!string.IsNullOrWhiteSpace(Theme.ThemeFile) ? Theme.ThemeFile.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") : "") + "\">" + Environment.NewLine +
             "<Name>" + Theme.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Name>" + Environment.NewLine +
             "<Author>" + Theme.Author.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Author>" + Environment.NewLine +
             "<BackColor>" + HTAlt.Tools.ColorToHex(Theme.BackColor) + "</BackColor>" + Environment.NewLine +
@@ -1585,5 +1591,12 @@ new HTTitleTab(testApp)
         public string ID { get; set; }
         public string Address { get; set; }
         public Exception Exception { get; set; }
+    }
+    public class BlockSite
+    {
+        public string Address { get; set; }
+        public string Filter { get; set; }
+        public int BlockLevel { get; set; }
+
     }
 }

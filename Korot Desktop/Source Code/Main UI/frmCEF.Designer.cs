@@ -268,12 +268,6 @@ namespace Korot
             this.btClose5 = new HTAlt.WinForms.HTButton();
             this.lbNewTabTitle = new System.Windows.Forms.Label();
             this.tpBlock = new System.Windows.Forms.TabPage();
-            this.btClearRegex = new HTAlt.WinForms.HTButton();
-            this.lbRegexInfo = new System.Windows.Forms.Label();
-            this.btRemove = new HTAlt.WinForms.HTButton();
-            this.btAdd = new HTAlt.WinForms.HTButton();
-            this.tbRegex = new System.Windows.Forms.TextBox();
-            this.lbRegex = new System.Windows.Forms.ListBox();
             this.btBlockBack = new HTAlt.WinForms.HTButton();
             this.btClose4 = new HTAlt.WinForms.HTButton();
             this.lbBlockedSites = new System.Windows.Forms.Label();
@@ -299,6 +293,7 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pBlock = new System.Windows.Forms.Panel();
             this.pNavigate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).BeginInit();
@@ -3062,12 +3057,7 @@ namespace Korot
             // 
             // tpBlock
             // 
-            this.tpBlock.Controls.Add(this.btClearRegex);
-            this.tpBlock.Controls.Add(this.lbRegexInfo);
-            this.tpBlock.Controls.Add(this.btRemove);
-            this.tpBlock.Controls.Add(this.btAdd);
-            this.tpBlock.Controls.Add(this.tbRegex);
-            this.tpBlock.Controls.Add(this.lbRegex);
+            this.tpBlock.Controls.Add(this.pBlock);
             this.tpBlock.Controls.Add(this.btBlockBack);
             this.tpBlock.Controls.Add(this.btClose4);
             this.tpBlock.Controls.Add(this.lbBlockedSites);
@@ -3078,78 +3068,6 @@ namespace Korot
             this.tpBlock.Text = "Blocked Sites";
             this.tpBlock.UseVisualStyleBackColor = true;
             // 
-            // btClearRegex
-            // 
-            this.btClearRegex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClearRegex.ButtonText = "C";
-            this.btClearRegex.FlatAppearance.BorderSize = 0;
-            this.btClearRegex.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClearRegex.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.btClearRegex.Location = new System.Drawing.Point(525, 48);
-            this.btClearRegex.Name = "btClearRegex";
-            this.btClearRegex.Size = new System.Drawing.Size(30, 23);
-            this.btClearRegex.TabIndex = 53;
-            this.btClearRegex.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.btClearRegex.UseVisualStyleBackColor = true;
-            // 
-            // lbRegexInfo
-            // 
-            this.lbRegexInfo.AutoSize = true;
-            this.lbRegexInfo.Location = new System.Drawing.Point(10, 77);
-            this.lbRegexInfo.Name = "lbRegexInfo";
-            this.lbRegexInfo.Size = new System.Drawing.Size(425, 15);
-            this.lbRegexInfo.TabIndex = 52;
-            this.lbRegexInfo.Text = "Korot uses Regular Expressions (RegEx) for detecting if a website is blocked.";
-            // 
-            // btRemove
-            // 
-            this.btRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btRemove.ButtonText = "-";
-            this.btRemove.FlatAppearance.BorderSize = 0;
-            this.btRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.btRemove.Location = new System.Drawing.Point(489, 48);
-            this.btRemove.Name = "btRemove";
-            this.btRemove.Size = new System.Drawing.Size(30, 23);
-            this.btRemove.TabIndex = 51;
-            this.btRemove.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.btRemove.UseVisualStyleBackColor = true;
-            // 
-            // btAdd
-            // 
-            this.btAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAdd.ButtonText = "+";
-            this.btAdd.FlatAppearance.BorderSize = 0;
-            this.btAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.btAdd.Location = new System.Drawing.Point(453, 48);
-            this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(30, 23);
-            this.btAdd.TabIndex = 50;
-            this.btAdd.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
-            this.btAdd.UseVisualStyleBackColor = true;
-            // 
-            // tbRegex
-            // 
-            this.tbRegex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbRegex.Location = new System.Drawing.Point(13, 48);
-            this.tbRegex.Name = "tbRegex";
-            this.tbRegex.Size = new System.Drawing.Size(436, 21);
-            this.tbRegex.TabIndex = 49;
-            // 
-            // lbRegex
-            // 
-            this.lbRegex.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbRegex.FormattingEnabled = true;
-            this.lbRegex.ItemHeight = 15;
-            this.lbRegex.Location = new System.Drawing.Point(13, 105);
-            this.lbRegex.Name = "lbRegex";
-            this.lbRegex.Size = new System.Drawing.Size(540, 334);
-            this.lbRegex.TabIndex = 48;
-            // 
             // btBlockBack
             // 
             this.btBlockBack.BackColor = System.Drawing.Color.Transparent;
@@ -3158,7 +3076,7 @@ namespace Korot
             this.btBlockBack.FlatAppearance.BorderSize = 0;
             this.btBlockBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btBlockBack.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btBlockBack.Location = new System.Drawing.Point(13, 8);
+            this.btBlockBack.Location = new System.Drawing.Point(15, 5);
             this.btBlockBack.Name = "btBlockBack";
             this.btBlockBack.Size = new System.Drawing.Size(30, 28);
             this.btBlockBack.TabIndex = 47;
@@ -3186,7 +3104,7 @@ namespace Korot
             // 
             this.lbBlockedSites.AutoSize = true;
             this.lbBlockedSites.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.lbBlockedSites.Location = new System.Drawing.Point(48, 9);
+            this.lbBlockedSites.Location = new System.Drawing.Point(49, 8);
             this.lbBlockedSites.Name = "lbBlockedSites";
             this.lbBlockedSites.Size = new System.Drawing.Size(131, 25);
             this.lbBlockedSites.TabIndex = 46;
@@ -3377,6 +3295,16 @@ namespace Korot
             // 
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
+            // 
+            // pBlock
+            // 
+            this.pBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pBlock.Location = new System.Drawing.Point(15, 40);
+            this.pBlock.Name = "pBlock";
+            this.pBlock.Size = new System.Drawing.Size(540, 398);
+            this.pBlock.TabIndex = 48;
             // 
             // frmCEF
             // 
@@ -3712,15 +3640,10 @@ namespace Korot
         private HTAlt.WinForms.HTButton btlangFolder;
         private System.Windows.Forms.ComboBox cbLang;
         private System.Windows.Forms.TabPage tpBlock;
-        private HTAlt.WinForms.HTButton btClearRegex;
-        private System.Windows.Forms.Label lbRegexInfo;
-        private HTAlt.WinForms.HTButton btRemove;
-        private HTAlt.WinForms.HTButton btAdd;
-        private System.Windows.Forms.TextBox tbRegex;
-        private System.Windows.Forms.ListBox lbRegex;
         public HTAlt.WinForms.HTButton btBlockBack;
         public HTAlt.WinForms.HTButton btClose4;
         private System.Windows.Forms.Label lbBlockedSites;
         private HTAlt.WinForms.HTButton btBlocked;
+        private System.Windows.Forms.Panel pBlock;
     }
 }

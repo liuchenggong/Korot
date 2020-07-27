@@ -177,6 +177,95 @@ namespace Korot
                         }
                     }
                 }
+                else if (node.Name.ToLower() == "rightclick")
+                {
+                    foreach (XmlNode subnode in node.ChildNodes)
+                    {
+                        if (subnode.Name.ToLower() == "none")
+                        {
+                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                            {
+                                RightClickOption option = new RightClickOption() { 
+                                Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]",ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                Option = RightClickOptionStyle.None,
+                                };
+                                RightClickOptions.Add(option);
+                            }
+                        }
+                        else if (subnode.Name.ToLower() == "link")
+                        {
+                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                            {
+                                RightClickOption option = new RightClickOption()
+                                {
+                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Option = RightClickOptionStyle.Link,
+                                };
+                                RightClickOptions.Add(option);
+                            }
+                        }
+                        else if (subnode.Name.ToLower() == "always")
+                        {
+                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                            {
+                                RightClickOption option = new RightClickOption()
+                                {
+                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Option = RightClickOptionStyle.Always,
+                                };
+                                RightClickOptions.Add(option);
+                            }
+                        }
+                        else if (subnode.Name.ToLower() == "edit")
+                        {
+                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                            {
+                                RightClickOption option = new RightClickOption()
+                                {
+                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Option = RightClickOptionStyle.Edit,
+                                };
+                                RightClickOptions.Add(option);
+                            }
+                        }
+                        else if (subnode.Name.ToLower() == "image" || subnode.Name.ToLower() == "ımage")
+                        {
+                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                            {
+                                RightClickOption option = new RightClickOption()
+                                {
+                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Option = RightClickOptionStyle.Image,
+                                };
+                                RightClickOptions.Add(option);
+                            }
+                        }
+                        else if (subnode.Name.ToLower() == "text")
+                        {
+                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                            {
+                                RightClickOption option = new RightClickOption()
+                                {
+                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                    Option = RightClickOptionStyle.Text,
+                                };
+                                RightClickOptions.Add(option);
+                            }
+                        }
+                    }
+                }
                 else if (node.Name.ToLower() == "settings")
                 {
                     Settings = new ExtensionSettings();
@@ -221,6 +310,8 @@ namespace Korot
             }
             else { return false; }
         }
+        public List<RightClickOption> RightClickOptions { get => _RCOptions; set => _RCOptions = value; }
+        private List<RightClickOption> _RCOptions = new List<RightClickOption>();
         public string ManifestFile { get; set; }
         public string CodeName => Author + "." + Name;
         public string Name { get; set; }
@@ -242,6 +333,22 @@ namespace Korot
                 frmUpdate.Show();
             }
         }
+    }
+    public class RightClickOption
+    {
+        public string Text { get; set; }
+        public string Script { get; set; }
+        public string Icon { get; set; }
+        public RightClickOptionStyle Option { get; set; }
+    }
+    public enum RightClickOptionStyle
+    {
+        None,
+        Link,
+        Image,
+        Text,
+        Edit,
+        Always
     }
     public class ExtensionSettings
     {

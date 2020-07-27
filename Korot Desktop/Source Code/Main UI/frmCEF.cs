@@ -41,6 +41,7 @@ namespace Korot
 {
     public partial class frmCEF : Form
     {
+        public frmBlock blockmenu;
         public frmHamburger hammenu;
         public frmProfile profmenu;
         public frmIncognito incognitomenu;
@@ -128,6 +129,13 @@ namespace Korot
                 FormBorderStyle = FormBorderStyle.None,
                 Visible = true
             };
+            blockmenu = new frmBlock(this)
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill,
+                Visible = true
+            };
             siteman = new frmSites(this)
             {
                 TopLevel = false,
@@ -153,6 +161,7 @@ namespace Korot
             Controls.Add(profmenu);
             Controls.Add(incognitomenu);
             Controls.Add(privmenu);
+            pBlock.Controls.Add(blockmenu);
             pDowMan.Controls.Add(dowman);
             pHisMan.Controls.Add(hisman);
             pSite.Controls.Add(siteman);
@@ -635,7 +644,7 @@ namespace Korot
             }
         }
         #region "Translate"
-        public string NewItem = "<New>";
+        public string Extensions = "Extensions";
         public string OpenInNewTab = "Open in new tab";
         public string OpenFile = "Open file";
         public string OpenFileInExplorert = "Open folder containing this file";
@@ -879,12 +888,41 @@ namespace Korot
         public string AboutText = "About";
         public string DownloadsText = "Downloads";
         public string HistoryText = "History";
+        public string BlockThisSite = "Block this site...";
+        public string lv0info = "Blocks the Url in its host website.";
+        public string lv1info = "Blocks the Url's website.";
+        public string lv2info = "Block the Url's website with its subnomains.";
+        public string lv3info = "Blocks when address includes this Url.";
+        public string Done = "Done";
+        public string editblockitem = "Edit block...";
+        public string addblockitem = "Create new block...";
+        public string lv0 = "Level 0";
+        public string lv1 = "Level 1";
+        public string lv2 = "Level 2";
+        public string lv3 = "Level 3";
+        public string blocklevel = "Block Level:";
+
 
         public void LoadLangFromFile(string fileLocation)
         {
             Settings.LanguageSystem.ReadFromFile(fileLocation, true);
-            NewItem = Settings.LanguageSystem.GetItemText("NewItem");
-            RefreshBlock();
+            Extensions = Settings.LanguageSystem.GetItemText("Extensions");
+            editblockitem = Settings.LanguageSystem.GetItemText("EditBlockItem");
+            addblockitem = Settings.LanguageSystem.GetItemText("AddBlockItem");
+            lv0 = Settings.LanguageSystem.GetItemText("Lv0");
+            lv1 = Settings.LanguageSystem.GetItemText("Lv1");
+            lv2 = Settings.LanguageSystem.GetItemText("Lv2");
+            lv3 = Settings.LanguageSystem.GetItemText("Lv3");
+            blocklevel = Settings.LanguageSystem.GetItemText("BlockLevel");
+            Done = Settings.LanguageSystem.GetItemText("Done");
+            BlockThisSite = Settings.LanguageSystem.GetItemText("BlockThisSite");
+            lv0info = Settings.LanguageSystem.GetItemText("LV0Info");
+            lv1info = Settings.LanguageSystem.GetItemText("LV1Info");
+            lv2info = Settings.LanguageSystem.GetItemText("LV2Info");
+            lv3info = Settings.LanguageSystem.GetItemText("LV3Info");
+            btBlocked.ButtonText = Settings.LanguageSystem.GetItemText("BlockMenuButton");
+            tpBlock.Text = Settings.LanguageSystem.GetItemText("BlockMenuTitle");
+            lbBlockedSites.Text = Settings.LanguageSystem.GetItemText("BlockMenuTitle");
             ChangePicInfo = Settings.LanguageSystem.GetItemText("ChangePicInfo");
             ResetImage = Settings.LanguageSystem.GetItemText("ResetImage");
             SelectNewImage = Settings.LanguageSystem.GetItemText("SelectNewImage");
@@ -2545,10 +2583,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     lbSettings.BackColor = Color.Transparent;
                     lbSettings.ForeColor = foreColor;
                     pbPrivacy.BackColor = backcolor2;
-                    tbRegex.BackColor = backcolor2;
-                    lbRegex.BackColor = backcolor2;
-                    tbRegex.ForeColor = ForeColor;
-                    lbRegex.ForeColor = foreColor;
+                    pBlock.BackColor = backcolor2;
+                    pBlock.ForeColor = ForeColor;
                     tbAddress.BackColor = backcolor2;
                     pbIncognito.BackColor = backcolor2;
                     fromHour.BackColor = backcolor2;
@@ -3397,14 +3433,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         void RefreshBlock()
         {
-            int i = lbRegex.SelectedIndex;
-            lbRegex.Items.Clear();
-            foreach (string filter in Settings.Filters)
-            {
-                lbRegex.Items.Add(filter);
-            }
-            lbRegex.Items.Insert(0, NewItem);
-            lbRegex.SelectedIndex = i < lbRegex.Items.Count ? i : 0;
+            blockmenu.GenerateUI();
         }
         public void OpenSiteSettings()
         {
