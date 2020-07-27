@@ -591,6 +591,8 @@
     <None Include="Resources\restore-w.png" />
     <None Include="Resources\unmute.png" />
     <None Include="Resources\unmute-w.png" />
+    <None Include="Resources\script.png" />
+    <None Include="Resources\script-2.png" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

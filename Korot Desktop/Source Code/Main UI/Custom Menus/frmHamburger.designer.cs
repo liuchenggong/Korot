@@ -73,6 +73,7 @@
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.btBlock = new HTAlt.WinForms.HTButton();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.btScriptFolder = new HTAlt.WinForms.HTButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -572,7 +573,7 @@
             this.btExtStore.FlatAppearance.BorderSize = 0;
             this.btExtStore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btExtStore.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btExtStore.Location = new System.Drawing.Point(105, 404);
+            this.btExtStore.Location = new System.Drawing.Point(116, 404);
             this.btExtStore.Name = "btExtStore";
             this.btExtStore.Size = new System.Drawing.Size(20, 20);
             this.btExtStore.TabIndex = 31;
@@ -588,7 +589,7 @@
             this.btExtFolder.FlatAppearance.BorderSize = 0;
             this.btExtFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btExtFolder.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btExtFolder.Location = new System.Drawing.Point(131, 404);
+            this.btExtFolder.Location = new System.Drawing.Point(142, 404);
             this.btExtFolder.Name = "btExtFolder";
             this.btExtFolder.Size = new System.Drawing.Size(20, 20);
             this.btExtFolder.TabIndex = 32;
@@ -663,6 +664,22 @@
             this.pictureBox8.TabIndex = 38;
             this.pictureBox8.TabStop = false;
             // 
+            // btScriptFolder
+            // 
+            this.btScriptFolder.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btScriptFolder.ButtonImage = global::Korot.Properties.Resources.extfolder;
+            this.btScriptFolder.ButtonText = "";
+            this.btScriptFolder.FlatAppearance.BorderSize = 0;
+            this.btScriptFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btScriptFolder.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
+            this.btScriptFolder.Location = new System.Drawing.Point(94, 404);
+            this.btScriptFolder.Name = "btScriptFolder";
+            this.btScriptFolder.Size = new System.Drawing.Size(20, 20);
+            this.btScriptFolder.TabIndex = 39;
+            this.btScriptFolder.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btScriptFolder.UseVisualStyleBackColor = true;
+            this.btScriptFolder.Click += new System.EventHandler(this.btScriptFolder_Click);
+            // 
             // frmHamburger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -670,6 +687,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(270, 515);
             this.ControlBox = false;
+            this.Controls.Add(this.btScriptFolder);
             this.Controls.Add(this.pictureBox8);
             this.Controls.Add(this.btBlock);
             this.Controls.Add(this.pictureBox7);
@@ -790,5 +808,6 @@
         private System.Windows.Forms.PictureBox pictureBox7;
         private HTAlt.WinForms.HTButton btBlock;
         private System.Windows.Forms.PictureBox pictureBox8;
+        private HTAlt.WinForms.HTButton btScriptFolder;
     }
 }

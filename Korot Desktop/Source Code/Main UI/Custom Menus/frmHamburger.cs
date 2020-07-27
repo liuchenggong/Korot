@@ -4,9 +4,11 @@ using HTAlt.WinForms;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Win32Interop.Enums;
 
 namespace Korot
 {
@@ -349,9 +351,16 @@ namespace Korot
             if (sender == null) { return; }
             Control cntrl = sender as Control;
             if (cntrl.Tag == null) { return; }
-            if (!(cntrl.Tag is Extension)) { return; }
-            Extension ext = cntrl.Tag as Extension;
-            cefform.applyExtension(ext);
+            if (!(cntrl.Tag is Extension) || !(cntrl.Tag is string)) { return; }
+            if (cntrl.Tag is Extension)
+            {
+                Extension ext = cntrl.Tag as Extension;
+                cefform.applyExtension(ext);
+            }else if (cntrl.Tag is string)
+            {
+                var loc = cntrl.Tag as string;
+                cefform.chromiumWebBrowser1.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsyncWhenPageLoaded(HTAlt.Tools.ReadFile(loc, Encoding.UTF8))));
+            }
         }
         public void LoadExt()
         {
@@ -361,12 +370,27 @@ namespace Korot
                 HTButton itemButton = new HTButton()
                 {
                     ImageSizeMode = HTButton.ButtonImageSizeMode.Zoom,
-                    Image = HTAlt.Tools.ReadFile(x.Icon, "ignore"),
+                    Image = File.Exists(x.Icon) ? HTAlt.Tools.ReadFile(x.Icon, "ignore") : (HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Properties.Resources.ext : Properties.Resources.ext_w),
                     Size = new System.Drawing.Size(32, 32),
                     Tag = x,
                 };
                 itemButton.Click += extItem_Click;
                 flpExtensions.Controls.Add(itemButton);
+            }
+            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + cefform.Settings.ProfileName + "\\Scripts\\"))
+            {
+                if (x.EndsWith(".js", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    HTButton itemButton = new HTButton()
+                    {
+                        ImageSizeMode = HTButton.ButtonImageSizeMode.Zoom,
+                        Image = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Properties.Resources.script : Properties.Resources.script_w,
+                        Size = new System.Drawing.Size(32, 32),
+                        Tag = x,
+                    };
+                    itemButton.Click += extItem_Click;
+                    flpExtensions.Controls.Add(itemButton);
+                }
             }
         }
 
@@ -483,6 +507,11 @@ namespace Korot
                 frmBlockSite fbs = new frmBlockSite(cefform, cefform.chromiumWebBrowser1.Address);
                 fbs.ShowDialog();
             }
+        }
+
+        private void btScriptFolder_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + cefform.Settings.ProfileName + "\\Scripts\\\"");
         }
     }
     internal class FindHandler : IFindHandler
