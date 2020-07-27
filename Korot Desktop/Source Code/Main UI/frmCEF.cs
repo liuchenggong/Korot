@@ -2582,6 +2582,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     btClose10.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
                     lbSettings.BackColor = Color.Transparent;
                     lbSettings.ForeColor = foreColor;
+
                     pbPrivacy.BackColor = backcolor2;
                     pBlock.BackColor = backcolor2;
                     pBlock.ForeColor = ForeColor;

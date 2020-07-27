@@ -268,6 +268,7 @@ namespace Korot
             this.btClose5 = new HTAlt.WinForms.HTButton();
             this.lbNewTabTitle = new System.Windows.Forms.Label();
             this.tpBlock = new System.Windows.Forms.TabPage();
+            this.pBlock = new System.Windows.Forms.Panel();
             this.btBlockBack = new HTAlt.WinForms.HTButton();
             this.btClose4 = new HTAlt.WinForms.HTButton();
             this.lbBlockedSites = new System.Windows.Forms.Label();
@@ -293,7 +294,6 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pBlock = new System.Windows.Forms.Panel();
             this.pNavigate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).BeginInit();
@@ -945,11 +945,12 @@ namespace Korot
             // 
             this.cbLang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbLang.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLang.FormattingEnabled = true;
             this.cbLang.Location = new System.Drawing.Point(86, 127);
             this.cbLang.Name = "cbLang";
-            this.cbLang.Size = new System.Drawing.Size(413, 23);
+            this.cbLang.Size = new System.Drawing.Size(413, 22);
             this.cbLang.TabIndex = 41;
             this.cbLang.SelectedIndexChanged += new System.EventHandler(this.cbLang_SelectedIndexChanged);
             // 
@@ -3068,6 +3069,16 @@ namespace Korot
             this.tpBlock.Text = "Blocked Sites";
             this.tpBlock.UseVisualStyleBackColor = true;
             // 
+            // pBlock
+            // 
+            this.pBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pBlock.Location = new System.Drawing.Point(15, 40);
+            this.pBlock.Name = "pBlock";
+            this.pBlock.Size = new System.Drawing.Size(540, 398);
+            this.pBlock.TabIndex = 48;
+            // 
             // btBlockBack
             // 
             this.btBlockBack.BackColor = System.Drawing.Color.Transparent;
@@ -3295,16 +3306,6 @@ namespace Korot
             // 
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
-            // 
-            // pBlock
-            // 
-            this.pBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pBlock.Location = new System.Drawing.Point(15, 40);
-            this.pBlock.Name = "pBlock";
-            this.pBlock.Size = new System.Drawing.Size(540, 398);
-            this.pBlock.TabIndex = 48;
             // 
             // frmCEF
             // 
