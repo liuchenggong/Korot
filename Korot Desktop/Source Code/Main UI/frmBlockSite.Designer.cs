@@ -161,7 +161,7 @@
             // 
             // btDone
             // 
-            this.btDone.ButtonText = "Done";
+            this.btDone.Text = "Done";
             this.btDone.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btDone.FlatAppearance.BorderSize = 0;
             this.btDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -169,7 +169,7 @@
             this.btDone.Name = "btDone";
             this.btDone.Size = new System.Drawing.Size(529, 23);
             this.btDone.TabIndex = 6;
-            this.btDone.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btDone.DrawImage = true;
             this.btDone.UseVisualStyleBackColor = true;
             this.btDone.Click += new System.EventHandler(this.btDone_Click);
             // 

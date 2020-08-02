@@ -75,11 +75,11 @@ namespace Korot
                     switchedTimes++;
                     Settings.LanguageSystem.ReadFromFile(Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".klf", true);
                     Text = Settings.LanguageSystem.GetItemText("OOBETitle");
-                    btContinue.ButtonText = Settings.LanguageSystem.GetItemText("OOBEContinue");
-                    btContinue2.ButtonText = Settings.LanguageSystem.GetItemText("OOBEContinue");
-                    btBack.ButtonText = Settings.LanguageSystem.GetItemText("OOBEBack");
-                    btBack1.ButtonText = Settings.LanguageSystem.GetItemText("OOBEBack");
-                    btFinish.ButtonText = Settings.LanguageSystem.GetItemText("OOBEButtonFinish");
+                    btContinue.Text = Settings.LanguageSystem.GetItemText("OOBEContinue");
+                    btContinue2.Text = Settings.LanguageSystem.GetItemText("OOBEContinue");
+                    btBack.Text = Settings.LanguageSystem.GetItemText("OOBEBack");
+                    btBack1.Text = Settings.LanguageSystem.GetItemText("OOBEBack");
+                    btFinish.Text = Settings.LanguageSystem.GetItemText("OOBEButtonFinish");
                     lbTip1.Text = Settings.LanguageSystem.GetItemText("OOBEExtensionInfo").Replace("[NEWLINE]", Environment.NewLine);
                     lbWelcome.Text = Settings.LanguageSystem.GetItemText("OOBEWelcome");
                     lbProfile.Text = Settings.LanguageSystem.GetItemText("OOBEProfile");

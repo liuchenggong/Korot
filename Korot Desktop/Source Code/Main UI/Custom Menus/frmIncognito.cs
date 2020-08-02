@@ -30,7 +30,7 @@ namespace Korot
             btSite.ForeColor = HTAlt.Tools.AutoWhiteBlack(btSite.BackColor);
             lbStatus.Text = cefform.IncognitoModeTitle;
             lbInfo.Text = cefform.IncognitoModeInfo;
-            btSite.ButtonText = cefform.LearnMore;
+            btSite.Text = cefform.LearnMore;
         }
 
         private void htButton2_Click(object sender, EventArgs e)

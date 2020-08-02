@@ -111,7 +111,7 @@
             // 
             this.btFindNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btFindNext.ButtonImage = global::Korot.Properties.Resources.rightarrow;
-            this.btFindNext.ButtonText = "";
+            this.btFindNext.DrawImage = true;
             this.btFindNext.FlatAppearance.BorderSize = 0;
             this.btFindNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btFindNext.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -119,7 +119,6 @@
             this.btFindNext.Name = "btFindNext";
             this.btFindNext.Size = new System.Drawing.Size(30, 29);
             this.btFindNext.TabIndex = 2;
-            this.btFindNext.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btFindNext.UseVisualStyleBackColor = true;
             this.btFindNext.Click += new System.EventHandler(this.btFindNext_Click);
             // 
@@ -136,7 +135,7 @@
             // 
             // btCaseSensitive
             // 
-            this.btCaseSensitive.ButtonText = "Aa";
+            this.btCaseSensitive.DrawImage = true;
             this.btCaseSensitive.FlatAppearance.BorderSize = 0;
             this.btCaseSensitive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btCaseSensitive.Font = new System.Drawing.Font("Ubuntu", 11F);
@@ -145,7 +144,7 @@
             this.btCaseSensitive.Name = "btCaseSensitive";
             this.btCaseSensitive.Size = new System.Drawing.Size(30, 29);
             this.btCaseSensitive.TabIndex = 5;
-            this.btCaseSensitive.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btCaseSensitive.Text = "Aa";
             this.btCaseSensitive.UseVisualStyleBackColor = true;
             this.btCaseSensitive.Click += new System.EventHandler(this.btCaseSensitive_Click);
             // 
@@ -153,7 +152,7 @@
             // 
             this.htButton4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.htButton4.ButtonImage = global::Korot.Properties.Resources.cancel;
-            this.htButton4.ButtonText = "";
+            this.htButton4.DrawImage = true;
             this.htButton4.FlatAppearance.BorderSize = 0;
             this.htButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.htButton4.Font = new System.Drawing.Font("Ubuntu", 11F);
@@ -162,13 +161,13 @@
             this.htButton4.Name = "htButton4";
             this.htButton4.Size = new System.Drawing.Size(30, 29);
             this.htButton4.TabIndex = 6;
-            this.htButton4.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.htButton4.UseVisualStyleBackColor = true;
             this.htButton4.Click += new System.EventHandler(this.htButton4_Click);
             // 
             // btNewWindow
             // 
             this.btNewWindow.ButtonImage = global::Korot.Properties.Resources.newwindow;
+            this.btNewWindow.DrawImage = true;
             this.btNewWindow.FlatAppearance.BorderSize = 0;
             this.btNewWindow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btNewWindow.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -176,13 +175,13 @@
             this.btNewWindow.Name = "btNewWindow";
             this.btNewWindow.Size = new System.Drawing.Size(20, 20);
             this.btNewWindow.TabIndex = 7;
-            this.btNewWindow.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btNewWindow.UseVisualStyleBackColor = true;
             this.btNewWindow.Click += new System.EventHandler(this.htButton5_Click);
             // 
             // btNewIncWindow
             // 
             this.btNewIncWindow.ButtonImage = global::Korot.Properties.Resources.inctab;
+            this.btNewIncWindow.DrawImage = true;
             this.btNewIncWindow.FlatAppearance.BorderSize = 0;
             this.btNewIncWindow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btNewIncWindow.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -190,14 +189,13 @@
             this.btNewIncWindow.Name = "btNewIncWindow";
             this.btNewIncWindow.Size = new System.Drawing.Size(20, 20);
             this.btNewIncWindow.TabIndex = 7;
-            this.btNewIncWindow.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btNewIncWindow.UseVisualStyleBackColor = true;
             this.btNewIncWindow.Click += new System.EventHandler(this.htButton6_Click);
             // 
             // btScreenShot
             // 
             this.btScreenShot.ButtonImage = global::Korot.Properties.Resources.screenshot;
-            this.btScreenShot.ButtonText = "";
+            this.btScreenShot.DrawImage = true;
             this.btScreenShot.FlatAppearance.BorderSize = 0;
             this.btScreenShot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btScreenShot.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -205,14 +203,13 @@
             this.btScreenShot.Name = "btScreenShot";
             this.btScreenShot.Size = new System.Drawing.Size(20, 20);
             this.btScreenShot.TabIndex = 8;
-            this.btScreenShot.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btScreenShot.UseVisualStyleBackColor = true;
             this.btScreenShot.Click += new System.EventHandler(this.btScreenShot_Click);
             // 
             // btSave
             // 
             this.btSave.ButtonImage = global::Korot.Properties.Resources.collection;
-            this.btSave.ButtonText = "";
+            this.btSave.DrawImage = true;
             this.btSave.FlatAppearance.BorderSize = 0;
             this.btSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btSave.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -220,14 +217,13 @@
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(20, 20);
             this.btSave.TabIndex = 8;
-            this.btSave.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btSave.UseVisualStyleBackColor = true;
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btFullScreen
             // 
             this.btFullScreen.ButtonImage = global::Korot.Properties.Resources.fullscreen;
-            this.btFullScreen.ButtonText = "";
+            this.btFullScreen.DrawImage = true;
             this.btFullScreen.FlatAppearance.BorderSize = 0;
             this.btFullScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btFullScreen.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -235,14 +231,13 @@
             this.btFullScreen.Name = "btFullScreen";
             this.btFullScreen.Size = new System.Drawing.Size(20, 20);
             this.btFullScreen.TabIndex = 8;
-            this.btFullScreen.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btFullScreen.UseVisualStyleBackColor = true;
             this.btFullScreen.Click += new System.EventHandler(this.btFullScreen_Click);
             // 
             // btTabColor
             // 
             this.btTabColor.ButtonImage = global::Korot.Properties.Resources.tab;
-            this.btTabColor.ButtonText = "";
+            this.btTabColor.DrawImage = true;
             this.btTabColor.FlatAppearance.BorderSize = 0;
             this.btTabColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btTabColor.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -250,14 +245,13 @@
             this.btTabColor.Name = "btTabColor";
             this.btTabColor.Size = new System.Drawing.Size(20, 20);
             this.btTabColor.TabIndex = 8;
-            this.btTabColor.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btTabColor.UseVisualStyleBackColor = true;
             this.btTabColor.Click += new System.EventHandler(this.btTabColor_Click);
             // 
             // btMute
             // 
             this.btMute.ButtonImage = global::Korot.Properties.Resources.mute;
-            this.btMute.ButtonText = "";
+            this.btMute.DrawImage = true;
             this.btMute.FlatAppearance.BorderSize = 0;
             this.btMute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btMute.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -265,7 +259,6 @@
             this.btMute.Name = "btMute";
             this.btMute.Size = new System.Drawing.Size(20, 20);
             this.btMute.TabIndex = 9;
-            this.btMute.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btMute.UseVisualStyleBackColor = true;
             this.btMute.Click += new System.EventHandler(this.btMute_Click);
             // 
@@ -295,21 +288,22 @@
             // 
             this.btResetZoom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btResetZoom.ButtonText = "Reset Zoom";
+            this.btResetZoom.DrawImage = true;
             this.btResetZoom.FlatAppearance.BorderSize = 0;
             this.btResetZoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btResetZoom.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btResetZoom.Location = new System.Drawing.Point(12, 143);
+            this.btResetZoom.Location = new System.Drawing.Point(12, 137);
             this.btResetZoom.Name = "btResetZoom";
-            this.btResetZoom.Size = new System.Drawing.Size(250, 20);
+            this.btResetZoom.Size = new System.Drawing.Size(250, 26);
             this.btResetZoom.TabIndex = 12;
-            this.btResetZoom.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btResetZoom.Text = "Reset Zoom";
+            this.btResetZoom.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btResetZoom.UseVisualStyleBackColor = true;
             this.btResetZoom.Click += new System.EventHandler(this.btResetZoom_Click);
             // 
             // btZoomMinus
             // 
-            this.btZoomMinus.ButtonText = "-";
+            this.btZoomMinus.DrawImage = true;
             this.btZoomMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btZoomMinus.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.btZoomMinus.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -317,13 +311,13 @@
             this.btZoomMinus.Name = "btZoomMinus";
             this.btZoomMinus.Size = new System.Drawing.Size(20, 20);
             this.btZoomMinus.TabIndex = 12;
-            this.btZoomMinus.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btZoomMinus.Text = "-";
             this.btZoomMinus.UseVisualStyleBackColor = true;
             // 
             // btZoomPlus
             // 
             this.btZoomPlus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btZoomPlus.ButtonText = "+";
+            this.btZoomPlus.DrawImage = true;
             this.btZoomPlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btZoomPlus.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.btZoomPlus.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -331,7 +325,7 @@
             this.btZoomPlus.Name = "btZoomPlus";
             this.btZoomPlus.Size = new System.Drawing.Size(20, 20);
             this.btZoomPlus.TabIndex = 12;
-            this.btZoomPlus.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btZoomPlus.Text = "+";
             this.btZoomPlus.UseVisualStyleBackColor = true;
             // 
             // lbZoom
@@ -526,7 +520,7 @@
             // btRestore
             // 
             this.btRestore.ButtonImage = global::Korot.Properties.Resources.restore;
-            this.btRestore.ButtonText = "";
+            this.btRestore.DrawImage = true;
             this.btRestore.FlatAppearance.BorderSize = 0;
             this.btRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btRestore.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -534,7 +528,6 @@
             this.btRestore.Name = "btRestore";
             this.btRestore.Size = new System.Drawing.Size(20, 20);
             this.btRestore.TabIndex = 9;
-            this.btRestore.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btRestore.UseVisualStyleBackColor = true;
             this.btRestore.Click += new System.EventHandler(this.btRestore_Click);
             // 
@@ -542,15 +535,16 @@
             // 
             this.btDefaultProxy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btDefaultProxy.ButtonText = "Restore to default proxy";
+            this.btDefaultProxy.DrawImage = true;
             this.btDefaultProxy.FlatAppearance.BorderSize = 0;
             this.btDefaultProxy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDefaultProxy.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btDefaultProxy.Location = new System.Drawing.Point(5, 378);
+            this.btDefaultProxy.Location = new System.Drawing.Point(5, 370);
             this.btDefaultProxy.Name = "btDefaultProxy";
-            this.btDefaultProxy.Size = new System.Drawing.Size(257, 20);
+            this.btDefaultProxy.Size = new System.Drawing.Size(257, 27);
             this.btDefaultProxy.TabIndex = 28;
-            this.btDefaultProxy.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btDefaultProxy.Text = "Restore to default proxy";
+            this.btDefaultProxy.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btDefaultProxy.UseVisualStyleBackColor = true;
             this.btDefaultProxy.Click += new System.EventHandler(this.btDefaultProxy_Click);
             // 
@@ -569,7 +563,7 @@
             // 
             this.btExtStore.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btExtStore.ButtonImage = global::Korot.Properties.Resources.store;
-            this.btExtStore.ButtonText = "";
+            this.btExtStore.DrawImage = true;
             this.btExtStore.FlatAppearance.BorderSize = 0;
             this.btExtStore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btExtStore.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -577,7 +571,6 @@
             this.btExtStore.Name = "btExtStore";
             this.btExtStore.Size = new System.Drawing.Size(20, 20);
             this.btExtStore.TabIndex = 31;
-            this.btExtStore.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btExtStore.UseVisualStyleBackColor = true;
             this.btExtStore.Click += new System.EventHandler(this.btExtStore_Click);
             // 
@@ -585,7 +578,7 @@
             // 
             this.btExtFolder.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btExtFolder.ButtonImage = global::Korot.Properties.Resources.extfolder;
-            this.btExtFolder.ButtonText = "";
+            this.btExtFolder.DrawImage = true;
             this.btExtFolder.FlatAppearance.BorderSize = 0;
             this.btExtFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btExtFolder.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -593,7 +586,6 @@
             this.btExtFolder.Name = "btExtFolder";
             this.btExtFolder.Size = new System.Drawing.Size(20, 20);
             this.btExtFolder.TabIndex = 32;
-            this.btExtFolder.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btExtFolder.UseVisualStyleBackColor = true;
             this.btExtFolder.Click += new System.EventHandler(this.btExtFolder_Click);
             // 
@@ -641,15 +633,16 @@
             // 
             this.btBlock.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btBlock.ButtonText = "Block this site...";
+            this.btBlock.DrawImage = true;
             this.btBlock.FlatAppearance.BorderSize = 0;
             this.btBlock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btBlock.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
-            this.btBlock.Location = new System.Drawing.Point(7, 342);
+            this.btBlock.Location = new System.Drawing.Point(7, 338);
             this.btBlock.Name = "btBlock";
-            this.btBlock.Size = new System.Drawing.Size(257, 20);
+            this.btBlock.Size = new System.Drawing.Size(257, 27);
             this.btBlock.TabIndex = 37;
-            this.btBlock.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btBlock.Text = "Block this site...";
+            this.btBlock.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btBlock.UseVisualStyleBackColor = true;
             this.btBlock.Click += new System.EventHandler(this.btBlock_Click);
             // 
@@ -668,7 +661,7 @@
             // 
             this.btScriptFolder.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btScriptFolder.ButtonImage = global::Korot.Properties.Resources.extfolder;
-            this.btScriptFolder.ButtonText = "";
+            this.btScriptFolder.DrawImage = true;
             this.btScriptFolder.FlatAppearance.BorderSize = 0;
             this.btScriptFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btScriptFolder.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -676,7 +669,6 @@
             this.btScriptFolder.Name = "btScriptFolder";
             this.btScriptFolder.Size = new System.Drawing.Size(20, 20);
             this.btScriptFolder.TabIndex = 39;
-            this.btScriptFolder.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
             this.btScriptFolder.UseVisualStyleBackColor = true;
             this.btScriptFolder.Click += new System.EventHandler(this.btScriptFolder_Click);
             // 

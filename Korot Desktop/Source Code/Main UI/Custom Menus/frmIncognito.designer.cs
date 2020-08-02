@@ -70,7 +70,7 @@
             // 
             // btSite
             // 
-            this.btSite.ButtonText = "Learn more...";
+            this.btSite.Text = "Learn more...";
             this.btSite.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btSite.FlatAppearance.BorderSize = 0;
             this.btSite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -78,7 +78,7 @@
             this.btSite.Name = "btSite";
             this.btSite.Size = new System.Drawing.Size(380, 23);
             this.btSite.TabIndex = 5;
-            this.btSite.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btSite.DrawImage = true;
             this.btSite.UseVisualStyleBackColor = true;
             this.btSite.Click += new System.EventHandler(this.htButton2_Click);
             // 

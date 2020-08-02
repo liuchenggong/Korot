@@ -920,7 +920,7 @@ namespace Korot
             lv1info = Settings.LanguageSystem.GetItemText("LV1Info");
             lv2info = Settings.LanguageSystem.GetItemText("LV2Info");
             lv3info = Settings.LanguageSystem.GetItemText("LV3Info");
-            btBlocked.ButtonText = Settings.LanguageSystem.GetItemText("BlockMenuButton");
+            btBlocked.Text = Settings.LanguageSystem.GetItemText("BlockMenuButton");
             tpBlock.Text = Settings.LanguageSystem.GetItemText("BlockMenuTitle");
             lbBlockedSites.Text = Settings.LanguageSystem.GetItemText("BlockMenuTitle");
             ChangePicInfo = Settings.LanguageSystem.GetItemText("ChangePicInfo");
@@ -937,8 +937,8 @@ namespace Korot
             lbNewTabTitle.Text = Settings.LanguageSystem.GetItemText("NewTabEditorTitle");
             lbNTTitle.Text = Settings.LanguageSystem.GetItemText("NewTabEditTitle");
             lbNTUrl.Text = Settings.LanguageSystem.GetItemText("NewTabEditUrl");
-            btClear.ButtonText = Settings.LanguageSystem.GetItemText("NewTabEditClear");
-            btNewTab.ButtonText = Settings.LanguageSystem.GetItemText("NewTabEditButton");
+            btClear.Text = Settings.LanguageSystem.GetItemText("NewTabEditClear");
+            btNewTab.Text = Settings.LanguageSystem.GetItemText("NewTabEditButton");
             Clear = Settings.LanguageSystem.GetItemText("Clear");
             RemoveSelected = Settings.LanguageSystem.GetItemText("RemoveSelected");
             ImportProfile = Settings.LanguageSystem.GetItemText("ImportProfile");
@@ -948,7 +948,7 @@ namespace Korot
             ProfileFileInfo = Settings.LanguageSystem.GetItemText("ProfileFileInfo");
             string[] errormenu = new string[] { Settings.LanguageSystem.GetItemText("ErrorRestart"), Settings.LanguageSystem.GetItemText("ErrorDesc1"), Settings.LanguageSystem.GetItemText("ErrorDesc2"), Settings.LanguageSystem.GetItemText("ErrorTI") };
             SafeFileSettingOrganizedClass.ErrorMenu = errormenu;
-            btNotification.ButtonText = Settings.LanguageSystem.GetItemText("NotificationSettingsButton");
+            btNotification.Text = Settings.LanguageSystem.GetItemText("NotificationSettingsButton");
             lbNotifSetting.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
             tpNotification.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
             lbPlayNotifSound.Text = Settings.LanguageSystem.GetItemText("PlayNotificationSound");
@@ -1058,7 +1058,7 @@ namespace Korot
             copyImageAddress = Settings.LanguageSystem.GetItemText("CopyImageAddress");
             saveLinkAs = Settings.LanguageSystem.GetItemText("SaveLinkAs");
             empty = Settings.LanguageSystem.GetItemText("Empty");
-            btCleanLog.ButtonText = Settings.LanguageSystem.GetItemText("CleanLogData");
+            btCleanLog.Text = Settings.LanguageSystem.GetItemText("CleanLogData");
             lbShowFavorites.Text = Settings.LanguageSystem.GetItemText("ShowFavoritesMenu");
             lbNewTabColor.Text = Settings.LanguageSystem.GetItemText("NewTabButtonColor");
             lbCloseColor.Text = Settings.LanguageSystem.GetItemText("CloseButtonColor");
@@ -1089,10 +1089,10 @@ namespace Korot
             lbDownloadFolder.Text = Settings.LanguageSystem.GetItemText("DownloadToFolder");
             lbAutoDownload.Text = Settings.LanguageSystem.GetItemText("Auto-downloadFolder");
             lbAtStartup.Text = Settings.LanguageSystem.GetItemText("AtStartup");
-            btReset.ButtonText = Settings.LanguageSystem.GetItemText("ResetKorotButton");
+            btReset.Text = Settings.LanguageSystem.GetItemText("ResetKorotButton");
             resetConfirm = Settings.LanguageSystem.GetItemText("ResetKorotInfo");
             lbSiteSettings.Text = Settings.LanguageSystem.GetItemText("SiteSettings");
-            btCookie.ButtonText = Settings.LanguageSystem.GetItemText("SiteSettingsButton");
+            btCookie.Text = Settings.LanguageSystem.GetItemText("SiteSettingsButton");
             IncognitoModeTitle = Settings.LanguageSystem.GetItemText("IncognitoMode");
             IncognitoModeInfo = Settings.LanguageSystem.GetItemText("IncognitoModeInfo");
             LearnMore = Settings.LanguageSystem.GetItemText("ClickToLearnMore");
@@ -1146,8 +1146,8 @@ namespace Korot
             CertificateOK = Settings.LanguageSystem.GetItemText("WebsiteNoErrors");
             ErrorTheme = Settings.LanguageSystem.GetItemText("ThemeFileCorrupted");
             ThemeMessage = Settings.LanguageSystem.GetItemText("ApplyThemeInfo");
-            btUpdater.ButtonText = Settings.LanguageSystem.GetItemText("CheckForUpdates");
-            btInstall.ButtonText = Settings.LanguageSystem.GetItemText("InstallUpdate");
+            btUpdater.Text = Settings.LanguageSystem.GetItemText("CheckForUpdates");
+            btInstall.Text = Settings.LanguageSystem.GetItemText("InstallUpdate");
             checking = Settings.LanguageSystem.GetItemText("CheckingForUpdates");
             uptodate = Settings.LanguageSystem.GetItemText("UpToDate");
             installStatus = Settings.LanguageSystem.GetItemText("UpdatingMessage");

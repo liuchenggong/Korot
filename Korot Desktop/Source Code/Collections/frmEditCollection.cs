@@ -300,7 +300,7 @@ namespace Korot
             groupBox3.Text = cefform.catOnline;
             groupBox4.Text = cefform.catPicture;
             Text = cefform.TitleEditItem;
-            btDone.ButtonText = cefform.TitleDone;
+            btDone.Text = cefform.TitleDone;
             lbID.Text = cefform.TitleID;
             tbID.Location = new Point(lbID.Location.X + lbID.Width, tbID.Location.Y);
             tbID.Width = groupBox1.Width - (lbID.Location.X + lbID.Width + 5);

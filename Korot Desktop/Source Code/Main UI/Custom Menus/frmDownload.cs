@@ -258,7 +258,7 @@ namespace Korot
         private void switchRSMode()
         {
             rsMode = !(selectedPanels.Count == 0 && selectedDISHes.Count == 0);
-            htButton1.ButtonText = rsMode ? cefecik.RemoveSelected : cefecik.Clear;
+            htButton1.Text = rsMode ? cefecik.RemoveSelected : cefecik.Clear;
         }
 
         private bool rsMode = false;

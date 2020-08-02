@@ -266,7 +266,7 @@ namespace Korot
             this.bt3DOT.Name = "bt3DOT";
             this.bt3DOT.Size = new System.Drawing.Size(27, 26);
             this.bt3DOT.TabIndex = 4;
-            this.bt3DOT.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.bt3DOT.DrawImage = true;
             this.bt3DOT.UseVisualStyleBackColor = true;
             this.bt3DOT.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -456,7 +456,7 @@ namespace Korot
             // 
             // btDone
             // 
-            this.btDone.ButtonText = "Done";
+            this.btDone.Text = "Done";
             this.btDone.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btDone.FlatAppearance.BorderSize = 0;
             this.btDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -465,7 +465,7 @@ namespace Korot
             this.btDone.Name = "btDone";
             this.btDone.Size = new System.Drawing.Size(492, 28);
             this.btDone.TabIndex = 5;
-            this.btDone.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btDone.DrawImage = true;
             this.btDone.UseVisualStyleBackColor = true;
             this.btDone.Click += new System.EventHandler(this.button1_Click);
             // 

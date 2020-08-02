@@ -363,28 +363,28 @@ namespace Korot
             // btInstall
             // 
             this.btInstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btInstall.ButtonText = "Install";
+            this.btInstall.Text = "Install";
             this.btInstall.FlatAppearance.BorderSize = 0;
             this.btInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btInstall.Location = new System.Drawing.Point(550, 303);
             this.btInstall.Name = "btInstall";
             this.btInstall.Size = new System.Drawing.Size(75, 23);
             this.btInstall.TabIndex = 11;
-            this.btInstall.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btInstall.DrawImage = true;
             this.btInstall.UseVisualStyleBackColor = true;
             this.btInstall.Click += new System.EventHandler(this.button1_Click);
             // 
             // btClose2
             // 
             this.btClose2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose2.ButtonText = "Close";
+            this.btClose2.Text = "Close";
             this.btClose2.FlatAppearance.BorderSize = 0;
             this.btClose2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClose2.Location = new System.Drawing.Point(550, 332);
             this.btClose2.Name = "btClose2";
             this.btClose2.Size = new System.Drawing.Size(75, 23);
             this.btClose2.TabIndex = 11;
-            this.btClose2.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose2.DrawImage = true;
             this.btClose2.UseVisualStyleBackColor = true;
             this.btClose2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -423,7 +423,7 @@ namespace Korot
             // 
             // btClose
             // 
-            this.btClose.ButtonText = "Close";
+            this.btClose.Text = "Close";
             this.btClose.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btClose.FlatAppearance.BorderSize = 0;
             this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -431,7 +431,7 @@ namespace Korot
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(640, 23);
             this.btClose.TabIndex = 1;
-            this.btClose.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose.DrawImage = true;
             this.btClose.UseVisualStyleBackColor = true;
             this.btClose.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -458,7 +458,7 @@ namespace Korot
             // 
             // btClose1
             // 
-            this.btClose1.ButtonText = "Close";
+            this.btClose1.Text = "Close";
             this.btClose1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btClose1.FlatAppearance.BorderSize = 0;
             this.btClose1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -466,7 +466,7 @@ namespace Korot
             this.btClose1.Name = "btClose1";
             this.btClose1.Size = new System.Drawing.Size(646, 23);
             this.btClose1.TabIndex = 2;
-            this.btClose1.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose1.DrawImage = true;
             this.btClose1.UseVisualStyleBackColor = true;
             this.btClose1.Click += new System.EventHandler(this.button4_Click);
             // 

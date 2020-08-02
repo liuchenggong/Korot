@@ -360,10 +360,10 @@ namespace Korot
             lbCanAccessInfo.Text = Settings.LanguageSystem.GetItemText("canAccessWebContentInfo");
             lbOnlineFiles.Text = Settings.LanguageSystem.GetItemText("onlineFiles");
             lbOnlineFilesInfo.Text = Settings.LanguageSystem.GetItemText("onlineFilesInfo");
-            btInstall.ButtonText = Settings.LanguageSystem.GetItemText("Install");
-            btClose2.ButtonText = Settings.LanguageSystem.GetItemText("Close");
-            btClose.ButtonText = Settings.LanguageSystem.GetItemText("Close");
-            btClose1.ButtonText = Settings.LanguageSystem.GetItemText("Close");
+            btInstall.Text = Settings.LanguageSystem.GetItemText("Install");
+            btClose2.Text = Settings.LanguageSystem.GetItemText("Close");
+            btClose.Text = Settings.LanguageSystem.GetItemText("Close");
+            btClose1.Text = Settings.LanguageSystem.GetItemText("Close");
             lbInstallInfo.Text = Settings.LanguageSystem.GetItemText("");
             lbCannotInstall.Text = Settings.LanguageSystem.GetItemText("ExtensionInstallError");
             lbPleaseWait.Text = Settings.LanguageSystem.GetItemText("PleaseWait");

@@ -231,7 +231,7 @@ namespace Korot
             lbEmpty.Text = cefform.empty;
             rsMode = (selectedPanels.Count != 0 && selectedSites.Count != 0);
             htButton1.Visible = (cookieLabels.Count == 0 && notificationLabels.Count == 0 && switches.Count == 0);
-            htButton1.ButtonText = rsMode ? cefform.RemoveSelected : cefform.Clear;
+            htButton1.Text = rsMode ? cefform.RemoveSelected : cefform.Clear;
         }
 
         private void htButton1_Click(object sender, EventArgs e)

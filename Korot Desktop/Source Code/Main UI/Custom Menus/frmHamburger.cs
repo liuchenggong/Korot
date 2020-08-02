@@ -106,11 +106,11 @@ namespace Korot
             btMute.ButtonImage = cefform.Settings.QuietMode ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w));
             pbDownloads.Image = cefform.anaform.newDownload ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download : Properties.Resources.download_w);
             tsSearch.Text = isSearchOn ? tsSearch.Text : cefform.SearchOnPage;
-            btResetZoom.ButtonText = cefform.ResetZoom;
-            btDefaultProxy.ButtonText = cefform.ResetToDefaultProxy;
+            btResetZoom.Text = cefform.ResetZoom;
+            btDefaultProxy.Text = cefform.ResetToDefaultProxy;
             lbCollections.Text = cefform.Collections;
             lbDownloads.Text = cefform.DownloadsText;
-            btBlock.ButtonText = cefform.BlockThisSite;
+            btBlock.Text = cefform.BlockThisSite;
             lbHistory.Text = cefform.HistoryText;
             lbThemes.Text = cefform.ThemesText;
             lbSettings.Text = cefform.SettingsText;

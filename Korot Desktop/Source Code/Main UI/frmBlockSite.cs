@@ -80,7 +80,7 @@ namespace Korot
             rbL2.Text = cefform.lv2;
             rbL1.Text = cefform.lv1;
             rbL0.Text = cefform.lv0;
-            btDone.ButtonText = cefform.Done;
+            btDone.Text = cefform.Done;
         }
 
         private void tbUrl_TextChanged(object sender, EventArgs e)

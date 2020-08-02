@@ -438,7 +438,7 @@ namespace Korot
             this.btHome.Name = "btHome";
             this.btHome.Size = new System.Drawing.Size(30, 28);
             this.btHome.TabIndex = 2;
-            this.btHome.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btHome.DrawImage = true;
             this.btHome.UseVisualStyleBackColor = false;
             this.btHome.Click += new System.EventHandler(this.button5_Click);
             this.btHome.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -455,7 +455,7 @@ namespace Korot
             this.btFav.Name = "btFav";
             this.btFav.Size = new System.Drawing.Size(30, 28);
             this.btFav.TabIndex = 7;
-            this.btFav.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btFav.DrawImage = true;
             this.btFav.UseVisualStyleBackColor = false;
             this.btFav.Click += new System.EventHandler(this.Button7_Click);
             this.btFav.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -472,7 +472,7 @@ namespace Korot
             this.btNext.Name = "btNext";
             this.btNext.Size = new System.Drawing.Size(30, 28);
             this.btNext.TabIndex = 3;
-            this.btNext.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNext.DrawImage = true;
             this.btNext.UseVisualStyleBackColor = false;
             this.btNext.Click += new System.EventHandler(this.button3_Click);
             this.btNext.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -497,7 +497,7 @@ namespace Korot
             this.btBack.Name = "btBack";
             this.btBack.Size = new System.Drawing.Size(30, 28);
             this.btBack.TabIndex = 0;
-            this.btBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btBack.DrawImage = true;
             this.btBack.UseVisualStyleBackColor = false;
             this.btBack.Click += new System.EventHandler(this.button1_Click);
             this.btBack.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -522,7 +522,7 @@ namespace Korot
             this.btHamburger.Name = "btHamburger";
             this.btHamburger.Size = new System.Drawing.Size(30, 28);
             this.btHamburger.TabIndex = 9;
-            this.btHamburger.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btHamburger.DrawImage = true;
             this.btHamburger.UseVisualStyleBackColor = false;
             this.btHamburger.Click += new System.EventHandler(this.button11_Click);
             this.btHamburger.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -539,7 +539,7 @@ namespace Korot
             this.btProfile.Name = "btProfile";
             this.btProfile.Size = new System.Drawing.Size(30, 28);
             this.btProfile.TabIndex = 8;
-            this.btProfile.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btProfile.DrawImage = true;
             this.btProfile.UseVisualStyleBackColor = false;
             this.btProfile.Click += new System.EventHandler(this.Button9_Click);
             this.btProfile.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -555,7 +555,7 @@ namespace Korot
             this.btRefresh.Name = "btRefresh";
             this.btRefresh.Size = new System.Drawing.Size(30, 28);
             this.btRefresh.TabIndex = 1;
-            this.btRefresh.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btRefresh.DrawImage = true;
             this.btRefresh.UseVisualStyleBackColor = false;
             this.btRefresh.Click += new System.EventHandler(this.button2_Click);
             this.btRefresh.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -745,7 +745,7 @@ namespace Korot
             // 
             // btCertError
             // 
-            this.btCertError.ButtonText = "most of the time";
+            this.btCertError.Text = "most of the time";
             this.btCertError.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btCertError.FlatAppearance.BorderSize = 0;
             this.btCertError.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -753,7 +753,7 @@ namespace Korot
             this.btCertError.Name = "btCertError";
             this.btCertError.Size = new System.Drawing.Size(562, 26);
             this.btCertError.TabIndex = 0;
-            this.btCertError.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btCertError.DrawImage = true;
             this.btCertError.UseVisualStyleBackColor = true;
             this.btCertError.Click += new System.EventHandler(this.button10_Click);
             // 
@@ -913,7 +913,7 @@ namespace Korot
             // 
             this.btLangStore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btLangStore.ButtonImage = global::Korot.Properties.Resources.store;
-            this.btLangStore.ButtonText = "";
+            this.btLangStore.Text = "";
             this.btLangStore.FlatAppearance.BorderSize = 0;
             this.btLangStore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btLangStore.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -921,7 +921,7 @@ namespace Korot
             this.btLangStore.Name = "btLangStore";
             this.btLangStore.Size = new System.Drawing.Size(20, 20);
             this.btLangStore.TabIndex = 42;
-            this.btLangStore.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btLangStore.DrawImage = true;
             this.btLangStore.UseVisualStyleBackColor = true;
             this.btLangStore.Click += new System.EventHandler(this.btLangStore_Click);
             // 
@@ -929,7 +929,7 @@ namespace Korot
             // 
             this.btlangFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btlangFolder.ButtonImage = global::Korot.Properties.Resources.extfolder;
-            this.btlangFolder.ButtonText = "";
+            this.btlangFolder.Text = "";
             this.btlangFolder.FlatAppearance.BorderSize = 0;
             this.btlangFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btlangFolder.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -937,7 +937,7 @@ namespace Korot
             this.btlangFolder.Name = "btlangFolder";
             this.btlangFolder.Size = new System.Drawing.Size(20, 20);
             this.btlangFolder.TabIndex = 43;
-            this.btlangFolder.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btlangFolder.DrawImage = true;
             this.btlangFolder.UseVisualStyleBackColor = true;
             this.btlangFolder.Click += new System.EventHandler(this.btlangFolder_Click);
             // 
@@ -957,7 +957,7 @@ namespace Korot
             // btNewTab
             // 
             this.btNewTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btNewTab.ButtonText = "New Tab Content...";
+            this.btNewTab.Text = "New Tab Content...";
             this.btNewTab.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btNewTab.FlatAppearance.BorderSize = 0;
             this.btNewTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -966,7 +966,7 @@ namespace Korot
             this.btNewTab.Name = "btNewTab";
             this.btNewTab.Size = new System.Drawing.Size(568, 28);
             this.btNewTab.TabIndex = 39;
-            this.btNewTab.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNewTab.DrawImage = true;
             this.btNewTab.UseVisualStyleBackColor = false;
             this.btNewTab.Click += new System.EventHandler(this.btNewTab_Click);
             // 
@@ -1001,7 +1001,7 @@ namespace Korot
             // btCookie
             // 
             this.btCookie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btCookie.ButtonText = "Site Settings..";
+            this.btCookie.Text = "Site Settings..";
             this.btCookie.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btCookie.FlatAppearance.BorderSize = 0;
             this.btCookie.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1010,14 +1010,14 @@ namespace Korot
             this.btCookie.Name = "btCookie";
             this.btCookie.Size = new System.Drawing.Size(568, 28);
             this.btCookie.TabIndex = 11;
-            this.btCookie.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btCookie.DrawImage = true;
             this.btCookie.UseVisualStyleBackColor = false;
             this.btCookie.Click += new System.EventHandler(this.button15_Click);
             // 
             // btNotification
             // 
             this.btNotification.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btNotification.ButtonText = "Notification Settings..";
+            this.btNotification.Text = "Notification Settings..";
             this.btNotification.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btNotification.FlatAppearance.BorderSize = 0;
             this.btNotification.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1026,14 +1026,14 @@ namespace Korot
             this.btNotification.Name = "btNotification";
             this.btNotification.Size = new System.Drawing.Size(568, 28);
             this.btNotification.TabIndex = 12;
-            this.btNotification.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNotification.DrawImage = true;
             this.btNotification.UseVisualStyleBackColor = false;
             this.btNotification.Click += new System.EventHandler(this.button19_Click_1);
             // 
             // btReset
             // 
             this.btReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btReset.ButtonText = "Reset Korot...";
+            this.btReset.Text = "Reset Korot...";
             this.btReset.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btReset.FlatAppearance.BorderSize = 0;
             this.btReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1042,14 +1042,14 @@ namespace Korot
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(568, 28);
             this.btReset.TabIndex = 14;
-            this.btReset.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btReset.DrawImage = true;
             this.btReset.UseVisualStyleBackColor = false;
             this.btReset.Click += new System.EventHandler(this.button18_Click);
             // 
             // btCleanLog
             // 
             this.btCleanLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btCleanLog.ButtonText = "Clean Log Data";
+            this.btCleanLog.Text = "Clean Log Data";
             this.btCleanLog.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btCleanLog.FlatAppearance.BorderSize = 0;
             this.btCleanLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1058,7 +1058,7 @@ namespace Korot
             this.btCleanLog.Name = "btCleanLog";
             this.btCleanLog.Size = new System.Drawing.Size(568, 28);
             this.btCleanLog.TabIndex = 13;
-            this.btCleanLog.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btCleanLog.DrawImage = true;
             this.btCleanLog.UseVisualStyleBackColor = false;
             this.btCleanLog.Click += new System.EventHandler(this.btCleanLog_Click);
             // 
@@ -1129,7 +1129,7 @@ namespace Korot
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(30, 30);
             this.btClose.TabIndex = 0;
-            this.btClose.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose.DrawImage = true;
             this.btClose.UseVisualStyleBackColor = false;
             this.btClose.Click += new System.EventHandler(this.button1_Click);
             this.btClose.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabform_KeyDown);
@@ -1460,7 +1460,7 @@ namespace Korot
             this.btClose2.Name = "btClose2";
             this.btClose2.Size = new System.Drawing.Size(30, 30);
             this.btClose2.TabIndex = 0;
-            this.btClose2.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose2.DrawImage = true;
             this.btClose2.UseVisualStyleBackColor = false;
             this.btClose2.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -1628,7 +1628,7 @@ namespace Korot
             // 
             this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button12.ButtonImage = global::Korot.Properties.Resources.collection;
-            this.button12.ButtonText = "";
+            this.button12.Text = "";
             this.button12.FlatAppearance.BorderSize = 0;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button12.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
@@ -1637,7 +1637,7 @@ namespace Korot
             this.button12.Size = new System.Drawing.Size(48, 26);
             this.button12.TabIndex = 8;
             this.button12.Tag = "";
-            this.button12.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.button12.DrawImage = true;
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.Button12_Click);
             this.button12.Enter += new System.EventHandler(this.comboBox1_Enter);
@@ -1701,7 +1701,7 @@ namespace Korot
             this.btClose6.Name = "btClose6";
             this.btClose6.Size = new System.Drawing.Size(30, 30);
             this.btClose6.TabIndex = 0;
-            this.btClose6.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose6.DrawImage = true;
             this.btClose6.UseVisualStyleBackColor = false;
             this.btClose6.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -1756,7 +1756,7 @@ namespace Korot
             this.btClose7.Name = "btClose7";
             this.btClose7.Size = new System.Drawing.Size(30, 30);
             this.btClose7.TabIndex = 0;
-            this.btClose7.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose7.DrawImage = true;
             this.btClose7.UseVisualStyleBackColor = false;
             this.btClose7.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -1800,14 +1800,14 @@ namespace Korot
             // btDownloadFolder
             // 
             this.btDownloadFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btDownloadFolder.ButtonText = "...";
+            this.btDownloadFolder.Text = "...";
             this.btDownloadFolder.FlatAppearance.BorderSize = 0;
             this.btDownloadFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDownloadFolder.Location = new System.Drawing.Point(524, 80);
             this.btDownloadFolder.Name = "btDownloadFolder";
             this.btDownloadFolder.Size = new System.Drawing.Size(27, 26);
             this.btDownloadFolder.TabIndex = 4;
-            this.btDownloadFolder.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btDownloadFolder.DrawImage = true;
             this.btDownloadFolder.UseVisualStyleBackColor = true;
             this.btDownloadFolder.Click += new System.EventHandler(this.button17_Click);
             // 
@@ -1880,7 +1880,7 @@ namespace Korot
             this.btClose10.Name = "btClose10";
             this.btClose10.Size = new System.Drawing.Size(30, 30);
             this.btClose10.TabIndex = 0;
-            this.btClose10.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose10.DrawImage = true;
             this.btClose10.UseVisualStyleBackColor = false;
             this.btClose10.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -1909,7 +1909,7 @@ namespace Korot
             // btInstall
             // 
             this.btInstall.BackColor = System.Drawing.Color.Transparent;
-            this.btInstall.ButtonText = "Install the update";
+            this.btInstall.Text = "Install the update";
             this.btInstall.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btInstall.FlatAppearance.BorderSize = 0;
             this.btInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1917,7 +1917,7 @@ namespace Korot
             this.btInstall.Name = "btInstall";
             this.btInstall.Size = new System.Drawing.Size(562, 31);
             this.btInstall.TabIndex = 3;
-            this.btInstall.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btInstall.DrawImage = true;
             this.btInstall.UseVisualStyleBackColor = false;
             this.btInstall.Visible = false;
             this.btInstall.Click += new System.EventHandler(this.btInstall_Click);
@@ -1925,7 +1925,7 @@ namespace Korot
             // btUpdater
             // 
             this.btUpdater.BackColor = System.Drawing.Color.Transparent;
-            this.btUpdater.ButtonText = "Check for Updates";
+            this.btUpdater.Text = "Check for Updates";
             this.btUpdater.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btUpdater.FlatAppearance.BorderSize = 0;
             this.btUpdater.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1933,7 +1933,7 @@ namespace Korot
             this.btUpdater.Name = "btUpdater";
             this.btUpdater.Size = new System.Drawing.Size(562, 31);
             this.btUpdater.TabIndex = 2;
-            this.btUpdater.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btUpdater.DrawImage = true;
             this.btUpdater.UseVisualStyleBackColor = false;
             this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
             // 
@@ -2024,7 +2024,7 @@ namespace Korot
             // btBlocked
             // 
             this.btBlocked.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btBlocked.ButtonText = "Blocked Sites...";
+            this.btBlocked.Text = "Blocked Sites...";
             this.btBlocked.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btBlocked.FlatAppearance.BorderSize = 0;
             this.btBlocked.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -2033,7 +2033,7 @@ namespace Korot
             this.btBlocked.Name = "btBlocked";
             this.btBlocked.Size = new System.Drawing.Size(568, 28);
             this.btBlocked.TabIndex = 47;
-            this.btBlocked.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btBlocked.DrawImage = true;
             this.btBlocked.UseVisualStyleBackColor = false;
             this.btBlocked.Click += new System.EventHandler(this.btBlocked_Click);
             // 
@@ -2059,7 +2059,7 @@ namespace Korot
             this.btCookieBack.Name = "btCookieBack";
             this.btCookieBack.Size = new System.Drawing.Size(30, 28);
             this.btCookieBack.TabIndex = 45;
-            this.btCookieBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btCookieBack.DrawImage = true;
             this.btCookieBack.UseVisualStyleBackColor = false;
             this.btCookieBack.Click += new System.EventHandler(this.btNotifBack_Click);
             // 
@@ -2075,7 +2075,7 @@ namespace Korot
             this.btClose8.Name = "btClose8";
             this.btClose8.Size = new System.Drawing.Size(30, 30);
             this.btClose8.TabIndex = 0;
-            this.btClose8.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose8.DrawImage = true;
             this.btClose8.UseVisualStyleBackColor = false;
             this.btClose8.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2124,7 +2124,7 @@ namespace Korot
             this.btClose9.Name = "btClose9";
             this.btClose9.Size = new System.Drawing.Size(30, 30);
             this.btClose9.TabIndex = 0;
-            this.btClose9.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose9.DrawImage = true;
             this.btClose9.UseVisualStyleBackColor = false;
             this.btClose9.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2169,7 +2169,7 @@ namespace Korot
             this.btNotifBack.Name = "btNotifBack";
             this.btNotifBack.Size = new System.Drawing.Size(30, 28);
             this.btNotifBack.TabIndex = 44;
-            this.btNotifBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNotifBack.DrawImage = true;
             this.btNotifBack.UseVisualStyleBackColor = false;
             this.btNotifBack.Click += new System.EventHandler(this.btNotifBack_Click);
             // 
@@ -2516,7 +2516,7 @@ namespace Korot
             this.btClose3.Name = "btClose3";
             this.btClose3.Size = new System.Drawing.Size(30, 30);
             this.btClose3.TabIndex = 37;
-            this.btClose3.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose3.DrawImage = true;
             this.btClose3.UseVisualStyleBackColor = false;
             this.btClose3.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2983,14 +2983,14 @@ namespace Korot
             // 
             this.btClear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClear.ButtonText = "Clear";
+            this.btClear.Text = "Clear";
             this.btClear.FlatAppearance.BorderSize = 0;
             this.btClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClear.Location = new System.Drawing.Point(19, 118);
             this.btClear.Name = "btClear";
             this.btClear.Size = new System.Drawing.Size(536, 23);
             this.btClear.TabIndex = 51;
-            this.btClear.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClear.DrawImage = true;
             this.btClear.UseVisualStyleBackColor = true;
             this.btClear.Click += new System.EventHandler(this.btClear_Click);
             // 
@@ -3026,7 +3026,7 @@ namespace Korot
             this.btNewTabBack.Name = "btNewTabBack";
             this.btNewTabBack.Size = new System.Drawing.Size(30, 28);
             this.btNewTabBack.TabIndex = 47;
-            this.btNewTabBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btNewTabBack.DrawImage = true;
             this.btNewTabBack.UseVisualStyleBackColor = false;
             this.btNewTabBack.Click += new System.EventHandler(this.htButton1_Click);
             // 
@@ -3042,7 +3042,7 @@ namespace Korot
             this.btClose5.Name = "btClose5";
             this.btClose5.Size = new System.Drawing.Size(30, 30);
             this.btClose5.TabIndex = 45;
-            this.btClose5.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose5.DrawImage = true;
             this.btClose5.UseVisualStyleBackColor = false;
             this.btClose5.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -3091,7 +3091,7 @@ namespace Korot
             this.btBlockBack.Name = "btBlockBack";
             this.btBlockBack.Size = new System.Drawing.Size(30, 28);
             this.btBlockBack.TabIndex = 47;
-            this.btBlockBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btBlockBack.DrawImage = true;
             this.btBlockBack.UseVisualStyleBackColor = false;
             this.btBlockBack.Click += new System.EventHandler(this.btBlockBack_Click);
             // 
@@ -3107,7 +3107,7 @@ namespace Korot
             this.btClose4.Name = "btClose4";
             this.btClose4.Size = new System.Drawing.Size(30, 30);
             this.btClose4.TabIndex = 45;
-            this.btClose4.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btClose4.DrawImage = true;
             this.btClose4.UseVisualStyleBackColor = false;
             this.btClose4.Click += new System.EventHandler(this.button1_Click);
             // 

@@ -63,7 +63,7 @@ namespace Korot
             // 
             // button2
             // 
-            this.button2.ButtonText = "Add";
+            this.button2.Text = "Add";
             this.button2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -73,7 +73,7 @@ namespace Korot
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(370, 27);
             this.button2.TabIndex = 0;
-            this.button2.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.button2.DrawImage = true;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -138,7 +138,7 @@ namespace Korot
             // 
             // button1
             // 
-            this.button1.ButtonText = "New Folder...";
+            this.button1.Text = "New Folder...";
             this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -148,7 +148,7 @@ namespace Korot
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(370, 27);
             this.button1.TabIndex = 0;
-            this.button1.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.button1.DrawImage = true;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

@@ -165,7 +165,7 @@ namespace Korot
             // btContinue2
             // 
             this.btContinue2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btContinue2.ButtonText = "Continue";
+            this.btContinue2.Text = "Continue";
             this.btContinue2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btContinue2.FlatAppearance.BorderSize = 0;
             this.btContinue2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -174,7 +174,7 @@ namespace Korot
             this.btContinue2.Name = "btContinue2";
             this.btContinue2.Size = new System.Drawing.Size(615, 23);
             this.btContinue2.TabIndex = 5;
-            this.btContinue2.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btContinue2.DrawImage = true;
             this.btContinue2.UseVisualStyleBackColor = false;
             this.btContinue2.Visible = false;
             this.btContinue2.Click += new System.EventHandler(this.button3_Click);
@@ -241,7 +241,7 @@ namespace Korot
             // btBack
             // 
             this.btBack.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btBack.ButtonText = "Go Back";
+            this.btBack.Text = "Go Back";
             this.btBack.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btBack.FlatAppearance.BorderSize = 0;
             this.btBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -250,14 +250,14 @@ namespace Korot
             this.btBack.Name = "btBack";
             this.btBack.Size = new System.Drawing.Size(615, 23);
             this.btBack.TabIndex = 18;
-            this.btBack.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btBack.DrawImage = true;
             this.btBack.UseVisualStyleBackColor = false;
             this.btBack.Click += new System.EventHandler(this.button5_Click);
             // 
             // btContinue
             // 
             this.btContinue.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btContinue.ButtonText = "Continue";
+            this.btContinue.Text = "Continue";
             this.btContinue.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btContinue.FlatAppearance.BorderSize = 0;
             this.btContinue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -266,7 +266,7 @@ namespace Korot
             this.btContinue.Name = "btContinue";
             this.btContinue.Size = new System.Drawing.Size(615, 23);
             this.btContinue.TabIndex = 17;
-            this.btContinue.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btContinue.DrawImage = true;
             this.btContinue.UseVisualStyleBackColor = false;
             this.btContinue.Visible = false;
             this.btContinue.Click += new System.EventHandler(this.button4_Click);
@@ -438,7 +438,7 @@ namespace Korot
             // btBack1
             // 
             this.btBack1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btBack1.ButtonText = "Go Back";
+            this.btBack1.Text = "Go Back";
             this.btBack1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btBack1.FlatAppearance.BorderSize = 0;
             this.btBack1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -447,14 +447,14 @@ namespace Korot
             this.btBack1.Name = "btBack1";
             this.btBack1.Size = new System.Drawing.Size(621, 23);
             this.btBack1.TabIndex = 20;
-            this.btBack1.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btBack1.DrawImage = true;
             this.btBack1.UseVisualStyleBackColor = false;
             this.btBack1.Click += new System.EventHandler(this.button3_Click);
             // 
             // btFinish
             // 
             this.btFinish.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btFinish.ButtonText = "Finish Installation";
+            this.btFinish.Text = "Finish Installation";
             this.btFinish.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btFinish.FlatAppearance.BorderSize = 0;
             this.btFinish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -463,7 +463,7 @@ namespace Korot
             this.btFinish.Name = "btFinish";
             this.btFinish.Size = new System.Drawing.Size(621, 23);
             this.btFinish.TabIndex = 18;
-            this.btFinish.TextImageRelation = HTAlt.WinForms.HTButton.ButtonTextImageRelation.TextBelowImage;
+            this.btFinish.DrawImage = true;
             this.btFinish.UseVisualStyleBackColor = false;
             this.btFinish.Visible = false;
             this.btFinish.Click += new System.EventHandler(this.button2_Click);
