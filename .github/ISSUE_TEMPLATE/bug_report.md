@@ -1,20 +1,20 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: ''
+title: '[Bug] - '
 labels: bug
 assignees: Haltroy
 
 ---
 
 **Desktop (please complete the following information):**
- - OS: [e.g. Windows 10]
- - Korot Version: [e.g. 0.5.0.0]
+ - OS: [ e.g. Windows 10 20H1 ]
+ - Korot Version: [ e.g. 0.8.0.0 [Shisha no kodo] ]
 
 **Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Korot Version: [e.g. 0.5.0.0]
+ - Device: [ e.g. Xiaomi Redmi Note 7 ]
+ - OS: [ e.g. MIUI 11 Android 10 ]
+ - Korot Version: [ e.g. 0.8.0.0 [Crosswalk] ]
 
 **Describe the bug**
 A clear and concise description of what the bug is.
