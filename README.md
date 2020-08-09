@@ -75,7 +75,7 @@ Latest Stable Version: [`0.8.0.0`](https://github.com/Haltroy/Korot/tree/0.8.0.0
 | `0.2.x.x` | > 75 | 2015 | Framework 4.5.2 | None | Unsupported | 2018 |
 | `0.1.x.x` | > 75 | 2015 | Framework 4.5.2 | None | Unsupported | 2018 |
 | `0.0.x.x` | > 75 | 2015 | Framework 4.5.2 | None | Unsupported | 2018 |
-| [`0.0.0.4`](https://github.com/Haltroy/Korot/tree/0.0.0.4) | 63 | 2015 | Framework 4.5.2 | None | Unsupported | 2018 |
+| [`0.0.0.4`](https://github.com/Haltroy/Korot/tree/0.0.0.4) | 63 | 2015 | Framework 4.5.2 | None | Unsupported | 2 July 2018 |
 | `0.0.0.x` | >= 63 | 2015 | Framework 4.5.2 | None | Unsupported | 2017 |
 
 
