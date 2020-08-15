@@ -8,11 +8,19 @@ namespace Korot
         private readonly frmCEF cefform;
         private readonly BlockSite site;
         private readonly BlockSite msite;
-        public frmBlockSite(frmCEF _frmCEF, BlockSite _site)
+        public frmBlockSite(frmCEF _frmCEF, BlockSite _site,string Url)
         {
             cefform = _frmCEF;
-            msite = _site;
-            site = new BlockSite() { Address = msite.Address, Filter = msite.Filter, BlockLevel = msite.BlockLevel };
+            
+            if (_site is null)
+            {
+                msite = null;
+                site = new BlockSite() { Address = Url, BlockLevel = 0, Filter = Settings.BlockLevels.ConvertToLevel0(Url) };
+            }else
+            {
+                msite = _site;
+                site = new BlockSite() { Address = msite.Address, Filter = msite.Filter, BlockLevel = msite.BlockLevel };
+            }
             InitializeComponent();
             tbUrl.Text = site.Address;
             lbFilter.Text = site.Filter;
@@ -44,10 +52,6 @@ namespace Korot
                 rbL2.Checked = false;
                 rbL3.Checked = true;
             }
-        }
-        public frmBlockSite(frmCEF _frmCEF, string Url)
-        {
-            new frmBlockSite(_frmCEF, new BlockSite() { Address = Url, BlockLevel = 0, Filter = Settings.BlockLevels.ConvertToLevel0(Url) });
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -118,7 +122,7 @@ namespace Korot
 
         private void rbL1_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbL0.Checked)
+            if (rbL1.Checked)
             {
                 site.BlockLevel = 1;
                 lbFilter.Text = Settings.BlockLevels.ConvertToLevel1(tbUrl.Text);
@@ -130,7 +134,7 @@ namespace Korot
 
         private void rbL2_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbL0.Checked)
+            if (rbL2.Checked)
             {
                 site.BlockLevel = 2;
                 lbFilter.Text = Settings.BlockLevels.ConvertToLevel2(tbUrl.Text);
@@ -142,7 +146,7 @@ namespace Korot
 
         private void rbL3_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbL0.Checked)
+            if (rbL3.Checked)
             {
                 site.BlockLevel = 3;
                 lbFilter.Text = Settings.BlockLevels.ConvertToLevel3(tbUrl.Text);

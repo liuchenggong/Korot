@@ -500,12 +500,12 @@ namespace Korot
             BlockSite item = cefform.Settings.Filters.Find(i => i.Address == cefform.chromiumWebBrowser1.Address);
             if (item != null)
             {
-                frmBlockSite fbs = new frmBlockSite(cefform, item);
+                frmBlockSite fbs = new frmBlockSite(cefform, item, item.Address);
                 fbs.ShowDialog();
             }
             else
             {
-                frmBlockSite fbs = new frmBlockSite(cefform, cefform.chromiumWebBrowser1.Address);
+                frmBlockSite fbs = new frmBlockSite(cefform, null, cefform.chromiumWebBrowser1.Address);
                 fbs.ShowDialog();
             }
         }

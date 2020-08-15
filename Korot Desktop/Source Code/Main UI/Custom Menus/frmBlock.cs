@@ -57,7 +57,7 @@ namespace Korot
             Control cntrl = sender as Control;
             if (cntrl.Tag == null || !(cntrl.Tag is BlockSite)) { return; }
             BlockSite tag = cntrl.Tag as BlockSite;
-            frmBlockSite fbs = new frmBlockSite(cefform, tag);
+            frmBlockSite fbs = new frmBlockSite(cefform, tag, tag.Address);
             DialogResult result = fbs.ShowDialog();
             if (result == DialogResult.OK)
             {

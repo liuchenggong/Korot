@@ -36,7 +36,7 @@ namespace Korot
 {
     public static class VersionInfo
     {
-        public static string CodeName => "Shisha no kodo"; //死者のコード
+        public static string CodeName => "Shisha no kodo I"; //死者のコード
         public static bool IsPreRelease => false;
         public static int PreReleaseNumber => 0;
     }
@@ -1183,7 +1183,6 @@ new HTTitleTab(testApp)
         public bool UseDownloadFolder { get; set; }
         public List<Site> Downloads { get; set; }
     }
-
     public class Site
     {
         public string Name { get; set; }

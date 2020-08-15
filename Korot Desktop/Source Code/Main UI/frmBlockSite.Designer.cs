@@ -145,31 +145,32 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbLevelInfo.Location = new System.Drawing.Point(12, 73);
             this.lbLevelInfo.Name = "lbLevelInfo";
-            this.lbLevelInfo.Size = new System.Drawing.Size(505, 40);
+            this.lbLevelInfo.Size = new System.Drawing.Size(505, 35);
             this.lbLevelInfo.TabIndex = 5;
             this.lbLevelInfo.Text = "Block a certain page in certain website only.";
             // 
             // lbFilter
             // 
-            this.lbFilter.AutoSize = true;
+            this.lbFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbFilter.Font = new System.Drawing.Font("Ubuntu", 12F);
-            this.lbFilter.Location = new System.Drawing.Point(8, 113);
+            this.lbFilter.Location = new System.Drawing.Point(8, 108);
             this.lbFilter.Name = "lbFilter";
-            this.lbFilter.Size = new System.Drawing.Size(57, 20);
+            this.lbFilter.Size = new System.Drawing.Size(509, 20);
             this.lbFilter.TabIndex = 2;
             this.lbFilter.Text = "REGEX";
             // 
             // btDone
             // 
-            this.btDone.Text = "Done";
             this.btDone.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btDone.DrawImage = true;
             this.btDone.FlatAppearance.BorderSize = 0;
             this.btDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDone.Location = new System.Drawing.Point(0, 138);
             this.btDone.Name = "btDone";
             this.btDone.Size = new System.Drawing.Size(529, 23);
             this.btDone.TabIndex = 6;
-            this.btDone.DrawImage = true;
+            this.btDone.Text = "Done";
             this.btDone.UseVisualStyleBackColor = true;
             this.btDone.Click += new System.EventHandler(this.btDone_Click);
             // 
