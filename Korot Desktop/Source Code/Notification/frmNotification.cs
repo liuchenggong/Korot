@@ -20,7 +20,18 @@ namespace Korot
             lbTitle.Text = notification.title;
             lbMessage.Text = notification.message;
             ilkImage = notification.imageUrl;
-            pbImage.Image = HTAlt.Tools.GetImageFromUrl(ilkImage);
+            if (!HTAlt.Tools.ValidUrl(ilkImage,new string[] {"korot:"}))
+            {
+                ilkImage = notification.url + ilkImage;
+            }
+            try
+            {
+                pbImage.Image = HTAlt.Tools.GetImageFromUrl(ilkImage);
+            }catch (Exception)
+            {
+                pbImage.Image = Properties.Resources.error;
+                
+            }
         }
 
         private bool playedSound = false;

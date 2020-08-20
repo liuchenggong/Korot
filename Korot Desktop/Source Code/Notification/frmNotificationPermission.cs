@@ -7,7 +7,7 @@ namespace Korot
 {
     public partial class frmNotificationPermission : Form
     {
-        private bool alreadyAddedAllow => cefform.Settings.GetSiteFromUrl(baseUrl).AllowNotifications;
+        private bool alreadyAddedAllow => cefform.Settings.GetSiteFromUrl(baseUrl) is null ? false : cefform.Settings.GetSiteFromUrl(baseUrl).AllowNotifications;
         private readonly string baseUrl;
         private readonly frmCEF cefform;
         public frmNotificationPermission(frmCEF _frmCEF, string url)
@@ -24,7 +24,14 @@ namespace Korot
         {
             if (!alreadyAddedAllow)
             {
-                cefform.Settings.GetSiteFromUrl(baseUrl).AllowNotifications = true;
+                Site x = cefform.Settings.GetSiteFromUrl(baseUrl);
+                if (x is null) 
+                {
+                    cefform.Settings.Sites.Add(new Korot.Site(){ Name= cefform.Text, Url = baseUrl, AllowNotifications = true });
+                } else 
+                { 
+                  x.AllowNotifications = true;
+                }
             }
             cefform.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsync(@"korotNotificationPermission = 'granted';")));
             cefform.Invoke(new Action(() => cefform.refreshPage()));
@@ -35,7 +42,15 @@ namespace Korot
         {
             if (alreadyAddedAllow)
             {
-                cefform.Settings.GetSiteFromUrl(baseUrl).AllowNotifications = false;
+                Site x = cefform.Settings.GetSiteFromUrl(baseUrl);
+                if (x is null)
+                {
+                    cefform.Settings.Sites.Add(new Korot.Site() { Name = cefform.Text, Url = baseUrl, AllowNotifications = false });
+                }
+                else
+                {
+                    x.AllowNotifications = false;
+                }
             }
             cefform.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsync(@"korotNotificationPermission = 'denied';")));
             cefform.Invoke(new Action(() => cefform.refreshPage()));

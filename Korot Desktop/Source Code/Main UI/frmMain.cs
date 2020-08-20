@@ -283,7 +283,7 @@ namespace Korot
         {
             MemoryStream stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);
-            writer.Write(Session.Replace("[", "<").Replace("]", ">"));
+            writer.Write(Session);
             writer.Flush();
             stream.Position = 0;
             XmlDocument document = new XmlDocument();
@@ -293,14 +293,18 @@ namespace Korot
                 frmCEF cefform = new frmCEF(Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser);
                 cefform.lbURL.Items.Clear();
                 cefform.lbTitle.Items.Clear();
-                string[] SplittedFase = node.Attributes["Content"].Value.Split(';');
-                int Count = SplittedFase.Length - 1; ; int i = 0;
-                while (!(i == Count))
+                foreach (XmlNode subnode in node.ChildNodes) 
                 {
-                    cefform.lbURL.Items.Add(SplittedFase[i]);
-                    i += 1;
-                    cefform.lbTitle.Items.Add(SplittedFase[i]);
-                    i += 1;
+                    if (subnode.Name.ToLower() == "site")
+                    {
+                        string url = subnode.Attributes["Url"].Value;
+                        string title = subnode.Attributes["Title"].Value;
+                        if (!(url is null || title is null))
+                        {
+                            cefform.lbURL.Items.Add(url);
+                            cefform.lbTitle.Items.Add(title);
+                        }
+                    }
                 }
                 cefform.lbURL.SelectedIndex = Convert.ToInt32(node.Attributes["Index"].Value);
                 cefform.lbTitle.SelectedIndex = Convert.ToInt32(node.Attributes["Index"].Value);
@@ -321,26 +325,28 @@ namespace Korot
         }
         public void WriteCurrentSession()
         {
-            string CurrentSessionURIs = "[root]";
+            string CurrentSessionURIs = "<root>" + Environment.NewLine;
             foreach (HTTitleTab x in Tabs)
             {
                 frmCEF cefform = (frmCEF)x.Content;
-                string text = "";
+                List<Site> currentSites = new List<Site>();
                 int i = 0; int Count = cefform.lbURL.Items.Count - 1;
                 if (cefform.lbURL.Items.Count > 0)
                 {
                     while (i != Count)
                     {
-                        text += cefform.lbURL.Items[i].ToString() +
-                            ";" +
-                            cefform.lbTitle.Items[i].ToString() +
-                            ";";
+                        currentSites.Add(new Korot.Site(){ Name = cefform.lbTitle.Items[i].ToString() , Url = cefform.lbURL.Items[i].ToString() });
                         i += 1;
                     }
                 }
-                CurrentSessionURIs += "[Session Index=\"" + cefform.lbURL.SelectedIndex + "\" Content=\"" + text + "\" /]";
+                CurrentSessionURIs += " <Session Index=\"" + cefform.lbURL.SelectedIndex + "\" >" + Environment.NewLine;
+                foreach (Site site in currentSites)
+                {
+                    CurrentSessionURIs += "  <Site Title=\"" + site.Name + "\" Url=\"" + site.Url + "\" />" + Environment.NewLine;
+                }
+                CurrentSessionURIs += " </Session>" + Environment.NewLine;
             }
-            CurrentSessionURIs += "[/root]";
+            CurrentSessionURIs += "</root>" + Environment.NewLine;
             WriteSessions(CurrentSessionURIs);
         }
         public bool closing = false;
