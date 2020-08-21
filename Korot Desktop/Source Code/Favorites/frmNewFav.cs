@@ -173,14 +173,22 @@ namespace Korot
                         Name = textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, ""),
                         Text = textBox1.Text,
                         Url = textBox2.Text,
-                        ParentFolder = treeView1.SelectedNode.Tag as Folder,
                         IconPath = "{ICONSTORAGE}" + textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, "") + ".png",
                     };
                     if (!File.Exists(iconStorage + textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, "") + ".png"))
                     {
                         HTAlt.Tools.WriteFile(iconStorage + textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, "") + ".png", Cefform.Icon.ToBitmap(), ImageFormat.Png);
                     }
-                    (treeView1.SelectedNode.Tag as Folder).Favorites.Add(newFav);
+                    if (treeView1.SelectedNode.Name == "root" && treeView1.SelectedNode.ToolTipText == "korot://root")
+                    {
+                        newFav.ParentFolder = null;
+                        Cefform.Settings.Favorites.Favorites.Add(newFav);
+                    }
+                    else
+                    {
+                        newFav.ParentFolder = (treeView1.SelectedNode.Tag as Folder);
+                        (treeView1.SelectedNode.Tag as Folder).Favorites.Add(newFav);
+                    }
                 }
                 else
                 {
@@ -188,9 +196,19 @@ namespace Korot
                     {
                         Name = textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, ""),
                         Text = textBox1.Text,
-                        ParentFolder = treeView1.SelectedNode.Tag as Folder,
+                        Favorites = new System.Collections.Generic.List<Folder>(),
+
                     };
-                    (treeView1.SelectedNode.Tag as Folder).Favorites.Add(newFav);
+                    if (treeView1.SelectedNode.Name == "root" && treeView1.SelectedNode.ToolTipText == "korot://root")
+                    {
+                        newFav.ParentFolder = null;
+                        Cefform.Settings.Favorites.Favorites.Add(newFav);
+                    }
+                    else
+                    {
+                        newFav.ParentFolder = (treeView1.SelectedNode.Tag as Folder);
+                        (treeView1.SelectedNode.Tag as Folder).Favorites.Add(newFav);
+                    }
                 }
                 Close();
             }

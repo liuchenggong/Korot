@@ -65,7 +65,8 @@ namespace Korot
                 flpExtensions.BackColor = back2;
                 tsSearch.BackColor = back2;
                 tsSearch.ForeColor = ForeColor;
-                btFullScreen.ButtonImage = cefform.anaform.isFullScreen ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.normalscreen : Properties.Resources.normalscreen_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.fullscreen : Properties.Resources.fullscreen_w);
+                btFullScreen.ButtonImage = cefform.anaform is null ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.fullscreen : Properties.Resources.fullscreen_w) : (cefform.anaform.isFullScreen ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.normalscreen : Properties.Resources.normalscreen_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.fullscreen : Properties.Resources.fullscreen_w));
+                btFullScreen.Enabled = !(cefform.anaform is null);
                 btCaseSensitive.ForeColor = cs ? cefform.Settings.Theme.OverlayColor : HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
                 btFindNext.ButtonImage = isbright ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
                 htButton4.ButtonImage = isbright ? Properties.Resources.cancel : Properties.Resources.cancel_w;
@@ -104,7 +105,7 @@ namespace Korot
             bool c = cefform.Settings.IsQuietTime;
             btMute.Enabled = !cefform.Settings.QuietMode;
             btMute.ButtonImage = cefform.Settings.QuietMode ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w));
-            pbDownloads.Image = cefform.anaform.newDownload ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download : Properties.Resources.download_w);
+            pbDownloads.Image = cefform.anaform is null ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download : Properties.Resources.download_w) : (cefform.anaform.newDownload ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download : Properties.Resources.download_w));
             tsSearch.Text = isSearchOn ? tsSearch.Text : cefform.SearchOnPage;
             btResetZoom.Text = cefform.ResetZoom;
             btDefaultProxy.Text = cefform.ResetToDefaultProxy;

@@ -342,7 +342,7 @@ namespace Korot
                 CurrentSessionURIs += " <Session Index=\"" + cefform.lbURL.SelectedIndex + "\" >" + Environment.NewLine;
                 foreach (Site site in currentSites)
                 {
-                    CurrentSessionURIs += "  <Site Title=\"" + site.Name + "\" Url=\"" + site.Url + "\" />" + Environment.NewLine;
+                    CurrentSessionURIs += "  <Site Title=\"" + site.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Text=\"" + Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Url=\"" + site.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Text=\"" + Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />" + Environment.NewLine;
                 }
                 CurrentSessionURIs += " </Session>" + Environment.NewLine;
             }
@@ -434,23 +434,7 @@ namespace Korot
                 }
                 else
                 {
-                    Korot.SafeFileSettingOrganizedClass.LastSession = "[root]";
-                    foreach (HTTitleTab x in Tabs)
-                    {
-                        frmCEF cefform = (frmCEF)x.Content;
-                        string text = "";
-                        int i = 0; int Count = cefform.lbURL.Items.Count - 1;
-                        while (i != Count)
-                        {
-                            text += cefform.lbURL.Items[i].ToString() +
-                                ";" +
-                                cefform.lbTitle.Items[i].ToString() +
-                                ";";
-                            i += 1;
-                        }
-                        Korot.SafeFileSettingOrganizedClass.LastSession += "[Session Index=\"" + cefform.lbURL.SelectedIndex + "\" Content=\"" + text + "\" /]";
-                    }
-                    Korot.SafeFileSettingOrganizedClass.LastSession += "[/root]";
+                    WriteCurrentSession();
 
                 }
                 Settings.Save();

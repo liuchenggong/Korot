@@ -1342,11 +1342,12 @@ new HTTitleTab(testApp)
     }
     public class Folder
     {
+        private List<Folder> _Fav = new List<Folder>();
         public Folder ParentFolder { get; set; }
         public bool IsTopFavorite => ParentFolder == null;
         public string Name { get; set; }
         public string Text { get; set; }
-        public List<Folder> Favorites { get; set; }
+        public List<Folder> Favorites { get => _Fav; set => _Fav = value; }
         public string outXml
         {
             get

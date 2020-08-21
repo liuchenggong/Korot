@@ -263,7 +263,7 @@ namespace Korot
                     // add an event handler to the menu item added
                     item.MouseUp += menuStrip1_MouseUp;
                 }
-                else
+                else if (subfolder is Folder)
                 {
                     item = new ToolStripMenuItem
                     {
@@ -609,27 +609,47 @@ namespace Korot
 
         private void menuStrip1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (sender is null) { return; }
+            if (!(sender is ToolStripMenuItem)) { return; }
+            ToolStripMenuItem tsmi = sender as ToolStripMenuItem;
+            if (tsmi.Tag is null) { return; }
+            selectedFavorite = tsmi;
+            if (selectedFavorite.Tag is Favorite)
             {
-                if (((ToolStripMenuItem)sender).Tag != null)
+                if (e.Button == MouseButtons.Left)
                 {
-                    if (((ToolStripMenuItem)sender).Tag.ToString() != "korot://folder")
+                    if (tsmi.Tag != null)
                     {
-                        chromiumWebBrowser1.Load(((ToolStripMenuItem)sender).Tag.ToString());
+                        if (tsmi.Tag is Favorite)
+                        {
+                            chromiumWebBrowser1.Load((tsmi.Tag as Favorite).Url);
+                        }
+                    }
+                }
+                else if (e.Button == MouseButtons.Right)
+                {
+                    if (tsmi.Tag != null)
+                    {
+                        tsopenInNewTab.Text =openInNewTab;
+                        openİnNewWindowToolStripMenuItem.Text =openInNewWindow;
+                        openİnNewIncognitoWindowToolStripMenuItem.Text =openInNewIncWindow;
+                        cmsFavorite.Show(MousePosition);
+                    }
+                }
+            }else if (selectedFavorite.Tag is Folder)
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    if (tsmi.Tag != null)
+                    {
+                        tsopenInNewTab.Text = openAllInNewTab;
+                        openİnNewWindowToolStripMenuItem.Text = openAllInNewWindow;
+                        openİnNewIncognitoWindowToolStripMenuItem.Text = openAllInNewIncWindow;
+                        cmsFavorite.Show(MousePosition);
                     }
                 }
             }
-            else if (e.Button == MouseButtons.Right)
-            {
-                if (((ToolStripMenuItem)sender).Tag != null)
-                {
-                    selectedFavorite = ((ToolStripMenuItem)sender);
-                    tsopenInNewTab.Text = (((ToolStripMenuItem)sender).Tag.ToString() != "korot://folder") ? openInNewTab : openAllInNewTab;
-                    openİnNewWindowToolStripMenuItem.Text = (((ToolStripMenuItem)sender).Tag.ToString() != "korot://folder") ? openInNewWindow : openAllInNewWindow;
-                    openİnNewIncognitoWindowToolStripMenuItem.Text = (((ToolStripMenuItem)sender).Tag.ToString() != "korot://folder") ? openInNewIncWindow : openAllInNewIncWindow;
-                    cmsFavorite.Show(MousePosition);
-                }
-            }
+            
         }
 
         private void ListBox2_DoubleClick(object sender, EventArgs e)
@@ -2700,7 +2720,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     btNewTabBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                     btCookieBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                     btHome.ButtonImage = isbright ? Properties.Resources.home : Properties.Resources.home_w;
-                    btHamburger.ButtonImage = isbright ? (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w);
+                    btHamburger.ButtonImage = isbright ? (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w));
                     L0.BackColor = backcolor2;
                     L0.ForeColor = foreColor;
                     L1.BackColor = backcolor2;
@@ -2831,7 +2851,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             refreshThemeList();
             RefreshFavorites();
             LoadNewTabSites();
-            btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w);
+            btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? (anaform is null ? Properties.Resources.hamburger : (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger)) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w));
             comboBox1.Text = !onThemeName ? (Settings.Theme.LoadedDefaults ? "((default))" : Settings.Theme.Name) : comboBox1.Text;
 
         }
@@ -3197,22 +3217,36 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 incognitomenu.BringToFront();
             }
         }
-
+        private void RecursiveNewTab(Folder folder,ToolStripMenuItem item)
+        {
+            if (folder != null)
+            {
+                if (folder.Favorites != null)
+                {
+                    foreach (ToolStripMenuItem subitem in item.DropDown.Items)
+                    {
+                        if (item.Tag is Favorite) { NewTab((subitem.Tag as Favorite).Url); }
+                        else if (item.Tag is Folder) { RecursiveNewTab(subitem.Tag as Folder,subitem); }
+                    }
+                }
+            }
+        }
         private void openInNewTab_Click(object sender, EventArgs e)
         {
             if (selectedFavorite != null)
             {
                 if (selectedFavorite.Tag != null)
                 {
-                    if (selectedFavorite.Tag.ToString() != "korot://folder")
+                    if (selectedFavorite.Tag is Favorite)
                     {
-                        NewTab(selectedFavorite.Tag.ToString());
+                        NewTab((selectedFavorite.Tag as Favorite).Url);
                     }
                     else
                     {
-                        foreach (ToolStripItem item in selectedFavorite.DropDown.Items)
+                        foreach (ToolStripMenuItem item in selectedFavorite.DropDown.Items)
                         {
-                            if (item.Tag.ToString() != "korot://folder") { NewTab(item.Tag.ToString()); }
+                            if (item.Tag is Favorite) { NewTab((item.Tag as Favorite).Url); }
+                            else if (item.Tag is Folder) { RecursiveNewTab(item.Tag as Folder,item); }
                         }
                     }
                 }
@@ -3222,10 +3256,14 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             if (selectedFavorite != null)
             {
-                if (selectedFavorite.Tag.ToString() == chromiumWebBrowser1.Address)
+                if (selectedFavorite.Tag is Favorite)
                 {
-                    btFav.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
+                    if ((selectedFavorite.Tag as Favorite).Url == chromiumWebBrowser1.Address)
+                    {
+                        btFav.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
+                    }
                 }
+
                 Settings.Favorites.DeleteFolder(selectedFavorite.Tag as Folder);
                 RefreshFavorites();
             }
@@ -3590,48 +3628,45 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             frmNewFav newFav = new frmNewFav("", "", this);
             newFav.ShowDialog();
         }
-
-        private void openİnNewWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RecursiveNewWindow(Folder folder,ToolStripMenuItem item,bool isIncognito)
+        {
+            if (folder != null)
+            {
+                if (folder.Favorites != null)
+                {
+                    foreach (ToolStripMenuItem subitem in item.DropDown.Items)
+                    {
+                        if (subitem.Tag is Favorite) { Process.Start(Application.ExecutablePath, (isIncognito ? "-incognito " : "") + (subitem.Tag as Favorite).Url); }
+                        else if (subitem.Tag is Folder) { RecursiveNewWindow((item.Tag as Folder), item, isIncognito); }
+                    }
+                }
+            }
+        }
+        private void FavoriteInNewWindow(bool Incognito)
         {
             if (selectedFavorite != null)
             {
                 if (selectedFavorite.Tag != null)
                 {
-                    if (selectedFavorite.Tag.ToString() != "korot://folder")
+                    if (selectedFavorite.Tag is Favorite)
                     {
-                        Process.Start(Application.ExecutablePath, selectedFavorite.Tag.ToString());
+                        Process.Start(Application.ExecutablePath, (selectedFavorite.Tag as Favorite).Url);
                     }
                     else
                     {
-                        foreach (ToolStripItem item in selectedFavorite.DropDown.Items)
+                        foreach (ToolStripMenuItem item in selectedFavorite.DropDown.Items)
                         {
-                            if (item.Tag.ToString() != "korot://folder") { Process.Start(Application.ExecutablePath, item.Tag.ToString()); }
+                            if (item.Tag is Favorite) { Process.Start(Application.ExecutablePath, (Incognito ? "-incognito " : "") + (item.Tag as Favorite).Url); }
+                            else if (item.Tag is Folder) { RecursiveNewWindow((item.Tag as Folder), item, Incognito); }
                         }
                     }
                 }
             }
         }
 
-        private void openİnNewIncognitoWindowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (selectedFavorite != null)
-            {
-                if (selectedFavorite.Tag != null)
-                {
-                    if (selectedFavorite.Tag.ToString() != "korot://folder")
-                    {
-                        Process.Start(Application.ExecutablePath, "-incognito" + selectedFavorite.Tag.ToString());
-                    }
-                    else
-                    {
-                        foreach (ToolStripItem item in selectedFavorite.DropDown.Items)
-                        {
-                            if (item.Tag.ToString() != "korot://folder") { Process.Start(Application.ExecutablePath, "-incognito" + item.Tag.ToString()); }
-                        }
-                    }
-                }
-            }
-        }
+        private void openİnNewWindowToolStripMenuItem_Click(object sender, EventArgs e) => FavoriteInNewWindow(false);
+
+        private void openİnNewIncognitoWindowToolStripMenuItem_Click(object sender, EventArgs e) => FavoriteInNewWindow(true);
 
         private bool isLeftPressed, isRightPressed = false;
 
