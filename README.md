@@ -31,8 +31,8 @@ Latest Stable Version: [`0.8.0.0`](https://github.com/Haltroy/Korot/tree/0.8.0.0
 
  | Branch                                                              | CEFSharp Version | VC++ Version | .Net | HTAlt  | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-----|-------------------|
-| [`master`](https://github.com/haltroy/korot)                      | 83 | 2015 | Framework 4.8 | b1.5 | Master | `1.0.0.0`: Unknown |
-| `0.8.0.1` | 83 | 2015 | Framework 4.8 | b1.5 | *In Development* | ?? August 2020 |
+| [`master`](https://github.com/haltroy/korot)                      | 84 | 2015 | Framework 4.8 | b1.5 | Master | `1.0.0.0`: Unknown |
+| `0.8.1.0` | 84 | 2015 | Framework 4.8 | b1.5 | *In Development* | ?? August 2020 |
 | [`0.8.0.0`](https://github.com/Haltroy/Korot/tree/0.8.0.0) | 83 | 2015 | Framework 4.8 | b1.4.2 | **Latest Release** | 27 July 2020 |
 | [`0.7.0.0`](https://github.com/Haltroy/Korot/tree/0.7.0.0) | 81 | 2015 | Framework 4.8 | b1.4.2 | Unsupported | 19 June 2020 |
 | [`0.6.1.0`](https://github.com/Haltroy/Korot/tree/0.6.1.0) | 79 | 2015 | Framework 4.8 | b1.3h2 | Unsupported | 14 May 2020 |
