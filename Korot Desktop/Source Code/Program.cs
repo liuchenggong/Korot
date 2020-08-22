@@ -38,11 +38,13 @@ namespace Korot
     {
         public static string CodeName => "Shisha no kodo I"; //死者のコード
         public static bool IsPreRelease => false;
+
+        public static int VersionNumber = 47;
         public static int PreReleaseNumber => 0;
     }
     internal static class Program
     {
-        
+
         [STAThread]
         private static void Main(string[] args)
         {

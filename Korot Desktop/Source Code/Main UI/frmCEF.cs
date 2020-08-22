@@ -33,7 +33,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -636,7 +635,8 @@ namespace Korot
                         cmsFavorite.Show(MousePosition);
                     }
                 }
-            }else if (selectedFavorite.Tag is Folder)
+            }
+            else if (selectedFavorite.Tag is Folder)
             {
                 if (e.Button == MouseButtons.Right)
                 {
@@ -649,7 +649,7 @@ namespace Korot
                     }
                 }
             }
-            
+
         }
 
         private void ListBox2_DoubleClick(object sender, EventArgs e)
@@ -1311,7 +1311,7 @@ namespace Korot
             DialogResult diagres = inputb.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (HTAlt.Tools.ValidUrl(inputb.TextValue,new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" }) && !inputb.TextValue.StartsWith("korot://") && !inputb.TextValue.StartsWith("file://") && !inputb.TextValue.StartsWith("about"))
+                if (HTAlt.Tools.ValidUrl(inputb.TextValue, new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" }) && !inputb.TextValue.StartsWith("korot://") && !inputb.TextValue.StartsWith("file://") && !inputb.TextValue.StartsWith("about"))
                 {
                     Settings.SearchEngine = inputb.TextValue;
                     tbSearchEngine.Text = Settings.SearchEngine;
@@ -3214,7 +3214,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 incognitomenu.BringToFront();
             }
         }
-        private void RecursiveNewTab(Folder folder,ToolStripMenuItem item)
+        private void RecursiveNewTab(Folder folder, ToolStripMenuItem item)
         {
             if (folder != null)
             {
@@ -3223,7 +3223,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     foreach (ToolStripMenuItem subitem in item.DropDown.Items)
                     {
                         if (item.Tag is Favorite) { NewTab((subitem.Tag as Favorite).Url); }
-                        else if (item.Tag is Folder) { RecursiveNewTab(subitem.Tag as Folder,subitem); }
+                        else if (item.Tag is Folder) { RecursiveNewTab(subitem.Tag as Folder, subitem); }
                     }
                 }
             }
@@ -3243,7 +3243,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                         foreach (ToolStripMenuItem item in selectedFavorite.DropDown.Items)
                         {
                             if (item.Tag is Favorite) { NewTab((item.Tag as Favorite).Url); }
-                            else if (item.Tag is Folder) { RecursiveNewTab(item.Tag as Folder,item); }
+                            else if (item.Tag is Folder) { RecursiveNewTab(item.Tag as Folder, item); }
                         }
                     }
                 }
@@ -3625,7 +3625,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             frmNewFav newFav = new frmNewFav("", "", this);
             newFav.ShowDialog();
         }
-        private void RecursiveNewWindow(Folder folder,ToolStripMenuItem item,bool isIncognito)
+        private void RecursiveNewWindow(Folder folder, ToolStripMenuItem item, bool isIncognito)
         {
             if (folder != null)
             {
@@ -3661,9 +3661,15 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
         }
 
-        private void openİnNewWindowToolStripMenuItem_Click(object sender, EventArgs e) => FavoriteInNewWindow(false);
+        private void openİnNewWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FavoriteInNewWindow(false);
+        }
 
-        private void openİnNewIncognitoWindowToolStripMenuItem_Click(object sender, EventArgs e) => FavoriteInNewWindow(true);
+        private void openİnNewIncognitoWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FavoriteInNewWindow(true);
+        }
 
         private bool isLeftPressed, isRightPressed = false;
 

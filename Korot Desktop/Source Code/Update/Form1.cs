@@ -35,7 +35,8 @@ namespace Korot
 {
     public partial class Form1 : Form
     {
-        private string UpdateURL = "https://github.com/Haltroy/Korot/releases/download/[LATEST]/Korot-Full-[ARCH].zip";
+        private string FUllUpdateURL = "https://github.com/Haltroy/Korot/releases/download/[LATEST]/[ARCH].zip";
+        private string UpdateURL = "https://github.com/Haltroy/Korot/releases/download/[LATEST]/[ARCH]-U.zip";
         private readonly string InstallerURL = "http://bit.ly/KorotSetup";
         private string downloadUrl;
         private string fileName = "";

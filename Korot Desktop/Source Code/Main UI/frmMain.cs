@@ -293,7 +293,7 @@ namespace Korot
                 frmCEF cefform = new frmCEF(Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser);
                 cefform.lbURL.Items.Clear();
                 cefform.lbTitle.Items.Clear();
-                foreach (XmlNode subnode in node.ChildNodes) 
+                foreach (XmlNode subnode in node.ChildNodes)
                 {
                     if (subnode.Name.ToLower() == "site")
                     {
@@ -335,7 +335,7 @@ namespace Korot
                 {
                     while (i != Count)
                     {
-                        currentSites.Add(new Korot.Site(){ Name = cefform.lbTitle.Items[i].ToString() , Url = cefform.lbURL.Items[i].ToString() });
+                        currentSites.Add(new Korot.Site() { Name = cefform.lbTitle.Items[i].ToString(), Url = cefform.lbURL.Items[i].ToString() });
                         i += 1;
                     }
                 }

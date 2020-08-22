@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
 {
     public partial class frmThemeWizard : Form
     {
-        Settings Settings;
+        private readonly Settings Settings;
         public frmThemeWizard(Settings _Settings)
         {
             Settings = _Settings;
@@ -45,10 +38,11 @@ namespace Korot
             Strawberry,
             Sunrise
         }
-        Themes Theme = Themes.Light;
-        bool allowSwitch = false;
-        int Brightness = 0;
-        SelectedType Type = SelectedType.Monotone;
+
+        private Themes Theme = Themes.Light;
+        private bool allowSwitch = false;
+        private int Brightness = 0;
+        private SelectedType Type = SelectedType.Monotone;
         private void PreparetpTone()
         {
             trackBar1.Value = 0;
@@ -100,7 +94,7 @@ namespace Korot
         {
             if (Type == SelectedType.Monotone)
             {
-                switch(trackBar1.Value)
+                switch (trackBar1.Value)
                 {
                     case 0:
                         lbTitle.Text = Light;
@@ -133,7 +127,8 @@ namespace Korot
                         Theme = Themes.Dark;
                         break;
                 }
-            }else if (Type == SelectedType.Blue)
+            }
+            else if (Type == SelectedType.Blue)
             {
                 switch (trackBar1.Value)
                 {
@@ -229,7 +224,8 @@ namespace Korot
             if (isMono)
             {
                 pBW_Click(sender, e);
-            }else
+            }
+            else
             {
                 pC_Click(sender, e);
             }
@@ -296,7 +292,7 @@ namespace Korot
         private void htButton5_Click(object sender, EventArgs e)
         {
             int rnd = new Random().Next(0, 3);
-            switch(rnd)
+            switch (rnd)
             {
                 case 0:
                     pRed_Click(sender, e);
@@ -309,7 +305,8 @@ namespace Korot
                     break;
             }
         }
-        string themePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot ";
+
+        private readonly string themePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot ";
         private void htButton1_Click(object sender, EventArgs e)
         {
             KorotTools.createThemes();

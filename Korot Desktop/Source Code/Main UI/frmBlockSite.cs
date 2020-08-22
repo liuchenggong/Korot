@@ -8,15 +8,16 @@ namespace Korot
         private readonly frmCEF cefform;
         private readonly BlockSite site;
         private readonly BlockSite msite;
-        public frmBlockSite(frmCEF _frmCEF, BlockSite _site,string Url)
+        public frmBlockSite(frmCEF _frmCEF, BlockSite _site, string Url)
         {
             cefform = _frmCEF;
-            
+
             if (_site is null)
             {
                 msite = null;
                 site = new BlockSite() { Address = Url, BlockLevel = 0, Filter = Settings.BlockLevels.ConvertToLevel0(Url) };
-            }else
+            }
+            else
             {
                 msite = _site;
                 site = new BlockSite() { Address = msite.Address, Filter = msite.Filter, BlockLevel = msite.BlockLevel };

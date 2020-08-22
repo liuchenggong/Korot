@@ -25,12 +25,13 @@ namespace Korot
             if (!alreadyAddedAllow)
             {
                 Site x = cefform.Settings.GetSiteFromUrl(baseUrl);
-                if (x is null) 
+                if (x is null)
                 {
-                    cefform.Settings.Sites.Add(new Korot.Site(){ Name= cefform.Text, Url = baseUrl, AllowNotifications = true });
-                } else 
-                { 
-                  x.AllowNotifications = true;
+                    cefform.Settings.Sites.Add(new Korot.Site() { Name = cefform.Text, Url = baseUrl, AllowNotifications = true });
+                }
+                else
+                {
+                    x.AllowNotifications = true;
                 }
             }
             cefform.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsync(@"korotNotificationPermission = 'granted';")));
