@@ -286,7 +286,7 @@ namespace Korot
             CefSettings settings = new CefSettings
             {
                 UserAgent = "Mozilla/5.0 ( Windows "
-                + Program.getOSInfo()
+                + KorotTools.getOSInfo()
                 + "; "
                 + (Environment.Is64BitProcess ? "Win64" : "Win32NT")
                 + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
@@ -630,9 +630,9 @@ namespace Korot
                 {
                     if (tsmi.Tag != null)
                     {
-                        tsopenInNewTab.Text =openInNewTab;
-                        openİnNewWindowToolStripMenuItem.Text =openInNewWindow;
-                        openİnNewIncognitoWindowToolStripMenuItem.Text =openInNewIncWindow;
+                        tsopenInNewTab.Text = OpenInNewTab;
+                        openİnNewWindowToolStripMenuItem.Text = openInNewWindow;
+                        openİnNewIncognitoWindowToolStripMenuItem.Text = openInNewIncWindow;
                         cmsFavorite.Show(MousePosition);
                     }
                 }
@@ -698,7 +698,6 @@ namespace Korot
         public string openAllInNewWindow = "Open All in New Window(s)";
         public string openInNewIncWindow = "Open in New Incognito Window";
         public string openAllInNewIncWindow = "Open All in New Incognito Window(s)";
-        public string openInNewTab = "Open in New Tab";
         public string openAllInNewTab = "Open All in New Tab(s)";
         public string newFavorite = "New Favorite";
         public string nametd = "Name :";
@@ -927,6 +926,7 @@ namespace Korot
         public void LoadLangFromFile(string fileLocation)
         {
             Settings.LanguageSystem.ReadFromFile(fileLocation, true);
+            btThemeWizard.Text = Settings.LanguageSystem.GetItemText("ThemeWizardButton");
             Extensions = Settings.LanguageSystem.GetItemText("Extensions");
             editblockitem = Settings.LanguageSystem.GetItemText("EditBlockItem");
             addblockitem = Settings.LanguageSystem.GetItemText("AddBlockItem");
@@ -1311,7 +1311,7 @@ namespace Korot
             DialogResult diagres = inputb.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (ValidHttpURL(inputb.TextValue) && !inputb.TextValue.StartsWith("korot://") && !inputb.TextValue.StartsWith("file://") && !inputb.TextValue.StartsWith("about"))
+                if (HTAlt.Tools.ValidUrl(inputb.TextValue,new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" }) && !inputb.TextValue.StartsWith("korot://") && !inputb.TextValue.StartsWith("file://") && !inputb.TextValue.StartsWith("about"))
                 {
                     Settings.SearchEngine = inputb.TextValue;
                     tbSearchEngine.Text = Settings.SearchEngine;
@@ -1433,13 +1433,6 @@ namespace Korot
             textBox4.Text = usingBC;
             colorToolStripMenuItem.Checked = true;
 
-        }
-        public static bool ValidHttpURL(string s)
-        {
-            string Pattern = @"^(?:about\:\/\/)|(?:about\:\/\/)|(?:file\:\/\/)|(?:https\:\/\/)|(?:korot\:\/\/)|(?:http:\/\/)|(?:\:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$";
-            Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            Regex Rgx2 = new Regex(@"\b(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            return Rgx2.IsMatch(s) || Rgx.IsMatch(s);
         }
         private void FromURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2122,7 +2115,7 @@ namespace Korot
             allowSwitching = true;
             tabControl1.SelectedTab = tpCef;
             string urlLower = tbAddress.Text.ToLower();
-            if (ValidHttpURL(urlLower))
+            if (HTAlt.Tools.ValidUrl(urlLower, new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" }))
             {
                 loadPage(urlLower, Text);
             }
@@ -2229,7 +2222,7 @@ namespace Korot
                     btFav.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
                 }
             }));
-            if (!ValidHttpURL(e.Address))
+            if (!HTAlt.Tools.ValidUrl(e.Address, new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" }))
             {
                 chromiumWebBrowser1.Load(Settings.SearchEngine + e.Address);
             }
@@ -2720,7 +2713,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     btNewTabBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                     btCookieBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
                     btHome.ButtonImage = isbright ? Properties.Resources.home : Properties.Resources.home_w;
-                    btHamburger.ButtonImage = isbright ? (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w));
+                    btHamburger.ButtonImage = isbright ? (anaform is null ? Properties.Resources.hamburger : (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger)) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w));
                     L0.BackColor = backcolor2;
                     L0.ForeColor = foreColor;
                     L1.BackColor = backcolor2;
@@ -2862,6 +2855,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 Close();
             }
+            if (IsDisposed) { return; }
 
             if (timer1int != 50)
             {
@@ -2885,7 +2879,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             if (NotificationListenerMode)
             {
                 isMuted = true;
-                chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(true);
+                if (chromiumWebBrowser1.IsBrowserInitialized)
+                {
+                    chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(true);
+                }
             }
         }
 
@@ -3303,17 +3300,17 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 if (selectedFavorite.Tag != null)
                 {
-                    if (selectedFavorite.Tag.ToString() == "korot://folder")
+                    if (selectedFavorite.Tag is Favorite)
+                    {
+                        tsopenInNewTab.Text = OpenInNewTab;
+                        openİnNewIncognitoWindowToolStripMenuItem.Text = openInNewIncWindow;
+                        openİnNewWindowToolStripMenuItem.Text = openInNewWindow;
+                    }
+                    else
                     {
                         tsopenInNewTab.Text = openAllInNewTab;
                         openİnNewIncognitoWindowToolStripMenuItem.Text = openAllInNewIncWindow;
                         openİnNewWindowToolStripMenuItem.Text = openAllInNewWindow;
-                    }
-                    else
-                    {
-                        tsopenInNewTab.Text = openInNewTab;
-                        openİnNewIncognitoWindowToolStripMenuItem.Text = openInNewIncWindow;
-                        openİnNewWindowToolStripMenuItem.Text = openInNewWindow;
                     }
                 }
                 removeSelectedTSMI.Enabled = !_Incognito;
@@ -4503,6 +4500,18 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void btBlocked_Click(object sender, EventArgs e)
         {
             OpenBlockSettings();
+        }
+
+        private void btThemeWizard_Click(object sender, EventArgs e)
+        {
+            if (!(anaform is null))
+            {
+                anaform.Invoke(new Action(() =>
+                {
+                    frmThemeWizard wizard = new frmThemeWizard(Settings);
+                    wizard.ShowDialog();
+                }));
+            }
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

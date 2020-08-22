@@ -97,6 +97,7 @@ namespace Korot
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.lbTipF = new System.Windows.Forms.Label();
             this.tmrLang = new System.Windows.Forms.Timer(this.components);
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -127,11 +128,11 @@ namespace Korot
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(-10, -28);
+            this.tabControl1.Location = new System.Drawing.Point(-9, -28);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(629, 487);
+            this.tabControl1.Size = new System.Drawing.Size(628, 545);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
@@ -145,7 +146,7 @@ namespace Korot
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage1.Size = new System.Drawing.Size(621, 461);
+            this.tabPage1.Size = new System.Drawing.Size(620, 519);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -157,7 +158,7 @@ namespace Korot
             this.lbCont.Font = new System.Drawing.Font("Tahoma", 11F);
             this.lbCont.Location = new System.Drawing.Point(4, 411);
             this.lbCont.Name = "lbCont";
-            this.lbCont.Size = new System.Drawing.Size(611, 23);
+            this.lbCont.Size = new System.Drawing.Size(610, 23);
             this.lbCont.TabIndex = 6;
             this.lbCont.Text = "To continue, please press the \"Continue\" button below.";
             this.lbCont.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -165,16 +166,16 @@ namespace Korot
             // btContinue2
             // 
             this.btContinue2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btContinue2.Text = "Continue";
             this.btContinue2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btContinue2.DrawImage = true;
             this.btContinue2.FlatAppearance.BorderSize = 0;
             this.btContinue2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btContinue2.Location = new System.Drawing.Point(3, 434);
+            this.btContinue2.Location = new System.Drawing.Point(3, 492);
             this.btContinue2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btContinue2.Name = "btContinue2";
-            this.btContinue2.Size = new System.Drawing.Size(615, 23);
+            this.btContinue2.Size = new System.Drawing.Size(614, 23);
             this.btContinue2.TabIndex = 5;
-            this.btContinue2.DrawImage = true;
+            this.btContinue2.Text = "Continue";
             this.btContinue2.UseVisualStyleBackColor = false;
             this.btContinue2.Visible = false;
             this.btContinue2.Click += new System.EventHandler(this.button3_Click);
@@ -188,7 +189,7 @@ namespace Korot
             this.lbLang.Location = new System.Drawing.Point(10, 46);
             this.lbLang.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lbLang.Name = "lbLang";
-            this.lbLang.Size = new System.Drawing.Size(605, 355);
+            this.lbLang.Size = new System.Drawing.Size(604, 407);
             this.lbLang.TabIndex = 4;
             this.lbLang.Click += new System.EventHandler(this.lbLang_Click);
             this.lbLang.SelectedIndexChanged += new System.EventHandler(this.lbLang_SelectedIndexChanged);
@@ -200,7 +201,7 @@ namespace Korot
             this.lbChooseLang.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbChooseLang.Location = new System.Drawing.Point(3, 4);
             this.lbChooseLang.Name = "lbChooseLang";
-            this.lbChooseLang.Size = new System.Drawing.Size(615, 43);
+            this.lbChooseLang.Size = new System.Drawing.Size(614, 43);
             this.lbChooseLang.TabIndex = 3;
             this.lbChooseLang.Text = "Choose a language.";
             this.lbChooseLang.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -220,7 +221,7 @@ namespace Korot
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage2.Size = new System.Drawing.Size(621, 461);
+            this.tabPage2.Size = new System.Drawing.Size(620, 519);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -232,7 +233,7 @@ namespace Korot
             this.lbContinueBack.Font = new System.Drawing.Font("Tahoma", 11F);
             this.lbContinueBack.Location = new System.Drawing.Point(6, 356);
             this.lbContinueBack.Name = "lbContinueBack";
-            this.lbContinueBack.Size = new System.Drawing.Size(611, 51);
+            this.lbContinueBack.Size = new System.Drawing.Size(610, 51);
             this.lbContinueBack.TabIndex = 19;
             this.lbContinueBack.Text = "To continue, please press the \"Continue\" button below.\r\nTo go back, please press " +
     "\"Go Back\" button below.";
@@ -241,32 +242,32 @@ namespace Korot
             // btBack
             // 
             this.btBack.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btBack.Text = "Go Back";
             this.btBack.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btBack.DrawImage = true;
             this.btBack.FlatAppearance.BorderSize = 0;
             this.btBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btBack.Location = new System.Drawing.Point(3, 411);
+            this.btBack.Location = new System.Drawing.Point(3, 469);
             this.btBack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btBack.Name = "btBack";
-            this.btBack.Size = new System.Drawing.Size(615, 23);
+            this.btBack.Size = new System.Drawing.Size(614, 23);
             this.btBack.TabIndex = 18;
-            this.btBack.DrawImage = true;
+            this.btBack.Text = "Go Back";
             this.btBack.UseVisualStyleBackColor = false;
             this.btBack.Click += new System.EventHandler(this.button5_Click);
             // 
             // btContinue
             // 
             this.btContinue.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btContinue.Text = "Continue";
             this.btContinue.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btContinue.DrawImage = true;
             this.btContinue.FlatAppearance.BorderSize = 0;
             this.btContinue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btContinue.Location = new System.Drawing.Point(3, 434);
+            this.btContinue.Location = new System.Drawing.Point(3, 492);
             this.btContinue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btContinue.Name = "btContinue";
-            this.btContinue.Size = new System.Drawing.Size(615, 23);
+            this.btContinue.Size = new System.Drawing.Size(614, 23);
             this.btContinue.TabIndex = 17;
-            this.btContinue.DrawImage = true;
+            this.btContinue.Text = "Continue";
             this.btContinue.UseVisualStyleBackColor = false;
             this.btContinue.Visible = false;
             this.btContinue.Click += new System.EventHandler(this.button4_Click);
@@ -322,13 +323,14 @@ namespace Korot
             this.lbWelcome.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbWelcome.Location = new System.Drawing.Point(3, 4);
             this.lbWelcome.Name = "lbWelcome";
-            this.lbWelcome.Size = new System.Drawing.Size(615, 63);
+            this.lbWelcome.Size = new System.Drawing.Size(614, 63);
             this.lbWelcome.TabIndex = 7;
             this.lbWelcome.Text = "Welcome to Korot!";
             this.lbWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.checkBox1);
             this.tabPage3.Controls.Add(this.panel4);
             this.tabPage3.Controls.Add(this.panel3);
             this.tabPage3.Controls.Add(this.panel2);
@@ -342,7 +344,7 @@ namespace Korot
             this.tabPage3.Controls.Add(this.tabControl2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(621, 461);
+            this.tabPage3.Size = new System.Drawing.Size(620, 519);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -417,7 +419,7 @@ namespace Korot
             this.lbArrowKey.Font = new System.Drawing.Font("Tahoma", 11F);
             this.lbArrowKey.Location = new System.Drawing.Point(7, 331);
             this.lbArrowKey.Name = "lbArrowKey";
-            this.lbArrowKey.Size = new System.Drawing.Size(607, 26);
+            this.lbArrowKey.Size = new System.Drawing.Size(606, 26);
             this.lbArrowKey.TabIndex = 21;
             this.lbArrowKey.Text = "Use arrow keys to see tips.";
             this.lbArrowKey.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -429,7 +431,7 @@ namespace Korot
             this.lbFinishBack.Font = new System.Drawing.Font("Tahoma", 11F);
             this.lbFinishBack.Location = new System.Drawing.Point(3, 360);
             this.lbFinishBack.Name = "lbFinishBack";
-            this.lbFinishBack.Size = new System.Drawing.Size(611, 51);
+            this.lbFinishBack.Size = new System.Drawing.Size(610, 51);
             this.lbFinishBack.TabIndex = 21;
             this.lbFinishBack.Text = "To finish, please press the \"Finish Installation\" button below.\r\nTo go back, plea" +
     "se press \"Go Back\" button below.";
@@ -438,32 +440,32 @@ namespace Korot
             // btBack1
             // 
             this.btBack1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btBack1.Text = "Go Back";
             this.btBack1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btBack1.DrawImage = true;
             this.btBack1.FlatAppearance.BorderSize = 0;
             this.btBack1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btBack1.Location = new System.Drawing.Point(0, 415);
+            this.btBack1.Location = new System.Drawing.Point(0, 473);
             this.btBack1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btBack1.Name = "btBack1";
-            this.btBack1.Size = new System.Drawing.Size(621, 23);
+            this.btBack1.Size = new System.Drawing.Size(620, 23);
             this.btBack1.TabIndex = 20;
-            this.btBack1.DrawImage = true;
+            this.btBack1.Text = "Go Back";
             this.btBack1.UseVisualStyleBackColor = false;
             this.btBack1.Click += new System.EventHandler(this.button3_Click);
             // 
             // btFinish
             // 
             this.btFinish.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btFinish.Text = "Finish Installation";
             this.btFinish.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btFinish.DrawImage = true;
             this.btFinish.FlatAppearance.BorderSize = 0;
             this.btFinish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btFinish.Location = new System.Drawing.Point(0, 438);
+            this.btFinish.Location = new System.Drawing.Point(0, 496);
             this.btFinish.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btFinish.Name = "btFinish";
-            this.btFinish.Size = new System.Drawing.Size(621, 23);
+            this.btFinish.Size = new System.Drawing.Size(620, 23);
             this.btFinish.TabIndex = 18;
-            this.btFinish.DrawImage = true;
+            this.btFinish.Text = "Finish Installation";
             this.btFinish.UseVisualStyleBackColor = false;
             this.btFinish.Visible = false;
             this.btFinish.Click += new System.EventHandler(this.button2_Click);
@@ -681,12 +683,25 @@ namespace Korot
             this.tmrLang.Interval = 10000;
             this.tmrLang.Tick += new System.EventHandler(this.tmrLang_Tick);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.checkBox1.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.checkBox1.Location = new System.Drawing.Point(0, 430);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Padding = new System.Windows.Forms.Padding(10);
+            this.checkBox1.Size = new System.Drawing.Size(620, 43);
+            this.checkBox1.TabIndex = 27;
+            this.checkBox1.Text = "Run Theme Wizard after closing";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // frmOOBE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(614, 453);
+            this.ClientSize = new System.Drawing.Size(614, 511);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ForeColor = System.Drawing.Color.Black;
@@ -704,6 +719,7 @@ namespace Korot
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbNext)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrev)).EndInit();
@@ -772,5 +788,6 @@ namespace Korot
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Timer tmrLang;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

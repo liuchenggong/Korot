@@ -38,7 +38,7 @@ namespace Korot
         public void PlayNotificationSound()
         {
             if (playedSound) { return; }
-            bool isw7 = Program.getOSInfo() == "NT 6.1";
+            bool isw7 = KorotTools.getOSInfo() == "NT 6.1";
             if (!isw7)
             {
                 bool found = false;

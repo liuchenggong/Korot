@@ -1,4 +1,56 @@
-<Language CompatibleVersion="0.8.0.0">
+<Language CompatibleVersion="0.8.1.0">
+  <Translate ID="PickRandom" Text="Pick Random" />
+  <Translate ID="TryAgain" Text="Try Again" />
+  <Translate ID="ApplyTheme" Text="Apply this &amp;&amp; close" />
+  <Translate ID="SelectThisTheme" Text="Select this" />
+  <Translate ID="YourThemeIs" Text="Your Theme is" />
+  <Translate ID="BlackWhite" Text="Black-White" />
+  <Translate ID="BlackWhiteDesc" Text="It's just some shades of gray of course it's balanced." />
+  <Translate ID="Colorful" Text="Colorful" />
+  <Translate ID="ColorfulDesc" Text="We aren't stuck in 50s so why don't we have some colors (or colours)." />
+  <Translate ID="Red" Text="Red" />
+  <Translate ID="RedDesc" Text="Let's select an exiciting theme!" />
+  <Translate ID="Green" Text="Green" />
+  <Translate ID="GreenDesc" Text="A peaceful theme is just fine." />
+  <Translate ID="Blue" Text="Blue" />
+  <Translate ID="BlueDesc" Text="Themes that you can depend on." />
+  <Translate ID="ThemeTitle" Text="Korot Theme Wizard" />
+  <Translate ID="ThemeTitle1" Text="Select one of the options" />
+  <Translate ID="ThemeTitle2" Text="Select a color" />
+  <Translate ID="ThemeTitle3" Text="Select a tone" />
+  <Translate ID="ThemeTitle4" Text="Result" />
+  <Translate ID="ThemeWizardButton" Text="Run Theme Wizard" />
+  <Translate ID="OOBEThemeWizard" Text="Run Theme Wizard after closing" />
+  <Translate ID="ThemeLight" Text="Light" />
+  <Translate ID="ThemeLightDesc" Text="Beautiful photons for my eyes." />
+  <Translate ID="ThemeCement" Text="Cement" />
+  <Translate ID="ThemeCementDesc" Text="Finally, a browser made of stone, or cement." />
+  <Translate ID="ThemeGray" Text="Gray" />
+  <Translate ID="ThemeGrayDesc" Text="For people who are in between Light and Dark." />
+  <Translate ID="ThemeShadow" Text="Shadow" />
+  <Translate ID="ThemeShadowDesc" Text="A nice not-so-dark theme." />
+  <Translate ID="ThemeDark" Text="Dark" />
+  <Translate ID="ThemeDarkDesc" Text="Finally, my eyes are not going to burn." />
+  <Translate ID="ThemeBlue" Text="Blue" />
+  <Translate ID="ThemeBlueDesc" Text="It's blue like in 1999." />
+  <Translate ID="ThemeSunrise" Text="Sunrise" />
+  <Translate ID="ThemeSunriseDesc" Text="Maybe a good kingdom name but it's suppose to be different color." />
+  <Translate ID="ThemeDodgerBlue" Text="DodgerBlue" />
+  <Translate ID="ThemeDodgerBlueDesc" Text="A theme from past, even before the name Haltroy." />
+  <Translate ID="ThemeMidnight" Text="Midnight" />
+  <Translate ID="ThemeMidnightDesc" Text="Perfect color for a website background." />
+  <Translate ID="ThemeRed" Text="Red" />
+  <Translate ID="ThemeRedDesc" Text="Meet this color in a shooting game from 2007." />
+  <Translate ID="ThemeStrawberry" Text="Strawberry" />
+  <Translate ID="ThemeStrawberryDesc" Text="OMG need this rn asap xoxo" />
+  <Translate ID="ThemeCrimson" Text="Crimson" />
+  <Translate ID="ThemeCrimsonDesc" Text="It's alive!" />
+  <Translate ID="ThemeGreen" Text="Green" />
+  <Translate ID="ThemeGreenDesc" Text="Join this team, they might find a way to trace those beams." />
+  <Translate ID="ThemeEmerald" Text="Emerald" />
+  <Translate ID="ThemeEmeraldDesc" Text="You can use this theme for trading, just kidding. Cool theme for collecting bugs." />
+  <Translate ID="ThemeDarkLeaf" Text="DarkLeaf" />
+  <Translate ID="ThemeDarkLeafDesc" Text="They look good on trees, not in your hand burning." />
   <Translate ID="EditBlockItem" Text="Edit block..." />
   <Translate ID="AddBlockItem" Text="Create new block..." />
   <Translate ID="Lv0" Text="Level 0" />

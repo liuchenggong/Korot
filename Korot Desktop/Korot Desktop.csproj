@@ -283,6 +283,12 @@
     <Compile Include="Source Code\Favorites\frmNewFav.Designer.cs">
       <DependentUpon>frmNewFav.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Main UI\frmThemeWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Main UI\frmThemeWizard.Designer.cs">
+      <DependentUpon>frmThemeWizard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Notification\frmNotification.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -394,6 +400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmBlockSite.resx">
       <DependentUpon>frmBlockSite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Main UI\frmThemeWizard.resx">
+      <DependentUpon>frmThemeWizard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Update\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -593,6 +602,26 @@
     <None Include="Resources\unmute-w.png" />
     <None Include="Resources\script.png" />
     <None Include="Resources\script-2.png" />
+    <None Include="Resources\Black-White.png" />
+    <None Include="Resources\BlueColors.png" />
+    <None Include="Resources\Colorful.png" />
+    <None Include="Resources\GreenColors.png" />
+    <None Include="Resources\RedColors.png" />
+    <None Include="Resources\ThemeShadow.PNG" />
+    <None Include="Resources\ThemeBlue.PNG" />
+    <None Include="Resources\ThemeCement.PNG" />
+    <None Include="Resources\ThemeCrimson.PNG" />
+    <None Include="Resources\ThemeDark.PNG" />
+    <None Include="Resources\ThemeDarkLeaf.PNG" />
+    <None Include="Resources\ThemeDodgerBlue.PNG" />
+    <None Include="Resources\ThemeEmerald.PNG" />
+    <None Include="Resources\ThemeGray.PNG" />
+    <None Include="Resources\ThemeGreen.PNG" />
+    <None Include="Resources\ThemeLight.PNG" />
+    <None Include="Resources\THemeMidnight.PNG" />
+    <None Include="Resources\ThemeRed.PNG" />
+    <None Include="Resources\ThemeStrawberry.PNG" />
+    <None Include="Resources\ThemeSunrise.PNG" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

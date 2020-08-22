@@ -50,7 +50,7 @@ namespace Korot
             CefSettings settings = new CefSettings
             {
                 UserAgent = "Mozilla/5.0 ( Windows "
-                + Program.getOSInfo()
+                + KorotTools.getOSInfo()
                 + "; "
                 + (Environment.Is64BitProcess ? "WOW64" : "Win32NT")
                 + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"

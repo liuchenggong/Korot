@@ -1,4 +1,56 @@
-<Language CompatibleVersion="0.8.0.0">
+<Language CompatibleVersion="0.8.1.0">
+  <Translate ID="PickRandom" Text="Rastgele Seç" />
+  <Translate ID="TryAgain" Text="Tekrar dene" />
+  <Translate ID="ApplyTheme" Text="Bunu uygula ve kapat" />
+  <Translate ID="SelectThisTheme" Text="Bunu seç" />
+  <Translate ID="YourThemeIs" Text="Sizin temanız" />
+  <Translate ID="BlackWhite" Text="Siyah-Beyaz" />
+  <Translate ID="BlackWhiteDesc" Text="Sadece bazı gri tonları, elbette dengelidir." />
+  <Translate ID="Colorful" Text="Renkli" />
+  <Translate ID="ColorfulDesc" Text="50'lerde kalmadık, az bi' renk olsun." />
+  <Translate ID="Red" Text="Kırmızı" />
+  <Translate ID="RedDesc" Text="Hadi heyecanlı bir tema seçelim!" />
+  <Translate ID="Green" Text="Yeşil" />
+  <Translate ID="GreenDesc" Text="Barışçıl bir tema da iyidir." />
+  <Translate ID="Blue" Text="Mavi" />
+  <Translate ID="BlueDesc" Text="Güvenebileceğiniz temalar." />
+  <Translate ID="ThemeTitle" Text="Korot Tema Sihirbazı" />
+  <Translate ID="ThemeTitle1" Text="Bir seçenek seçin" />
+  <Translate ID="ThemeTitle2" Text="Bir renk seçin" />
+  <Translate ID="ThemeTitle3" Text="Bir ton seçin" />
+  <Translate ID="ThemeTitle4" Text="Sonuç" />
+  <Translate ID="ThemeWizardButton" Text="Tema Sihirbazını Çalıştır" />
+  <Translate ID="OOBEThemeWizard" Text="Kapandıktan sonra Tema Sihirbazını çalıştır" />
+  <Translate ID="ThemeLight" Text="Açık" />
+  <Translate ID="ThemeLightDesc" Text="Gözlerim için mükemmel fotonlar." />
+  <Translate ID="ThemeCement" Text="Çimento" />
+  <Translate ID="ThemeCementDesc" Text="Sonunda, taştan yapılma tarayıcı... ya da çimentodan." />
+  <Translate ID="ThemeGray" Text="Gri" />
+  <Translate ID="ThemeGrayDesc" Text="Açık ile Koyu arasında kalanlar için." />
+  <Translate ID="ThemeShadow" Text="Gölge" />
+  <Translate ID="ThemeShadowDesc" Text="Bir çok-karanlık-olmayan güzel tema." />
+  <Translate ID="ThemeDark" Text="Koyu" />
+  <Translate ID="ThemeDarkDesc" Text="Sonunda, gözlerim yanmayacak." />
+  <Translate ID="ThemeBlue" Text="Mavi" />
+  <Translate ID="ThemeBlueDesc" Text="1999'daki gibi o mavi." />
+  <Translate ID="ThemeSunrise" Text="Gündoğumu" />
+  <Translate ID="ThemeSunriseDesc" Text="Bir krallık için iyi isim ama rengi farklı." />
+  <Translate ID="ThemeDodgerBlue" Text="Dodger Mavisi" />
+  <Translate ID="ThemeDodgerBlueDesc" Text="Eskiden gelen bir tema, Haltroy isminden bile önce." />
+  <Translate ID="ThemeMidnight" Text="Gece ortası" />
+  <Translate ID="ThemeMidnightDesc" Text="Bir website arkaplanı için güzel bir renk." />
+  <Translate ID="ThemeRed" Text="Kırmızı" />
+  <Translate ID="ThemeRedDesc" Text="Bu rengi 2007'de bir atış oyununda tanış." />
+  <Translate ID="ThemeStrawberry" Text="Çilek" />
+  <Translate ID="ThemeStrawberryDesc" Text="nesin sen Korot'un en iyi teması falan mı?" />
+  <Translate ID="ThemeCrimson" Text="Kızıl" />
+  <Translate ID="ThemeCrimsonDesc" Text="Canlı kanlı!" />
+  <Translate ID="ThemeGreen" Text="Yeşil" />
+  <Translate ID="ThemeGreenDesc" Text="Bu takıma katıl, belki o ışınları izleyebilirler." />
+  <Translate ID="ThemeEmerald" Text="Zümrüt" />
+  <Translate ID="ThemeEmeraldDesc" Text="Bu temayı takas için kullanabilirsiniz, şaka. Böcek toplamak için güzel bir tema." />
+  <Translate ID="ThemeDarkLeaf" Text="Koyu Yaprak" />
+  <Translate ID="ThemeDarkLeafDesc" Text="Onlar ağaçlarda iyi gözüküyor, elinde yanıyorken değil." />
   <Translate ID="EditBlockItem" Text="Bloğu düzenle..." />
   <Translate ID="AddBlockItem" Text="Yeni blok ekle..." />
   <Translate ID="Lv0" Text="Seviye 0" />
