@@ -32,6 +32,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -292,8 +293,7 @@ namespace Korot
                 + Cef.ChromiumVersion
                 + " Safari/537.36 Korot/"
                 + Application.ProductVersion.ToString()
-                + (VersionInfo.IsPreRelease ? ("-pre" + VersionInfo.PreReleaseNumber) : "")
-                + "(" + VersionInfo.CodeName + ")"
+                + " (" + VersionInfo.CodeName + ")"
             };
             if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
             else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
@@ -561,7 +561,7 @@ namespace Korot
             RefreshLangList();
             refreshThemeList();
             ChangeTheme();
-            lbVersion.Text = Application.ProductVersion.ToString() + (VersionInfo.IsPreRelease ? "-pre" + VersionInfo.PreReleaseNumber : "") + " " + "[" + VersionInfo.CodeName + "]" + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
+            lbVersion.Text = Application.ProductVersion.ToString() +  " " + "[" + VersionInfo.CodeName + "]" + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
             RefreshFavorites();
             chromiumWebBrowser1.Select();
             EasterEggs();
@@ -1577,11 +1577,12 @@ namespace Korot
             Process.Start(Application.ExecutablePath, "-update");
             Application.Exit();
         }
+        private string CheckUrl = "https://raw.githubusercontent.com/Haltroy/Korot/master/Korot.htupdate";
 
         private void btUpdater_Click(object sender, EventArgs e)
         {
             if (UpdateWebC.IsBusy) { UpdateWebC.CancelAsync(); }
-            UpdateWebC.DownloadStringAsync(new Uri("https://haltroy.com/Update/Korot.htupdate"));
+            UpdateWebC.DownloadStringAsync(new Uri(CheckUrl));
             updateProgress = 0;
         }
         private void Label2_Click(object sender, EventArgs e)
@@ -1641,7 +1642,7 @@ namespace Korot
         {
             UpdateWebC.DownloadStringCompleted += Updater_DownloadStringCompleted;
             UpdateWebC.DownloadProgressChanged += updater_checking;
-            UpdateWebC.DownloadStringAsync(new Uri("https://haltroy.com/Update/Korot.htupdate"));
+            UpdateWebC.DownloadStringAsync(new Uri(CheckUrl));
             updateProgress = 0;
         }
 
@@ -1706,51 +1707,24 @@ namespace Korot
                 Settings.DismissUpdate = true;
             }
         }
-
-        private string NewestPreVer = "";
         private void UpdateResult(string info)
         {
-            char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-            string[] SplittedFase3 = info.Split(token);
-            string preNo = SplittedFase3[5].Substring(1).Replace(Environment.NewLine, "");
-            string preNewest = SplittedFase3[4].Substring(1).Replace(Environment.NewLine, "") + "-pre" + preNo;
-            Version newest = new Version(SplittedFase3[0].Replace(Environment.NewLine, ""));
-            Version current = new Version(Application.ProductVersion);
-            if (VersionInfo.IsPreRelease)
+            XmlDocument dokk /* r6 joke here lol */ = new XmlDocument();
+            dokk.LoadXml(info);
+            KorotVersion Newest = new KorotVersion(dokk.FirstChild.NextSibling.OuterXml);
+            KorotVersion Current = new KorotVersion("");
+            bool isUpToDate = Current.WhicIsNew(Newest, Environment.Is64BitProcess ? "amd64" : "i86") == Current;
+            if (!isUpToDate)
             {
-                if (preNo == "0")
-                {
-                    updateAvailable();
-                }
-                else
-                {
-                    NewestPreVer = preNewest;
-                    if (Convert.ToInt32(preNo) > VersionInfo.PreReleaseNumber)
-                    {
-                        updateAvailable();
-                    }
-                    else
-                    {
-                        btUpdater.Visible = true;
-                        btInstall.Visible = false;
-                        updateProgress = 1;
-                        lbUpdateStatus.Text = uptodate;
-                    }
-                }
+                updateAvailable();
             }
             else
             {
-                if (newest > current)
-                {
-                    updateAvailable();
-                }
-                else
-                {
-                    btUpdater.Visible = true;
-                    btInstall.Visible = false;
-                    updateProgress = 1;
-                    lbUpdateStatus.Text = uptodate;
-                }
+                btUpdater.Visible = true;
+                btInstall.Visible = false;
+                updateProgress = 1;
+                lbUpdateStatus.Text = uptodate;
+
             }
         }
         public HTTitleTabs ParentTabs => (ParentForm as HTTitleTabs);

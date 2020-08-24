@@ -20,28 +20,31 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Korot
 {
     public partial class Form1 : Form
     {
-        private string FUllUpdateURL = "https://github.com/Haltroy/Korot/releases/download/[LATEST]/[ARCH].zip";
-        private string UpdateURL = "https://github.com/Haltroy/Korot/releases/download/[LATEST]/[ARCH]-U.zip";
-        private readonly string InstallerURL = "http://bit.ly/KorotSetup";
+        private string CheckUrl = "https://raw.githubusercontent.com/Haltroy/Korot/master/Korot.htupdate";
         private string downloadUrl;
         private string fileName = "";
         private int UpdateType; //0 = zip 1 = installer
-        private readonly string downloadFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\update";
+        private readonly string downloadFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\";
         private readonly WebClient WebC = new WebClient();
         private string StatusType;
         private string installingTxt;
@@ -89,7 +92,7 @@ namespace Korot
         private void Form1_Load(object sender, EventArgs e)
         {
             RefreshTranslate();
-            WebC.DownloadStringAsync(new Uri("https://haltroy.com/Update/Korot.htupdate"));
+            WebC.DownloadStringAsync(new Uri(CheckUrl));
         }
         private void WebC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -102,86 +105,53 @@ namespace Korot
             if (e.Error != null || e.Cancelled)
             {
                 if (((WebClient)sender).IsBusy) { ((WebClient)sender).CancelAsync(); }
-                WebC.DownloadStringAsync(new Uri("https://haltroy.com/Update/Korot.htupdate"));
+                WebC.DownloadStringAsync(new Uri(CheckUrl));
             }
             else
             {
-                char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-                string[] SplittedFase3 = e.Result.Split(token);
-                bool requireCompleteUpgrade = SplittedFase3[1].Substring(1).Trim().Replace(Environment.NewLine, "") == "1";
-                string nv = SplittedFase3[0].Replace(Environment.NewLine, "");
-                string minmv = SplittedFase3[2].Substring(1).Replace(Environment.NewLine, "");
-                UpdateURL = SplittedFase3[3].Substring(1).Replace(Environment.NewLine, "");
-                string preNo = SplittedFase3[5].Substring(1).Replace(Environment.NewLine, "");
-                string preNewest = SplittedFase3[4].Substring(1).Replace(Environment.NewLine, "") + "-pre" + preNo;
-                string arch = Environment.Is64BitProcess ? "x64" : "x86";
-                Version current = new Version(Application.ProductVersion);
-                Version MinVersion = new Version(minmv);
-                if (VersionInfo.IsPreRelease)
+                XmlDocument dokk /* r6 joke here lol */ = new XmlDocument();
+                dokk.LoadXml(e.Result);
+                KorotVersion Newest = new KorotVersion(dokk.FirstChild.NextSibling.OuterXml);
+                KorotVersion Current = new KorotVersion("");
+                bool isUpToDate = Current.WhicIsNew(Newest, Environment.Is64BitProcess ? "amd64" : "i86") == Current;
+                KorotVersion.UpdateType type = Current.GetUpdateType(Newest);
+                KorotVersion.Architecture arch = Newest.Archs.Find(i => i.Type == (Environment.Is64BitProcess ? "amd64" : "i86"));
+                if (!isUpToDate)
                 {
-                    if (preNo == "0")
+                    switch (type)
                     {
-                        UpdateType = 0;
-                        fileName = ".hup";
-                        downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", nv);
+                        case KorotVersion.UpdateType.Installer:
+                            UpdateType = 1;
+                            fileName = "install.exe";
+                            downloadUrl = Newest.InstallerUrl;
+                            break;
+                        case KorotVersion.UpdateType.Upgrade:
+                            UpdateType = 0;
+                            fileName = Newest.Version + (Environment.Is64BitProcess ? "-amd64" : "-i86") + "-U" + ".hup";
+                            downloadUrl = arch.Update.Replace("[VERSION]", Newest.Version);
+                            break;
+                        case KorotVersion.UpdateType.FullUpgrade:
+                            UpdateType = 0;
+                            fileName = Newest.Version + (Environment.Is64BitProcess ? "-amd64" : "-i86") + ".hup";
+                            downloadUrl = arch.FullUpdate.Replace("[VERSION]", Newest.Version);
+                            break;
                     }
-                    else
-                    {
-                        UpdateType = 0;
-                        fileName = ".hup";
-                        downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", preNewest);
-                    }
+                    if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\")) { Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\", true); }
+                    if (File.Exists(downloadFolder + fileName)) { File.Delete(downloadFolder + fileName); }
+                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\");
+                    WebC.DownloadFileAsync(new Uri(downloadUrl), downloadFolder + fileName);
+                }
+                else if (arch == null)
+                {
+                    throw new Exception("Current architecture not found.");
                 }
                 else
                 {
-                    if (requireCompleteUpgrade)
-                    {
-                        UpdateType = 2;
-                        fileName = ".exe";
-                        downloadUrl = InstallerURL;
-                    }
-                    else
-                    {
-                        if (current > MinVersion)
-                        {
-                            UpdateType = 0;
-                            fileName = ".hup";
-                            downloadUrl = UpdateURL.Replace("[ARCH]", arch).Replace("[LATEST]", nv);
-                        }
-                        else
-                        {
-                            UpdateType = 1;
-                            fileName = ".exe";
-                            downloadUrl = InstallerURL;
-
-                        }
-                    }
+                    Restart();
                 }
-                if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\")) { Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\", true); }
-                if (File.Exists(downloadFolder + fileName)) { File.Delete(downloadFolder + fileName); }
-                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\");
-                WebC.DownloadFileAsync(new Uri(downloadUrl), downloadFolder + fileName);
             }
         }
 
-        private void RecursiveBackup(string folderName, string backupFolderName)
-        {
-            foreach (string x in Directory.GetFiles(folderName))
-            {
-                FileInfo info = new FileInfo(x);
-                File.Move(x, backupFolderName + (backupFolderName.EndsWith("\\") ? "" : "\\") + info.Name);
-            }
-            foreach (string x in Directory.GetDirectories(folderName))
-            {
-                DirectoryInfo info = new DirectoryInfo(x);
-                if (Directory.Exists(backupFolderName + (backupFolderName.EndsWith("\\") ? "" : "\\") + info.Name))
-                {
-                    Directory.Delete(backupFolderName + (backupFolderName.EndsWith("\\") ? "" : "\\") + info.Name, true);
-                }
-                Directory.Move(x, backupFolderName + (backupFolderName.EndsWith("\\") ? "" : "\\") + info.Name);
-                //RecursiveBackup(x, backupFolderName + (backupFolderName.EndsWith("\\") ? "" : "\\") + info.Name);
-            }
-        }
 
         private readonly string backupFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateBackup\\";
 
@@ -194,7 +164,7 @@ namespace Korot
                     Directory.Delete(backupFolder, true);
                 }
                 Directory.CreateDirectory(backupFolder);
-                RecursiveBackup(Application.StartupPath, backupFolder);
+                KorotTools.Copy(Application.StartupPath, backupFolder);
                 //Directory.Delete(Application.StartupPath, true);
                 //Directory.CreateDirectory(Application.StartupPath);
                 try
@@ -203,21 +173,10 @@ namespace Korot
                     if (Directory.Exists(newVerLocation)) { Directory.Delete(newVerLocation, true); }
                     Directory.CreateDirectory(newVerLocation);
                     ZipFile.ExtractToDirectory(downloadFolder + fileName, newVerLocation, Encoding.UTF8);
-                    foreach (string x in Directory.GetFiles(newVerLocation))
-                    {
-                        FileInfo info = new FileInfo(x);
-                        File.Move(x, Application.StartupPath + "\\" + info.Name);
-                    }
-                    foreach (string x in Directory.GetDirectories(newVerLocation))
-                    {
-                        DirectoryInfo info = new DirectoryInfo(x);
-                        if (info.Name.ToLower() != "ubuntu")
-                        {
-                            Directory.Move(x, Application.StartupPath + "\\" + info.Name);
-                        }
-                    }
+                    KorotTools.Copy(newVerLocation, Application.StartupPath);
                     File.Delete(downloadFolder + fileName);
                     Directory.Delete(newVerLocation, true);
+                    Directory.Delete(backupFolder, true);
                     Restart();
                 }
                 catch (Exception ex)
@@ -225,7 +184,6 @@ namespace Korot
                     Console.WriteLine(" [Korot.Updater] Error while Extracting: " + ex.ToString());
                     ReturnBackup();
                 }
-
             });
         }
 
@@ -233,25 +191,12 @@ namespace Korot
         {
             await Task.Run(() =>
             {
-                Directory.CreateDirectory(Application.StartupPath);
-                foreach (string x in Directory.GetDirectories(backupFolder))
-                {
-                    DirectoryInfo current = new DirectoryInfo(x);
-                    if (Directory.Exists(Application.StartupPath + current.Name + "\\"))
-                    {
-                        Directory.Delete(Application.StartupPath + current.Name + "\\", true);
-                    }
-                    Directory.Move(x, Application.StartupPath + current.Name + "\\");
-                }
-                foreach (string x in Directory.GetFiles(backupFolder))
-                {
-                    FileInfo current = new FileInfo(x);
-                    if (File.Exists(Application.StartupPath + current.Name))
-                    {
-                        File.Delete(Application.StartupPath + current.Name);
-                    }
-                    File.Move(x, Application.StartupPath + current.Name);
-                }
+                if (!Directory.Exists(Application.StartupPath)) { Directory.CreateDirectory(Application.StartupPath); }
+                KorotTools.Copy(backupFolder, Application.StartupPath);
+                File.Delete(downloadFolder + fileName);
+                string newVerLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateNewVer\\";
+                if (Directory.Exists(newVerLocation)) { Directory.Delete(newVerLocation, true); }
+                Directory.Delete(backupFolder, true);
                 Restart();
             });
         }
@@ -319,7 +264,7 @@ namespace Korot
                     }
                 }
             }
-            catch { } //Ignored, possibly wrong PID cuz its closed or administrated launch
+            catch { } //Ignored, possibly wrong PID
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -337,4 +282,170 @@ namespace Korot
 
         }
     }
+    public class KorotVersion
+    {
+        public KorotVersion(string XMLCode)
+        {
+            XmlDocument doc = new XmlDocument();
+            Archs = new List<Architecture>();
+            AppName = Application.ProductName;
+            Version = Application.ProductVersion.ToString();
+            VersionNumber = VersionInfo.VersionNumber;
+            UpdateMinVer = VersionNumber - 1;
+            InstallVer = VersionNumber - 2;
+            InstallerUrl = "http://bit.ly/KorotSetup";
+            if (!string.IsNullOrWhiteSpace(XMLCode))
+            {
+                doc.LoadXml(XMLCode);
+                foreach (XmlNode node in doc.FirstChild.ChildNodes)
+                {
+                    switch (node.Name)
+                    {
+                        case "AppName":
+                            AppName = node.InnerText;
+                            break;
+                        case "AppVersion":
+                            Version = node.InnerText;
+                            break;
+                        case "AppVersionNo":
+                            VersionNumber = Convert.ToInt32(node.InnerText);
+                            break;
+                        case "MinimumNo":
+                            UpdateMinVer = Convert.ToInt32(node.InnerText);
+                            break;
+                        case "InstallNo":
+                            InstallVer = Convert.ToInt32(node.InnerText);
+                            break;
+                        case "AppInstallerUrl":
+                            InstallerUrl = node.InnerText;
+                            break;
+                        case "Architectures":
+                            {
+                                foreach (XmlNode subnode in node.ChildNodes)
+                                {
+                                    if (subnode.Name == "Architecture")
+                                    {
+                                        if (subnode.Attributes["Type"] != null && subnode.Attributes["VersionNo"] != null && subnode.Attributes["Upgrade"] != null && subnode.Attributes["FullUpgrade"] != null)
+                                        {
+                                            Architecture arch = new Architecture()
+                                            {
+                                                Type = subnode.Attributes["Type"].Value,
+                                                VersionNo = Convert.ToInt32(subnode.Attributes["VersionNo"].Value),
+                                                FullUpdate = subnode.Attributes["FullUpgrade"].Value,
+                                                Update = subnode.Attributes["Upgrade"].Value
+                                            };
+                                            Archs.Add(arch);
+                                        }
+                                    }
+                                }
+
+                                break;
+                            }
+                    }
+                }
+            }
+            if (Archs.Count == 0)
+            {
+                Archs.Add(new Architecture() { Type = Environment.Is64BitProcess ? "amd64" : "i86", VersionNo = VersionNumber, FullUpdate = "korot://empty", Update = "korot://empty" });
+            }
+        }
+        public List<Architecture> Archs { get; set; }
+        public string AppName { get; set; }
+        public string Version { get; set; }
+        public int VersionNumber { get; set; }
+        public int UpdateMinVer { get; set; }
+        public int InstallVer { get; set; }
+        public string InstallerUrl { get; set; }
+        public enum UpdateType
+        {
+            UpToDate,
+            Upgrade,
+            FullUpgrade,
+            Installer
+        }
+
+        public UpdateType GetUpdateType(KorotVersion version)
+        {
+            if(version != null)
+            {
+                if (WhicIsNew(version) != this) 
+                {
+                    if (VersionNumber < version.UpdateMinVer)
+                    {
+                        if (VersionNumber < version.InstallVer)
+                        {
+                            return UpdateType.Installer;
+                        }
+                        else
+                        {
+                            return UpdateType.FullUpgrade;
+                        }
+                    }else
+                    {
+                        return UpdateType.Upgrade;
+                    }
+                }else
+                {
+                    return UpdateType.UpToDate;
+                }
+            }else
+            {
+                throw new NullReferenceException("version was null.");
+            }
+        }
+        public KorotVersion WhicIsNew(KorotVersion version, string Arch)
+        {
+            if (version != null && !string.IsNullOrWhiteSpace(Arch))
+            {
+                Architecture arch = Archs.Find(i => i.Type == Arch);
+                Architecture Narch = version.Archs.Find(i => i.Type == Arch);
+                if (arch != null && Narch != null)
+                {
+                    if (version.VersionNumber <= VersionNumber)
+                    {
+                        if (arch.VersionNo >= Narch.VersionNo)
+                        {
+                            return this;
+                        }
+                        else
+                        {
+                            return version;
+                        }
+                    }
+                    return version;
+                }
+                else
+                {
+                    throw new NullReferenceException("Cannot find specific architectures for both versions.");
+                }
+            }else
+            {
+                throw new ArgumentException("version or Arch is empty or null.");
+            }
+        }
+        public KorotVersion WhicIsNew(KorotVersion version)
+        {
+            if (version != null)
+            {
+                if (version.VersionNumber <= VersionNumber)
+                {
+                    return this;
+                }
+                return version;
+            }
+            else
+            {
+                throw new ArgumentException("version was null.");
+            }
+        }
+        public class Architecture
+        {
+            public string Type { get; set; }
+            public string FullUpdate { get; set; }
+            public string Update { get; set; }
+            public int VersionNo { get; set; }
+
+        }
+    }
+    
 }
