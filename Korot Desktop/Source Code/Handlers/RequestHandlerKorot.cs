@@ -52,26 +52,33 @@ namespace Korot
 
         public bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
         {
-            if (!(request.TransitionType == TransitionType.AutoSubFrame
-                || request.TransitionType == TransitionType.SourceMask
-                || request.TransitionType == TransitionType.ForwardBack
-                || request.TransitionType == TransitionType.Reload))
+            if (!string.IsNullOrWhiteSpace(request.Url))
             {
-                if (request.Url.ToLower().StartsWith("korot"))
+                if (!(request.TransitionType == TransitionType.AutoSubFrame
+                    || request.TransitionType == TransitionType.SourceMask
+                    || request.TransitionType == TransitionType.ForwardBack
+                    || request.TransitionType == TransitionType.Reload))
                 {
-                    if (request.Url.ToLower().StartsWith("korot://newtab")
-                          || request.Url.ToLower().StartsWith("korot://links")
-                          || request.Url.ToLower().StartsWith("korot://license")
-                          || request.Url.ToLower().StartsWith("korot://incognito"))
+                    if (request.Url.ToLower().StartsWith("korot"))
                     {
+                        if (request.Url.ToLower().StartsWith("korot://newtab")
+                              || request.Url.ToLower().StartsWith("korot://links")
+                              || request.Url.ToLower().StartsWith("korot://license")
+                              || request.Url.ToLower().StartsWith("korot://incognito"))
+                        {
+                            cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
+                        }
+                    }
+                    else
+                    {
+                        if (request.Url.ToLower().StartsWith("devtools")) { return false; }
                         cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
                     }
                 }
-                else
-                {
-                    if (request.Url.ToLower().StartsWith("devtools")) { return false; }
-                    cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
-                }
+            }
+            else
+            {
+                cefform.Invoke(new Action(() => { if (cefform.canGoBack()) { cefform.GoBack(); } }));
             }
             return false;
         }

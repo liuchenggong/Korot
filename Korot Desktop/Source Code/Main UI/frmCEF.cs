@@ -279,6 +279,7 @@ namespace Korot
             chromiumWebBrowser1.MouseWheel += MouseScroll;
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
+            chromiumWebBrowser1.Load(string.IsNullOrWhiteSpace(loaduri) ? "korot://newtab" : loaduri);
             if (defaultProxy != null && Settings.RememberLastProxy && !string.IsNullOrWhiteSpace(Settings.LastProxy))
             {
                 SetProxyAddress(Settings.LastProxy);
@@ -1700,55 +1701,41 @@ namespace Korot
 
         private void EasterEggs()
         {
-            Random random = new Random();
-            int randomNumber = random.Next(0, 100);
-            if (randomNumber == 6)
+            switch (new Random().Next(0, 10000))
             {
-                lbKorot.Text = "Another Chromium-based web browser";
-            }
-            else if (randomNumber == 17)
-            {
-                lbKorot.Text = "StoneBrowser";
-            }
-            else if (randomNumber == 45)
-            {
-                lbKorot.Text = "null";
-            }
-            else if (randomNumber == 71)
-            {
-                lbKorot.Text = "web browser made by retarded";
-            }
-            else if (randomNumber == 3)
-            {
-                lbKorot.Text = "web browser designed to lag and eat ram";
-            }
-            else if (randomNumber == 9)
-            {
-                lbKorot.Text = "korot";
-            }
-            else if (randomNumber == 35)
-            {
-                lbKorot.Text = "StoneHomepage";
-            }
-            else if (randomNumber == 48)
-            {
-                lbKorot.Text = "ZStone";
-            }
-            else if (randomNumber == 7)
-            {
-                Random random2 = new Random();
-                int randomNumber2 = random2.Next(1, 2);
-                lbKorot.Text = (randomNumber2 == 1 ? "Pell" : "Kolme") + " Browser";
-            }
-            else if (randomNumber == 33)
-            {
-                Random random2 = new Random();
-                int randomNumber2 = random2.Next(1, 2);
-                lbKorot.Text = (randomNumber2 == 1 ? "Webtroy" : "Ninova");
-            }
-            else
-            {
-                lbKorot.Text = "Korot";
+                case 6:
+                    lbKorot.Text = "Another Chromium-based web browser";
+                    break;
+                case 17:
+                    lbKorot.Text = "StoneBrowser";
+                    break;
+                case 45:
+                    lbKorot.Text = "null";
+                    break;
+                case 71:
+                    lbKorot.Text = "web browser made by retarded";
+                    break;
+                case 3:
+                    lbKorot.Text = "web browser designed to lag and eat ram";
+                    break;
+                case 9:
+                    lbKorot.Text = "korot";
+                    break;
+                case 35:
+                    lbKorot.Text = "StoneHomepage";
+                    break;
+                case 48:
+                    lbKorot.Text = "ZStone";
+                    break;
+                case 7:
+                    lbKorot.Text = (new Random().Next(0, int.MaxValue) % 2 == 0 ? "Pell" : "Kolme") + " Browser";
+                    break;
+                case 33:
+                    lbKorot.Text = new Random().Next(0, int.MaxValue) % 2 == 0 ? "Webtroy" : "Ninova";
+                    break;
+                default:
+                    lbKorot.Text = "Korot";
+                    break;
             }
         }
         private void miFavorite_MouseDown(object sender, MouseEventArgs e)
@@ -1880,11 +1867,7 @@ namespace Korot
                     btFav.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
                 }
             }));
-            if (!HTAlt.Tools.ValidUrl(e.Address, customProts))
-            {
-                chromiumWebBrowser1.Load(Settings.SearchEngine + e.Address);
-            }
-            //CheckValidUrl(e.Address);
+            CheckValidUrl(e.Address);
             if (lbURL.Items.Count != 0)
             {
                 if (e.Address != lbURL.Items[lbURL.Items.Count - 1].ToString())
@@ -1900,10 +1883,15 @@ namespace Korot
             else
             {
                 if (!HTAlt.Tools.ValidUrl(Url, new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" }))
-                {
-                    chromiumWebBrowser1.Load(Settings.SearchEngine + Url);
-                    AlreadyNotValidUrl.Add(Url);
-                }else
+                { 
+                    string searchForThis = Settings.SearchEngine + Url;
+                    if (!string.IsNullOrWhiteSpace(searchForThis))
+                    {
+                        chromiumWebBrowser1.Load(searchForThis);
+                        AlreadyNotValidUrl.Add(Url);
+                    }
+                }
+                else
                 {
                     AlreadyValidUrl.Add(Url);
                 }
@@ -2028,7 +2016,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         public bool isControlKeyPressed = false;
         public void tabform_KeyDown(object sender, KeyEventArgs e)
         {
-
             isControlKeyPressed = e.Control;
             if (e.KeyData == Keys.BrowserBack)
             {
@@ -4371,7 +4358,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 }));
             }
         }
-
         private void label20_MouseClick(object sender, MouseEventArgs e)
         {
             isLeftPressed = e.Button == MouseButtons.Left ? true : isLeftPressed;
