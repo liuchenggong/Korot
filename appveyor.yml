@@ -2,13 +2,13 @@ version: appveyor-{build}
 configuration: Release
 platform: x64
 clone_folder: C:\Korot Desktop\bin\appveyor\
+only_commits:
+ - message: /build/
 before_build:
-- cmd: nuget restore
+ - cmd: nuget restore
 build:
   project: Korot Desktop/Korot Desktop.csproj
   verbosity: minimal
-  only_commits:
-    message: /build/
 artifacts:
 - path: .*
   name: bintray
