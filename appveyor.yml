@@ -5,10 +5,10 @@ clone_folder: C:\Korot Desktop\bin\appveyor\
 before_build:
 - cmd: nuget restore
 build:
-  only_commits:
-  message: /build/
   project: Korot Desktop/Korot Desktop.csproj
   verbosity: minimal
+  only_commits:
+    message: /build/
 artifacts:
 - path: .*
   name: bintray
