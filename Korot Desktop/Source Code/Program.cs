@@ -99,6 +99,7 @@ namespace Korot
                         notifications = notifications,
                         isIncognito = args.Contains("-incognito")
                     };
+                    settings.AllForms.Add(testApp);
                     bool isIncognito = args.Contains("-incognito");
                     if (SafeFileSettingOrganizedClass.LastUser == "") { SafeFileSettingOrganizedClass.LastUser = "user0"; }
                     foreach (string x in args)
@@ -106,7 +107,9 @@ namespace Korot
                         if (x == Application.ExecutablePath || x == "-oobe" || x == "-update") { }
                         else if (x == "-incognito")
                         {
-                            testApp.Tabs.Add(new HTTitleTab(testApp) { Content = new frmCEF(settings, true, "korot://incognito", SafeFileSettingOrganizedClass.LastUser) { } });
+                            frmCEF cefform = new frmCEF(testApp, settings, true, "korot://incognito", SafeFileSettingOrganizedClass.LastUser) { };
+                            settings.AllForms.Add(cefform);
+                            testApp.Tabs.Add(new HTTitleTab(testApp) { Content = cefform });
                         }
                         else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
                         {
@@ -120,10 +123,12 @@ namespace Korot
                     }
                     if (testApp.Tabs.Count < 1)
                     {
+                        frmCEF cefform = new frmCEF(testApp, settings, isIncognito, settings.Startup, SafeFileSettingOrganizedClass.LastUser);
+                        settings.AllForms.Add(cefform);
                         testApp.Tabs.Add(
 new HTTitleTab(testApp)
 {
-    Content = new frmCEF(settings, isIncognito, settings.Startup, SafeFileSettingOrganizedClass.LastUser)
+    Content = cefform
 });
                     }
                     testApp.SelectedTabIndex = 0;
@@ -637,6 +642,15 @@ new HTTitleTab(testApp)
             set => _AutoRestore = value;
         }
         #endregion
+        public List<Form> AllForms = new List<Form>();
+        public List<Form> ThemeChangeForm = new List<Form>();
+        public void JustChangedTheme()
+        {
+            for(int i = 0;i == AllForms.Count -1;i++)
+            {
+                ThemeChangeForm.Add(AllForms[i]);
+            }
+        }
         public bool IsQuietTime
         {
             get

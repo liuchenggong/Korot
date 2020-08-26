@@ -28,9 +28,9 @@ namespace Korot
             ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
             btSite.BackColor = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
             btSite.ForeColor = HTAlt.Tools.AutoWhiteBlack(btSite.BackColor);
-            lbStatus.Text = cefform.IncognitoModeTitle;
-            lbInfo.Text = cefform.IncognitoModeInfo;
-            btSite.Text = cefform.LearnMore;
+            lbStatus.Text = cefform.anaform.IncognitoModeTitle;
+            lbInfo.Text = cefform.anaform.IncognitoModeInfo;
+            btSite.Text = cefform.anaform.LearnMore;
         }
 
         private void htButton2_Click(object sender, EventArgs e)

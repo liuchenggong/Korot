@@ -15,9 +15,9 @@ namespace Korot
             baseUrl = url;
             cefform = _frmCEF;
             InitializeComponent();
-            label1.Text = cefform.notificationPermission.Replace("[URL]", baseUrl);
-            button1.Text = cefform.allow;
-            button2.Text = cefform.deny;
+            label1.Text = cefform.anaform.notificationPermission.Replace("[URL]", baseUrl);
+            button1.Text = cefform.anaform.allow;
+            button2.Text = cefform.anaform.deny;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -60,9 +60,9 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            label1.Text = cefform.notificationPermission.Replace("[URL]", baseUrl);
-            button1.Text = cefform.allow;
-            button2.Text = cefform.deny;
+            label1.Text = cefform.anaform.notificationPermission.Replace("[URL]", baseUrl);
+            button1.Text = cefform.anaform.allow;
+            button2.Text = cefform.anaform.deny;
             BackColor = cefform.Settings.Theme.BackColor;
             ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
             button1.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);

@@ -135,9 +135,9 @@ namespace Korot
         private void button1_Click(object sender, EventArgs e)
         {
             HTAlt.WinForms.HTInputBox HTInputBox = new HTAlt.WinForms.HTInputBox("Korot",
-                                                                                                    Cefform.folderInfo,
-                                                                                                    Cefform.defaultFolderName)
-            { Icon = Cefform.Icon, OK = Cefform.OK, SetToDefault = Cefform.SetToDefault, Cancel = Cefform.Cancel, BackgroundColor = Cefform.Settings.Theme.BackColor };
+                                                                                                    Cefform.anaform.folderInfo,
+                                                                                                    Cefform.anaform.defaultFolderName)
+            { Icon = Cefform.Icon, OK = Cefform.anaform.OK, SetToDefault = Cefform.anaform.SetToDefault, Cancel = Cefform.anaform.Cancel, BackgroundColor = Cefform.Settings.Theme.BackColor };
             if (HTInputBox.ShowDialog() == DialogResult.OK)
             {
                 if (!string.IsNullOrWhiteSpace(HTInputBox.TextValue))
@@ -267,11 +267,11 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Text = Cefform.newFavorite;
-            button2.Text = Cefform.add;
-            button1.Text = Cefform.newFolder;
-            label1.Text = Cefform.nametd;
-            label2.Text = Cefform.urltd;
+            Text = Cefform.anaform.newFavorite;
+            button2.Text = Cefform.anaform.add;
+            button1.Text = Cefform.anaform.newFolder;
+            label1.Text = Cefform.anaform.nametd;
+            label2.Text = Cefform.anaform.urltd;
             textBox1.Text = favName;
             textBox2.Text = favUrl;
             BackColor = Cefform.Settings.Theme.BackColor;

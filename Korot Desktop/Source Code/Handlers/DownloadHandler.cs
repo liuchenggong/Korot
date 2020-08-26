@@ -68,7 +68,7 @@ namespace Korot
                     }
                     else
                     {
-                        SaveFileDialog saveFileDialog1 = new SaveFileDialog() { Filter = ActiveForm.allFiles + "|*.*", FilterIndex = 2, RestoreDirectory = true, FileName = downloadItem.SuggestedFileName };
+                        SaveFileDialog saveFileDialog1 = new SaveFileDialog() { Filter = ActiveForm.anaform.allFiles + "|*.*", FilterIndex = 2, RestoreDirectory = true, FileName = downloadItem.SuggestedFileName };
                         if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                         {
                             downloadItem.FullPath = saveFileDialog1.FileName;
@@ -88,7 +88,7 @@ namespace Korot
                 }
                 else
                 {
-                    SaveFileDialog saveFileDialog1 = new SaveFileDialog() { Filter = ActiveForm.allFiles + "|*.*", FilterIndex = 2, RestoreDirectory = true, FileName = downloadItem.SuggestedFileName };
+                    SaveFileDialog saveFileDialog1 = new SaveFileDialog() { Filter = ActiveForm.anaform.allFiles + "|*.*", FilterIndex = 2, RestoreDirectory = true, FileName = downloadItem.SuggestedFileName };
                     if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                     {
                         downloadItem.FullPath = saveFileDialog1.FileName;

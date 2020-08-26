@@ -65,27 +65,27 @@ namespace Korot
             btDone.ForeColor = ForeColor;
             if (site.BlockLevel == 0)
             {
-                lbLevelInfo.Text = cefform.lv0info;
+                lbLevelInfo.Text = cefform.anaform.lv0info;
             }
             else if (site.BlockLevel == 1)
             {
-                lbLevelInfo.Text = cefform.lv1info;
+                lbLevelInfo.Text = cefform.anaform.lv1info;
             }
             else if (site.BlockLevel == 2)
             {
-                lbLevelInfo.Text = cefform.lv2info;
+                lbLevelInfo.Text = cefform.anaform.lv2info;
             }
             else if (site.BlockLevel == 3)
             {
-                lbLevelInfo.Text = cefform.lv3info;
+                lbLevelInfo.Text = cefform.anaform.lv3info;
             }
-            Text = (msite != null) ? cefform.editblockitem : cefform.addblockitem;
-            lbLevel.Text = cefform.blocklevel;
-            rbL3.Text = cefform.lv3;
-            rbL2.Text = cefform.lv2;
-            rbL1.Text = cefform.lv1;
-            rbL0.Text = cefform.lv0;
-            btDone.Text = cefform.Done;
+            Text = (msite != null) ? cefform.anaform.editblockitem : cefform.anaform.addblockitem;
+            lbLevel.Text = cefform.anaform.blocklevel;
+            rbL3.Text = cefform.anaform.lv3;
+            rbL2.Text = cefform.anaform.lv2;
+            rbL1.Text = cefform.anaform.lv1;
+            rbL0.Text = cefform.anaform.lv0;
+            btDone.Text = cefform.anaform.Done;
         }
 
         private void tbUrl_TextChanged(object sender, EventArgs e)

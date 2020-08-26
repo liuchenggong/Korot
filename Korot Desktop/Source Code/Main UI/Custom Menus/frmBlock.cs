@@ -89,7 +89,7 @@ namespace Korot
             //
             // editButton
             //
-            editButton.Text = cefform.NewTabEdit;
+            editButton.Text = cefform.anaform.NewTabEdit;
             editButton.Dock = DockStyle.Bottom;
             editButton.Tag = site;
             editButton.Click += edit_Click;
@@ -184,17 +184,17 @@ namespace Korot
             }
             foreach (HTButton x in buttonList)
             {
-                x.Text = cefform.NewTabEdit;
+                x.Text = cefform.anaform.NewTabEdit;
                 x.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 40, false);
                 x.ForeColor = HTAlt.Tools.AutoWhiteBlack(x.BackColor);
             }
             htButton1.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
             htButton1.ForeColor = HTAlt.Tools.AutoWhiteBlack(htButton1.BackColor);
 
-            lbEmpty.Text = cefform.empty;
+            lbEmpty.Text = cefform.anaform.empty;
             rsMode = (selectedPanels.Count != 0 && selectedSites.Count != 0);
             htButton1.Visible = (PanelCount == 0);
-            htButton1.Text = rsMode ? cefform.RemoveSelected : cefform.Clear;
+            htButton1.Text = rsMode ? cefform.anaform.RemoveSelected : cefform.anaform.Clear;
         }
 
         private void htButton1_Click(object sender, EventArgs e)

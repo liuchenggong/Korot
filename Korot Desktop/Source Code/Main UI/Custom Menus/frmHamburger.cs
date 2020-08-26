@@ -78,6 +78,7 @@ namespace Korot
                 btRestore.ButtonImage = isbright ? Properties.Resources.restore : Properties.Resources.restore_w;
                 btExtStore.ButtonImage = isbright ? Properties.Resources.store : Properties.Resources.store_w;
                 btExtFolder.ButtonImage = isbright ? Properties.Resources.extfolder : Properties.Resources.extfolder_w;
+                btScriptFolder.ButtonImage = isbright ? Properties.Resources.extfolder : Properties.Resources.extfolder_w;
                 pbcollections.Image = isbright ? Properties.Resources.collections : Properties.Resources.collections_w;
                 pbABout.Image = isbright ? Properties.Resources.about : Properties.Resources.about_w;
                 pbHistory.Image = isbright ? Properties.Resources.history : Properties.Resources.history_w;
@@ -106,16 +107,16 @@ namespace Korot
             btMute.Enabled = !cefform.Settings.QuietMode;
             btMute.ButtonImage = cefform.Settings.QuietMode ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w));
             pbDownloads.Image = cefform.anaform is null ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download : Properties.Resources.download_w) : (cefform.anaform.newDownload ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download : Properties.Resources.download_w));
-            tsSearch.Text = isSearchOn ? tsSearch.Text : cefform.SearchOnPage;
-            btResetZoom.Text = cefform.ResetZoom;
-            btDefaultProxy.Text = cefform.ResetToDefaultProxy;
-            lbCollections.Text = cefform.Collections;
-            lbDownloads.Text = cefform.DownloadsText;
-            btBlock.Text = cefform.BlockThisSite;
-            lbHistory.Text = cefform.HistoryText;
-            lbThemes.Text = cefform.ThemesText;
-            lbSettings.Text = cefform.SettingsText;
-            lbAbout.Text = cefform.AboutText;
+            tsSearch.Text = isSearchOn ? tsSearch.Text : cefform.anaform.SearchOnPage;
+            btResetZoom.Text = cefform.anaform.ResetZoom;
+            btDefaultProxy.Text = cefform.anaform.ResetToDefaultProxy;
+            lbCollections.Text = cefform.anaform.Collections;
+            lbDownloads.Text = cefform.anaform.DownloadsText;
+            btBlock.Text = cefform.anaform.BlockThisSite;
+            lbHistory.Text = cefform.anaform.HistoryText;
+            lbThemes.Text = cefform.anaform.ThemesText;
+            lbSettings.Text = cefform.anaform.SettingsText;
+            lbAbout.Text = cefform.anaform.AboutText;
             btDefaultProxy.Enabled = cefform.defaultProxy != null;
             if (cefform != null)
             {
@@ -135,15 +136,15 @@ namespace Korot
             }
             if (findLast)
             {
-                lbFindStatus.Text = cefform.findC + " " + findCurrent + " " + cefform.findL + " " + cefform.findT + " " + findTotal;
+                lbFindStatus.Text = cefform.anaform.findC + " " + findCurrent + " " + cefform.anaform.findL + " " + cefform.anaform.findT + " " + findTotal;
             }
             else if (findCurrent == 0 && findTotal == 0)
             {
-                lbFindStatus.Text = cefform.noSearch;
+                lbFindStatus.Text = cefform.anaform.noSearch;
             }
             else
             {
-                lbFindStatus.Text = cefform.findC + " " + findCurrent + " " + cefform.findL + " " + cefform.findT + " " + findTotal;
+                lbFindStatus.Text = cefform.anaform.findC + " " + findCurrent + " " + cefform.anaform.findL + " " + cefform.anaform.findT + " " + findTotal;
             }
         }
 
@@ -171,7 +172,7 @@ namespace Korot
         }
         private void btFindNext_Click(object sender, EventArgs e)
         {
-            if (tsSearch.Text != cefform.SearchOnPage && !string.IsNullOrWhiteSpace(tsSearch.Text))
+            if (tsSearch.Text != cefform.anaform.SearchOnPage && !string.IsNullOrWhiteSpace(tsSearch.Text))
             {
                 cefform.chromiumWebBrowser1.Find(0, tsSearch.Text, true, cs, true);
             }
@@ -210,7 +211,7 @@ namespace Korot
         {
             if (cefform.chromiumWebBrowser1.IsBrowserInitialized)
             {
-                if ((!string.IsNullOrEmpty(tsSearch.Text)) && tsSearch.Text != cefform.SearchOnPage)
+                if ((!string.IsNullOrEmpty(tsSearch.Text)) && tsSearch.Text != cefform.anaform.SearchOnPage)
                 {
                     isSearchOn = true;
                     cefform.chromiumWebBrowser1.Find(0, tsSearch.Text, true, cs, false);
@@ -239,7 +240,7 @@ namespace Korot
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
                 FileName = "Korot Screenshot.png",
-                Filter = cefform.imageFiles + "|*.png|" + cefform.allFiles + "|*.*"
+                Filter = cefform.anaform.imageFiles + "|*.png|" + cefform.anaform.allFiles + "|*.*"
             };
             if (save.ShowDialog() == DialogResult.OK)
             {
@@ -253,7 +254,7 @@ namespace Korot
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 FileName = cefform.Text + ".html",
-                Filter = cefform.htmlFiles + "|*.html;*.htm|" + cefform.allFiles + "|*.*"
+                Filter = cefform.anaform.htmlFiles + "|*.html;*.htm|" + cefform.anaform.allFiles + "|*.*"
             };
             if (save.ShowDialog() == DialogResult.OK)
             {

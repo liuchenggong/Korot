@@ -84,18 +84,18 @@ namespace Korot
             lbDelete.VisitedLinkColor = cefform.Settings.Theme.OverlayColor;
             lbDelete.BackColor = cefform.Settings.Theme.BackColor;
             if (!cefform.noProfilePic) { pictureBox1.Image = cefform.profilePic; } else { pictureBox1.Image = HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.profiles : Properties.Resources.profiles_w; }
-            lbName.Text = cefform.ProfileNameTemp.Replace("[NAME]", cefform.userName);
-            lbChangePic.Text = cefform.ChangePic;
-            lbExport.Text = cefform.ExportProfile;
-            lbSwitch.Text = cefform.switchTo;
-            lbDelete.Text = cefform.deleteProfile;
+            lbName.Text = cefform.anaform.ProfileNameTemp.Replace("[NAME]", cefform.userName);
+            lbChangePic.Text = cefform.anaform.ChangePic;
+            lbExport.Text = cefform.anaform.ExportProfile;
+            lbSwitch.Text = cefform.anaform.switchTo;
+            lbDelete.Text = cefform.anaform.deleteProfile;
             lbChangePic.Enabled = !cefform._Incognito;
             lbExport.Enabled = !cefform._Incognito;
             lbSwitch.Enabled = !cefform._Incognito;
             lbDelete.Enabled = !cefform._Incognito;
-            tsNew.Text = cefform.newprofile;
-            tsImport.Text = cefform.ImportProfile;
-            tsEmpty.Text = cefform.empty;
+            tsNew.Text = cefform.anaform.newprofile;
+            tsImport.Text = cefform.anaform.ImportProfile;
+            tsEmpty.Text = cefform.anaform.empty;
         }
 
         private void lbDelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -110,7 +110,7 @@ namespace Korot
 
         private void lbExport_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            SaveFileDialog fileDialog = new SaveFileDialog() { Title = cefform.exportProfileInfo, Filter = cefform.ProfileFileInfo + "|*.kpa", };
+            SaveFileDialog fileDialog = new SaveFileDialog() { Title = cefform.anaform.exportProfileInfo, Filter = cefform.anaform.ProfileFileInfo + "|*.kpa", };
             DialogResult dialog = fileDialog.ShowDialog();
             if (dialog == DialogResult.OK)
             {
@@ -124,7 +124,7 @@ namespace Korot
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog() { Title = cefform.importProfileInfo, Filter = cefform.ProfileFileInfo + "|*.kpa", };
+            OpenFileDialog fileDialog = new OpenFileDialog() { Title = cefform.anaform.importProfileInfo, Filter = cefform.anaform.ProfileFileInfo + "|*.kpa", };
             DialogResult dialog = fileDialog.ShowDialog();
             if (dialog == DialogResult.OK)
             {
@@ -146,7 +146,7 @@ namespace Korot
             OpenFileDialog filedialog = new OpenFileDialog
             {
                 Title = "Korot",
-                Filter = cefform.imageFiles + "|*.png",
+                Filter = cefform.anaform.imageFiles + "|*.png",
                 Multiselect = false
             };
             if (filedialog.ShowDialog() == DialogResult.OK)
@@ -161,12 +161,12 @@ namespace Korot
             if (cefform.noProfilePic) { NewProfilePic(); }
             else
             {
-                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", cefform.ChangePicInfo, new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", cefform.anaform.ChangePicInfo, new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
                 {
                     BackgroundColor = cefform.Settings.Theme.BackColor,
-                    Yes = cefform.ResetImage,
-                    No = cefform.SelectNewImage,
-                    Cancel = cefform.Cancel,
+                    Yes = cefform.anaform.ResetImage,
+                    No = cefform.anaform.SelectNewImage,
+                    Cancel = cefform.anaform.Cancel,
                     Icon = cefform.anaform.Icon,
                 };
                 DialogResult dialogResult = mesaj.ShowDialog();

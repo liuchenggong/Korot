@@ -1,0 +1,26 @@
+version: appveyor-{build}
+configuration: Release
+platform: x64
+clone_folder: C:\Korot Desktop\bin\appveyor\
+before_build:
+- cmd: nuget restore
+build:
+  only_commits:
+  message: /\[build]\/
+  project: Korot Desktop/Korot Desktop.csproj
+  verbosity: minimal
+artifacts:
+- path: .*
+  name: bintray
+deploy:
+- provider: BinTray
+  username: haltroy
+  api_key:
+    secure: Lpq/1pMfzxebhT1u5hwcm7meciSZjp6uAimJVkVLFwJKqK5Zifw60acY/2xKkf4v
+  subject: appveyor
+  repo: Korot
+  package: Korot
+  artifact: .*
+  publish: true
+  override: true
+  explode: true

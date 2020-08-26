@@ -226,12 +226,12 @@ namespace Korot
             }
             htButton1.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
             htButton1.ForeColor = HTAlt.Tools.AutoWhiteBlack(htButton1.BackColor);
-            foreach (Label x in notificationLabels) { x.Text = cefform.siteNotifications; }
-            foreach (Label x in cookieLabels) { x.Text = cefform.siteCookies; }
-            lbEmpty.Text = cefform.empty;
+            foreach (Label x in notificationLabels) { x.Text = cefform.anaform.siteNotifications; }
+            foreach (Label x in cookieLabels) { x.Text = cefform.anaform.siteCookies; }
+            lbEmpty.Text = cefform.anaform.empty;
             rsMode = (selectedPanels.Count != 0 && selectedSites.Count != 0);
             htButton1.Visible = (cookieLabels.Count == 0 && notificationLabels.Count == 0 && switches.Count == 0);
-            htButton1.Text = rsMode ? cefform.RemoveSelected : cefform.Clear;
+            htButton1.Text = rsMode ? cefform.anaform.RemoveSelected : cefform.anaform.Clear;
         }
 
         private void htButton1_Click(object sender, EventArgs e)

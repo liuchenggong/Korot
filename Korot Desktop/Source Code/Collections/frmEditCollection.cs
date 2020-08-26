@@ -295,45 +295,45 @@ namespace Korot
 
         private void RefreshTranslations()
         {
-            groupBox1.Text = cefform.catCommon;
-            groupBox2.Text = cefform.catText;
-            groupBox3.Text = cefform.catOnline;
-            groupBox4.Text = cefform.catPicture;
-            Text = cefform.TitleEditItem;
-            btDone.Text = cefform.TitleDone;
-            lbID.Text = cefform.TitleID;
+            groupBox1.Text = cefform.anaform.catCommon;
+            groupBox2.Text = cefform.anaform.catText;
+            groupBox3.Text = cefform.anaform.catOnline;
+            groupBox4.Text = cefform.anaform.catPicture;
+            Text = cefform.anaform.TitleEditItem;
+            btDone.Text = cefform.anaform.TitleDone;
+            lbID.Text = cefform.anaform.TitleID;
             tbID.Location = new Point(lbID.Location.X + lbID.Width, tbID.Location.Y);
             tbID.Width = groupBox1.Width - (lbID.Location.X + lbID.Width + 5);
-            lbText.Text = cefform.TitleText;
+            lbText.Text = cefform.anaform.TitleText;
             tbText.Location = new Point(lbText.Location.X + lbText.Width, tbText.Location.Y);
             tbText.Width = groupBox2.Width - (lbText.Location.X + lbText.Width + 5);
-            lbFont.Text = cefform.TitleFont;
+            lbFont.Text = cefform.anaform.TitleFont;
             tbFont.Location = new Point(lbFont.Location.X + lbFont.Width, tbFont.Location.Y);
             tbFont.Width = groupBox2.Width - (lbFont.Location.X + lbFont.Width + 5 + bt3DOT.Width);
-            lbSource.Text = cefform.TitleSource;
+            lbSource.Text = cefform.anaform.TitleSource;
             tbSource.Location = new Point(lbSource.Location.X + lbSource.Width, tbSource.Location.Y);
             tbSource.Width = groupBox3.Width - (lbSource.Location.X + lbSource.Width + 5);
-            lbW.Text = cefform.TitleWidth;
+            lbW.Text = cefform.anaform.TitleWidth;
             nudW.Location = new Point(lbW.Location.X + lbW.Width, nudW.Location.Y);
             nudW.Width = groupBox4.Width - (lbW.Location.X + lbW.Width + 5);
-            lbH.Text = cefform.TitleHeight;
+            lbH.Text = cefform.anaform.TitleHeight;
             nudH.Location = new Point(lbH.Location.X + lbH.Width, nudH.Location.Y);
             nudH.Width = groupBox4.Width - (lbH.Location.X + lbH.Width + 5);
-            lbSize.Text = cefform.TitleSize;
+            lbSize.Text = cefform.anaform.TitleSize;
             nudSize.Location = new Point(lbSize.Location.X + lbSize.Width, nudSize.Location.Y);
             nudSize.Width = groupBox3.Width - (lbSize.Location.X + lbSize.Width + 5);
-            lbProp.Text = cefform.TitleProp;
+            lbProp.Text = cefform.anaform.TitleProp;
             flpProp.Location = new Point(lbProp.Location.X + lbProp.Width, flpProp.Location.Y);
             flpProp.Width = groupBox3.Width - (lbProp.Location.X + lbProp.Width + 5);
-            lbBackColor.Text = cefform.TitleBackColor;
+            lbBackColor.Text = cefform.anaform.TitleBackColor;
             pbBack.Location = new Point(lbBackColor.Location.X + lbBackColor.Width, pbBack.Location.Y);
-            lbForeColor.Text = cefform.TitleForeColor;
+            lbForeColor.Text = cefform.anaform.TitleForeColor;
             pbFore.Location = new Point(lbForeColor.Location.X + lbForeColor.Width, pbFore.Location.Y);
-            rbRegular.Text = cefform.TitleRegular;
-            rbBold.Text = cefform.TitleBold;
-            rbItalic.Text = cefform.TitleItalic;
-            rbUnderline.Text = cefform.TitleUnderline;
-            rbStrikeout.Text = cefform.TitleStrikeout;
+            rbRegular.Text = cefform.anaform.TitleRegular;
+            rbBold.Text = cefform.anaform.TitleBold;
+            rbItalic.Text = cefform.anaform.TitleItalic;
+            rbUnderline.Text = cefform.anaform.TitleUnderline;
+            rbStrikeout.Text = cefform.anaform.TitleStrikeout;
         }
     }
 }

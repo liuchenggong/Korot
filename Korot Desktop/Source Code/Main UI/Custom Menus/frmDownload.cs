@@ -258,7 +258,7 @@ namespace Korot
         private void switchRSMode()
         {
             rsMode = !(selectedPanels.Count == 0 && selectedDISHes.Count == 0);
-            htButton1.Text = rsMode ? cefecik.RemoveSelected : cefecik.Clear;
+            htButton1.Text = rsMode ? cefecik.anaform.RemoveSelected : cefecik.anaform.Clear;
         }
 
         private bool rsMode = false;
@@ -319,7 +319,7 @@ namespace Korot
             Enabled = !cefecik._Incognito;
             lbEmpty.Visible = panelList.Count == 0;
             htButton1.Visible = panelList.Count != 0;
-            lbEmpty.Text = cefecik.empty;
+            lbEmpty.Text = cefecik.anaform.empty;
             BackColor = cefecik.Settings.Theme.BackColor;
             ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
             htButton1.BackColor = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);

@@ -114,49 +114,49 @@ namespace Korot
             // 
             backToolStripMenuItem.Name = "backToolStripMenuItem";
             backToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            backToolStripMenuItem.Text = ActiveForm.goBack;
+            backToolStripMenuItem.Text = ActiveForm.anaform.goBack;
             backToolStripMenuItem.Click += new System.EventHandler(backToolStripMenuItem_Click);
             // 
             // forwardToolStripMenuItem
             // 
             forwardToolStripMenuItem.Name = "forwardToolStripMenuItem";
             forwardToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            forwardToolStripMenuItem.Text = ActiveForm.goForward;
+            forwardToolStripMenuItem.Text = ActiveForm.anaform.goForward;
             forwardToolStripMenuItem.Click += new System.EventHandler(forwardToolStripMenuItem_Click);
             // 
             // extensionsTSMI
             // 
             extensionsTSMI.Name = "extensionsTSMI";
             extensionsTSMI.Size = new System.Drawing.Size(240, 22);
-            extensionsTSMI.Text = ActiveForm.Extensions;
-            extensionsTSMI.Image = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Properties.Resources.ext : Properties.Resources.ext_w;
+            extensionsTSMI.Text = ActiveForm.anaform.Extensions;
+            extensionsTSMI.Image = HTAlt.Tools.IsBright(ActiveForm.anaform.Settings.Theme.BackColor) ? Properties.Resources.ext : Properties.Resources.ext_w;
             // 
             // refreshToolStripMenuItem
             // 
             refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             refreshToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            refreshToolStripMenuItem.Text = ActiveForm.refresh;
+            refreshToolStripMenuItem.Text = ActiveForm.anaform.refresh;
             refreshToolStripMenuItem.Click += new System.EventHandler(refreshToolStripMenuItem_Click);
             // 
             // refreshNoCacheToolStripMenuItem
             // 
             refreshNoCacheToolStripMenuItem.Name = "refreshNoCacheToolStripMenuItem";
             refreshNoCacheToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            refreshNoCacheToolStripMenuItem.Text = ActiveForm.refreshNoCache;
+            refreshNoCacheToolStripMenuItem.Text = ActiveForm.anaform.refreshNoCache;
             refreshNoCacheToolStripMenuItem.Click += new System.EventHandler(refreshNoCacheToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
             stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             stopToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            stopToolStripMenuItem.Text = ActiveForm.stop;
+            stopToolStripMenuItem.Text = ActiveForm.anaform.stop;
             stopToolStripMenuItem.Click += new System.EventHandler(stopToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem
             // 
             selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
             selectAllToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            selectAllToolStripMenuItem.Text = ActiveForm.selectAll;
+            selectAllToolStripMenuItem.Text = ActiveForm.anaform.selectAll;
             selectAllToolStripMenuItem.Click += new System.EventHandler(selectAllToolStripMenuItem_Click);
             // 
             // addToCollection
@@ -164,20 +164,20 @@ namespace Korot
             addToCollection.Name = "addToCollection";
             addToCollection.DropDown.Items.AddRange(new ToolStripItem[] { tsSepCol, newCollection });
             addToCollection.Size = new System.Drawing.Size(240, 22);
-            addToCollection.Text = ActiveForm.addToCollection;
+            addToCollection.Text = ActiveForm.anaform.addToCollection;
             // 
             // tsEmptyCol
             // 
             tsEmptyCol.Enabled = false;
             tsEmptyCol.Name = "tsEmptyCol";
             tsEmptyCol.Size = new System.Drawing.Size(240, 22);
-            tsEmptyCol.Text = ActiveForm.empty;
+            tsEmptyCol.Text = ActiveForm.anaform.empty;
             // 
             // newCollection
             // 
             newCollection.Name = "newCollection";
             newCollection.Size = new System.Drawing.Size(240, 22);
-            newCollection.Text = ActiveForm.newCollection;
+            newCollection.Text = ActiveForm.anaform.newCollection;
             newCollection.Click += new System.EventHandler(newCollection_Click);
             // 
             // tsSep1
@@ -194,28 +194,28 @@ namespace Korot
             // 
             openLinkInNewTabToolStripMenuItem.Name = "openLinkInNewTabToolStripMenuItem";
             openLinkInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            openLinkInNewTabToolStripMenuItem.Text = ActiveForm.openLinkInNewTab;
+            openLinkInNewTabToolStripMenuItem.Text = ActiveForm.anaform.openLinkInNewTab;
             openLinkInNewTabToolStripMenuItem.Click += new System.EventHandler(openLinkInNewTabToolStripMenuItem_Click);
             // 
             // copyLinkAddressToolStripMenuItem
             // 
             copyLinkAddressToolStripMenuItem.Name = "copyLinkAddressToolStripMenuItem";
             copyLinkAddressToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            copyLinkAddressToolStripMenuItem.Text = ActiveForm.copyLink;
+            copyLinkAddressToolStripMenuItem.Text = ActiveForm.anaform.copyLink;
             copyLinkAddressToolStripMenuItem.Click += new System.EventHandler(copyLinkAddressToolStripMenuItem_Click);
             // 
             // openImageInNewTabToolStripMenuItem
             // 
             openImageInNewTabToolStripMenuItem.Name = "openImageInNewTabToolStripMenuItem";
             openImageInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            openImageInNewTabToolStripMenuItem.Text = ActiveForm.openImageInNewTab;
+            openImageInNewTabToolStripMenuItem.Text = ActiveForm.anaform.openImageInNewTab;
             openImageInNewTabToolStripMenuItem.Click += new System.EventHandler(openImageInNewTabToolStripMenuItem_Click);
             // 
             // saveImageAsToolStripMenuItem
             // 
             saveImageAsToolStripMenuItem.Name = "saveImageAsToolStripMenuItem";
             saveImageAsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            saveImageAsToolStripMenuItem.Text = ActiveForm.saveImageAs;
+            saveImageAsToolStripMenuItem.Text = ActiveForm.anaform.saveImageAs;
             saveImageAsToolStripMenuItem.Click += new System.EventHandler(saveImageAsToolStripMenuItem_Click);
             // 
             // tsSep2
@@ -227,84 +227,84 @@ namespace Korot
             // 
             pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             pasteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            pasteToolStripMenuItem.Text = ActiveForm.paste;
+            pasteToolStripMenuItem.Text = ActiveForm.anaform.paste;
             pasteToolStripMenuItem.Click += new System.EventHandler(pasteToolStripMenuItem_Click);
             // 
             // cutToolStripMenuItem
             // 
             cutToolStripMenuItem.Name = "cutToolStripMenuItem";
             cutToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            cutToolStripMenuItem.Text = ActiveForm.cut;
+            cutToolStripMenuItem.Text = ActiveForm.anaform.cut;
             cutToolStripMenuItem.Click += new System.EventHandler(cutToolStripMenuItem_Click);
             // 
             // saveLinkAsTSMI
             // 
             saveLinkAsTSMI.Name = "saveLinkAsTSMI";
             saveLinkAsTSMI.Size = new System.Drawing.Size(240, 22);
-            saveLinkAsTSMI.Text = ActiveForm.saveLinkAs;
+            saveLinkAsTSMI.Text = ActiveForm.anaform.saveLinkAs;
             saveLinkAsTSMI.Click += new System.EventHandler(saveLinkAs);
             //
             // copyImageTSMI
             // 
             copyImageTSMI.Name = "copyImageTSMI";
             copyImageTSMI.Size = new System.Drawing.Size(240, 22);
-            copyImageTSMI.Text = ActiveForm.copyImage;
+            copyImageTSMI.Text = ActiveForm.anaform.copyImage;
             copyImageTSMI.Click += new System.EventHandler(copyImage);
             //
             // copyImageAddressTSMI
             //
             copyImageAddressTSMI.Name = "copyImageAddressTSMI";
             copyImageAddressTSMI.Size = new System.Drawing.Size(240, 22);
-            copyImageAddressTSMI.Text = ActiveForm.copyImageAddress;
+            copyImageAddressTSMI.Text = ActiveForm.anaform.copyImageAddress;
             copyImageAddressTSMI.Click += new System.EventHandler(copyImageAddress);
             //
             // openLinkINWTSMI
             //
             openLinkINWTSMI.Name = "openLinkINWTSMI";
             openLinkINWTSMI.Size = new System.Drawing.Size(240, 22);
-            openLinkINWTSMI.Text = ActiveForm.openLinkInNewWindow;
+            openLinkINWTSMI.Text = ActiveForm.anaform.openLinkInNewWindow;
             openLinkINWTSMI.Click += new System.EventHandler(openLinkInANewWindow);
             //
             // openLinkINWTSMI
             //
             openLinkINAIWTSMI.Name = "openLinkINAIWTSMI";
             openLinkINAIWTSMI.Size = new System.Drawing.Size(240, 22);
-            openLinkINAIWTSMI.Text = ActiveForm.openLinkInNewIncWindow;
+            openLinkINAIWTSMI.Text = ActiveForm.anaform.openLinkInNewIncWindow;
             openLinkINAIWTSMI.Click += new System.EventHandler(openLinkInANewIncognitoWindow);
             // 
             // copyToolStripMenuItem
             // 
             copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             copyToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            copyToolStripMenuItem.Text = ActiveForm.copy;
+            copyToolStripMenuItem.Text = ActiveForm.anaform.copy;
             copyToolStripMenuItem.Click += new System.EventHandler(copyToolStripMenuItem_Click);
             // 
             // undoToolStripMenuItem
             // 
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             undoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            undoToolStripMenuItem.Text = ActiveForm.undo;
+            undoToolStripMenuItem.Text = ActiveForm.anaform.undo;
             undoToolStripMenuItem.Click += new System.EventHandler(undoToolStripMenuItem_Click);
             // 
             // redoToolStripMenuItem
             // 
             redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             redoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            redoToolStripMenuItem.Text = ActiveForm.redo;
+            redoToolStripMenuItem.Text = ActiveForm.anaform.redo;
             redoToolStripMenuItem.Click += new System.EventHandler(redoToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             deleteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            deleteToolStripMenuItem.Text = ActiveForm.delete;
+            deleteToolStripMenuItem.Text = ActiveForm.anaform.delete;
             deleteToolStripMenuItem.Click += new System.EventHandler(deleteToolStripMenuItem_Click);
             // 
             // searchOrOpenSelectedInNewTabToolStripMenuItem
             // 
             searchOrOpenSelectedInNewTabToolStripMenuItem.Name = "searchOrOpenSelectedInNewTabToolStripMenuItem";
             searchOrOpenSelectedInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            searchOrOpenSelectedInNewTabToolStripMenuItem.Text = ActiveForm.SearchOrOpenSelectedInNewTab;
+            searchOrOpenSelectedInNewTabToolStripMenuItem.Text = ActiveForm.anaform.SearchOrOpenSelectedInNewTab;
             searchOrOpenSelectedInNewTabToolStripMenuItem.Click += new System.EventHandler(seacrhOrOpenSelectedInNewTabToolStripMenuItem_Click);
             // 
             // tsSep3
@@ -316,21 +316,21 @@ namespace Korot
             // 
             printToolStripMenuItem.Name = "printToolStripMenuItem";
             printToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            printToolStripMenuItem.Text = ActiveForm.print;
+            printToolStripMenuItem.Text = ActiveForm.anaform.print;
             printToolStripMenuItem.Click += new System.EventHandler(printToolStripMenuItem_Click);
             // 
             // showDevToolsToolStripMenuItem
             // 
             showDevToolsToolStripMenuItem.Name = "showDevToolsToolStripMenuItem";
             showDevToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            showDevToolsToolStripMenuItem.Text = ActiveForm.developerTools;
+            showDevToolsToolStripMenuItem.Text = ActiveForm.anaform.developerTools;
             showDevToolsToolStripMenuItem.Click += new System.EventHandler(showDevToolsToolStripMenuItem_Click);
             // 
             // viewSourceToolsToolStripMenuItem
             // 
             viewSourceToolsToolStripMenuItem.Name = "viewSourceToolsToolStripMenuItem";
             viewSourceToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            viewSourceToolsToolStripMenuItem.Text = ActiveForm.viewSource;
+            viewSourceToolsToolStripMenuItem.Text = ActiveForm.anaform.viewSource;
             viewSourceToolsToolStripMenuItem.Click += new System.EventHandler(viewSourceToolsToolStripMenuItem_Click);
             //
             cmsCef.ResumeLayout(false);
@@ -436,7 +436,7 @@ namespace Korot
             {
                 ToolStripMenuItem empty = new ToolStripMenuItem
                 {
-                    Text = ActiveForm.empty,
+                    Text = ActiveForm.anaform.empty,
                     BackColor = ActiveForm.Settings.Theme.BackColor
                 };
                 empty.ForeColor = HTAlt.Tools.AutoWhiteBlack(empty.BackColor);

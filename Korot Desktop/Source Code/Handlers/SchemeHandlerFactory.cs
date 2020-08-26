@@ -101,12 +101,12 @@ namespace Korot
             {
                 if (request.Url == "korot://newtab/")
                 {
-                    return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§ITEMS§", GetNewTabItems()).Replace("§BACKSTYLE3§", GetBackStyle3()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.SearchHelpText).Replace("§SEARCH§", CefForm.Search).Replace("§DAYS§", CefForm.DayNames).Replace("§MONTHS§", CefForm.MonthNames).Replace("§TITLE§", CefForm.NewTabtitle).Replace("§EDIT§", CefForm.NewTabEdit));
+                    return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§ITEMS§", GetNewTabItems()).Replace("§BACKSTYLE3§", GetBackStyle3()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.anaform.SearchHelpText).Replace("§SEARCH§", CefForm.anaform.Search).Replace("§DAYS§", CefForm.anaform.DayNames).Replace("§MONTHS§", CefForm.anaform.MonthNames).Replace("§TITLE§", CefForm.anaform.NewTabtitle).Replace("§EDIT§", CefForm.anaform.NewTabEdit));
                 }
                 else if (request.Url == "korot://incognito/")
                 {
 
-                    return ResourceHandler.FromString(Properties.Resources.incognito.Replace("§TITLE§", CefForm.IncognitoT).Replace("§INCTITLE§", CefForm.IncognitoTitle).Replace("§INCTITLE1§", CefForm.IncognitoTitle1).Replace("§INCTITLE2§", CefForm.IncognitoTitle2).Replace("§INCTITLE1M1§", CefForm.IncognitoT1M1).Replace("§INCTITLE1M2§", CefForm.IncognitoT1M2).Replace("§INCTITLE1M3§", CefForm.IncognitoT1M3).Replace("§INCTITLE2M1§", CefForm.IncognitoT2M1).Replace("§INCTITLE2M2§", CefForm.IncognitoT2M2).Replace("§INCTITLE2M3§", CefForm.IncognitoT2M3));
+                    return ResourceHandler.FromString(Properties.Resources.incognito.Replace("§TITLE§", CefForm.anaform.IncognitoT).Replace("§INCTITLE§", CefForm.anaform.IncognitoTitle).Replace("§INCTITLE1§", CefForm.anaform.IncognitoTitle1).Replace("§INCTITLE2§", CefForm.anaform.IncognitoTitle2).Replace("§INCTITLE1M1§", CefForm.anaform.IncognitoT1M1).Replace("§INCTITLE1M2§", CefForm.anaform.IncognitoT1M2).Replace("§INCTITLE1M3§", CefForm.anaform.IncognitoT1M3).Replace("§INCTITLE2M1§", CefForm.anaform.IncognitoT2M1).Replace("§INCTITLE2M2§", CefForm.anaform.IncognitoT2M2).Replace("§INCTITLE2M3§", CefForm.anaform.IncognitoT2M3));
                 }
 
                 else if (request.Url.StartsWith("korot://search/?q="))
@@ -139,12 +139,12 @@ namespace Korot
                 }
                 else if (request.Url == "korot://licenses/")
                 {
-                    return ResourceHandler.FromString(Properties.Resources.licenses.Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§UF§", CefForm.ubuntuLicense).Replace("§TITLE§", CefForm.licenseTitle).Replace("§ET§", CefForm.etLicense).Replace("§K§", CefForm.kLicense).Replace("§VS§", CefForm.vsLicense).Replace("§CH§", CefForm.chLicense).Replace("§CEF§", CefForm.cefLicense).Replace("§ST§", CefForm.specialThanks));
+                    return ResourceHandler.FromString(Properties.Resources.licenses.Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§UF§", CefForm.anaform.ubuntuLicense).Replace("§TITLE§", CefForm.anaform.licenseTitle).Replace("§ET§", CefForm.anaform.etLicense).Replace("§K§", CefForm.anaform.kLicense).Replace("§VS§", CefForm.anaform.vsLicense).Replace("§CH§", CefForm.anaform.chLicense).Replace("§CEF§", CefForm.anaform.cefLicense).Replace("§ST§", CefForm.anaform.specialThanks));
                 }
                 else if (request.Url.StartsWith("korot://error/?e="))
                 {
                     string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
-                    return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§OVERLAY§", GetOverlay()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.ErrorPageTitle).Replace("§KT§", CefForm.KT).Replace("§ET§", CefForm.ET).Replace("§E1§", CefForm.E1).Replace("§E2§", CefForm.E2).Replace("§E3§", CefForm.E3).Replace("§E4§", CefForm.E4).Replace("§RT§", CefForm.RT).Replace("§R1§", CefForm.R1).Replace("§R2§", CefForm.R2).Replace("§R3§", CefForm.R3).Replace("§R4§", CefForm.R4).Replace("§ERROR§", x));
+                    return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§OVERLAY§", GetOverlay()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.anaform.ErrorPageTitle).Replace("§KT§", CefForm.anaform.KT).Replace("§ET§", CefForm.anaform.ET).Replace("§E1§", CefForm.anaform.E1).Replace("§E2§", CefForm.anaform.E2).Replace("§E3§", CefForm.anaform.E3).Replace("§E4§", CefForm.anaform.E4).Replace("§RT§", CefForm.anaform.RT).Replace("§R1§", CefForm.anaform.R1).Replace("§R2§", CefForm.anaform.R2).Replace("§R3§", CefForm.anaform.R3).Replace("§R4§", CefForm.anaform.R4).Replace("§ERROR§", x));
                 }
                 else if (request.Url == "korot://dad/")
                 {

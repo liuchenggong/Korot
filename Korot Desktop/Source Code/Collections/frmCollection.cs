@@ -52,17 +52,17 @@ namespace Korot
 
         private void RefreshTranslation()
         {
-            newCollectionToolStripMenuItem.Text = cefform.newCollection;
-            deleteThisCollectionsToolStripMenuItem.Text = cefform.deleteCollection;
-            clearToolStripMenuItem.Text = cefform.clearCollection;
-            exportToolStripMenuItem.Text = cefform.exportCollection;
-            ımportToolStripMenuItem.Text = cefform.importCollection;
-            deleteThisİtemToolStripMenuItem.Text = cefform.deleteItem;
-            exportThisİtemToolStripMenuItem.Text = cefform.deleteItem;
-            editThisİtemToolStripMenuItem.Text = cefform.editItem;
-            ımportİtemToolStripMenuItem.Text = cefform.importColItem;
-            changeCollectionIDToolStripMenuItem.Text = cefform.changeColID;
-            changeCollectionTextToolStripMenuItem.Text = cefform.changeColText;
+            newCollectionToolStripMenuItem.Text = cefform.anaform.newCollection;
+            deleteThisCollectionsToolStripMenuItem.Text = cefform.anaform.deleteCollection;
+            clearToolStripMenuItem.Text = cefform.anaform.clearCollection;
+            exportToolStripMenuItem.Text = cefform.anaform.exportCollection;
+            ımportToolStripMenuItem.Text = cefform.anaform.importCollection;
+            deleteThisİtemToolStripMenuItem.Text = cefform.anaform.deleteItem;
+            exportThisİtemToolStripMenuItem.Text = cefform.anaform.deleteItem;
+            editThisİtemToolStripMenuItem.Text = cefform.anaform.editItem;
+            ımportİtemToolStripMenuItem.Text = cefform.anaform.importColItem;
+            changeCollectionIDToolStripMenuItem.Text = cefform.anaform.changeColID;
+            changeCollectionTextToolStripMenuItem.Text = cefform.anaform.changeColText;
         }
 
         private readonly List<Panel> titlePanels;
@@ -96,15 +96,15 @@ namespace Korot
                 ıTEMToolStripMenuItem.Tag = sender;
                 if (sender is PictureBox)
                 {
-                    ıTEMToolStripMenuItem.Text = cefform.image;
+                    ıTEMToolStripMenuItem.Text = cefform.anaform.image;
                 }
                 else if (sender is CustomLinkLabel)
                 {
-                    ıTEMToolStripMenuItem.Text = cefform.link;
+                    ıTEMToolStripMenuItem.Text = cefform.anaform.link;
                 }
                 else if (sender is Label)
                 {
-                    ıTEMToolStripMenuItem.Text = cefform.text;
+                    ıTEMToolStripMenuItem.Text = cefform.anaform.text;
                 }
                 cmsCollection.Show(MousePosition);
             }
@@ -357,9 +357,9 @@ namespace Korot
         private void newCollectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
-                                                                                          cefform.newColInfo,
-                                                                                          cefform.newColName)
-            { Icon = cefform.anaform.Icon, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
+                                                                                          cefform.anaform.newColInfo,
+                                                                                          cefform.anaform.newColName)
+            { Icon = cefform.anaform.Icon, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -380,9 +380,9 @@ namespace Korot
         private void ımportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
-                                                                                          cefform.importColInfo,
+                                                                                          cefform.anaform.importColInfo,
                                                                                           "<collection></collection>")
-            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.anaform.SetToDefault, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -402,9 +402,9 @@ namespace Korot
             {
                 HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
                     "Korot",
-                    cefform.delColInfo.Replace("$", listView1.SelectedItems[0].Text),
+                    cefform.anaform.delColInfo.Replace("$", listView1.SelectedItems[0].Text),
                     new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
-                { Yes = cefform.Yes, No = cefform.No, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor, Icon = cefform.anaform.Icon };
+                { Yes = cefform.anaform.Yes, No = cefform.anaform.No, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor, Icon = cefform.anaform.Icon };
                 if (mesaj.ShowDialog() == DialogResult.Yes)
                 {
                     cefform.Settings.CollectionManager.Collections.Remove(cefform.Settings.CollectionManager.GetCollectionFromID(listView1.SelectedItems[0].Name));
@@ -417,9 +417,9 @@ namespace Korot
         {
             HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
                 "Korot",
-                cefform.clearColInfo,
+                cefform.anaform.clearColInfo,
                 new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
-            { Yes = cefform.Yes, No = cefform.No, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor, Icon = cefform.anaform.Icon };
+            { Yes = cefform.anaform.Yes, No = cefform.anaform.No, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor, Icon = cefform.anaform.Icon };
             if (mesaj.ShowDialog() == DialogResult.Yes)
             {
                 cefform.Settings.CollectionManager.Collections.Clear();
@@ -430,9 +430,9 @@ namespace Korot
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
-                                                                              cefform.okToClipboard,
+                                                                              cefform.anaform.okToClipboard,
                                                                               listView1.SelectedItems[0].ToolTipText)
-            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor }; ;
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.anaform.SetToDefault, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor }; ;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -456,9 +456,9 @@ namespace Korot
         private void exportThisİtemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
-                                                      cefform.okToClipboard,
+                                                      cefform.anaform.okToClipboard,
                                                       ((Control)ıTEMToolStripMenuItem.Tag).Tag.ToString())
-            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor }; ;
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.anaform.SetToDefault, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor }; ;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -486,9 +486,9 @@ namespace Korot
         private void ımportİtemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
-                                                                                         cefform.importColItemInfo,
+                                                                                         cefform.anaform.importColItemInfo,
                                                                                          "")
-            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor }; ;
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.anaform.SetToDefault, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor }; ;
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -504,9 +504,9 @@ namespace Korot
         private void changeCollectionIDToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
-                                                                                         cefform.changeColIDInfo,
+                                                                                         cefform.anaform.changeColIDInfo,
                                                                                          cefform.Settings.CollectionManager.GetCollectionFromID(listView1.SelectedItems[0].Name).ID)
-            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.anaform.SetToDefault, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -522,9 +522,9 @@ namespace Korot
         private void changeCollectionTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",
-                                                                             cefform.changeColTextInfo,
+                                                                             cefform.anaform.changeColTextInfo,
                                                                              cefform.Settings.CollectionManager.GetCollectionFromID(listView1.SelectedItems[0].Name).Text)
-            { Icon = cefform.anaform.Icon, SetToDefault = cefform.SetToDefault, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
+            { Icon = cefform.anaform.Icon, SetToDefault = cefform.anaform.SetToDefault, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {

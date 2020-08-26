@@ -140,7 +140,7 @@ namespace Korot
         public void OnRenderProcessTerminated(IWebBrowser chromiumWebBrowser, IBrowser browser, CefTerminationStatus status)
         {
             anaform().Invoke(new Action(() => anaform().Hide()));
-            HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", cefform.renderProcessDies, new HTAlt.WinForms.HTDialogBoxContext() { OK = true }) { Yes = cefform.Yes, No = cefform.No, OK = cefform.OK, Cancel = cefform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor, Icon = cefform.anaform.Icon };
+            HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", cefform.anaform.renderProcessDies, new HTAlt.WinForms.HTDialogBoxContext() { OK = true }) { Yes = cefform.anaform.Yes, No = cefform.anaform.No, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor, Icon = cefform.anaform.Icon };
             if (mesaj.ShowDialog() == DialogResult.OK || mesaj.ShowDialog() == DialogResult.Cancel)
             {
                 Application.Exit();

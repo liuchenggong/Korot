@@ -128,6 +128,7 @@ namespace Korot
             this.tbStartup = new System.Windows.Forms.TextBox();
             this.tbSearchEngine = new System.Windows.Forms.TextBox();
             this.tpTheme = new System.Windows.Forms.TabPage();
+            this.btThemeWizard = new HTAlt.WinForms.HTButton();
             this.flpClose = new System.Windows.Forms.FlowLayoutPanel();
             this.rbBackColor1 = new System.Windows.Forms.RadioButton();
             this.rbForeColor1 = new System.Windows.Forms.RadioButton();
@@ -294,7 +295,6 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btThemeWizard = new HTAlt.WinForms.HTButton();
             this.pNavigate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).BeginInit();
@@ -1274,6 +1274,19 @@ namespace Korot
             this.tpTheme.TabIndex = 6;
             this.tpTheme.Text = "Theme";
             this.tpTheme.UseVisualStyleBackColor = true;
+            // 
+            // btThemeWizard
+            // 
+            this.btThemeWizard.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btThemeWizard.FlatAppearance.BorderSize = 0;
+            this.btThemeWizard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btThemeWizard.Location = new System.Drawing.Point(0, 569);
+            this.btThemeWizard.Name = "btThemeWizard";
+            this.btThemeWizard.Size = new System.Drawing.Size(738, 39);
+            this.btThemeWizard.TabIndex = 37;
+            this.btThemeWizard.Text = "Run Theme Wizard";
+            this.btThemeWizard.UseVisualStyleBackColor = true;
+            this.btThemeWizard.Click += new System.EventHandler(this.btThemeWizard_Click);
             // 
             // flpClose
             // 
@@ -3305,19 +3318,6 @@ namespace Korot
             // 
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
-            // 
-            // btThemeWizard
-            // 
-            this.btThemeWizard.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btThemeWizard.FlatAppearance.BorderSize = 0;
-            this.btThemeWizard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btThemeWizard.Location = new System.Drawing.Point(0, 569);
-            this.btThemeWizard.Name = "btThemeWizard";
-            this.btThemeWizard.Size = new System.Drawing.Size(738, 39);
-            this.btThemeWizard.TabIndex = 37;
-            this.btThemeWizard.Text = "Run Theme Wizard";
-            this.btThemeWizard.UseVisualStyleBackColor = true;
-            this.btThemeWizard.Click += new System.EventHandler(this.btThemeWizard_Click);
             // 
             // frmCEF
             // 

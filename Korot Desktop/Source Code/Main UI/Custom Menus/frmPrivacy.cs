@@ -32,24 +32,24 @@ namespace Korot
             btSite.ForeColor = HTAlt.Tools.AutoWhiteBlack(btSite.BackColor);
             btSite.Enabled = !cefform._Incognito;
             btCert.Visible = cefform.certError;
-            btCert.Text = cefform.showCertError;
+            btCert.Text = cefform.anaform.showCertError;
             if (cefform.certError)
             {
-                lbStatus.Text = cefform.CertificateErrorTitle;
-                lbInfo.Text = cefform.CertificateError;
+                lbStatus.Text = cefform.anaform.CertificateErrorTitle;
+                lbInfo.Text = cefform.anaform.CertificateError;
             }
             else
             {
-                lbStatus.Text = cefform.CertificateOKTitle;
-                lbInfo.Text = cefform.CertificateOK;
+                lbStatus.Text = cefform.anaform.CertificateOKTitle;
+                lbInfo.Text = cefform.anaform.CertificateOK;
             }
-            lbCookie.Text = cefform.cookieUsage ? cefform.usesCookies : cefform.notUsesCookies;
+            lbCookie.Text = cefform.cookieUsage ? cefform.anaform.usesCookies : cefform.anaform.notUsesCookies;
         }
 
         private void htButton1_Click(object sender, EventArgs e)
         {
             TextBox txtCertificate = new TextBox() { ScrollBars = ScrollBars.Both, Multiline = true, Dock = DockStyle.Fill, Text = cefform.certificatedetails };
-            Form frmCertificate = new Form() { Icon = Icon, Text = cefform.CertificateErrorMenuTitle, FormBorderStyle = FormBorderStyle.SizableToolWindow };
+            Form frmCertificate = new Form() { Icon = Icon, Text = cefform.anaform.CertificateErrorMenuTitle, FormBorderStyle = FormBorderStyle.SizableToolWindow };
             frmCertificate.Controls.Add(txtCertificate);
             frmCertificate.ShowDialog();
         }
