@@ -3,7 +3,7 @@ configuration: Release
 platform: x64
 clone_folder: C:\Korot Desktop\bin\appveyor\
 only_commits:
- - message: /build/
+ message: /build/
 before_build:
  - cmd: nuget restore
 build:
