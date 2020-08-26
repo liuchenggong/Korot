@@ -1,4 +1,5 @@
 <Language CompatibleVersion="0.8.1.0">
+  <Translate ID="CloseNLInfo" Text="Do you really want to close [TITLE]([URL])?" />
   <Translate ID="PickRandom" Text="Pick Random" />
   <Translate ID="TryAgain" Text="Try Again" />
   <Translate ID="ApplyTheme" Text="Apply this &amp;&amp; close" />

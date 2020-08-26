@@ -57,7 +57,7 @@ namespace Korot
         public ContextMenuStrip cmsCEF = null;
         private int updateProgress = 0;
         private bool isLoading = false;
-        private readonly string loaduri = null;
+        private string loaduri = null;
         public bool _Incognito = false;
         public string userName;
         public string profilePath;
@@ -1275,8 +1275,10 @@ namespace Korot
             int savedValue = listBox2.SelectedIndex;
             int scroll = listBox2.TopIndex;
             listBox2.Items.Clear();
-            foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\"))
+            string[] array = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\");
+            for (int i = 0; i < array.Length; i++)
             {
+                string x = array[i];
                 if (x.EndsWith(".ktf", StringComparison.OrdinalIgnoreCase))
                 {
                     listBox2.Items.Add(new FileInfo(x).Name);
@@ -1385,10 +1387,10 @@ namespace Korot
         }
         private void UpdateResult(string info)
         {
-            XmlDocument dokk /* r6 joke here lol */ = new XmlDocument();
-            dokk.LoadXml(info);
-            KorotVersion Newest = new KorotVersion(dokk.FirstChild.NextSibling.OuterXml);
-            KorotVersion Current = new KorotVersion("");
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(info);
+            KorotVersion Newest = new KorotVersion(doc.FirstChild.NextSibling.OuterXml);
+            KorotVersion Current = new KorotVersion();
             bool isUpToDate = Current.WhicIsNew(Newest, Environment.Is64BitProcess ? "amd64" : "i86") == Current;
             if (!isUpToDate)
             {
@@ -1408,12 +1410,15 @@ namespace Korot
         {
             get
             {
-                List<int> tabIndexes = new List<int>();
-                foreach (HTTitleTab x in ParentTabs.Tabs)
+                if (!NotificationListenerMode)
                 {
-                    if (x.Content == this) { tabIndexes.Add(ParentTabs.Tabs.IndexOf(x)); }
-                }
-                return (tabIndexes.Count > 0 ? ParentTabs.Tabs[tabIndexes[0]] : null);
+                    List<int> tabIndexes = new List<int>();
+                    foreach (HTTitleTab x in ParentTabs.Tabs)
+                    {
+                        if (x.Content == this) { tabIndexes.Add(ParentTabs.Tabs.IndexOf(x)); }
+                    }
+                    return (tabIndexes.Count > 0 ? ParentTabs.Tabs[tabIndexes[0]] : null);
+                }else { return null; }
             }
         }
         public void SetProxy(string ProxyFile)
@@ -1860,7 +1865,7 @@ namespace Korot
         }
         List<string> AlreadyValidUrl = new List<string>();
         List<string> AlreadyNotValidUrl = new List<string>();
-
+        string[] customProts = new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" };
         private void cef_AddressChanged(object sender, AddressChangedEventArgs e)
         {
             Invoke(new Action(() => tbAddress.Text = e.Address));
@@ -1875,7 +1880,11 @@ namespace Korot
                     btFav.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
                 }
             }));
-            CheckValidUrl(e.Address);
+            if (!HTAlt.Tools.ValidUrl(e.Address, customProts))
+            {
+                chromiumWebBrowser1.Load(Settings.SearchEngine + e.Address);
+            }
+            //CheckValidUrl(e.Address);
             if (lbURL.Items.Count != 0)
             {
                 if (e.Address != lbURL.Items[lbURL.Items.Count - 1].ToString())
@@ -1886,6 +1895,7 @@ namespace Korot
         }
         private void CheckValidUrl(string Url)
         {
+            if (string.IsNullOrWhiteSpace(Url)) { return; }
             if (AlreadyValidUrl.Contains(Url)) { } else if (AlreadyNotValidUrl.Contains(Url)) { chromiumWebBrowser1.Load(Settings.SearchEngine + Url); }
             else
             {
@@ -1901,21 +1911,21 @@ namespace Korot
         }
         private void cef_onLoadError(object sender, LoadErrorEventArgs e)
         {
-                if (e == null) //User Asked
+            if (e == null) //User Asked
+            {
+                chromiumWebBrowser1.Load("korot://error/?e=TEST");
+            }
+            else
+            {
+                if (e.Frame.IsMain)
                 {
-                    chromiumWebBrowser1.Load("korot://error/?e=TEST");
+                    chromiumWebBrowser1.Load("korot://error/?e=" + e.ErrorText);
                 }
                 else
                 {
-                    if (e.Frame.IsMain)
-                    {
-                        chromiumWebBrowser1.Load("korot://error/?e=" + e.ErrorText);
-                    }
-                    else
-                    {
-                        e.Frame.LoadUrl("korot://error/?e=" + e.ErrorText);
-                    }
+                    e.Frame.LoadUrl("korot://error/?e=" + e.ErrorText);
                 }
+            }
         }
 
 
@@ -2470,6 +2480,15 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 pbProgress.Width = Convert.ToInt32(Convert.ToDouble(Width / 100) * Convert.ToDouble(value * 100));
             }
         }
+        public async void getZoomLevel()
+        {
+            await Task.Run(() =>
+            {
+                Task<double> zLevel = chromiumWebBrowser1.GetZoomLevelAsync();
+                zoomLevel = zLevel.Result;
+            });
+        }
+        public double zoomLevel = 0;
         private void execTimer50Events()
         {
             hsDoNotTrack.Checked = Settings.DoNotTrack;
@@ -2486,9 +2505,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             refreshThemeList();
             RefreshFavorites();
             LoadNewTabSites();
-            btHamburger.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? (anaform is null ? Properties.Resources.hamburger : (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger)) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w));
+            btHamburger.ButtonImage = HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? (anaform is null ? Properties.Resources.hamburger : (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger)) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w));
             comboBox1.Text = !onThemeName ? (Settings.Theme.LoadedDefaults ? "((default))" : Settings.Theme.Name) : comboBox1.Text;
-
+            Task.Run(() => getZoomLevel());
         }
         private int timer1int = 0;
         private void timer1_Tick(object sender, EventArgs e)
@@ -2699,9 +2718,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     TopLevel = false,
                     FormBorderStyle = FormBorderStyle.None,
                     Anchor = (AnchorStyles.Top | AnchorStyles.Right),
-                    Visible = true
                 };
                 Controls.Add(profmenu);
+                Settings.AllForms.Add(profmenu);
             }
             if (profmenu.Visible)
             {
@@ -2767,9 +2786,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 {
                     TopLevel = false,
                     FormBorderStyle = FormBorderStyle.None,
-                    Visible = true
                 };
                 Controls.Add(privmenu);
+                Settings.AllForms.Add(privmenu);
             }
             if (privmenu.Visible)
             {
@@ -2815,10 +2834,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     FormBorderStyle = FormBorderStyle.None,
                     Anchor = (AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom),
                     Dock = DockStyle.Right,
-                    Visible = true,
                     Height = Height,
                 };
                 Controls.Add(hammenu);
+                Settings.AllForms.Add(hammenu);
             }
             if (hammenu.Visible)
             {
@@ -2889,9 +2908,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     TopLevel = false,
                     FormBorderStyle = FormBorderStyle.None,
                     Anchor = (AnchorStyles.Top | AnchorStyles.Right),
-                    Visible = true
                 };
                 Controls.Add(incognitomenu);
+                Settings.AllForms.Add(incognitomenu);
             }
             if (incognitomenu.Visible)
             {
@@ -3100,6 +3119,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                         Visible = true
                     };
                     pHisMan.Controls.Add(hisman);
+                    Settings.AllForms.Add(hisman);
                 }
                 anaform.historyTab = ParentTab;
                 btNext.Enabled = true;
@@ -3127,6 +3147,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                         Visible = true
                     };
                     pDowMan.Controls.Add(dowman);
+                    Settings.AllForms.Add(dowman);
                 }
                 anaform.downloadTab = ParentTab;
                 anaform.newDownload = false;
@@ -3205,6 +3226,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                                 Visible = true
                             };
                             pSite.Controls.Add(siteman);
+                            Settings.AllForms.Add(siteman);
                         }
                         resetPage(true);
                         anaform.siteTab = ParentTab;
@@ -3235,6 +3257,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                             Visible = true
                         };
                         pBlock.Controls.Add(blockmenu);
+                        Settings.AllForms.Add(blockmenu);
                     }
                     resetPage(true);
                     anaform.blockTab = ParentTab;
@@ -3411,6 +3434,86 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             Settings.ThemeChangeForm.Remove(this);
             Settings.AllForms.Remove(this);
+            if (hammenu != null)
+            {
+                Settings.ThemeChangeForm.Remove(hammenu);
+                Settings.AllForms.Remove(hammenu);
+                hammenu.Close();
+                this.Controls.Remove(hammenu);
+                hammenu.Dispose();
+            }
+            if (blockmenu != null)
+            {
+                Settings.ThemeChangeForm.Remove(blockmenu);
+                Settings.AllForms.Remove(blockmenu);
+                blockmenu.Close();
+                pBlock.Controls.Remove(blockmenu);
+                blockmenu.Dispose();
+            }
+
+            if (profmenu != null)
+            {
+                Settings.ThemeChangeForm.Remove(profmenu);
+                Settings.AllForms.Remove(profmenu);
+                profmenu.Close();
+                this.Controls.Remove(profmenu);
+                profmenu.Dispose();
+            }
+
+            if (incognitomenu != null)
+            {
+                Settings.ThemeChangeForm.Remove(incognitomenu);
+                Settings.AllForms.Remove(incognitomenu);
+                incognitomenu.Close();
+                this.Controls.Remove(incognitomenu);
+                incognitomenu.Dispose();
+            }
+
+            if (privmenu != null)
+            {
+                Settings.ThemeChangeForm.Remove(privmenu);
+                Settings.AllForms.Remove(privmenu);
+                privmenu.Close();
+                this.Controls.Remove(privmenu);
+                privmenu.Dispose();
+            }
+
+            if (siteman != null)
+            {
+                Settings.ThemeChangeForm.Remove(siteman);
+                Settings.AllForms.Remove(siteman);
+                siteman.Close();
+                pSite.Controls.Remove(siteman);
+                siteman.Dispose();
+            }
+
+
+            if (dowman != null)
+            {
+                Settings.ThemeChangeForm.Remove(dowman);
+                Settings.AllForms.Remove(dowman);
+                dowman.Close();
+                pDowMan.Controls.Remove(dowman);
+                dowman.Dispose();
+            }
+
+            if (hisman != null)
+            {
+                Settings.ThemeChangeForm.Remove(hisman);
+                Settings.AllForms.Remove(hisman);
+                hisman.Close();
+                pHisMan.Controls.Remove(hisman);
+                hisman.Dispose();
+            }
+
+            if (ColMan != null)
+            {
+                Settings.ThemeChangeForm.Remove(ColMan);
+                Settings.AllForms.Remove(ColMan);
+                ColMan.Close();
+                pColMan.Controls.Remove(ColMan);
+                ColMan.Dispose();
+            }
             resetPage();
             closing = true;
         }
@@ -3551,7 +3654,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                         Dock = DockStyle.Fill,
                         Visible = true
                     };
-                    panel3.Controls.Add(ColMan);
+                    pColMan.Controls.Add(ColMan);
+                    Settings.AllForms.Add(ColMan);
                 }
                 anaform.collectionTab = ParentTab;
                 btNext.Enabled = true;

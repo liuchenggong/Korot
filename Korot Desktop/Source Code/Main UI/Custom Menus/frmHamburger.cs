@@ -31,19 +31,7 @@ namespace Korot
         {
             Hide();
         }
-        public async void getZoomLevel()
-        {
-            await Task.Run(() =>
-            {
-                double zlvl = 0;
-                cefform.Invoke(new Action(() =>
-                {
-                    Task<double> zoomLevel = cefform.chromiumWebBrowser1.GetZoomLevelAsync();
-                    zlvl = zoomLevel.Result;
-                }));
-                lbZoom.Invoke(new Action(() => lbZoom.Text = ((zlvl * 100) + 100) + "%"));
-            });
-        }
+
         private bool meCol = false;
         private bool meHis = false;
         private bool meDown = false;
@@ -105,8 +93,6 @@ namespace Korot
             }
             bool c = cefform.Settings.IsQuietTime;
             btMute.Enabled = !cefform.Settings.QuietMode;
-            btMute.ButtonImage = cefform.Settings.QuietMode ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (cefform.isMuted ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w));
-            pbDownloads.Image = cefform.anaform is null ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download : Properties.Resources.download_w) : (cefform.anaform.newDownload ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.download : Properties.Resources.download_w));
             tsSearch.Text = isSearchOn ? tsSearch.Text : cefform.anaform.SearchOnPage;
             btResetZoom.Text = cefform.anaform.ResetZoom;
             btDefaultProxy.Text = cefform.anaform.ResetToDefaultProxy;
@@ -128,7 +114,10 @@ namespace Korot
             if (tmr1int == 50)
             {
                 tmr1int = 0;
-                Task.Run(() => getZoomLevel());
+                bool bright = HTAlt.Tools.IsBright(BackColor);
+                btMute.ButtonImage = btMute.Enabled ? (bright ? Properties.Resources.mute : Properties.Resources.mute_w) : (cefform.isMuted ? (bright ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w));
+                pbDownloads.Image = cefform.anaform is null ? (bright ? Properties.Resources.download : Properties.Resources.download_w) : (cefform.anaform.newDownload ? (bright ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (bright ? Properties.Resources.download : Properties.Resources.download_w));
+                lbZoom.Invoke(new Action(() => lbZoom.Text = ((cefform.zoomLevel * 100) + 100) + "%"));
             }
             else
             {

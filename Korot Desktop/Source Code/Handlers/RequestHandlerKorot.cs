@@ -66,10 +66,6 @@ namespace Korot
                     {
                         cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
                     }
-                    else
-                    {
-                        // lol no
-                    }
                 }
                 else
                 {

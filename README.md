@@ -27,8 +27,6 @@ Latest Stable Version: [`0.8.0.0`](https://github.com/Haltroy/Korot/tree/0.8.0.0
  
  ## Release Branches
 
- If the latest commit has `§` symbol at start of the text, that means the `master` is not stable enough and more changes are going to be added.
-
  | Branch                                                              | CEFSharp Version | VC++ Version | .Net | HTAlt  | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-----|-------------------|
 | [`master`](https://github.com/haltroy/korot)                      | 84 | 2015 | Framework 4.8 | b1.5 | Master | `1.0.0.0`: Unknown |

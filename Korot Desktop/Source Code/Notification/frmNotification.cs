@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Media;
 using System.Windows.Forms;

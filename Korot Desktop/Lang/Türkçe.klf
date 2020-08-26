@@ -1,4 +1,5 @@
 <Language CompatibleVersion="0.8.1.0">
+  <Translate ID="CloseNLInfo" Text="[TITLE]([URL]) bildirimlerini kapatmak istediğinizden emin misiniz?" />
   <Translate ID="PickRandom" Text="Rastgele Seç" />
   <Translate ID="TryAgain" Text="Tekrar dene" />
   <Translate ID="ApplyTheme" Text="Bunu uygula ve kapat" />

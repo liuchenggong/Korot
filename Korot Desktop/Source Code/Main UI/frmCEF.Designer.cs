@@ -194,7 +194,7 @@ namespace Korot
             this.btClose8 = new HTAlt.WinForms.HTButton();
             this.lbSiteSettings = new System.Windows.Forms.Label();
             this.tpCollection = new System.Windows.Forms.TabPage();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.pColMan = new System.Windows.Forms.Panel();
             this.btClose9 = new HTAlt.WinForms.HTButton();
             this.lbCollections = new System.Windows.Forms.Label();
             this.tpNotification = new System.Windows.Forms.TabPage();
@@ -804,8 +804,8 @@ namespace Korot
             // 
             // tpCef
             // 
-            this.tpCef.Controls.Add(this.lbStatus);
             this.tpCef.Controls.Add(this.pCEF);
+            this.tpCef.Controls.Add(this.lbStatus);
             this.tpCef.Location = new System.Drawing.Point(4, 24);
             this.tpCef.Name = "tpCef";
             this.tpCef.Padding = new System.Windows.Forms.Padding(3);
@@ -822,7 +822,7 @@ namespace Korot
             this.pCEF.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCEF.Location = new System.Drawing.Point(3, 3);
             this.pCEF.Name = "pCEF";
-            this.pCEF.Size = new System.Drawing.Size(732, 602);
+            this.pCEF.Size = new System.Drawing.Size(732, 584);
             this.pCEF.TabIndex = 0;
             this.pCEF.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
             // 
@@ -844,7 +844,7 @@ namespace Korot
             this.lbURL.ForeColor = System.Drawing.Color.White;
             this.lbURL.FormattingEnabled = true;
             this.lbURL.ItemHeight = 15;
-            this.lbURL.Location = new System.Drawing.Point(118, 47);
+            this.lbURL.Location = new System.Drawing.Point(432, 148);
             this.lbURL.Name = "lbURL";
             this.lbURL.Size = new System.Drawing.Size(46, 19);
             this.lbURL.TabIndex = 0;
@@ -2103,7 +2103,7 @@ namespace Korot
             // 
             // tpCollection
             // 
-            this.tpCollection.Controls.Add(this.panel3);
+            this.tpCollection.Controls.Add(this.pColMan);
             this.tpCollection.Controls.Add(this.btClose9);
             this.tpCollection.Controls.Add(this.lbCollections);
             this.tpCollection.Location = new System.Drawing.Point(4, 24);
@@ -2114,15 +2114,15 @@ namespace Korot
             this.tpCollection.UseVisualStyleBackColor = true;
             this.tpCollection.Enter += new System.EventHandler(this.tpCollection_Enter);
             // 
-            // panel3
+            // pColMan
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pColMan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.Location = new System.Drawing.Point(16, 41);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(707, 552);
-            this.panel3.TabIndex = 1;
+            this.pColMan.Location = new System.Drawing.Point(16, 41);
+            this.pColMan.Name = "pColMan";
+            this.pColMan.Size = new System.Drawing.Size(707, 552);
+            this.pColMan.TabIndex = 1;
             // 
             // btClose9
             // 
@@ -3548,7 +3548,7 @@ namespace Korot
         private System.Windows.Forms.Label lbautoRestore;
         private HTAlt.WinForms.HTSwitch hsAutoRestore;
         private System.Windows.Forms.TabPage tpCollection;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel pColMan;
         public HTAlt.WinForms.HTButton btClose9;
         private System.Windows.Forms.Label lbCollections;
         private System.Windows.Forms.FlowLayoutPanel flpClose;

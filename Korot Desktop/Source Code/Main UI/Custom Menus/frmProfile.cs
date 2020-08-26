@@ -14,6 +14,7 @@ namespace Korot
         {
             cefform = _frmCEF;
             InitializeComponent();
+            timer1_Tick(this, new EventArgs());
         }
 
         private void frmProfile_Leave(object sender, EventArgs e)

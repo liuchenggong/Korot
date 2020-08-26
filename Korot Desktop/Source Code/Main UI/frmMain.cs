@@ -41,7 +41,6 @@ namespace Korot
         public List<string> CancelledDownloads = new List<string>();
         public List<string> notificationAsked = new List<string>();
         public List<frmNotification> notifications { get; set; }
-        public Collection<frmCEF> NotifListeners { get => notifListeners; set => notifListeners = value; }
         public bool newDownload = false;
         public bool isIncognito = false;
         public HTTabRenderer tabRenderer;
@@ -62,6 +61,7 @@ namespace Korot
 #pragma warning disable 414
         private string closeAllMessage = "Do you really want to close them all?";
 #pragma warning restore 414
+        private string closeNLinfo = "Do you really want to close [TITLE]([URL])?";
         private string closeAll = "Clsoe all";
         private string closeKorot = "Close Korot";
         public string Yes = "Yes";
@@ -73,8 +73,10 @@ namespace Korot
         public Collection<frmCEF> notifListeners = new Collection<frmCEF>();
         private readonly ContextMenuStrip cmsNL = new ContextMenuStrip() { RenderMode = ToolStripRenderMode.System, ShowImageMargin = false, };
         private readonly NotifyIcon NLEditor = new NotifyIcon() { Text = "Korot", Icon = Properties.Resources.KorotIcon, Visible = true };
+        private List<ToolStripItem> nlTSMIs = new List<ToolStripItem>();
         private void InitNL()
         {
+            closeNLinfo = Settings.LanguageSystem.GetItemText("CloseNLInfo");
             closeAll = Settings.LanguageSystem.GetItemText("CloseAll");
             closeAllMessage = Settings.LanguageSystem.GetItemText("CloseAllInfo");
             closeKorot = Settings.LanguageSystem.GetItemText("CloseKorot");
@@ -83,6 +85,7 @@ namespace Korot
             No = Settings.LanguageSystem.GetItemText("No");
             Cancel = Settings.LanguageSystem.GetItemText("Cancel");
             cmsNL.Items.Clear();
+            nlTSMIs.Clear();
             foreach (frmCEF x in notifListeners)
             {
                 ToolStripMenuItem tsItem = new ToolStripMenuItem
@@ -91,6 +94,7 @@ namespace Korot
                     Tag = x,
                     Name = HTAlt.Tools.GenerateRandomText(12)
                 };
+                nlTSMIs.Add(tsItem);
                 tsItem.Click += closeNL_Click;
                 cmsNL.Items.Add(tsItem);
             }
@@ -122,6 +126,7 @@ namespace Korot
                 x.ForeColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
             }
         }
+        bool massCloseMode = false;
         private void tmrNL_Tick(object sender, EventArgs e)
         {
             InitNL();
@@ -132,9 +137,30 @@ namespace Korot
             {
                 ToolStripItem tsSender = sender as ToolStripItem;
                 Form tsForm = tsSender.Tag as Form;
-                cmsNL.Items.Remove(tsSender);
-                tsForm.Close();
-                NotifListeners.Remove(tsForm as frmCEF);
+                frmCEF cefform = tsForm as frmCEF;
+                if (!massCloseMode)
+                {
+                    HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot",
+                                                      closeNLinfo.Replace("[TITLE]", cefform.Text).Replace("[URL]", cefform.chromiumWebBrowser1.Address),
+                                                      new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
+                    { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor };
+                    DialogResult diares = mesaj.ShowDialog();
+                    if (diares == DialogResult.Yes)
+                    {
+                        cmsNL.Items.Remove(tsSender);
+                        tsForm.Close();
+                        Settings.AllForms.Remove(cefform);
+                        notifListeners.Remove(cefform);
+                        nlTSMIs.Remove(tsSender);
+                    }
+                }
+                else
+                {
+                    cmsNL.Items.Remove(tsSender);
+                    tsForm.Close();
+                    Settings.AllForms.Remove(cefform);
+                    notifListeners.Remove(cefform);
+                }
             }
         }
         private void closeall_Click(object sender, EventArgs e)
@@ -146,13 +172,20 @@ namespace Korot
             DialogResult diares = mesaj.ShowDialog();
             if (diares == DialogResult.Yes)
             {
-                foreach (ToolStripItem x in cmsNL.Items)
+                massCloseMode = true;
+                foreach (ToolStripItem x in nlTSMIs)
                 {
-                    if (x.Name != "CloseAllTS" && x.Name != "CloseKorotTS" && x.Name != "tsSepNL")
+                    if (x is ToolStripMenuItem)
                     {
+                        if (x.Name == "CloseAllTS" || x.Name == "CloseKorotTS" || x.Name == "tsSepNL")
+                        {
+                            continue;
+                        }
                         closeNL_Click(x, e);
                     }
                 }
+                nlTSMIs.Clear();
+                massCloseMode = false;
             }
         }
         private void closekorot_Click(object sender, EventArgs e)
@@ -424,6 +457,8 @@ namespace Korot
         public string lv3 = "Level 3";
         public string blocklevel = "Block Level:";
         #endregion
+
+
         public frmMain(Settings settings)
         {
             Settings = settings;
@@ -448,9 +483,11 @@ namespace Korot
                         Enabled = true
                     };
                     notfiListener.Show();
-                    NotifListeners.Add(notfiListener);
+                    Settings.AllForms.Add(notfiListener);
+                    notifListeners.Add(notfiListener);
                     notfiListener.Hide();
                 }
+                NLEditor.ContextMenuStrip = cmsNL;
                 InitNL();
                 Timer tmrNL = new Timer() { Interval = 5000, };
                 tmrNL.Tick += tmrNL_Tick;
