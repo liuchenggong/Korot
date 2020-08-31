@@ -36,9 +36,9 @@ namespace Korot
 {
     public static class VersionInfo
     {
-        public static string CodeName => "Shisha no kodo I"; //死者のコード
+        public static string CodeName => "Shisha no kodo"; //死者のコード
 
-        public static int VersionNumber = 48;
+        public static int VersionNumber = 49;
     }
     internal static class Program
     {
@@ -235,6 +235,14 @@ new HTTitleTab(testApp)
                 else if (node.Name.ToLower() == "rememberlastproxy")
                 {
                     RememberLastProxy = node.InnerText == "true";
+                }
+                else if (node.Name.ToLower() == "screenshotfolder")
+                {
+                    ScreenShotFolder = node.InnerText;
+                }
+                else if (node.Name.ToLower() == "savefolder")
+                {
+                    SaveFolder = node.InnerText;
                 }
                 else if (node.Name.ToLower() == "theme")
                 {
@@ -462,9 +470,13 @@ new HTTitleTab(testApp)
         private DownloadSettings _DownloadSettings = new DownloadSettings() { DownloadDirectory = "", Downloads = new List<Site>(), OpenDownload = false, UseDownloadFolder = false };
         private CollectionManager _CollectionManager = new CollectionManager("") { Collections = new List<Collection>() };
         private FavoritesSettings _Favorites = new FavoritesSettings("") { Favorites = new List<Folder>(), ShowFavorites = true };
+        private string _saveFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        private string _screenshotFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
         private Extensions _Extensions = new Extensions("");
         #endregion
         #region Properties
+        public string ScreenShotFolder { get => _screenshotFolder; set => _screenshotFolder = value; }
+        public string SaveFolder { get => _saveFolder; set => _saveFolder = value; }
         public class BlockLevels
         {
             public static string Level0 = @"((http)|(https))\:\/\/§SITE§";
@@ -765,27 +777,29 @@ new HTTitleTab(testApp)
             string x =
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine +
             "<Profile>" + Environment.NewLine +
-            "<Homepage>" + Homepage.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Homepage>" + Environment.NewLine +
-            "<MenuSize>" + MenuSize.Width + ";" + MenuSize.Height + "</MenuSize>" + Environment.NewLine +
-            "<MenuPoint>" + MenuPoint.X + ";" + MenuPoint.Y + "</MenuPoint>" + Environment.NewLine +
-            "<SearchEngine>" + SearchEngine.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</SearchEngine>" + Environment.NewLine +
-            "<LanguageFile>" + LanguageSystem.LangFile.Replace(Application.StartupPath, "[KOROTPATH]").Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LanguageFile>" + Environment.NewLine +
-            "<Startup>" + Startup.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Startup>" + Environment.NewLine +
-            "<LastProxy>" + LastProxy.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LastProxy>" + Environment.NewLine +
-            "<MenuWasMaximized>" + (MenuWasMaximized ? "true" : "false") + "</MenuWasMaximized>" + Environment.NewLine +
-            "<Flash>" + (Flash ? "true" : "false") + "</Flash>" + Environment.NewLine +
-            "<DoNotTrack>" + (DoNotTrack ? "true" : "false") + "</DoNotTrack>" + Environment.NewLine +
-            "<AutoRestore>" + (AutoRestore ? "true" : "false") + "</AutoRestore>" + Environment.NewLine +
-            "<RememberLastProxy>" + (RememberLastProxy ? "true" : "false") + "</RememberLastProxy>" + Environment.NewLine +
-            "<Silent>" + (Silent ? "true" : "false") + "</Silent>" + Environment.NewLine +
-            "<AutoSilent>" + (AutoSilent ? "true" : "false") + "</AutoSilent> " + Environment.NewLine +
-            "<DoNotPlaySound>" + (DoNotPlaySound ? "true" : "false") + "</DoNotPlaySound>" + Environment.NewLine +
-            "<QuietMode>" + (QuietMode ? "true" : "false") + "</QuietMode>" + Environment.NewLine +
-            "<AutoSilentMode>" + AutoSilentMode.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</AutoSilentMode>" + Environment.NewLine +
-            "<Sites>" + Environment.NewLine;
+            " <Homepage>" + Homepage.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Homepage>" + Environment.NewLine +
+            "   <MenuSize>" + MenuSize.Width + ";" + MenuSize.Height + "</MenuSize>" + Environment.NewLine +
+            "   <MenuPoint>" + MenuPoint.X + ";" + MenuPoint.Y + "</MenuPoint>" + Environment.NewLine +
+            "   <ScreenShotFolder>" + ScreenShotFolder + "</ScreenShotFolder>" + Environment.NewLine +
+            "   <SaveFolder>" + SaveFolder + "</SaveFolder>" + Environment.NewLine +
+            "   <SearchEngine>" + SearchEngine.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</SearchEngine>" + Environment.NewLine +
+            "   <LanguageFile>" + LanguageSystem.LangFile.Replace(Application.StartupPath, "[KOROTPATH]").Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LanguageFile>" + Environment.NewLine +
+            "   <Startup>" + Startup.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Startup>" + Environment.NewLine +
+            "   <LastProxy>" + LastProxy.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LastProxy>" + Environment.NewLine +
+            "   <MenuWasMaximized>" + (MenuWasMaximized ? "true" : "false") + "</MenuWasMaximized>" + Environment.NewLine +
+            "   <Flash>" + (Flash ? "true" : "false") + "</Flash>" + Environment.NewLine +
+            "   <DoNotTrack>" + (DoNotTrack ? "true" : "false") + "</DoNotTrack>" + Environment.NewLine +
+            "   <AutoRestore>" + (AutoRestore ? "true" : "false") + "</AutoRestore>" + Environment.NewLine +
+            "   <RememberLastProxy>" + (RememberLastProxy ? "true" : "false") + "</RememberLastProxy>" + Environment.NewLine +
+            "   <Silent>" + (Silent ? "true" : "false") + "</Silent>" + Environment.NewLine +
+            "   <AutoSilent>" + (AutoSilent ? "true" : "false") + "</AutoSilent> " + Environment.NewLine +
+            "   <DoNotPlaySound>" + (DoNotPlaySound ? "true" : "false") + "</DoNotPlaySound>" + Environment.NewLine +
+            "   <QuietMode>" + (QuietMode ? "true" : "false") + "</QuietMode>" + Environment.NewLine +
+            "   <AutoSilentMode>" + AutoSilentMode.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</AutoSilentMode>" + Environment.NewLine +
+            "   <Sites>" + Environment.NewLine;
             foreach (Site site in Sites)
             {
-                x += "<Site Name=\""
+                x += "     <Site Name=\""
                      + site.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
                      + "\" Url=\""
                      + site.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
@@ -796,24 +810,24 @@ new HTTitleTab(testApp)
                      + "\" />"
                      + Environment.NewLine;
             }
-            x += "</Sites>" + Environment.NewLine + "<SiteBlocks>" + Environment.NewLine;
+            x += "   </Sites>" + Environment.NewLine + "   <SiteBlocks>" + Environment.NewLine;
             foreach (BlockSite block in Filters)
             {
                 // .Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
-                x += "<Block Level=\"" + block.BlockLevel + "\" Url=\"" + block.Address + "\" Filter=\"" + block.Filter + "\" />" + Environment.NewLine;
+                x += "     <Block Level=\"" + block.BlockLevel + "\" Url=\"" + block.Address + "\" Filter=\"" + block.Filter + "\" />" + Environment.NewLine;
             }
-            x += "</SiteBlocks>" + Environment.NewLine + "<Theme File=\"" + (!string.IsNullOrWhiteSpace(Theme.ThemeFile) ? Theme.ThemeFile.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") : "") + "\">" + Environment.NewLine +
-            "<Name>" + Theme.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Name>" + Environment.NewLine +
-            "<Author>" + Theme.Author.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Author>" + Environment.NewLine +
-            "<BackColor>" + HTAlt.Tools.ColorToHex(Theme.BackColor) + "</BackColor>" + Environment.NewLine +
-            "<OverlayColor>" + HTAlt.Tools.ColorToHex(Theme.OverlayColor) + "</OverlayColor>" + Environment.NewLine +
-            "<BackgroundStyle Layout=\"" + Theme.BackgroundStyleLayout + "\">" + Theme.BackgroundStyle.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</BackgroundStyle>" + Environment.NewLine +
-            "<NewTabColor>" + (int)Theme.NewTabColor + "</NewTabColor>" + Environment.NewLine +
-            "<CloseButtonColor>" + (int)Theme.CloseButtonColor + "</CloseButtonColor>" + Environment.NewLine +
-            "</Theme>" + Environment.NewLine + NewTabSites.XMLOut + Environment.NewLine + Extensions.ExtractList + CollectionManager.writeCollections + "<History>" + Environment.NewLine;
+            x += "   </SiteBlocks>" + Environment.NewLine + "   <Theme File=\"" + (!string.IsNullOrWhiteSpace(Theme.ThemeFile) ? Theme.ThemeFile.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") : "") + "\">" + Environment.NewLine +
+            "     <Name>" + Theme.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Name>" + Environment.NewLine +
+            "     <Author>" + Theme.Author.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Author>" + Environment.NewLine +
+            "     <BackColor>" + HTAlt.Tools.ColorToHex(Theme.BackColor) + "</BackColor>" + Environment.NewLine +
+            "     <OverlayColor>" + HTAlt.Tools.ColorToHex(Theme.OverlayColor) + "</OverlayColor>" + Environment.NewLine +
+            "     <BackgroundStyle Layout=\"" + Theme.BackgroundStyleLayout + "\">" + Theme.BackgroundStyle.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</BackgroundStyle>" + Environment.NewLine +
+            "     <NewTabColor>" + (int)Theme.NewTabColor + "</NewTabColor>" + Environment.NewLine +
+            "     <CloseButtonColor>" + (int)Theme.CloseButtonColor + "</CloseButtonColor>" + Environment.NewLine +
+            "     </Theme>" + Environment.NewLine + NewTabSites.XMLOut + Environment.NewLine + Extensions.ExtractList + CollectionManager.writeCollections + "   <History>" + Environment.NewLine;
             foreach (Site site in History)
             {
-                x += "<Site Name=\""
+                x += "     <Site Name=\""
                      + site.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
                      + "\" Url=\""
                      + site.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
@@ -822,11 +836,11 @@ new HTTitleTab(testApp)
                      + "\" />"
                      + Environment.NewLine;
             }
-            x += "</History>" + Environment.NewLine +
-                "<Downloads Directory=\"" + Downloads.DownloadDirectory.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Open=\"" + (Downloads.OpenDownload ? "true" : "false") + "\" UseDownloadFolder=\"" + (Downloads.UseDownloadFolder ? "true" : "false") + "\">" + Environment.NewLine;
+            x += "   </History>" + Environment.NewLine +
+                "   <Downloads Directory=\"" + Downloads.DownloadDirectory.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Open=\"" + (Downloads.OpenDownload ? "true" : "false") + "\" UseDownloadFolder=\"" + (Downloads.UseDownloadFolder ? "true" : "false") + "\">" + Environment.NewLine;
             foreach (Site site in Downloads.Downloads)
             {
-                x += "<Site Name=\""
+                x += "     <Site Name=\""
                      + site.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
                      + "\" Url=\""
                      + site.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;")
@@ -839,7 +853,7 @@ new HTTitleTab(testApp)
                      + "\" />"
                      + Environment.NewLine;
             }
-            x += "</Downloads>" + Environment.NewLine + Favorites.outXml + "</Profile>" + Environment.NewLine;
+            x += "   </Downloads>" + Environment.NewLine + Favorites.outXml + "   </Profile>" + Environment.NewLine;
             HTAlt.Tools.WriteFile(ProfileDirectory + "settings.kpf", x, Encoding.UTF8);
         }
         public string ProfileDirectory => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + ProfileName + "\\";
@@ -1103,12 +1117,12 @@ new HTTitleTab(testApp)
         {
             get
             {
-                string x = "<Favorites Show=\"" + (ShowFavorites ? "true" : "false") + "\">" + Environment.NewLine;
+                string x = "   <Favorites Show=\"" + (ShowFavorites ? "true" : "false") + "\">" + Environment.NewLine;
                 foreach (Folder y in Favorites)
                 {
                     x += y.outXml + Environment.NewLine;
                 }
-                x += "</Favorites>" + Environment.NewLine;
+                x += "   </Favorites>" + Environment.NewLine;
                 return x;
             }
         }

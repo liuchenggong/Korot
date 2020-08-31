@@ -35,12 +35,12 @@ namespace Korot
         {
             get
             {
-                string extList = "<Extensions>" + Environment.NewLine;
+                string extList = "   <Extensions>" + Environment.NewLine;
                 foreach (string x in ExtensionCodeNames)
                 {
-                    extList += "<Extension>" + x + "</Extension>" + Environment.NewLine;
+                    extList += "     <Extension>" + x + "</Extension>" + Environment.NewLine;
                 }
-                extList += "</Extensions>" + Environment.NewLine;
+                extList += "   </Extensions>" + Environment.NewLine;
                 return extList;
             }
         }

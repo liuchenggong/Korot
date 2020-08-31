@@ -327,12 +327,12 @@ namespace Korot
         {
             get
             {
-                string xmlCode = "<Collections>" + Environment.NewLine; //Starting point
+                string xmlCode = "   <Collections>" + Environment.NewLine; //Starting point
                 foreach (Collection x in Collections)
                 {
-                    xmlCode += x.outXML + Environment.NewLine;
+                    xmlCode += "     " + x.outXML + Environment.NewLine;
                 }
-                xmlCode += "</Collections>" + Environment.NewLine;
+                xmlCode += "   </Collections>" + Environment.NewLine;
                 //End
                 return xmlCode;
             }

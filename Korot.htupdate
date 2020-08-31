@@ -2,12 +2,12 @@
 <HaltroyUpdate>
   <AppName>Korot</AppName>
   <AppVersion>0.8.1.0</AppVersion>
-  <AppVersionNo>48</AppVersionNo>
+  <AppVersionNo>49</AppVersionNo>
   <MinimumNo>48</MinimumNo>
   <InstallNo>47</InstallNo>
   <AppInstallerUrl>http://bit.ly/KorotSetup</AppInstallerUrl>
   <Architectures>
-    <Architecture Type="amd64" VersionNo="48" Upgrade="https://github.com/Haltroy/Korot/releases/download/[VERSION]/x64-U.zip" FullUpgrade="https://github.com/Haltroy/Korot/releases/download/[VERSION]/x64-F.zip" />
-    <Architecture Type="i86" VersionNo="48" Upgrade="https://github.com/Haltroy/Korot/releases/download/[VERSION]/x86-U.zip" FullUpgrade="https://github.com/Haltroy/Korot/releases/download/[VERSION]/x86-F.zip" />
+    <Architecture Type="amd64" VersionNo="49" Upgrade="https://github.com/Haltroy/Korot/releases/download/[VERSION]/x64-U.zip" FullUpgrade="https://github.com/Haltroy/Korot/releases/download/[VERSION]/x64-F.zip" />
+    <Architecture Type="i86" VersionNo="49" Upgrade="https://github.com/Haltroy/Korot/releases/download/[VERSION]/x86-U.zip" FullUpgrade="https://github.com/Haltroy/Korot/releases/download/[VERSION]/x86-F.zip" />
   </Architectures>
 </HaltroyUpdate>

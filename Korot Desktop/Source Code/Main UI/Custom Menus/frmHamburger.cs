@@ -104,6 +104,9 @@ namespace Korot
             lbSettings.Text = cefform.anaform.SettingsText;
             lbAbout.Text = cefform.anaform.AboutText;
             btDefaultProxy.Enabled = cefform.defaultProxy != null;
+            bool bright = HTAlt.Tools.IsBright(BackColor);
+            pbDownloads.Image = cefform.anaform is null ? (bright ? Properties.Resources.download : Properties.Resources.download_w) : (cefform.anaform.newDownload ? (bright ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (bright ? Properties.Resources.download : Properties.Resources.download_w));
+            btMute.ButtonImage = btMute.Enabled ? (bright ? Properties.Resources.mute : Properties.Resources.mute_w) : (cefform.isMuted ? (bright ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w));
             if (cefform != null)
             {
                 if (cefform.anaform != null)
@@ -114,9 +117,6 @@ namespace Korot
             if (tmr1int == 50)
             {
                 tmr1int = 0;
-                bool bright = HTAlt.Tools.IsBright(BackColor);
-                btMute.ButtonImage = btMute.Enabled ? (bright ? Properties.Resources.mute : Properties.Resources.mute_w) : (cefform.isMuted ? (bright ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w));
-                pbDownloads.Image = cefform.anaform is null ? (bright ? Properties.Resources.download : Properties.Resources.download_w) : (cefform.anaform.newDownload ? (bright ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (bright ? Properties.Resources.download : Properties.Resources.download_w));
                 lbZoom.Invoke(new Action(() => lbZoom.Text = ((cefform.zoomLevel * 100) + 100) + "%"));
             }
             else
@@ -166,22 +166,7 @@ namespace Korot
                 cefform.chromiumWebBrowser1.Find(0, tsSearch.Text, true, cs, true);
             }
         }
-        public void zoomIn()
-        {
-            Task<double> zoomLevel = cefform.chromiumWebBrowser1.GetZoomLevelAsync();
-            if (zoomLevel.Result <= 8)
-            {
-                cefform.chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result + 0.25);
-            }
-        }
-        public void zoomOut()
-        {
-            Task<double> zoomLevel = cefform.chromiumWebBrowser1.GetZoomLevelAsync();
-            if (zoomLevel.Result >= -0.75)
-            {
-                cefform.chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result - 0.25);
-            }
-        }
+
 
         private bool cs = false;
         private void btCaseSensitive_Click(object sender, EventArgs e)
@@ -225,31 +210,12 @@ namespace Korot
 
         private void btScreenShot_Click(object sender, EventArgs e)
         {
-            SaveFileDialog save = new SaveFileDialog()
-            {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
-                FileName = "Korot Screenshot.png",
-                Filter = cefform.anaform.imageFiles + "|*.png|" + cefform.anaform.allFiles + "|*.*"
-            };
-            if (save.ShowDialog() == DialogResult.OK)
-            {
-                HTAlt.Tools.WriteFile(save.FileName, TakeScrenshot.ImageToByte2(TakeScrenshot.Snapshot(cefform.chromiumWebBrowser1)));
-            }
+            cefform.Invoke(new Action(() => cefform.GetScreenShot()));
         }
 
         private void btSave_Click(object sender, EventArgs e)
         {
-            SaveFileDialog save = new SaveFileDialog()
-            {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                FileName = cefform.Text + ".html",
-                Filter = cefform.anaform.htmlFiles + "|*.html;*.htm|" + cefform.anaform.allFiles + "|*.*"
-            };
-            if (save.ShowDialog() == DialogResult.OK)
-            {
-                Task<string> htmlText = cefform.chromiumWebBrowser1.GetSourceAsync();
-                HTAlt.Tools.WriteFile(save.FileName, htmlText.Result, Encoding.UTF8);
-            }
+            cefform.Invoke(new Action(() => cefform.SavePageAs()));
         }
 
         private void btFullScreen_Click(object sender, EventArgs e)
@@ -504,6 +470,21 @@ namespace Korot
         private void btScriptFolder_Click(object sender, EventArgs e)
         {
             Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + cefform.Settings.ProfileName + "\\Scripts\\\"");
+        }
+
+        private void btZoomPlus_Click(object sender, EventArgs e)
+        {
+            cefform.Invoke(new Action(() => cefform.zoomIn()));
+        }
+
+        private void btZoomMinus_Click(object sender, EventArgs e)
+        {
+            cefform.Invoke(new Action(() => cefform.zoomOut()));
+        }
+
+        private void frmHamburger_Load(object sender, EventArgs e)
+        {
+            lbZoom.Invoke(new Action(() => lbZoom.Text = ((cefform.zoomLevel * 100) + 100) + "%"));
         }
     }
     internal class FindHandler : IFindHandler

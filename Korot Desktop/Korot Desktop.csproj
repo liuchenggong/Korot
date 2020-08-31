@@ -91,11 +91,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CustomMarshalers" />
-    <Reference Include="HTAlt WinForms, Version=0.1.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HTAlt.WinForms.0.1.5\lib\net461\HTAlt WinForms.dll</HintPath>
+    <Reference Include="HTAlt WinForms, Version=0.1.5.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HTAlt.WinForms.0.1.5.1\lib\net461\HTAlt WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="HTAlt.Standart, Version=0.1.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HTAlt.Standart.0.1.5\lib\netstandard2.0\HTAlt.Standart.dll</HintPath>
+    <Reference Include="HTAlt.Standart, Version=0.1.5.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HTAlt.Standart.0.1.5.1\lib\netstandard2.0\HTAlt.Standart.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.4.0, Culture=neutral, PublicKeyToken=8985beaab7ea3f04, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft-WindowsAPICodePack-Core.1.1.4\lib\net48\Microsoft.WindowsAPICodePack.dll</HintPath>

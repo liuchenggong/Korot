@@ -313,6 +313,7 @@
             this.btZoomMinus.TabIndex = 12;
             this.btZoomMinus.Text = "-";
             this.btZoomMinus.UseVisualStyleBackColor = true;
+            this.btZoomMinus.Click += new System.EventHandler(this.btZoomMinus_Click);
             // 
             // btZoomPlus
             // 
@@ -327,6 +328,7 @@
             this.btZoomPlus.TabIndex = 12;
             this.btZoomPlus.Text = "+";
             this.btZoomPlus.UseVisualStyleBackColor = true;
+            this.btZoomPlus.Click += new System.EventHandler(this.btZoomPlus_Click);
             // 
             // lbZoom
             // 
@@ -734,6 +736,7 @@
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "frmHamburger";
+            this.Load += new System.EventHandler(this.frmHamburger_Load);
             this.Leave += new System.EventHandler(this.frmHamburger_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

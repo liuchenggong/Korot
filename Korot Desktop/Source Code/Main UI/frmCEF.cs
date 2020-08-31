@@ -239,7 +239,7 @@ namespace Korot
             };
             if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
             else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
-            settings.RegisterScheme(new CefCustomScheme
+            CefCustomScheme scheme = new CefCustomScheme
             {
                 SchemeName = "korot",
                 SchemeHandlerFactory = new SchemeHandlerFactory(this)
@@ -247,13 +247,14 @@ namespace Korot
                     ext = null,
                     isExt = false,
                     extForm = null
-                }
-            });
+                },
+            };
+            settings.RegisterScheme(scheme);
             // Initialize cef with the provided settings
             settings.DisableGpuAcceleration();
             if (Settings.Flash) { settings.CefCommandLineArgs.Add("enable-system-flash"); }
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
-            chromiumWebBrowser1 = new ChromiumWebBrowser(string.IsNullOrWhiteSpace(loaduri) ? "korot://newtab" : loaduri);
+            chromiumWebBrowser1 = new ChromiumWebBrowser("");
             pCEF.Controls.Add(chromiumWebBrowser1);
             chromiumWebBrowser1.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
             chromiumWebBrowser1.ConsoleMessage += cef_consoleMessage;
@@ -1852,7 +1853,7 @@ namespace Korot
         }
         List<string> AlreadyValidUrl = new List<string>();
         List<string> AlreadyNotValidUrl = new List<string>();
-        string[] customProts = new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" };
+        public string[] customProts = new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" };
         private void cef_AddressChanged(object sender, AddressChangedEventArgs e)
         {
             Invoke(new Action(() => tbAddress.Text = e.Address));
@@ -1901,17 +1902,17 @@ namespace Korot
         {
             if (e == null) //User Asked
             {
-                chromiumWebBrowser1.Load("korot://error/?e=TEST");
+                chromiumWebBrowser1.Load("korot://error/?e=TEST?t=TEST?u=korot://empty");
             }
             else
             {
                 if (e.Frame.IsMain)
                 {
-                    chromiumWebBrowser1.Load("korot://error/?e=" + e.ErrorText);
+                    chromiumWebBrowser1.Load("korot://error/?e=" + Convert.ToInt32(e.ErrorCode) + "?t=" + e.ErrorText + "?u=" + e.FailedUrl);
                 }
                 else
                 {
-                    e.Frame.LoadUrl("korot://error/?e=" + e.ErrorText);
+                    e.Frame.LoadUrl("korot://error/?e=" + Convert.ToInt32(e.ErrorCode) + "?t=" + e.ErrorText + "?u=" + e.FailedUrl);
                 }
             }
         }
@@ -2012,7 +2013,22 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             return tabControl1.SelectedTab == tpCef ? (lbURL.SelectedIndex != 0) : true;
         }
-
+        public void zoomIn()
+        {
+            Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
+            if (zoomLevel.Result <= 8)
+            {
+                chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result + 0.25);
+            }
+        }
+        public void zoomOut()
+        {
+            Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
+            if (zoomLevel.Result >= -0.75)
+            {
+                chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result - 0.25);
+            }
+        }
         public bool isControlKeyPressed = false;
         public void tabform_KeyDown(object sender, KeyEventArgs e)
         {
@@ -2079,25 +2095,25 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
             else if ((e.KeyData == Keys.Up || e.KeyData == Keys.PageUp) && isControlKeyPressed)
             {
-                Console.WriteLine("[TODO] Ctrl+Up ZoomIn Key Press");
+                Invoke(new Action(() => zoomIn()));
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
             else if ((e.KeyData == Keys.Down || e.KeyData == Keys.PageDown) && isControlKeyPressed)
             {
-                Console.WriteLine("[TODO] Ctrl+Down ZoomOut Key Press");
+                Invoke(new Action(() => zoomOut()));
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.PrintScreen && isControlKeyPressed)
             {
-                Console.WriteLine("[TODO] Ctrl+PrntScrn ScreenShot Key Press");
+                Invoke(new Action(() => GetScreenShot()));
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.S && isControlKeyPressed)
             {
-                Console.WriteLine("[TODO] Ctrl+S SavePage Key Press");
+                Invoke(new Action(() => SavePageAs()));
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
@@ -2121,16 +2137,49 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
             else if (e.KeyData == Keys.F11)
             {
-                Console.WriteLine("[TODO] F11 FullScreen Key Press");
+                Invoke(new Action(() => Fullscreenmode(!anaform.isFullScreen)));
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
             else if (e.KeyData == Keys.M && isControlKeyPressed)
             {
-                Console.WriteLine("[TODO] Ctrl+M Mute Key Press");
+                Invoke(new Action(() => ChangeMuteStatus()));
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
+        }
+        public void SavePageAs()
+        {
+            SaveFileDialog save = new SaveFileDialog()
+            {
+                InitialDirectory = Settings.SaveFolder,
+                FileName = Text + ".html",
+                Filter = anaform.htmlFiles + "|*.html;*.htm|" + anaform.allFiles + "|*.*"
+            };
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                Task<string> htmlText = chromiumWebBrowser1.GetSourceAsync();
+                HTAlt.Tools.WriteFile(save.FileName, htmlText.Result, Encoding.UTF8);
+            }
+        }
+        public void ChangeMuteStatus()
+        {
+            isMuted = !isMuted;
+            chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(isMuted);
+        }
+        public void GetScreenShot()
+        {
+            SaveFileDialog save = new SaveFileDialog()
+            {
+                InitialDirectory = Settings.ScreenShotFolder,
+                FileName = "Korot Screenshot.png",
+                Filter = anaform.imageFiles + "|*.png|" + anaform.allFiles + "|*.*"
+            };
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                HTAlt.Tools.WriteFile(save.FileName, TakeScrenshot.ImageToByte2(TakeScrenshot.Snapshot(chromiumWebBrowser1)));
+            }
+
         }
         private Image GetImageFromURL(string URL)
         {
@@ -2496,6 +2545,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             comboBox1.Text = !onThemeName ? (Settings.Theme.LoadedDefaults ? "((default))" : Settings.Theme.Name) : comboBox1.Text;
             Task.Run(() => getZoomLevel());
         }
+        
         private int timer1int = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -3873,16 +3923,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             OpenSiteSettings();
         }
 
-        private void tbAddress_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                button4_Click(sender, e);
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-        }
-
         public bool isMuted = false;
 
         private void tmrNotifListener_Tick(object sender, EventArgs e)
@@ -3912,26 +3952,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             onThemeName = false;
         }
 
-        private void ımportProfileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog fileDialog = new OpenFileDialog() { Title = anaform.importProfileInfo, Filter = anaform.ProfileFileInfo + "|*.kpa", };
-            DialogResult dialog = fileDialog.ShowDialog();
-            if (dialog == DialogResult.OK)
-            {
-                ZipFile.ExtractToDirectory(fileDialog.FileName, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\", Encoding.UTF8);
-            }
-        }
-
-        private void exportThisProfileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog fileDialog = new SaveFileDialog() { Title = anaform.exportProfileInfo, Filter = anaform.ProfileFileInfo + "|*.kpa", };
-            DialogResult dialog = fileDialog.ShowDialog();
-            if (dialog == DialogResult.OK)
-            {
-                ZipFile.CreateFromDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\", fileDialog.FileName, CompressionLevel.Optimal, true, Encoding.UTF8);
-            }
-        }
-
         private void hsFlash_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Flash = hsFlash.Checked;
@@ -3940,11 +3960,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void tpHistory_Enter(object sender, EventArgs e)
         {
             hisman.RefreshList();
-        }
-
-        private void tsLanguages_DropDownOpening(object sender, EventArgs e)
-        {
-            RefreshLangList();
         }
 
         private void htButton1_Click(object sender, EventArgs e)
@@ -3963,20 +3978,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
         }
 
-        private void tsExtFolder_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void tsLangFolder_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tsLangStore_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btNewTab_Click(object sender, EventArgs e)
         {
             EditNewTabItem();
@@ -3986,115 +3987,45 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             NTRefreshNotDone = true;
             //l0
-            if (Settings.NewTabSites.FavoritedSite0 != null)
-            {
-                L0T.Text = Settings.NewTabSites.FavoritedSite0.Name;
-                L0U.Text = Settings.NewTabSites.FavoritedSite0.Url;
-            }
-            else
-            {
-                L0T.Text = "...";
-                L0U.Text = "...";
-            }
+            bool fs0 = Settings.NewTabSites.FavoritedSite0 != null;
+            L0T.Text = fs0 ? Settings.NewTabSites.FavoritedSite0.Name : "...";
+            L0U.Text = fs0 ? Settings.NewTabSites.FavoritedSite0.Url : "...";
             //l1
-            if (Settings.NewTabSites.FavoritedSite1 != null)
-            {
-                L1T.Text = Settings.NewTabSites.FavoritedSite1.Name;
-                L1U.Text = Settings.NewTabSites.FavoritedSite1.Url;
-            }
-            else
-            {
-                L1T.Text = "...";
-                L1U.Text = "...";
-            }
+            bool fs1 = Settings.NewTabSites.FavoritedSite1 != null;
+            L1T.Text = fs1 ? Settings.NewTabSites.FavoritedSite1.Name : "...";
+            L1U.Text = fs1 ? Settings.NewTabSites.FavoritedSite1.Url : "...";
             //l2
-            if (Settings.NewTabSites.FavoritedSite2 != null)
-            {
-                L2T.Text = Settings.NewTabSites.FavoritedSite2.Name;
-                L2U.Text = Settings.NewTabSites.FavoritedSite2.Url;
-            }
-            else
-            {
-                L2T.Text = "...";
-                L2U.Text = "...";
-            }
+            bool fs2 = Settings.NewTabSites.FavoritedSite2 != null;
+            L2T.Text = fs2 ? Settings.NewTabSites.FavoritedSite2.Name : "...";
+            L2U.Text = fs2 ? Settings.NewTabSites.FavoritedSite2.Url : "...";
             //l3
-            if (Settings.NewTabSites.FavoritedSite3 != null)
-            {
-                L3T.Text = Settings.NewTabSites.FavoritedSite3.Name;
-                L3U.Text = Settings.NewTabSites.FavoritedSite3.Url;
-            }
-            else
-            {
-                L3T.Text = "...";
-                L3U.Text = "...";
-            }
+            bool fs3 = Settings.NewTabSites.FavoritedSite3 != null;
+            L3T.Text = fs3 ? Settings.NewTabSites.FavoritedSite3.Name : "...";
+            L3U.Text = fs3 ? Settings.NewTabSites.FavoritedSite3.Url : "...";
             //l4
-            if (Settings.NewTabSites.FavoritedSite4 != null)
-            {
-                L4T.Text = Settings.NewTabSites.FavoritedSite4.Name;
-                L4U.Text = Settings.NewTabSites.FavoritedSite4.Url;
-            }
-            else
-            {
-                L4T.Text = "...";
-                L4U.Text = "...";
-            }
+            bool fs4 = Settings.NewTabSites.FavoritedSite4 != null;
+            L4T.Text = fs4 ? Settings.NewTabSites.FavoritedSite4.Name : "...";
+            L4U.Text = fs4 ? Settings.NewTabSites.FavoritedSite4.Url : "...";
             //l5
-            if (Settings.NewTabSites.FavoritedSite5 != null)
-            {
-                L5T.Text = Settings.NewTabSites.FavoritedSite5.Name;
-                L5U.Text = Settings.NewTabSites.FavoritedSite5.Url;
-            }
-            else
-            {
-                L5T.Text = "...";
-                L5U.Text = "...";
-            }
+            bool fs5 = Settings.NewTabSites.FavoritedSite5 != null;
+            L5T.Text = fs5 ? Settings.NewTabSites.FavoritedSite5.Name : "...";
+            L5U.Text = fs5 ? Settings.NewTabSites.FavoritedSite5.Url : "...";
             //l6
-            if (Settings.NewTabSites.FavoritedSite6 != null)
-            {
-                L6T.Text = Settings.NewTabSites.FavoritedSite6.Name;
-                L6U.Text = Settings.NewTabSites.FavoritedSite6.Url;
-            }
-            else
-            {
-                L6T.Text = "...";
-                L6U.Text = "...";
-            }
+            bool fs6 = Settings.NewTabSites.FavoritedSite6 != null;
+            L6T.Text = fs6 ? Settings.NewTabSites.FavoritedSite6.Name : "...";
+            L6U.Text = fs6 ? Settings.NewTabSites.FavoritedSite6.Url : "...";
             //l7
-            if (Settings.NewTabSites.FavoritedSite7 != null)
-            {
-                L7T.Text = Settings.NewTabSites.FavoritedSite7.Name;
-                L7U.Text = Settings.NewTabSites.FavoritedSite7.Url;
-            }
-            else
-            {
-                L7T.Text = "...";
-                L7U.Text = "...";
-            }
+            bool fs7 = Settings.NewTabSites.FavoritedSite7 != null;
+            L7T.Text = fs7 ? Settings.NewTabSites.FavoritedSite7.Name : "...";
+            L7U.Text = fs7 ? Settings.NewTabSites.FavoritedSite7.Url : "...";
             //l8
-            if (Settings.NewTabSites.FavoritedSite8 != null)
-            {
-                L8T.Text = Settings.NewTabSites.FavoritedSite8.Name;
-                L8U.Text = Settings.NewTabSites.FavoritedSite8.Url;
-            }
-            else
-            {
-                L8T.Text = "...";
-                L8U.Text = "...";
-            }
+            bool fs8 = Settings.NewTabSites.FavoritedSite8 != null;
+            L8T.Text = fs8 ? Settings.NewTabSites.FavoritedSite8.Name : "...";
+            L8U.Text = fs8 ? Settings.NewTabSites.FavoritedSite8.Url : "...";
             //l9
-            if (Settings.NewTabSites.FavoritedSite9 != null)
-            {
-                L9T.Text = Settings.NewTabSites.FavoritedSite9.Name;
-                L9U.Text = Settings.NewTabSites.FavoritedSite9.Url;
-            }
-            else
-            {
-                L9T.Text = "...";
-                L9U.Text = "...";
-            }
+            bool fs9 = Settings.NewTabSites.FavoritedSite9 != null;
+            L9T.Text = fs9 ? Settings.NewTabSites.FavoritedSite9.Name : "...";
+            L9U.Text = fs9 ? Settings.NewTabSites.FavoritedSite9.Url : "...";
             L0.BorderStyle = editL == 0 ? BorderStyle.FixedSingle : BorderStyle.None;
             L1.BorderStyle = editL == 1 ? BorderStyle.FixedSingle : BorderStyle.None;
             L2.BorderStyle = editL == 2 ? BorderStyle.FixedSingle : BorderStyle.None;
@@ -4113,55 +4044,48 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void tbTitle_TextChanged(object sender, EventArgs e)
         {
             if (NTRefreshNotDone) { return; }
-            if (editL == 0)
+            switch (editL)
             {
-                if (Settings.NewTabSites.FavoritedSite0 == null) { Settings.NewTabSites.FavoritedSite0 = new Site(); }
-                Settings.NewTabSites.FavoritedSite0.Name = tbTitle.Text;
-            }
-            else if (editL == 1)
-            {
-                if (Settings.NewTabSites.FavoritedSite1 == null) { Settings.NewTabSites.FavoritedSite1 = new Site(); }
-                Settings.NewTabSites.FavoritedSite1.Name = tbTitle.Text;
-            }
-            else if (editL == 2)
-            {
-                if (Settings.NewTabSites.FavoritedSite2 == null) { Settings.NewTabSites.FavoritedSite2 = new Site(); }
-                Settings.NewTabSites.FavoritedSite2.Name = tbTitle.Text;
-            }
-            else if (editL == 3)
-            {
-                if (Settings.NewTabSites.FavoritedSite3 == null) { Settings.NewTabSites.FavoritedSite3 = new Site(); }
-                Settings.NewTabSites.FavoritedSite3.Name = tbTitle.Text;
-            }
-            else if (editL == 4)
-            {
-                if (Settings.NewTabSites.FavoritedSite4 == null) { Settings.NewTabSites.FavoritedSite4 = new Site(); }
-                Settings.NewTabSites.FavoritedSite4.Name = tbTitle.Text;
-            }
-            else if (editL == 5)
-            {
-                if (Settings.NewTabSites.FavoritedSite5 == null) { Settings.NewTabSites.FavoritedSite5 = new Site(); }
-                Settings.NewTabSites.FavoritedSite5.Name = tbTitle.Text;
-            }
-            else if (editL == 6)
-            {
-                if (Settings.NewTabSites.FavoritedSite6 == null) { Settings.NewTabSites.FavoritedSite6 = new Site(); }
-                Settings.NewTabSites.FavoritedSite6.Name = tbTitle.Text;
-            }
-            else if (editL == 7)
-            {
-                if (Settings.NewTabSites.FavoritedSite7 == null) { Settings.NewTabSites.FavoritedSite7 = new Site(); }
-                Settings.NewTabSites.FavoritedSite7.Name = tbTitle.Text;
-            }
-            else if (editL == 8)
-            {
-                if (Settings.NewTabSites.FavoritedSite8 == null) { Settings.NewTabSites.FavoritedSite8 = new Site(); }
-                Settings.NewTabSites.FavoritedSite8.Name = tbTitle.Text;
-            }
-            else if (editL == 9)
-            {
-                if (Settings.NewTabSites.FavoritedSite9 == null) { Settings.NewTabSites.FavoritedSite9 = new Site(); }
-                Settings.NewTabSites.FavoritedSite9.Name = tbTitle.Text;
+                case 0:
+                    if (Settings.NewTabSites.FavoritedSite0 == null) { Settings.NewTabSites.FavoritedSite0 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite0.Name = tbTitle.Text;
+                    break;
+                case 1:
+                    if (Settings.NewTabSites.FavoritedSite1 == null) { Settings.NewTabSites.FavoritedSite1 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite1.Name = tbTitle.Text;
+                    break;
+                case 2:
+                    if (Settings.NewTabSites.FavoritedSite2 == null) { Settings.NewTabSites.FavoritedSite2 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite2.Name = tbTitle.Text;
+                    break;
+                case 3:
+                    if (Settings.NewTabSites.FavoritedSite3 == null) { Settings.NewTabSites.FavoritedSite3 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite3.Name = tbTitle.Text;
+                    break;
+                case 4:
+                    if (Settings.NewTabSites.FavoritedSite4 == null) { Settings.NewTabSites.FavoritedSite4 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite4.Name = tbTitle.Text;
+                    break;
+                case 5:
+                    if (Settings.NewTabSites.FavoritedSite5 == null) { Settings.NewTabSites.FavoritedSite5 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite5.Name = tbTitle.Text;
+                    break;
+                case 6:
+                    if (Settings.NewTabSites.FavoritedSite6 == null) { Settings.NewTabSites.FavoritedSite6 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite6.Name = tbTitle.Text;
+                    break;
+                case 7:
+                    if (Settings.NewTabSites.FavoritedSite7 == null) { Settings.NewTabSites.FavoritedSite7 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite7.Name = tbTitle.Text;
+                    break;
+                case 8:
+                    if (Settings.NewTabSites.FavoritedSite8 == null) { Settings.NewTabSites.FavoritedSite8 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite8.Name = tbTitle.Text;
+                    break;
+                case 9:
+                    if (Settings.NewTabSites.FavoritedSite9 == null) { Settings.NewTabSites.FavoritedSite9 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite9.Name = tbTitle.Text;
+                    break;
             }
             LoadNewTabSites();
         }
@@ -4169,55 +4093,48 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private void tbUrl_TextChanged(object sender, EventArgs e)
         {
             if (NTRefreshNotDone) { return; }
-            if (editL == 0)
+            switch (editL)
             {
-                if (Settings.NewTabSites.FavoritedSite0 == null) { Settings.NewTabSites.FavoritedSite0 = new Site(); }
-                Settings.NewTabSites.FavoritedSite0.Url = tbUrl.Text;
-            }
-            else if (editL == 1)
-            {
-                if (Settings.NewTabSites.FavoritedSite1 == null) { Settings.NewTabSites.FavoritedSite1 = new Site(); }
-                Settings.NewTabSites.FavoritedSite1.Url = tbUrl.Text;
-            }
-            else if (editL == 2)
-            {
-                if (Settings.NewTabSites.FavoritedSite2 == null) { Settings.NewTabSites.FavoritedSite2 = new Site(); }
-                Settings.NewTabSites.FavoritedSite2.Url = tbUrl.Text;
-            }
-            else if (editL == 3)
-            {
-                if (Settings.NewTabSites.FavoritedSite3 == null) { Settings.NewTabSites.FavoritedSite3 = new Site(); }
-                Settings.NewTabSites.FavoritedSite3.Url = tbUrl.Text;
-            }
-            else if (editL == 4)
-            {
-                if (Settings.NewTabSites.FavoritedSite4 == null) { Settings.NewTabSites.FavoritedSite4 = new Site(); }
-                Settings.NewTabSites.FavoritedSite4.Url = tbUrl.Text;
-            }
-            else if (editL == 5)
-            {
-                if (Settings.NewTabSites.FavoritedSite5 == null) { Settings.NewTabSites.FavoritedSite5 = new Site(); }
-                Settings.NewTabSites.FavoritedSite5.Url = tbUrl.Text;
-            }
-            else if (editL == 6)
-            {
-                if (Settings.NewTabSites.FavoritedSite6 == null) { Settings.NewTabSites.FavoritedSite6 = new Site(); }
-                Settings.NewTabSites.FavoritedSite6.Url = tbUrl.Text;
-            }
-            else if (editL == 7)
-            {
-                if (Settings.NewTabSites.FavoritedSite7 == null) { Settings.NewTabSites.FavoritedSite7 = new Site(); }
-                Settings.NewTabSites.FavoritedSite7.Url = tbUrl.Text;
-            }
-            else if (editL == 8)
-            {
-                if (Settings.NewTabSites.FavoritedSite8 == null) { Settings.NewTabSites.FavoritedSite8 = new Site(); }
-                Settings.NewTabSites.FavoritedSite8.Url = tbUrl.Text;
-            }
-            else if (editL == 9)
-            {
-                if (Settings.NewTabSites.FavoritedSite9 == null) { Settings.NewTabSites.FavoritedSite9 = new Site(); }
-                Settings.NewTabSites.FavoritedSite9.Url = tbUrl.Text;
+                case 0:
+                    if (Settings.NewTabSites.FavoritedSite0 == null) { Settings.NewTabSites.FavoritedSite0 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite0.Url = tbUrl.Text;
+                    break;
+                case 1:
+                    if (Settings.NewTabSites.FavoritedSite1 == null) { Settings.NewTabSites.FavoritedSite1 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite1.Url = tbUrl.Text;
+                    break;
+                case 2:
+                    if (Settings.NewTabSites.FavoritedSite2 == null) { Settings.NewTabSites.FavoritedSite2 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite2.Url = tbUrl.Text;
+                    break;
+                case 3:
+                    if (Settings.NewTabSites.FavoritedSite3 == null) { Settings.NewTabSites.FavoritedSite3 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite3.Url = tbUrl.Text;
+                    break;
+                case 4:
+                    if (Settings.NewTabSites.FavoritedSite4 == null) { Settings.NewTabSites.FavoritedSite4 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite4.Url = tbUrl.Text;
+                    break;
+                case 5:
+                    if (Settings.NewTabSites.FavoritedSite5 == null) { Settings.NewTabSites.FavoritedSite5 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite5.Url = tbUrl.Text;
+                    break;
+                case 6:
+                    if (Settings.NewTabSites.FavoritedSite6 == null) { Settings.NewTabSites.FavoritedSite6 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite6.Url = tbUrl.Text;
+                    break;
+                case 7:
+                    if (Settings.NewTabSites.FavoritedSite7 == null) { Settings.NewTabSites.FavoritedSite7 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite7.Url = tbUrl.Text;
+                    break;
+                case 8:
+                    if (Settings.NewTabSites.FavoritedSite8 == null) { Settings.NewTabSites.FavoritedSite8 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite8.Url = tbUrl.Text;
+                    break;
+                case 9:
+                    if (Settings.NewTabSites.FavoritedSite9 == null) { Settings.NewTabSites.FavoritedSite9 = new Site(); }
+                    Settings.NewTabSites.FavoritedSite9.Url = tbUrl.Text;
+                    break;
             }
             LoadNewTabSites();
         }
@@ -4234,75 +4151,68 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             editL = itemid;
             NTRefreshNotDone = true;
             LoadNewTabSites();
-            if (itemid == 0)
+            switch (itemid)
             {
-                if (Settings.NewTabSites.FavoritedSite0 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite0.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite0.Url; }
-                tbTitle.Enabled = true;
-                tbUrl.Enabled = true;
-                btClear.Enabled = true;
-            }
-            else if (itemid == 1)
-            {
-                if (Settings.NewTabSites.FavoritedSite1 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite1.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite1.Url; }
-                tbTitle.Enabled = true;
-                tbUrl.Enabled = true;
-                btClear.Enabled = true;
-            }
-            else if (itemid == 2)
-            {
-                if (Settings.NewTabSites.FavoritedSite2 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite2.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite2.Url; }
-                tbTitle.Enabled = true;
-                tbUrl.Enabled = true;
-                btClear.Enabled = true;
-            }
-            else if (itemid == 3)
-            {
-                if (Settings.NewTabSites.FavoritedSite3 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite3.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite3.Url; }
-                tbTitle.Enabled = true;
-                tbUrl.Enabled = true;
-                btClear.Enabled = true;
-            }
-            else if (itemid == 4)
-            {
-                if (Settings.NewTabSites.FavoritedSite4 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite4.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite4.Url; }
-                tbTitle.Enabled = true;
-                tbUrl.Enabled = true;
-                btClear.Enabled = true;
-            }
-            else if (itemid == 5)
-            {
-                if (Settings.NewTabSites.FavoritedSite5 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite5.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite5.Url; }
-                tbTitle.Enabled = true;
-                tbUrl.Enabled = true;
-                btClear.Enabled = true;
-            }
-            else if (itemid == 6)
-            {
-                if (Settings.NewTabSites.FavoritedSite6 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite6.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite6.Url; }
-                tbTitle.Enabled = true;
-                tbUrl.Enabled = true;
-                btClear.Enabled = true;
-            }
-            else if (itemid == 7)
-            {
-                if (Settings.NewTabSites.FavoritedSite7 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite7.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite7.Url; }
-                tbTitle.Enabled = true;
-                tbUrl.Enabled = true;
-                btClear.Enabled = true;
-            }
-            else if (itemid == 8)
-            {
-                if (Settings.NewTabSites.FavoritedSite8 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite8.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite8.Url; }
-                tbTitle.Enabled = true;
-                tbUrl.Enabled = true;
-                btClear.Enabled = true;
-            }
-            else if (itemid == 9)
-            {
-                if (Settings.NewTabSites.FavoritedSite9 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite9.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite9.Url; }
-                tbTitle.Enabled = true;
-                tbUrl.Enabled = true;
-                btClear.Enabled = true;
+                case 0:
+                    if (Settings.NewTabSites.FavoritedSite0 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite0.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite0.Url; }
+                    tbTitle.Enabled = true;
+                    tbUrl.Enabled = true;
+                    btClear.Enabled = true;
+                    break;
+                case 1:
+                    if (Settings.NewTabSites.FavoritedSite1 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite1.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite1.Url; }
+                    tbTitle.Enabled = true;
+                    tbUrl.Enabled = true;
+                    btClear.Enabled = true;
+                    break;
+                case 2:
+                    if (Settings.NewTabSites.FavoritedSite2 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite2.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite2.Url; }
+                    tbTitle.Enabled = true;
+                    tbUrl.Enabled = true;
+                    btClear.Enabled = true;
+                    break;
+                case 3:
+                    if (Settings.NewTabSites.FavoritedSite3 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite3.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite3.Url; }
+                    tbTitle.Enabled = true;
+                    tbUrl.Enabled = true;
+                    btClear.Enabled = true;
+                    break;
+                case 4:
+                    if (Settings.NewTabSites.FavoritedSite4 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite4.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite4.Url; }
+                    tbTitle.Enabled = true;
+                    tbUrl.Enabled = true;
+                    btClear.Enabled = true;
+                    break;
+                case 5:
+                    if (Settings.NewTabSites.FavoritedSite5 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite5.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite5.Url; }
+                    tbTitle.Enabled = true;
+                    tbUrl.Enabled = true;
+                    btClear.Enabled = true;
+                    break;
+                case 6:
+                    if (Settings.NewTabSites.FavoritedSite6 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite6.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite6.Url; }
+                    tbTitle.Enabled = true;
+                    tbUrl.Enabled = true;
+                    btClear.Enabled = true;
+                    break;
+                case 7:
+                    if (Settings.NewTabSites.FavoritedSite7 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite7.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite7.Url; }
+                    tbTitle.Enabled = true;
+                    tbUrl.Enabled = true;
+                    btClear.Enabled = true;
+                    break;
+                case 8:
+                    if (Settings.NewTabSites.FavoritedSite8 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite8.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite8.Url; }
+                    tbTitle.Enabled = true;
+                    tbUrl.Enabled = true;
+                    btClear.Enabled = true;
+                    break;
+                case 9:
+                    if (Settings.NewTabSites.FavoritedSite9 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite9.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite9.Url; }
+                    tbTitle.Enabled = true;
+                    tbUrl.Enabled = true;
+                    btClear.Enabled = true;
+                    break;
             }
             NTRefreshNotDone = false;
         }

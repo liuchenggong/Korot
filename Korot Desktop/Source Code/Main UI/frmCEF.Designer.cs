@@ -832,7 +832,7 @@ namespace Korot
             this.lbTitle.ForeColor = System.Drawing.Color.White;
             this.lbTitle.FormattingEnabled = true;
             this.lbTitle.ItemHeight = 15;
-            this.lbTitle.Location = new System.Drawing.Point(118, 248);
+            this.lbTitle.Location = new System.Drawing.Point(432, 185);
             this.lbTitle.Name = "lbTitle";
             this.lbTitle.Size = new System.Drawing.Size(46, 19);
             this.lbTitle.TabIndex = 1;
