@@ -10,5 +10,5 @@ build:
   project: Korot Desktop/Korot Desktop.csproj
   verbosity: minimal
 artifacts:
-- path: /bin/
+- path: /Korot Desktop\bin/
   name: bintray
