@@ -240,8 +240,8 @@ namespace Korot
                 // Not selected, select it
                 selectedDISHes.Add(site);
                 selectedPanels.Add(panelcik);
-                panelcik.BackColor = cefecik.Settings.Theme.OverlayColor;
-                panelcik.ForeColor = HTAlt.Tools.AutoWhiteBlack(panelcik.BackColor);
+                panelcik.BackColor = cefecik.Settings.NinjaMode ? cefecik.Settings.Theme.BackColor : cefecik.Settings.Theme.OverlayColor;
+                panelcik.ForeColor = cefecik.Settings.NinjaMode ? cefecik.Settings.Theme.BackColor : cefecik.Settings.Theme.ForeColor;
                 switchRSMode();
             }
             else if (panelcik.BackColor == cefecik.Settings.Theme.OverlayColor || selectedPanels.Contains(panelcik) || selectedDISHes.Contains(site))
@@ -249,8 +249,8 @@ namespace Korot
                 // Selected, unselect it
                 selectedDISHes.Remove(site);
                 selectedPanels.Remove(panelcik);
-                panelcik.BackColor = HTAlt.Tools.ShiftBrightness(cefecik.Settings.Theme.BackColor, 20, false);
-                panelcik.ForeColor = HTAlt.Tools.AutoWhiteBlack(panelcik.BackColor);
+                panelcik.BackColor = cefecik.Settings.NinjaMode ? cefecik.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(cefecik.Settings.Theme.BackColor, 20, false);
+                panelcik.ForeColor = cefecik.Settings.NinjaMode ? cefecik.Settings.Theme.BackColor : cefecik.Settings.Theme.ForeColor;
                 switchRSMode();
             }
         }
@@ -321,21 +321,21 @@ namespace Korot
             htButton1.Visible = panelList.Count != 0;
             lbEmpty.Text = cefecik.anaform.empty;
             BackColor = cefecik.Settings.Theme.BackColor;
-            ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
-            htButton1.BackColor = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
-            htButton1.ForeColor = HTAlt.Tools.AutoWhiteBlack(htButton1.BackColor);
+            ForeColor = cefecik.Settings.NinjaMode ? cefecik.Settings.Theme.BackColor : cefecik.Settings.Theme.ForeColor;
+            htButton1.BackColor = cefecik.Settings.NinjaMode ? cefecik.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            htButton1.ForeColor = ForeColor;
             foreach (HTProgressBar x in pbList)
             {
-                x.BackColor = HTAlt.Tools.ShiftBrightness(BackColor, 40, false);
-                x.BarColor = cefecik.Settings.Theme.OverlayColor;
+                x.BackColor = cefecik.Settings.NinjaMode ? cefecik.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(BackColor, 40, false);
+                x.BarColor = cefecik.Settings.NinjaMode ? cefecik.Settings.Theme.BackColor : cefecik.Settings.Theme.OverlayColor;
                 x.DrawBorder = true;
                 x.BorderThickness = 1;
-                x.BorderColor = HTAlt.Tools.AutoWhiteBlack(x.BackColor);
+                x.BorderColor = ForeColor;
             }
             foreach (Panel x in panelList)
             {
-                x.BackColor = selectedPanels.Contains(x) ? cefecik.Settings.Theme.OverlayColor : HTAlt.Tools.ShiftBrightness(cefecik.Settings.Theme.BackColor, 20, false);
-                x.ForeColor = HTAlt.Tools.AutoWhiteBlack(x.BackColor);
+                x.BackColor = selectedPanels.Contains(x) ? (cefecik.Settings.NinjaMode ? cefecik.Settings.Theme.BackColor : cefecik.Settings.Theme.OverlayColor) : (cefecik.Settings.NinjaMode ? cefecik.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(cefecik.Settings.Theme.BackColor, 20, false));
+                x.ForeColor = ForeColor;
             }
             switchRSMode();
         }

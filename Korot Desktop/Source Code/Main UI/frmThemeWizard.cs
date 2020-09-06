@@ -36,7 +36,23 @@ namespace Korot
             Red,
             Shadow,
             Strawberry,
-            Sunrise
+            Sunrise,
+            Avocado,
+            Teal,
+            Yellow,
+            Orange,
+            Brown,
+            Leather,
+            Gold,
+            Creme,
+            Purple,
+            Raspberry,
+            Lavender,
+            Fuchsia,
+            Pink,
+            Brick,
+            DarkBlue,
+            Sea
         }
 
         private Themes Theme = Themes.Light;
@@ -46,7 +62,27 @@ namespace Korot
         private void PreparetpTone()
         {
             trackBar1.Value = 0;
-            trackBar1.Maximum = Type == SelectedType.Monotone ? 4 : (Type == SelectedType.Blue ? 3 : 2);
+            switch(Type)
+            {
+                case SelectedType.Monotone:
+                    trackBar1.Maximum = 4;
+                    break;
+                case SelectedType.Blue:
+                    trackBar1.Maximum = 4;
+                    break;
+                case SelectedType.Green:
+                    trackBar1.Maximum = 4;
+                    break;
+                case SelectedType.Red:
+                    trackBar1.Maximum = 3;
+                    break;
+                case SelectedType.Yellow:
+                    trackBar1.Maximum = 5;
+                    break;
+                case SelectedType.Purple:
+                    trackBar1.Maximum = 4;
+                    break;
+            }
             Brightness = 0;
             trackBar1_Scroll(this, new EventArgs());
         }
@@ -89,6 +125,38 @@ namespace Korot
         public string EmeraldDesc = "You can use this theme for trading, just kidding. Cool theme for collecting bugs.";
         public string DarkLeaf = "DarkLeaf";
         public string DarkLeafDesc = "They look good on trees, not in your hand burning.";
+        public string Avocado = "Avocado";
+        public string AvocadoDesc = "It's fresh!";
+        public string Teal = "Teal";
+        public string TealDesc = "Nice theme to relax a little.";
+        public string Yellow = "Yellow";
+        public string YellowDesc = "Because we love bananas!";
+        public string Orange = "Orange";
+        public string OrangeDesc = "Well sorry, this theme does not contain vitamin C.";
+        public string Brown = "Brown";
+        public string BrownDesc = "For coffee lovers.";
+        public string Leather = "Leather";
+        public string LeatherDesc = "It's cozy.";
+        public string Gold = "Gold";
+        public string GoldDesc = "For pigs that can walk, that also made out of cubes.";
+        public string Creme = "Creme";
+        public string CremeDesc = "Smells like vanilla, no please don't try to smell your monitor.";
+        public string Purple = "Purple";
+        public string PurpleDesc = "Haltroy hates this theme.";
+        public string Raspberry = "Raspberry";
+        public string RaspberryDesc = "3,142857142857143";
+        public string Lavender = "Lavender";
+        public string LavenderDesc = "Don't worry, this theme won't send you to hospital, if you are not Haltroy.";
+        public string Fuchsia = "Fuchsia";
+        public string FuchsiaDesc = "Threat your Korot like a flower.";
+        public string Pink = "Pink";
+        public string PinkDesc = "Made the theme b0ss.";
+        public string Brick = "Brick";
+        public string BrickDesc = "In the wall, of course.";
+        public string DarkBlue = "DarkBlue";
+        public string DarkBlueDesc = "Things getting dark, but liked it.";
+        public string Sea = "Sea";
+        public string SeaDesc = "Who wants to swim?";
         #endregion
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
@@ -139,22 +207,28 @@ namespace Korot
                         Theme = Themes.Sunrise;
                         break;
                     case 1:
+                        lbTitle.Text = Sea;
+                        lbDesc.Text = SeaDesc;
+                        pbPreview.Image = Properties.Resources.ThemeSea;
+                        Theme = Themes.Sea;
+                        break;
+                    case 2:
                         lbTitle.Text = DodgerBlue;
                         lbDesc.Text = DodgerBlueDesc;
                         pbPreview.Image = Properties.Resources.ThemeDodgerBlue;
                         Theme = Themes.DodgerBlue;
                         break;
-                    case 2:
+                    case 3:
                         lbTitle.Text = Blue;
                         lbDesc.Text = BlueDesc;
                         pbPreview.Image = Properties.Resources.ThemeBlue;
                         Theme = Themes.Blue;
                         break;
-                    case 3:
-                        lbTitle.Text = Midnight;
-                        lbDesc.Text = MidnightDesc;
-                        pbPreview.Image = Properties.Resources.THemeMidnight;
-                        Theme = Themes.Midnight;
+                    case 4:
+                        lbTitle.Text = DarkBlue;
+                        lbDesc.Text = DarkBlueDesc;
+                        pbPreview.Image = Properties.Resources.ThemeMidnight;
+                        Theme = Themes.DarkBlue;
                         break;
                 }
             }
@@ -175,6 +249,12 @@ namespace Korot
                         Theme = Themes.Red;
                         break;
                     case 2:
+                        lbTitle.Text = Brick;
+                        lbDesc.Text = BrickDesc;
+                        pbPreview.Image = Properties.Resources.ThemeBrick;
+                        Theme = Themes.Brick;
+                        break;
+                    case 3:
                         lbTitle.Text = Crimson;
                         lbDesc.Text = CrimsonDesc;
                         pbPreview.Image = Properties.Resources.ThemeCrimson;
@@ -193,16 +273,106 @@ namespace Korot
                         Theme = Themes.Emerald;
                         break;
                     case 1:
+                        lbTitle.Text = Avocado;
+                        lbDesc.Text = AvocadoDesc;
+                        pbPreview.Image = Properties.Resources.ThemeAvocado;
+                        Theme = Themes.Avocado;
+                        break;
+                    case 2:
                         lbTitle.Text = Green;
                         lbDesc.Text = GreenDesc;
                         pbPreview.Image = Properties.Resources.ThemeGreen;
                         Theme = Themes.Green;
                         break;
-                    case 2:
+                    case 3:
+                        lbTitle.Text = Teal;
+                        lbDesc.Text = TealDesc;
+                        pbPreview.Image = Properties.Resources.ThemeTeal;
+                        Theme = Themes.Teal;
+                        break;
+                    case 4:
                         lbTitle.Text = DarkLeaf;
                         lbDesc.Text = DarkLeafDesc;
                         pbPreview.Image = Properties.Resources.ThemeDarkLeaf;
                         Theme = Themes.DarkLeaf;
+                        break;
+                }
+            }
+            else if (Type == SelectedType.Yellow)
+            {
+                switch (trackBar1.Value)
+                {
+                    case 0:
+                        lbTitle.Text = Creme;
+                        lbDesc.Text = CremeDesc;
+                        pbPreview.Image = Properties.Resources.ThemeCreme;
+                        Theme = Themes.Creme;
+                        break;
+                    case 1:
+                        lbTitle.Text = Yellow;
+                        lbDesc.Text = YellowDesc;
+                        pbPreview.Image = Properties.Resources.ThemeYellow;
+                        Theme = Themes.Yellow;
+                        break;
+                    case 2:
+                        lbTitle.Text = Orange;
+                        lbDesc.Text = OrangeDesc;
+                        pbPreview.Image = Properties.Resources.ThemeOrange;
+                        Theme = Themes.Orange;
+                        break;
+                    case 3:
+                        lbTitle.Text = Gold;
+                        lbDesc.Text = GoldDesc;
+                        pbPreview.Image = Properties.Resources.ThemeGold;
+                        Theme = Themes.Gold;
+                        break;
+                    case 4:
+                        lbTitle.Text = Leather;
+                        lbDesc.Text = LeatherDesc;
+                        pbPreview.Image = Properties.Resources.ThemeLeather;
+                        Theme = Themes.Leather;
+                        break;
+                    case 5:
+                        lbTitle.Text = Brown;
+                        lbDesc.Text = BrownDesc;
+                        pbPreview.Image = Properties.Resources.ThemeBrown;
+                        Theme = Themes.Brown;
+                        break;
+                }
+            }
+            else if (Type == SelectedType.Purple)
+            {
+                switch (trackBar1.Value)
+                {
+                    case 0:
+                        lbTitle.Text = Pink;
+                        lbDesc.Text = PinkDesc;
+                        pbPreview.Image = Properties.Resources.ThemePink;
+                        Theme = Themes.Pink;
+                        break;
+                    case 1:
+                        lbTitle.Text = Fuchsia;
+                        lbDesc.Text = FuchsiaDesc;
+                        pbPreview.Image = Properties.Resources.ThemeFuchsia;
+                        Theme = Themes.Fuchsia;
+                        break;
+                    case 2:
+                        lbTitle.Text = Lavender;
+                        lbDesc.Text = LavenderDesc;
+                        pbPreview.Image = Properties.Resources.ThemeLavender;
+                        Theme = Themes.Lavender;
+                        break;
+                    case 3:
+                        lbTitle.Text = Purple;
+                        lbDesc.Text = PurpleDesc;
+                        pbPreview.Image = Properties.Resources.ThemePurple;
+                        Theme = Themes.Purple;
+                        break;
+                    case 4:
+                        lbTitle.Text = Midnight;
+                        lbDesc.Text = MidnightDesc;
+                        pbPreview.Image = Properties.Resources.ThemeMidnight;
+                        Theme = Themes.Midnight;
                         break;
                 }
             }
@@ -291,7 +461,7 @@ namespace Korot
 
         private void htButton5_Click(object sender, EventArgs e)
         {
-            int rnd = new Random().Next(0, 3);
+            int rnd = new Random().Next(0, 5);
             switch (rnd)
             {
                 case 0:
@@ -302,6 +472,12 @@ namespace Korot
                     break;
                 case 2:
                     pBlue_Click(sender, e);
+                    break;
+                case 3:
+                    pPurple_Click(sender, e);
+                    break;
+                case 4:
+                    pYellow_Click(sender, e);
                     break;
             }
         }
@@ -337,6 +513,10 @@ namespace Korot
             lbBWInfo.Text = Settings.LanguageSystem.GetItemText("BlackWhiteDesc");
             lbC.Text = Settings.LanguageSystem.GetItemText("Colorful");
             lbCInfo.Text = Settings.LanguageSystem.GetItemText("ColorfulDesc");
+            lbYellow.Text = Settings.LanguageSystem.GetItemText("Yellow");
+            lbYellowInfo.Text = Settings.LanguageSystem.GetItemText("YellowDesc");
+            lbPurple.Text = Settings.LanguageSystem.GetItemText("Purple");
+            lbPurpleInfo.Text = Settings.LanguageSystem.GetItemText("PurpleDesc");
             lbRed.Text = Settings.LanguageSystem.GetItemText("Red");
             lbRedDesc.Text = Settings.LanguageSystem.GetItemText("RedDesc");
             lbGreen.Text = Settings.LanguageSystem.GetItemText("Green");
@@ -378,6 +558,54 @@ namespace Korot
             EmeraldDesc = Settings.LanguageSystem.GetItemText("ThemeEmeraldDesc");
             DarkLeaf = Settings.LanguageSystem.GetItemText("ThemeDarkLeaf");
             DarkLeafDesc = Settings.LanguageSystem.GetItemText("ThemeDarkLeafDesc");
+            Avocado = Settings.LanguageSystem.GetItemText("ThemeAvocado");
+            AvocadoDesc = Settings.LanguageSystem.GetItemText("ThemeAvocadoDesc");
+            Teal = Settings.LanguageSystem.GetItemText("ThemeTeal");
+            TealDesc = Settings.LanguageSystem.GetItemText("ThemeTealDesc");
+            Yellow = Settings.LanguageSystem.GetItemText("ThemeYellow");
+            YellowDesc = Settings.LanguageSystem.GetItemText("ThemeYellowDesc");
+            Orange = Settings.LanguageSystem.GetItemText("ThemeOrange");
+            OrangeDesc = Settings.LanguageSystem.GetItemText("ThemeOrangeDesc");
+            Brown = Settings.LanguageSystem.GetItemText("ThemeBrown");
+            BrownDesc = Settings.LanguageSystem.GetItemText("ThemeBrownDesc");
+            Leather = Settings.LanguageSystem.GetItemText("ThemeLeather");
+            LeatherDesc = Settings.LanguageSystem.GetItemText("ThemeLeatherDesc");
+            Gold = Settings.LanguageSystem.GetItemText("ThemeGold");
+            GoldDesc = Settings.LanguageSystem.GetItemText("ThemeGoldDesc");
+            Creme = Settings.LanguageSystem.GetItemText("ThemeCreme");
+            CremeDesc = Settings.LanguageSystem.GetItemText("ThemeCremeDesc");
+            Purple = Settings.LanguageSystem.GetItemText("ThemePurple");
+            PurpleDesc = Settings.LanguageSystem.GetItemText("ThemePurpleDesc");
+            Raspberry = Settings.LanguageSystem.GetItemText("ThemeRaspberry");
+            RaspberryDesc = Settings.LanguageSystem.GetItemText("ThemeRaspberryDesc");
+            Lavender = Settings.LanguageSystem.GetItemText("ThemeLavender");
+            LavenderDesc = Settings.LanguageSystem.GetItemText("ThemeLavenderDesc");
+            Fuchsia = Settings.LanguageSystem.GetItemText("ThemeFuchsia");
+            FuchsiaDesc = Settings.LanguageSystem.GetItemText("ThemeFuchsiaDesc");
+            Pink = Settings.LanguageSystem.GetItemText("ThemePink");
+            PinkDesc = Settings.LanguageSystem.GetItemText("ThemePinkDesc");
+            Brick = Settings.LanguageSystem.GetItemText("ThemeBrick");
+            BrickDesc = Settings.LanguageSystem.GetItemText("ThemeBrickDesc");
+            DarkBlue = Settings.LanguageSystem.GetItemText("ThemeDarkBlue");
+            DarkBlueDesc = Settings.LanguageSystem.GetItemText("ThemeDarkBlueDesc");
+            Sea = Settings.LanguageSystem.GetItemText("ThemeSea");
+            SeaDesc = Settings.LanguageSystem.GetItemText("ThemeSeaDesc");
+        }
+
+        private void pYellow_Click(object sender, EventArgs e)
+        {
+            Type = SelectedType.Yellow;
+            allowSwitch = true;
+            tabControl1.SelectedTab = tpTone;
+            PreparetpTone();
+        }
+
+        private void pPurple_Click(object sender, EventArgs e)
+        {
+            Type = SelectedType.Purple;
+            allowSwitch = true;
+            tabControl1.SelectedTab = tpTone;
+            PreparetpTone();
         }
     }
 }

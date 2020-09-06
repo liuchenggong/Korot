@@ -64,13 +64,14 @@ namespace Korot
             button1.Text = cefform.anaform.allow;
             button2.Text = cefform.anaform.deny;
             BackColor = cefform.Settings.Theme.BackColor;
-            ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-            button1.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
-            button2.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
-            pUp.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-            pDown.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-            pLeft.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-            pRight.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            Color BackColor2 = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;
+            button1.BackColor = BackColor2;
+            button2.BackColor = BackColor2;
+            pUp.BackColor = ForeColor;
+            pDown.BackColor = ForeColor;
+            pLeft.BackColor = ForeColor;
+            pRight.BackColor = ForeColor;
         }
 
         private void label2_Click(object sender, EventArgs e)

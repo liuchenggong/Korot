@@ -1,6 +1,7 @@
 ﻿using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Korot
@@ -205,27 +206,28 @@ namespace Korot
         {
             Enabled = !cefform._Incognito;
             BackColor = cefform.Settings.Theme.BackColor;
-            ForeColor = HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
+            ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;
+            Color BackColor2 = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
             foreach (Control x in Controls)
             {
                 if (x is Panel)
                 {
                     x.BackColor = selectedPanels.Contains(x as Panel)
-                        ? cefform.Settings.Theme.OverlayColor
-                        : HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
-                    x.ForeColor = HTAlt.Tools.AutoWhiteBlack(x.BackColor);
+                        ? (cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.OverlayColor)
+                        : (cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : BackColor2);
+                    x.ForeColor = ForeColor;
                 }
             }
             foreach (HTSwitch x in switches)
             {
                 x.BackColor = cefform.Settings.Theme.BackColor;
-                x.ButtonColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false), false);
-                x.ButtonHoverColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 40, false), false);
-                x.ButtonPressedColor = HTAlt.Tools.ReverseColor(HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 60, false), false);
+                x.ButtonColor = ForeColor;
+                x.ButtonHoverColor = ForeColor;
+                x.ButtonPressedColor = ForeColor;
 
             }
-            htButton1.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
-            htButton1.ForeColor = HTAlt.Tools.AutoWhiteBlack(htButton1.BackColor);
+            htButton1.BackColor = BackColor2;
+            htButton1.ForeColor = ForeColor;
             foreach (Label x in notificationLabels) { x.Text = cefform.anaform.siteNotifications; }
             foreach (Label x in cookieLabels) { x.Text = cefform.anaform.siteCookies; }
             lbEmpty.Text = cefform.anaform.empty;

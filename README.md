@@ -8,6 +8,9 @@ A Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy's Website"
 Latest Stable Version: [`0.8.1.1`](https://github.com/Haltroy/Korot/tree/0.8.1.1).
 
 
+Development Version: [`0.8.2.0`](https://github.com/Haltroy/Korot/tree/0.8.2.0).
+
+
 <p align="center" style="text-align: center;">
   <img width="641" height="523" src="https://haltroy.com/assets/images/korot-0600pre0.png" />
 </p>
@@ -17,7 +20,7 @@ Latest Stable Version: [`0.8.1.1`](https://github.com/Haltroy/Korot/tree/0.8.1.1
  - Tabbed, built-in search bar that auto-detects URLs.
  - Developer tools ,View Source ,Page screnshot, Print, Keyboard Shortcuts, Save page & Zoom in page
  - UI language system (Comes with [`English`](https://haltroy.com/store/item/Haltroy.KorotEnglish/) and [`Türkçe`](https://haltroy.com/store/item/Haltroy.KorotTürkçe/) languages)
- - Theme system (Comes with [`Light`](https://haltroy.com/store/item/Haltroy.KorotLight/), [`Midnight`](https://haltroy.com/store/item/Haltroy.KorotMidnight/), [`Crimson`](https://haltroy.com/store/item/Haltroy.KorotCrimson/), [`Strawberry`](https://haltroy.com/store/item/Haltroy.KorotStrawberry/), [`Emerald`](https://haltroy.com/store/item/Haltroy.KorotEmerald/), [`DarkLeaf`](https://haltroy.com/store/item/Haltroy.KorotDarkLeaf/), [`Sunrise`](https://haltroy.com/store/item/Haltroy.KorotSunrise/), [`Dark`](https://haltroy.com/store/item/Haltroy.KorotDark/) themes) & [Theme Store](https://haltroy.com/store/Korot/Themes/)
+ - Theme system (Comes with 32 themes with different colors) & [Theme Store](https://haltroy.com/store/Korot/Themes/)
  - Built-in Extension system (with support for proxies) & [Extension Store](https://haltroy.com/store/Korot/Extensions/)
  - Profiles
  - Notifications
@@ -30,6 +33,7 @@ Latest Stable Version: [`0.8.1.1`](https://github.com/Haltroy/Korot/tree/0.8.1.1
  | Branch                                                              | CEFSharp Version | VC++ Version | .Net | HTAlt  | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-----|-------------------|
 | [`master`](https://github.com/haltroy/korot)                      | 84 | 2015 | Framework 4.8 | b1.5.1 | Master | `1.0.0.0`: Unknown |
+| [`0.8.2.0`](https://github.com/Haltroy/Korot/tree/0.8.2.0) | 84 | 2015 | Framework 4.8 | b1.5.1 | `Development` | ?? September 2020 |
 | [`0.8.1.1`](https://github.com/Haltroy/Korot/tree/0.8.1.1) | 84 | 2015 | Framework 4.8 | b1.5.1 | **Latest Release** | 31 August 2020 |
 | [`0.8.1.0`](https://github.com/Haltroy/Korot/tree/0.8.1.0) | 84 | 2015 | Framework 4.8 | b1.5 | Unsupported | 26 August 2020 |
 | [`0.8.0.0`](https://github.com/Haltroy/Korot/tree/0.8.0.0) | 83 | 2015 | Framework 4.8 | b1.4.2 | Unsupported | 27 July 2020 |
@@ -45,7 +49,7 @@ Latest Stable Version: [`0.8.1.1`](https://github.com/Haltroy/Korot/tree/0.8.1.1
 | [`0.5.0.2`](https://github.com/Haltroy/Korot/tree/0.5.0.2) | 79 | 2015 | Framework 4.5.2 | HF a1.9 | Unsupported | 22 February 2020 |
 | [`0.5.0.1`](https://github.com/Haltroy/Korot/tree/0.5.0.1) | 79 | 2015 | Framework 4.5.2 | HF a1.9 | Unsupported | 21 February 2020 |
 | [`0.5.0.0`](https://github.com/Haltroy/Korot/tree/0.5.0.0) | 79 | 2015 | Framework 4.5.2 | HF a1.9 | Unsupported | 15 February 2020 |
-| [`0.4.9.10`](https://github.com/Haltroy/Korot/tree/0.4.9.10) | 75 | 2015 | Framework 4.5.2 | HF a1.9 | Unsupported | 19 January 2020 |
+|[`0.4.9.10`](https://github.com/Haltroy/Korot/tree/0.4.9.10)| 75 | 2015 | Framework 4.5.2 | HF a1.9 | Unsupported | 19 January 2020 |
 | [`0.4.9.9`](https://github.com/Haltroy/Korot/tree/0.4.9.9) |  75 | 2015 | Framework 4.5.2 | HF a1.6 | Unsupported | 17 January 2020 |
 | [`0.4.9.8`](https://github.com/Haltroy/Korot/tree/0.4.9.8) |  75 | 2015 | Framework 4.5.2 | HF a1.6 | Unsupported | 12 January 2020 |
 | [`0.4.9.7`](https://github.com/Haltroy/Korot/tree/0.4.9.7) |  75 | 2015 | Framework 4.5.2 | HF a1.6 | Unsupported | 9 January 2020 |

@@ -42,6 +42,14 @@
             this.pbBW = new System.Windows.Forms.PictureBox();
             this.lbSelectBWC = new System.Windows.Forms.Label();
             this.tpColor = new System.Windows.Forms.TabPage();
+            this.pPurple = new System.Windows.Forms.Panel();
+            this.lbPurpleInfo = new System.Windows.Forms.Label();
+            this.lbPurple = new System.Windows.Forms.Label();
+            this.pbPurple = new System.Windows.Forms.PictureBox();
+            this.pYellow = new System.Windows.Forms.Panel();
+            this.lbYellowInfo = new System.Windows.Forms.Label();
+            this.lbYellow = new System.Windows.Forms.Label();
+            this.pbYellow = new System.Windows.Forms.PictureBox();
             this.btBack = new HTAlt.WinForms.HTButton();
             this.btRandom1 = new HTAlt.WinForms.HTButton();
             this.pBlue = new System.Windows.Forms.Panel();
@@ -84,6 +92,10 @@
             this.pBW.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBW)).BeginInit();
             this.tpColor.SuspendLayout();
+            this.pPurple.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPurple)).BeginInit();
+            this.pYellow.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbYellow)).BeginInit();
             this.pBlue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.pGreen.SuspendLayout();
@@ -112,7 +124,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(657, 498);
+            this.tabControl1.Size = new System.Drawing.Size(657, 660);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
@@ -127,7 +139,7 @@
             this.tpGrayColor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tpGrayColor.Name = "tpGrayColor";
             this.tpGrayColor.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tpGrayColor.Size = new System.Drawing.Size(649, 469);
+            this.tpGrayColor.Size = new System.Drawing.Size(649, 631);
             this.tpGrayColor.TabIndex = 0;
             this.tpGrayColor.Text = "Gray-tones or Colors";
             // 
@@ -137,7 +149,7 @@
             this.btRandom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btRandom.FlatAppearance.BorderSize = 0;
             this.btRandom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btRandom.Location = new System.Drawing.Point(3, 439);
+            this.btRandom.Location = new System.Drawing.Point(3, 601);
             this.btRandom.Name = "btRandom";
             this.btRandom.Size = new System.Drawing.Size(643, 26);
             this.btRandom.TabIndex = 9;
@@ -151,7 +163,7 @@
             this.pC.Controls.Add(this.lbCInfo);
             this.pC.Controls.Add(this.lbC);
             this.pC.Controls.Add(this.pbC);
-            this.pC.Location = new System.Drawing.Point(383, 96);
+            this.pC.Location = new System.Drawing.Point(383, 179);
             this.pC.Name = "pC";
             this.pC.Size = new System.Drawing.Size(200, 250);
             this.pC.TabIndex = 2;
@@ -185,7 +197,7 @@
             this.pbC.Location = new System.Drawing.Point(26, 22);
             this.pbC.Name = "pbC";
             this.pbC.Size = new System.Drawing.Size(150, 100);
-            this.pbC.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbC.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbC.TabIndex = 0;
             this.pbC.TabStop = false;
             this.pbC.Click += new System.EventHandler(this.pC_Click);
@@ -196,7 +208,7 @@
             this.pBW.Controls.Add(this.lbBWInfo);
             this.pBW.Controls.Add(this.lbBW);
             this.pBW.Controls.Add(this.pbBW);
-            this.pBW.Location = new System.Drawing.Point(56, 96);
+            this.pBW.Location = new System.Drawing.Point(56, 179);
             this.pBW.Name = "pBW";
             this.pBW.Size = new System.Drawing.Size(200, 250);
             this.pBW.TabIndex = 1;
@@ -230,7 +242,7 @@
             this.pbBW.Location = new System.Drawing.Point(26, 22);
             this.pbBW.Name = "pbBW";
             this.pbBW.Size = new System.Drawing.Size(150, 100);
-            this.pbBW.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbBW.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbBW.TabIndex = 0;
             this.pbBW.TabStop = false;
             this.pbBW.Click += new System.EventHandler(this.pBW_Click);
@@ -243,12 +255,14 @@
             this.lbSelectBWC.Name = "lbSelectBWC";
             this.lbSelectBWC.Size = new System.Drawing.Size(643, 45);
             this.lbSelectBWC.TabIndex = 0;
-            this.lbSelectBWC.Text = "Select one of the options";
+            this.lbSelectBWC.Text = "Select an option";
             this.lbSelectBWC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tpColor
             // 
             this.tpColor.BackColor = System.Drawing.Color.White;
+            this.tpColor.Controls.Add(this.pPurple);
+            this.tpColor.Controls.Add(this.pYellow);
             this.tpColor.Controls.Add(this.btBack);
             this.tpColor.Controls.Add(this.btRandom1);
             this.tpColor.Controls.Add(this.pBlue);
@@ -259,9 +273,113 @@
             this.tpColor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tpColor.Name = "tpColor";
             this.tpColor.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tpColor.Size = new System.Drawing.Size(649, 469);
+            this.tpColor.Size = new System.Drawing.Size(649, 631);
             this.tpColor.TabIndex = 1;
             this.tpColor.Text = "Color Selection";
+            // 
+            // pPurple
+            // 
+            this.pPurple.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pPurple.Controls.Add(this.lbPurpleInfo);
+            this.pPurple.Controls.Add(this.lbPurple);
+            this.pPurple.Controls.Add(this.pbPurple);
+            this.pPurple.Location = new System.Drawing.Point(119, 319);
+            this.pPurple.Name = "pPurple";
+            this.pPurple.Size = new System.Drawing.Size(200, 250);
+            this.pPurple.TabIndex = 11;
+            this.pPurple.Click += new System.EventHandler(this.pPurple_Click);
+            // 
+            // lbPurpleInfo
+            // 
+            this.lbPurpleInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbPurpleInfo.Font = new System.Drawing.Font("Ubuntu", 12F);
+            this.lbPurpleInfo.Location = new System.Drawing.Point(0, 148);
+            this.lbPurpleInfo.Name = "lbPurpleInfo";
+            this.lbPurpleInfo.Size = new System.Drawing.Size(200, 102);
+            this.lbPurpleInfo.TabIndex = 2;
+            this.lbPurpleInfo.Text = "Themes to push creativity.";
+            this.lbPurpleInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbPurpleInfo.Click += new System.EventHandler(this.pPurple_Click);
+            // 
+            // lbPurple
+            // 
+            this.lbPurple.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbPurple.Font = new System.Drawing.Font("Ubuntu", 12F, System.Drawing.FontStyle.Bold);
+            this.lbPurple.Location = new System.Drawing.Point(0, 125);
+            this.lbPurple.Name = "lbPurple";
+            this.lbPurple.Size = new System.Drawing.Size(200, 23);
+            this.lbPurple.TabIndex = 1;
+            this.lbPurple.Text = "Purple";
+            this.lbPurple.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbPurple.Click += new System.EventHandler(this.pPurple_Click);
+            // 
+            // pbPurple
+            // 
+            this.pbPurple.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbPurple.Image = global::Korot.Properties.Resources.PurpleColors;
+            this.pbPurple.Location = new System.Drawing.Point(26, 22);
+            this.pbPurple.Name = "pbPurple";
+            this.pbPurple.Size = new System.Drawing.Size(150, 100);
+            this.pbPurple.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPurple.TabIndex = 0;
+            this.pbPurple.TabStop = false;
+            this.pbPurple.Click += new System.EventHandler(this.pPurple_Click);
+            // 
+            // pYellow
+            // 
+            this.pYellow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pYellow.Controls.Add(this.lbYellowInfo);
+            this.pYellow.Controls.Add(this.lbYellow);
+            this.pYellow.Controls.Add(this.pbYellow);
+            this.pYellow.Location = new System.Drawing.Point(325, 317);
+            this.pYellow.Name = "pYellow";
+            this.pYellow.Size = new System.Drawing.Size(200, 250);
+            this.pYellow.TabIndex = 10;
+            this.pYellow.Click += new System.EventHandler(this.pYellow_Click);
+            // 
+            // lbYellowInfo
+            // 
+            this.lbYellowInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbYellowInfo.Font = new System.Drawing.Font("Ubuntu", 12F);
+            this.lbYellowInfo.Location = new System.Drawing.Point(0, 148);
+            this.lbYellowInfo.Name = "lbYellowInfo";
+            this.lbYellowInfo.Size = new System.Drawing.Size(200, 102);
+            this.lbYellowInfo.TabIndex = 2;
+            this.lbYellowInfo.Text = "Positive and friendly themes.";
+            this.lbYellowInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbYellowInfo.Click += new System.EventHandler(this.pYellow_Click);
+            // 
+            // lbYellow
+            // 
+            this.lbYellow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbYellow.Font = new System.Drawing.Font("Ubuntu", 12F, System.Drawing.FontStyle.Bold);
+            this.lbYellow.Location = new System.Drawing.Point(0, 125);
+            this.lbYellow.Name = "lbYellow";
+            this.lbYellow.Size = new System.Drawing.Size(200, 23);
+            this.lbYellow.TabIndex = 1;
+            this.lbYellow.Text = "Yellow";
+            this.lbYellow.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbYellow.Click += new System.EventHandler(this.pYellow_Click);
+            // 
+            // pbYellow
+            // 
+            this.pbYellow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbYellow.Image = global::Korot.Properties.Resources.YellowColors;
+            this.pbYellow.Location = new System.Drawing.Point(26, 22);
+            this.pbYellow.Name = "pbYellow";
+            this.pbYellow.Size = new System.Drawing.Size(150, 100);
+            this.pbYellow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbYellow.TabIndex = 0;
+            this.pbYellow.TabStop = false;
+            this.pbYellow.Click += new System.EventHandler(this.pYellow_Click);
             // 
             // btBack
             // 
@@ -269,7 +387,7 @@
             this.btBack.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btBack.FlatAppearance.BorderSize = 0;
             this.btBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btBack.Location = new System.Drawing.Point(3, 413);
+            this.btBack.Location = new System.Drawing.Point(3, 575);
             this.btBack.Name = "btBack";
             this.btBack.Size = new System.Drawing.Size(643, 26);
             this.btBack.TabIndex = 8;
@@ -283,7 +401,7 @@
             this.btRandom1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btRandom1.FlatAppearance.BorderSize = 0;
             this.btRandom1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btRandom1.Location = new System.Drawing.Point(3, 439);
+            this.btRandom1.Location = new System.Drawing.Point(3, 601);
             this.btRandom1.Name = "btRandom1";
             this.btRandom1.Size = new System.Drawing.Size(643, 26);
             this.btRandom1.TabIndex = 9;
@@ -297,7 +415,7 @@
             this.pBlue.Controls.Add(this.lbBlueDesc);
             this.pBlue.Controls.Add(this.lbBlue);
             this.pBlue.Controls.Add(this.pictureBox3);
-            this.pBlue.Location = new System.Drawing.Point(427, 111);
+            this.pBlue.Location = new System.Drawing.Point(432, 64);
             this.pBlue.Name = "pBlue";
             this.pBlue.Size = new System.Drawing.Size(200, 250);
             this.pBlue.TabIndex = 3;
@@ -305,6 +423,8 @@
             // 
             // lbBlueDesc
             // 
+            this.lbBlueDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.lbBlueDesc.Font = new System.Drawing.Font("Ubuntu", 12F);
             this.lbBlueDesc.Location = new System.Drawing.Point(0, 148);
             this.lbBlueDesc.Name = "lbBlueDesc";
@@ -316,6 +436,8 @@
             // 
             // lbBlue
             // 
+            this.lbBlue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbBlue.Font = new System.Drawing.Font("Ubuntu", 12F, System.Drawing.FontStyle.Bold);
             this.lbBlue.Location = new System.Drawing.Point(0, 125);
             this.lbBlue.Name = "lbBlue";
@@ -327,11 +449,14 @@
             // 
             // pictureBox3
             // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.Image = global::Korot.Properties.Resources.BlueColors;
             this.pictureBox3.Location = new System.Drawing.Point(26, 22);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(150, 100);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 0;
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Click += new System.EventHandler(this.pBlue_Click);
@@ -342,7 +467,7 @@
             this.pGreen.Controls.Add(this.lbGreenDesc);
             this.pGreen.Controls.Add(this.lbGreen);
             this.pGreen.Controls.Add(this.pictureBox2);
-            this.pGreen.Location = new System.Drawing.Point(221, 110);
+            this.pGreen.Location = new System.Drawing.Point(226, 63);
             this.pGreen.Name = "pGreen";
             this.pGreen.Size = new System.Drawing.Size(200, 250);
             this.pGreen.TabIndex = 3;
@@ -350,6 +475,8 @@
             // 
             // lbGreenDesc
             // 
+            this.lbGreenDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.lbGreenDesc.Font = new System.Drawing.Font("Ubuntu", 12F);
             this.lbGreenDesc.Location = new System.Drawing.Point(0, 148);
             this.lbGreenDesc.Name = "lbGreenDesc";
@@ -361,6 +488,8 @@
             // 
             // lbGreen
             // 
+            this.lbGreen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbGreen.Font = new System.Drawing.Font("Ubuntu", 12F, System.Drawing.FontStyle.Bold);
             this.lbGreen.Location = new System.Drawing.Point(0, 125);
             this.lbGreen.Name = "lbGreen";
@@ -372,11 +501,14 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = global::Korot.Properties.Resources.GreenColors;
             this.pictureBox2.Location = new System.Drawing.Point(26, 22);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(150, 100);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pGreen_Click);
@@ -387,7 +519,7 @@
             this.pRed.Controls.Add(this.lbRedDesc);
             this.pRed.Controls.Add(this.lbRed);
             this.pRed.Controls.Add(this.pictureBox1);
-            this.pRed.Location = new System.Drawing.Point(15, 110);
+            this.pRed.Location = new System.Drawing.Point(20, 63);
             this.pRed.Name = "pRed";
             this.pRed.Size = new System.Drawing.Size(200, 250);
             this.pRed.TabIndex = 3;
@@ -395,6 +527,8 @@
             // 
             // lbRedDesc
             // 
+            this.lbRedDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.lbRedDesc.Font = new System.Drawing.Font("Ubuntu", 12F);
             this.lbRedDesc.Location = new System.Drawing.Point(0, 148);
             this.lbRedDesc.Name = "lbRedDesc";
@@ -406,6 +540,8 @@
             // 
             // lbRed
             // 
+            this.lbRed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbRed.Font = new System.Drawing.Font("Ubuntu", 12F, System.Drawing.FontStyle.Bold);
             this.lbRed.Location = new System.Drawing.Point(0, 125);
             this.lbRed.Name = "lbRed";
@@ -417,11 +553,14 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::Korot.Properties.Resources.RedColors;
             this.pictureBox1.Location = new System.Drawing.Point(26, 22);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(150, 100);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pRed_Click);
@@ -450,7 +589,7 @@
             this.tpTone.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tpTone.Name = "tpTone";
             this.tpTone.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tpTone.Size = new System.Drawing.Size(649, 469);
+            this.tpTone.Size = new System.Drawing.Size(649, 631);
             this.tpTone.TabIndex = 2;
             this.tpTone.Text = "Tone Selection";
             // 
@@ -460,7 +599,7 @@
             this.btBack2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btBack2.FlatAppearance.BorderSize = 0;
             this.btBack2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btBack2.Location = new System.Drawing.Point(3, 390);
+            this.btBack2.Location = new System.Drawing.Point(3, 552);
             this.btBack2.Name = "btBack2";
             this.btBack2.Size = new System.Drawing.Size(643, 26);
             this.btBack2.TabIndex = 9;
@@ -474,7 +613,7 @@
             this.btRandom2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btRandom2.FlatAppearance.BorderSize = 0;
             this.btRandom2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btRandom2.Location = new System.Drawing.Point(3, 416);
+            this.btRandom2.Location = new System.Drawing.Point(3, 578);
             this.btRandom2.Name = "btRandom2";
             this.btRandom2.Size = new System.Drawing.Size(643, 26);
             this.btRandom2.TabIndex = 10;
@@ -488,7 +627,7 @@
             this.btSelect.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btSelect.FlatAppearance.BorderSize = 0;
             this.btSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btSelect.Location = new System.Drawing.Point(3, 442);
+            this.btSelect.Location = new System.Drawing.Point(3, 604);
             this.btSelect.Name = "btSelect";
             this.btSelect.Size = new System.Drawing.Size(643, 23);
             this.btSelect.TabIndex = 8;
@@ -499,7 +638,7 @@
             // trackBar1
             // 
             this.trackBar1.LargeChange = 1;
-            this.trackBar1.Location = new System.Drawing.Point(20, 77);
+            this.trackBar1.Location = new System.Drawing.Point(20, 179);
             this.trackBar1.Maximum = 4;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(610, 45);
@@ -523,7 +662,7 @@
             this.panel4.Controls.Add(this.lbDesc);
             this.panel4.Controls.Add(this.lbTitle);
             this.panel4.Controls.Add(this.pbPreview);
-            this.panel4.Location = new System.Drawing.Point(20, 160);
+            this.panel4.Location = new System.Drawing.Point(20, 230);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(610, 152);
             this.panel4.TabIndex = 3;
@@ -550,11 +689,11 @@
             // 
             // pbPreview
             // 
-            this.pbPreview.Image = global::Korot.Properties.Resources.Colorful;
+            this.pbPreview.Image = global::Korot.Properties.Resources.ThemeLight;
             this.pbPreview.Location = new System.Drawing.Point(26, 22);
             this.pbPreview.Name = "pbPreview";
             this.pbPreview.Size = new System.Drawing.Size(150, 100);
-            this.pbPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPreview.TabIndex = 0;
             this.pbPreview.TabStop = false;
             // 
@@ -571,7 +710,7 @@
             this.tpResult.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tpResult.Name = "tpResult";
             this.tpResult.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tpResult.Size = new System.Drawing.Size(649, 469);
+            this.tpResult.Size = new System.Drawing.Size(649, 631);
             this.tpResult.TabIndex = 3;
             this.tpResult.Text = "Result";
             // 
@@ -581,7 +720,7 @@
             this.btBack3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btBack3.FlatAppearance.BorderSize = 0;
             this.btBack3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btBack3.Location = new System.Drawing.Point(3, 390);
+            this.btBack3.Location = new System.Drawing.Point(3, 552);
             this.btBack3.Name = "btBack3";
             this.btBack3.Size = new System.Drawing.Size(643, 26);
             this.btBack3.TabIndex = 6;
@@ -592,7 +731,7 @@
             // lbYourTheme
             // 
             this.lbYourTheme.Font = new System.Drawing.Font("Ubuntu", 12F, System.Drawing.FontStyle.Bold);
-            this.lbYourTheme.Location = new System.Drawing.Point(20, 95);
+            this.lbYourTheme.Location = new System.Drawing.Point(20, 204);
             this.lbYourTheme.Name = "lbYourTheme";
             this.lbYourTheme.Size = new System.Drawing.Size(610, 23);
             this.lbYourTheme.TabIndex = 1;
@@ -605,7 +744,7 @@
             this.btTryAgain.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btTryAgain.FlatAppearance.BorderSize = 0;
             this.btTryAgain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btTryAgain.Location = new System.Drawing.Point(3, 416);
+            this.btTryAgain.Location = new System.Drawing.Point(3, 578);
             this.btTryAgain.Name = "btTryAgain";
             this.btTryAgain.Size = new System.Drawing.Size(643, 26);
             this.btTryAgain.TabIndex = 7;
@@ -619,7 +758,7 @@
             this.panel5.Controls.Add(this.lbDesc1);
             this.panel5.Controls.Add(this.lbName);
             this.panel5.Controls.Add(this.pbTheme);
-            this.panel5.Location = new System.Drawing.Point(20, 133);
+            this.panel5.Location = new System.Drawing.Point(20, 230);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(610, 152);
             this.panel5.TabIndex = 4;
@@ -646,11 +785,11 @@
             // 
             // pbTheme
             // 
-            this.pbTheme.Image = global::Korot.Properties.Resources.Colorful;
+            this.pbTheme.Image = global::Korot.Properties.Resources.ThemeLight;
             this.pbTheme.Location = new System.Drawing.Point(26, 22);
             this.pbTheme.Name = "pbTheme";
             this.pbTheme.Size = new System.Drawing.Size(150, 100);
-            this.pbTheme.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbTheme.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbTheme.TabIndex = 0;
             this.pbTheme.TabStop = false;
             // 
@@ -660,7 +799,7 @@
             this.btApply.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btApply.FlatAppearance.BorderSize = 0;
             this.btApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btApply.Location = new System.Drawing.Point(3, 442);
+            this.btApply.Location = new System.Drawing.Point(3, 604);
             this.btApply.Name = "btApply";
             this.btApply.Size = new System.Drawing.Size(643, 23);
             this.btApply.TabIndex = 5;
@@ -684,7 +823,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(634, 461);
+            this.ClientSize = new System.Drawing.Size(634, 623);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.ForeColor = System.Drawing.Color.Black;
@@ -701,6 +840,10 @@
             this.pBW.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbBW)).EndInit();
             this.tpColor.ResumeLayout(false);
+            this.pPurple.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbPurple)).EndInit();
+            this.pYellow.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbYellow)).EndInit();
             this.pBlue.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.pGreen.ResumeLayout(false);
@@ -769,5 +912,13 @@
         private HTAlt.WinForms.HTButton btBack2;
         private HTAlt.WinForms.HTButton btRandom2;
         private HTAlt.WinForms.HTButton btSelect;
+        private System.Windows.Forms.Panel pPurple;
+        private System.Windows.Forms.Label lbPurpleInfo;
+        private System.Windows.Forms.Label lbPurple;
+        private System.Windows.Forms.PictureBox pbPurple;
+        private System.Windows.Forms.Panel pYellow;
+        private System.Windows.Forms.Label lbYellowInfo;
+        private System.Windows.Forms.Label lbYellow;
+        private System.Windows.Forms.PictureBox pbYellow;
     }
 }

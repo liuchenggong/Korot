@@ -335,11 +335,11 @@
     <Compile Include="Source Code\System Stuff\UACControl.cs" />
     <Compile Include="Source Code\Collections\CollectionManagement.cs" />
     <Compile Include="Source Code\System Stuff\ConsoleOutputLog.cs" />
-    <Compile Include="Source Code\Update\Form1.cs">
+    <Compile Include="Source Code\Update\frmUpdate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source Code\Update\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Source Code\Update\frmUpdate.Designer.cs">
+      <DependentUpon>frmUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Ext\frmExt.cs">
       <SubType>Form</SubType>
@@ -404,8 +404,8 @@
     <EmbeddedResource Include="Source Code\Main UI\frmThemeWizard.resx">
       <DependentUpon>frmThemeWizard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source Code\Update\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Source Code\Update\frmUpdate.resx">
+      <DependentUpon>frmUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmChangeTBTBack.resx">
       <DependentUpon>frmChangeTBTBack.cs</DependentUpon>
@@ -622,6 +622,26 @@
     <None Include="Resources\ThemeRed.PNG" />
     <None Include="Resources\ThemeStrawberry.PNG" />
     <None Include="Resources\ThemeSunrise.PNG" />
+    <None Include="Resources\temp2.txt" />
+    <None Include="Resources\temp1.txt" />
+    <None Include="Resources\ThemeYellow.PNG" />
+    <None Include="Resources\ThemeAvocado.PNG" />
+    <None Include="Resources\ThemeBrick.PNG" />
+    <None Include="Resources\ThemeBrown.PNG" />
+    <None Include="Resources\ThemeCreme.PNG" />
+    <None Include="Resources\ThemeDarkBlue.PNG" />
+    <None Include="Resources\ThemeFuchsia.PNG" />
+    <None Include="Resources\ThemeGold.PNG" />
+    <None Include="Resources\ThemeLavender.PNG" />
+    <None Include="Resources\ThemeLeather.PNG" />
+    <None Include="Resources\ThemeOrange.PNG" />
+    <None Include="Resources\ThemePink.PNG" />
+    <None Include="Resources\ThemePurple.PNG" />
+    <None Include="Resources\ThemeRaspberry.PNG" />
+    <None Include="Resources\ThemeSea.PNG" />
+    <None Include="Resources\ThemeTeal.PNG" />
+    <None Include="Resources\PurpleColors.PNG" />
+    <None Include="Resources\YellowColors.png" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

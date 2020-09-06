@@ -147,11 +147,11 @@ namespace Korot
                 (Height + 10));
             Location = new Point(pointX, pointY);
             BackColor = cefform.Settings.Theme.BackColor;
-            ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-            pUp.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-            pDown.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-            pLeft.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-            pRight.BackColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;
+            pUp.BackColor = ForeColor;
+            pDown.BackColor = ForeColor;
+            pLeft.BackColor = ForeColor;
+            pRight.BackColor = ForeColor;
         }
     }
     public class Notification

@@ -315,15 +315,16 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            Color BackColor2 = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
             foreach (TabPage x in tabControl1.TabPages)
             {
                 x.BackColor = cefform.Settings.Theme.BackColor;
-                x.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+                x.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
             }
             foreach (Panel x in titlePanels)
             {
-                x.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
-                x.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+                x.BackColor = BackColor2;
+                x.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
             }
             foreach (Control x in defaultBackColor)
             {
@@ -333,24 +334,24 @@ namespace Korot
             {
                 if (x is CustomLinkLabel)
                 {
-                    ((CustomLinkLabel)x).ActiveLinkColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-                    ((CustomLinkLabel)x).DisabledLinkColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-                    ((CustomLinkLabel)x).VisitedLinkColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-                    ((CustomLinkLabel)x).LinkColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+                    ((CustomLinkLabel)x).ActiveLinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
+                    ((CustomLinkLabel)x).DisabledLinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
+                    ((CustomLinkLabel)x).VisitedLinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
+                    ((CustomLinkLabel)x).LinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
 
                 }
-                x.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+                x.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
             }
             foreach (PictureBox x in backButtons)
             {
-                x.Image = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
+                x.Image = cefform.Settings.NinjaMode ? null : (HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
             }
-            listView1.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
-            listView1.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-            cmsCollection.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
-            cmsCollection.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
-            cmsMain.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
-            cmsMain.ForeColor = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            listView1.BackColor = BackColor2;
+            listView1.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
+            cmsCollection.BackColor = BackColor2;
+            cmsCollection.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
+            cmsMain.BackColor = BackColor2;
+            cmsMain.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
         }
 
 

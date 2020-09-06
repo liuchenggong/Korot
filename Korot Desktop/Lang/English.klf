@@ -1,4 +1,39 @@
 <Language CompatibleVersion="0.8.1.0">
+  <Translate ID="ForeColor" Text="Foreground Color:" />
+  <Translate ID="AutoForeColor" Text="Auto-Select Foreground Color:" />
+  <Translate ID="NinjaMode" Text="Ninja Mode:" />
+  <Translate ID="ThemeAvocado" Text="Avocado" />
+  <Translate ID="ThemeAvocadoDesc" Text="It's fresh!" />
+  <Translate ID="ThemeTeal" Text="Teal" />
+  <Translate ID="ThemeTealDesc" Text="Nice theme to relax a little." />
+  <Translate ID="ThemeYellow" Text="Yellow" />
+  <Translate ID="ThemeYellowDesc" Text="Because we love bananas!" />
+  <Translate ID="ThemeOrange" Text="Orange" />
+  <Translate ID="ThemeOrangeDesc" Text="Well sorry, this theme does not contain vitamin C." />
+  <Translate ID="ThemeBrown" Text="Brown" />
+  <Translate ID="ThemeBrownDesc" Text="For coffee lovers." />
+  <Translate ID="ThemeLeather" Text="Leather" />
+  <Translate ID="ThemeLeatherDesc" Text="It's cozy." />
+  <Translate ID="ThemeGold" Text="Gold" />
+  <Translate ID="ThemeGoldDesc" Text="For pigs that can walk, that also made out of cubes." />
+  <Translate ID="ThemeCreme" Text="Creme" />
+  <Translate ID="ThemeCremeDesc" Text="Smells like vanilla, no please don't try to smell your monitor." />
+  <Translate ID="ThemePurple" Text="Purple" />
+  <Translate ID="ThemePurpleDesc" Text="Haltroy hates this theme." />
+  <Translate ID="ThemeRaspberry" Text="Raspberry" />
+  <Translate ID="ThemeRaspberryDesc" Text="3,142857142857143" />
+  <Translate ID="ThemeLavender" Text="Lavender" />
+  <Translate ID="ThemeLavenderDesc" Text="Don't worry, this theme won't send you to hospital, if you are not Haltroy." />
+  <Translate ID="ThemeFuchsia" Text="Fuchsia" />
+  <Translate ID="ThemeFuchsiaDesc" Text="Threat your Korot like a flower." />
+  <Translate ID="ThemePink" Text="Pink" />
+  <Translate ID="ThemePinkDesc" Text="Made the theme b0ss." />
+  <Translate ID="ThemeBrick" Text="Brick" />
+  <Translate ID="ThemeBrickDesc" Text="In the wall, of course." />
+  <Translate ID="ThemeDarkBlue" Text="DarkBlue" />
+  <Translate ID="ThemeDarkBlueDesc" Text="Things getting dark, but liked it." />
+  <Translate ID="ThemeSea" Text="Sea" />
+  <Translate ID="ThemeSeaDesc" Text="Who wants to swim?" />
   <Translate ID="CloseNLInfo" Text="Do you really want to close [TITLE]([URL])?" />
   <Translate ID="PickRandom" Text="Pick Random" />
   <Translate ID="TryAgain" Text="Try Again" />
@@ -13,6 +48,10 @@
   <Translate ID="RedDesc" Text="Let's select an exiciting theme!" />
   <Translate ID="Green" Text="Green" />
   <Translate ID="GreenDesc" Text="A peaceful theme is just fine." />
+  <Translate ID="Yellow" Text="Yellow" />
+  <Translate ID="YellowDesc" Text="Positive and friendly themes." />
+  <Translate ID="Purple" Text="Purple" />
+  <Translate ID="PurpleDesc" Text="Themes to push creativity." />
   <Translate ID="Blue" Text="Blue" />
   <Translate ID="BlueDesc" Text="Themes that you can depend on." />
   <Translate ID="ThemeTitle" Text="Korot Theme Wizard" />

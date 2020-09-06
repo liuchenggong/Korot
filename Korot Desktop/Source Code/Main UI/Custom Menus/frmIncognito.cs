@@ -26,9 +26,9 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             BackColor = cefform.Settings.Theme.BackColor;
-            ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
-            btSite.BackColor = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
-            btSite.ForeColor = HTAlt.Tools.AutoWhiteBlack(btSite.BackColor);
+            ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;
+            btSite.BackColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            btSite.ForeColor = ForeColor;
             lbStatus.Text = cefform.anaform.IncognitoModeTitle;
             lbInfo.Text = cefform.anaform.IncognitoModeInfo;
             btSite.Text = cefform.anaform.LearnMore;

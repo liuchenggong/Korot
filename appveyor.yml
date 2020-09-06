@@ -11,4 +11,7 @@ build:
   verbosity: minimal
 artifacts:
 - path: /Korot Desktop\bin/
-  name: bintray
+  name: Appveyor-{build}-Desktop-x64
+# TODO: Add Crosswalk artifact
+# - path: /crosswalk\Korot Crosswalk.Android\bin/
+#   name: Crosswalk

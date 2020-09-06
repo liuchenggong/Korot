@@ -1,6 +1,7 @@
 ﻿using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Korot
@@ -171,25 +172,27 @@ namespace Korot
         {
             Enabled = !cefform._Incognito;
             BackColor = cefform.Settings.Theme.BackColor;
-            ForeColor = HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
+            ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;
+            Color BackColor2 = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
+            Color BackColor3 = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 40, false);
             foreach (Control x in Controls)
             {
                 if (x is Panel)
                 {
                     x.BackColor = selectedPanels.Contains(x as Panel)
-                        ? cefform.Settings.Theme.OverlayColor
-                        : HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
-                    x.ForeColor = HTAlt.Tools.AutoWhiteBlack(x.BackColor);
+                        ? (cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.OverlayColor)
+                        : BackColor2;
+                    x.ForeColor = ForeColor;
                 }
             }
             foreach (HTButton x in buttonList)
             {
                 x.Text = cefform.anaform.NewTabEdit;
-                x.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 40, false);
-                x.ForeColor = HTAlt.Tools.AutoWhiteBlack(x.BackColor);
+                x.BackColor = BackColor3;
+                x.ForeColor = ForeColor;
             }
-            htButton1.BackColor = HTAlt.Tools.ShiftBrightness(cefform.Settings.Theme.BackColor, 20, false);
-            htButton1.ForeColor = HTAlt.Tools.AutoWhiteBlack(htButton1.BackColor);
+            htButton1.BackColor = BackColor2;
+            htButton1.ForeColor = ForeColor;
 
             lbEmpty.Text = cefform.anaform.empty;
             rsMode = (selectedPanels.Count != 0 && selectedSites.Count != 0);

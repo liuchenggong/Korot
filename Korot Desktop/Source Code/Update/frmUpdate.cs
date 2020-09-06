@@ -38,7 +38,7 @@ using System.Xml;
 
 namespace Korot
 {
-    public partial class Form1 : Form
+    public partial class frmUpdate : Form
     {
         private string CheckUrl = "https://raw.githubusercontent.com/Haltroy/Korot/master/Korot.htupdate";
         private string downloadUrl;
@@ -50,7 +50,7 @@ namespace Korot
         private string installingTxt;
         private string installStatus;
         public Settings Settings;
-        public Form1(Settings settings)
+        public frmUpdate(Settings settings)
         {
             Settings = settings;
             InitializeComponent();
@@ -89,7 +89,7 @@ namespace Korot
         {
             return defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
         }
-        private void Form1_Load(object sender, EventArgs e)
+        private void frmUpdate_Load(object sender, EventArgs e)
         {
             RefreshTranslate();
             WebC.DownloadStringAsync(new Uri(CheckUrl));
@@ -181,7 +181,7 @@ namespace Korot
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(" [Korot.Updater] Error while Extracting: " + ex.ToString());
+                    Output.WriteLine(" [Korot.Updater] Error while extracting: " + ex.ToString());
                     ReturnBackup();
                 }
             });
@@ -212,13 +212,13 @@ namespace Korot
         {
             if (e.Error != null)
             {
-                Console.WriteLine("[Korot.Updater] Download File Error: " + e.Error.ToString());
+                Output.WriteLine("[Korot.Updater] Download File Error: " + e.Error.ToString());
                 if (((WebClient)sender).IsBusy) { ((WebClient)sender).CancelAsync(); }
             ((WebClient)sender).DownloadFileAsync(new Uri(downloadUrl), downloadFolder + fileName);
             }
             else if (e.Cancelled)
             {
-                Console.WriteLine("[Korot.Updater] Download File Cancelled.");
+                Output.WriteLine("[Korot.Updater] Download File Cancelled.");
                 if (((WebClient)sender).IsBusy) { ((WebClient)sender).CancelAsync(); }
             ((WebClient)sender).DownloadFileAsync(new Uri(downloadUrl), downloadFolder + fileName);
             }
@@ -267,7 +267,7 @@ namespace Korot
             catch { } //Ignored, possibly wrong PID
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmUpdate_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!allowClose) { e.Cancel = true; }
         }
@@ -276,9 +276,9 @@ namespace Korot
         {
             OtherInstances();
             BackColor = Settings.Theme.BackColor;
-            ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
-            htProgressBar1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-            htProgressBar1.BarColor = Settings.Theme.OverlayColor;
+            ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
+            htProgressBar1.BackColor = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+            htProgressBar1.BarColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
 
         }
     }

@@ -41,37 +41,43 @@ namespace Korot
         private int tmr1int = 0;
         private Color _Back;
         private Color _Overlay;
+        private bool forceReDraw = false;
+        public void ForceReDraw()
+        {
+            forceReDraw = true;
+            timer1_Tick(this, new EventArgs());
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (_Back != cefform.Settings.Theme.BackColor)
+            if (_Back != cefform.Settings.Theme.BackColor ||forceReDraw)
             {
                 _Back = cefform.Settings.Theme.BackColor;
                 BackColor = cefform.Settings.Theme.BackColor;
-                ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
+                ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;
                 bool isbright = HTAlt.Tools.IsBright(BackColor);
-                Color back2 = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+                Color back2 = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
                 flpExtensions.BackColor = back2;
                 tsSearch.BackColor = back2;
                 tsSearch.ForeColor = ForeColor;
-                btFullScreen.ButtonImage = cefform.anaform is null ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.fullscreen : Properties.Resources.fullscreen_w) : (cefform.anaform.isFullScreen ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.normalscreen : Properties.Resources.normalscreen_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.fullscreen : Properties.Resources.fullscreen_w));
+                btFullScreen.ButtonImage = cefform.Settings.NinjaMode ? null : (cefform.anaform is null ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.fullscreen : Properties.Resources.fullscreen_w) : (cefform.anaform.isFullScreen ? (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.normalscreen : Properties.Resources.normalscreen_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.fullscreen : Properties.Resources.fullscreen_w)));
                 btFullScreen.Enabled = !(cefform.anaform is null);
-                btCaseSensitive.ForeColor = cs ? cefform.Settings.Theme.OverlayColor : HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
-                btFindNext.ButtonImage = isbright ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
-                htButton4.ButtonImage = isbright ? Properties.Resources.cancel : Properties.Resources.cancel_w;
-                btNewWindow.ButtonImage = isbright ? Properties.Resources.newwindow : Properties.Resources.newwindow_w;
-                btNewIncWindow.ButtonImage = isbright ? Properties.Resources.inctab : Properties.Resources.inctab_w;
-                btScreenShot.ButtonImage = isbright ? Properties.Resources.screenshot : Properties.Resources.screenshot_w;
-                btSave.ButtonImage = isbright ? Properties.Resources.collection : Properties.Resources.collection_w;
-                btTabColor.ButtonImage = isbright ? Properties.Resources.tab : Properties.Resources.tab_w;
-                btRestore.ButtonImage = isbright ? Properties.Resources.restore : Properties.Resources.restore_w;
-                btExtStore.ButtonImage = isbright ? Properties.Resources.store : Properties.Resources.store_w;
-                btExtFolder.ButtonImage = isbright ? Properties.Resources.extfolder : Properties.Resources.extfolder_w;
-                btScriptFolder.ButtonImage = isbright ? Properties.Resources.extfolder : Properties.Resources.extfolder_w;
-                pbcollections.Image = isbright ? Properties.Resources.collections : Properties.Resources.collections_w;
-                pbABout.Image = isbright ? Properties.Resources.about : Properties.Resources.about_w;
-                pbHistory.Image = isbright ? Properties.Resources.history : Properties.Resources.history_w;
-                pbThemes.Image = isbright ? Properties.Resources.theme : Properties.Resources.theme_w;
-                pbSettings.Image = isbright ? Properties.Resources.Settings : Properties.Resources.Settings_w;
+                btCaseSensitive.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : (cs ? cefform.Settings.Theme.OverlayColor : cefform.Settings.Theme.ForeColor);
+                btFindNext.ButtonImage = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w);
+                htButton4.ButtonImage = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.cancel : Properties.Resources.cancel_w);
+                btNewWindow.ButtonImage = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.newwindow : Properties.Resources.newwindow_w);
+                btNewIncWindow.ButtonImage = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.inctab : Properties.Resources.inctab_w);
+                btScreenShot.ButtonImage = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.screenshot : Properties.Resources.screenshot_w);
+                btSave.ButtonImage = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.collection : Properties.Resources.collection_w);
+                btTabColor.ButtonImage = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.tab : Properties.Resources.tab_w);
+                btRestore.ButtonImage = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.restore : Properties.Resources.restore_w);
+                btExtStore.ButtonImage = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.store : Properties.Resources.store_w);
+                btExtFolder.ButtonImage = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.extfolder : Properties.Resources.extfolder_w);
+                btScriptFolder.ButtonImage = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.extfolder : Properties.Resources.extfolder_w);
+                pbcollections.Image = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.collections : Properties.Resources.collections_w);
+                pbABout.Image = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.about : Properties.Resources.about_w);
+                pbHistory.Image = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.history : Properties.Resources.history_w);
+                pbThemes.Image = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.theme : Properties.Resources.theme_w);
+                pbSettings.Image = cefform.Settings.NinjaMode ? null : (isbright ? Properties.Resources.Settings : Properties.Resources.Settings_w);
                 pbcollections.BackColor = meCol ? back2 : BackColor;
                 lbCollections.BackColor = meCol ? back2 : BackColor;
                 pbHistory.BackColor = meHis ? back2 : BackColor;
@@ -89,7 +95,7 @@ namespace Korot
             if (_Overlay != cefform.Settings.Theme.OverlayColor)
             {
                 _Overlay = cefform.Settings.Theme.OverlayColor;
-                btCaseSensitive.ForeColor = cs ? cefform.Settings.Theme.OverlayColor : HTAlt.Tools.AutoWhiteBlack(cefform.Settings.Theme.BackColor);
+                btCaseSensitive.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : (cs ? cefform.Settings.Theme.OverlayColor :cefform.Settings.Theme.ForeColor);
             }
             bool c = cefform.Settings.IsQuietTime;
             btMute.Enabled = !cefform.Settings.QuietMode;
@@ -105,8 +111,8 @@ namespace Korot
             lbAbout.Text = cefform.anaform.AboutText;
             btDefaultProxy.Enabled = cefform.defaultProxy != null;
             bool bright = HTAlt.Tools.IsBright(BackColor);
-            pbDownloads.Image = cefform.anaform is null ? (bright ? Properties.Resources.download : Properties.Resources.download_w) : (cefform.anaform.newDownload ? (bright ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (bright ? Properties.Resources.download : Properties.Resources.download_w));
-            btMute.ButtonImage = btMute.Enabled ? (bright ? Properties.Resources.mute : Properties.Resources.mute_w) : (cefform.isMuted ? (bright ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w));
+            pbDownloads.Image = cefform.Settings.NinjaMode ? null : (cefform.anaform is null ? (bright ? Properties.Resources.download : Properties.Resources.download_w) : (cefform.anaform.newDownload ? (bright ? Properties.Resources.download_i : Properties.Resources.download_i_w) : (bright ? Properties.Resources.download : Properties.Resources.download_w)));
+            btMute.ButtonImage = cefform.Settings.NinjaMode ? null : (btMute.Enabled ? (bright ? Properties.Resources.mute : Properties.Resources.mute_w) : (cefform.isMuted ? (bright ? Properties.Resources.mute : Properties.Resources.mute_w) : (HTAlt.Tools.IsBright(BackColor) ? Properties.Resources.unmute : Properties.Resources.unmute_w)));
             if (cefform != null)
             {
                 if (cefform.anaform != null)

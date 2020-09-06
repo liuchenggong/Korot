@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Korot
@@ -58,10 +59,11 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             BackColor = cefform.Settings.Theme.BackColor;
-            ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
-            tbUrl.BackColor = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;
+            Color BackColor2 = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            tbUrl.BackColor = BackColor2;
             tbUrl.ForeColor = ForeColor;
-            btDone.BackColor = tbUrl.BackColor;
+            btDone.BackColor = BackColor2;
             btDone.ForeColor = ForeColor;
             if (site.BlockLevel == 0)
             {

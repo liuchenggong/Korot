@@ -118,8 +118,8 @@ namespace Korot
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            tbAddress.BackColor = HTAlt.Tools.ShiftBrightness(tabform.Settings.Theme.BackColor, 20, false);
-            tbAddress.ForeColor = HTAlt.Tools.IsBright(tabform.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            tbAddress.BackColor = tabform.Settings.NinjaMode ? tabform.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(tabform.Settings.Theme.BackColor, 20, false);
+            tbAddress.ForeColor = tabform.Settings.NinjaMode ? tabform.Settings.Theme.BackColor : tabform.Settings.Theme.ForeColor;
         }
     }
 }

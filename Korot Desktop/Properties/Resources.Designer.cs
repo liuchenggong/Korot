@@ -342,18 +342,16 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   &lt;head&gt;
-        ///&lt;!--MIT License
+        ///    &lt;!--MIT License
         ///
-        ///Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///    Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///Permission is hereby granted, free of charge, to any person obtaining a copy
-        ///of this software and associated documentation files (the &quot;Software&quot;), to deal
-        ///in the Software without restriction, including without limitation the rights
-        ///to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        ///copies of the Software, and to permit persons to whom the Software is
-        ///furnished to do so, subject to the following conditions:
-        ///
-        ///The above cop [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        ///    Permission is hereby granted, free of charge, to any person obtaining a copy
+        ///    of this software and associated documentation files (the &quot;Software&quot;), to deal
+        ///    in the Software without restriction, including without limitation the rights
+        ///    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        ///    copies of the Software, and to permit persons to whom the Software is
+        ///    furnished to do so, subject t [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         internal static string errorpage {
             get {
@@ -895,6 +893,16 @@ namespace Korot.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap PurpleColors {
+            get {
+                object obj = ResourceManager.GetObject("PurpleColors", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap RedColors {
             get {
                 object obj = ResourceManager.GetObject("RedColors", resourceCulture);
@@ -1125,6 +1133,16 @@ namespace Korot.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap ThemeAvocado {
+            get {
+                object obj = ResourceManager.GetObject("ThemeAvocado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap ThemeBlue {
             get {
                 object obj = ResourceManager.GetObject("ThemeBlue", resourceCulture);
@@ -1135,9 +1153,39 @@ namespace Korot.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap ThemeBrick {
+            get {
+                object obj = ResourceManager.GetObject("ThemeBrick", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemeBrown {
+            get {
+                object obj = ResourceManager.GetObject("ThemeBrown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap ThemeCement {
             get {
                 object obj = ResourceManager.GetObject("ThemeCement", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemeCreme {
+            get {
+                object obj = ResourceManager.GetObject("ThemeCreme", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1158,6 +1206,16 @@ namespace Korot.Properties {
         internal static System.Drawing.Bitmap ThemeDark {
             get {
                 object obj = ResourceManager.GetObject("ThemeDark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemeDarkBlue {
+            get {
+                object obj = ResourceManager.GetObject("ThemeDarkBlue", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1195,6 +1253,26 @@ namespace Korot.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap ThemeFuchsia {
+            get {
+                object obj = ResourceManager.GetObject("ThemeFuchsia", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemeGold {
+            get {
+                object obj = ResourceManager.GetObject("ThemeGold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap ThemeGray {
             get {
                 object obj = ResourceManager.GetObject("ThemeGray", resourceCulture);
@@ -1215,6 +1293,26 @@ namespace Korot.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap ThemeLavender {
+            get {
+                object obj = ResourceManager.GetObject("ThemeLavender", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemeLeather {
+            get {
+                object obj = ResourceManager.GetObject("ThemeLeather", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap ThemeLight {
             get {
                 object obj = ResourceManager.GetObject("ThemeLight", resourceCulture);
@@ -1225,9 +1323,49 @@ namespace Korot.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static System.Drawing.Bitmap THemeMidnight {
+        internal static System.Drawing.Bitmap ThemeMidnight {
             get {
-                object obj = ResourceManager.GetObject("THemeMidnight", resourceCulture);
+                object obj = ResourceManager.GetObject("ThemeMidnight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemeOrange {
+            get {
+                object obj = ResourceManager.GetObject("ThemeOrange", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemePink {
+            get {
+                object obj = ResourceManager.GetObject("ThemePink", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemePurple {
+            get {
+                object obj = ResourceManager.GetObject("ThemePurple", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemeRaspberry {
+            get {
+                object obj = ResourceManager.GetObject("ThemeRaspberry", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1238,6 +1376,16 @@ namespace Korot.Properties {
         internal static System.Drawing.Bitmap ThemeRed {
             get {
                 object obj = ResourceManager.GetObject("ThemeRed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemeSea {
+            get {
+                object obj = ResourceManager.GetObject("ThemeSea", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1268,6 +1416,26 @@ namespace Korot.Properties {
         internal static System.Drawing.Bitmap ThemeSunrise {
             get {
                 object obj = ResourceManager.GetObject("ThemeSunrise", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemeTeal {
+            get {
+                object obj = ResourceManager.GetObject("ThemeTeal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThemeYellow {
+            get {
+                object obj = ResourceManager.GetObject("ThemeYellow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1358,6 +1526,16 @@ namespace Korot.Properties {
         internal static System.Drawing.Bitmap web_w {
             get {
                 object obj = ResourceManager.GetObject("web_w", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap YellowColors {
+            get {
+                object obj = ResourceManager.GetObject("YellowColors", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

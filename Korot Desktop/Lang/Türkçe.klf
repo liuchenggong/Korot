@@ -1,4 +1,39 @@
 <Language CompatibleVersion="0.8.1.0">
+  <Translate ID="ForeColor" Text="Önplan rengi:" />
+  <Translate ID="AutoForeColor" Text="Önplan rengini otomatik seç:" />
+  <Translate ID="NinjaMode" Text="Ninja Modu:" />
+  <Translate ID="ThemeAvocado" Text="Avokado" />
+  <Translate ID="ThemeAvocadoDesc" Text="Taze!" />
+  <Translate ID="ThemeTeal" Text="Turkuaz" />
+  <Translate ID="ThemeTealDesc" Text="Dinlenmek için iyi bir tema." />
+  <Translate ID="ThemeYellow" Text="Sarı" />
+  <Translate ID="ThemeYellowDesc" Text="çünkü muzları severiz!" />
+  <Translate ID="ThemeOrange" Text="Portakal" />
+  <Translate ID="ThemeOrangeDesc" Text="Kusura bakmayın, bu temada C vitamini bulunmamakta." />
+  <Translate ID="ThemeBrown" Text="Kahverengi" />
+  <Translate ID="ThemeBrownDesc" Text="Kahve severler için." />
+  <Translate ID="ThemeLeather" Text="Deri" />
+  <Translate ID="ThemeLeatherDesc" Text="Ceket gibi." />
+  <Translate ID="ThemeGold" Text="Altın" />
+  <Translate ID="ThemeGoldDesc" Text="Yürüyebilen domuzlar için, aynı zamanda kare olanlar." />
+  <Translate ID="ThemeCreme" Text="Krem" />
+  <Translate ID="ThemeCremeDesc" Text="Vanliya koktu, dur lütfen ekranı koklama!" />
+  <Translate ID="ThemePurple" Text="Mor" />
+  <Translate ID="ThemePurpleDesc" Text="Haltroy bu temayı sevmiyor." />
+  <Translate ID="ThemeRaspberry" Text="Frambuaz" />
+  <Translate ID="ThemeRaspberryDesc" Text="3,142857142857143" />
+  <Translate ID="ThemeLavender" Text="Lavanta" />
+  <Translate ID="ThemeLavenderDesc" Text="Merak etmeyin, bu tema sizi hastanelki etmez. Haltroy hariç." />
+  <Translate ID="ThemeFuchsia" Text="Fuşya" />
+  <Translate ID="ThemeFuchsiaDesc" Text="Cennetten toplanmış çiçeklerden yapılma tema." />
+  <Translate ID="ThemePink" Text="Pembe" />
+  <Translate ID="ThemePinkDesc" Text="Tema hazır patr0n." />
+  <Translate ID="ThemeBrick" Text="Tuğla" />
+  <Translate ID="ThemeBrickDesc" Text="Elbette, duvarda." />
+  <Translate ID="ThemeDarkBlue" Text="Lacivert" />
+  <Translate ID="ThemeDarkBlueDesc" Text="İşler koyulaşıyor, ama hoşuma gitti." />
+  <Translate ID="ThemeSea" Text="Deniz" />
+  <Translate ID="ThemeSeaDesc" Text="Kim yüzmek ister?" />
   <Translate ID="CloseNLInfo" Text="[TITLE]([URL]) bildirimlerini kapatmak istediğinizden emin misiniz?" />
   <Translate ID="PickRandom" Text="Rastgele Seç" />
   <Translate ID="TryAgain" Text="Tekrar dene" />
@@ -9,6 +44,10 @@
   <Translate ID="BlackWhiteDesc" Text="Sadece bazı gri tonları, elbette dengelidir." />
   <Translate ID="Colorful" Text="Renkli" />
   <Translate ID="ColorfulDesc" Text="50'lerde kalmadık, az bi' renk olsun." />
+  <Translate ID="Yellow" Text="Sarı" />
+  <Translate ID="YellowDesc" Text="Poszitif ve arkadaş canlısı temalar." />
+  <Translate ID="Purple" Text="Mor" />
+  <Translate ID="PurpleDesc" Text="Yaratıcılığı arttıran temalar." />
   <Translate ID="Red" Text="Kırmızı" />
   <Translate ID="RedDesc" Text="Hadi heyecanlı bir tema seçelim!" />
   <Translate ID="Green" Text="Yeşil" />
@@ -38,7 +77,7 @@
   <Translate ID="ThemeSunriseDesc" Text="Bir krallık için iyi isim ama rengi farklı." />
   <Translate ID="ThemeDodgerBlue" Text="Dodger Mavisi" />
   <Translate ID="ThemeDodgerBlueDesc" Text="Eskiden gelen bir tema, Haltroy isminden bile önce." />
-  <Translate ID="ThemeMidnight" Text="Gece ortası" />
+  <Translate ID="ThemeMidnight" Text="Gece yarısı" />
   <Translate ID="ThemeMidnightDesc" Text="Bir website arkaplanı için güzel bir renk." />
   <Translate ID="ThemeRed" Text="Kırmızı" />
   <Translate ID="ThemeRedDesc" Text="Bu rengi 2007'de bir atış oyununda tanış." />

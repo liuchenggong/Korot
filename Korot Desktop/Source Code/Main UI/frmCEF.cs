@@ -491,6 +491,7 @@ namespace Korot
             tbSearchEngine.Text = Settings.SearchEngine;
             if (Settings.Homepage == "korot://newtab") { rbNewTab.Enabled = true; }
             pbBack.BackColor = Settings.Theme.BackColor;
+            pbForeColor.BackColor = Settings.Theme.ForeColor;
             pbOverlay.BackColor = Settings.Theme.OverlayColor;
             RefreshLangList();
             refreshThemeList();
@@ -603,7 +604,10 @@ namespace Korot
 
         public void LoadLangFromFile(string fileLocation)
         {
-            Settings.LanguageSystem.ReadFromFile(fileLocation, true);
+            if (Settings.LanguageSystem.LangFile != fileLocation) { Settings.LanguageSystem.ReadFromFile(fileLocation, true); }
+            lbForeColor.Text = Settings.LanguageSystem.GetItemText("ForeColor");
+            lbAutoSelect.Text = Settings.LanguageSystem.GetItemText("AutoForeColor");
+            lbNinja.Text = Settings.LanguageSystem.GetItemText("NinjaMode");
             btThemeWizard.Text = Settings.LanguageSystem.GetItemText("ThemeWizardButton");
             anaform.Extensions = Settings.LanguageSystem.GetItemText("Extensions");
             anaform.editblockitem = Settings.LanguageSystem.GetItemText("EditBlockItem");
@@ -1033,6 +1037,7 @@ namespace Korot
         {
             ColorDialog colorpicker = new ColorDialog
             {
+                Color = Settings.Theme.BackColor,
                 AnyColor = true,
                 AllowFullOpen = true,
                 FullOpen = true
@@ -1041,8 +1046,7 @@ namespace Korot
             {
                 pbBack.BackColor = colorpicker.Color;
                 Settings.Theme.BackColor = colorpicker.Color;
-                pbBack.BackColor = colorpicker.Color;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
             }
 
         }
@@ -1051,6 +1055,7 @@ namespace Korot
         {
             ColorDialog colorpicker = new ColorDialog
             {
+                Color = Settings.Theme.OverlayColor,
                 AnyColor = true,
                 AllowFullOpen = true,
                 FullOpen = true
@@ -1059,8 +1064,7 @@ namespace Korot
             {
                 pbOverlay.BackColor = colorpicker.Color;
                 Settings.Theme.OverlayColor = colorpicker.Color;
-                pbOverlay.BackColor = colorpicker.Color;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
             }
         }
 
@@ -1107,7 +1111,7 @@ namespace Korot
             Settings.Theme.BackgroundStyle = "BACKCOLOR";
             textBox4.Text = anaform.usingBC;
             colorToolStripMenuItem.Checked = true;
-            Settings.JustChangedTheme(); ChangeTheme();
+            Settings.JustChangedTheme(); ChangeTheme(true);
         }
         private void FromURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1120,7 +1124,7 @@ namespace Korot
                 Settings.Theme.BackgroundStyle = inputbox.TextValue + ";";
                 textBox4.Text = Settings.Theme.BackgroundStyle;
                 colorToolStripMenuItem.Checked = false;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
             }
 
         }
@@ -1141,7 +1145,7 @@ namespace Korot
                     Settings.Theme.BackgroundStyle = "background-image: url('data:image/" + imageType + ";base64," + HTAlt.Tools.ImageToBase64(Image.FromFile(filedlg.FileName)) + "');";
                     textBox4.Text = Settings.Theme.BackgroundStyle;
                     colorToolStripMenuItem.Checked = false;
-                    Settings.JustChangedTheme(); ChangeTheme();
+                    Settings.JustChangedTheme(); ChangeTheme(true);
                 }
                 else
                 {
@@ -1270,7 +1274,7 @@ namespace Korot
         public void LoadTheme(string ThemeFile)
         {
             Settings.Theme.LoadFromFile(ThemeFile);
-            Settings.JustChangedTheme(); ChangeTheme();
+            Settings.JustChangedTheme(); ChangeTheme(true);
         }
         public void refreshThemeList()
         {
@@ -1372,13 +1376,13 @@ namespace Korot
                 DialogResult diagres = mesaj.ShowDialog();
                 if (diagres == DialogResult.Yes)
                 {
-                    if (Application.OpenForms.OfType<Form1>().Count() < 1)
+                    if (Application.OpenForms.OfType<frmUpdate>().Count() < 1)
                     {
                         Process.Start(Application.ExecutablePath, "-update");
                     }
                     else
                     {
-                        foreach (Form1 x in Application.OpenForms)
+                        foreach (frmUpdate x in Application.OpenForms)
                         {
                             x.Focus();
                         }
@@ -2228,17 +2232,17 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         private Color oldOverlayColor;
         private string oldStyle;
 
-        private void ChangeTheme()
+        private void ChangeTheme(bool force = false)
         {
-            if (Settings.Theme.OverlayColor != oldOverlayColor)
+            if (Settings.Theme.OverlayColor != oldOverlayColor || force)
             {
                 oldOverlayColor = Settings.Theme.OverlayColor;
-                pbOverlay.BackColor = Settings.Theme.OverlayColor;
-                pbProgress.BackColor = Settings.Theme.OverlayColor;
-                hsDownload.OverlayColor = Settings.Theme.OverlayColor;
-                hsDoNotTrack.OverlayColor = Settings.Theme.OverlayColor;
-                hsFav.OverlayColor = Settings.Theme.OverlayColor;
-                hsOpen.OverlayColor = Settings.Theme.OverlayColor;
+                pbOverlay.BackColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
+                pbProgress.BackColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
+                hsDownload.OverlayColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
+                hsDoNotTrack.OverlayColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
+                hsFav.OverlayColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
+                hsOpen.OverlayColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
                 if (Cef.IsInitialized)
                 {
                     if (chromiumWebBrowser1.IsBrowserInitialized)
@@ -2248,21 +2252,25 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 }
             }
 
-            if (Settings.Theme.BackColor != oldBackColor)
+            if (Settings.Theme.BackColor != oldBackColor || force)
             {
                 oldBackColor = Settings.Theme.BackColor;
                 UpdateFavoriteColor();
                 updateFavoritesImages();
                 bool isbright = HTAlt.Tools.IsBright(Settings.Theme.BackColor);
-                Color foreColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
-                Color backcolor2 = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-                Color backcolor3 = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false);
-                Color backcolor4 = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false);
-                Color rbc2 = HTAlt.Tools.ReverseColor(backcolor2, false);
-                Color rbc3 = HTAlt.Tools.ReverseColor(backcolor3, false);
-                Color rbc4 = HTAlt.Tools.ReverseColor(backcolor4, false);
+                Color foreColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
+                Color backcolor2 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+                Color backcolor3 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false);
+                Color backcolor4 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false);
+                Color rbc2 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.AutoWhiteBlack(backcolor2);
+                Color rbc3 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.AutoWhiteBlack(backcolor3);
+                Color rbc4 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.AutoWhiteBlack(backcolor4);
                 lbStatus.ForeColor = foreColor;
                 lbStatus.BackColor = Settings.Theme.BackColor;
+                if (hammenu != null)
+                {
+                    hammenu.ForceReDraw();
+                }
                 if (Cef.IsInitialized)
                 {
                     if (chromiumWebBrowser1.IsBrowserInitialized)
@@ -2273,20 +2281,20 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 pbBack.BackColor = Settings.Theme.BackColor;
                 cmsFavorite.BackColor = Settings.Theme.BackColor;
                 cmsFavorite.ForeColor = foreColor;
-                button12.ButtonImage = !isbright ? Properties.Resources.collection_w : Properties.Resources.collection;
-                pbStore.Image = !isbright ? Properties.Resources.store_w : Properties.Resources.store;
-                btLangStore.ButtonImage = !isbright ? Properties.Resources.store_w : Properties.Resources.store;
-                btlangFolder.ButtonImage = !isbright ? Properties.Resources.extfolder_w : Properties.Resources.extfolder;
-                btClose6.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose2.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose4.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose7.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose5.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose8.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose9.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose3.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
-                btClose10.ButtonImage = !isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel;
+                button12.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.collection_w : Properties.Resources.collection);
+                pbStore.Image = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.store_w : Properties.Resources.store);
+                btLangStore.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.store_w : Properties.Resources.store);
+                btlangFolder.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.extfolder_w : Properties.Resources.extfolder);
+                btClose6.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
+                btClose2.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
+                btClose4.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
+                btClose7.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
+                btClose.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
+                btClose5.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
+                btClose8.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
+                btClose9.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
+                btClose3.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
+                btClose10.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
                 lbSettings.BackColor = Color.Transparent;
                 lbSettings.ForeColor = foreColor;
 
@@ -2327,6 +2335,14 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 hsAutoRestore.ButtonColor = rbc2;
                 hsAutoRestore.ButtonHoverColor = rbc3;
                 hsAutoRestore.ButtonPressedColor = rbc4;
+                hsAutoForeColor.BackColor = Settings.Theme.BackColor;
+                hsAutoForeColor.ButtonColor = rbc2;
+                hsAutoForeColor.ButtonHoverColor = rbc3;
+                hsAutoForeColor.ButtonPressedColor = rbc4;
+                hsNinja.BackColor = Settings.Theme.BackColor;
+                hsNinja.ButtonColor = rbc2;
+                hsNinja.ButtonHoverColor = rbc3;
+                hsNinja.ButtonPressedColor = rbc4;
                 hsDownload.BackColor = Settings.Theme.BackColor;
                 hsDownload.ButtonColor = rbc2;
                 hsDownload.ButtonHoverColor = rbc3;
@@ -2385,7 +2401,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 lbStatus.BackColor = Settings.Theme.BackColor;
                 BackColor = Settings.Theme.BackColor;
                 cbLang.BackColor = Settings.Theme.BackColor;
-                pbIncognito.Image = !isbright ? Properties.Resources.inctab_w : Properties.Resources.inctab;
+                pbIncognito.Image = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.inctab_w : Properties.Resources.inctab);
                 tbAddress.ForeColor = foreColor;
                 ForeColor = foreColor;
                 tbTitle.BackColor = backcolor2;
@@ -2395,18 +2411,18 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 lbStatus.ForeColor = foreColor;
                 cbLang.ForeColor = foreColor;
                 textBox4.ForeColor = foreColor;
-                if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.ButtonImage = !isbright ? Properties.Resources.star_on_w : Properties.Resources.star_on; } else { btFav.ButtonImage = isbright ? Properties.Resources.star : Properties.Resources.star_w; }
+                if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.star_on_w : Properties.Resources.star_on); } else { btFav.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.star : Properties.Resources.star_w); }
                 mFavorites.ForeColor = foreColor;
-                if (!noProfilePic) { btProfile.ButtonImage = profilePic; } else { btProfile.ButtonImage = isbright ? Properties.Resources.profiles : Properties.Resources.profiles_w; }
-                btBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btRefresh.ButtonImage = isbright ? Properties.Resources.refresh : Properties.Resources.refresh_w;
-                btNext.ButtonImage = isbright ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w;
-                btNotifBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btBlockBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btNewTabBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btCookieBack.ButtonImage = isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w;
-                btHome.ButtonImage = isbright ? Properties.Resources.home : Properties.Resources.home_w;
-                btHamburger.ButtonImage = isbright ? (anaform is null ? Properties.Resources.hamburger : (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger)) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w));
+                if (!noProfilePic) { btProfile.ButtonImage = Settings.NinjaMode ? null : profilePic; } else { btProfile.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.profiles : Properties.Resources.profiles_w); }
+                btBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
+                btRefresh.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.refresh : Properties.Resources.refresh_w);
+                btNext.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w);
+                btNotifBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
+                btBlockBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
+                btNewTabBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
+                btCookieBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
+                btHome.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.home : Properties.Resources.home_w);
+                btHamburger.ButtonImage = Settings.NinjaMode ? null : (isbright ? (anaform is null ? Properties.Resources.hamburger : (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger)) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w)));
                 L0.BackColor = backcolor2;
                 L0.ForeColor = foreColor;
                 L1.BackColor = backcolor2;
@@ -2643,6 +2659,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             flpLayout.Location = new Point(lbBackImageStyle.Location.X + lbBackImageStyle.Width, flpLayout.Location.Y);
             flpLayout.Width = tpTheme.Width - (lbBackImageStyle.Width + lbBackImageStyle.Location.X + 25);
             pbBack.Location = new Point(lbBackColor.Location.X + lbBackColor.Width, pbBack.Location.Y);
+            pbForeColor.Location = new Point(lbForeColor.Location.X + lbForeColor.Width, pbForeColor.Location.Y);
+            lbAutoSelect.Location = new Point(pbForeColor.Location.X + pbForeColor.Width + 10 , lbAutoSelect.Location.Y);
+            hsAutoForeColor.Location = new Point(lbAutoSelect.Location.X + lbAutoSelect.Width, hsAutoForeColor.Location.Y);
+            hsNinja.Location = new Point(lbNinja.Location.X + lbNinja.Width, hsNinja.Location.Y);
             pbOverlay.Location = new Point(lbOveralColor.Location.X + lbOveralColor.Width, pbOverlay.Location.Y);
             tbFolder.Location = new Point(lbDownloadFolder.Location.X + lbDownloadFolder.Width, tbFolder.Location.Y);
             tbFolder.Width = tpDownload.Width - (lbDownloadFolder.Location.X + lbDownloadFolder.Width + btDownloadFolder.Width + 25);
@@ -2721,6 +2741,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 tbStartup.Text = Settings.Startup;
             }
+            hsAutoForeColor.Checked = Settings.Theme.AutoForeColor;
+            hsNinja.Checked = Settings.NinjaMode;
             hsDownload.Checked = Settings.Downloads.UseDownloadFolder;
             lbDownloadFolder.Enabled = hsDownload.Checked;
             tbFolder.Enabled = hsDownload.Checked;
@@ -3710,7 +3732,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 rbStretch.Checked = false;
                 rbZoom.Checked = false;
                 Settings.Theme.BackgroundStyleLayout = 0;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
 
             }
         }
@@ -3724,7 +3746,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 rbStretch.Checked = false;
                 rbZoom.Checked = false;
                 Settings.Theme.BackgroundStyleLayout = 1;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
 
             }
         }
@@ -3738,7 +3760,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 rbStretch.Checked = false;
                 rbZoom.Checked = false;
                 Settings.Theme.BackgroundStyleLayout = 2;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
 
             }
         }
@@ -3752,7 +3774,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 rbNone.Checked = false;
                 rbZoom.Checked = false;
                 Settings.Theme.BackgroundStyleLayout = 3;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
 
             }
         }
@@ -3766,7 +3788,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 rbStretch.Checked = false;
                 rbNone.Checked = false;
                 Settings.Theme.BackgroundStyleLayout = 4;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
 
             }
         }
@@ -3778,7 +3800,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 rbForeColor.Checked = false;
                 rbOverlayColor.Checked = false;
                 Settings.Theme.NewTabColor = TabColors.BackColor;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
 
             }
         }
@@ -3790,7 +3812,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 rbBackColor.Checked = false;
                 rbOverlayColor.Checked = false;
                 Settings.Theme.NewTabColor = TabColors.ForeColor;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
 
             }
         }
@@ -3802,7 +3824,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 rbForeColor.Checked = false;
                 rbBackColor.Checked = false;
                 Settings.Theme.NewTabColor = TabColors.OverlayColor;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
 
             }
         }
@@ -3814,7 +3836,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 rbForeColor1.Checked = false;
                 rbOverlayColor1.Checked = false;
                 Settings.Theme.CloseButtonColor = TabColors.BackColor;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
 
             }
         }
@@ -3826,7 +3848,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 rbBackColor1.Checked = false;
                 rbOverlayColor1.Checked = false;
                 Settings.Theme.CloseButtonColor = TabColors.ForeColor;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
 
             }
         }
@@ -3838,7 +3860,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 rbForeColor1.Checked = false;
                 rbBackColor1.Checked = false;
                 Settings.Theme.CloseButtonColor = TabColors.OverlayColor;
-                Settings.JustChangedTheme(); ChangeTheme();
+                Settings.JustChangedTheme(); ChangeTheme(true);
 
             }
         }
@@ -4268,6 +4290,38 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 }));
             }
         }
+
+        private void hsAutoForeColor_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Theme.AutoForeColor = hsAutoForeColor.Checked;
+            Settings.Theme.ForeColor = hsAutoForeColor.Checked ? (HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor)) : Settings.Theme.ForeColor;
+            Settings.JustChangedTheme(); ChangeTheme(true);
+        }
+
+        private void hsNinja_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.NinjaMode = hsNinja.Checked;
+            Settings.JustChangedTheme(); ChangeTheme(true);
+        }
+
+        private void pbForeColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorpicker = new ColorDialog
+            {
+                Color = Settings.Theme.ForeColor,
+                AnyColor = true,
+                AllowFullOpen = true,
+                FullOpen = true
+            };
+            if (colorpicker.ShowDialog() == DialogResult.OK)
+            {
+                pbForeColor.BackColor = colorpicker.Color;
+                Settings.Theme.AutoForeColor = false;
+                Settings.Theme.ForeColor = colorpicker.Color;
+                Settings.JustChangedTheme(); ChangeTheme(true);
+            }
+        }
+
         private void label20_MouseClick(object sender, MouseEventArgs e)
         {
             isLeftPressed = e.Button == MouseButtons.Left ? true : isLeftPressed;

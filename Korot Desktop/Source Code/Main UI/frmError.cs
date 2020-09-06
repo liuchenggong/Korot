@@ -54,11 +54,12 @@ namespace Korot
             label3.Text = ErrorMenu[2];
             btRestart.Text = ErrorMenu[3];
             BackColor = Settings.Theme.BackColor;
-            ForeColor = HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.Black : Color.White;
-            textBox1.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-            lbErrorCode.BackColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-            textBox1.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false)) ? Color.Black : Color.White;
-            lbErrorCode.ForeColor = HTAlt.Tools.IsBright(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false)) ? Color.Black : Color.White;
+            ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
+            Color BackColor2 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+            textBox1.BackColor = BackColor2;
+            lbErrorCode.BackColor = BackColor2;
+            textBox1.ForeColor = ForeColor;
+            lbErrorCode.ForeColor = ForeColor;
         }
 
         private void btRestart_Click(object sender, EventArgs e)

@@ -334,21 +334,21 @@ namespace Korot
         private void timer2_Tick(object sender, EventArgs e)
         {
             BackColor = Settings.Theme.BackColor;
-            ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
-            pictureBox1.BackColor = Settings.Theme.OverlayColor;
+            ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
+            pictureBox1.BackColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
             tabPage1.BackColor = Settings.Theme.BackColor;
-            tabPage1.ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
+            tabPage1.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
             tabPage2.BackColor = Settings.Theme.BackColor;
-            tabPage2.ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
+            tabPage2.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
             tabPage3.BackColor = Settings.Theme.BackColor;
-            tabPage3.ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
+            tabPage3.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
             panel1.BackColor = Settings.Theme.BackColor;
             tabPage4.BackColor = Settings.Theme.BackColor;
-            tabPage4.ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
-            panel1.ForeColor = Brightness(Settings.Theme.BackColor) < 130 ? Color.White : Color.Black;
-            pictureBox7.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._1_w : Properties.Resources._1;
-            pictureBox2.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._2_w : Properties.Resources._2;
-            pictureBox5.Image = Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._3_w : Properties.Resources._3;
+            tabPage4.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
+            panel1.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
+            pictureBox7.Image = Settings.NinjaMode ? null : (Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._1_w : Properties.Resources._1);
+            pictureBox2.Image = Settings.NinjaMode ? null : (Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._2_w : Properties.Resources._2);
+            pictureBox5.Image = Settings.NinjaMode ? null : (Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._3_w : Properties.Resources._3);
             noPermission = Settings.LanguageSystem.GetItemText("ExtensionNoPermission");
             Initializing = Settings.LanguageSystem.GetItemText("Initializing");
             installed = Settings.LanguageSystem.GetItemText("Installed");

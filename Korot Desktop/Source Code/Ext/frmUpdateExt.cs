@@ -19,6 +19,7 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
+using CefSharp;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -163,9 +164,9 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             BackColor = Settings.Theme.BackColor;
-            ForeColor = HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Color.Black : Color.White;
-            htProgressBar1.BarColor = Settings.Theme.BackColor;
-            htProgressBar1.BackColor = Settings.Theme.BackColor;
+            ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
+            htProgressBar1.BarColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
+            htProgressBar1.BackColor = BackColor;
         }
     }
 }

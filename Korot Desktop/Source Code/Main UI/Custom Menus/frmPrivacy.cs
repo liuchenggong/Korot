@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Korot
@@ -26,11 +27,12 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             BackColor = cefform.Settings.Theme.BackColor;
-            ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
-            btCert.BackColor = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
-            btCert.ForeColor = HTAlt.Tools.AutoWhiteBlack(btCert.BackColor);
-            btSite.BackColor = HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
-            btSite.ForeColor = HTAlt.Tools.AutoWhiteBlack(btSite.BackColor);
+            ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : HTAlt.Tools.AutoWhiteBlack(BackColor);
+            Color BackColor2 = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(BackColor, 20, false);
+            btCert.BackColor = BackColor2;
+            btCert.ForeColor = ForeColor;
+            btSite.BackColor = BackColor2;
+            btSite.ForeColor = ForeColor;
             btSite.Enabled = !cefform._Incognito;
             btCert.Visible = cefform.certError;
             btCert.Text = cefform.anaform.showCertError;

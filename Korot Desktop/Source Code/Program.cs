@@ -20,7 +20,9 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using CefSharp;
+using HTAlt;
 using HTAlt.WinForms;
+using Korot;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -38,7 +40,7 @@ namespace Korot
     {
         public static string CodeName => "Shisha no kodo"; //死者のコード
 
-        public static int VersionNumber = 49;
+        public static int VersionNumber = 50;
     }
     internal static class Program
     {
@@ -65,7 +67,7 @@ namespace Korot
                 {
                     if (UACControl.IsProcessElevated)
                     {
-                        Application.Run(new Form1(settings));
+                        Application.Run(new frmUpdate(settings));
                         appStarted = true;
                     }
                     else
@@ -219,6 +221,10 @@ new HTTitleTab(testApp)
                 else if (node.Name.ToLower() == "menuwasmaximized")
                 {
                     MenuWasMaximized = node.InnerText == "true";
+                }
+                else if (node.Name.ToLower() == "ninjamode")
+                {
+                    NinjaMode = node.InnerText == "true";
                 }
                 else if (node.Name.ToLower() == "donottrack")
                 {
@@ -441,6 +447,7 @@ new HTTitleTab(testApp)
             }
         }
         #region Defaults
+        private bool _NinjaMode = false;
         private List<BlockSite> _Filters = new List<BlockSite>();
         private NewTabSites _NewTabSites = new NewTabSites("");
         private bool _Flash = false;
@@ -475,6 +482,7 @@ new HTTitleTab(testApp)
         private Extensions _Extensions = new Extensions("");
         #endregion
         #region Properties
+        public bool NinjaMode { get => _NinjaMode; set => _NinjaMode = value; }
         public string ScreenShotFolder { get => _screenshotFolder; set => _screenshotFolder = value; }
         public string SaveFolder { get => _saveFolder; set => _saveFolder = value; }
         public class BlockLevels
@@ -873,6 +881,7 @@ new HTTitleTab(testApp)
             "<Name>" + Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Name>" + Environment.NewLine +
             "<Author>" + Author.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Author>" + Environment.NewLine +
             "<BackColor>" + HTAlt.Tools.ColorToHex(BackColor) + "</BackColor>" + Environment.NewLine +
+            (AutoForeColor ? "" : ("<BackColor>" + HTAlt.Tools.ColorToHex(BackColor) + "</BackColor>" + Environment.NewLine)) +
             "<OverlayColor>" + HTAlt.Tools.ColorToHex(OverlayColor) + "</OverlayColor>" + Environment.NewLine +
             "<BackgroundStyle Layout=\"" + BackgroundStyleLayout + "\">" + BackgroundStyle.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</BackgroundStyle>" + Environment.NewLine +
             "<NewTabColor>" + (int)NewTabColor + "</NewTabColor>" + Environment.NewLine +
@@ -930,6 +939,10 @@ new HTTitleTab(testApp)
                 {
                     BackColor = HTAlt.Tools.HexToColor(node.InnerText);
                 }
+                else if (node.Name.ToLower() == "forecolor")
+                {
+                    ForeColor = HTAlt.Tools.HexToColor(node.InnerText);
+                }
                 else if (node.Name.ToLower() == "overlaycolor")
                 {
                     OverlayColor = HTAlt.Tools.HexToColor(node.InnerText);
@@ -978,7 +991,16 @@ new HTTitleTab(testApp)
                     }
                 }
             }
+            if (ForeColor == Color.Empty || ForeColor == null)
+            {
+                AutoForeColor = true;
+                ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
+            }else
+            {
+                AutoForeColor = false;
+            }
         }
+        public bool AutoForeColor { get; set; }
 
         public Theme(string themeFile)
         {
@@ -991,6 +1013,7 @@ new HTTitleTab(testApp)
         public string Name { get; set; }
         public string Author { get; set; }
         public Color BackColor { get; set; }
+        public Color ForeColor { get; set; }
         public Color OverlayColor { get; set; }
         public string ThemeFile { get; set; }
         public string BackgroundStyle { get; set; }
@@ -1493,7 +1516,7 @@ new HTTitleTab(testApp)
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#ffffff</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1508,7 +1531,7 @@ new HTTitleTab(testApp)
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#000000</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1524,7 +1547,7 @@ new HTTitleTab(testApp)
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#050024</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1540,7 +1563,7 @@ new HTTitleTab(testApp)
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#78ff95</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1555,7 +1578,7 @@ new HTTitleTab(testApp)
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#005212</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1570,7 +1593,7 @@ new HTTitleTab(testApp)
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#ffabab</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1585,7 +1608,7 @@ new HTTitleTab(testApp)
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#4a0000</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1600,7 +1623,7 @@ new HTTitleTab(testApp)
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#bfffff</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1616,7 +1639,7 @@ new HTTitleTab(testApp)
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#ff0000</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1628,12 +1651,12 @@ new HTTitleTab(testApp)
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Blue.ktf"))
             {
                 string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
-                                  "<Name>Korot Sunrise</Name>" + Environment.NewLine +
+                                  "<Name>Korot Blue</Name>" + Environment.NewLine +
                                    "<Author>Haltroy</Author>" + Environment.NewLine +
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#0000ff</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1645,12 +1668,12 @@ new HTTitleTab(testApp)
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Green.ktf"))
             {
                 string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
-                                  "<Name>Korot Sunrise</Name>" + Environment.NewLine +
+                                  "<Name>Korot Green</Name>" + Environment.NewLine +
                                    "<Author>Haltroy</Author>" + Environment.NewLine +
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#00ff00</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1660,12 +1683,12 @@ new HTTitleTab(testApp)
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Gray.ktf"))
             {
                 string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
-                                  "<Name>Korot Sunrise</Name>" + Environment.NewLine +
+                                  "<Name>Korot Gray</Name>" + Environment.NewLine +
                                    "<Author>Haltroy</Author>" + Environment.NewLine +
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#808080</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1676,12 +1699,12 @@ new HTTitleTab(testApp)
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Shadow.ktf"))
             {
                 string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
-                                  "<Name>Korot Sunrise</Name>" + Environment.NewLine +
+                                  "<Name>Korot SHadow</Name>" + Environment.NewLine +
                                    "<Author>Haltroy</Author>" + Environment.NewLine +
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#202020</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1692,12 +1715,12 @@ new HTTitleTab(testApp)
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Cement.ktf"))
             {
                 string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
-                                  "<Name>Korot Sunrise</Name>" + Environment.NewLine +
+                                  "<Name>Korot Cement</Name>" + Environment.NewLine +
                                    "<Author>Haltroy</Author>" + Environment.NewLine +
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
                                    "<BackColor>#C0C0C0</BackColor>" + Environment.NewLine +
-                                   "<OverlayColor>#55b4d4</OverlayColor>" + Environment.NewLine +
+                                   "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +
                                    "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +
                                    "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +
                                    "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +
@@ -1708,7 +1731,7 @@ new HTTitleTab(testApp)
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot DodgerBlue.ktf"))
             {
                 string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
-                                  "<Name>Korot Sunrise</Name>" + Environment.NewLine +
+                                  "<Name>Korot DodgerBlue</Name>" + Environment.NewLine +
                                    "<Author>Haltroy</Author>" + Environment.NewLine +
                                    "<Version>1.0.0.0</Version>" + Environment.NewLine +
                                    "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +
@@ -1720,6 +1743,22 @@ new HTTitleTab(testApp)
                                    "</Theme>" + Environment.NewLine;
                 HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot DodgerBlue.ktf", newTheme, Encoding.UTF8);
             }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Avocado.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Avocado</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#9ed99c</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Avocado.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Teal.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Teal</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#008080</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Teal.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Yellow.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Yellow</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#ffff00</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Yellow.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Orange.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Orange</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#ff8000</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Orange.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brown.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Brown</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#A0522D</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brown.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Leather.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Leather</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#D2691E</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Leather.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Gold.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Gold</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#DAA520</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Gold.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Creme.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Creme</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#FFF8DC</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Creme.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Purple.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Purple</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#4d004d</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Purple.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Raspberry.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Raspberry</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#ff99ff</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Raspberry.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Lavender.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Lavender</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#800080</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Lavender.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Fuchsia.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Fuchsia</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#ff00ff</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Fuchsia.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Pink.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Pink</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#ff4dff</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Pink.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brick.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Brick</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#A52A2A</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brick.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot DarkBlue.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot DarkBlue</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#000066</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot DarkBlue.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Sea.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Sea</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#4da6ff</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Sea.ktf", newTheme, Encoding.UTF8);}
             return true;
         }
         public static bool createFolders()

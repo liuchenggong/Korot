@@ -558,7 +558,7 @@
             this.flpExtensions.AutoScroll = true;
             this.flpExtensions.Location = new System.Drawing.Point(5, 430);
             this.flpExtensions.Name = "flpExtensions";
-            this.flpExtensions.Size = new System.Drawing.Size(257, 77);
+            this.flpExtensions.Size = new System.Drawing.Size(257, 12);
             this.flpExtensions.TabIndex = 29;
             // 
             // btExtStore
@@ -597,7 +597,7 @@
             this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Left;
             this.pictureBox4.Location = new System.Drawing.Point(0, 0);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(2, 515);
+            this.pictureBox4.Size = new System.Drawing.Size(2, 450);
             this.pictureBox4.TabIndex = 33;
             this.pictureBox4.TabStop = false;
             // 
@@ -607,7 +607,7 @@
             this.pictureBox5.Dock = System.Windows.Forms.DockStyle.Right;
             this.pictureBox5.Location = new System.Drawing.Point(268, 0);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(2, 515);
+            this.pictureBox5.Size = new System.Drawing.Size(2, 450);
             this.pictureBox5.TabIndex = 34;
             this.pictureBox5.TabStop = false;
             // 
@@ -625,7 +625,7 @@
             // 
             this.pictureBox7.BackColor = System.Drawing.Color.Black;
             this.pictureBox7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pictureBox7.Location = new System.Drawing.Point(2, 513);
+            this.pictureBox7.Location = new System.Drawing.Point(2, 448);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(266, 2);
             this.pictureBox7.TabIndex = 36;
@@ -679,7 +679,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(270, 515);
+            this.ClientSize = new System.Drawing.Size(270, 450);
             this.ControlBox = false;
             this.Controls.Add(this.btScriptFolder);
             this.Controls.Add(this.pictureBox8);
@@ -731,6 +731,7 @@
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(270, 450);
             this.Name = "frmHamburger";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
