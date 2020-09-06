@@ -301,6 +301,10 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.hsDefaultSound = new HTAlt.WinForms.HTSwitch();
+            this.lbDefaultNotifSound = new System.Windows.Forms.Label();
+            this.tbSoundLoc = new System.Windows.Forms.TextBox();
+            this.btOpenSound = new HTAlt.WinForms.HTButton();
             this.pNavigate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).BeginInit();
@@ -2228,12 +2232,16 @@ namespace Korot
             // 
             // tpNotification
             // 
+            this.tpNotification.Controls.Add(this.btOpenSound);
+            this.tpNotification.Controls.Add(this.tbSoundLoc);
             this.tpNotification.Controls.Add(this.btNotifBack);
             this.tpNotification.Controls.Add(this.panel1);
             this.tpNotification.Controls.Add(this.lbSchedule);
             this.tpNotification.Controls.Add(this.lbSilentMode);
             this.tpNotification.Controls.Add(this.hsSchedule);
             this.tpNotification.Controls.Add(this.hsSilent);
+            this.tpNotification.Controls.Add(this.lbDefaultNotifSound);
+            this.tpNotification.Controls.Add(this.hsDefaultSound);
             this.tpNotification.Controls.Add(this.lbPlayNotifSound);
             this.tpNotification.Controls.Add(this.hsNotificationSound);
             this.tpNotification.Controls.Add(this.btClose3);
@@ -2272,7 +2280,7 @@ namespace Korot
             this.panel1.Controls.Add(this.flpTo);
             this.panel1.Controls.Add(this.scheduleEvery);
             this.panel1.Controls.Add(this.scheduleTo);
-            this.panel1.Location = new System.Drawing.Point(16, 144);
+            this.panel1.Location = new System.Drawing.Point(13, 236);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(707, 116);
             this.panel1.TabIndex = 42;
@@ -2542,7 +2550,7 @@ namespace Korot
             // 
             this.lbSchedule.AutoSize = true;
             this.lbSchedule.BackColor = System.Drawing.Color.Transparent;
-            this.lbSchedule.Location = new System.Drawing.Point(15, 119);
+            this.lbSchedule.Location = new System.Drawing.Point(12, 195);
             this.lbSchedule.Name = "lbSchedule";
             this.lbSchedule.Size = new System.Drawing.Size(131, 15);
             this.lbSchedule.TabIndex = 40;
@@ -2552,7 +2560,7 @@ namespace Korot
             // 
             this.lbSilentMode.AutoSize = true;
             this.lbSilentMode.BackColor = System.Drawing.Color.Transparent;
-            this.lbSilentMode.Location = new System.Drawing.Point(13, 88);
+            this.lbSilentMode.Location = new System.Drawing.Point(10, 164);
             this.lbSilentMode.Name = "lbSilentMode";
             this.lbSilentMode.Size = new System.Drawing.Size(76, 15);
             this.lbSilentMode.TabIndex = 40;
@@ -2560,7 +2568,7 @@ namespace Korot
             // 
             // hsSchedule
             // 
-            this.hsSchedule.Location = new System.Drawing.Point(153, 119);
+            this.hsSchedule.Location = new System.Drawing.Point(150, 195);
             this.hsSchedule.Name = "hsSchedule";
             this.hsSchedule.Size = new System.Drawing.Size(50, 19);
             this.hsSchedule.TabIndex = 39;
@@ -2568,7 +2576,7 @@ namespace Korot
             // 
             // hsSilent
             // 
-            this.hsSilent.Location = new System.Drawing.Point(97, 88);
+            this.hsSilent.Location = new System.Drawing.Point(94, 164);
             this.hsSilent.Name = "hsSilent";
             this.hsSilent.Size = new System.Drawing.Size(50, 19);
             this.hsSilent.TabIndex = 39;
@@ -3395,6 +3403,49 @@ namespace Korot
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
             // 
+            // hsDefaultSound
+            // 
+            this.hsDefaultSound.Location = new System.Drawing.Point(204, 95);
+            this.hsDefaultSound.Name = "hsDefaultSound";
+            this.hsDefaultSound.Size = new System.Drawing.Size(50, 19);
+            this.hsDefaultSound.TabIndex = 39;
+            this.hsDefaultSound.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsDefaultSound_CheckedChanged);
+            // 
+            // lbDefaultNotifSound
+            // 
+            this.lbDefaultNotifSound.AutoSize = true;
+            this.lbDefaultNotifSound.BackColor = System.Drawing.Color.Transparent;
+            this.lbDefaultNotifSound.Location = new System.Drawing.Point(15, 95);
+            this.lbDefaultNotifSound.Name = "lbDefaultNotifSound";
+            this.lbDefaultNotifSound.Size = new System.Drawing.Size(171, 15);
+            this.lbDefaultNotifSound.TabIndex = 40;
+            this.lbDefaultNotifSound.Text = "Use default notification sound:";
+            // 
+            // tbSoundLoc
+            // 
+            this.tbSoundLoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSoundLoc.Location = new System.Drawing.Point(15, 125);
+            this.tbSoundLoc.Name = "tbSoundLoc";
+            this.tbSoundLoc.Size = new System.Drawing.Size(672, 21);
+            this.tbSoundLoc.TabIndex = 45;
+            // 
+            // btOpenSound
+            // 
+            this.btOpenSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btOpenSound.AutoSize = true;
+            this.btOpenSound.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btOpenSound.FlatAppearance.BorderSize = 0;
+            this.btOpenSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btOpenSound.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.btOpenSound.Location = new System.Drawing.Point(687, 120);
+            this.btOpenSound.Name = "btOpenSound";
+            this.btOpenSound.Size = new System.Drawing.Size(33, 28);
+            this.btOpenSound.TabIndex = 46;
+            this.btOpenSound.Text = "...";
+            this.btOpenSound.UseVisualStyleBackColor = true;
+            this.btOpenSound.Click += new System.EventHandler(this.btOpenSound_Click);
+            // 
             // frmCEF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -3742,5 +3793,9 @@ namespace Korot
         private System.Windows.Forms.Label lbForeColor;
         private HTAlt.WinForms.HTSwitch hsAutoForeColor;
         private System.Windows.Forms.Label lbAutoSelect;
+        private HTAlt.WinForms.HTButton btOpenSound;
+        private System.Windows.Forms.TextBox tbSoundLoc;
+        private System.Windows.Forms.Label lbDefaultNotifSound;
+        private HTAlt.WinForms.HTSwitch hsDefaultSound;
     }
 }

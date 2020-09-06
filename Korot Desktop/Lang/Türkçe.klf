@@ -1,4 +1,6 @@
 <Language CompatibleVersion="0.8.1.0">
+  <Translate ID="SoundFiles" Text="Ses Dosyaları" />
+  <Translate ID="UseDefaultSound" Text="Varsayılan bildirim sesini kullan:" />
   <Translate ID="ForeColor" Text="Önplan rengi:" />
   <Translate ID="AutoForeColor" Text="Önplan rengini otomatik seç:" />
   <Translate ID="NinjaMode" Text="Ninja Modu:" />

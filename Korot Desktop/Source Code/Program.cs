@@ -226,6 +226,21 @@ new HTTitleTab(testApp)
                 {
                     NinjaMode = node.InnerText == "true";
                 }
+                else if (node.Name.ToLower() == "usedefaultsound")
+                {
+                    UseDefaultSound = node.InnerText == "true";
+                }
+                else if (node.Name.ToLower() == "soundlocation")
+                {
+                    if (!File.Exists(node.InnerText))
+                    {
+                        UseDefaultSound = true;
+                    }
+                    else
+                    {
+                        SoundLocation = node.InnerText;
+                    }
+                }
                 else if (node.Name.ToLower() == "donottrack")
                 {
                     DoNotTrack = node.InnerText == "true";
@@ -447,6 +462,8 @@ new HTTitleTab(testApp)
             }
         }
         #region Defaults
+        private bool _UseDefaultSound = true;
+        private string _SoundLoc = "";
         private bool _NinjaMode = false;
         private List<BlockSite> _Filters = new List<BlockSite>();
         private NewTabSites _NewTabSites = new NewTabSites("");
@@ -482,6 +499,8 @@ new HTTitleTab(testApp)
         private Extensions _Extensions = new Extensions("");
         #endregion
         #region Properties
+        public bool UseDefaultSound { get=> _UseDefaultSound; set => _UseDefaultSound = value; }
+        public string SoundLocation { get => _SoundLoc; set => _SoundLoc = value; }
         public bool NinjaMode { get => _NinjaMode; set => _NinjaMode = value; }
         public string ScreenShotFolder { get => _screenshotFolder; set => _screenshotFolder = value; }
         public string SaveFolder { get => _saveFolder; set => _saveFolder = value; }

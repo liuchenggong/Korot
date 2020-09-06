@@ -40,58 +40,65 @@ namespace Korot
         public void PlayNotificationSound()
         {
             if (playedSound) { return; }
-            bool isw7 = KorotTools.getOSInfo() == "NT 6.1";
-            if (!isw7)
+            if (cefform.Settings.UseDefaultSound)
             {
-                bool found = false;
-                try
+                bool isw7 = KorotTools.getOSInfo() == "NT 6.1";
+                if (!isw7)
                 {
-                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"AppEvents\Schemes\Apps\.Default\Notification.Default\.Current"))
+                    bool found = false;
+                    try
                     {
-                        if (key != null)
+                        using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"AppEvents\Schemes\Apps\.Default\Notification.Default\.Current"))
                         {
-                            object o = key.GetValue(null);
-                            if (o != null)
+                            if (key != null)
                             {
-                                SoundPlayer theSound = new SoundPlayer((string)o);
-                                theSound.Play();
-                                found = true;
+                                object o = key.GetValue(null);
+                                if (o != null)
+                                {
+                                    SoundPlayer theSound = new SoundPlayer((string)o);
+                                    theSound.Play();
+                                    found = true;
+                                }
                             }
                         }
                     }
-                }
-                catch
-                { }
-                if (!found)
-                {
-                    SystemSounds.Beep.Play();
-                }
-            }
-            else
-            {
-                bool found = false;
-                try
-                {
-                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"AppEvents\Schemes\Apps\.Default\SystemNotification\.Current"))
+                    catch
+                    { }
+                    if (!found)
                     {
-                        if (key != null)
+                        SystemSounds.Beep.Play();
+                    }
+                }
+                else
+                {
+                    bool found = false;
+                    try
+                    {
+                        using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"AppEvents\Schemes\Apps\.Default\SystemNotification\.Current"))
                         {
-                            object o = key.GetValue(null);
-                            if (o != null)
+                            if (key != null)
                             {
-                                SoundPlayer theSound = new SoundPlayer((string)o);
-                                theSound.Play();
-                                found = true;
+                                object o = key.GetValue(null);
+                                if (o != null)
+                                {
+                                    SoundPlayer theSound = new SoundPlayer((string)o);
+                                    theSound.Play();
+                                    found = true;
+                                }
                             }
                         }
                     }
+                    catch
+                    { }
+                    if (!found)
+                    {
+                        SystemSounds.Beep.Play();
+                    }
                 }
-                catch
-                { }
-                if (!found)
-                {
-                    SystemSounds.Beep.Play();
-                }
+            }else
+            {
+                SoundPlayer theSound = new SoundPlayer(cefform.Settings.SoundLocation);
+                theSound.Play();
             }
             playedSound = true;
         }

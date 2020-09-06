@@ -605,6 +605,8 @@ namespace Korot
         public void LoadLangFromFile(string fileLocation)
         {
             if (Settings.LanguageSystem.LangFile != fileLocation) { Settings.LanguageSystem.ReadFromFile(fileLocation, true); }
+            anaform.soundFiles = Settings.LanguageSystem.GetItemText("SoundFiles");
+            lbDefaultNotifSound.Text = Settings.LanguageSystem.GetItemText("UseDefaultSound");
             lbForeColor.Text = Settings.LanguageSystem.GetItemText("ForeColor");
             lbAutoSelect.Text = Settings.LanguageSystem.GetItemText("AutoForeColor");
             lbNinja.Text = Settings.LanguageSystem.GetItemText("NinjaMode");
@@ -2257,15 +2259,16 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 oldBackColor = Settings.Theme.BackColor;
                 UpdateFavoriteColor();
                 updateFavoritesImages();
+                BackColor = Settings.Theme.BackColor;
+                ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
                 bool isbright = HTAlt.Tools.IsBright(Settings.Theme.BackColor);
-                Color foreColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
                 Color backcolor2 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
                 Color backcolor3 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false);
                 Color backcolor4 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 60, false);
                 Color rbc2 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.AutoWhiteBlack(backcolor2);
                 Color rbc3 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.AutoWhiteBlack(backcolor3);
                 Color rbc4 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.AutoWhiteBlack(backcolor4);
-                lbStatus.ForeColor = foreColor;
+                lbStatus.ForeColor = ForeColor;
                 lbStatus.BackColor = Settings.Theme.BackColor;
                 if (hammenu != null)
                 {
@@ -2280,7 +2283,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 }
                 pbBack.BackColor = Settings.Theme.BackColor;
                 cmsFavorite.BackColor = Settings.Theme.BackColor;
-                cmsFavorite.ForeColor = foreColor;
+                cmsFavorite.ForeColor = ForeColor;
                 button12.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.collection_w : Properties.Resources.collection);
                 pbStore.Image = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.store_w : Properties.Resources.store);
                 btLangStore.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.store_w : Properties.Resources.store);
@@ -2296,7 +2299,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 btClose3.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
                 btClose10.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
                 lbSettings.BackColor = Color.Transparent;
-                lbSettings.ForeColor = foreColor;
+                lbSettings.ForeColor = ForeColor;
 
                 pbPrivacy.BackColor = backcolor2;
                 pBlock.BackColor = backcolor2;
@@ -2304,21 +2307,21 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tbAddress.BackColor = backcolor2;
                 pbIncognito.BackColor = backcolor2;
                 fromHour.BackColor = backcolor2;
-                fromHour.ForeColor = foreColor;
+                fromHour.ForeColor = ForeColor;
                 fromMin.BackColor = backcolor2;
-                fromMin.ForeColor = foreColor;
+                fromMin.ForeColor = ForeColor;
                 toHour.BackColor = backcolor2;
-                toHour.ForeColor = foreColor;
+                toHour.ForeColor = ForeColor;
                 toMin.BackColor = backcolor2;
-                toMin.ForeColor = foreColor;
+                toMin.ForeColor = ForeColor;
                 cmsSearchEngine.BackColor = Settings.Theme.BackColor;
-                listBox2.ForeColor = foreColor;
-                comboBox1.ForeColor = foreColor;
-                tbHomepage.ForeColor = foreColor;
-                tbSearchEngine.ForeColor = foreColor;
-                btCertError.ForeColor = foreColor;
+                listBox2.ForeColor = ForeColor;
+                comboBox1.ForeColor = ForeColor;
+                tbHomepage.ForeColor = ForeColor;
+                tbSearchEngine.ForeColor = ForeColor;
+                btCertError.ForeColor = ForeColor;
                 btNewTab.BackColor = backcolor2;
-                btNewTab.ForeColor = foreColor;
+                btNewTab.ForeColor = ForeColor;
                 hsNotificationSound.BackColor = Settings.Theme.BackColor;
                 hsNotificationSound.ButtonColor = rbc2;
                 hsNotificationSound.ButtonHoverColor = rbc3;
@@ -2331,6 +2334,14 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 hsSchedule.ButtonColor = rbc2;
                 hsSchedule.ButtonHoverColor = rbc3;
                 hsSchedule.ButtonPressedColor = rbc4;
+                tbSoundLoc.BackColor = backcolor2;
+                tbSoundLoc.ForeColor = ForeColor;
+                hsDefaultSound.BackColor = Settings.Theme.BackColor;
+                hsDefaultSound.ButtonColor = rbc2;
+                hsDefaultSound.ButtonHoverColor = rbc3;
+                hsDefaultSound.ButtonPressedColor = rbc4;
+                btOpenSound.BackColor = backcolor3;
+                btOpenSound.ForeColor = ForeColor;
                 hsAutoRestore.BackColor = Settings.Theme.BackColor;
                 hsAutoRestore.ButtonColor = rbc2;
                 hsAutoRestore.ButtonHoverColor = rbc3;
@@ -2367,7 +2378,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 hsFlash.ButtonColor = rbc2;
                 hsFlash.ButtonHoverColor = rbc3;
                 hsFlash.ButtonPressedColor = rbc4;
-                cmsSearchEngine.ForeColor = foreColor;
+                cmsSearchEngine.ForeColor = ForeColor;
                 listBox2.BackColor = backcolor2;
                 comboBox1.BackColor = backcolor2;
                 btCookie.BackColor = backcolor2;
@@ -2378,41 +2389,41 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tbFolder.BackColor = backcolor2;
                 tbStartup.BackColor = backcolor2;
                 cmsStartup.BackColor = Settings.Theme.BackColor;
-                cmsStartup.ForeColor = foreColor;
-                tbFolder.ForeColor = foreColor;
-                tbStartup.ForeColor = foreColor;
+                cmsStartup.ForeColor = ForeColor;
+                tbFolder.ForeColor = ForeColor;
+                tbStartup.ForeColor = ForeColor;
                 btReset.BackColor = backcolor2;
                 btDownloadFolder.BackColor = backcolor2;
                 button12.BackColor = backcolor2;
                 tbSearchEngine.BackColor = backcolor2;
                 btNotification.BackColor = backcolor2;
-                btNotification.ForeColor = foreColor;
+                btNotification.ForeColor = ForeColor;
                 panel1.BackColor = backcolor2;
-                panel1.ForeColor = foreColor;
+                panel1.ForeColor = ForeColor;
                 btCertError.BackColor = backcolor2;
                 tbHomepage.BackColor = backcolor2;
                 tbSearchEngine.BackColor = backcolor2;
                 flpLayout.BackColor = Settings.Theme.BackColor;
-                flpLayout.ForeColor = foreColor;
+                flpLayout.ForeColor = ForeColor;
                 flpNewTab.BackColor = Settings.Theme.BackColor;
-                flpNewTab.ForeColor = foreColor;
+                flpNewTab.ForeColor = ForeColor;
                 flpClose.BackColor = Settings.Theme.BackColor;
-                flpClose.ForeColor = foreColor;
+                flpClose.ForeColor = ForeColor;
                 lbStatus.BackColor = Settings.Theme.BackColor;
                 BackColor = Settings.Theme.BackColor;
                 cbLang.BackColor = Settings.Theme.BackColor;
                 pbIncognito.Image = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.inctab_w : Properties.Resources.inctab);
-                tbAddress.ForeColor = foreColor;
-                ForeColor = foreColor;
+                tbAddress.ForeColor = ForeColor;
+                ForeColor = ForeColor;
                 tbTitle.BackColor = backcolor2;
-                tbTitle.ForeColor = foreColor;
+                tbTitle.ForeColor = ForeColor;
                 tbUrl.BackColor = backcolor2;
-                tbUrl.ForeColor = foreColor;
-                lbStatus.ForeColor = foreColor;
-                cbLang.ForeColor = foreColor;
-                textBox4.ForeColor = foreColor;
+                tbUrl.ForeColor = ForeColor;
+                lbStatus.ForeColor = ForeColor;
+                cbLang.ForeColor = ForeColor;
+                textBox4.ForeColor = ForeColor;
                 if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.star_on_w : Properties.Resources.star_on); } else { btFav.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.star : Properties.Resources.star_w); }
-                mFavorites.ForeColor = foreColor;
+                mFavorites.ForeColor = ForeColor;
                 if (!noProfilePic) { btProfile.ButtonImage = Settings.NinjaMode ? null : profilePic; } else { btProfile.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.profiles : Properties.Resources.profiles_w); }
                 btBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
                 btRefresh.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.refresh : Properties.Resources.refresh_w);
@@ -2424,39 +2435,39 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 btHome.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.home : Properties.Resources.home_w);
                 btHamburger.ButtonImage = Settings.NinjaMode ? null : (isbright ? (anaform is null ? Properties.Resources.hamburger : (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger)) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w)));
                 L0.BackColor = backcolor2;
-                L0.ForeColor = foreColor;
+                L0.ForeColor = ForeColor;
                 L1.BackColor = backcolor2;
-                L1.ForeColor = foreColor;
+                L1.ForeColor = ForeColor;
                 L2.BackColor = backcolor2;
-                L2.ForeColor = foreColor;
+                L2.ForeColor = ForeColor;
                 L3.BackColor = backcolor2;
-                L3.ForeColor = foreColor;
+                L3.ForeColor = ForeColor;
                 L4.BackColor = backcolor2;
-                L4.ForeColor = foreColor;
+                L4.ForeColor = ForeColor;
                 L5.BackColor = backcolor2;
-                L5.ForeColor = foreColor;
+                L5.ForeColor = ForeColor;
                 L6.BackColor = backcolor2;
-                L6.ForeColor = foreColor;
+                L6.ForeColor = ForeColor;
                 L7.BackColor = backcolor2;
-                L7.ForeColor = foreColor;
+                L7.ForeColor = ForeColor;
                 L8.BackColor = backcolor2;
-                L8.ForeColor = foreColor;
+                L8.ForeColor = ForeColor;
                 L9.BackColor = backcolor2;
-                L9.ForeColor = foreColor;
+                L9.ForeColor = ForeColor;
                 btClear.BackColor = backcolor2;
-                btClear.ForeColor = foreColor;
+                btClear.ForeColor = ForeColor;
                 tbAddress.BackColor = backcolor2;
                 textBox4.BackColor = backcolor2;
                 mFavorites.BackColor = Settings.Theme.BackColor;
                 cmsBStyle.BackColor = Settings.Theme.BackColor;
-                cmsBStyle.ForeColor = foreColor;
+                cmsBStyle.ForeColor = ForeColor;
                 cmsBack.BackColor = Settings.Theme.BackColor;
-                cmsBack.ForeColor = foreColor;
+                cmsBack.ForeColor = ForeColor;
                 cmsForward.BackColor = Settings.Theme.BackColor;
-                cmsForward.ForeColor = foreColor;
-                foreach (ToolStripItem x in cmsForward.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = foreColor; }
-                foreach (ToolStripItem x in cmsBack.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = foreColor; }
-                foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = foreColor; }
+                cmsForward.ForeColor = ForeColor;
+                foreach (ToolStripItem x in cmsForward.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = ForeColor; }
+                foreach (ToolStripItem x in cmsBack.Items) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = ForeColor; }
+                foreach (TabPage x in tabControl1.TabPages) { x.BackColor = Settings.Theme.BackColor; x.ForeColor = ForeColor; }
                 foreach (Control c in Controls)
                 {
                     c.Refresh();
@@ -2661,6 +2672,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             pbBack.Location = new Point(lbBackColor.Location.X + lbBackColor.Width, pbBack.Location.Y);
             pbForeColor.Location = new Point(lbForeColor.Location.X + lbForeColor.Width, pbForeColor.Location.Y);
             lbAutoSelect.Location = new Point(pbForeColor.Location.X + pbForeColor.Width + 10 , lbAutoSelect.Location.Y);
+            hsDefaultSound.Location = new Point(lbDefaultNotifSound.Location.X + lbDefaultNotifSound.Width, hsDefaultSound.Location.Y);
             hsAutoForeColor.Location = new Point(lbAutoSelect.Location.X + lbAutoSelect.Width, hsAutoForeColor.Location.Y);
             hsNinja.Location = new Point(lbNinja.Location.X + lbNinja.Width, hsNinja.Location.Y);
             pbOverlay.Location = new Point(lbOveralColor.Location.X + lbOveralColor.Width, pbOverlay.Location.Y);
@@ -2724,6 +2736,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                     rbZoom.Checked = true;
                     break;
             }
+            hsDefaultSound.Checked = Settings.UseDefaultSound;
+            tbSoundLoc.Enabled = !hsDefaultSound.Checked;
+            tbSoundLoc.Text = Settings.SoundLocation;
+            btOpenSound.Enabled = !hsDefaultSound.Checked;
             colorToolStripMenuItem.Checked = Settings.Theme.BackgroundStyle == "BACKCOLOR" ? true : false;
             textBox4.Text = Settings.Theme.BackgroundStyle == "BACKCOLOR" ? anaform.usingBC : Settings.Theme.BackgroundStyle;
             lbCertErrorTitle.Text = anaform.CertErrorPageTitle;
@@ -4320,6 +4336,30 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 Settings.Theme.ForeColor = colorpicker.Color;
                 Settings.JustChangedTheme(); ChangeTheme(true);
             }
+        }
+
+        private void btOpenSound_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog()
+            {
+                InitialDirectory = Settings.SoundLocation,
+                FileName = Settings.SoundLocation,
+                Multiselect = false,
+                Filter = anaform.soundFiles + "|*.mp3;*.wav;*.aac;*.midi|" + anaform.allFiles + "|*.*"
+            };
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Settings.SoundLocation = dialog.FileName;
+                tbSoundLoc.Text = dialog.FileName;
+            }
+        }
+
+        private void hsDefaultSound_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.UseDefaultSound = hsDefaultSound.Checked;
+            tbSoundLoc.Enabled = !hsDefaultSound.Checked;
+            btOpenSound.Enabled = !hsDefaultSound.Checked;
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

@@ -1,4 +1,6 @@
 <Language CompatibleVersion="0.8.1.0">
+  <Translate ID="SoundFiles" Text="Sound Files" />
+  <Translate ID="UseDefaultSound" Text="Use default notification sound:" />
   <Translate ID="ForeColor" Text="Foreground Color:" />
   <Translate ID="AutoForeColor" Text="Auto-Select Foreground Color:" />
   <Translate ID="NinjaMode" Text="Ninja Mode:" />

@@ -296,6 +296,7 @@ namespace Korot
         public string disallowCookie = "Disallow this page using cookies";
         public string allowCookie = "Allow this page using cookie";
         public string imageFiles = "Image Files";
+        public string soundFiles = "Sound Files";
         public string allFiles = "All Files";
         public string selectBackImage = "Select a background image...";
         public string usingBC = "Using background color";
