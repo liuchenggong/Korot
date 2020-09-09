@@ -57,17 +57,19 @@ namespace Korot
                 if (!(request.TransitionType == TransitionType.AutoSubFrame
                     || request.TransitionType == TransitionType.SourceMask
                     || request.TransitionType == TransitionType.ForwardBack
-                    || request.TransitionType == TransitionType.Reload))
+                    || request.TransitionType == TransitionType.Reload
+                    || request.TransitionType == TransitionType.ChainStart
+                    || request.TransitionType == TransitionType.IsRedirect
+                    || request.TransitionType == TransitionType.ClientRedirect
+                    || request.TransitionType == TransitionType.ServerRedirect))
                 {
-                    if (request.Url.ToLower().StartsWith("korot"))
-                    {
-                        if (request.Url.ToLower().StartsWith("korot://newtab")
+                    if (request.Url.ToLower().StartsWith("korot") && (
+                        request.Url.ToLower().StartsWith("korot://newtab")
                               || request.Url.ToLower().StartsWith("korot://links")
                               || request.Url.ToLower().StartsWith("korot://license")
-                              || request.Url.ToLower().StartsWith("korot://incognito"))
-                        {
-                            cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
-                        }
+                              || request.Url.ToLower().StartsWith("korot://incognito")))
+                    {
+                        cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
                     }
                     else
                     {
@@ -78,7 +80,7 @@ namespace Korot
             }
             else
             {
-                cefform.Invoke(new Action(() => { if (cefform.canGoBack()) { cefform.GoBack(); } }));
+                cefform.Invoke(new Action(() => { cefform.SessionSystem.GoBack(cefform.chromiumWebBrowser1); }));
             }
             return false;
         }

@@ -36,16 +36,6 @@ namespace Korot
         {
             return ((frmMain)CefForm.ParentTabs);
         }
-        private class Attemption
-        {
-            public Attemption(string _Url,int _Attempt)
-            {
-                Url = _Url;
-                Attempt = _Attempt;
-            }
-            public string Url { get; set; }
-            public int Attempt { get; set; }
-        }
 
         private readonly frmCEF CefForm;
         public bool isExt = false;
@@ -130,7 +120,6 @@ namespace Korot
                 return "http://" + x;
             }
         }
-        private Attemption lastattempt;
         public IResourceHandler Create(IBrowser browser, IFrame frame, string schemeName, IRequest request)
         {
 

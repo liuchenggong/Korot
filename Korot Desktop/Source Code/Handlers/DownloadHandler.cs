@@ -103,7 +103,7 @@ namespace Korot
             }
             else
             {
-                ActiveForm.Invoke(new Action(() => ActiveForm.GoBack()));
+                ActiveForm.Invoke(new Action(() => ActiveForm.SessionSystem.GoBack(ActiveForm.chromiumWebBrowser1)));
             }
         }
 

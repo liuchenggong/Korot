@@ -94,8 +94,6 @@ namespace Korot
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpCef = new System.Windows.Forms.TabPage();
             this.pCEF = new System.Windows.Forms.Panel();
-            this.lbTitle = new System.Windows.Forms.ListBox();
-            this.lbURL = new System.Windows.Forms.ListBox();
             this.tpCert = new System.Windows.Forms.TabPage();
             this.tpSettings = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
@@ -204,6 +202,8 @@ namespace Korot
             this.btClose9 = new HTAlt.WinForms.HTButton();
             this.lbCollections = new System.Windows.Forms.Label();
             this.tpNotification = new System.Windows.Forms.TabPage();
+            this.btOpenSound = new HTAlt.WinForms.HTButton();
+            this.tbSoundLoc = new System.Windows.Forms.TextBox();
             this.btNotifBack = new HTAlt.WinForms.HTButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.flpFrom = new System.Windows.Forms.FlowLayoutPanel();
@@ -230,6 +230,8 @@ namespace Korot
             this.lbSilentMode = new System.Windows.Forms.Label();
             this.hsSchedule = new HTAlt.WinForms.HTSwitch();
             this.hsSilent = new HTAlt.WinForms.HTSwitch();
+            this.lbDefaultNotifSound = new System.Windows.Forms.Label();
+            this.hsDefaultSound = new HTAlt.WinForms.HTSwitch();
             this.lbPlayNotifSound = new System.Windows.Forms.Label();
             this.hsNotificationSound = new HTAlt.WinForms.HTSwitch();
             this.btClose3 = new HTAlt.WinForms.HTButton();
@@ -301,19 +303,20 @@ namespace Korot
             this.showHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.hsDefaultSound = new HTAlt.WinForms.HTSwitch();
-            this.lbDefaultNotifSound = new System.Windows.Forms.Label();
-            this.tbSoundLoc = new System.Windows.Forms.TextBox();
-            this.btOpenSound = new HTAlt.WinForms.HTButton();
+            this.tsSepBack = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBackHistory = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsForwardHistory = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSepForward = new System.Windows.Forms.ToolStripSeparator();
             this.pNavigate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbIncognito)).BeginInit();
+            this.cmsForward.SuspendLayout();
+            this.cmsBack.SuspendLayout();
             this.cmsFavorite.SuspendLayout();
             this.pnlCert.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpCef.SuspendLayout();
-            this.pCEF.SuspendLayout();
             this.tpCert.SuspendLayout();
             this.tpSettings.SuspendLayout();
             this.tpTheme.SuspendLayout();
@@ -491,10 +494,13 @@ namespace Korot
             // 
             // cmsForward
             // 
+            this.cmsForward.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsSepForward,
+            this.tsForwardHistory});
             this.cmsForward.Name = "cmsBack";
             this.cmsForward.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsForward.ShowImageMargin = false;
-            this.cmsForward.Size = new System.Drawing.Size(36, 4);
+            this.cmsForward.Size = new System.Drawing.Size(156, 54);
             this.cmsForward.Opening += new System.ComponentModel.CancelEventHandler(this.cmsForward_Opening);
             // 
             // btBack
@@ -516,10 +522,13 @@ namespace Korot
             // 
             // cmsBack
             // 
+            this.cmsBack.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsSepBack,
+            this.tsBackHistory});
             this.cmsBack.Name = "cmsBack";
             this.cmsBack.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsBack.ShowImageMargin = false;
-            this.cmsBack.Size = new System.Drawing.Size(36, 4);
+            this.cmsBack.Size = new System.Drawing.Size(88, 32);
             this.cmsBack.Opening += new System.ComponentModel.CancelEventHandler(this.cmsBack_Opening);
             // 
             // btHamburger
@@ -828,39 +837,12 @@ namespace Korot
             // pCEF
             // 
             this.pCEF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pCEF.Controls.Add(this.lbTitle);
-            this.pCEF.Controls.Add(this.lbURL);
             this.pCEF.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCEF.Location = new System.Drawing.Point(3, 3);
             this.pCEF.Name = "pCEF";
             this.pCEF.Size = new System.Drawing.Size(732, 584);
             this.pCEF.TabIndex = 0;
             this.pCEF.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
-            // 
-            // lbTitle
-            // 
-            this.lbTitle.BackColor = System.Drawing.Color.Black;
-            this.lbTitle.ForeColor = System.Drawing.Color.White;
-            this.lbTitle.FormattingEnabled = true;
-            this.lbTitle.ItemHeight = 15;
-            this.lbTitle.Location = new System.Drawing.Point(432, 185);
-            this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(46, 19);
-            this.lbTitle.TabIndex = 1;
-            this.lbTitle.Visible = false;
-            // 
-            // lbURL
-            // 
-            this.lbURL.BackColor = System.Drawing.Color.Black;
-            this.lbURL.ForeColor = System.Drawing.Color.White;
-            this.lbURL.FormattingEnabled = true;
-            this.lbURL.ItemHeight = 15;
-            this.lbURL.Location = new System.Drawing.Point(432, 148);
-            this.lbURL.Name = "lbURL";
-            this.lbURL.Size = new System.Drawing.Size(46, 19);
-            this.lbURL.TabIndex = 0;
-            this.lbURL.Visible = false;
-            this.lbURL.SelectedIndexChanged += new System.EventHandler(this.lbURL_SelectedIndexChanged);
             // 
             // tpCert
             // 
@@ -2253,6 +2235,31 @@ namespace Korot
             this.tpNotification.Text = "Notification Setting";
             this.tpNotification.UseVisualStyleBackColor = true;
             // 
+            // btOpenSound
+            // 
+            this.btOpenSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btOpenSound.AutoSize = true;
+            this.btOpenSound.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btOpenSound.FlatAppearance.BorderSize = 0;
+            this.btOpenSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btOpenSound.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.btOpenSound.Location = new System.Drawing.Point(687, 120);
+            this.btOpenSound.Name = "btOpenSound";
+            this.btOpenSound.Size = new System.Drawing.Size(33, 28);
+            this.btOpenSound.TabIndex = 46;
+            this.btOpenSound.Text = "...";
+            this.btOpenSound.UseVisualStyleBackColor = true;
+            this.btOpenSound.Click += new System.EventHandler(this.btOpenSound_Click);
+            // 
+            // tbSoundLoc
+            // 
+            this.tbSoundLoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSoundLoc.Location = new System.Drawing.Point(15, 125);
+            this.tbSoundLoc.Name = "tbSoundLoc";
+            this.tbSoundLoc.Size = new System.Drawing.Size(672, 21);
+            this.tbSoundLoc.TabIndex = 45;
+            // 
             // btNotifBack
             // 
             this.btNotifBack.BackColor = System.Drawing.Color.Transparent;
@@ -2581,6 +2588,24 @@ namespace Korot
             this.hsSilent.Size = new System.Drawing.Size(50, 19);
             this.hsSilent.TabIndex = 39;
             this.hsSilent.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsSilent_CheckedChanged);
+            // 
+            // lbDefaultNotifSound
+            // 
+            this.lbDefaultNotifSound.AutoSize = true;
+            this.lbDefaultNotifSound.BackColor = System.Drawing.Color.Transparent;
+            this.lbDefaultNotifSound.Location = new System.Drawing.Point(15, 95);
+            this.lbDefaultNotifSound.Name = "lbDefaultNotifSound";
+            this.lbDefaultNotifSound.Size = new System.Drawing.Size(171, 15);
+            this.lbDefaultNotifSound.TabIndex = 40;
+            this.lbDefaultNotifSound.Text = "Use default notification sound:";
+            // 
+            // hsDefaultSound
+            // 
+            this.hsDefaultSound.Location = new System.Drawing.Point(204, 95);
+            this.hsDefaultSound.Name = "hsDefaultSound";
+            this.hsDefaultSound.Size = new System.Drawing.Size(50, 19);
+            this.hsDefaultSound.TabIndex = 39;
+            this.hsDefaultSound.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsDefaultSound_CheckedChanged);
             // 
             // lbPlayNotifSound
             // 
@@ -3403,48 +3428,27 @@ namespace Korot
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
             // 
-            // hsDefaultSound
+            // tsSepBack
             // 
-            this.hsDefaultSound.Location = new System.Drawing.Point(204, 95);
-            this.hsDefaultSound.Name = "hsDefaultSound";
-            this.hsDefaultSound.Size = new System.Drawing.Size(50, 19);
-            this.hsDefaultSound.TabIndex = 39;
-            this.hsDefaultSound.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(this.hsDefaultSound_CheckedChanged);
+            this.tsSepBack.Name = "tsSepBack";
+            this.tsSepBack.Size = new System.Drawing.Size(84, 6);
             // 
-            // lbDefaultNotifSound
+            // tsBackHistory
             // 
-            this.lbDefaultNotifSound.AutoSize = true;
-            this.lbDefaultNotifSound.BackColor = System.Drawing.Color.Transparent;
-            this.lbDefaultNotifSound.Location = new System.Drawing.Point(15, 95);
-            this.lbDefaultNotifSound.Name = "lbDefaultNotifSound";
-            this.lbDefaultNotifSound.Size = new System.Drawing.Size(171, 15);
-            this.lbDefaultNotifSound.TabIndex = 40;
-            this.lbDefaultNotifSound.Text = "Use default notification sound:";
+            this.tsBackHistory.Name = "tsBackHistory";
+            this.tsBackHistory.Size = new System.Drawing.Size(87, 22);
+            this.tsBackHistory.Text = "History";
             // 
-            // tbSoundLoc
+            // tsForwardHistory
             // 
-            this.tbSoundLoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSoundLoc.Location = new System.Drawing.Point(15, 125);
-            this.tbSoundLoc.Name = "tbSoundLoc";
-            this.tbSoundLoc.Size = new System.Drawing.Size(672, 21);
-            this.tbSoundLoc.TabIndex = 45;
+            this.tsForwardHistory.Name = "tsForwardHistory";
+            this.tsForwardHistory.Size = new System.Drawing.Size(155, 22);
+            this.tsForwardHistory.Text = "History";
             // 
-            // btOpenSound
+            // tsSepForward
             // 
-            this.btOpenSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btOpenSound.AutoSize = true;
-            this.btOpenSound.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btOpenSound.FlatAppearance.BorderSize = 0;
-            this.btOpenSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btOpenSound.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.btOpenSound.Location = new System.Drawing.Point(687, 120);
-            this.btOpenSound.Name = "btOpenSound";
-            this.btOpenSound.Size = new System.Drawing.Size(33, 28);
-            this.btOpenSound.TabIndex = 46;
-            this.btOpenSound.Text = "...";
-            this.btOpenSound.UseVisualStyleBackColor = true;
-            this.btOpenSound.Click += new System.EventHandler(this.btOpenSound_Click);
+            this.tsSepForward.Name = "tsSepForward";
+            this.tsSepForward.Size = new System.Drawing.Size(152, 6);
             // 
             // frmCEF
             // 
@@ -3474,12 +3478,13 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbIncognito)).EndInit();
+            this.cmsForward.ResumeLayout(false);
+            this.cmsBack.ResumeLayout(false);
             this.cmsFavorite.ResumeLayout(false);
             this.pnlCert.ResumeLayout(false);
             this.pnlCert.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tpCef.ResumeLayout(false);
-            this.pCEF.ResumeLayout(false);
             this.tpCert.ResumeLayout(false);
             this.tpSettings.ResumeLayout(false);
             this.tpSettings.PerformLayout();
@@ -3671,8 +3676,6 @@ namespace Korot
         private System.Windows.Forms.Panel pCEF;
         private System.Windows.Forms.ContextMenuStrip cmsBack;
         private System.Windows.Forms.ContextMenuStrip cmsForward;
-        public System.Windows.Forms.ListBox lbURL;
-        public System.Windows.Forms.ListBox lbTitle;
         private System.Windows.Forms.Label lbautoRestore;
         private HTAlt.WinForms.HTSwitch hsAutoRestore;
         private System.Windows.Forms.TabPage tpCollection;
@@ -3797,5 +3800,9 @@ namespace Korot
         private System.Windows.Forms.TextBox tbSoundLoc;
         private System.Windows.Forms.Label lbDefaultNotifSound;
         private HTAlt.WinForms.HTSwitch hsDefaultSound;
+        private System.Windows.Forms.ToolStripSeparator tsSepForward;
+        private System.Windows.Forms.ToolStripMenuItem tsForwardHistory;
+        private System.Windows.Forms.ToolStripSeparator tsSepBack;
+        private System.Windows.Forms.ToolStripMenuItem tsBackHistory;
     }
 }

@@ -587,24 +587,7 @@ namespace Korot
             document.Load(stream);
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                frmCEF cefform = new frmCEF(this, Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser);
-                cefform.lbURL.Items.Clear();
-                cefform.lbTitle.Items.Clear();
-                foreach (XmlNode subnode in node.ChildNodes)
-                {
-                    if (subnode.Name.ToLower() == "site")
-                    {
-                        string url = subnode.Attributes["Url"].Value;
-                        string title = subnode.Attributes["Title"].Value;
-                        if (!(url is null || title is null))
-                        {
-                            cefform.lbURL.Items.Add(url);
-                            cefform.lbTitle.Items.Add(title);
-                        }
-                    }
-                }
-                cefform.lbURL.SelectedIndex = Convert.ToInt32(node.Attributes["Index"].Value);
-                cefform.lbTitle.SelectedIndex = Convert.ToInt32(node.Attributes["Index"].Value);
+                frmCEF cefform = new frmCEF(this, Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser,false,node.OuterXml);
                 HTTitleTab tab = new HTTitleTab(this)
                 {
                     Content = cefform
@@ -626,22 +609,7 @@ namespace Korot
             foreach (HTTitleTab x in Tabs)
             {
                 frmCEF cefform = (frmCEF)x.Content;
-                List<Site> currentSites = new List<Site>();
-                int i = 0; int Count = cefform.lbURL.Items.Count - 1;
-                if (cefform.lbURL.Items.Count > 0)
-                {
-                    while (i != Count)
-                    {
-                        currentSites.Add(new Korot.Site() { Name = cefform.lbTitle.Items[i].ToString(), Url = cefform.lbURL.Items[i].ToString() });
-                        i += 1;
-                    }
-                }
-                CurrentSessionURIs += " <Session Index=\"" + cefform.lbURL.SelectedIndex + "\" >" + Environment.NewLine;
-                foreach (Site site in currentSites)
-                {
-                    CurrentSessionURIs += "  <Site Title=\"" + site.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Text=\"" + Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Url=\"" + site.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Text=\"" + Text.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />" + Environment.NewLine;
-                }
-                CurrentSessionURIs += " </Session>" + Environment.NewLine;
+                CurrentSessionURIs += cefform.SessionSystem.XmlOut() + Environment.NewLine;
             }
             CurrentSessionURIs += "</root>" + Environment.NewLine;
             WriteSessions(CurrentSessionURIs);

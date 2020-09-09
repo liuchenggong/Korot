@@ -33,6 +33,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -62,7 +63,7 @@ namespace Korot
         public string userName;
         public string profilePath;
         private readonly string userCache;
-
+        public SessionSystem SessionSystem;
         public string defaultProxy = null;
         public ChromiumWebBrowser chromiumWebBrowser1;
         private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
@@ -90,10 +91,12 @@ namespace Korot
                 profilePic = Image.FromStream(HTAlt.Tools.ReadFile(profilePath + "img.png"));
             }
         }
-        public frmCEF(frmMain _aform, Settings settings, bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0", bool notifListenMode = false)
+        public frmCEF(frmMain _aform, Settings settings, bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0", bool notifListenMode = false, string Session = "")
         {
             _anaform = _aform;
             Settings = settings;
+            SessionSystem = new SessionSystem(Session);
+            SessionSystem.ShowDebugger();
             NotificationListenerMode = notifListenMode;
             loaduri = loadurl;
             _Incognito = isIncognito;
@@ -1600,8 +1603,8 @@ namespace Korot
                 {
                     if (!e.Browser.IsDisposed)
                     {
-                        btBack.Invoke(new Action(() => btBack.Enabled = canGoBack()));
-                        btNext.Invoke(new Action(() => btNext.Enabled = canGoForward()));
+                        btBack.Invoke(new Action(() => btBack.Enabled = SessionSystem.CanGoBack()));
+                        btNext.Invoke(new Action(() => btNext.Enabled = SessionSystem.CanGoForward()));
                     }
                     else
                     {
@@ -1786,12 +1789,7 @@ namespace Korot
         private void loadPage(string url, string title = "")
         {
             redirectTo(url, title);
-            lbURL_SelectedIndexChanged(null, null);
-        }
-        public void GoBack()
-        {
-            lbURL.SelectedIndex = lbURL.SelectedIndex == 0 ? 0 : lbURL.SelectedIndex - 1;
-            lbTitle.SelectedIndex = lbURL.SelectedIndex;
+            chromiumWebBrowser1.Load(SessionSystem.SelectedSession.Url);
         }
 
 
@@ -1799,12 +1797,12 @@ namespace Korot
         {
             if (tabControl1.SelectedTab == tpCef) //CEF
             {
-                GoBack();
+                SessionSystem.GoBack(chromiumWebBrowser1);
                 //chromiumWebBrowser1.Back();
             }
             else if (tabControl1.SelectedTab == tpCert) //Certificate Error Menu
             {
-                GoBack();
+                SessionSystem.GoBack(chromiumWebBrowser1);
                 resetPage();
             }
             else if (tabControl1.SelectedTab == tpSettings
@@ -1845,8 +1843,7 @@ namespace Korot
             resetPage();
             allowSwitching = true;
             tabControl1.SelectedTab = tpCef;
-            lbURL.SelectedIndex = lbURL.SelectedIndex == lbURL.Items.Count - 1 ? lbURL.SelectedIndex : lbURL.SelectedIndex + 1;
-            lbTitle.SelectedIndex = lbURL.SelectedIndex;
+            SessionSystem.GoForward(chromiumWebBrowser1);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1879,9 +1876,9 @@ namespace Korot
             {
                 chromiumWebBrowser1.Load(Settings.SearchEngine + e.Address);
             }
-            if (lbURL.Items.Count != 0)
+            if (SessionSystem.Sessions.Count != 0)
             {
-                if (e.Address != lbURL.Items[lbURL.Items.Count - 1].ToString())
+                if (e.Address != SessionSystem.Sessions[SessionSystem.Sessions.Count - 1].ToString())
                 {
                     Invoke(new Action(() => redirectTo(e.Address, Text)));
                 }
@@ -1925,10 +1922,10 @@ namespace Korot
             Invoke(new Action(() =>
             {
                 tpCef.Text = e.Title;
-                int si = lbTitle.SelectedIndex;
+                int si = SessionSystem.SelectedIndex;
                 if (si != -1)
                 {
-                    if (lbURL.Items[si].ToString() != chromiumWebBrowser1.Address)
+                    if (SessionSystem.Sessions[si].Url != chromiumWebBrowser1.Address)
                     {
                         if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot"))
                         {
@@ -1937,16 +1934,14 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://links") ||
 chromiumWebBrowser1.Address.ToLower().StartsWith("korot://license") ||
 chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                             {
-                                lbTitle.Items.RemoveAt(si);
-                                lbTitle.Items.Insert(si, e.Title);
-                                lbTitle.SelectedIndex = si;
+                                
+                                SessionSystem.Sessions[si].Title = e.Title;
+                                
                             }
                         }
                         else
                         {
-                            lbTitle.Items.RemoveAt(si);
-                            lbTitle.Items.Insert(si, e.Title);
-                            lbTitle.SelectedIndex = si;
+                            SessionSystem.Sessions[si].Title = e.Title;
                         }
                     }
                 }
@@ -2005,15 +2000,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 newE = new KeyEventArgs((Keys.Control | Keys.M));
                 tabform_KeyDown(this, newE);
             }
-        }
-
-        public bool canGoForward()
-        {
-            return tabControl1.SelectedTab == tpCef ? (lbURL.SelectedIndex != lbURL.Items.Count - 1) : true;
-        }
-        public bool canGoBack()
-        {
-            return tabControl1.SelectedTab == tpCef ? (lbURL.SelectedIndex != 0) : true;
         }
         public void zoomIn()
         {
@@ -3596,105 +3582,83 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
             else
             {
-                if (lbURL.SelectedIndex != -1)
-                {
-                    if (lbURL.Items[lbURL.SelectedIndex].ToString() != url)
-                    {
-                        bypassThisIndexChange = true;
-                        int selectedItem = lbURL.SelectedIndex;
-                        if (lbURL.Items.Count - 1 > 0)
-                        {
-                            while (lbURL.Items.Count - 1 != selectedItem)
-                            {
-                                lbURL.Items.RemoveAt(selectedItem + 1);
-                            }
-                            while (lbTitle.Items.Count - 1 != selectedItem)
-                            {
-                                lbTitle.Items.RemoveAt(selectedItem + 1);
-                            }
-                        }
-                        lbURL.Items.Add(url);
-                        lbTitle.Items.Add(title);
-                        lbURL.SelectedIndex = lbURL.Items.Count - 1;
-                        lbTitle.SelectedIndex = lbURL.SelectedIndex;
-                        return;
-                    }
-                }
-                else
-                {
-                    lbURL.Items.Add(url);
-                    lbTitle.Items.Add(title);
-                    lbURL.SelectedIndex = lbURL.Items.Count - 1;
-                    lbTitle.SelectedIndex = lbURL.SelectedIndex;
-                }
+                SessionSystem.Add(url, title);
             }
         }
 
-        private bool bypassThisIndexChange = false;
         private bool bypassThisDeletion = false;
         public bool indexChanged = false;
-        private void lbURL_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lbTitle.SelectedIndex = lbURL.SelectedIndex;
-            if (bypassThisIndexChange) { bypassThisIndexChange = false; }
-            else
-            {
-                bypassThisDeletion = true;
-                indexChanged = true;
-                chromiumWebBrowser1.Load(lbURL.SelectedItem.ToString());
-            }
-            btBack.Visible = lbURL.SelectedIndex != 0;
-            btNext.Visible = lbURL.SelectedIndex != lbURL.Items.Count - 1;
-        }
 
         private void cmsBack_Opening(object sender, CancelEventArgs e)
         {
             cmsBack.Items.Clear();
-            if ((lbURL.SelectedIndex != -1) && lbURL.Items.Count > 0)
+            Session[] prev = SessionSystem.Before();
+            if (prev.Length > 0)
             {
-                int i = 0;
-                while (i != lbURL.SelectedIndex)
+                for (int  i = 0; i < prev.Length; i++)
                 {
                     ToolStripMenuItem item = new ToolStripMenuItem
                     {
-                        Text = lbTitle.Items[i].ToString(),
+                        Text = prev[i].Title,
                         ShortcutKeyDisplayString = i.ToString(),
-                        Tag = lbURL.Items[i].ToString(),
+                        Tag = prev[i].Url,
                         ShowShortcutKeys = false
                     };
-                    item.Click += backfrowardItemClick;
+                    item.Click += backforwardItemClick;
                     cmsBack.Items.Add(item);
-                    i += 1;
                 }
             }
+            if (cmsBack.Items.Count == 0)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem
+                {
+                    Text = anaform.empty,
+                    Enabled = false
+                };
+                cmsBack.Items.Add(item);
+            }
+            cmsBack.Items.Add(tsSepBack);
+            cmsBack.Items.Add(tsBackHistory);
         }
 
-        private void backfrowardItemClick(object sender, EventArgs e)
+        private void backforwardItemClick(object sender, EventArgs e)
         {
             int switchTo = Convert.ToInt32(((ToolStripMenuItem)sender).ShortcutKeyDisplayString);
-            lbURL.SelectedIndex = switchTo;
+            SessionSystem.SelectedIndex = switchTo;
+            SessionSystem.SelectedSession = SessionSystem.Sessions[switchTo];
+            chromiumWebBrowser1.Load(SessionSystem.SelectedSession.Url);
         }
 
         private void cmsForward_Opening(object sender, CancelEventArgs e)
         {
             cmsForward.Items.Clear();
-            if ((lbURL.SelectedIndex != -1) && lbURL.Items.Count > 0)
+            Session[] prev = SessionSystem.After();
+            if (prev.Length > 0)
             {
-                int i = lbURL.SelectedIndex + 1;
-                while (i != lbURL.Items.Count - 1)
+                for (int i = 0; i < prev.Length; i++)
                 {
                     ToolStripMenuItem item = new ToolStripMenuItem
                     {
-                        Text = lbTitle.Items[i].ToString(),
+                        Text = prev[i].Title,
                         ShortcutKeyDisplayString = i.ToString(),
-                        Tag = lbURL.Items[i].ToString(),
+                        Tag = prev[i].Url,
                         ShowShortcutKeys = false
                     };
-                    item.Click += backfrowardItemClick;
+                    item.Click += backforwardItemClick;
                     cmsForward.Items.Add(item);
-                    i += 1;
                 }
             }
+            if (cmsForward.Items.Count == 0)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem
+                {
+                    Text = anaform.empty,
+                    Enabled = false
+                };
+                cmsForward.Items.Add(item);
+            }
+            cmsForward.Items.Add(tsSepForward);
+            cmsForward.Items.Add(tsForwardHistory);
         }
 
         private void hsAutoRestore_CheckedChanged(object sender, EventArgs e)
@@ -4369,5 +4333,197 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 isRightPressed = false;
             }
         }
+    }
+    public class SessionSystem
+    {
+        public SessionSystem(string XMLCode)
+        {
+            if (!string.IsNullOrWhiteSpace(XMLCode))
+            {
+                XmlDocument document = new XmlDocument();
+                document.LoadXml(XMLCode);
+                XmlNode workNode = document.FirstChild;
+                if (document.FirstChild.Name.ToLower() == "xml") { workNode = document.FirstChild.NextSibling; }
+                if (workNode.Attributes["Index"] != null) {
+                    int si = Convert.ToInt32(workNode.Attributes["Index"].Value);
+                    foreach (XmlNode node in workNode.ChildNodes)
+                    {
+                        if (node.Name.ToLower() == "sessionsite")
+                        {
+                            if (node.Attributes["Url"] != null && node.Attributes["Title"] != null)
+                            {
+                                Sessions.Add(new Session(node.Attributes["Url"].Value, node.Attributes["Tİtle"].Value));
+                            }
+                            
+                        }
+                    }
+                    SelectedIndex = si;
+                    SelectedSession = Sessions[si];
+                }
+            }
+        }
+        public void ShowDebugger()
+        {
+            Form debug = new Form()
+            {
+                Text = "Session System Debug",
+                Visible = true,
+            };
+            ListBox lb = new ListBox()
+            {
+                Dock = DockStyle.Fill,
+                Visible = true,
+            };
+            Timer tmr = new Timer()
+            {
+                Enabled = true,
+            };
+            tmr.Tick += new EventHandler((sender,e) => 
+            {
+                lb.Items.Clear();
+                for (int i = 0; i < Sessions.Count; i++)
+                {
+                    lb.Items.Add("Title=\"" + Sessions[i].Title + "\" Url=\"" + Sessions[i].Url + "\"");
+                }
+            });
+            debug.Controls.Add(lb);
+            debug.Show();
+            debug.BringToFront();
+        }
+        public SessionSystem() : this("") { }
+        private List<Session> _Sessions = new List<Session>();
+        public string XmlOut()
+        {
+            string x = "<Session Index=\"" + SelectedIndex + "\" >" + Environment.NewLine;
+            for(int i = 0; i < Sessions.Count;i++)
+            {
+                x += "<SessionSite Url=\"" + Sessions[i].Url + "\" Title=\"" + Sessions[i].Title + "\" >" + Environment.NewLine;
+            }
+            return x + "</Session>";
+        }
+        public List<Session> Sessions
+        {
+            get => _Sessions;
+            set => _Sessions = value;
+        }
+        public void GoBack(ChromiumWebBrowser browser)
+        {
+            if (CanGoBack())
+            {
+                SelectedIndex -= 1;
+                SelectedSession = Sessions[SelectedIndex];
+                browser.Invoke(new Action(() => browser.Load(SelectedSession.Url)));
+            }
+        }
+        public void GoForward(ChromiumWebBrowser browser)
+        {
+            if (CanGoForward())
+            {
+                SelectedIndex += 1;
+                SelectedSession = Sessions[SelectedIndex];
+                browser.Invoke(new Action(() => browser.Load(SelectedSession.Url)));
+            }
+        }
+        public Session SessionInIndex(int Index)
+        {
+            return Sessions[Index];
+        }
+        public Session SelectedSession { get; set; }
+        public int SelectedIndex { get; set; }
+        public void Add(string url,string title)
+        {
+            Add(new Session(url, title));
+        }
+        public void Add(Session Session)
+        {
+            Session[] RemoveThese = After();
+            for(int i =0; i< RemoveThese.Length;i++)
+            {
+                Sessions.Remove(RemoveThese[i]);
+            }
+            Sessions.Add(Session);
+            SelectedSession = Session;
+            SelectedIndex = Sessions.Count - 1;
+        }
+        public bool CanGoBack() => CanGoBack(SelectedSession);
+        public bool CanGoBack(Session Session)
+        {
+            if (Session is null)
+            {
+                return false;
+            }
+            if (!Sessions.Contains(Session))
+            {
+                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
+            }
+            int current = Sessions.IndexOf(Session);
+            return current > 0;
+        }
+        public bool CanGoForward() => CanGoForward(SelectedSession);
+        public bool CanGoForward(Session Session)
+        {
+            if (Session is null)
+            {
+                return false;
+            }
+            if (!Sessions.Contains(Session))
+            {
+                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
+            }
+
+            int current = Sessions.IndexOf(Session) + 1;
+            return current < Sessions.Count;
+        }
+        public Session[] Before() => Before(SelectedSession);
+        public Session[] Before(Session Session)
+        {
+            if (Session is null)
+            {
+                return new Session[] { };
+            }
+            if (!Sessions.Contains(Session))
+            {
+                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
+            }
+            int current = Sessions.IndexOf(Session);
+            List<Session> fs = new List<Session>();
+            for(int i =0; i< current; i++)
+            {
+                fs.Add(Sessions[i]);
+            }
+            return fs.ToArray();
+        }
+        public Session[] After() => After(SelectedSession);
+        public Session[] After(Session Session)
+        {
+            if (Session is null)
+            {
+                return new Session[] { };
+            }
+            if (!Sessions.Contains(Session))
+            {
+                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
+            }
+            int current = Sessions.IndexOf(Session) + 1;
+            List<Session> fs = new List<Session>();
+            for (int i = current; i < Sessions.Count; i++)
+            {
+                fs.Add(Sessions[i]);
+            }
+            return fs.ToArray();
+        }
+    }
+    public class Session
+    {
+        public Session(string _Url, string _Title)
+        {
+            Url = _Url;
+            Title = _Title;
+        }
+        public Session() : this("", "") { }
+        public Session(string _Url) : this(_Url, _Url) { }
+
+        public string Url { get; set; }
+        public string Title { get; set; }
     }
 }
