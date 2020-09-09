@@ -1,4 +1,5 @@
 <Language CompatibleVersion="0.8.1.0">
+  <Translate ID="Reload" Text="Reload page" />
   <Translate ID="SoundFiles" Text="Sound Files" />
   <Translate ID="UseDefaultSound" Text="Use default notification sound:" />
   <Translate ID="ForeColor" Text="Foreground Color:" />

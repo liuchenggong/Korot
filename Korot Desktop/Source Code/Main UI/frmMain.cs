@@ -203,6 +203,7 @@ namespace Korot
         #endregion
 
         #region "Translate"
+        public string Reload = "Reload page";
         public string OK = "OK";
         public string Extensions = "Extensions";
         public string OpenInNewTab = "Open in new tab";

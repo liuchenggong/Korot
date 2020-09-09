@@ -605,6 +605,7 @@ namespace Korot
         public void LoadLangFromFile(string fileLocation)
         {
             if (Settings.LanguageSystem.LangFile != fileLocation) { Settings.LanguageSystem.ReadFromFile(fileLocation, true); }
+            anaform.Reload = Settings.LanguageSystem.GetItemText("Reload");
             anaform.soundFiles = Settings.LanguageSystem.GetItemText("SoundFiles");
             lbDefaultNotifSound.Text = Settings.LanguageSystem.GetItemText("UseDefaultSound");
             lbForeColor.Text = Settings.LanguageSystem.GetItemText("ForeColor");
@@ -1874,33 +1875,15 @@ namespace Korot
                     btFav.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w;
                 }
             }));
-            CheckValidUrl(e.Address);
+            if (!KorotTools.ValidHttpURL(e.Address))
+            {
+                chromiumWebBrowser1.Load(Settings.SearchEngine + e.Address);
+            }
             if (lbURL.Items.Count != 0)
             {
                 if (e.Address != lbURL.Items[lbURL.Items.Count - 1].ToString())
                 {
                     Invoke(new Action(() => redirectTo(e.Address, Text)));
-                }
-            }
-        }
-        private void CheckValidUrl(string Url)
-        {
-            if (string.IsNullOrWhiteSpace(Url)) { return; }
-            if (AlreadyValidUrl.Contains(Url)) { } else if (AlreadyNotValidUrl.Contains(Url)) { chromiumWebBrowser1.Load(Settings.SearchEngine + Url); }
-            else
-            {
-                if (!HTAlt.Tools.ValidUrl(Url, new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" }))
-                { 
-                    string searchForThis = Settings.SearchEngine + Url;
-                    if (!string.IsNullOrWhiteSpace(searchForThis))
-                    {
-                        chromiumWebBrowser1.Load(searchForThis);
-                        AlreadyNotValidUrl.Add(Url);
-                    }
-                }
-                else
-                {
-                    AlreadyValidUrl.Add(Url);
                 }
             }
         }
@@ -1912,13 +1895,26 @@ namespace Korot
             }
             else
             {
-                if (e.Frame.IsMain)
-                {
-                    chromiumWebBrowser1.Load("korot://error/?e=" + Convert.ToInt32(e.ErrorCode) + "?t=" + e.ErrorText + "?u=" + e.FailedUrl);
+                if (e.FailedUrl.ToLower().StartsWith("korot") || e.FailedUrl.ToLower().StartsWith("chrome") || e.FailedUrl.ToLower().StartsWith("about")) 
+                { 
+                    if(e.Frame.IsMain)
+                    {
+                        chromiumWebBrowser1.Load(e.FailedUrl);
+                    }else
+                    {
+                        e.Frame.LoadUrl("korot://error/?e=FORBIDDEN?u=" + e.FailedUrl);
+                    }
                 }
                 else
                 {
-                    e.Frame.LoadUrl("korot://error/?e=" + Convert.ToInt32(e.ErrorCode) + "?t=" + e.ErrorText + "?u=" + e.FailedUrl);
+                    if (e.Frame.IsMain)
+                    {
+                        chromiumWebBrowser1.Load("korot://error/?e=" + e.ErrorCode + "?u=" + e.FailedUrl);
+                    }
+                    else
+                    {
+                        e.Frame.LoadUrl("korot://error/?e=" + e.ErrorCode + "?u=" + e.FailedUrl);
+                    }
                 }
             }
         }

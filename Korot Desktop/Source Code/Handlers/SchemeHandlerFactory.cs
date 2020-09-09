@@ -113,15 +113,29 @@ namespace Korot
             if (CefForm.Settings.NewTabSites.FavoritedSite9 != null) { x += "<div>" + CefForm.Settings.NewTabSites.SiteToHTMLData(CefForm.Settings.NewTabSites.FavoritedSite9) + "</div>" + Environment.NewLine; }
             return x;
         }
+        private string SearchPrettify(string x)
+        {
+            if (x.ToLower().StartsWith("http") ||
+                x.ToLower().StartsWith("about") ||
+                x.ToLower().StartsWith("korot") ||
+                x.ToLower().StartsWith("file") ||
+                x.ToLower().StartsWith("ftp")||
+                x.ToLower().StartsWith("smtp") ||
+                x.ToLower().StartsWith("pop") ||
+                x.ToLower().StartsWith("chrome"))
+            {
+                return x;
+            }else
+            {
+                return "http://" + x;
+            }
+        }
         private Attemption lastattempt;
         public IResourceHandler Create(IBrowser browser, IFrame frame, string schemeName, IRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.Url))
+
+            if (CefForm.Settings.IsUrlAllowed(request.Url))
             {
-                return ResourceHandler.FromString("<html><head><title>Test</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><script type=\"text/javascript\">function codeAddress() {history.goBack()}window.onload = codeAddress;</script></head><body></body></html>");
-            }
-                if (CefForm.Settings.IsUrlAllowed(request.Url))
-                { 
                 if (schemeName == "korot")
                 {
                     if (request.Url.ToLower().StartsWith("korot://newtab"))
@@ -136,32 +150,23 @@ namespace Korot
 
                     else if (request.Url.StartsWith("korot://search/?q="))
                     {
+                        Console.WriteLine("");
                         string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
-                        if (string.IsNullOrWhiteSpace(x))
+                        if (KorotTools.ValidHttpURL(x))
                         {
-                            Console.WriteLine("[EMPTY URL]");
-                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = korot://error/?e=-4?t=InvalidArgument?u=" + request.Url + " \" />");
-                        }
-                        if (HTAlt.Tools.ValidUrl(x, CefForm.customProts))
-                        {
-                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + x + "\" />");
+                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url=" + SearchPrettify(x) + "\" />");
                         }
                         else
                         {
-                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + CefForm.Settings.SearchEngine + x + "\" />");
+                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url=" + CefForm.Settings.SearchEngine + x + "\" />");
                         }
                     }
-                    else if (request.Url.StartsWith("korot://search"))
+                    else if (request.Url.StartsWith("korot://search/"))
                     {
-                        string x = request.Url.Substring(request.Url.IndexOf("/", 11) + 1);
-                        if (string.IsNullOrWhiteSpace(x))
+                        string x = request.Url.Substring(request.Url.IndexOf("/", 10) + 1);
+                        if (KorotTools.ValidHttpURL(x))
                         {
-                            Console.WriteLine("[EMPTY URL]");
-                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = korot://error/?e=-4?t=InvalidArgument?u=" + request.Url + " \" />");
-                        }
-                        if (HTAlt.Tools.ValidUrl(x, CefForm.customProts))
-                        {
-                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + x + "\" />");
+                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + SearchPrettify(x) + "\" />");
                         }
                         else
                         {
@@ -178,37 +183,15 @@ namespace Korot
                     }
                     else if (request.Url.StartsWith("korot://error"))
                     {
-                        string url = request.Url;
-
-                        if (string.IsNullOrWhiteSpace(url.Substring(url.IndexOf("?") + 1)) || url.Remove(url.Length - 1) == "korot://error" || url.Remove(url.Length - 1) == "korot://error/" || url.Remove(url.Length - 1) == "korot://error/?" || url.Remove(url.Length - 1) == "korot://error/?e" || url.Remove(url.Length - 1) == "korot://error/?e=" || url.Remove(url.Length - 1) == "korot://error/?e=?" || url.Remove(url.Length - 1) == "korot://error/?e=?t" || url.Remove(url.Length - 1) == "korot://error/?e=?t=" || url.Remove(url.Length - 1) == "korot://error/?e=?t=?" || url.Remove(url.Length - 1) == "korot://error/?e=?t=?u" || url.Remove(url.Length - 1) == "korot://error/?e=?t=?u=")
+                        string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
+                        string errorPage = "";
+                        if (x.Contains('='))
                         {
-                            Console.WriteLine("[EMPTY URL]");
-                            return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = 'korot://error/?e=-4?t=InvalidArgument?u=" + request.Url + "' \" />");
-                        } else {
-                            int eIndex = url.IndexOf("?e=");
-                            int tIndex = url.IndexOf("?t=");
-                            int uIndex = url.IndexOf("?u=");
-                            string x = url.Substring(eIndex + 3, tIndex - eIndex - 3);
-                            string y = url.Substring(tIndex + 3, uIndex - tIndex - 3);
-                            string z = url.Substring(uIndex + 3, url.Length - uIndex - 3);
-                            if (isValidKorotPage(z))
-                            {
-                                if (lastattempt != null)
-                                {
-                                    if (lastattempt.Attempt <= 9)
-                                    {
-                                        lastattempt.Attempt++;
-                                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = " + z + "/ \" />");
-                                    }
-                                }
-                                else
-                                {
-                                    lastattempt = new Attemption(z, 0);
-                                    return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = " + z + "/ \" />");
-                                }
-                            }
-                            return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§URL§", z).Replace("§ETEXT§", y).Replace("§OVERLAY§", GetOverlay()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.anaform.ErrorPageTitle).Replace("§KT§", CefForm.anaform.KT).Replace("§ET§", CefForm.anaform.ET).Replace("§E1§", CefForm.anaform.E1).Replace("§E2§", CefForm.anaform.E2).Replace("§E3§", CefForm.anaform.E3).Replace("§E4§", CefForm.anaform.E4).Replace("§RT§", CefForm.anaform.RT).Replace("§R1§", CefForm.anaform.R1).Replace("§R2§", CefForm.anaform.R2).Replace("§R3§", CefForm.anaform.R3).Replace("§R4§", CefForm.anaform.R4).Replace("§ERROR§", x));
+                            errorPage = x.Substring(x.IndexOf('=') + 1);
+                            x.Replace("?u" + errorPage, "");
+                            errorPage = SearchPrettify(errorPage);
                         }
+                        return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§RELOAD§",CefForm.anaform.Reload).Replace("§ERROR§", x).Replace("§URL§", (string.IsNullOrWhiteSpace(errorPage) ? "korot://empty" : errorPage)).Replace("§OVERLAY§", GetOverlay()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.anaform.ErrorPageTitle).Replace("§KT§", CefForm.anaform.KT).Replace("§ET§", CefForm.anaform.ET).Replace("§E1§", CefForm.anaform.E1).Replace("§E2§", CefForm.anaform.E2).Replace("§E3§", CefForm.anaform.E3).Replace("§E4§", CefForm.anaform.E4).Replace("§RT§", CefForm.anaform.RT).Replace("§R1§", CefForm.anaform.R1).Replace("§R2§", CefForm.anaform.R2).Replace("§R3§", CefForm.anaform.R3).Replace("§R4§", CefForm.anaform.R4));
                     }
                     else if (request.Url.ToLower().StartsWith("korot://dad"))
                     {

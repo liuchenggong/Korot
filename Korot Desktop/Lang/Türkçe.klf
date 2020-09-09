@@ -1,4 +1,5 @@
 <Language CompatibleVersion="0.8.1.0">
+  <Translate ID="Reload" Text="Sayfayı yenile" />
   <Translate ID="SoundFiles" Text="Ses Dosyaları" />
   <Translate ID="UseDefaultSound" Text="Varsayılan bildirim sesini kullan:" />
   <Translate ID="ForeColor" Text="Önplan rengi:" />
