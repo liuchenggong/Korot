@@ -26,12 +26,14 @@ using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -96,7 +98,6 @@ namespace Korot
             _anaform = _aform;
             Settings = settings;
             SessionSystem = new SessionSystem(Session);
-            SessionSystem.ShowDebugger();
             NotificationListenerMode = notifListenMode;
             loaduri = loadurl;
             _Incognito = isIncognito;
@@ -1797,11 +1798,13 @@ namespace Korot
         {
             if (tabControl1.SelectedTab == tpCef) //CEF
             {
+                bypassThisDeletion = true;
                 SessionSystem.GoBack(chromiumWebBrowser1);
                 //chromiumWebBrowser1.Back();
             }
             else if (tabControl1.SelectedTab == tpCert) //Certificate Error Menu
             {
+                bypassThisDeletion = true;
                 SessionSystem.GoBack(chromiumWebBrowser1);
                 resetPage();
             }
@@ -1840,6 +1843,7 @@ namespace Korot
         }
         public void button3_Click(object sender, EventArgs e)
         {
+            bypassThisDeletion = true;
             resetPage();
             allowSwitching = true;
             tabControl1.SelectedTab = tpCef;
@@ -3576,17 +3580,12 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         public void redirectTo(string url, string title)
         {
-            if (bypassThisDeletion)
-            {
-                bypassThisDeletion = false;
-            }
-            else
-            {
-                SessionSystem.Add(url, title);
-            }
+            SessionSystem.SkipAdd = bypassThisDeletion;
+            bypassThisDeletion = false;
+            SessionSystem.Add(url, title);
         }
 
-        private bool bypassThisDeletion = false;
+        public bool bypassThisDeletion = false;
         public bool indexChanged = false;
 
         private void cmsBack_Opening(object sender, CancelEventArgs e)
@@ -4354,41 +4353,12 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                             {
                                 Sessions.Add(new Session(node.Attributes["Url"].Value, node.Attributes["Tİtle"].Value));
                             }
-                            
                         }
                     }
                     SelectedIndex = si;
                     SelectedSession = Sessions[si];
                 }
             }
-        }
-        public void ShowDebugger()
-        {
-            Form debug = new Form()
-            {
-                Text = "Session System Debug",
-                Visible = true,
-            };
-            ListBox lb = new ListBox()
-            {
-                Dock = DockStyle.Fill,
-                Visible = true,
-            };
-            Timer tmr = new Timer()
-            {
-                Enabled = true,
-            };
-            tmr.Tick += new EventHandler((sender,e) => 
-            {
-                lb.Items.Clear();
-                for (int i = 0; i < Sessions.Count; i++)
-                {
-                    lb.Items.Add("Title=\"" + Sessions[i].Title + "\" Url=\"" + Sessions[i].Url + "\"");
-                }
-            });
-            debug.Controls.Add(lb);
-            debug.Show();
-            debug.BringToFront();
         }
         public SessionSystem() : this("") { }
         private List<Session> _Sessions = new List<Session>();
@@ -4406,10 +4376,12 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             get => _Sessions;
             set => _Sessions = value;
         }
+        public bool SkipAdd = false;
         public void GoBack(ChromiumWebBrowser browser)
         {
             if (CanGoBack())
             {
+                SkipAdd = true;
                 SelectedIndex -= 1;
                 SelectedSession = Sessions[SelectedIndex];
                 browser.Invoke(new Action(() => browser.Load(SelectedSession.Url)));
@@ -4419,6 +4391,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             if (CanGoForward())
             {
+                SkipAdd = true;
                 SelectedIndex += 1;
                 SelectedSession = Sessions[SelectedIndex];
                 browser.Invoke(new Action(() => browser.Load(SelectedSession.Url)));
@@ -4430,20 +4403,92 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
         public Session SelectedSession { get; set; }
         public int SelectedIndex { get; set; }
+        public void MoveTo(int i,ChromiumWebBrowser browser)
+        {
+            if (browser is null)
+            {
+                throw new ArgumentNullException("\"browser\" was null");
+            }
+            if (i >= 0 && i < Sessions.Count)
+            {
+                SkipAdd = true;
+                SelectedIndex = i;
+                SelectedSession = Sessions[i];
+                browser.Load(SelectedSession.Url);
+            }else
+            {
+                throw new ArgumentOutOfRangeException("\"i\" was bigger than Sessions.Count or smaller than 0. [i=\"" + i + "\" Count=\"" + Sessions.Count + "\"]");
+            }
+        }
         public void Add(string url,string title)
         {
             Add(new Session(url, title));
         }
         public void Add(Session Session)
         {
-            Session[] RemoveThese = After();
-            for(int i =0; i< RemoveThese.Length;i++)
+            if (Session is null)
             {
-                Sessions.Remove(RemoveThese[i]);
+                throw new ArgumentNullException("\"Session\" was null.");
             }
-            Sessions.Add(Session);
-            SelectedSession = Session;
-            SelectedIndex = Sessions.Count - 1;
+            if (Session.Url.ToLower().StartsWith("korot") && (!KorotTools.isNonRedirectKorotPage(Session.Url)))
+            {
+                return;
+            }
+            if (SkipAdd) { SkipAdd = false; return; }
+            if (CanGoForward() && SelectedIndex + 1 < Sessions.Count)
+            {
+                if (!Session.Equals(Sessions[SelectedIndex]))
+                {
+                    Console.WriteLine("Session Not Equal: 1:" + Session.Url + " 2:" + Sessions[SelectedIndex].Url);
+                    Session[] RemoveThese = After();
+                    for (int i = 0; i < RemoveThese.Length; i++)
+                    {
+                        Sessions.Remove(RemoveThese[i]);
+                    }
+                    if (Sessions.Count > 0)
+                    {
+                        if (Sessions[Sessions.Count - 1].Url != Session.Url)
+                        {
+                            Sessions.Add(Session);
+                        }
+                    }
+                    else
+                    {
+                        Sessions.Add(Session);
+                    }
+                }
+            }
+            else
+            {
+                if (Sessions.Count > 0)
+                {
+                    if (Sessions[Sessions.Count - 1].Url != Session.Url)
+                    {
+                        Sessions.Add(Session);
+                    }
+                }
+                else
+                {
+                    Sessions.Add(Session);
+                }
+            }
+            if (Sessions.Count > 0)
+            {
+                if (Sessions[Sessions.Count - 1].Url != Session.Url)
+                {
+                    SelectedSession = Session;
+                    SelectedIndex = Sessions.IndexOf(Session);
+                }
+                else
+                {
+                    SelectedSession = Sessions[Sessions.Count - 1];
+                    SelectedIndex = Sessions.Count - 1;
+                }
+            }
+            else
+            {
+                Sessions.Add(Session);
+            }
         }
         public bool CanGoBack() => CanGoBack(SelectedSession);
         public bool CanGoBack(Session Session)
@@ -4515,6 +4560,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
     }
     public class Session
     {
+        public override bool Equals(object obj) => obj is Session session && Url == session.Url;
+
+        public override int GetHashCode() => -1915121810 + EqualityComparer<string>.Default.GetHashCode(Url);
+
         public Session(string _Url, string _Title)
         {
             Url = _Url;

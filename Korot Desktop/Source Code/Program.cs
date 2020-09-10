@@ -1780,6 +1780,13 @@ new HTTitleTab(testApp)
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Sea.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Sea</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#4da6ff</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Sea.ktf", newTheme, Encoding.UTF8);}
             return true;
         }
+        public static bool isNonRedirectKorotPage(string Url)
+        {
+            return (Url.ToLower().StartsWith("korot://newtab")
+                || Url.ToLower().StartsWith("korot://links")
+                || Url.ToLower().StartsWith("korot://license")
+                || Url.ToLower().StartsWith("korot://incognito"));
+        }
         public static bool createFolders()
         {
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\"); }
