@@ -34,6 +34,7 @@ namespace Korot
         }
 
         private readonly frmCEF cefform;
+
         public RequestHandlerKorot(frmCEF _frmCEF)
         {
             cefform = _frmCEF;
@@ -103,6 +104,7 @@ namespace Korot
             cefform.Invoke(new Action(() =>
             {
                 cefform.certificatedetails = certError;
+                cefform.certErrorUrl = requestUrl;
                 cefform.certError = true;
 
                 cefform.pbPrivacy.Image = Properties.Resources.lockr;
@@ -114,12 +116,7 @@ namespace Korot
             }
             else
             {
-                cefform.Invoke(new Action(() =>
-                {
-                    cefform.pnlCert.Visible = true;
-                    cefform.btCertError.Tag = requestUrl;
-                    cefform.tabControl1.SelectedTab = cefform.tpCert;
-                }));
+                cefform.Invoke(new Action(() => cefform.chromiumWebBrowser1.Load("korot://certerror")));
                 callback.Cancel();
                 return false;
             }
@@ -135,7 +132,10 @@ namespace Korot
             else { return false; }
         }
 
-        public void OnPluginCrashed(IWebBrowser chromiumWebBrowser, IBrowser browser, string pluginPath) { }
+        public void OnPluginCrashed(IWebBrowser chromiumWebBrowser, IBrowser browser, string pluginPath)
+        {
+        }
+
         public bool OnQuotaRequest(IWebBrowser chromiumWebBrowser, IBrowser browser, string originUrl, long newSize, IRequestCallback callback)
         {
             callback.Dispose();
@@ -152,7 +152,9 @@ namespace Korot
             }
         }
 
-        public void OnRenderViewReady(IWebBrowser chromiumWebBrowser, IBrowser browser) { }
+        public void OnRenderViewReady(IWebBrowser chromiumWebBrowser, IBrowser browser)
+        {
+        }
 
         public bool OnSelectClientCertificate(IWebBrowser chromiumWebBrowser, IBrowser browser, bool isProxy, string host, int port, X509Certificate2Collection certificates, ISelectClientCertificateCallback callback)
         {

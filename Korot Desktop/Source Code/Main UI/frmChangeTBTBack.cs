@@ -28,6 +28,7 @@ namespace Korot
     public partial class frmChangeTBTBack : Form
     {
         private readonly frmCEF cefform;
+
         public frmChangeTBTBack(frmCEF frm)
         {
             cefform = frm;
@@ -39,6 +40,7 @@ namespace Korot
             btOK.Text = cefform.anaform.OK;
             btCancel.Text = cefform.anaform.Cancel;
         }
+
         public Color Color
         {
             get => pictureBox1.BackColor;

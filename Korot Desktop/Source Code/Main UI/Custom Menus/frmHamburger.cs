@@ -6,15 +6,14 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
 {
-
     public partial class frmHamburger : Form
     {
         private readonly frmCEF cefform;
+
         public frmHamburger(frmCEF _frmCEF)
         {
             cefform = _frmCEF;
@@ -42,14 +41,16 @@ namespace Korot
         private Color _Back;
         private Color _Overlay;
         private bool forceReDraw = false;
+
         public void ForceReDraw()
         {
             forceReDraw = true;
             timer1_Tick(this, new EventArgs());
         }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (_Back != cefform.Settings.Theme.BackColor ||forceReDraw)
+            if (_Back != cefform.Settings.Theme.BackColor || forceReDraw)
             {
                 _Back = cefform.Settings.Theme.BackColor;
                 BackColor = cefform.Settings.Theme.BackColor;
@@ -95,7 +96,7 @@ namespace Korot
             if (_Overlay != cefform.Settings.Theme.OverlayColor)
             {
                 _Overlay = cefform.Settings.Theme.OverlayColor;
-                btCaseSensitive.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : (cs ? cefform.Settings.Theme.OverlayColor :cefform.Settings.Theme.ForeColor);
+                btCaseSensitive.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : (cs ? cefform.Settings.Theme.OverlayColor : cefform.Settings.Theme.ForeColor);
             }
             bool c = cefform.Settings.IsQuietTime;
             btMute.Enabled = !cefform.Settings.QuietMode;
@@ -152,12 +153,14 @@ namespace Korot
         {
             Process.Start(Application.ExecutablePath, "-incognito");
         }
+
 #pragma warning disable IDE0052
         private int findIdentifier;
 #pragma warning restore IDE0052
         private int findTotal;
         private int findCurrent;
         private bool findLast;
+
         public void FindUpdate(int identifier, int count, int activeMatchOrdinal, bool finalUpdate)
         {
             findIdentifier = identifier;
@@ -165,6 +168,7 @@ namespace Korot
             findCurrent = activeMatchOrdinal;
             findLast = finalUpdate;
         }
+
         private void btFindNext_Click(object sender, EventArgs e)
         {
             if (tsSearch.Text != cefform.anaform.SearchOnPage && !string.IsNullOrWhiteSpace(tsSearch.Text))
@@ -173,8 +177,8 @@ namespace Korot
             }
         }
 
-
         private bool cs = false;
+
         private void btCaseSensitive_Click(object sender, EventArgs e)
         {
             cs = !cs;
@@ -187,6 +191,7 @@ namespace Korot
         }
 
         private bool isSearchOn = false;
+
         private void tsSearch_TextChanged(object sender, EventArgs e)
         {
             if (cefform.chromiumWebBrowser1.IsBrowserInitialized)
@@ -239,6 +244,7 @@ namespace Korot
                     cefform.ParentTab.BackColor = dialog.Color;
                     cefform.ParentTab.UseDefaultBackColor = false;
                     break;
+
                 case DialogResult.Abort:
                     cefform.ParentTab.BackColor = BackColor;
                     cefform.ParentTab.UseDefaultBackColor = true;
@@ -251,6 +257,7 @@ namespace Korot
             cefform.anaform.Invoke(new Action(() => cefform.anaform.ReadSession(cefform.anaform.OldSessions)));
             btRestore.Visible = false;
         }
+
         private void btMute_Click(object sender, EventArgs e)
         {
             cefform.isMuted = !cefform.isMuted;
@@ -308,6 +315,7 @@ namespace Korot
             cefform.Invoke(new Action(() => cefform.SwitchToAbout()));
             Hide();
         }
+
         private void extItem_Click(object sender, EventArgs e)
         {
             if (sender == null) { return; }
@@ -325,6 +333,7 @@ namespace Korot
                 cefform.chromiumWebBrowser1.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsyncWhenPageLoaded(HTAlt.Tools.ReadFile(loc, Encoding.UTF8))));
             }
         }
+
         public void LoadExt()
         {
             flpExtensions.Controls.Clear();
@@ -493,13 +502,16 @@ namespace Korot
             lbZoom.Invoke(new Action(() => lbZoom.Text = ((cefform.zoomLevel * 100) + 100) + "%"));
         }
     }
+
     internal class FindHandler : IFindHandler
     {
         private readonly frmHamburger frmHam;
+
         public FindHandler(frmHamburger _frmHam)
         {
             frmHam = _frmHam;
         }
+
         public void OnFindResult(IWebBrowser chromiumWebBrowser, IBrowser browser, int identifier, int count, Rect selectionRect, int activeMatchOrdinal, bool finalUpdate)
         {
             frmHam.Invoke(new Action(() => frmHam.FindUpdate(identifier, count, activeMatchOrdinal, finalUpdate)));

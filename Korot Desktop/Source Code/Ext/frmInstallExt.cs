@@ -41,6 +41,7 @@ namespace Korot
         private string ext = "Extension";
         private string theme = "Theme";
         private readonly bool silentInstall = false;
+
         public frmInstallExt(Settings settings, string installFrom, bool silent = false)
         {
             Settings = settings;
@@ -52,6 +53,7 @@ namespace Korot
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
         }
+
         private static int Brightness(System.Drawing.Color c)
         {
             return (int)Math.Sqrt(
@@ -59,9 +61,9 @@ namespace Korot
                c.G * c.G * .691 +
                c.B * c.B * .068);
         }
+
         private void frmInstallExt_Load(object sender, EventArgs e)
         {
-
             allowSwitch = true;
             tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage4));
             if (silentInstall) { Hide(); }
@@ -167,7 +169,6 @@ namespace Korot
                     return;
                 }
             }
-
         }
 
         private void ReadKTF(string fileLocation)
@@ -215,12 +216,10 @@ namespace Korot
             }
         }
 
-
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
             e.Cancel = !allowSwitch;
             if (allowSwitch) { allowSwitch = false; }
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -246,6 +245,7 @@ namespace Korot
         }
 
         private int i = 0;
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             i += 1;
@@ -273,6 +273,7 @@ namespace Korot
         private readonly string korotExtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Extensions";
         private readonly string korotThemeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Themes";
         private string extCodeName;
+
         private async void installKEM()
         {
             await Task.Run(() =>
@@ -311,6 +312,7 @@ namespace Korot
                 }
             });
         }
+
         private async void installKTF()
         {
             await Task.Run(() =>
@@ -334,18 +336,18 @@ namespace Korot
         private void timer2_Tick(object sender, EventArgs e)
         {
             BackColor = Settings.Theme.BackColor;
-            ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
+            ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
             pictureBox1.BackColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
             tabPage1.BackColor = Settings.Theme.BackColor;
-            tabPage1.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
+            tabPage1.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
             tabPage2.BackColor = Settings.Theme.BackColor;
-            tabPage2.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
+            tabPage2.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
             tabPage3.BackColor = Settings.Theme.BackColor;
-            tabPage3.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
+            tabPage3.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
             panel1.BackColor = Settings.Theme.BackColor;
             tabPage4.BackColor = Settings.Theme.BackColor;
-            tabPage4.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
-            panel1.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor :  Settings.Theme.ForeColor;
+            tabPage4.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
+            panel1.ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
             pictureBox7.Image = Settings.NinjaMode ? null : (Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._1_w : Properties.Resources._1);
             pictureBox2.Image = Settings.NinjaMode ? null : (Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._2_w : Properties.Resources._2);
             pictureBox5.Image = Settings.NinjaMode ? null : (Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._3_w : Properties.Resources._3);

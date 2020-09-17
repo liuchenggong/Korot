@@ -22,20 +22,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
 <head>
     <title>§TITLE§</title>
-		<script>
-			function EditItem() 
+    <script>
+			function EditItem()
 		{
 		CefSharp.PostMessage("[Korot.EditNewTabItem]");
 		}
-	</script>
+    </script>
     <style>
         body {
-            §BACKSTYLE§
-			background-size: cover;
-			position: relative;
-			 background-repeat:no-repeat;
-			background-size:100% 100vh;
+            §BACKSTYLE§ background-size: cover;
+            position: relative;
+            background-repeat: no-repeat;
+            background-size: 100% 100vh;
         }
+
         .bw {
             font-family: Ubuntu;
             background-color: rgba(0,0,0,0.5);
@@ -53,35 +53,36 @@ SOFTWARE. -->
             heigth: 100%;
             transform: translateX(-25%) translateY(-25%);
         }
+
         input {
             font-family: Ubuntu;
             font-size: large;
             §BACKSTYLE2§
         }
+
             input[type=text] {
                 width: 35%;
             }
-			.grid-container {
-			§BACKSTYLE2§
-  display: grid;
-  font-family: Ubuntu;
-  grid-template-columns: auto auto auto auto auto;
-  grid-gap: 10px;
-  padding: 10px;
-}
 
-.grid-container > div {
-§BACKSTYLE3§
-font-family: Ubuntu;
-  text-align: center;
-  font-size: 30px;
-}
-.editItem 
-{
-font-family: Ubuntu;
-font-size: small;
- grid-area: 3 / 1 / 3 / 6;
-}
+        .grid-container {
+            §BACKSTYLE2§ display: grid;
+            font-family: Ubuntu;
+            grid-template-columns: auto auto auto auto auto;
+            grid-gap: 10px;
+            padding: 10px;
+        }
+
+            .grid-container > div {
+                §BACKSTYLE3§ font-family: Ubuntu;
+                text-align: center;
+                font-size: 30px;
+            }
+
+        .editItem {
+            font-family: Ubuntu;
+            font-size: small;
+            grid-area: 3 / 1 / 3 / 6;
+        }
     </style>
 
     <script>
@@ -99,27 +100,25 @@ font-size: small;
         var t = setTimeout(startTime, 500);
         }
         function checkTime(i) {
-        if (i < 10) {i = "0" + i}; 
+        if (i < 10) {i = "0" + i};
         return i;
         }
-
     </script>
-
 </head>
 <body onload="startTime()">
-	<panel class="merkez">
-    <h1 style="text-align: center;"> <span class="bw" id="saat" /></h1>
-    <h2 style="text-align: center;"> <span class="bw" id="date" /></h2>
-		<form action="korot://search/?">
-			<input type=text name="q" placeholder="§SEARCHHELP§" />
-		<input type=submit value="§SEARCH§" />
-		</form>
-<div class="grid-container">
-  §ITEMS§
-    <div class="editItem">
-  	<a onclick="EditItem()" style="§BACKSTYLE3§">§EDIT§</a>
-  </div>
-</div>
-	</panel>
+    <panel class="merkez">
+        <h1 style="text-align: center;"> <span class="bw" id="saat" /></h1>
+        <h2 style="text-align: center;"> <span class="bw" id="date" /></h2>
+        <form action="korot://search/?">
+            <input type=text name="q" placeholder="§SEARCHHELP§" />
+            <input type=submit value="§SEARCH§" />
+        </form>
+        <div class="grid-container">
+            §ITEMS§
+            <div class="editItem">
+                <a onclick="EditItem()" style="§BACKSTYLE3§">§EDIT§</a>
+            </div>
+        </div>
+    </panel>
 </body>
 </html>

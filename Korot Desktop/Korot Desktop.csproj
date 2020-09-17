@@ -283,6 +283,12 @@
     <Compile Include="Source Code\Favorites\frmNewFav.Designer.cs">
       <DependentUpon>frmNewFav.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Main UI\frmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Main UI\frmSettings.Designer.cs">
+      <DependentUpon>frmSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Main UI\frmThemeWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -400,6 +406,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmBlockSite.resx">
       <DependentUpon>frmBlockSite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Main UI\frmSettings.resx">
+      <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmThemeWizard.resx">
       <DependentUpon>frmThemeWizard.cs</DependentUpon>
@@ -642,6 +651,7 @@
     <None Include="Resources\ThemeTeal.PNG" />
     <None Include="Resources\PurpleColors.PNG" />
     <None Include="Resources\YellowColors.png" />
+    <None Include="Resources\certerror.html" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -9,17 +9,18 @@ namespace Korot
     {
         private readonly JumpList list;
         private readonly Settings Settings;
+
         public MyJumplist(IntPtr windowHandle, Settings settings)
         {
             Settings = settings;
             list = JumpList.CreateJumpListForIndividualWindow(TaskbarManager.Instance.ApplicationId, windowHandle);
             list.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
             BuildList();
-
         }
 
         private string NIW = "New Incognito Window";
         private string NW = "New Window";
+
         private void BuildList()
         {
             NIW = Settings.LanguageSystem.GetItemText("NewWindow");

@@ -30,6 +30,7 @@ namespace Korot
     public partial class frmCollection : Form
     {
         public frmCEF cefform;
+
         public frmCollection(frmCEF _cefform, int skipTo = -1)
         {
             cefform = _cefform;
@@ -69,11 +70,13 @@ namespace Korot
         private readonly List<PictureBox> backButtons;
         private readonly List<Control> defaultBackColor;
         private readonly List<Control> DefaultforeColor;
+
         private void back_Click(object sender, EventArgs e)
         {
             allowSwitch = true;
             tabControl1.SelectedTab = tpMain;
         }
+
         private void item_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -109,6 +112,7 @@ namespace Korot
                 cmsCollection.Show(MousePosition);
             }
         }
+
         public void genColList()
         {
             listView1.Items.Clear();
@@ -170,7 +174,6 @@ namespace Korot
                 titlePanels.Add(pnlTop);
                 FlowLayoutPanel flowPanel = new FlowLayoutPanel()
                 {
-
                     Location = new Point(0, pnlTop.Location.Y + pnlTop.Height),
                     Anchor = (((AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | AnchorStyles.Left) | AnchorStyles.Right),
                     FlowDirection = FlowDirection.TopDown,
@@ -227,7 +230,7 @@ namespace Korot
                         newItem.MouseClick += item_MouseClick;
                         flowPanel.Controls.Add(newItem);
                     }
-                    else if (item is ImageItem) //Picturebox 
+                    else if (item is ImageItem) //Picturebox
                     {
                         PictureBox newItem = new PictureBox()
                         {
@@ -299,6 +302,7 @@ namespace Korot
         }
 
         private bool allowSwitch = false;
+
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
             if (allowSwitch) { allowSwitch = false; } else { e.Cancel = true; }
@@ -319,12 +323,12 @@ namespace Korot
             foreach (TabPage x in tabControl1.TabPages)
             {
                 x.BackColor = cefform.Settings.Theme.BackColor;
-                x.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
+                x.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor; ;
             }
             foreach (Panel x in titlePanels)
             {
                 x.BackColor = BackColor2;
-                x.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
+                x.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor; ;
             }
             foreach (Control x in defaultBackColor)
             {
@@ -334,26 +338,24 @@ namespace Korot
             {
                 if (x is CustomLinkLabel)
                 {
-                    ((CustomLinkLabel)x).ActiveLinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
-                    ((CustomLinkLabel)x).DisabledLinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
-                    ((CustomLinkLabel)x).VisitedLinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
-                    ((CustomLinkLabel)x).LinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
-
+                    ((CustomLinkLabel)x).ActiveLinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor; ;
+                    ((CustomLinkLabel)x).DisabledLinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor; ;
+                    ((CustomLinkLabel)x).VisitedLinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor; ;
+                    ((CustomLinkLabel)x).LinkColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor; ;
                 }
-                x.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
+                x.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor; ;
             }
             foreach (PictureBox x in backButtons)
             {
                 x.Image = cefform.Settings.NinjaMode ? null : (HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
             }
             listView1.BackColor = BackColor2;
-            listView1.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
+            listView1.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor; ;
             cmsCollection.BackColor = BackColor2;
-            cmsCollection.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
+            cmsCollection.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor; ;
             cmsMain.BackColor = BackColor2;
-            cmsMain.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;;
+            cmsMain.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor; ;
         }
-
 
         private void newCollectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -454,6 +456,7 @@ namespace Korot
             cefform.Settings.CollectionManager.GetCollectionFromID(listView1.SelectedItems[0].Name).GetItemFromID(((Control)ıTEMToolStripMenuItem.Tag).Name);
             genColList();
         }
+
         private void exportThisİtemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot",

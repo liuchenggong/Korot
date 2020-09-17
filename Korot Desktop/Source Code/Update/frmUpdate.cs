@@ -20,17 +20,12 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
-using System.Net.NetworkInformation;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -40,16 +35,18 @@ namespace Korot
 {
     public partial class frmUpdate : Form
     {
-        private string CheckUrl = "https://raw.githubusercontent.com/Haltroy/Korot/master/Korot.htupdate";
+        private readonly string CheckUrl = "https://raw.githubusercontent.com/Haltroy/Korot/master/Korot.htupdate";
         private string downloadUrl;
         private string fileName = "";
         private int UpdateType; //0 = zip 1 = installer
         private readonly string downloadFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\";
         private readonly WebClient WebC = new WebClient();
-        private string StatusType;
-        private string installingTxt;
-        private string installStatus;
+        public int Progress = 0;
+        public bool isUpToDate = false;
+        public bool isDownloading = false;
+        public bool isReady = false;
         public Settings Settings;
+
         public frmUpdate(Settings settings)
         {
             Settings = settings;
@@ -57,51 +54,28 @@ namespace Korot
             WebC.DownloadStringCompleted += WebC_DownloadStringCompleted;
             WebC.DownloadProgressChanged += WebC_DownloadProgressChanged;
             WebC.DownloadFileCompleted += WebC_DownloadFileAsyncCompleted;
-            foreach (Control x in Controls)
-            {
-                try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
-            }
         }
 
-        private void RefreshTranslate()
+        public void CheckForUpdates()
         {
-            StatusType = Settings.LanguageSystem.GetItemText("DownloadProgress"); ;
-            installStatus = Settings.LanguageSystem.GetItemText("UpdatingMessage");
-            Text = Settings.LanguageSystem.GetItemText("KorotUpdate");
-            installingTxt = Settings.LanguageSystem.GetItemText("Installing");
-            label1.Text = installStatus;
-            label2.Text = StatusType.Replace("[PERC]", "0").Replace("[CURRENT]", "0").Replace("[TOTAL]", "0");
-
-        }
-        private static int Brightness(System.Drawing.Color c)
-        {
-            return (int)Math.Sqrt(
-               c.R * c.R * .241 +
-               c.G * c.G * .691 +
-               c.B * c.B * .068);
-        }
-        private static int GerekiyorsaAzalt(int defaultint, int azaltma)
-        {
-            return defaultint > azaltma ? defaultint - 20 : defaultint;
-        }
-
-        private static int GerekiyorsaArttır(int defaultint, int arttırma, int sınır)
-        {
-            return defaultint + arttırma > sınır ? defaultint : defaultint + arttırma;
-        }
-        private void frmUpdate_Load(object sender, EventArgs e)
-        {
-            RefreshTranslate();
             WebC.DownloadStringAsync(new Uri(CheckUrl));
         }
+
+        private void frmUpdate_Load(object sender, EventArgs e)
+        {
+            CheckForUpdates();
+        }
+
         private void WebC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
+            isDownloading = true;
             htProgressBar1.Value = e.ProgressPercentage;
-            label2.Text = StatusType.Replace("[PERC]", e.ProgressPercentage.ToString()).Replace("[CURRENT]", (e.BytesReceived / 1024).ToString()).Replace("[TOTAL]", (e.TotalBytesToReceive / 1024).ToString());
-            label1.Text = installStatus;
+            Progress = e.ProgressPercentage;
         }
+
         private void WebC_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
+            isDownloading = false;
             if (e.Error != null || e.Cancelled)
             {
                 if (((WebClient)sender).IsBusy) { ((WebClient)sender).CancelAsync(); }
@@ -109,15 +83,16 @@ namespace Korot
             }
             else
             {
-                XmlDocument dokk /* r6 joke here lol */ = new XmlDocument();
-                dokk.LoadXml(e.Result);
-                KorotVersion Newest = new KorotVersion(dokk.FirstChild.NextSibling.OuterXml);
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(e.Result);
+                KorotVersion Newest = new KorotVersion(doc.FirstChild.NextSibling.OuterXml);
                 KorotVersion Current = new KorotVersion("");
-                bool isUpToDate = Current.WhicIsNew(Newest, Environment.Is64BitProcess ? "amd64" : "i86") == Current;
+                bool _isUpToDate = Current.WhicIsNew(Newest, Environment.Is64BitProcess ? "amd64" : "i86") == Current;
                 KorotVersion.UpdateType type = Current.GetUpdateType(Newest);
                 KorotVersion.Architecture arch = Newest.Archs.Find(i => i.Type == (Environment.Is64BitProcess ? "amd64" : "i86"));
-                if (!isUpToDate)
+                if (!_isUpToDate)
                 {
+                    isUpToDate = false;
                     switch (type)
                     {
                         case KorotVersion.UpdateType.Installer:
@@ -125,11 +100,13 @@ namespace Korot
                             fileName = "install.exe";
                             downloadUrl = Newest.InstallerUrl;
                             break;
+
                         case KorotVersion.UpdateType.Upgrade:
                             UpdateType = 0;
                             fileName = Newest.Version + (Environment.Is64BitProcess ? "-amd64" : "-i86") + "-U" + ".hup";
                             downloadUrl = arch.Update.Replace("[VERSION]", Newest.Version);
                             break;
+
                         case KorotVersion.UpdateType.FullUpgrade:
                             UpdateType = 0;
                             fileName = Newest.Version + (Environment.Is64BitProcess ? "-amd64" : "-i86") + ".hup";
@@ -139,19 +116,19 @@ namespace Korot
                     if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\")) { Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\", true); }
                     if (File.Exists(downloadFolder + fileName)) { File.Delete(downloadFolder + fileName); }
                     Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\");
+                    isDownloading = true;
                     WebC.DownloadFileAsync(new Uri(downloadUrl), downloadFolder + fileName);
                 }
                 else if (arch == null)
                 {
-                    throw new Exception("Current architecture not found.");
+                    Output.WriteLine(" [frmUpdate Error] Current Architecture not found.");
                 }
                 else
                 {
-                    Restart();
+                    isUpToDate = true;
                 }
             }
         }
-
 
         private readonly string backupFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateBackup\\";
 
@@ -165,8 +142,6 @@ namespace Korot
                 }
                 Directory.CreateDirectory(backupFolder);
                 KorotTools.Copy(Application.StartupPath, backupFolder);
-                //Directory.Delete(Application.StartupPath, true);
-                //Directory.CreateDirectory(Application.StartupPath);
                 try
                 {
                     string newVerLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateNewVer\\";
@@ -177,11 +152,18 @@ namespace Korot
                     File.Delete(downloadFolder + fileName);
                     Directory.Delete(newVerLocation, true);
                     Directory.Delete(backupFolder, true);
-                    Restart();
+                    if (doRestart)
+                    {
+                        Restart();
+                    }
+                    else
+                    {
+                        Application.Exit();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Output.WriteLine(" [Korot.Updater] Error while extracting: " + ex.ToString());
+                    Output.WriteLine(" [frmUpdate] Error while extracting: " + ex.ToString());
                     ReturnBackup();
                 }
             });
@@ -197,9 +179,18 @@ namespace Korot
                 string newVerLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateNewVer\\";
                 if (Directory.Exists(newVerLocation)) { Directory.Delete(newVerLocation, true); }
                 Directory.Delete(backupFolder, true);
-                Restart();
+                if (doRestart)
+                {
+                    Restart();
+                }
+                else
+                {
+                    Application.Exit();
+                }
             });
         }
+
+        public bool doRestart = false;
 
         private void Restart(bool notUpdated = false)
         {
@@ -212,29 +203,34 @@ namespace Korot
         {
             if (e.Error != null)
             {
-                Output.WriteLine("[Korot.Updater] Download File Error: " + e.Error.ToString());
+                Output.WriteLine("[frmUpdate] Download File Error: " + e.Error.ToString());
                 if (((WebClient)sender).IsBusy) { ((WebClient)sender).CancelAsync(); }
             ((WebClient)sender).DownloadFileAsync(new Uri(downloadUrl), downloadFolder + fileName);
             }
             else if (e.Cancelled)
             {
-                Output.WriteLine("[Korot.Updater] Download File Cancelled.");
+                Output.WriteLine("[frmUpdate] Download File Cancelled.");
                 if (((WebClient)sender).IsBusy) { ((WebClient)sender).CancelAsync(); }
             ((WebClient)sender).DownloadFileAsync(new Uri(downloadUrl), downloadFolder + fileName);
             }
             else
             {
-                if (UpdateType == 1)
-                {
-                    allowClose = true;
-                    Process.Start(downloadFolder + fileName);
-                    Application.Exit();
-                }
-                else
-                {
-                    label2.Text = installingTxt;
-                    GetBackup();
-                }
+                isReady = true;
+            }
+        }
+
+        public void ApplyUpdate()
+        {
+            isInstalling = true;
+            if (UpdateType == 1)
+            {
+                allowClose = true;
+                Process.Start(downloadFolder + fileName);
+                Application.Exit();
+            }
+            else
+            {
+                GetBackup();
             }
         }
 
@@ -246,20 +242,18 @@ namespace Korot
             {
                 Process current = Process.GetCurrentProcess();
                 Process[] processes = Process.GetProcessesByName(current.ProcessName);
-
-                //Loop through the running processes in with the same name 
+                //Loop through the running processes in with the same name
                 foreach (Process process in processes)
                 {
-                    //Ignore the current process 
+                    //Ignore the current process
                     if (process.Id != current.Id)
                     {
-                        //Make sure that the process is running from the exe file. 
+                        //Make sure that the process is running from the exe file.
                         if (Assembly.GetExecutingAssembly().Location.
                              Replace("/", "\\") == current.MainModule.FileName)
                         {
-                            //Kill the other process instance.  
+                            //Kill the other process instance.
                             Process.Start("taskkill /f /pid" + process.Id);
-
                         }
                     }
                 }
@@ -272,16 +266,14 @@ namespace Korot
             if (!allowClose) { e.Cancel = true; }
         }
 
+        public bool isInstalling = false;
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            OtherInstances();
-            BackColor = Settings.Theme.BackColor;
-            ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
-            htProgressBar1.BackColor = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
-            htProgressBar1.BarColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
-
+            if (isInstalling)
+            {
+                OtherInstances();
+            }
         }
     }
-
-    
 }

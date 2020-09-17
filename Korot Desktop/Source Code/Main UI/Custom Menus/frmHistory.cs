@@ -7,6 +7,7 @@ namespace Korot
     public partial class frmHistory : Form
     {
         private readonly frmCEF cefecik; //bunu kim yazdı -gogle
+
         public frmHistory(frmCEF cefcik) //ben yazdım ağam -ht
         {
             cefecik = cefcik; //şaka mı bu abi sikerim belanı ha yavşak -gologe
@@ -15,6 +16,7 @@ namespace Korot
         }
 
         private readonly List<Panel> panelList = new List<Panel>();
+
         public void RefreshList()
         {
             foreach (Site x in cefecik.Settings.History)
@@ -31,9 +33,9 @@ namespace Korot
                 Label label5 = new System.Windows.Forms.Label();
                 Label label6 = new System.Windows.Forms.Label();
                 panel2.SuspendLayout();
-                // 
+                //
                 // panel2
-                // 
+                //
                 panel2.BackColor = HTAlt.Tools.ShiftBrightness(cefecik.Settings.Theme.BackColor, 20, false);
                 panel2.ForeColor = HTAlt.Tools.AutoWhiteBlack(cefecik.Settings.Theme.BackColor);
                 panel2.Controls.Add(label4);
@@ -48,9 +50,9 @@ namespace Korot
                 panel2.Margin = new System.Windows.Forms.Padding(5);
                 panel2.Padding = new System.Windows.Forms.Padding(5);
                 panel2.Size = new System.Drawing.Size(Width, 70);
-                // 
+                //
                 // lbTarih
-                // 
+                //
                 lbTarih.Font = new System.Drawing.Font("Ubuntu", 10F);
                 lbTarih.Location = new System.Drawing.Point(0, 0);
                 lbTarih.AutoSize = true;
@@ -58,9 +60,9 @@ namespace Korot
                 lbTarih.Click += historyItem_Click;
                 lbTarih.Text = cefecik.GetDateInfo(DateTime.ParseExact(x.Date, cefecik.DateFormat, null));
                 lbTarih.Tag = x;
-                // 
+                //
                 // label4
-                // 
+                //
                 label4.Dock = System.Windows.Forms.DockStyle.Bottom;
                 label4.Font = new System.Drawing.Font("Ubuntu", 15F);
                 label4.Location = new System.Drawing.Point(5, 27);
@@ -69,9 +71,9 @@ namespace Korot
                 label4.Click += historyItem_Click;
                 label4.Text = x.Name;
                 label4.Tag = x;
-                // 
+                //
                 // label5
-                // 
+                //
                 label5.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
                 label5.AutoSize = true;
                 label5.Font = new System.Drawing.Font("Ubuntu", 12F);
@@ -80,9 +82,9 @@ namespace Korot
                 label5.Size = new System.Drawing.Size(20, 20);
                 label5.Text = "X";
                 label5.Tag = x;
-                // 
+                //
                 // label6
-                // 
+                //
                 label6.Dock = System.Windows.Forms.DockStyle.Bottom;
                 label6.Location = new System.Drawing.Point(5, 52);
                 label6.Size = new System.Drawing.Size(Width, 13);
@@ -111,6 +113,7 @@ namespace Korot
             Controls.Remove(panel);
             cefecik.Settings.History.Remove(site);
         }
+
         private void historyItem_DoubleClick(object sender, EventArgs e)
         {
             Label lb = sender as Label;
@@ -124,6 +127,7 @@ namespace Korot
 
         private readonly List<Site> selectedSites = new List<Site>();
         private readonly List<Panel> selectedPanels = new List<Panel>();
+
         private void historyItem_Click(object sender, EventArgs e)
         {
             Control cntrl = sender as Control;
@@ -159,6 +163,7 @@ namespace Korot
         }
 
         private bool rsMode = false;
+
         private void htButton1_Click(object sender, EventArgs e)
         {
             if (rsMode)
@@ -188,11 +193,14 @@ namespace Korot
                 selectedSites.Clear();
             }
         }
+
         private bool didLostFocus = false;
+
         private void frmHistory_Leave(object sender, EventArgs e)
         {
             didLostFocus = true;
         }
+
         private void frmHistory_Enter(object sender, EventArgs e)
         {
             if (didLostFocus)

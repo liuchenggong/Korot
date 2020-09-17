@@ -6,11 +6,13 @@ namespace Korot
     public partial class frmThemeWizard : Form
     {
         private readonly Settings Settings;
+
         public frmThemeWizard(Settings _Settings)
         {
             Settings = _Settings;
             InitializeComponent();
         }
+
         private enum SelectedType
         {
             Monotone,
@@ -20,6 +22,7 @@ namespace Korot
             Yellow,
             Purple //behind the slaughter or something metal body idk never watched it
         }
+
         private enum Themes
         {
             Blue,
@@ -59,26 +62,32 @@ namespace Korot
         private bool allowSwitch = false;
         private int Brightness = 0;
         private SelectedType Type = SelectedType.Monotone;
+
         private void PreparetpTone()
         {
             trackBar1.Value = 0;
-            switch(Type)
+            switch (Type)
             {
                 case SelectedType.Monotone:
                     trackBar1.Maximum = 4;
                     break;
+
                 case SelectedType.Blue:
                     trackBar1.Maximum = 4;
                     break;
+
                 case SelectedType.Green:
                     trackBar1.Maximum = 4;
                     break;
+
                 case SelectedType.Red:
                     trackBar1.Maximum = 3;
                     break;
+
                 case SelectedType.Yellow:
                     trackBar1.Maximum = 5;
                     break;
+
                 case SelectedType.Purple:
                     trackBar1.Maximum = 4;
                     break;
@@ -86,6 +95,7 @@ namespace Korot
             Brightness = 0;
             trackBar1_Scroll(this, new EventArgs());
         }
+
         private void pBW_Click(object sender, EventArgs e)
         {
             Type = SelectedType.Monotone;
@@ -95,6 +105,7 @@ namespace Korot
         }
 
         #region Translations
+
         public string Light = "Light";
         public string LightDesc = "Beautiful photons for my eyes.";
         public string Cement = "Cement";
@@ -157,7 +168,9 @@ namespace Korot
         public string DarkBlueDesc = "Things getting dark, but liked it.";
         public string Sea = "Sea";
         public string SeaDesc = "Who wants to swim?";
-        #endregion
+
+        #endregion Translations
+
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             if (Type == SelectedType.Monotone)
@@ -170,24 +183,28 @@ namespace Korot
                         pbPreview.Image = Properties.Resources.ThemeLight;
                         Theme = Themes.Light;
                         break;
+
                     case 1:
                         lbTitle.Text = Cement;
                         lbDesc.Text = CementDesc;
                         pbPreview.Image = Properties.Resources.ThemeCement;
                         Theme = Themes.Cement;
                         break;
+
                     case 2:
                         lbTitle.Text = Gray;
                         lbDesc.Text = GrayDesc;
                         pbPreview.Image = Properties.Resources.ThemeGray;
                         Theme = Themes.Gray;
                         break;
+
                     case 3:
                         lbTitle.Text = Shadow;
                         lbDesc.Text = ShadowDesc;
                         pbPreview.Image = Properties.Resources.ThemeShadow;
                         Theme = Themes.Shadow;
                         break;
+
                     case 4:
                         lbTitle.Text = Dark;
                         lbDesc.Text = DarkDesc;
@@ -206,24 +223,28 @@ namespace Korot
                         pbPreview.Image = Properties.Resources.ThemeSunrise;
                         Theme = Themes.Sunrise;
                         break;
+
                     case 1:
                         lbTitle.Text = Sea;
                         lbDesc.Text = SeaDesc;
                         pbPreview.Image = Properties.Resources.ThemeSea;
                         Theme = Themes.Sea;
                         break;
+
                     case 2:
                         lbTitle.Text = DodgerBlue;
                         lbDesc.Text = DodgerBlueDesc;
                         pbPreview.Image = Properties.Resources.ThemeDodgerBlue;
                         Theme = Themes.DodgerBlue;
                         break;
+
                     case 3:
                         lbTitle.Text = Blue;
                         lbDesc.Text = BlueDesc;
                         pbPreview.Image = Properties.Resources.ThemeBlue;
                         Theme = Themes.Blue;
                         break;
+
                     case 4:
                         lbTitle.Text = DarkBlue;
                         lbDesc.Text = DarkBlueDesc;
@@ -242,18 +263,21 @@ namespace Korot
                         pbPreview.Image = Properties.Resources.ThemeStrawberry;
                         Theme = Themes.Strawberry;
                         break;
+
                     case 1:
                         lbTitle.Text = Red;
                         lbDesc.Text = RedDesc;
                         pbPreview.Image = Properties.Resources.ThemeRed;
                         Theme = Themes.Red;
                         break;
+
                     case 2:
                         lbTitle.Text = Brick;
                         lbDesc.Text = BrickDesc;
                         pbPreview.Image = Properties.Resources.ThemeBrick;
                         Theme = Themes.Brick;
                         break;
+
                     case 3:
                         lbTitle.Text = Crimson;
                         lbDesc.Text = CrimsonDesc;
@@ -272,24 +296,28 @@ namespace Korot
                         pbPreview.Image = Properties.Resources.ThemeEmerald;
                         Theme = Themes.Emerald;
                         break;
+
                     case 1:
                         lbTitle.Text = Avocado;
                         lbDesc.Text = AvocadoDesc;
                         pbPreview.Image = Properties.Resources.ThemeAvocado;
                         Theme = Themes.Avocado;
                         break;
+
                     case 2:
                         lbTitle.Text = Green;
                         lbDesc.Text = GreenDesc;
                         pbPreview.Image = Properties.Resources.ThemeGreen;
                         Theme = Themes.Green;
                         break;
+
                     case 3:
                         lbTitle.Text = Teal;
                         lbDesc.Text = TealDesc;
                         pbPreview.Image = Properties.Resources.ThemeTeal;
                         Theme = Themes.Teal;
                         break;
+
                     case 4:
                         lbTitle.Text = DarkLeaf;
                         lbDesc.Text = DarkLeafDesc;
@@ -308,30 +336,35 @@ namespace Korot
                         pbPreview.Image = Properties.Resources.ThemeCreme;
                         Theme = Themes.Creme;
                         break;
+
                     case 1:
                         lbTitle.Text = Yellow;
                         lbDesc.Text = YellowDesc;
                         pbPreview.Image = Properties.Resources.ThemeYellow;
                         Theme = Themes.Yellow;
                         break;
+
                     case 2:
                         lbTitle.Text = Orange;
                         lbDesc.Text = OrangeDesc;
                         pbPreview.Image = Properties.Resources.ThemeOrange;
                         Theme = Themes.Orange;
                         break;
+
                     case 3:
                         lbTitle.Text = Gold;
                         lbDesc.Text = GoldDesc;
                         pbPreview.Image = Properties.Resources.ThemeGold;
                         Theme = Themes.Gold;
                         break;
+
                     case 4:
                         lbTitle.Text = Leather;
                         lbDesc.Text = LeatherDesc;
                         pbPreview.Image = Properties.Resources.ThemeLeather;
                         Theme = Themes.Leather;
                         break;
+
                     case 5:
                         lbTitle.Text = Brown;
                         lbDesc.Text = BrownDesc;
@@ -350,24 +383,28 @@ namespace Korot
                         pbPreview.Image = Properties.Resources.ThemePink;
                         Theme = Themes.Pink;
                         break;
+
                     case 1:
                         lbTitle.Text = Fuchsia;
                         lbDesc.Text = FuchsiaDesc;
                         pbPreview.Image = Properties.Resources.ThemeFuchsia;
                         Theme = Themes.Fuchsia;
                         break;
+
                     case 2:
                         lbTitle.Text = Lavender;
                         lbDesc.Text = LavenderDesc;
                         pbPreview.Image = Properties.Resources.ThemeLavender;
                         Theme = Themes.Lavender;
                         break;
+
                     case 3:
                         lbTitle.Text = Purple;
                         lbDesc.Text = PurpleDesc;
                         pbPreview.Image = Properties.Resources.ThemePurple;
                         Theme = Themes.Purple;
                         break;
+
                     case 4:
                         lbTitle.Text = Midnight;
                         lbDesc.Text = MidnightDesc;
@@ -449,8 +486,10 @@ namespace Korot
             tabControl1.SelectedTab = tpTone;
             PreparetpTone();
         }
+
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         { if (allowSwitch) { allowSwitch = false; e.Cancel = false; } else { e.Cancel = true; } }
+
         private void pBlue_Click(object sender, EventArgs e)
         {
             Type = SelectedType.Blue;
@@ -467,15 +506,19 @@ namespace Korot
                 case 0:
                     pRed_Click(sender, e);
                     break;
+
                 case 1:
                     pGreen_Click(sender, e);
                     break;
+
                 case 2:
                     pBlue_Click(sender, e);
                     break;
+
                 case 3:
                     pPurple_Click(sender, e);
                     break;
+
                 case 4:
                     pYellow_Click(sender, e);
                     break;
@@ -483,6 +526,7 @@ namespace Korot
         }
 
         private readonly string themePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot ";
+
         private void htButton1_Click(object sender, EventArgs e)
         {
             KorotTools.createThemes();

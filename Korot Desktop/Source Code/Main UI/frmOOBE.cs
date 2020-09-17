@@ -30,6 +30,7 @@ namespace Korot
     public partial class frmOOBE : Form
     {
         private readonly Settings Settings;
+
         public frmOOBE(Settings settings)
         {
             Settings = settings;
@@ -47,6 +48,7 @@ namespace Korot
         public string closeMessage = "The installation is not completed yet. Do you still want to close this?";
         public string OK = "OK";
         public string Cancel = "Cancel";
+
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         { if (allowSwitch) { allowSwitch = false; e.Cancel = false; } else { e.Cancel = true; } }
 
@@ -62,6 +64,7 @@ namespace Korot
         }
 
         private int switchedTimes = 0;
+
         private void lbLang_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbLang.SelectedItem != null)
@@ -106,7 +109,6 @@ namespace Korot
                     closeMessage = Settings.LanguageSystem.GetItemText("OOBECloseMessage");
                     lbBanned.Location = new Point(lbNotContain.Location.X + 5 + lbNotContain.Width, lbNotContain.Location.Y);
                     btContinue2.Visible = true;
-
                 }
             }
             else
@@ -130,8 +132,6 @@ namespace Korot
             RefreshLangList();
         }
 
-
-
         private void button3_Click(object sender, EventArgs e)
         {
             tmrLang.Stop();
@@ -145,7 +145,6 @@ namespace Korot
             allowSwitch = true;
             tabControl1.SelectedTab = tabPage1;
         }
-
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -166,6 +165,7 @@ namespace Korot
         }
 
         private bool allowClose = false;
+
         private void button2_Click(object sender, EventArgs e)
         {
             SafeFileSettingOrganizedClass.LastUser = textBox1.Text;
@@ -209,7 +209,6 @@ namespace Korot
             {
                 if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".klf"))
                 {
-
                 }
                 else
                 {
@@ -218,7 +217,6 @@ namespace Korot
                     tmrLang.Stop();
                 }
             }
-
         }
 
         private void pbPrev_Click(object sender, EventArgs e)
@@ -273,7 +271,6 @@ namespace Korot
             {
                 if (lbLang.SelectedIndex < -1 || lbLang.SelectedIndex > lbLang.Items.Count - 1 || !File.Exists(Application.StartupPath + "//Lang//" + lbLang.SelectedItem.ToString() + ".klf"))
                 {
-
                 }
                 else
                 {
@@ -281,7 +278,6 @@ namespace Korot
                     tmrLang.Stop();
                 }
             }
-
         }
 
         private void tmrLang_Tick(object sender, EventArgs e)

@@ -32,17 +32,29 @@ namespace Korot
     internal class DisplayHandler : IDisplayHandler
     {
         private readonly frmCEF CEFform;
+
         public frmMain anaform()
         {
             return ((frmMain)CEFform.ParentTabs);
         }
+
         public DisplayHandler(frmCEF tabform)
         {
             CEFform = tabform;
         }
+
         #region "Not in use"
-        public void OnAddressChanged(IWebBrowser chromiumWebBrowser, AddressChangedEventArgs addressChangedArgs) { return; }
-        public void OnTitleChanged(IWebBrowser chromiumWebBrowser, TitleChangedEventArgs titleChangedArgs) { return; }
+
+        public void OnAddressChanged(IWebBrowser chromiumWebBrowser, AddressChangedEventArgs addressChangedArgs)
+        {
+            return;
+        }
+
+        public void OnTitleChanged(IWebBrowser chromiumWebBrowser, TitleChangedEventArgs titleChangedArgs)
+        {
+            return;
+        }
+
         public bool OnTooltipChanged(IWebBrowser chromiumWebBrowser, ref string text)
         {
             return false;
@@ -52,7 +64,9 @@ namespace Korot
         {
             return false;
         }
-        #endregion
+
+        #endregion "Not in use"
+
         public bool OnConsoleMessage(IWebBrowser chromiumWebBrowser, ConsoleMessageEventArgs consoleMessageArgs)
         {
             return true;
@@ -62,6 +76,7 @@ namespace Korot
         {
             OnFaviconChange(chromiumWebBrowser, browser, urls);
         }
+
         public async void OnFaviconChange(IWebBrowser chromiumWebBrowser, IBrowser browser, IList<string> urls)
         {
             await Task.Run(() =>
@@ -83,6 +98,7 @@ namespace Korot
                 }
             });
         }
+
         public void OnFullscreenModeChange(IWebBrowser chromiumWebBrowser, IBrowser browser, bool fullscreen)
         {
             CEFform.Invoke(new Action(() => CEFform.Fullscreenmode(fullscreen)));
@@ -102,6 +118,5 @@ namespace Korot
         {
             try { CEFform.Invoke(new Action(() => CEFform.ChangeStatus(statusMessageArgs.Value))); } catch { }
         }
-
     }
 }

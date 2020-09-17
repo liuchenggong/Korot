@@ -36,7 +36,9 @@ namespace Korot
             Collections = new List<Collection>();
             readCollections(collectionXML, true);
         }
+
         public List<Collection> Collections { get; set; }
+
         public bool readCollections(string collections, bool clearCurrent = true)
         {
             // Clear the current list of collections.
@@ -319,6 +321,7 @@ namespace Korot
             //End
             return true;
         }
+
         /// <summary>
         /// Gets current collections list.
         /// </summary>
@@ -337,6 +340,7 @@ namespace Korot
                 return xmlCode;
             }
         }
+
         /// <summary>
         /// Gets collections from specific ID.
         /// </summary>
@@ -361,6 +365,7 @@ namespace Korot
                 return null;
             }
         }
+
         public CollectionItem GetItemFromID(string id)
         {
             List<Collection> foundCollections = new List<Collection>();
@@ -386,7 +391,9 @@ namespace Korot
             }
         }
     }
+
     #region "Structures"
+
     /// <summary>
     /// Main structure that includes collection items.
     /// </summary>
@@ -396,6 +403,7 @@ namespace Korot
         {
             CollectionItems = new List<CollectionItem>();
         }
+
         public Collection(string xmlCode)
         {
             CollectionItems = new List<CollectionItem>();
@@ -640,6 +648,7 @@ namespace Korot
                 }
             }
         }
+
         public bool NewItemFromCode(string xmlCode)
         {
             XmlDocument doc = new XmlDocument();
@@ -880,6 +889,7 @@ namespace Korot
             }
             return true;
         }
+
         /// <summary>
         /// Gets the XML code of this collection.
         /// </summary>
@@ -914,18 +924,22 @@ namespace Korot
                 return cCode;
             }
         }
+
         /// <summary>
         /// List of Collection items. These items can be Text, Image or Link.
         /// </summary>
         public List<CollectionItem> CollectionItems { get; set; }
+
         /// <summary>
         /// ID of collection.
         /// </summary>
         public string ID { get; set; }
+
         /// <summary>
         /// Text to display.
         /// </summary>
         public string Text { get; set; }
+
         /// <summary>
         /// Gets a collection item by a specific ID.
         /// </summary>
@@ -950,18 +964,20 @@ namespace Korot
                 return null;
             }
         }
-
     }
+
     /// <summary>
     /// An collection item.
     /// </summary>
     public class CollectionItem
     {
         protected Color _backColor = Color.Transparent;
+
         /// <summary>
         /// Specific ID of the collection item.
         /// </summary>
         public string ID { get; set; }
+
         /// <summary>
         /// Background color of the item.
         /// </summary>
@@ -971,28 +987,34 @@ namespace Korot
             set => _backColor = value;
         }
     }
+
     /// <summary>
     /// A colelction item which is just a raw text.
     /// </summary>
     public class TextItem : CollectionItem
     {
         protected Color _foreColor = Color.Empty;
+
         /// <summary>
         /// Text to display.
         /// </summary>
         public string Text { get; set; }
+
         /// <summary>
         /// Font family name for displaying text.
         /// </summary>
         public string Font { get; set; }
+
         /// <summary>
         /// Size of the font for displaying text.
         /// </summary>
         public int FontSize { get; set; }
+
         /// <summary>
         /// Font properties for displaying text.
         /// </summary>
         public FontType FontProperties { get; set; }
+
         /// <summary>
         /// Color of the displaying text.
         /// </summary>
@@ -1001,6 +1023,7 @@ namespace Korot
             get => _foreColor;
             set => _foreColor = value;
         }
+
         /// <summary>
         /// Gets the XML code of this item.
         /// </summary>
@@ -1041,32 +1064,39 @@ namespace Korot
             }
         }
     }
+
     /// <summary>
     /// A colelction item which is just a raw text with link.
     /// </summary>
     public class LinkItem : CollectionItem
     {
         protected Color _foreColor = Color.Empty;
+
         /// <summary>
         /// Text to display.
         /// </summary>
         public string Text { get; set; }
+
         /// <summary>
-        /// Source of the Link. This URL will be activated on clicked. 
+        /// Source of the Link. This URL will be activated on clicked.
         /// </summary>
         public string Source { get; set; }
+
         /// <summary>
         /// Font family name for displaying text.
         /// </summary>
         public string Font { get; set; }
+
         /// <summary>
         /// Size of the font for displaying text.
         /// </summary>
         public int FontSize { get; set; }
+
         /// <summary>
         /// Font properties for displaying text.
         /// </summary>
         public FontType FontProperties { get; set; }
+
         /// <summary>
         /// Color of the displaying text.
         /// </summary>
@@ -1075,6 +1105,7 @@ namespace Korot
             get => _foreColor;
             set => _foreColor = value;
         }
+
         /// <summary>
         /// Gets the XML code of this item.
         /// </summary>
@@ -1116,6 +1147,7 @@ namespace Korot
             }
         }
     }
+
     /// <summary>
     /// A colelction item which is just an image.
     /// </summary>
@@ -1125,14 +1157,17 @@ namespace Korot
         /// Source of the image.
         /// </summary>
         public string Source { get; set; }
+
         /// <summary>
         /// Width of image.
         /// </summary>
         public int Width { get; set; }
+
         /// <summary>
         /// Height of image.
         /// </summary>
         public int Height { get; set; }
+
         /// <summary>
         /// Gets the XML code of this item.
         /// </summary>
@@ -1151,6 +1186,7 @@ namespace Korot
             }
         }
     }
+
     /// <summary>
     /// FontProperties for Text-based colelciton items such as TextItem, LinkItem etc.
     /// </summary>
@@ -1162,5 +1198,6 @@ namespace Korot
         Underline = 3,
         Strikeout = 4,
     };
-    #endregion
+
+    #endregion "Structures"
 }

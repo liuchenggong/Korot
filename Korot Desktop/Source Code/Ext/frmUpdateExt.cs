@@ -19,7 +19,6 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
-using CefSharp;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -42,6 +41,7 @@ namespace Korot
         private string fileURL;
         public string info = "Updating [NAME]..." + Environment.NewLine + "Please wait...";
         public string infoTemp = "[PERC]% | [CURRENT] KiB downloaded out of [TOTAL] KiB.";
+
         public frmUpdateExt(string manifest, bool theme, Settings settings)
         {
             Settings = settings;
@@ -55,6 +55,7 @@ namespace Korot
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
         }
+
         private void Lang()
         {
             Text = Settings.LanguageSystem.GetItemText("KorotExtensionUpdater");
@@ -97,6 +98,7 @@ namespace Korot
             verLocation = "https://haltroy.com/store/item/" + codeName + "/.htupdate";
             downloadString();
         }
+
         private void frmUpdateExt_Load(object sender, EventArgs e)
         {
             Hide();
@@ -119,6 +121,7 @@ namespace Korot
                 webC.DownloadFileAsync(new Uri(fileURL), fileLocation);
             });
         }
+
         public void webC_DownloadStringComplete(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Cancelled || e.Error != null)
@@ -134,6 +137,7 @@ namespace Korot
                 }
             }
         }
+
         public void webC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             htProgressBar1.Value = e.ProgressPercentage;
@@ -141,6 +145,7 @@ namespace Korot
                 .Replace("[CURRENT]", (e.BytesReceived / 1024).ToString())
                 .Replace("[TOTAL]", (e.TotalBytesToReceive / 1024).ToString());
         }
+
         public void webC_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Cancelled || e.Error != null)

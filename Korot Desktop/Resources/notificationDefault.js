@@ -4,7 +4,7 @@
  *
  * @author Andrew Dodson
  * @website http://adodson.com/notification.js/
- * 
+ *
  * Edited by Haltroy for
  * Korot Desktop Client 0.6 and later
  * github.com/haltroy/korot
@@ -26,7 +26,6 @@ function makeid(length) {
 var korotNotificationPermission = "[$]";
 
 (function (window, document) {
-
 	var PERMISSION_GRANTED = 'granted',
 		PERMISSION_DENIED = 'denied',
 		PERMISSION_UNKNOWN = 'unknown';
@@ -37,7 +36,6 @@ var korotNotificationPermission = "[$]";
 	// Swap the document.title with the notification
 	//
 	function swaptitle(title) {
-
 		if (a.length === 0) {
 			a = [document.title];
 		}
@@ -46,7 +44,6 @@ var korotNotificationPermission = "[$]";
 
 		if (!iv) {
 			iv = setInterval(function () {
-
 				// has document.title changed externally?
 				if (a.indexOf(document.title) === -1) {
 					// update the default title
@@ -59,7 +56,6 @@ var korotNotificationPermission = "[$]";
 	}
 
 	function swapTitleCancel() {
-
 		// dont do any more if we haven't got anything open
 		if (a.length === 0) {
 			return;
@@ -96,7 +92,6 @@ var korotNotificationPermission = "[$]";
 		}
 	}
 
-
 	function check_permission() {
 		// Check whether the current desktop supports notifications and if they are authorised,
 		// PERMISSION_GRANTED (yes they are supported and permission is granted),
@@ -125,7 +120,6 @@ var korotNotificationPermission = "[$]";
 		window.Notification.permission = check_permission();
 		return window.Notification.permission;
 	}
-
 
 	if (!Object(window.Notification).permission) {
 		// Bind event handlers to the body
@@ -184,7 +178,6 @@ var korotNotificationPermission = "[$]";
 			this.lang = options.lang || '';
 			this.tag = options.tag || '';
 			this.close = function () {
-
 				// remove swapTitle
 				swapTitleCancel();
 

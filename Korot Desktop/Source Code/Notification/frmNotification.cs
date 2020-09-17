@@ -1,7 +1,6 @@
 ﻿using CefSharp;
 using Microsoft.Win32;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Media;
 using System.Windows.Forms;
@@ -12,6 +11,7 @@ namespace Korot
     {
         private readonly frmCEF cefform;
         public Notification notification;
+
         public frmNotification(frmCEF _frmCEF, Notification _n)
         {
             cefform = _frmCEF;
@@ -32,11 +32,11 @@ namespace Korot
             catch (Exception)
             {
                 pbImage.Image = Properties.Resources.error;
-
             }
         }
 
         private bool playedSound = false;
+
         public void PlayNotificationSound()
         {
             if (playedSound) { return; }
@@ -95,13 +95,15 @@ namespace Korot
                         SystemSounds.Beep.Play();
                     }
                 }
-            }else
+            }
+            else
             {
                 SoundPlayer theSound = new SoundPlayer(cefform.Settings.SoundLocation);
                 theSound.Play();
             }
             playedSound = true;
         }
+
         private void notification_Click(object sender, EventArgs e)
         {
             if (cefform == null) { cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this))); Close(); return; }
@@ -118,14 +120,14 @@ namespace Korot
             cefform.Invoke(new Action(() => cefform.anaform.notifications.Remove(this)));
             Close();
         }
+
         private void frmNotification_Load(object sender, EventArgs e)
         {
             bool n = cefform.Settings.IsQuietTime;
             if (cefform.Settings.DoNotPlaySound) { PlayNotificationSound(); }
             if (!cefform.Settings.QuietMode) { Hide(); }
-            lbKorot.Text = "Korot " + Application.ProductVersion.ToString()  + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)") + " (" + VersionInfo.CodeName + ")";
+            lbKorot.Text = "Korot " + Application.ProductVersion.ToString() + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)") + " (" + VersionInfo.CodeName + ")";
         }
-
 
         private void lbClose_Click(object sender, EventArgs e)
         {
@@ -134,6 +136,7 @@ namespace Korot
         }
 
         private string ilkImage = "";
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (ilkImage != notification.imageUrl)
@@ -161,6 +164,7 @@ namespace Korot
             pRight.BackColor = ForeColor;
         }
     }
+
     public class Notification
     {
         public string id { get; set; }

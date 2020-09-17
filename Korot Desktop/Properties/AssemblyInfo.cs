@@ -45,7 +45,7 @@ using System.Runtime.InteropServices;
 // Bir derlemenin sürüm bilgileri aşağıdaki dört değerden oluşur:
 //
 //      Ana Sürüm
-//      İkincil Sürüm 
+//      İkincil Sürüm
 //      Yapı Numarası
 //      Düzeltme
 //

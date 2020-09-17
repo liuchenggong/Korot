@@ -35,6 +35,7 @@ namespace Korot
             Application.Exit();
             return true;
         }
+
         public static bool DeleteProfile(string profilename, frmCEF cefform)
         {
             SafeFileSettingOrganizedClass.LastUser = new DirectoryInfo(Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\")[0]).Name;
@@ -44,6 +45,7 @@ namespace Korot
             Application.Exit();
             return true;
         }
+
         public static bool NewProfile(frmCEF cefform)
         {
             HTAlt.WinForms.HTInputBox newprof = new HTAlt.WinForms.HTInputBox("Korot", cefform.anaform.newProfileInfo + Environment.NewLine + "/ \\ : ? * |", "") { Icon = cefform.anaform.Icon, SetToDefault = cefform.anaform.SetToDefault, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };

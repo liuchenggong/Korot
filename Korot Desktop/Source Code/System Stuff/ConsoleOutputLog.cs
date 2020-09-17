@@ -29,6 +29,7 @@ namespace Korot
         private readonly string LogDirPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Logs\\";
 
         private static Output _outputSingleton;
+
         private static Output OutputSingleton
         {
             get

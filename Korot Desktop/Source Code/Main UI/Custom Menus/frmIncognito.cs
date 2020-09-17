@@ -6,11 +6,12 @@ namespace Korot
     public partial class frmIncognito : Form
     {
         private readonly frmCEF cefform;
+
         public frmIncognito(frmCEF _frmCEF)
         {
             cefform = _frmCEF;
             InitializeComponent();
-            timer1_Tick(this,new EventArgs());
+            timer1_Tick(this, new EventArgs());
         }
 
         private void frmIncognito_Leave(object sender, EventArgs e)

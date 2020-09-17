@@ -9,6 +9,7 @@ namespace Korot
     public partial class frmBlock : Form
     {
         public frmCEF cefform;
+
         public frmBlock(frmCEF _cefform)
         {
             cefform = _cefform;
@@ -17,6 +18,7 @@ namespace Korot
         }
 
         private int PanelCount = 0;
+
         public void GenerateUI()
         {
             Controls.Clear();
@@ -32,8 +34,10 @@ namespace Korot
                 Controls.Add(lbEmpty);
             }
         }
+
         private readonly List<BlockSite> selectedSites = new List<BlockSite>();
         private readonly List<Panel> selectedPanels = new List<Panel>();
+
         private void item_Clicked(object sender, EventArgs e)
         {
             if (sender == null) { return; }
@@ -52,6 +56,7 @@ namespace Korot
                 selectedSites.Add(tag);
             }
         }
+
         private void edit_Click(object sender, EventArgs e)
         {
             if (sender == null) { return; }
@@ -67,6 +72,7 @@ namespace Korot
         }
 
         private readonly List<HTButton> buttonList = new List<HTButton>();
+
         private void GeneratePanel(BlockSite site)
         {
             Panel pSite = new Panel();
@@ -74,9 +80,9 @@ namespace Korot
             Label lbAddress = new Label();
             Label lbTitle = new Label();
             HTButton editButton = new HTButton();
-            // 
+            //
             // pSite
-            // 
+            //
             pSite.Controls.Add(editButton);
             pSite.Controls.Add(lbClose);
             pSite.Controls.Add(lbAddress);
@@ -95,9 +101,9 @@ namespace Korot
             editButton.Tag = site;
             editButton.Click += edit_Click;
             buttonList.Add(editButton);
-            // 
+            //
             // lbClose
-            // 
+            //
             lbClose.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
             lbClose.AutoSize = true;
             lbClose.Font = new System.Drawing.Font("Ubuntu", 12F);
@@ -106,18 +112,18 @@ namespace Korot
             lbClose.Text = "X";
             lbClose.Tag = site;
             lbClose.Click += new System.EventHandler(lbClose_Click);
-            // 
+            //
             // lbAddress
-            // 
+            //
             lbAddress.AutoSize = true;
             lbAddress.Click += item_Clicked;
             lbAddress.Font = new System.Drawing.Font("Ubuntu", 10F);
             lbAddress.Location = new System.Drawing.Point(10, 33);
             lbAddress.Size = new System.Drawing.Size(60, 17);
             lbAddress.Text = site.Filter;
-            // 
+            //
             // lbTitle
-            // 
+            //
             lbTitle.AutoSize = true;
             lbTitle.Click += item_Clicked;
             lbTitle.Font = new System.Drawing.Font("Ubuntu", 15F);
@@ -128,6 +134,7 @@ namespace Korot
         }
 
         private bool rsMode = false;
+
         private void hsNotification_CheckedChanged(object sender, EventArgs e)
         {
             HTSwitch hsN = sender as HTSwitch;
@@ -154,6 +161,7 @@ namespace Korot
         }
 
         private bool didLostFocus = false;
+
         private void frmBlock_Leave(object sender, EventArgs e)
         {
             didLostFocus = true;

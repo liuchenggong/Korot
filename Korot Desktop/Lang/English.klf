@@ -1,4 +1,27 @@
-<Language CompatibleVersion="0.8.1.0">
+<Language CompatibleVersion="0.8.2.0">
+  <Translate ID="AutoClean" Text="Auto-Clean" />
+  <Translate ID="AutoCleanMessage" Text="Cleaning cache requires a restart first. [NEWLINE] Do you want to continue?" />
+  <Translate ID="AutoCleanButton" Text="Clean Now" />
+  <Translate ID="AutoCleanCache" Text="Auto-Clean Cache:" />
+  <Translate ID="AutoCleanCacheT1" Text="When cache is over [VAL] MB:" />
+  <Translate ID="AutoCleanCacheT2" Text="Clean every [VAL] days:" />
+  <Translate ID="AutoCleanHistory" Text="Auto-Clean History:" />
+  <Translate ID="AutoCleanHistoryT1" Text="When user data is over [VAL] MB:" />
+  <Translate ID="AutoCleanHistoryT3" Text="Clean every [VAL] days:" />
+  <Translate ID="AutoCleanHistoryT2" Text="Clean entries older than [VAL] days:" />
+  <Translate ID="AutoCleanLogs" Text="Auto-Clean Logs:" />
+  <Translate ID="AutoCleanLogsT1" Text="When logs are over [VAL] MB:" />
+  <Translate ID="AutoCleanLogsT2" Text="Clean every [VAL] days:" />
+  <Translate ID="AutoCleanLogsT3" Text="Clean logs older than [VAL] days:" />
+  <Translate ID="AutoCleanDownloads" Text="Auto-Clean Downloads:" />
+  <Translate ID="AutoCleanDownloadsT1" Text="When user data is over [VAL] MB:" />
+  <Translate ID="AutoCleanDownloadsT3" Text="Clean every [VAL] days:" />
+  <Translate ID="AutoCleanDownloadsT2" Text="Clean downloads older than [VAL] days:" />
+  <Translate ID="Language" Text="Language:" />
+  <Translate ID="NewTheme" Text="&lt;new&gt;..." />
+  <Translate ID="KorotUpToDate" Text="Your Korot is up to date." />
+  <Translate ID="KorotUpdating" Text="Downloading update... [PERC]% complete." />
+  <Translate ID="KorotUpdated" Text="Update downloaded. Installation will continue after closing." />
   <Translate ID="Reload" Text="Reload page" />
   <Translate ID="SoundFiles" Text="Sound Files" />
   <Translate ID="UseDefaultSound" Text="Use default notification sound:" />
@@ -350,6 +373,7 @@
   <Translate ID="CleanLogData" Text="Clean Log Data" />
   <Translate ID="Title" Text="Title" />
   <Translate ID="URL" Text="URL" />
+  <Translate ID="OpenFolder" Text="Open Folder" />
   <Translate ID="WebStore" Text="Web Store" />
   <Translate ID="CopyImage" Text="Copy Image" />
   <Translate ID="OpenLinkinaNewWindow" Text="Open Link in a New Window" />

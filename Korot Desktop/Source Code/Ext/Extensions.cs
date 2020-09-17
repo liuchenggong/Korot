@@ -11,6 +11,7 @@ namespace Korot
     {
         public Settings Settings { get; set; }
         public string ProfileName = "";
+
         public Extensions(string ExtList)
         {
             ExtensionList = new List<Extension>();
@@ -31,6 +32,7 @@ namespace Korot
             }
             LoadExtensions();
         }
+
         public string ExtractList
         {
             get
@@ -44,10 +46,12 @@ namespace Korot
                 return extList;
             }
         }
+
         public string ExtensionDirectory => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + ProfileName + "\\Extensions";
 
         public List<Extension> ExtensionList { get; set; }
         public List<string> ExtensionCodeNames { get; set; }
+
         public void LoadExtensions()
         {
             ExtensionList.Clear();
@@ -56,6 +60,7 @@ namespace Korot
                 ExtensionList.Add(new Extension(ExtensionDirectory + "\\" + x + "\\ext.kem") { LocalSettings = Settings });
             }
         }
+
         public void UpdateExtensions()
         {
             foreach (Extension x in ExtensionList)
@@ -63,6 +68,7 @@ namespace Korot
                 x.Update();
             }
         }
+
         public Extension GetExtensionByCodeName(string CodeName)
         {
             List<Extension> foundext = ExtensionList.FindAll(i => i.CodeName == CodeName);
@@ -79,6 +85,7 @@ namespace Korot
                 }
             }
         }
+
         public bool Exists(string CodeName)
         {
             List<Extension> foundext = ExtensionList.FindAll(i => i.CodeName == CodeName);
@@ -95,15 +102,18 @@ namespace Korot
                 }
             }
         }
+
         public void InstallExtension(string ExtFile, bool Silent = false)
         {
             frmInstallExt installExt = new frmInstallExt(Settings, ExtFile, Silent);
             installExt.Show();
         }
     }
+
     public class Extension
     {
         public Settings LocalSettings { get; set; }
+
         public Extension(string ManifestFileLocation)
         {
             ManifestFile = ManifestFileLocation;
@@ -146,7 +156,6 @@ namespace Korot
                 else if (node.Name.ToLower() == "popupfile")
                 {
                     Popup = node.InnerText.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
-
                 }
                 else if (node.Name.ToLower() == "backfile")
                 {
@@ -300,7 +309,9 @@ namespace Korot
                 }
             }
         }
+
         public string Folder { get; set; }
+
         public bool FileExists(string filePath)
         {
             string fileLoc = Folder + filePath;
@@ -311,6 +322,7 @@ namespace Korot
             }
             else { return false; }
         }
+
         public List<RightClickOption> RightClickOptions { get => _RCOptions; set => _RCOptions = value; }
         private List<RightClickOption> _RCOptions = new List<RightClickOption>();
         public string ManifestFile { get; set; }
@@ -326,6 +338,7 @@ namespace Korot
         public string Proxy { get; set; }
         public List<string> Files { get; set; }
         public ExtensionSettings Settings { get; set; }
+
         public void Update()
         {
             if (Settings.useHaltroyUpdater)
@@ -335,6 +348,7 @@ namespace Korot
             }
         }
     }
+
     public class RightClickOption
     {
         public string Text { get; set; }
@@ -342,6 +356,7 @@ namespace Korot
         public string Icon { get; set; }
         public RightClickOptionStyle Option { get; set; }
     }
+
     public enum RightClickOptionStyle
     {
         None,
@@ -351,6 +366,7 @@ namespace Korot
         Edit,
         Always
     }
+
     public class ExtensionSettings
     {
         private bool _autoLoad = false;
@@ -359,31 +375,37 @@ namespace Korot
         private bool _activateScript = false;
         private bool _hasProxy = false;
         private bool _useHaltroyUpdater = false;
+
         public bool autoLoad
         {
             get => _autoLoad;
             set => _autoLoad = value;
         }
+
         public bool onlineFiles
         {
             get => _onlineFiles;
             set => _onlineFiles = value;
         }
+
         public bool showPopupMenu
         {
             get => _showPopupMenu;
             set => _showPopupMenu = value;
         }
+
         public bool activateScript
         {
             get => _activateScript;
             set => _activateScript = value;
         }
+
         public bool hasProxy
         {
             get => _hasProxy;
             set => _hasProxy = value;
         }
+
         public bool useHaltroyUpdater
         {
             get => _useHaltroyUpdater;

@@ -16,6 +16,7 @@ namespace Korot
         {
             InitializeComponent();
         }
+
         private void anything_MouseEnter(object sender, EventArgs e)
         {
             Control cntrl = sender as Control;
@@ -39,11 +40,13 @@ namespace Korot
                 return;
             }
         }
+
         private void anything_MouseLeave(object sender, EventArgs e)
         {
             if (cooldownMode) { return; }
             textBox4.Text = textBox4.Tag.ToString();
         }
+
         private bool isEmptyWorkSpace => (string.IsNullOrWhiteSpace(tbName.Text) &&
                 string.IsNullOrWhiteSpace(tbVersion.Text) &&
                 string.IsNullOrWhiteSpace(tbAuthor.Text) &&
@@ -66,6 +69,7 @@ namespace Korot
                 hasProxy.Checked == false &&
                 useHaltroyUpdater.Checked == false &&
                 lbLocation.Items.Count == 0);
+
         private string isIncompleteWorkSpace
         {
             get
@@ -99,6 +103,7 @@ namespace Korot
                 return incompleteError;
             }
         }
+
         private string BuildExtManifest()
         {
             string extManifest = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<KorotExtension>" + Environment.NewLine +
@@ -129,6 +134,7 @@ namespace Korot
             extManifest += "</KorotExtension>" + Environment.NewLine;
             return extManifest;
         }
+
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (isEmptyWorkSpace)
@@ -149,6 +155,7 @@ namespace Korot
                 clear();
             }
         }
+
         private void clear()
         {
             tbName.Text = "";
@@ -226,7 +233,9 @@ namespace Korot
                 }
             }
         }
+
         private readonly List<string> TemporaryFiles = new List<string>();
+
         private void LoadKEM(string kemloc)
         {
             // Read the file
@@ -242,7 +251,7 @@ namespace Korot
             // Make sure that this is an extension manifest.
             if (document.FirstChild.Name.ToLower() != "korotextension") { return; }
             // This is the part where hell starts. Looking at this code for a small amount
-            // of time might cause turning skin to red, puking blood and hair loss. 
+            // of time might cause turning skin to red, puking blood and hair loss.
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
                 if (node.Name.ToLower() == "name")
@@ -591,7 +600,6 @@ namespace Korot
                         {
                             int ii = lbSafeName.Items.IndexOf(i);
                             File.Copy(lbLocation.Items[ii].ToString(), workspace + i.ToString());
-
                         }
                         ZipFile.CreateFromDirectory(workspace, dialog.FileName, CompressionLevel.Optimal, false, Encoding.UTF8);
                         Directory.Delete(workspace, true);
@@ -656,6 +664,7 @@ namespace Korot
 
         private bool cooldownMode = false;
         private int cooldown = 0;
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             cooldown += 1;
@@ -848,6 +857,7 @@ namespace Korot
                 ReadOldKEM(dialog.FileName);
             }
         }
+
         private void ReadOldKEM(string oldKemLoc)
         {
             string Playlist = HTAlt.Tools.ReadFile(oldKemLoc, Encoding.UTF8);

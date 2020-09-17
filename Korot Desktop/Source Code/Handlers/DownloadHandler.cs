@@ -30,20 +30,24 @@ namespace Korot
     public class DownloadHandler : IDownloadHandler
     {
         private readonly frmCEF ActiveForm;
+
         public frmMain anaform()
         {
             return ((frmMain)ActiveForm.ParentTabs);
         }
+
         public DownloadHandler(frmCEF activeForm)
         {
             ActiveForm = activeForm;
         }
+
         public static bool ValidHaltroyWebsite(string s)
         {
             string Pattern = @"(?:http\:\/\/haltroy\.com)|(?:https\:\/\/haltroy\.com)";
             Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return Rgx.IsMatch(s.Substring(0, 19));
         }
+
         public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IBeforeDownloadCallback callback)
         {
             if (downloadItem.SuggestedFileName.ToLower().EndsWith(".kef"))
@@ -140,9 +144,7 @@ namespace Korot
                 };
                 ActiveForm.Settings.Downloads.Downloads.Add(site);
                 anaform().CurrentDownloads.Remove(downloadItem);
-                ActiveForm.Invoke(new Action(() => ActiveForm.dowman.RefreshList()));
             }
-
         }
     }
 }

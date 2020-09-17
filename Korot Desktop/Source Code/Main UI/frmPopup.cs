@@ -23,7 +23,6 @@
 using CefSharp;
 using CefSharp.WinForms;
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Korot
@@ -34,6 +33,7 @@ namespace Korot
         private readonly frmCEF tabform;
         private readonly string userCache;
         private ChromiumWebBrowser chromiumWebBrowser1;
+
         public frmPopup(frmCEF CefForm, string profileName, string url)
         {
             InitializeComponent();
@@ -44,7 +44,10 @@ namespace Korot
             InitializeChromium();
         }
 
-        private void FrmExt_Load(object sender, EventArgs e) { }
+        private void FrmExt_Load(object sender, EventArgs e)
+        {
+        }
+
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings
@@ -70,7 +73,6 @@ namespace Korot
                     isExt = false,
                     extForm = null
                 }
-
             });
             // Initialize cef with the provided settings
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
@@ -89,14 +91,17 @@ namespace Korot
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
         }
+
         private void cef_TitleChanged(object sender, TitleChangedEventArgs e)
         {
             Invoke(new Action(() => Text = e.Title));
         }
+
         private void cef_AddressChanged(object sender, AddressChangedEventArgs e)
         {
             Invoke(new Action(() => tbAddress.Text = e.Address));
         }
+
         private void cef_onLoadError(object sender, LoadErrorEventArgs e)
         {
             if (e == null) //User Asked

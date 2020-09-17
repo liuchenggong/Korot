@@ -10,6 +10,7 @@ namespace Korot
         private bool alreadyAddedAllow => cefform.Settings.GetSiteFromUrl(baseUrl) is null ? false : cefform.Settings.GetSiteFromUrl(baseUrl).AllowNotifications;
         private readonly string baseUrl;
         private readonly frmCEF cefform;
+
         public frmNotificationPermission(frmCEF _frmCEF, string url)
         {
             baseUrl = url;

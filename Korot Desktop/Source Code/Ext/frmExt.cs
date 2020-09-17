@@ -33,6 +33,7 @@ namespace Korot
         private readonly frmCEF tabform;
         private readonly string userCache;
         private ChromiumWebBrowser chromiumWebBrowser1;
+
         public frmExt(frmCEF CefForm, string profileName, Extension _ext)
         {
             InitializeComponent();
@@ -42,7 +43,11 @@ namespace Korot
             Text = "Korot";
             InitializeChromium();
         }
-        private void FrmExt_Load(object sender, EventArgs e) { }
+
+        private void FrmExt_Load(object sender, EventArgs e)
+        {
+        }
+
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings
@@ -68,7 +73,6 @@ namespace Korot
                     isExt = true,
                     extForm = this
                 }
-
             });
             // Initialize cef with the provided settings
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
@@ -86,6 +90,7 @@ namespace Korot
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
         }
+
         private void cef_TitleChanged(object sender, TitleChangedEventArgs e)
         {
             Invoke(new Action(() => Text = e.Title));

@@ -9,6 +9,7 @@ namespace Korot
         private readonly frmCEF cefform;
         private readonly BlockSite site;
         private readonly BlockSite msite;
+
         public frmBlockSite(frmCEF _frmCEF, BlockSite _site, string Url)
         {
             cefform = _frmCEF;

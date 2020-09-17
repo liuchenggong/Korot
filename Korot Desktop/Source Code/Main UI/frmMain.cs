@@ -32,7 +32,6 @@ using System.Xml;
 
 namespace Korot
 {
-
     public partial class frmMain : HTAlt.WinForms.HTTitleTabs
     {
         public Settings Settings;
@@ -44,19 +43,12 @@ namespace Korot
         public bool newDownload = false;
         public bool isIncognito = false;
         public HTTabRenderer tabRenderer;
-        public HTTitleTab blockTab = null;
         public HTTitleTab licenseTab = null;
-        public HTTitleTab newtabeditTab = null;
         public HTTitleTab settingTab = null;
-        public HTTitleTab themeTab = null;
-        public HTTitleTab historyTab = null;
-        public HTTitleTab downloadTab = null;
-        public HTTitleTab aboutTab = null;
-        public HTTitleTab siteTab = null;
-        public HTTitleTab collectionTab = null;
-        public HTTitleTab notificationTab = null;
+        public frmUpdate Updater;
 
         #region Notification Listener
+
         private string closeKorotMessage = "Do you want to close Korot?";
 #pragma warning disable 414
         private string closeAllMessage = "Do you really want to close them all?";
@@ -73,7 +65,8 @@ namespace Korot
         public Collection<frmCEF> notifListeners = new Collection<frmCEF>();
         private readonly ContextMenuStrip cmsNL = new ContextMenuStrip() { RenderMode = ToolStripRenderMode.System, ShowImageMargin = false, };
         private readonly NotifyIcon NLEditor = new NotifyIcon() { Text = "Korot", Icon = Properties.Resources.KorotIcon, Visible = true };
-        private List<ToolStripItem> nlTSMIs = new List<ToolStripItem>();
+        private readonly List<ToolStripItem> nlTSMIs = new List<ToolStripItem>();
+
         private void InitNL()
         {
             closeNLinfo = Settings.LanguageSystem.GetItemText("CloseNLInfo");
@@ -126,11 +119,14 @@ namespace Korot
                 x.ForeColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
             }
         }
-        bool massCloseMode = false;
+
+        private bool massCloseMode = false;
+
         private void tmrNL_Tick(object sender, EventArgs e)
         {
             InitNL();
         }
+
         private void closeNL_Click(object sender, EventArgs e)
         {
             if (sender is ToolStripMenuItem)
@@ -163,6 +159,7 @@ namespace Korot
                 }
             }
         }
+
         private void closeall_Click(object sender, EventArgs e)
         {
             HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot",
@@ -188,6 +185,7 @@ namespace Korot
                 massCloseMode = false;
             }
         }
+
         private void closekorot_Click(object sender, EventArgs e)
         {
             HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot",
@@ -200,9 +198,16 @@ namespace Korot
                 Application.Exit();
             }
         }
-        #endregion
+
+        #endregion Notification Listener
 
         #region "Translate"
+
+        public string CleanCacheMessage = "Cleaning cache requires a restart first." + Environment.NewLine + "Do you still want to continue?";
+        public string ThemeSaveInfo = "Please enter a name for this theme.";
+        public string KorotUpToDate = "Your Korot is up to date.";
+        public string KorotUpdating = "Downloading update... [PERC]% complete.";
+        public string KorotUpdated = "Update downloaded. Installation will continue after closing.";
         public string Reload = "Reload page";
         public string OK = "OK";
         public string Extensions = "Extensions";
@@ -324,8 +329,10 @@ namespace Korot
         public string SearchOnWeb = "Search \"[TEXT]\"";
         public string defaultproxytext = "Default Proxy";
         public string SearchOnPage = "Search on this page";
+
         //public string CaseSensitive = "Case Sensitive";
         public string privatemode = "Incognito";
+
         public string updateTitle = "Korot - Update";
         public string updateMessage = "Update available.Do you want to update?";
         public string updateError = "Error while checking for the updates.";
@@ -370,8 +377,10 @@ namespace Korot
         public string text = "Text";
         public string image = "Image";
         public string link = "Link";
+
         //Editor
         public string catCommon = "Common";
+
         public string catText = "Text-based";
         public string catOnline = "Online";
         public string catPicture = "Picture";
@@ -400,8 +409,10 @@ namespace Korot
         public string changeColTextInfo = "Enter a valid Text for this collection.";
         public string empty = "((empty))";
         public string SetToDefault = "Set to default";
+
         //Collection Manager
         public string Clear = "Clear";
+
         public string RemoveSelected = "Remove Selected";
         public string newColInfo = "Enter a name for new collection";
         public string newColName = "New Collection";
@@ -458,8 +469,8 @@ namespace Korot
         public string lv2 = "Level 2";
         public string lv3 = "Level 3";
         public string blocklevel = "Block Level:";
-        #endregion
 
+        #endregion "Translate"
 
         public frmMain(Settings settings)
         {
@@ -468,6 +479,10 @@ namespace Korot
             tabRenderer = new HTTabRenderer(this);
             TabRenderer = tabRenderer;
             Icon = Properties.Resources.KorotIcon;
+            Updater = new frmUpdate(Settings)
+            {
+                Visible = false,
+            };
             InitializeComponent();
             foreach (Control x in Controls)
             {
@@ -497,6 +512,44 @@ namespace Korot
             }
             list = new MyJumplist(Handle, settings);
         }
+
+        public void CleanNow(bool skipMessage)
+        {
+            if (skipMessage)
+            {
+                Tabs.Clear();
+                foreach (Form x in Settings.AllForms)
+                {
+                    if (x is frmCEF)
+                    {
+                        x.Close();
+                        x.Dispose();
+                    }
+                }
+                Cef.Shutdown();
+                Settings.AutoCleaner.DoCleanup();
+            }
+            else
+            {
+                HTMsgBox mesaj = new HTMsgBox("Korot", CleanCacheMessage, new HTDialogBoxContext() { Yes = true, No = true, Cancel = true }) { Yes = Yes, No = No, Cancel = Cancel, Icon = Icon, BackgroundColor = Settings.Theme.BackColor };
+                DialogResult result = mesaj.ShowDialog();
+                if (result == DialogResult.Yes)
+                {
+                    Tabs.Clear();
+                    foreach (Form x in Settings.AllForms)
+                    {
+                        if (x is frmCEF)
+                        {
+                            x.Close();
+                            x.Dispose();
+                        }
+                    }
+                    Cef.Shutdown();
+                    Settings.AutoCleaner.DoForceCleanup();
+                }
+            }
+        }
+
         public void removeThisDownloadItem(DownloadItem removeItem)
         {
             List<DownloadItem> removeDownloads = new List<DownloadItem>();
@@ -518,12 +571,14 @@ namespace Korot
         private void PrintImages()
         {
             tabRenderer.ApplyColors(Settings.Theme.BackColor, HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor), Settings.Theme.OverlayColor, Settings.Theme.BackColor);
-            this.Update();
+            Update();
             MinimumSize = new System.Drawing.Size(650, 350);
             BackColor = Settings.Theme.BackColor;
             ForeColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
         }
+
         public string OldSessions;
+
         private void frmMain_Load(object sender, EventArgs e)
         {
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
@@ -573,7 +628,6 @@ namespace Korot
             else { WindowState = FormWindowState.Maximized; }
             Size = Settings.MenuSize;
             Location = Settings.MenuPoint;
-
         }
 
         public void ReadSession(string Session)
@@ -587,22 +641,24 @@ namespace Korot
             document.Load(stream);
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                frmCEF cefform = new frmCEF(this, Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser,false,node.OuterXml);
+                frmCEF cefform = new frmCEF(this, Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser, false, node.OuterXml);
                 HTTitleTab tab = new HTTitleTab(this)
                 {
                     Content = cefform
                 };
                 Tabs.Add(tab);
             }
-
         }
+
         private string writtenSession = "";
+
         public void WriteSessions(string Session)
         {
             if (writtenSession == Session) { return; }
             writtenSession = Session;
             SafeFileSettingOrganizedClass.LastSession = Session;
         }
+
         public void WriteCurrentSession()
         {
             string CurrentSessionURIs = "<root>" + Environment.NewLine;
@@ -614,7 +670,9 @@ namespace Korot
             CurrentSessionURIs += "</root>" + Environment.NewLine;
             WriteSessions(CurrentSessionURIs);
         }
+
         public bool closing = false;
+
         public void CreateTab(HTTitleTab referenceTab, string url = "korot://newtab")
         {
             frmCEF cefform = new frmCEF(this, Settings, isIncognito, url, SafeFileSettingOrganizedClass.LastUser);
@@ -629,6 +687,7 @@ namespace Korot
             SelectedTabIndex = Tabs.IndexOf(referenceTab) + 1;
             //Tabs.Add(newTab);
         }
+
         public void CreateTab(string url = "korot://newtab")
         {
             frmCEF cefform = new frmCEF(this, Settings, isIncognito, url, SafeFileSettingOrganizedClass.LastUser);
@@ -642,6 +701,7 @@ namespace Korot
             Tabs.Add(newTab);
             SelectedTabIndex = Tabs.Count - 1;
         }
+
         public override HTTitleTab CreateTab()
         {
             frmCEF cefform = new frmCEF(this, Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser);
@@ -653,6 +713,7 @@ namespace Korot
                 Content = cefform
             };
         }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (Settings.ThemeChangeForm.Contains(this))
@@ -661,8 +722,10 @@ namespace Korot
                 Settings.ThemeChangeForm.Remove(this);
             }
         }
+
         public bool isFullScreen = false;
         public bool wasMaximized = false;
+
         public void Fullscreenmode(bool fullscreen)
         {
             if (fullscreen)
@@ -688,7 +751,6 @@ namespace Korot
                     WindowState = FormWindowState.Maximized;
                 }
                 isFullScreen = false;
-
             }
             FormBorderStyle = fullscreen ? FormBorderStyle.None : FormBorderStyle.Sizable;
         }
@@ -710,8 +772,12 @@ namespace Korot
                 else
                 {
                     WriteCurrentSession();
-
                 }
+                if (Updater.isReady)
+                {
+                    Updater.ApplyUpdate();
+                }
+                CleanNow(true);
                 Settings.Save();
             }
         }
@@ -727,7 +793,6 @@ namespace Korot
             {
                 ((frmCEF)x.Content).Invoke(new Action(() => ((frmCEF)x.Content).FrmCEF_SizeChanged(null, null)));
             }
-
         }
     }
 }

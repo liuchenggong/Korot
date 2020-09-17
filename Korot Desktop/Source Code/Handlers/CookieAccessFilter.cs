@@ -27,10 +27,12 @@ namespace Korot
     internal class CookieAccessFilter : ICookieAccessFilter
     {
         private readonly frmCEF Cefform;
+
         public CookieAccessFilter(frmCEF _Cefform)
         {
             Cefform = _Cefform;
         }
+
         public bool CanSaveCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, Cookie cookie)
         {
             setCookie(chromiumWebBrowser);
@@ -56,6 +58,7 @@ namespace Korot
                 return true;
             }
         }
+
         public void setCookie(IWebBrowser chromiumWebBrowser)
         {
             if (Cefform.Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(chromiumWebBrowser.Address)) != null)

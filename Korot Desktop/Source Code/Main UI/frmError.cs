@@ -29,6 +29,7 @@ namespace Korot
     {
         private readonly Exception Error;
         public Settings Settings;
+
         public frmError(Exception error, Settings settings)
         {
             Settings = settings;

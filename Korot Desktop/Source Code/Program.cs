@@ -20,12 +20,11 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using CefSharp;
+using CefSharp.WinForms;
 using HTAlt;
 using HTAlt.WinForms;
-using Korot;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -42,9 +41,9 @@ namespace Korot
 
         public static int VersionNumber = 50;
     }
+
     internal static class Program
     {
-
         [STAThread]
         private static void Main(string[] args)
         {
@@ -62,27 +61,7 @@ namespace Korot
             List<frmNotification> notifications = new List<frmNotification>();
             try
             {
-
-                if (args.Contains("-update"))
-                {
-                    if (UACControl.IsProcessElevated)
-                    {
-                        Application.Run(new frmUpdate(settings));
-                        appStarted = true;
-                    }
-                    else
-                    {
-                        ProcessStartInfo startInfo = new ProcessStartInfo(Application.ExecutablePath)
-                        {
-                            Verb = "runas",
-                            Arguments = "-update"
-                        };
-                        Process.Start(startInfo);
-                        Application.Exit();
-                    }
-                    return;
-                }
-                else if (args.Contains("--make-ext"))
+                if (args.Contains("--make-ext"))
                 {
                     Application.Run(new frmMakeExt());
                     appStarted = true;
@@ -147,6 +126,7 @@ new HTTitleTab(testApp)
                 if (!appStarted) { Application.Run(form); } else { form.Show(); }
             }
         }
+
         public static void RemoveDirectory(string directory, bool displayresult = true)
         {
             List<FileFolderError> errors = new List<FileFolderError>();
@@ -154,8 +134,8 @@ new HTTitleTab(testApp)
             foreach (string x in Directory.GetDirectories(directory)) { try { Directory.Delete(x, true); } catch (Exception ex) { errors.Add(new FileFolderError(x, ex, true)); } }
             if (displayresult) { if (errors.Count == 0) { Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with no errors."); } else { Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with " + errors.Count + " error(s)."); foreach (FileFolderError x in errors) { Output.WriteLine(" [RemoveDirectory] " + (x.isDirectory ? "Directory" : "File") + " Error: " + x.Location + " [" + x.Error.ToString() + "]"); } } }
         }
-
     }
+
     public class Settings
     {
         public Settings(string Profile)
@@ -380,6 +360,10 @@ new HTTitleTab(testApp)
                 {
                     CollectionManager.readCollections(node.OuterXml, true);
                 }
+                else if (node.Name.ToLower() == "autocleaner")
+                {
+                    AutoCleaner.LoadFromXML(node.OuterXml);
+                }
                 else if (node.Name.ToLower() == "history")
                 {
                     foreach (XmlNode subnode in node.ChildNodes)
@@ -460,8 +444,12 @@ new HTTitleTab(testApp)
             {
                 Downloads.DownloadDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads\\";
             }
+            _AutoCleaner.Settings = this;
         }
+
         #region Defaults
+
+        private AutoCleaner _AutoCleaner = new AutoCleaner("");
         private bool _UseDefaultSound = true;
         private string _SoundLoc = "";
         private bool _NinjaMode = false;
@@ -497,23 +485,44 @@ new HTTitleTab(testApp)
         private string _saveFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         private string _screenshotFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
         private Extensions _Extensions = new Extensions("");
-        #endregion
+        private List<frmCEF> _UpdateFavorites = new List<frmCEF>();
+
+        #endregion Defaults
+
         #region Properties
-        public bool UseDefaultSound { get=> _UseDefaultSound; set => _UseDefaultSound = value; }
+
+        public AutoCleaner AutoCleaner { get => _AutoCleaner; set => _AutoCleaner = value; }
+        public List<frmCEF> UpdateFavorites { get => _UpdateFavorites; set => _UpdateFavorites = value; }
+
+        public void UpdateFavList()
+        {
+            for (int i = 0; i < AllForms.Count; i++)
+            {
+                if (AllForms[i] is frmCEF)
+                {
+                    UpdateFavorites.Add(AllForms[i] as frmCEF);
+                }
+            }
+        }
+
+        public bool UseDefaultSound { get => _UseDefaultSound; set => _UseDefaultSound = value; }
         public string SoundLocation { get => _SoundLoc; set => _SoundLoc = value; }
         public bool NinjaMode { get => _NinjaMode; set => _NinjaMode = value; }
         public string ScreenShotFolder { get => _screenshotFolder; set => _screenshotFolder = value; }
         public string SaveFolder { get => _saveFolder; set => _saveFolder = value; }
+
         public class BlockLevels
         {
             public static string Level0 = @"((http)|(https))\:\/\/§SITE§";
             public static string Level1 = @"((http)|(https))\:\/\/§SITE§";
             public static string Level2 = @"((http)|(https))\:\/\/[^\/]*?§SITE§";
             public static string Level3 = @"§SITE§";
+
             public static string Convert(string Url, string Level)
             {
                 return Level.Replace("§SITE§", Url.Replace(".", @"\."));
             }
+
             public static string ConvertToLevel0(string Url)
             {
                 return Convert(Url.Replace("https://", "").Replace("http://", ""), Level0);
@@ -528,51 +537,61 @@ new HTTitleTab(testApp)
             {
                 return Convert(HTAlt.Tools.GetBaseURL(Url).Replace("https://", "").Replace("http://", ""), Level2);
             }
+
             public static string ConvertToLevel3(string Url)
             {
                 return Convert(HTAlt.Tools.GetBaseURL(Url).Replace("https://", "").Replace("http://", ""), Level3);
             }
         }
+
         public List<BlockSite> Filters
         {
             get => _Filters;
             set => _Filters = value;
         }
+
         public NewTabSites NewTabSites
         {
             get => _NewTabSites;
             set => _NewTabSites = value;
         }
+
         public bool Flash
         {
             get => _Flash;
             set => _Flash = value;
         }
+
         public bool Silent
         {
             get => _Silent;
             set => _Silent = value;
         }
+
         public List<Site> Sites
         {
             get => _Sites;
             set => _Sites = value;
         }
+
         public bool AutoSilent
         {
             get => _AutoSilent;
             set => _AutoSilent = value;
         }
+
         public bool DoNotPlaySound
         {
             get => _DoNotPlaySound;
             set => _DoNotPlaySound = value;
         }
+
         public bool QuietMode
         {
             get => _QuietMode;
             set => _QuietMode = value;
         }
+
         public string AutoSilentMode
         {
             get => _AutoSilentMode;
@@ -590,100 +609,125 @@ new HTTitleTab(testApp)
             get => _DismissUpdate;
             set => _DismissUpdate = value;
         }
+
         public string Homepage
         {
             get => _Homepage;
             set => _Homepage = value;
         }
+
         public Size MenuSize
         {
             get => _MenuSize;
             set => _MenuSize = value;
         }
+
         public Point MenuPoint
         {
             get => _MenuPoint;
             set => _MenuPoint = value;
         }
+
         public string SearchEngine
         {
             get => _SearchEngine;
             set => _SearchEngine = value;
         }
+
         public bool RememberLastProxy
         {
             get => _RememberLastProxy;
             set => _RememberLastProxy = value;
         }
+
         public string LastProxy
         {
             get => _LastProxy;
             set => _LastProxy = value;
         }
+
         public bool DisableLanguageError
         {
             get => _DisableLanguageError;
             set => _DisableLanguageError = value;
         }
+
         public bool MenuWasMaximized
         {
             get => _MenuWasMaximized;
             set => _MenuWasMaximized = value;
         }
+
         public bool DoNotTrack
         {
             get => _DoNotTrack;
             set => _DoNotTrack = value;
         }
+
         public Theme Theme
         {
             get => _Theme;
             set => _Theme = value;
         }
+
         public DownloadSettings Downloads
         {
             get => _DownloadSettings;
             set => _DownloadSettings = value;
         }
+
         public LanguageSystem LanguageSystem
         {
             get => _LanguageSystem;
             set => _LanguageSystem = value;
         }
+
         public CollectionManager CollectionManager
         {
             get => _CollectionManager;
             set => _CollectionManager = value;
         }
+
         public List<Site> History
         {
             get => _History;
             set => _History = value;
         }
+
         public FavoritesSettings Favorites
         {
             get => _Favorites;
             set => _Favorites = value;
         }
+
         public Extensions Extensions
         {
             get => _Extensions;
             set => _Extensions = value;
         }
+
         public string Startup
         {
             get => _Startup;
             set => _Startup = value;
         }
+
         public bool AutoRestore
         {
             get => _AutoRestore;
             set => _AutoRestore = value;
         }
-        #endregion
+
+        #endregion Properties
+
         public List<Form> AllForms = new List<Form>();
         public List<Form> ThemeChangeForm = new List<Form>();
-        public void JustChangedTheme() { for (int i = 0; i < AllForms.Count; i++) { ThemeChangeForm.Add(AllForms[i]); } }
+
+        public void JustChangedTheme()
+        {
+            for (int i = 0; i < AllForms.Count; i++) { ThemeChangeForm.Add(AllForms[i]); }
+        }
+
         public bool IsQuietTime
         {
             get
@@ -703,7 +747,6 @@ new HTTitleTab(testApp)
                 string[] SplittedFase = Playlist.Split(':');
                 if (SplittedFase.Length - 1 > 9)
                 {
-
                     fromH = Convert.ToInt32(SplittedFase[0]);
                     fromM = Convert.ToInt32(SplittedFase[1]);
                     toH = Convert.ToInt32(SplittedFase[2]);
@@ -789,6 +832,7 @@ new HTTitleTab(testApp)
                 return QuietMode;
             }
         }
+
         public bool IsUrlAllowed(string url)
         {
             bool allowed = true;
@@ -799,6 +843,7 @@ new HTTitleTab(testApp)
             }
             return allowed;
         }
+
         public void Save()
         {
             string x =
@@ -822,7 +867,7 @@ new HTTitleTab(testApp)
             "   <AutoSilent>" + (AutoSilent ? "true" : "false") + "</AutoSilent> " + Environment.NewLine +
             "   <DoNotPlaySound>" + (DoNotPlaySound ? "true" : "false") + "</DoNotPlaySound>" + Environment.NewLine +
             "   <QuietMode>" + (QuietMode ? "true" : "false") + "</QuietMode>" + Environment.NewLine +
-            "   <AutoSilentMode>" + AutoSilentMode.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</AutoSilentMode>" + Environment.NewLine +
+            "   <AutoSilentMode>" + AutoSilentMode.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</AutoSilentMode>" + Environment.NewLine + AutoCleaner.XMLOut() + Environment.NewLine +
             "   <Sites>" + Environment.NewLine;
             foreach (Site site in Sites)
             {
@@ -883,12 +928,15 @@ new HTTitleTab(testApp)
             x += "   </Downloads>" + Environment.NewLine + Favorites.outXml + "   </Profile>" + Environment.NewLine;
             HTAlt.Tools.WriteFile(ProfileDirectory + "settings.kpf", x, Encoding.UTF8);
         }
+
         public string ProfileDirectory => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + ProfileName + "\\";
+
         public Site GetSiteFromUrl(string Url)
         {
             return Sites.Find(i => i.Url == Url);
         }
     }
+
     public class Theme
     {
         public void SaveTheme()
@@ -908,6 +956,7 @@ new HTTitleTab(testApp)
             "</Theme>";
             HTAlt.Tools.WriteFile(ThemeFile, x, Encoding.UTF8);
         }
+
         public void LoadFromFile(string themeFile)
         {
             if (string.IsNullOrWhiteSpace(themeFile))
@@ -1014,17 +1063,53 @@ new HTTitleTab(testApp)
             {
                 AutoForeColor = true;
                 ForeColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
-            }else
+            }
+            else
             {
                 AutoForeColor = false;
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Theme theme &&
+                   EqualityComparer<Color>.Default.Equals(BackColor, theme.BackColor) &&
+                   EqualityComparer<Color>.Default.Equals(ForeColor, theme.ForeColor) &&
+                   EqualityComparer<Color>.Default.Equals(OverlayColor, theme.OverlayColor) &&
+                   BackgroundStyle == theme.BackgroundStyle &&
+                   BackgroundStyleLayout == theme.BackgroundStyleLayout &&
+                   NewTabColor == theme.NewTabColor &&
+                   CloseButtonColor == theme.CloseButtonColor;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -648445378;
+            hashCode = hashCode * -1521134295 + AutoForeColor.GetHashCode();
+            hashCode = hashCode * -1521134295 + LoadedDefaults.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Version>.Default.GetHashCode(Version);
+            hashCode = hashCode * -1521134295 + UseHaltroyUpdate.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Version>.Default.GetHashCode(MininmumKorotVersion);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Author);
+            hashCode = hashCode * -1521134295 + BackColor.GetHashCode();
+            hashCode = hashCode * -1521134295 + ForeColor.GetHashCode();
+            hashCode = hashCode * -1521134295 + OverlayColor.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ThemeFile);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(BackgroundStyle);
+            hashCode = hashCode * -1521134295 + BackgroundStyleLayout.GetHashCode();
+            hashCode = hashCode * -1521134295 + NewTabColor.GetHashCode();
+            hashCode = hashCode * -1521134295 + CloseButtonColor.GetHashCode();
+            return hashCode;
+        }
+
         public bool AutoForeColor { get; set; }
 
         public Theme(string themeFile)
         {
             LoadFromFile(themeFile);
         }
+
         public bool LoadedDefaults = false;
         public Version Version { get; set; }
         public bool UseHaltroyUpdate { get; set; }
@@ -1040,6 +1125,7 @@ new HTTitleTab(testApp)
         public TabColors NewTabColor { get; set; }
         public TabColors CloseButtonColor { get; set; }
     }
+
     public class DownloadSettings
     {
         public bool OpenDownload { get; set; }
@@ -1047,6 +1133,7 @@ new HTTitleTab(testApp)
         public bool UseDownloadFolder { get; set; }
         public List<Site> Downloads { get; set; }
     }
+
     public class Site
     {
         public string Name { get; set; }
@@ -1057,6 +1144,7 @@ new HTTitleTab(testApp)
         public bool AllowNotifications { get; set; }
         public DownloadStatus Status { get; set; }
     }
+
     public enum DownloadStatus
     {
         None,
@@ -1065,6 +1153,7 @@ new HTTitleTab(testApp)
         Error,
         Downloading
     }
+
     public class FavoritesSettings
     {
         public void DeleteFolder(Folder folder)
@@ -1087,6 +1176,7 @@ new HTTitleTab(testApp)
                 }
             }
         }
+
         public FavoritesSettings(string xmlString)
         {
             Favorites = new List<Folder>();
@@ -1126,6 +1216,7 @@ new HTTitleTab(testApp)
                 }
             }
         }
+
         private void GenerateMenusFromXML(XmlNode rootNode, Folder folder)
         {
             foreach (XmlNode node in rootNode.ChildNodes)
@@ -1155,6 +1246,7 @@ new HTTitleTab(testApp)
                 }
             }
         }
+
         public string outXml
         {
             get
@@ -1168,6 +1260,7 @@ new HTTitleTab(testApp)
                 return x;
             }
         }
+
         private void RecursiveFWNF(Folder folder, List<Favorite> list)
         {
             foreach (Folder x in folder.Favorites)
@@ -1182,6 +1275,7 @@ new HTTitleTab(testApp)
                 }
             }
         }
+
         public List<Favorite> FavoritesWithNoFolders
         {
             get
@@ -1201,9 +1295,11 @@ new HTTitleTab(testApp)
                 return fav;
             }
         }
+
         public List<Folder> Favorites { get; set; }
         public bool ShowFavorites { get; set; }
     }
+
     public class Folder
     {
         private List<Folder> _Fav = new List<Folder>();
@@ -1212,6 +1308,7 @@ new HTTitleTab(testApp)
         public string Name { get; set; }
         public string Text { get; set; }
         public List<Folder> Favorites { get => _Fav; set => _Fav = value; }
+
         public string outXml
         {
             get
@@ -1236,6 +1333,7 @@ new HTTitleTab(testApp)
             }
         }
     }
+
     public class Favorite : Folder
     {
         public new List<Folder> Favorites => null;
@@ -1243,6 +1341,7 @@ new HTTitleTab(testApp)
         public string IconPath { get; set; }
         public Image Icon => HTAlt.Tools.ReadFile(IconPath, "ignored");
     }
+
     public class FileFolderError
     {
         public FileFolderError(string _Location, Exception _Error, bool IsDirectory)
@@ -1251,13 +1350,16 @@ new HTTitleTab(testApp)
             Location = _Location;
             Error = _Error;
         }
+
         public bool isDirectory { get; set; }
         public string Location { get; set; }
         public Exception Error { get; set; }
     }
+
     public class LanguageSystem
     {
         public List<LanguageItem> LanguageItems { get; set; } = new List<LanguageItem>();
+
         public string GetItemText(string ID)
         {
             LanguageItem item = LanguageItems.Find(i => i.ID.Trim() == ID.Trim());
@@ -1271,19 +1373,23 @@ new HTTitleTab(testApp)
                 return item.Text.Replace("[NEWLINE]", Environment.NewLine);
             }
         }
+
         private string _LangFile = Application.StartupPath + "\\Lang\\English.klf";
         public int ItemCount => LanguageItems.Count;
         public string LangFile => _LangFile;
+
         public LanguageSystem(string fileLoc)
         {
             ReadFromFile(!string.IsNullOrWhiteSpace(fileLoc) ? fileLoc : (Application.StartupPath + "\\Lang\\English.klf"), true);
         }
+
         public void ForceReadFromFile(string fileLoc, bool clear = true)
         {
             _LangFile = fileLoc;
             string code = HTAlt.Tools.ReadFile(fileLoc, Encoding.UTF8);
             ReadCode(code, clear);
         }
+
         public void ReadFromFile(string fileLoc, bool clear = true)
         {
             if (_LangFile != fileLoc || LanguageItems.Count == 0)
@@ -1291,6 +1397,7 @@ new HTTitleTab(testApp)
                 ForceReadFromFile(fileLoc, clear);
             }
         }
+
         public void ReadCode(string xmlCode, bool clear = true)
         {
             if (clear) { LanguageItems.Clear(); }
@@ -1310,11 +1417,13 @@ new HTTitleTab(testApp)
             }
         }
     }
+
     public class LanguageItem
     {
         public string ID { get; set; }
         public string Text { get; set; }
     }
+
     public class NewTabSites
     {
         public string XMLOut => "<NewTabMenu>" + Environment.NewLine +
@@ -1329,6 +1438,7 @@ new HTTitleTab(testApp)
                    (FavoritedSite8 != null ? "<Attached8 Name=\"" + FavoritedSite8.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Url=\"" + FavoritedSite8.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />" + Environment.NewLine : "") +
                    (FavoritedSite9 != null ? "<Attached9 Name=\"" + FavoritedSite9.Name.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Url=\"" + FavoritedSite9.Url.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />" + Environment.NewLine : "") +
                     "</NewTabMenu>";
+
         public NewTabSites(string xmlCode)
         {
             if (string.IsNullOrWhiteSpace(xmlCode))
@@ -1434,6 +1544,7 @@ new HTTitleTab(testApp)
                 }
             }
         }
+
         public string SiteToHTMLData(Site site)
         {
             string x = "<a href=\"" + site.Url + "\" style=\"§BACKSTYLE3§\">" + site.Name + "</a>" +
@@ -1441,6 +1552,7 @@ new HTTitleTab(testApp)
    "<a href=\"" + site.Url + "\" style=\"§BACKSTYLE3§font-size: small;\">" + site.Url.Substring(0, 10) + "</a>";
             return x;
         }
+
         public Site FavoritedSite0 { get; set; }
         public Site FavoritedSite1 { get; set; }
         public Site FavoritedSite2 { get; set; }
@@ -1452,19 +1564,21 @@ new HTTitleTab(testApp)
         public Site FavoritedSite8 { get; set; }
         public Site FavoritedSite9 { get; set; }
     }
+
     public class Proxy
     {
         public string ID { get; set; }
         public string Address { get; set; }
         public Exception Exception { get; set; }
     }
+
     public class BlockSite
     {
         public string Address { get; set; }
         public string Filter { get; set; }
         public int BlockLevel { get; set; }
-
     }
+
     public class KorotTools
     {
         public static string getOSInfo()
@@ -1522,9 +1636,9 @@ new HTTitleTab(testApp)
 
                 default:
                     return "NT " + fullName;
-
             }
         }
+
         public static bool createThemes()
         {
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Light.ktf"))
@@ -1666,7 +1780,6 @@ new HTTitleTab(testApp)
                 HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Red.ktf", newTheme, Encoding.UTF8);
             }
 
-
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Blue.ktf"))
             {
                 string newTheme = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +
@@ -1682,7 +1795,6 @@ new HTTitleTab(testApp)
                                    "</Theme>" + Environment.NewLine;
                 HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Blue.ktf", newTheme, Encoding.UTF8);
             }
-
 
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Green.ktf"))
             {
@@ -1762,24 +1874,46 @@ new HTTitleTab(testApp)
                                    "</Theme>" + Environment.NewLine;
                 HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot DodgerBlue.ktf", newTheme, Encoding.UTF8);
             }
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Avocado.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Avocado</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#9ed99c</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Avocado.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Teal.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Teal</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#008080</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Teal.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Yellow.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Yellow</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#ffff00</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Yellow.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Orange.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Orange</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#ff8000</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Orange.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brown.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Brown</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#A0522D</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brown.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Leather.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Leather</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#D2691E</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Leather.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Gold.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Gold</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#DAA520</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Gold.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Creme.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Creme</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#FFF8DC</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Creme.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Purple.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Purple</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#4d004d</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Purple.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Raspberry.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Raspberry</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#ff99ff</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Raspberry.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Lavender.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Lavender</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#800080</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Lavender.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Fuchsia.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Fuchsia</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#ff00ff</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Fuchsia.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Pink.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Pink</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#ff4dff</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Pink.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brick.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Brick</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#A52A2A</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brick.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot DarkBlue.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot DarkBlue</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#000066</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot DarkBlue.ktf", newTheme, Encoding.UTF8);}
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Sea.ktf")){    string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine +    "<Name>Korot Sea</Name>" + Environment.NewLine +     "<Author>Haltroy</Author>" + Environment.NewLine +     "<Version>1.0.0.0</Version>" + Environment.NewLine +     "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine +     "<BackColor>#4da6ff</BackColor>" + Environment.NewLine +     "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine +     "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine +     "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine +     "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine +     "</Theme>" + Environment.NewLine;HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Sea.ktf", newTheme, Encoding.UTF8);}
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Avocado.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Avocado</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#9ed99c</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Avocado.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Teal.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Teal</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#008080</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Teal.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Yellow.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Yellow</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#ffff00</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Yellow.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Orange.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Orange</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#ff8000</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Orange.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brown.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Brown</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#A0522D</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brown.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Leather.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Leather</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#D2691E</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Leather.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Gold.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Gold</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#DAA520</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Gold.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Creme.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Creme</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#FFF8DC</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Creme.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Purple.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Purple</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#4d004d</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Purple.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Raspberry.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Raspberry</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#ff99ff</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Raspberry.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Lavender.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Lavender</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#800080</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Lavender.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Fuchsia.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Fuchsia</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#ff00ff</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Fuchsia.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Pink.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Pink</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#ff4dff</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Pink.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brick.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Brick</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#A52A2A</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Brick.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot DarkBlue.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot DarkBlue</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#000066</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot DarkBlue.ktf", newTheme, Encoding.UTF8); }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Sea.ktf")) { string newTheme = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>" + Environment.NewLine + "<Theme>" + Environment.NewLine + "<Name>Korot Sea</Name>" + Environment.NewLine + "<Author>Haltroy</Author>" + Environment.NewLine + "<Version>1.0.0.0</Version>" + Environment.NewLine + "<UseHaltroyUpdate>false</UseHaltroyUpdate>" + Environment.NewLine + "<BackColor>#4da6ff</BackColor>" + Environment.NewLine + "<OverlayColor>#1e90ff</OverlayColor>" + Environment.NewLine + "<NewTabButtonColor>2</NewTabButtonColor>" + Environment.NewLine + "<CloseButtonColor>2</CloseButtonColor>" + Environment.NewLine + "<BackgroundStyle Layout=\"0\">BACKCOLOR</BackgroundStyle>" + Environment.NewLine + "</Theme>" + Environment.NewLine; HTAlt.Tools.WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Sea.ktf", newTheme, Encoding.UTF8); }
             return true;
         }
+
+        public static long GetDirectorySize(string p)
+        {
+            // 1.
+            // Get array of all file names.
+            string[] a = Directory.GetFiles(p, "*.*");
+
+            // 2.
+            // Calculate total bytes of all files in a loop.
+            long b = 0;
+            foreach (string name in a)
+            {
+                // 3.
+                // Use FileInfo to get length of each file.
+                FileInfo info = new FileInfo(name);
+                b += info.Length;
+            }
+            // 4.
+            // Return total size
+            return b;
+        }
+
         public static bool isNonRedirectKorotPage(string Url)
         {
             return (Url.ToLower().StartsWith("korot://newtab")
@@ -1787,6 +1921,7 @@ new HTTitleTab(testApp)
                 || Url.ToLower().StartsWith("korot://license")
                 || Url.ToLower().StartsWith("korot://incognito"));
         }
+
         public static bool createFolders()
         {
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\"); }
@@ -1798,12 +1933,14 @@ new HTTitleTab(testApp)
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Scripts\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Scripts\\"); }
             return true;
         }
+
         public static bool ValidHttpURL(string s)
         {
             string Pattern = @"^((http(s)?|korot|file|pop|smtp|ftp|chrome|about):(\/\/)?)|(^([\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$))|(.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4})";
             Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return Rgx.IsMatch(s);
         }
+
         public static bool FixDefaultLanguage()
         {
             if (!Directory.Exists(Application.StartupPath + "\\Lang\\"))
@@ -1811,12 +1948,14 @@ new HTTitleTab(testApp)
                 Directory.CreateDirectory(Application.StartupPath + "\\Lang\\");
             }
             HTAlt.Tools.WriteFile(Application.StartupPath + "\\Lang\\English.klf", Properties.Resources.English);
+            Tools.WriteFile(Application.StartupPath + "\\Lang\\Türkçe.klf", Properties.Resources.Türkçe);
             return true;
         }
+
         public static void Copy(string sourceDirectory, string targetDirectory)
         {
-            var diSource = new DirectoryInfo(sourceDirectory);
-            var diTarget = new DirectoryInfo(targetDirectory);
+            DirectoryInfo diSource = new DirectoryInfo(sourceDirectory);
+            DirectoryInfo diTarget = new DirectoryInfo(targetDirectory);
 
             CopyAll(diSource, diTarget);
         }
@@ -1841,9 +1980,13 @@ new HTTitleTab(testApp)
             }
         }
     }
+
     public class KorotVersion
     {
-        public KorotVersion() : this("<HaltroyUpdate><AppName>Korot</AppName><AppVersion>" + Application.ProductVersion.ToString() + "</AppVersion><AppVersionNo>" + VersionInfo.VersionNumber + "</AppVersionNo><MinimumNo>48</MinimumNo><InstallNo>47</InstallNo><AppInstallerUrl>http://bit.ly/KorotSetup</AppInstallerUrl><Architectures><Architecture Type=\"amd64\" VersionNo=\"" + VersionInfo.VersionNumber + "\" Upgrade=\"korot://empty\" FullUpgrade=\"korot://empty\" /><Architecture Type=\"i86\" VersionNo=\"" + VersionInfo.VersionNumber + "\" Upgrade=\"korot://empty\" FullUpgrade=\"korot://empty\" /></Architectures></HaltroyUpdate>") { }
+        public KorotVersion() : this("<HaltroyUpdate><AppName>Korot</AppName><AppVersion>" + Application.ProductVersion.ToString() + "</AppVersion><AppVersionNo>" + VersionInfo.VersionNumber + "</AppVersionNo><MinimumNo>48</MinimumNo><InstallNo>47</InstallNo><AppInstallerUrl>http://bit.ly/KorotSetup</AppInstallerUrl><Architectures><Architecture Type=\"amd64\" VersionNo=\"" + VersionInfo.VersionNumber + "\" Upgrade=\"korot://empty\" FullUpgrade=\"korot://empty\" /><Architecture Type=\"i86\" VersionNo=\"" + VersionInfo.VersionNumber + "\" Upgrade=\"korot://empty\" FullUpgrade=\"korot://empty\" /></Architectures></HaltroyUpdate>")
+        {
+        }
+
         public KorotVersion(string XMLCode)
         {
             XmlDocument doc = new XmlDocument();
@@ -1864,21 +2007,27 @@ new HTTitleTab(testApp)
                         case "AppName":
                             AppName = node.InnerText;
                             break;
+
                         case "AppVersion":
                             Version = node.InnerText;
                             break;
+
                         case "AppVersionNo":
                             VersionNumber = Convert.ToInt32(node.InnerText);
                             break;
+
                         case "MinimumNo":
                             UpdateMinVer = Convert.ToInt32(node.InnerText);
                             break;
+
                         case "InstallNo":
                             InstallVer = Convert.ToInt32(node.InnerText);
                             break;
+
                         case "AppInstallerUrl":
                             InstallerUrl = node.InnerText;
                             break;
+
                         case "Architectures":
                             {
                                 foreach (XmlNode subnode in node.ChildNodes)
@@ -1909,6 +2058,7 @@ new HTTitleTab(testApp)
                 Archs.Add(new Architecture() { Type = Environment.Is64BitProcess ? "amd64" : "i86", VersionNo = VersionNumber, FullUpdate = "korot://empty", Update = "korot://empty" });
             }
         }
+
         public List<Architecture> Archs { get; set; }
         public string AppName { get; set; }
         public string Version { get; set; }
@@ -1916,6 +2066,7 @@ new HTTitleTab(testApp)
         public int UpdateMinVer { get; set; }
         public int InstallVer { get; set; }
         public string InstallerUrl { get; set; }
+
         public enum UpdateType
         {
             UpToDate,
@@ -1956,6 +2107,7 @@ new HTTitleTab(testApp)
                 throw new NullReferenceException("version was null.");
             }
         }
+
         public KorotVersion WhicIsNew(KorotVersion version, string Arch)
         {
             if (version != null && !string.IsNullOrWhiteSpace(Arch))
@@ -1987,6 +2139,7 @@ new HTTitleTab(testApp)
                 throw new ArgumentException("version or Arch is empty or null.");
             }
         }
+
         public KorotVersion WhicIsNew(KorotVersion version)
         {
             if (version != null)
@@ -2002,13 +2155,743 @@ new HTTitleTab(testApp)
                 throw new ArgumentException("version was null.");
             }
         }
+
         public class Architecture
         {
             public string Type { get; set; }
             public string FullUpdate { get; set; }
             public string Update { get; set; }
             public int VersionNo { get; set; }
-
         }
+    }
+
+    public class SessionSystem
+    {
+        public SessionSystem(string XMLCode)
+        {
+            if (!string.IsNullOrWhiteSpace(XMLCode))
+            {
+                XmlDocument document = new XmlDocument();
+                document.LoadXml(XMLCode);
+                XmlNode workNode = document.FirstChild;
+                if (document.FirstChild.Name.ToLower() == "xml") { workNode = document.FirstChild.NextSibling; }
+                if (workNode.Attributes["Index"] != null)
+                {
+                    int si = Convert.ToInt32(workNode.Attributes["Index"].Value);
+                    foreach (XmlNode node in workNode.ChildNodes)
+                    {
+                        if (node.Name.ToLower() == "sessionsite")
+                        {
+                            if (node.Attributes["Url"] != null && node.Attributes["Title"] != null)
+                            {
+                                Sessions.Add(new Session(node.Attributes["Url"].Value, node.Attributes["Tİtle"].Value));
+                            }
+                        }
+                    }
+                    SelectedIndex = si;
+                    SelectedSession = Sessions[si];
+                }
+            }
+        }
+
+        public SessionSystem() : this("")
+        {
+        }
+
+        private List<Session> _Sessions = new List<Session>();
+
+        public string XmlOut()
+        {
+            string x = "<Session Index=\"" + SelectedIndex + "\" >" + Environment.NewLine;
+            for (int i = 0; i < Sessions.Count; i++)
+            {
+                x += "<SessionSite Url=\"" + Sessions[i].Url + "\" Title=\"" + Sessions[i].Title + "\" >" + Environment.NewLine;
+            }
+            return x + "</Session>";
+        }
+
+        public List<Session> Sessions
+        {
+            get => _Sessions;
+            set => _Sessions = value;
+        }
+
+        public bool SkipAdd = false;
+
+        public void GoBack(ChromiumWebBrowser browser)
+        {
+            if (CanGoBack())
+            {
+                SkipAdd = true;
+                SelectedIndex -= 1;
+                SelectedSession = Sessions[SelectedIndex];
+                browser.Invoke(new Action(() => browser.Load(SelectedSession.Url)));
+            }
+        }
+
+        public void GoForward(ChromiumWebBrowser browser)
+        {
+            if (CanGoForward())
+            {
+                SkipAdd = true;
+                SelectedIndex += 1;
+                SelectedSession = Sessions[SelectedIndex];
+                browser.Invoke(new Action(() => browser.Load(SelectedSession.Url)));
+            }
+        }
+
+        public Session SessionInIndex(int Index)
+        {
+            return Sessions[Index];
+        }
+
+        public Session SelectedSession { get; set; }
+        public int SelectedIndex { get; set; }
+
+        public void MoveTo(int i, ChromiumWebBrowser browser)
+        {
+            if (browser is null)
+            {
+                throw new ArgumentNullException("\"browser\" was null");
+            }
+            if (i >= 0 && i < Sessions.Count)
+            {
+                SkipAdd = true;
+                SelectedIndex = i;
+                SelectedSession = Sessions[i];
+                browser.Load(SelectedSession.Url);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("\"i\" was bigger than Sessions.Count or smaller than 0. [i=\"" + i + "\" Count=\"" + Sessions.Count + "\"]");
+            }
+        }
+
+        public void Add(string url, string title)
+        {
+            Add(new Session(url, title));
+        }
+
+        public void Add(Session Session)
+        {
+            if (Session is null)
+            {
+                throw new ArgumentNullException("\"Session\" was null.");
+            }
+            if (Session.Url.ToLower().StartsWith("korot") && (!KorotTools.isNonRedirectKorotPage(Session.Url)))
+            {
+                return;
+            }
+            if (SkipAdd) { SkipAdd = false; return; }
+            if (CanGoForward() && SelectedIndex + 1 < Sessions.Count)
+            {
+                if (!Session.Equals(Sessions[SelectedIndex]))
+                {
+                    Console.WriteLine("Session Not Equal: 1:" + Session.Url + " 2:" + Sessions[SelectedIndex].Url);
+                    Session[] RemoveThese = After();
+                    for (int i = 0; i < RemoveThese.Length; i++)
+                    {
+                        Sessions.Remove(RemoveThese[i]);
+                    }
+                    if (Sessions.Count > 0)
+                    {
+                        if (Sessions[Sessions.Count - 1].Url != Session.Url)
+                        {
+                            Sessions.Add(Session);
+                        }
+                    }
+                    else
+                    {
+                        Sessions.Add(Session);
+                    }
+                }
+            }
+            else
+            {
+                if (Sessions.Count > 0)
+                {
+                    if (Sessions[Sessions.Count - 1].Url != Session.Url)
+                    {
+                        Sessions.Add(Session);
+                    }
+                }
+                else
+                {
+                    Sessions.Add(Session);
+                }
+            }
+            if (Sessions.Count > 0)
+            {
+                if (Sessions[Sessions.Count - 1].Url != Session.Url)
+                {
+                    SelectedSession = Session;
+                    SelectedIndex = Sessions.IndexOf(Session);
+                }
+                else
+                {
+                    SelectedSession = Sessions[Sessions.Count - 1];
+                    SelectedIndex = Sessions.Count - 1;
+                }
+            }
+            else
+            {
+                Sessions.Add(Session);
+            }
+        }
+
+        public bool CanGoBack()
+        {
+            return CanGoBack(SelectedSession);
+        }
+
+        public bool CanGoBack(Session Session)
+        {
+            if (Session is null)
+            {
+                return false;
+            }
+            if (!Sessions.Contains(Session))
+            {
+                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
+            }
+            int current = Sessions.IndexOf(Session);
+            return current > 0;
+        }
+
+        public bool CanGoForward()
+        {
+            return CanGoForward(SelectedSession);
+        }
+
+        public bool CanGoForward(Session Session)
+        {
+            if (Session is null)
+            {
+                return false;
+            }
+            if (!Sessions.Contains(Session))
+            {
+                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
+            }
+
+            int current = Sessions.IndexOf(Session) + 1;
+            return current < Sessions.Count;
+        }
+
+        public Session[] Before()
+        {
+            return Before(SelectedSession);
+        }
+
+        public Session[] Before(Session Session)
+        {
+            if (Session is null)
+            {
+                return new Session[] { };
+            }
+            if (!Sessions.Contains(Session))
+            {
+                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
+            }
+            int current = Sessions.IndexOf(Session);
+            List<Session> fs = new List<Session>();
+            for (int i = 0; i < current; i++)
+            {
+                fs.Add(Sessions[i]);
+            }
+            return fs.ToArray();
+        }
+
+        public Session[] After()
+        {
+            return After(SelectedSession);
+        }
+
+        public Session[] After(Session Session)
+        {
+            if (Session is null)
+            {
+                return new Session[] { };
+            }
+            if (!Sessions.Contains(Session))
+            {
+                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
+            }
+            int current = Sessions.IndexOf(Session) + 1;
+            List<Session> fs = new List<Session>();
+            for (int i = current; i < Sessions.Count; i++)
+            {
+                fs.Add(Sessions[i]);
+            }
+            return fs.ToArray();
+        }
+    }
+
+    public class Session
+    {
+        public override bool Equals(object obj)
+        {
+            return obj is Session session && Url == session.Url;
+        }
+
+        public override int GetHashCode()
+        {
+            return -1915121810 + EqualityComparer<string>.Default.GetHashCode(Url);
+        }
+
+        public Session(string _Url, string _Title)
+        {
+            Url = _Url;
+            Title = _Title;
+        }
+
+        public Session() : this("", "")
+        {
+        }
+
+        public Session(string _Url) : this(_Url, _Url)
+        {
+        }
+
+        public string Url { get; set; }
+        public string Title { get; set; }
+    }
+
+    public class AutoCleaner
+    {
+        public AutoCleaner(string XMLCode)
+        {
+            //Defaults
+            CleanCache = false;
+            CleanDownloads = false;
+            CleanHistory = false;
+            CleanLogs = false;
+            CleanCacheFile = false;
+            CacheFileSize = 5;
+            CleanCacheDaily = false;
+            CleanCacheDay = 30;
+            LatestCacheCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+            CleanHistoryDaily = false;
+            CleanHistoryDay = 30;
+            CleanHistoryFile = false;
+            HistoryFileSize = 5;
+            CleanOldHistory = false;
+            OldHistoryDay = 30;
+            LatestHistoryCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+            CleanLogsDaily = false;
+            CleanLogsDay = 30;
+            CleanLogsFile = false;
+            LogsFileSize = 5;
+            CleanOldLogs = false;
+            OldLogsDay = 30;
+            LatestLogsCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+            CleanDownloadsDaily = false;
+            CleanDownloadsDay = 30;
+            CleanDownloadsFile = false;
+            DownloadsFileSize = 5;
+            CleanOldDownloads = false;
+            OldDownloadsDay = 30;
+            LatestDownloadsCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+            //Load XML
+            if (!string.IsNullOrWhiteSpace(XMLCode))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(XMLCode);
+                foreach (XmlNode node in doc.FirstChild.ChildNodes)
+                {
+                    if (node.Name == "Cache")
+                    {
+                        if (node.Attributes["Clean"] != null && node.Attributes["FileSize"] != null && node.Attributes["Size"] != null && node.Attributes["Daily"] != null && node.Attributes["Day"] != null && node.Attributes["Latest"] != null)
+                        {
+                            CleanCache = node.Attributes["Clean"].Value == "true";
+                            CleanCacheFile = node.Attributes["FileSize"].Value == "true";
+                            CacheFileSize = Convert.ToInt32(node.Attributes["Size"].Value);
+                            CleanCacheDaily = node.Attributes["Daily"].Value == "true";
+                            CleanCacheDay = Convert.ToInt32(node.Attributes["Day"].Value);
+                            LatestCacheCleanup = node.Attributes["Latest"].Value;
+                        }
+                    }
+                    else if (node.Name == "Logs")
+                    {
+                        if (node.Attributes["Clean"] != null && node.Attributes["FileSize"] != null && node.Attributes["Size"] != null && node.Attributes["Daily"] != null && node.Attributes["Day"] != null && node.Attributes["Latest"] != null && node.Attributes["Old"] != null && node.Attributes["OldDay"] != null)
+                        {
+                            CleanLogs = node.Attributes["Clean"].Value == "true";
+                            CleanLogsFile = node.Attributes["FileSize"].Value == "true";
+                            LogsFileSize = Convert.ToInt32(node.Attributes["Size"].Value);
+                            CleanLogsDaily = node.Attributes["Daily"].Value == "true";
+                            CleanLogsDay = Convert.ToInt32(node.Attributes["Day"].Value);
+                            CleanOldLogs = node.Attributes["Old"].Value == "true";
+                            OldLogsDay = Convert.ToInt32(node.Attributes["OldDays"].Value);
+                            LatestLogsCleanup = node.Attributes["Latest"].Value;
+                        }
+                    }
+                    else if (node.Name == "History")
+                    {
+                        if (node.Attributes["Clean"] != null && node.Attributes["FileSize"] != null && node.Attributes["Size"] != null && node.Attributes["Daily"] != null && node.Attributes["Day"] != null && node.Attributes["Latest"] != null && node.Attributes["Old"] != null && node.Attributes["OldDay"] != null)
+                        {
+                            CleanHistory = node.Attributes["Clean"].Value == "true";
+                            CleanHistoryFile = node.Attributes["FileSize"].Value == "true";
+                            HistoryFileSize = Convert.ToInt32(node.Attributes["Size"].Value);
+                            CleanHistoryDaily = node.Attributes["Daily"].Value == "true";
+                            CleanHistoryDay = Convert.ToInt32(node.Attributes["Day"].Value);
+                            CleanOldHistory = node.Attributes["Old"].Value == "true";
+                            OldHistoryDay = Convert.ToInt32(node.Attributes["OldDays"].Value);
+                            LatestHistoryCleanup = node.Attributes["Latest"].Value;
+                        }
+                    }
+                    else if (node.Name == "Downloads")
+                    {
+                        if (node.Attributes["Clean"] != null && node.Attributes["FileSize"] != null && node.Attributes["Size"] != null && node.Attributes["Daily"] != null && node.Attributes["Day"] != null && node.Attributes["Latest"] != null && node.Attributes["Old"] != null && node.Attributes["OldDay"] != null)
+                        {
+                            CleanDownloads = node.Attributes["Clean"].Value == "true";
+                            CleanDownloadsFile = node.Attributes["FileSize"].Value == "true";
+                            DownloadsFileSize = Convert.ToInt32(node.Attributes["Size"].Value);
+                            CleanDownloadsDaily = node.Attributes["Daily"].Value == "true";
+                            CleanDownloadsDay = Convert.ToInt32(node.Attributes["Day"].Value);
+                            CleanOldDownloads = node.Attributes["Old"].Value == "true";
+                            OldDownloadsDay = Convert.ToInt32(node.Attributes["OldDays"].Value);
+                            LatestDownloadsCleanup = node.Attributes["Latest"].Value;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void LoadFromXML(string XMLCode)
+        {
+            //Defaults
+            CleanCache = false;
+            CleanDownloads = false;
+            CleanHistory = false;
+            CleanLogs = false;
+            CleanCacheFile = false;
+            CacheFileSize = 5;
+            CleanCacheDaily = false;
+            CleanCacheDay = 30;
+            LatestCacheCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+            CleanHistoryDaily = false;
+            CleanHistoryDay = 30;
+            CleanHistoryFile = false;
+            HistoryFileSize = 5;
+            CleanOldHistory = false;
+            OldHistoryDay = 30;
+            LatestHistoryCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+            CleanLogsDaily = false;
+            CleanLogsDay = 30;
+            CleanLogsFile = false;
+            LogsFileSize = 5;
+            CleanOldLogs = false;
+            OldLogsDay = 30;
+            LatestLogsCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+            CleanDownloadsDaily = false;
+            CleanDownloadsDay = 30;
+            CleanDownloadsFile = false;
+            DownloadsFileSize = 5;
+            CleanOldDownloads = false;
+            OldDownloadsDay = 30;
+            LatestDownloadsCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+            //Load XML
+            if (!string.IsNullOrWhiteSpace(XMLCode))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(XMLCode);
+                foreach (XmlNode node in doc.FirstChild.ChildNodes)
+                {
+                    if (node.Name == "Cache")
+                    {
+                        if (node.Attributes["Clean"] != null && node.Attributes["FileSize"] != null && node.Attributes["Size"] != null && node.Attributes["Daily"] != null && node.Attributes["Day"] != null && node.Attributes["Latest"] != null)
+                        {
+                            CleanCache = node.Attributes["Clean"].Value == "true";
+                            CleanCacheFile = node.Attributes["FileSize"].Value == "true";
+                            CacheFileSize = Convert.ToInt32(node.Attributes["Size"].Value);
+                            CleanCacheDaily = node.Attributes["Daily"].Value == "true";
+                            CleanCacheDay = Convert.ToInt32(node.Attributes["Day"].Value);
+                            LatestCacheCleanup = node.Attributes["Latest"].Value;
+                        }
+                    }
+                    else if (node.Name == "Logs")
+                    {
+                        if (node.Attributes["Clean"] != null && node.Attributes["FileSize"] != null && node.Attributes["Size"] != null && node.Attributes["Daily"] != null && node.Attributes["Day"] != null && node.Attributes["Latest"] != null && node.Attributes["Old"] != null && node.Attributes["OldDay"] != null)
+                        {
+                            CleanLogs = node.Attributes["Clean"].Value == "true";
+                            CleanLogsFile = node.Attributes["FileSize"].Value == "true";
+                            LogsFileSize = Convert.ToInt32(node.Attributes["Size"].Value);
+                            CleanLogsDaily = node.Attributes["Daily"].Value == "true";
+                            CleanLogsDay = Convert.ToInt32(node.Attributes["Day"].Value);
+                            CleanOldLogs = node.Attributes["Old"].Value == "true";
+                            OldLogsDay = Convert.ToInt32(node.Attributes["OldDays"].Value);
+                            LatestLogsCleanup = node.Attributes["Latest"].Value;
+                        }
+                    }
+                    else if (node.Name == "History")
+                    {
+                        if (node.Attributes["Clean"] != null && node.Attributes["FileSize"] != null && node.Attributes["Size"] != null && node.Attributes["Daily"] != null && node.Attributes["Day"] != null && node.Attributes["Latest"] != null && node.Attributes["Old"] != null && node.Attributes["OldDay"] != null)
+                        {
+                            CleanHistory = node.Attributes["Clean"].Value == "true";
+                            CleanHistoryFile = node.Attributes["FileSize"].Value == "true";
+                            HistoryFileSize = Convert.ToInt32(node.Attributes["Size"].Value);
+                            CleanHistoryDaily = node.Attributes["Daily"].Value == "true";
+                            CleanHistoryDay = Convert.ToInt32(node.Attributes["Day"].Value);
+                            CleanOldHistory = node.Attributes["Old"].Value == "true";
+                            OldHistoryDay = Convert.ToInt32(node.Attributes["OldDays"].Value);
+                            LatestHistoryCleanup = node.Attributes["Latest"].Value;
+                        }
+                    }
+                    else if (node.Name == "Downloads")
+                    {
+                        if (node.Attributes["Clean"] != null && node.Attributes["FileSize"] != null && node.Attributes["Size"] != null && node.Attributes["Daily"] != null && node.Attributes["Day"] != null && node.Attributes["Latest"] != null && node.Attributes["Old"] != null && node.Attributes["OldDay"] != null)
+                        {
+                            CleanDownloads = node.Attributes["Clean"].Value == "true";
+                            CleanDownloadsFile = node.Attributes["FileSize"].Value == "true";
+                            DownloadsFileSize = Convert.ToInt32(node.Attributes["Size"].Value);
+                            CleanDownloadsDaily = node.Attributes["Daily"].Value == "true";
+                            CleanDownloadsDay = Convert.ToInt32(node.Attributes["Day"].Value);
+                            CleanOldDownloads = node.Attributes["Old"].Value == "true";
+                            OldDownloadsDay = Convert.ToInt32(node.Attributes["OldDays"].Value);
+                            LatestDownloadsCleanup = node.Attributes["Latest"].Value;
+                        }
+                    }
+                }
+            }
+        }
+
+        public string XMLOut()
+        {
+            return "<AutoUpdate>" + Environment.NewLine +
+                "<Cache Clean=\"" + (CleanCache ? "true" : "false") + "\" FileSize=\"" + (CleanCacheFile ? "true" : "false") + "\" Size=\"" + CacheFileSize + "\" Daily=\"" + (CleanCacheDaily ? "true" : "false") + "\" Day=\"" + CleanCacheDay + "\" Latest=\"" + LatestCacheCleanup + "\" />" + Environment.NewLine +
+                "<History Clean=\"" + (CleanHistory ? "true" : "false") + "\" FileSize=\"" + (CleanHistoryFile ? "true" : "false") + "\" Size=\"" + HistoryFileSize + "\" Daily=\"" + (CleanHistoryDaily ? "true" : "false") + "\" Day=\"" + CleanHistoryDay + "\" Latest=\"" + LatestHistoryCleanup + "\" Old=\"" + (CleanOldHistory ? "true" : "false") + "\" OldDay=\"" + OldHistoryDay + "\" />" + Environment.NewLine +
+                "<Downloads Clean=\"" + (CleanDownloads ? "true" : "false") + "\" FileSize=\"" + (CleanDownloadsFile ? "true" : "false") + "\" Size=\"" + DownloadsFileSize + "\" Daily=\"" + (CleanDownloadsDaily ? "true" : "false") + "\" Day=\"" + CleanDownloadsDay + "\" Latest=\"" + LatestDownloadsCleanup + "\" Old=\"" + (CleanOldDownloads ? "true" : "false") + "\" OldDay=\"" + OldDownloadsDay + "\" />" + Environment.NewLine +
+                "<Logs Clean=\"" + (CleanLogs ? "true" : "false") + "\" FileSize=\"" + (CleanLogsFile ? "true" : "false") + "\" Size=\"" + LogsFileSize + "\" Daily=\"" + (CleanLogsDaily ? "true" : "false") + "\" Day=\"" + CleanLogsDay + "\" Latest=\"" + LatestLogsCleanup + "\" Old=\"" + (CleanOldLogs ? "true" : "false") + "\" OldDay=\"" + OldLogsDay + "\" />" + Environment.NewLine +
+                "</AutoUpdate>";
+        }
+
+        public Settings Settings;
+        private readonly string DirPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\";
+        public bool CleanCache { get; set; }
+        public bool CleanDownloads { get; set; }
+        public bool CleanHistory { get; set; }
+        public bool CleanLogs { get; set; }
+
+        public void DoForceCleanup()
+        {
+            Directory.Delete(DirPath + "cache\\", true);
+            LatestCacheCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+            string[] files = Directory.GetFiles(DirPath + "Logs\\", "*.txt", SearchOption.TopDirectoryOnly);
+            for (int i = 0; i < files.Length; i++)
+            {
+                if (LogsSiteIsOld(files[i])) { File.Delete(files[i]); }
+            }
+            LatestLogsCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+            for (int i = 0; i < Settings.Downloads.Downloads.Count; i++)
+            {
+                if (DownloadsSiteIsOld(Settings.Downloads.Downloads[i])) { Settings.Downloads.Downloads.Remove((Settings.Downloads.Downloads[i])); }
+            }
+            LatestDownloadsCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+            for (int i = 0; i < Settings.History.Count; i++)
+            {
+                if (HistorySiteIsOld(Settings.History[i])) { Settings.History.Remove((Settings.History[i])); }
+            }
+            LatestHistoryCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+        }
+
+        public void DoCleanup()
+        {
+            if (CleanCache)
+            {
+                if (CleanCacheFile)
+                {
+                    if (KorotTools.GetDirectorySize(DirPath + "cache\\") > (CacheFileSize * 1048576))
+                    {
+                        Directory.Delete(DirPath + "cache\\", true);
+                        LatestCacheCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+                    }
+                }
+                if (CacheCleanToday)
+                {
+                    Directory.Delete(DirPath + "cache\\", true);
+                    LatestCacheCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+                }
+            }
+            if (CleanLogs)
+            {
+                if (CleanLogsFile)
+                {
+                    if (KorotTools.GetDirectorySize(DirPath + "Logs\\") > (LogsFileSize * 1048576))
+                    {
+                        string[] files = Directory.GetFiles(DirPath + "Logs\\", "*.txt", SearchOption.TopDirectoryOnly);
+                        for (int i = 0; i < files.Length; i++)
+                        {
+                            if (LogsSiteIsOld(files[i])) { File.Delete(files[i]); }
+                        }
+                        LatestLogsCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+                    }
+                }
+                if (LogsCleanToday)
+                {
+                    string[] files = Directory.GetFiles(DirPath + "Logs\\", "*.txt", SearchOption.TopDirectoryOnly);
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        if (LogsSiteIsOld(files[i])) { File.Delete(files[i]); }
+                    }
+                    LatestLogsCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+                }
+            }
+            if (CleanDownloads)
+            {
+                if (CleanDownloadsFile)
+                {
+                    if (KorotTools.GetDirectorySize(DirPath + "Downloads\\") > (DownloadsFileSize * 1048576))
+                    {
+                        for (int i = 0; i < Settings.Downloads.Downloads.Count; i++)
+                        {
+                            if (DownloadsSiteIsOld(Settings.Downloads.Downloads[i])) { Settings.Downloads.Downloads.Remove((Settings.Downloads.Downloads[i])); }
+                        }
+                        LatestDownloadsCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+                    }
+                }
+                if (DownloadsCleanToday)
+                {
+                    for (int i = 0; i < Settings.Downloads.Downloads.Count; i++)
+                    {
+                        if (DownloadsSiteIsOld(Settings.Downloads.Downloads[i])) { Settings.Downloads.Downloads.Remove((Settings.Downloads.Downloads[i])); }
+                    }
+                    LatestDownloadsCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+                }
+            }
+            if (CleanHistory)
+            {
+                if (CleanHistoryFile)
+                {
+                    if (KorotTools.GetDirectorySize(DirPath + "History\\") > (HistoryFileSize * 1048576))
+                    {
+                        for (int i = 0; i < Settings.History.Count; i++)
+                        {
+                            if (HistorySiteIsOld(Settings.History[i])) { Settings.History.Remove((Settings.History[i])); }
+                        }
+                        LatestHistoryCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+                    }
+                }
+                if (HistoryCleanToday)
+                {
+                    for (int i = 0; i < Settings.History.Count; i++)
+                    {
+                        if (HistorySiteIsOld(Settings.History[i])) { Settings.History.Remove((Settings.History[i])); }
+                    }
+                    LatestHistoryCleanup = DateTime.Now.ToString("dd/MM/yyyy");
+                }
+            }
+        }
+
+        #region Cache
+
+        public bool CleanCacheFile { get; set; }
+        public int CacheFileSize { get; set; }
+        public bool CleanCacheDaily { get; set; }
+        public int CleanCacheDay { get; set; }
+        public string LatestCacheCleanup { get; set; }
+
+        public string NextCacheCleanup
+        {
+            get
+            {
+                DateTime.TryParseExact(LatestCacheCleanup, "dd/MM/yy", null, System.Globalization.DateTimeStyles.None, out DateTime latest);
+                latest = latest.AddDays(CleanCacheDay);
+                return latest.ToString("dd/MM/yy");
+            }
+        }
+
+        public bool CacheCleanToday => (DateTime.Now.ToString("dd/MM/yy") == NextCacheCleanup) && CleanCache && CleanCacheDaily;
+
+        #endregion Cache
+
+        #region History
+
+        public bool CleanHistoryFile { get; set; }
+        public int HistoryFileSize { get; set; }
+        public bool CleanHistoryDaily { get; set; }
+        public int CleanHistoryDay { get; set; }
+        public string LatestHistoryCleanup { get; set; }
+        public bool CleanOldHistory { get; set; }
+        public int OldHistoryDay { get; set; }
+
+        public bool HistorySiteIsOld(Site Site)
+        {
+            DateTime.TryParseExact(Site.Date, "dd/MM/yy HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out DateTime sitedate);
+            return DateTime.Now < sitedate.AddDays(CleanOldHistory ? OldHistoryDay : 0);
+        }
+
+        public string NextHistoryCleanup
+        {
+            get
+            {
+                DateTime.TryParseExact(LatestHistoryCleanup, "dd/MM/yy", null, System.Globalization.DateTimeStyles.None, out DateTime latest);
+                latest = latest.AddDays(CleanHistoryDay);
+                return latest.ToString("dd/MM/yy");
+            }
+        }
+
+        public bool HistoryCleanToday => (DateTime.Now.ToString("dd/MM/yy") == NextHistoryCleanup) && CleanHistory;
+
+        #endregion History
+
+        #region Downloads
+
+        public bool CleanDownloadsFile { get; set; }
+        public int DownloadsFileSize { get; set; }
+        public bool CleanDownloadsDaily { get; set; }
+        public int CleanDownloadsDay { get; set; }
+        public string LatestDownloadsCleanup { get; set; }
+        public bool CleanOldDownloads { get; set; }
+        public int OldDownloadsDay { get; set; }
+
+        public bool DownloadsSiteIsOld(Site Site)
+        {
+            DateTime.TryParseExact(Site.Date, "dd/MM/yy HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out DateTime sitedate);
+            return DateTime.Now < sitedate.AddDays(CleanOldDownloads ? OldDownloadsDay : 0);
+        }
+
+        public string NextDownloadsCleanup
+        {
+            get
+            {
+                DateTime.TryParseExact(LatestDownloadsCleanup, "dd/MM/yy", null, System.Globalization.DateTimeStyles.None, out DateTime latest);
+                latest = latest.AddDays(CleanDownloadsDay);
+                return latest.ToString("dd/MM/yy");
+            }
+        }
+
+        public bool DownloadsCleanToday => (DateTime.Now.ToString("dd/MM/yy") == NextDownloadsCleanup) && CleanDownloads;
+
+        #endregion Downloads
+
+        #region Logs
+
+        public bool CleanLogsFile { get; set; }
+        public int LogsFileSize { get; set; }
+        public bool CleanLogsDaily { get; set; }
+        public int CleanLogsDay { get; set; }
+        public string LatestLogsCleanup { get; set; }
+        public bool CleanOldLogs { get; set; }
+        public int OldLogsDay { get; set; }
+
+        public bool LogsSiteIsOld(string FileName)
+        {
+            DateTime.TryParseExact(Path.GetFileNameWithoutExtension(FileName), "yyyy-MM-dd-HH-mm-ss", null, System.Globalization.DateTimeStyles.None, out DateTime sitedate);
+            return DateTime.Now < sitedate.AddDays(OldLogsDay * -1);
+        }
+
+        public string NextLogsCleanup
+        {
+            get
+            {
+                DateTime.TryParseExact(LatestLogsCleanup, "dd/MM/yy", null, System.Globalization.DateTimeStyles.None, out DateTime latest);
+                latest = latest.AddDays(CleanOldLogs ? OldLogsDay : 0);
+                return latest.ToString("dd/MM/yy");
+            }
+        }
+
+        public bool LogsCleanToday => (DateTime.Now.ToString("dd/MM/yy") == NextLogsCleanup) && CleanLogs;
+
+        #endregion Logs
     }
 }

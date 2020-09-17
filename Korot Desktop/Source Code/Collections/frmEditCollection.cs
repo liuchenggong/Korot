@@ -30,6 +30,7 @@ namespace Korot
         private readonly frmCEF cefform;
         private readonly Control editItem;
         private readonly frmCollection colman;
+
         public frmEditCollection(frmCEF _cefform, frmCollection _colman, Control item)
         {
             cefform = _cefform;
@@ -79,6 +80,7 @@ namespace Korot
             }
             RefreshTranslations();
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             isOK = true;
@@ -159,6 +161,7 @@ namespace Korot
         }
 
         private bool isOK = false;
+
         private void frmEditCollection_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (isOK)
@@ -291,7 +294,6 @@ namespace Korot
             nudW.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;
             nudH.BackColor = BackColor2;
             nudH.ForeColor = cefform.Settings.NinjaMode ? cefform.Settings.Theme.BackColor : cefform.Settings.Theme.ForeColor;
-
         }
 
         private void RefreshTranslations()

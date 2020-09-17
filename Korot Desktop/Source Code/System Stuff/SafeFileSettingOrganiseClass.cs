@@ -2,12 +2,12 @@
 using System.IO;
 using System.Text;
 
-
 namespace Korot
 {
     internal class SafeFileSettingOrganizedClass
     {
         public static string GetUserFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\";
+
         public static string LastUser
         {
             get
@@ -24,6 +24,7 @@ namespace Korot
             }
             set => HTAlt.Tools.WriteFile(GetUserFolder + "LASTUSER.SFSOC", value, Encoding.UTF8);
         }
+
         public static string LastSession
         {
             get
@@ -40,6 +41,7 @@ namespace Korot
             }
             set => HTAlt.Tools.WriteFile(GetUserFolder + "LASTSESSION.SFSOC", value, Encoding.UTF8);
         }
+
         public static string[] ErrorMenu
         {
             get

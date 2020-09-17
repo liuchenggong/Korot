@@ -7,6 +7,7 @@ namespace Korot
     public partial class frmPrivacy : Form
     {
         private readonly frmCEF cefform;
+
         public frmPrivacy(frmCEF _frmCEF)
         {
             cefform = _frmCEF;

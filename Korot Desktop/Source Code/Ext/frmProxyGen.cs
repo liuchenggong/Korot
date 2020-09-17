@@ -60,6 +60,7 @@ namespace Korot
                 listView1.SelectedItems[0].SubItems[1].Text = tbIP.Text;
             }
         }
+
         private string buildProxyFile
         {
             get
@@ -84,9 +85,9 @@ namespace Korot
             DialogResult res = dialog.ShowDialog();
             if (res == DialogResult.OK)
             {
-
             }
         }
+
         private void LoadKPF(string kpfloc)
         {
             // Read the file
@@ -102,7 +103,7 @@ namespace Korot
             // Make sure that this is an extension manifest.
             if (document.FirstChild.Name.ToLower() != "korotextension.proxylist") { return; }
             // This is the part where hell starts. Looking at this code for a small amount
-            // of time might cause turning skin to red, puking blood and hair loss. 
+            // of time might cause turning skin to red, puking blood and hair loss.
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
                 if (node.Name.ToLower() == "proxy")
@@ -122,6 +123,7 @@ namespace Korot
                 }
             }
         }
+
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             listView1.Items.Clear();
@@ -142,6 +144,7 @@ namespace Korot
                 HTAlt.Tools.WriteFile(dialog.FileName, buildProxyFile, Encoding.UTF8);
             }
         }
+
         public string savelocation = "";
         public string safelocation = "";
 

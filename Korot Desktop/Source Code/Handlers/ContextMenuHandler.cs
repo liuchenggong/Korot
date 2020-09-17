@@ -32,8 +32,14 @@ namespace Korot
     internal class ContextMenuHandler : IContextMenuHandler
     {
         private readonly frmCEF ActiveForm;
-        public ContextMenuHandler(frmCEF activeform) { ActiveForm = activeform; }
+
+        public ContextMenuHandler(frmCEF activeform)
+        {
+            ActiveForm = activeform;
+        }
+
         #region "CMS Designer"
+
         private void InitializeCMSComponent()
         {
             cmsCef = new System.Windows.Forms.ContextMenuStrip();
@@ -71,9 +77,9 @@ namespace Korot
             copyImageAddressTSMI = new System.Windows.Forms.ToolStripMenuItem();
             saveLinkAsTSMI = new System.Windows.Forms.ToolStripMenuItem();
             cmsCef.SuspendLayout();
-            // 
+            //
             // cmsCef
-            // 
+            //
             cmsCef.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             backToolStripMenuItem,
             forwardToolStripMenuItem,
@@ -109,143 +115,143 @@ namespace Korot
             cmsCef.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             cmsCef.ShowImageMargin = false;
             cmsCef.Size = new System.Drawing.Size(241, 484);
-            // 
+            //
             // backToolStripMenuItem
-            // 
+            //
             backToolStripMenuItem.Name = "backToolStripMenuItem";
             backToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             backToolStripMenuItem.Text = ActiveForm.anaform.goBack;
             backToolStripMenuItem.Click += new System.EventHandler(backToolStripMenuItem_Click);
-            // 
+            //
             // forwardToolStripMenuItem
-            // 
+            //
             forwardToolStripMenuItem.Name = "forwardToolStripMenuItem";
             forwardToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             forwardToolStripMenuItem.Text = ActiveForm.anaform.goForward;
             forwardToolStripMenuItem.Click += new System.EventHandler(forwardToolStripMenuItem_Click);
-            // 
+            //
             // extensionsTSMI
-            // 
+            //
             extensionsTSMI.Name = "extensionsTSMI";
             extensionsTSMI.Size = new System.Drawing.Size(240, 22);
             extensionsTSMI.Text = ActiveForm.anaform.Extensions;
             extensionsTSMI.Image = HTAlt.Tools.IsBright(ActiveForm.anaform.Settings.Theme.BackColor) ? Properties.Resources.ext : Properties.Resources.ext_w;
-            // 
+            //
             // refreshToolStripMenuItem
-            // 
+            //
             refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             refreshToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             refreshToolStripMenuItem.Text = ActiveForm.anaform.refresh;
             refreshToolStripMenuItem.Click += new System.EventHandler(refreshToolStripMenuItem_Click);
-            // 
+            //
             // refreshNoCacheToolStripMenuItem
-            // 
+            //
             refreshNoCacheToolStripMenuItem.Name = "refreshNoCacheToolStripMenuItem";
             refreshNoCacheToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             refreshNoCacheToolStripMenuItem.Text = ActiveForm.anaform.refreshNoCache;
             refreshNoCacheToolStripMenuItem.Click += new System.EventHandler(refreshNoCacheToolStripMenuItem_Click);
-            // 
+            //
             // stopToolStripMenuItem
-            // 
+            //
             stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             stopToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             stopToolStripMenuItem.Text = ActiveForm.anaform.stop;
             stopToolStripMenuItem.Click += new System.EventHandler(stopToolStripMenuItem_Click);
-            // 
+            //
             // selectAllToolStripMenuItem
-            // 
+            //
             selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
             selectAllToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             selectAllToolStripMenuItem.Text = ActiveForm.anaform.selectAll;
             selectAllToolStripMenuItem.Click += new System.EventHandler(selectAllToolStripMenuItem_Click);
-            // 
+            //
             // addToCollection
-            // 
+            //
             addToCollection.Name = "addToCollection";
             addToCollection.DropDown.Items.AddRange(new ToolStripItem[] { tsSepCol, newCollection });
             addToCollection.Size = new System.Drawing.Size(240, 22);
             addToCollection.Text = ActiveForm.anaform.addToCollection;
-            // 
+            //
             // tsEmptyCol
-            // 
+            //
             tsEmptyCol.Enabled = false;
             tsEmptyCol.Name = "tsEmptyCol";
             tsEmptyCol.Size = new System.Drawing.Size(240, 22);
             tsEmptyCol.Text = ActiveForm.anaform.empty;
-            // 
+            //
             // newCollection
-            // 
+            //
             newCollection.Name = "newCollection";
             newCollection.Size = new System.Drawing.Size(240, 22);
             newCollection.Text = ActiveForm.anaform.newCollection;
             newCollection.Click += new System.EventHandler(newCollection_Click);
-            // 
+            //
             // tsSep1
-            // 
+            //
             tsSep1.Name = "tsSep1";
             tsSep1.Size = new System.Drawing.Size(237, 6);
-            // 
+            //
             // tsSepCol
-            // 
+            //
             tsSepCol.Name = "tsSepCol";
             tsSepCol.Size = new System.Drawing.Size(237, 6);
-            // 
+            //
             // openLinkInNewTabToolStripMenuItem
-            // 
+            //
             openLinkInNewTabToolStripMenuItem.Name = "openLinkInNewTabToolStripMenuItem";
             openLinkInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             openLinkInNewTabToolStripMenuItem.Text = ActiveForm.anaform.openLinkInNewTab;
             openLinkInNewTabToolStripMenuItem.Click += new System.EventHandler(openLinkInNewTabToolStripMenuItem_Click);
-            // 
+            //
             // copyLinkAddressToolStripMenuItem
-            // 
+            //
             copyLinkAddressToolStripMenuItem.Name = "copyLinkAddressToolStripMenuItem";
             copyLinkAddressToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             copyLinkAddressToolStripMenuItem.Text = ActiveForm.anaform.copyLink;
             copyLinkAddressToolStripMenuItem.Click += new System.EventHandler(copyLinkAddressToolStripMenuItem_Click);
-            // 
+            //
             // openImageInNewTabToolStripMenuItem
-            // 
+            //
             openImageInNewTabToolStripMenuItem.Name = "openImageInNewTabToolStripMenuItem";
             openImageInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             openImageInNewTabToolStripMenuItem.Text = ActiveForm.anaform.openImageInNewTab;
             openImageInNewTabToolStripMenuItem.Click += new System.EventHandler(openImageInNewTabToolStripMenuItem_Click);
-            // 
+            //
             // saveImageAsToolStripMenuItem
-            // 
+            //
             saveImageAsToolStripMenuItem.Name = "saveImageAsToolStripMenuItem";
             saveImageAsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             saveImageAsToolStripMenuItem.Text = ActiveForm.anaform.saveImageAs;
             saveImageAsToolStripMenuItem.Click += new System.EventHandler(saveImageAsToolStripMenuItem_Click);
-            // 
+            //
             // tsSep2
-            // 
+            //
             tsSep2.Name = "tsSep2";
             tsSep2.Size = new System.Drawing.Size(237, 6);
-            // 
+            //
             // pasteToolStripMenuItem
-            // 
+            //
             pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             pasteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             pasteToolStripMenuItem.Text = ActiveForm.anaform.paste;
             pasteToolStripMenuItem.Click += new System.EventHandler(pasteToolStripMenuItem_Click);
-            // 
+            //
             // cutToolStripMenuItem
-            // 
+            //
             cutToolStripMenuItem.Name = "cutToolStripMenuItem";
             cutToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             cutToolStripMenuItem.Text = ActiveForm.anaform.cut;
             cutToolStripMenuItem.Click += new System.EventHandler(cutToolStripMenuItem_Click);
-            // 
+            //
             // saveLinkAsTSMI
-            // 
+            //
             saveLinkAsTSMI.Name = "saveLinkAsTSMI";
             saveLinkAsTSMI.Size = new System.Drawing.Size(240, 22);
             saveLinkAsTSMI.Text = ActiveForm.anaform.saveLinkAs;
             saveLinkAsTSMI.Click += new System.EventHandler(saveLinkAs);
             //
             // copyImageTSMI
-            // 
+            //
             copyImageTSMI.Name = "copyImageTSMI";
             copyImageTSMI.Size = new System.Drawing.Size(240, 22);
             copyImageTSMI.Text = ActiveForm.anaform.copyImage;
@@ -271,63 +277,63 @@ namespace Korot
             openLinkINAIWTSMI.Size = new System.Drawing.Size(240, 22);
             openLinkINAIWTSMI.Text = ActiveForm.anaform.openLinkInNewIncWindow;
             openLinkINAIWTSMI.Click += new System.EventHandler(openLinkInANewIncognitoWindow);
-            // 
+            //
             // copyToolStripMenuItem
-            // 
+            //
             copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             copyToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             copyToolStripMenuItem.Text = ActiveForm.anaform.copy;
             copyToolStripMenuItem.Click += new System.EventHandler(copyToolStripMenuItem_Click);
-            // 
+            //
             // undoToolStripMenuItem
-            // 
+            //
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             undoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             undoToolStripMenuItem.Text = ActiveForm.anaform.undo;
             undoToolStripMenuItem.Click += new System.EventHandler(undoToolStripMenuItem_Click);
-            // 
+            //
             // redoToolStripMenuItem
-            // 
+            //
             redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             redoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             redoToolStripMenuItem.Text = ActiveForm.anaform.redo;
             redoToolStripMenuItem.Click += new System.EventHandler(redoToolStripMenuItem_Click);
-            // 
+            //
             // deleteToolStripMenuItem
-            // 
+            //
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             deleteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             deleteToolStripMenuItem.Text = ActiveForm.anaform.delete;
             deleteToolStripMenuItem.Click += new System.EventHandler(deleteToolStripMenuItem_Click);
-            // 
+            //
             // searchOrOpenSelectedInNewTabToolStripMenuItem
-            // 
+            //
             searchOrOpenSelectedInNewTabToolStripMenuItem.Name = "searchOrOpenSelectedInNewTabToolStripMenuItem";
             searchOrOpenSelectedInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             searchOrOpenSelectedInNewTabToolStripMenuItem.Text = ActiveForm.anaform.SearchOrOpenSelectedInNewTab;
             searchOrOpenSelectedInNewTabToolStripMenuItem.Click += new System.EventHandler(seacrhOrOpenSelectedInNewTabToolStripMenuItem_Click);
-            // 
+            //
             // tsSep3
-            // 
+            //
             tsSep3.Name = "tsSep3";
             tsSep3.Size = new System.Drawing.Size(237, 6);
-            // 
+            //
             // printToolStripMenuItem
-            // 
+            //
             printToolStripMenuItem.Name = "printToolStripMenuItem";
             printToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             printToolStripMenuItem.Text = ActiveForm.anaform.print;
             printToolStripMenuItem.Click += new System.EventHandler(printToolStripMenuItem_Click);
-            // 
+            //
             // showDevToolsToolStripMenuItem
-            // 
+            //
             showDevToolsToolStripMenuItem.Name = "showDevToolsToolStripMenuItem";
             showDevToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             showDevToolsToolStripMenuItem.Text = ActiveForm.anaform.developerTools;
             showDevToolsToolStripMenuItem.Click += new System.EventHandler(showDevToolsToolStripMenuItem_Click);
-            // 
+            //
             // viewSourceToolsToolStripMenuItem
-            // 
+            //
             viewSourceToolsToolStripMenuItem.Name = "viewSourceToolsToolStripMenuItem";
             viewSourceToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             viewSourceToolsToolStripMenuItem.Text = ActiveForm.anaform.viewSource;
@@ -339,6 +345,7 @@ namespace Korot
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
         }
+
         public System.Windows.Forms.ContextMenuStrip cmsCef;
         public System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem forwardToolStripMenuItem;
@@ -373,8 +380,11 @@ namespace Korot
         public System.Windows.Forms.ToolStripSeparator tsSep1;
         public System.Windows.Forms.ToolStripSeparator tsSep2;
         public System.Windows.Forms.ToolStripSeparator tsSep3;
-        #endregion
+
+        #endregion "CMS Designer"
+
         #region "CMS"
+
         private void extitem_Click(object sender, EventArgs e)
         {
             if (sender == null) { return; }
@@ -383,6 +393,7 @@ namespace Korot
             RightClickOption rco = item.Tag as RightClickOption;
             chromiumWebBrowser1.ExecuteScriptAsyncWhenPageLoaded(HTAlt.Tools.ReadFile(rco.Script, Encoding.UTF8), true);
         }
+
         private void RefreshRCO()
         {
             extensionsTSMI.DropDownItems.Clear();
@@ -444,6 +455,7 @@ namespace Korot
                 extensionsTSMI.DropDown.Items.Add(empty);
             }
         }
+
         private void item_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
@@ -514,6 +526,7 @@ namespace Korot
             addToCollection.DropDown.Items.Add(tsSepCol);
             addToCollection.DropDown.Items.Add(newCollection);
         }
+
         public void showCMS(string link, string source, string selected, bool hasimage, bool editable, IWebBrowser cwb)
         {
             InitializeCMSComponent();
@@ -560,6 +573,7 @@ namespace Korot
             cmsCef.BringToFront();
             ActiveForm.cmsCEF = cmsCef;
         }
+
         public IWebBrowser chromiumWebBrowser1;
         public string LinkURL = "";
         public bool hasImageContents = false;
@@ -567,6 +581,7 @@ namespace Korot
         public bool isEditable = false;
         public string SelectedText = "";
         public ContextMenuStrip currentCMS;
+
         private void NewTab(string url)
         {
             ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(url)));
@@ -576,6 +591,7 @@ namespace Korot
         {
             ActiveForm.Invoke(new Action(() => ActiveForm.CreateNewCollection()));
         }
+
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             chromiumWebBrowser1.Paste();
@@ -585,10 +601,12 @@ namespace Korot
         {
             chromiumWebBrowser1.Cut();
         }
+
         private void openLinkInANewWindow(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(LinkURL)) { Process.Start(Application.ExecutablePath, LinkURL); }
         }
+
         private void openLinkInANewIncognitoWindow(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(LinkURL)) { Process.Start(Application.ExecutablePath, "-incognito \"" + LinkURL + "\""); }
@@ -598,14 +616,17 @@ namespace Korot
         {
             if (!string.IsNullOrWhiteSpace(SourceURL)) { Clipboard.SetImage(HTAlt.Tools.GetImageFromUrl(SourceURL)); }
         }
+
         private void copyImageAddress(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(SourceURL)) { Clipboard.SetText(SourceURL); }
         }
+
         private void saveLinkAs(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(LinkURL)) { chromiumWebBrowser1.GetBrowserHost().StartDownload(LinkURL); }
         }
+
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             chromiumWebBrowser1.Copy();
@@ -695,10 +716,11 @@ namespace Korot
         {
             ActiveForm.Invoke(new Action(() => ActiveForm.button3_Click(sender, e)));
         }
-        #endregion
+
+        #endregion "CMS"
+
         public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
         {
-
             if (!parameters.IsPepperMenu)
             {
                 model.Clear();
@@ -710,7 +732,6 @@ namespace Korot
                         browserControl);
             }
         }
-
 
         public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags)
         {

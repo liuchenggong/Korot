@@ -10,6 +10,7 @@ namespace Korot
     public partial class frmProfile : Form
     {
         private readonly frmCEF cefform;
+
         public frmProfile(frmCEF _frmCEF)
         {
             cefform = _frmCEF;
@@ -21,6 +22,7 @@ namespace Korot
         {
             Hide();
         }
+
         private void RefreshProfiles()
         {
             contextMenuStrip1.Items.Clear();
@@ -118,6 +120,7 @@ namespace Korot
                 ZipFile.CreateFromDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\", fileDialog.FileName, CompressionLevel.Optimal, true, Encoding.UTF8);
             }
         }
+
         private void Profile_Click(object sender, EventArgs e)
         {
             ProfileManagement.SwitchProfile(((ToolStripMenuItem)sender).Text, cefform);
@@ -142,6 +145,7 @@ namespace Korot
         {
             contextMenuStrip1.Show(lbSwitch, 0, 0);
         }
+
         private void NewProfilePic()
         {
             OpenFileDialog filedialog = new OpenFileDialog

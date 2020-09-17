@@ -52,9 +52,9 @@ namespace Korot
         {
             _frmCEF = FrmCEF;
         }
+
         public bool OnPreKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut)
         {
-
             _frmCEF.Invoke(new Action(() => _frmCEF.isControlKeyPressed = ((modifiers == CefEventFlags.ControlDown) || windowsKeyCode == VK_CONTROL)));
             if (windowsKeyCode == VK_BROWSER_BACK)
             {
@@ -172,8 +172,8 @@ namespace Korot
                 return true;
             }
             else { isKeyboardShortcut = false; return false; }
-
         }
+
         public bool OnKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey)
         {
             if ((windowsKeyCode == keyF && modifiers == CefEventFlags.ControlDown)

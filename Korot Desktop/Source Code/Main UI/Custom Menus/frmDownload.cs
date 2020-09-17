@@ -20,25 +20,32 @@ namespace Korot
         }
 
         private readonly frmCEF cefecik;
+
         public frmDownload(frmCEF cefcik)
         {
             cefecik = cefcik;
             InitializeComponent();
         }
+
         public Image GetStatusImage(DownloadStatus? status)
         {
             switch (status)
             {
                 case DownloadStatus.Cancelled:
                     return Properties.Resources.cancelled;
+
                 case DownloadStatus.Downloaded:
                     return Properties.Resources.downloaded;
+
                 case DownloadStatus.Error:
                     return Properties.Resources.error;
+
                 case DownloadStatus.None:
                     return Properties.Resources.unknown;
+
                 case DownloadStatus.Downloading:
                     return Properties.Resources.downloading;
+
                 default:
                     return Properties.Resources.unknown;
             }
@@ -46,6 +53,7 @@ namespace Korot
 
         private readonly List<Panel> panelList = new List<Panel>();
         private readonly List<HTProgressBar> pbList = new List<HTProgressBar>();
+
         public void RefreshList()
         {
             List<DownloadItemSiteHybrid> dishList = new List<DownloadItemSiteHybrid>();
@@ -83,9 +91,9 @@ namespace Korot
                 Label label6 = new System.Windows.Forms.Label();
                 HTProgressBar htProgressBar1 = new HTAlt.WinForms.HTProgressBar();
                 panel2.SuspendLayout();
-                // 
+                //
                 // panel2
-                // 
+                //
                 panel2.Controls.Add(lbTarih);
                 panel2.Controls.Add(label4);
                 panel2.Controls.Add(label5);
@@ -98,9 +106,9 @@ namespace Korot
                 panel2.Size = new System.Drawing.Size(Width, x.IsSite ? 85 : 95);
                 panel2.Tag = x;
                 panel2.Click += Item_Click;
-                // 
+                //
                 // lbTarih
-                // 
+                //
                 lbTarih.AutoSize = true;
                 lbTarih.Dock = System.Windows.Forms.DockStyle.Bottom;
                 lbTarih.Font = new System.Drawing.Font("Ubuntu", 8F);
@@ -110,9 +118,9 @@ namespace Korot
                 lbTarih.Tag = x;
                 lbTarih.Click += Item_Click;
                 lbTarih.Text = "       " + cefecik.GetDateInfo(x.IsSite ? DateTime.ParseExact(x.Site.Date, cefecik.DateFormat, null) : DateTime.Now);
-                // 
+                //
                 // label4
-                // 
+                //
                 label4.AutoSize = true;
                 label4.Dock = System.Windows.Forms.DockStyle.Bottom;
                 label4.Font = new System.Drawing.Font("Ubuntu", 15F);
@@ -124,9 +132,9 @@ namespace Korot
                 label4.Click += ItemText_Click;
                 if (!x.IsSite)
                 {
-                    // 
+                    //
                     // htProgressBar1
-                    // 
+                    //
                     htProgressBar1.BorderThickness = 1;
                     htProgressBar1.DrawBorder = true;
                     htProgressBar1.BorderColor = HTAlt.Tools.AutoWhiteBlack(BackColor);
@@ -138,9 +146,9 @@ namespace Korot
                     htProgressBar1.Tag = x;
                     x.ProgressBar = htProgressBar1;
                 }
-                // 
+                //
                 // label5
-                // 
+                //
                 label5.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
                 label5.AutoSize = true;
                 label5.Font = new System.Drawing.Font("Ubuntu", 12F);
@@ -148,9 +156,9 @@ namespace Korot
                 label5.Click += lbClose_Click;
                 label5.Tag = x;
                 label5.Text = "X";
-                // 
+                //
                 // label6
-                // 
+                //
                 label6.AutoSize = true;
                 label6.Dock = System.Windows.Forms.DockStyle.Bottom;
                 label6.Location = new System.Drawing.Point(5, 67);
@@ -215,6 +223,7 @@ namespace Korot
             panelList.Remove(panel);
             Controls.Remove(panel);
         }
+
         private void ItemUrl_Click(object sender, EventArgs e)
         {
             Label lb = sender as Label;
@@ -227,6 +236,7 @@ namespace Korot
 
         private readonly List<DownloadItemSiteHybrid> selectedDISHes = new List<DownloadItemSiteHybrid>();
         private readonly List<Panel> selectedPanels = new List<Panel>();
+
         private void Item_Click(object sender, EventArgs e)
         {
             Control cntrl = sender as Control;
@@ -262,6 +272,7 @@ namespace Korot
         }
 
         private bool rsMode = false;
+
         private void htButton1_Click(object sender, EventArgs e)
         {
             if (rsMode)
@@ -300,11 +311,14 @@ namespace Korot
                 selectedDISHes.Clear();
             }
         }
+
         private bool didLostFocus = false;
+
         private void frmHistory_Leave(object sender, EventArgs e)
         {
             didLostFocus = true;
         }
+
         private void frmHistory_Enter(object sender, EventArgs e)
         {
             if (didLostFocus)

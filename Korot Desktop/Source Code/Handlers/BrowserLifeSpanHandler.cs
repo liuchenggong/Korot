@@ -29,10 +29,12 @@ namespace Korot
     public class BrowserLifeSpanHandler : ILifeSpanHandler
     {
         private readonly frmCEF tabform;
+
         public BrowserLifeSpanHandler(frmCEF tabf)
         {
             tabform = tabf;
         }
+
         public bool OnBeforePopup(IWebBrowser browserControl, IBrowser browser, IFrame frame, string targetUrl, string targetFrameName,
             WindowOpenDisposition targetDisposition, bool userGesture, IPopupFeatures popupFeatures, IWindowInfo windowInfo,
             IBrowserSettings browserSettings, ref bool noJavascriptAccess, out IWebBrowser newBrowser)

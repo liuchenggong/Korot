@@ -26,16 +26,11 @@ using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -45,22 +40,17 @@ namespace Korot
 {
     public partial class frmCEF : Form
     {
-        public frmBlock blockmenu;
+        public frmSettings setmenu;
         public frmHamburger hammenu;
         public frmProfile profmenu;
         public frmIncognito incognitomenu;
         public frmPrivacy privmenu;
         public string DateFormat = "dd/MM/yy HH:mm:ss";
-        public frmSites siteman;
-        public frmDownload dowman;
-        public frmHistory hisman;
         public Settings Settings;
-        private frmCollection ColMan;
         public bool closing;
         public ContextMenuStrip cmsCEF = null;
-        private int updateProgress = 0;
         private bool isLoading = false;
-        private string loaduri = null;
+        private readonly string loaduri = null;
         public bool _Incognito = false;
         public string userName;
         public string profilePath;
@@ -71,19 +61,24 @@ namespace Korot
         private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
         private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
         public bool NotificationListenerMode = false;
-        private frmMain _anaform;
+        private readonly frmMain _anaform;
         private frmMain _parentform => ((frmMain)ParentTabs);
-        public frmMain anaform { 
+
+        public frmMain anaform
+        {
             get
             {
                 if (_parentform is null)
                 {
                     return _anaform;
-                }else { return _parentform; }
-            }  
+                }
+                else { return _parentform; }
+            }
         }
+
         public bool noProfilePic = true;
         public Image profilePic;
+
         public void RefreshProfilePic()
         {
             if (!File.Exists(profilePath + "img.png")) { noProfilePic = true; }
@@ -93,6 +88,7 @@ namespace Korot
                 profilePic = Image.FromStream(HTAlt.Tools.ReadFile(profilePath + "img.png"));
             }
         }
+
         public frmCEF(frmMain _aform, Settings settings, bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0", bool notifListenMode = false, string Session = "")
         {
             _anaform = _aform;
@@ -111,8 +107,8 @@ namespace Korot
             {
                 try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
-            Updater();
         }
+
         public void LoadDynamicMenu()
         {
             mFavorites.Items.Clear();
@@ -165,12 +161,12 @@ namespace Korot
 
                     mFavorites.Items.Add(menuItem);
                     GenerateMenusFromXML(folder, (ToolStripMenuItem)mFavorites.Items[mFavorites.Items.Count - 1]);
-
                 }
             }
             UpdateFavoriteColor();
             updateFavoritesImages();
         }
+
         private void GenerateMenusFromXML(Folder folder, ToolStripMenuItem menuItem)
         {
             ToolStripMenuItem item = null;
@@ -205,7 +201,6 @@ namespace Korot
                     }
                     menuItem.DropDownItems.Add(item);
 
-
                     // add an event handler to the menu item added
                     item.MouseUp += menuStrip1_MouseUp;
                 }
@@ -222,7 +217,6 @@ namespace Korot
                     favoritesFolders.Add(item);
                     menuItem.DropDownItems.Add(item);
                     GenerateMenusFromXML(subfolder, (ToolStripMenuItem)menuItem.DropDownItems[menuItem.DropDownItems.Count - 1]);
-
                 }
             }
         }
@@ -290,7 +284,9 @@ namespace Korot
                 SetProxyAddress(Settings.LastProxy);
             }
         }
+
         private bool startupScriptsExecuted = false;
+
         public void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
             if (e.Frame.IsMain && chromiumWebBrowser1.CanExecuteJavascriptInMainFrame)
@@ -316,6 +312,7 @@ namespace Korot
                 }
             }
         }
+
         public string getNotificationPermission(string url)
         {
             string x = HTAlt.Tools.GetBaseURL(url);
@@ -333,12 +330,14 @@ namespace Korot
                 return "denied";
             }
         }
+
         public void PushNewNotification(Notification notification)
         {
             frmNotification notifyForm = new frmNotification(this, notification);
             anaform.notifications.Add(notifyForm);
             notifyForm.Show();
         }
+
         public frmNotification getNotificationByID(string ID)
         {
             List<frmNotification> foundList = new List<frmNotification>();
@@ -351,6 +350,7 @@ namespace Korot
             }
             if (foundList.Count > 0) { return foundList[0]; } else { return null; }
         }
+
         public void requestNotificationPermission(string url)
         {
             Invoke(new Action(() =>
@@ -372,6 +372,7 @@ namespace Korot
                 }
             }));
         }
+
         private void OnIsBrowserInitializedChanged(object sender, EventArgs e)
         {
             //Get the underlying browser host wrapper
@@ -388,31 +389,28 @@ namespace Korot
 
         private void EditNewTabItem()
         {
-            if (anaform.newtabeditTab != null)
+            if (anaform.settingTab != null)
             {
-                anaform.SelectedTab = anaform.newtabeditTab;
+                anaform.SelectedTab = anaform.settingTab;
             }
             else
             {
-                if (InvokeRequired)
+                anaform.settingTab = ParentTab;
+                if (setmenu is null)
                 {
-                    Invoke(new Action(() =>
+                    setmenu = new frmSettings(Settings, this)
                     {
-                        resetPage(true);
-                        anaform.newtabeditTab = ParentTab;
-                        btNext.Enabled = true;
-                        allowSwitching = true;
-                        tabControl1.SelectedTab = tpNewTab;
-                    }));
+                        TopLevel = false,
+                        FormBorderStyle = FormBorderStyle.None,
+                        Dock = DockStyle.Fill,
+                        Visible = true,
+                        ShowInTaskbar = false,
+                    };
+                    tpSettings.Controls.Add(setmenu);
+                    setmenu.Show(); Settings.AllForms.Add(setmenu);
                 }
-                else
-                {
-                    resetPage(true);
-                    anaform.newtabeditTab = ParentTab;
-                    btNext.Enabled = true;
-                    allowSwitching = true;
-                    tabControl1.SelectedTab = tpNewTab;
-                }
+                allowSwitching = true;
+                tabControl1.SelectedTab = tpSettings;
             }
         }
 
@@ -466,57 +464,29 @@ namespace Korot
                 }
             }
         }
+
         private void tabform_Load(object sender, EventArgs e)
         {
             timer1.Start();
+            LoadLangFromFile(Settings.LanguageSystem.LangFile);
             Uri testUri = new Uri("https://haltroy.com");
             Uri aUri = WebRequest.GetSystemWebProxy().GetProxy(testUri);
             if (aUri != testUri)
             {
                 defaultProxy = aUri.AbsoluteUri;
             }
-
-
             else
             {
                 if (Settings.RememberLastProxy && !string.IsNullOrWhiteSpace(Settings.LastProxy)) { SetProxyAddress(Settings.LastProxy); }
             }
-            if (File.Exists(Settings.Theme.ThemeFile))
-            {
-                comboBox1.Text = new FileInfo(Settings.Theme.ThemeFile).Name.Replace(".ktf", "");
-            }
-            else
-            {
-                comboBox1.Text = "";
-                Settings.Theme.Author = "";
-                Settings.Theme.Name = "";
-            }
-            tbHomepage.Text = Settings.Homepage;
-            tbSearchEngine.Text = Settings.SearchEngine;
-            if (Settings.Homepage == "korot://newtab") { rbNewTab.Enabled = true; }
-            pbBack.BackColor = Settings.Theme.BackColor;
-            pbForeColor.BackColor = Settings.Theme.ForeColor;
-            pbOverlay.BackColor = Settings.Theme.OverlayColor;
-            RefreshLangList();
-            refreshThemeList();
+
             ChangeTheme();
-            lbVersion.Text = Application.ProductVersion.ToString() + " " + "[" + VersionInfo.CodeName + "]" + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
+            Settings.UpdateFavList();
             RefreshFavorites();
             chromiumWebBrowser1.Select();
-            EasterEggs();
-            RefreshTranslation();
-            RefreshSizes();
             if (_Incognito)
             {
-                foreach (Control x in tpSettings.Controls)
-                {
-                    if (x != btClose || x != btClose2 || x != btClose6 || x != btClose7 || x != btClose9) { x.Enabled = false; }
-                }
-                btInstall.Enabled = false;
-                btUpdater.Enabled = false;
                 btProfile.Enabled = false;
-                cmsBStyle.Enabled = false;
-                cmsSearchEngine.Enabled = false;
                 btFav.Enabled = false;
                 removeSelectedTSMI.Enabled = false;
                 clearTSMI.Enabled = false;
@@ -588,34 +558,19 @@ namespace Korot
                     }
                 }
             }
-
         }
 
-        private void ListBox2_DoubleClick(object sender, EventArgs e)
-        {
-            if (listBox2.SelectedItem != null)
-            {
-                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", listBox2.SelectedItem.ToString() + Environment.NewLine + anaform.ThemeMessage, new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true }) { StartPosition = FormStartPosition.CenterParent, Yes = anaform.Yes, No = anaform.No, OK = anaform.OK, Cancel = anaform.Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
-                if (mesaj.ShowDialog() == DialogResult.Yes)
-                {
-                    LoadTheme(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + listBox2.SelectedItem.ToString());
-                    comboBox1.Text = listBox2.SelectedItem.ToString().Replace(".ktf", "");
-                }
-            }
-        }
         #region "Translate"
-
 
         public void LoadLangFromFile(string fileLocation)
         {
             if (Settings.LanguageSystem.LangFile != fileLocation) { Settings.LanguageSystem.ReadFromFile(fileLocation, true); }
             anaform.Reload = Settings.LanguageSystem.GetItemText("Reload");
             anaform.soundFiles = Settings.LanguageSystem.GetItemText("SoundFiles");
-            lbDefaultNotifSound.Text = Settings.LanguageSystem.GetItemText("UseDefaultSound");
-            lbForeColor.Text = Settings.LanguageSystem.GetItemText("ForeColor");
-            lbAutoSelect.Text = Settings.LanguageSystem.GetItemText("AutoForeColor");
-            lbNinja.Text = Settings.LanguageSystem.GetItemText("NinjaMode");
-            btThemeWizard.Text = Settings.LanguageSystem.GetItemText("ThemeWizardButton");
+            anaform.KorotUpToDate = Settings.LanguageSystem.GetItemText("KorotUpToDate");
+            anaform.KorotUpdating = Settings.LanguageSystem.GetItemText("KorotUpdating");
+            anaform.KorotUpdated = Settings.LanguageSystem.GetItemText("KorotUpdated");
+            anaform.CleanCacheMessage = Settings.LanguageSystem.GetItemText("AutoCleanMessage");
             anaform.Extensions = Settings.LanguageSystem.GetItemText("Extensions");
             anaform.editblockitem = Settings.LanguageSystem.GetItemText("EditBlockItem");
             anaform.addblockitem = Settings.LanguageSystem.GetItemText("AddBlockItem");
@@ -630,9 +585,7 @@ namespace Korot
             anaform.lv1info = Settings.LanguageSystem.GetItemText("LV1Info");
             anaform.lv2info = Settings.LanguageSystem.GetItemText("LV2Info");
             anaform.lv3info = Settings.LanguageSystem.GetItemText("LV3Info");
-            btBlocked.Text = Settings.LanguageSystem.GetItemText("BlockMenuButton");
-            tpBlock.Text = Settings.LanguageSystem.GetItemText("BlockMenuTitle");
-            lbBlockedSites.Text = Settings.LanguageSystem.GetItemText("BlockMenuTitle");
+
             anaform.ChangePicInfo = Settings.LanguageSystem.GetItemText("ChangePicInfo");
             anaform.ResetImage = Settings.LanguageSystem.GetItemText("ResetImage");
             anaform.SelectNewImage = Settings.LanguageSystem.GetItemText("SelectNewImage");
@@ -642,12 +595,7 @@ namespace Korot
             anaform.UnmuteThisTab = Settings.LanguageSystem.GetItemText("UnmuteThisTab");
             anaform.allowCookie = Settings.LanguageSystem.GetItemText("AllowCookie");
             anaform.NewTabEdit = Settings.LanguageSystem.GetItemText("NewTabEdit");
-            tpNewTab.Text = Settings.LanguageSystem.GetItemText("NewTabEditorTitle");
-            lbNewTabTitle.Text = Settings.LanguageSystem.GetItemText("NewTabEditorTitle");
-            lbNTTitle.Text = Settings.LanguageSystem.GetItemText("NewTabEditTitle");
-            lbNTUrl.Text = Settings.LanguageSystem.GetItemText("NewTabEditUrl");
-            btClear.Text = Settings.LanguageSystem.GetItemText("NewTabEditClear");
-            btNewTab.Text = Settings.LanguageSystem.GetItemText("NewTabEditButton");
+
             anaform.Clear = Settings.LanguageSystem.GetItemText("Clear");
             anaform.RemoveSelected = Settings.LanguageSystem.GetItemText("RemoveSelected");
             anaform.ImportProfile = Settings.LanguageSystem.GetItemText("ImportProfile");
@@ -657,23 +605,6 @@ namespace Korot
             anaform.ProfileFileInfo = Settings.LanguageSystem.GetItemText("ProfileFileInfo");
             string[] errormenu = new string[] { Settings.LanguageSystem.GetItemText("ErrorRestart"), Settings.LanguageSystem.GetItemText("ErrorDesc1"), Settings.LanguageSystem.GetItemText("ErrorDesc2"), Settings.LanguageSystem.GetItemText("ErrorTI") };
             SafeFileSettingOrganizedClass.ErrorMenu = errormenu;
-            btNotification.Text = Settings.LanguageSystem.GetItemText("NotificationSettingsButton");
-            lbNotifSetting.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
-            tpNotification.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
-            lbPlayNotifSound.Text = Settings.LanguageSystem.GetItemText("PlayNotificationSound");
-            lbSilentMode.Text = Settings.LanguageSystem.GetItemText("SilentMode");
-            lbSchedule.Text = Settings.LanguageSystem.GetItemText("ScheduleSilentMode");
-            scheduleFrom.Text = Settings.LanguageSystem.GetItemText("StartFrom");
-            scheduleTo.Text = Settings.LanguageSystem.GetItemText("EndAt");
-            lb24HType.Text = Settings.LanguageSystem.GetItemText("24HourInfo");
-            scheduleEvery.Text = Settings.LanguageSystem.GetItemText("Every");
-            lbSunday.Text = Settings.LanguageSystem.GetItemText("Su");
-            lbMonday.Text = Settings.LanguageSystem.GetItemText("M");
-            lbTuesday.Text = Settings.LanguageSystem.GetItemText("T");
-            lbWednesday.Text = Settings.LanguageSystem.GetItemText("W");
-            lbThursday.Text = Settings.LanguageSystem.GetItemText("Th");
-            lbFriday.Text = Settings.LanguageSystem.GetItemText("F");
-            lbSaturday.Text = Settings.LanguageSystem.GetItemText("S");
             anaform.notificationPermission = Settings.LanguageSystem.GetItemText("NotificationInfo");
             anaform.deny = Settings.LanguageSystem.GetItemText("Deny");
             anaform.allow = Settings.LanguageSystem.GetItemText("Allow");
@@ -724,22 +655,19 @@ namespace Korot
             anaform.image = Settings.LanguageSystem.GetItemText("CollectionItemImage");
             anaform.text = Settings.LanguageSystem.GetItemText("CollectionItemText");
             anaform.link = Settings.LanguageSystem.GetItemText("CollectionItemLink");
-            lbCollections.Text = Settings.LanguageSystem.GetItemText("Collections");
+
             anaform.Collections = Settings.LanguageSystem.GetItemText("Collections");
-            tpCert.Text = Settings.LanguageSystem.GetItemText("CertificateError");
-            tpAbout.Text = Settings.LanguageSystem.GetItemText("About");
+            anaform.CertificateError = Settings.LanguageSystem.GetItemText("CertificateError");
+
             anaform.AboutText = Settings.LanguageSystem.GetItemText("About");
             tpSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
             anaform.SettingsText = Settings.LanguageSystem.GetItemText("Settings");
-            tpSite.Text = Settings.LanguageSystem.GetItemText("SiteSettings");
-            tpCollection.Text = Settings.LanguageSystem.GetItemText("Collections");
-            tpDownload.Text = Settings.LanguageSystem.GetItemText("Downloads");
             anaform.DownloadsText = Settings.LanguageSystem.GetItemText("Downloads");
-            tpHistory.Text = Settings.LanguageSystem.GetItemText("History");
+
             anaform.HistoryText = Settings.LanguageSystem.GetItemText("History");
-            tpTheme.Text = Settings.LanguageSystem.GetItemText("Themes");
+
             anaform.ThemesText = Settings.LanguageSystem.GetItemText("Themes");
-            lbautoRestore.Text = Settings.LanguageSystem.GetItemText("RestoreOldSessions");
+
             anaform.ubuntuLicense = Settings.LanguageSystem.GetItemText("UbuntuFontLicense");
             anaform.updateTitleTheme = Settings.LanguageSystem.GetItemText("KorotThemeUpdater");
             anaform.updateTitleExt = Settings.LanguageSystem.GetItemText("KorotExtensionUpdater");
@@ -764,21 +692,6 @@ namespace Korot
             anaform.copyImageAddress = Settings.LanguageSystem.GetItemText("CopyImageAddress");
             anaform.saveLinkAs = Settings.LanguageSystem.GetItemText("SaveLinkAs");
             anaform.empty = Settings.LanguageSystem.GetItemText("Empty");
-            btCleanLog.Text = Settings.LanguageSystem.GetItemText("CleanLogData");
-            lbShowFavorites.Text = Settings.LanguageSystem.GetItemText("ShowFavoritesMenu");
-            lbNewTabColor.Text = Settings.LanguageSystem.GetItemText("NewTabButtonColor");
-            lbCloseColor.Text = Settings.LanguageSystem.GetItemText("CloseButtonColor");
-            rbNone.Text = Settings.LanguageSystem.GetItemText("None");
-            rbTile.Text = Settings.LanguageSystem.GetItemText("Tile");
-            rbCenter.Text = Settings.LanguageSystem.GetItemText("Center");
-            rbStretch.Text = Settings.LanguageSystem.GetItemText("Stretch");
-            rbZoom.Text = Settings.LanguageSystem.GetItemText("Zoom");
-            rbBackColor.Text = Settings.LanguageSystem.GetItemText("BackColor");
-            rbForeColor.Text = Settings.LanguageSystem.GetItemText("ForeColor");
-            rbOverlayColor.Text = Settings.LanguageSystem.GetItemText("OverlayColor2");
-            rbBackColor1.Text = Settings.LanguageSystem.GetItemText("BackColor");
-            rbForeColor1.Text = Settings.LanguageSystem.GetItemText("ForeColor");
-            rbOverlayColor1.Text = Settings.LanguageSystem.GetItemText("OverlayColor2");
             anaform.licenseTitle = Settings.LanguageSystem.GetItemText("TitleLicensesSpecialThanks");
             anaform.kLicense = Settings.LanguageSystem.GetItemText("KorotLicense");
             anaform.vsLicense = Settings.LanguageSystem.GetItemText("MSVS2019CLicense");
@@ -789,20 +702,13 @@ namespace Korot
             anaform.JSAlert = Settings.LanguageSystem.GetItemText("MessageDialog");
             anaform.JSConfirm = Settings.LanguageSystem.GetItemText("ConfirmDialog");
             anaform.selectAFolder = Settings.LanguageSystem.GetItemText("DownloadFolderInfo");
-            showNewTabPageToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ShowNewTabPage");
-            showHomepageToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ShowHomepage");
-            showAWebsiteToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("GoToURL");
-            lbDownloadFolder.Text = Settings.LanguageSystem.GetItemText("DownloadToFolder");
-            lbAutoDownload.Text = Settings.LanguageSystem.GetItemText("Auto-downloadFolder");
-            lbAtStartup.Text = Settings.LanguageSystem.GetItemText("AtStartup");
-            btReset.Text = Settings.LanguageSystem.GetItemText("ResetKorotButton");
+
             anaform.resetConfirm = Settings.LanguageSystem.GetItemText("ResetKorotInfo");
-            lbSiteSettings.Text = Settings.LanguageSystem.GetItemText("SiteSettings");
-            btCookie.Text = Settings.LanguageSystem.GetItemText("SiteSettingsButton");
+
             anaform.IncognitoModeTitle = Settings.LanguageSystem.GetItemText("IncognitoMode");
             anaform.IncognitoModeInfo = Settings.LanguageSystem.GetItemText("IncognitoModeInfo");
             anaform.LearnMore = Settings.LanguageSystem.GetItemText("ClickToLearnMore");
-            lbLastProxy.Text = Settings.LanguageSystem.GetItemText("RememberLastProxy");
+
             anaform.findC = Settings.LanguageSystem.GetItemText("Current");
             anaform.findT = Settings.LanguageSystem.GetItemText("Total");
             anaform.findL = Settings.LanguageSystem.GetItemText("Last");
@@ -825,19 +731,13 @@ namespace Korot
             anaform.IncognitoT2M2 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M2");
             anaform.IncognitoT2M3 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M3");
             anaform.disallowCookie = Settings.LanguageSystem.GetItemText("DisallowCookie");
-            lbBackImageStyle.Text = Settings.LanguageSystem.GetItemText("BackgroundImageLayout");
+
             anaform.imageFiles = Settings.LanguageSystem.GetItemText("ImageFiles");
             anaform.allFiles = Settings.LanguageSystem.GetItemText("AllFiles");
             anaform.selectBackImage = Settings.LanguageSystem.GetItemText("SelectBackgroundImage");
-            colorToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("UseBackgroundColor");
+
             anaform.usingBC = Settings.LanguageSystem.GetItemText("UsingBackgroundColor");
-            ımageFromURLToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImageFromBase64");
-            ımageFromLocalFileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImageFromFile");
-            lbDNT.Text = Settings.LanguageSystem.GetItemText("EnableDoNotTrack");
-            lbFlash.Text = Settings.LanguageSystem.GetItemText("EnableFlash");
-            lbFlashInfo.Text = Settings.LanguageSystem.GetItemText("FlashInfo");
-            llLicenses.Text = Settings.LanguageSystem.GetItemText("LicensesSpecialThanks");
-            lbSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
+
             anaform.CertErrorPageButton = Settings.LanguageSystem.GetItemText("UserUnderstandsRisks");
             anaform.CertErrorPageMessage = Settings.LanguageSystem.GetItemText("WebsiteNotSafeInfo");
             anaform.CertErrorPageTitle = Settings.LanguageSystem.GetItemText("WebsiteNotSafe");
@@ -851,28 +751,12 @@ namespace Korot
             anaform.CertificateOK = Settings.LanguageSystem.GetItemText("WebsiteNoErrors");
             anaform.ErrorTheme = Settings.LanguageSystem.GetItemText("ThemeFileCorrupted");
             anaform.ThemeMessage = Settings.LanguageSystem.GetItemText("ApplyThemeInfo");
-            btUpdater.Text = Settings.LanguageSystem.GetItemText("CheckForUpdates");
-            btInstall.Text = Settings.LanguageSystem.GetItemText("InstallUpdate");
+
             anaform.checking = Settings.LanguageSystem.GetItemText("CheckingForUpdates");
             anaform.uptodate = Settings.LanguageSystem.GetItemText("UpToDate");
             anaform.installStatus = Settings.LanguageSystem.GetItemText("UpdatingMessage");
             anaform.StatusType = Settings.LanguageSystem.GetItemText("DownloadProgress");
-            rbNewTab.Text = Settings.LanguageSystem.GetItemText("NewTab");
-            switch (updateProgress)
-            {
-                case 0:
-                    lbUpdateStatus.Text = Settings.LanguageSystem.GetItemText("CheckingForUpdates");
-                    break;
-                case 1:
-                    lbUpdateStatus.Text = Settings.LanguageSystem.GetItemText("UpToDate");
-                    break;
-                case 2:
-                    lbUpdateStatus.Text = Settings.LanguageSystem.GetItemText("UpdateAvailable");
-                    break;
-                case 3:
-                    lbUpdateStatus.Text = Settings.LanguageSystem.GetItemText("KorotUpdateError");
-                    break;
-            }
+
             anaform.updateavailable = Settings.LanguageSystem.GetItemText("UpdateAvailable"); ;
             anaform.privatemode = Settings.LanguageSystem.GetItemText("Incognito");
             anaform.updateTitle = Settings.LanguageSystem.GetItemText("KorotUpdate");
@@ -881,17 +765,14 @@ namespace Korot
             anaform.NewTabtitle = Settings.LanguageSystem.GetItemText("NewTab");
             anaform.customSearchNote = Settings.LanguageSystem.GetItemText("SearchEngineInfo");
             anaform.customSearchMessage = Settings.LanguageSystem.GetItemText("SearchengineTitle");
-            lbBackImage.Text = Settings.LanguageSystem.GetItemText("BackgroundStyle");
+
             anaform.newWindow = Settings.LanguageSystem.GetItemText("NewWindow");
             anaform.newincognitoWindow = Settings.LanguageSystem.GetItemText("NewIncognitoWindow");
-            lbDownloads.Text = Settings.LanguageSystem.GetItemText("Downloads");
-            lbHomepage.Text = Settings.LanguageSystem.GetItemText("HomePage");
+
             anaform.SearchOnPage = Settings.LanguageSystem.GetItemText("SearchOnThisPage");
-            lbTheme.Text = Settings.LanguageSystem.GetItemText("Themes");
-            customToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("Custom");
+
             anaform.settingstitle = Settings.LanguageSystem.GetItemText("Settings");
-            lbHistory.Text = Settings.LanguageSystem.GetItemText("History");
-            lbAbout.Text = Settings.LanguageSystem.GetItemText("About");
+
             anaform.IncognitoT = Settings.LanguageSystem.GetItemText("Incognito");
             anaform.IncognitoTitle = Settings.LanguageSystem.GetItemText("IncognitoInfoTitle");
             anaform.newCollection = Settings.LanguageSystem.GetItemText("NewCollectionName");
@@ -916,9 +797,9 @@ namespace Korot
             anaform.developerTools = Settings.LanguageSystem.GetItemText("DeveloperTools");
             anaform.viewSource = Settings.LanguageSystem.GetItemText("ViewSource");
             anaform.restoreOldSessions = Settings.LanguageSystem.GetItemText("RestoreLastSession");
-            lbBackColor.Text = Settings.LanguageSystem.GetItemText("BackgroundColor");
+
             anaform.enterAValidUrl = Settings.LanguageSystem.GetItemText("EnterAValidURL");
-            lbOveralColor.Text = Settings.LanguageSystem.GetItemText("OverlayColor");
+
             anaform.Month1 = Settings.LanguageSystem.GetItemText("Month1");
             anaform.Month2 = Settings.LanguageSystem.GetItemText("Month2");
             anaform.Month3 = Settings.LanguageSystem.GetItemText("Month3");
@@ -935,7 +816,7 @@ namespace Korot
             anaform.fromtwodot = Settings.LanguageSystem.GetItemText("From1");
             anaform.totwodot = Settings.LanguageSystem.GetItemText("To1");
             anaform.korotdownloading = Settings.LanguageSystem.GetItemText("KorotDownloading");
-            lbOpen.Text = Settings.LanguageSystem.GetItemText("OpenFilesAfterDownload");
+
             anaform.open = Settings.LanguageSystem.GetItemText("Open");
             anaform.openLinkInNewTab = Settings.LanguageSystem.GetItemText("OpenLinkInNewTab");
             removeSelectedTSMI.Text = Settings.LanguageSystem.GetItemText("RemoveSelected");
@@ -944,17 +825,16 @@ namespace Korot
             anaform.OpenFile = Settings.LanguageSystem.GetItemText("OpenFile");
             anaform.OpenFileInExplorert = Settings.LanguageSystem.GetItemText("OpenFolderContainingThisFile");
             anaform.ResetToDefaultProxy = Settings.LanguageSystem.GetItemText("ResetToFefaultProxySetting");
-            lbThemeName.Text = Settings.LanguageSystem.GetItemText("ThemeName");
+
             anaform.Yes = Settings.LanguageSystem.GetItemText("Yes");
             anaform.No = Settings.LanguageSystem.GetItemText("No");
             anaform.OK = Settings.LanguageSystem.GetItemText("OK");
             anaform.Cancel = Settings.LanguageSystem.GetItemText("Cancel");
-            btCertError.Text = Settings.LanguageSystem.GetItemText("Save");
-            lbThemes.Text = Settings.LanguageSystem.GetItemText("ThemeList");
+
             anaform.SearchOnWeb = Settings.LanguageSystem.GetItemText("AddressBar2");
             anaform.goTotxt = Settings.LanguageSystem.GetItemText("AddressBar1");
             anaform.newProfileInfo = Settings.LanguageSystem.GetItemText("EnterAProfileName");
-            lbSearchEngine.Text = Settings.LanguageSystem.GetItemText("SearchEngine");
+
             anaform.MonthNames = Settings.LanguageSystem.GetItemText("NewTabMonths");
             anaform.DayNames = Settings.LanguageSystem.GetItemText("NewTabDays");
             anaform.SearchHelpText = Settings.LanguageSystem.GetItemText("NewTabSearch");
@@ -975,105 +855,9 @@ namespace Korot
             anaform.switchTo = Settings.LanguageSystem.GetItemText("SwitchTo");
             anaform.deleteProfile = Settings.LanguageSystem.GetItemText("DeleteThisProfile");
             anaform.aboutInfo = Settings.LanguageSystem.GetItemText("KorotAbout");
-            label21.Text = anaform.aboutInfo.Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? anaform.anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? anaform.noname : Settings.Theme.Name) : "");
-            RefreshTranslation();
-            RefreshSizes();
-        }
-        public void RefreshLangList()
-        {
-            cbLang.Items.Clear();
-            foreach (string foundfile in Directory.GetFiles(Application.StartupPath + "//Lang//", "*.klf", SearchOption.TopDirectoryOnly))
-            {
-                cbLang.Items.Add(Path.GetFileNameWithoutExtension(foundfile));
-            }
-            string selected = Path.GetFileNameWithoutExtension(Settings.LanguageSystem.LangFile);
-            cbLang.SelectedItem = selected;
-            cbLang.Text = selected;
-        }
-        #endregion
-        private void customToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HTAlt.WinForms.HTInputBox inputb = new HTAlt.WinForms.HTInputBox(anaform.customSearchNote, anaform.customSearchMessage, Settings.SearchEngine) { Icon = Icon, SetToDefault = anaform.SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = anaform.OK, Cancel = anaform.Cancel, BackgroundColor = Settings.Theme.BackColor };
-            DialogResult diagres = inputb.ShowDialog();
-            if (diagres == DialogResult.OK)
-            {
-                if (HTAlt.Tools.ValidUrl(inputb.TextValue, new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" }) && !inputb.TextValue.StartsWith("korot://") && !inputb.TextValue.StartsWith("file://") && !inputb.TextValue.StartsWith("about"))
-                {
-                    Settings.SearchEngine = inputb.TextValue;
-                    tbSearchEngine.Text = Settings.SearchEngine;
-                }
-                else
-                {
-                    customToolStripMenuItem_Click(null, null);
-                }
-            }
-        }
-        private void SearchEngineSelection_Click(object sender, EventArgs e)
-        {
-            Settings.SearchEngine = ((ToolStripMenuItem)sender).Tag.ToString();
-            tbSearchEngine.Text = Settings.SearchEngine;
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            if (tbHomepage.Text.ToLower().StartsWith("korot://newtab"))
-            {
-                rbNewTab.Checked = true;
-                Settings.Homepage = tbHomepage.Text;
-            }
-            else
-            {
-                rbNewTab.Checked = false;
-                Settings.Homepage = tbHomepage.Text;
-            }
-        }
-        private void textBox3_Click(object sender, EventArgs e)
-        {
-            cmsSearchEngine.Show(MousePosition);
-        }
-        private void openmytaginnewtab(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            anaform.Invoke(new Action(() => anaform.CreateTab(((LinkLabel)sender).Tag.ToString())));
-        }
-        private void ClearToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Settings.Favorites.Favorites.Clear();
-        }
-
-        private void PictureBox3_Click(object sender, EventArgs e)
-        {
-            ColorDialog colorpicker = new ColorDialog
-            {
-                Color = Settings.Theme.BackColor,
-                AnyColor = true,
-                AllowFullOpen = true,
-                FullOpen = true
-            };
-            if (colorpicker.ShowDialog() == DialogResult.OK)
-            {
-                pbBack.BackColor = colorpicker.Color;
-                Settings.Theme.BackColor = colorpicker.Color;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-            }
-
-        }
-
-        private void PictureBox4_Click(object sender, EventArgs e)
-        {
-            ColorDialog colorpicker = new ColorDialog
-            {
-                Color = Settings.Theme.OverlayColor,
-                AnyColor = true,
-                AllowFullOpen = true,
-                FullOpen = true
-            };
-            if (colorpicker.ShowDialog() == DialogResult.OK)
-            {
-                pbOverlay.BackColor = colorpicker.Color;
-                Settings.Theme.OverlayColor = colorpicker.Color;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-            }
-        }
+        #endregion "Translate"
 
         public string GetMonthNameOfDate(int month)
         {
@@ -1081,28 +865,40 @@ namespace Korot
             {
                 case 1:
                     return anaform.Month1;
+
                 case 2:
                     return anaform.Month2;
+
                 case 3:
                     return anaform.Month3;
+
                 case 4:
                     return anaform.Month4;
+
                 case 5:
                     return anaform.Month5;
+
                 case 6:
                     return anaform.Month6;
+
                 case 7:
                     return anaform.Month7;
+
                 case 8:
                     return anaform.Month8;
+
                 case 9:
                     return anaform.Month9;
+
                 case 10:
                     return anaform.Month10;
+
                 case 11:
                     return anaform.Month11;
+
                 case 12:
                     return anaform.Month12;
+
                 default:
                     return anaform.Month0; // You cannot see this month in an ordinary usage of Korot. This means that this month is not real so I put my name which I should not exist too.
             }
@@ -1113,312 +909,8 @@ namespace Korot
             return date.Day + " " + GetMonthNameOfDate(date.Month) + " " + date.Year + " " + date.Hour.ToString("00") + ":" + date.Minute.ToString("00") + ":" + date.Second.ToString("00");
         }
 
-        private void ColorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Settings.Theme.BackgroundStyle = "BACKCOLOR";
-            textBox4.Text = anaform.usingBC;
-            colorToolStripMenuItem.Checked = true;
-            Settings.JustChangedTheme(); ChangeTheme(true);
-        }
-        private void FromURLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HTAlt.WinForms.HTInputBox inputbox = new HTAlt.WinForms.HTInputBox("Korot",
-                                                                                            anaform.enterAValidCode,
-                                                                                            "")
-            { Icon = Icon, SetToDefault = anaform.SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = anaform.OK, Cancel = anaform.Cancel, BackgroundColor = Settings.Theme.BackColor };
-            if (inputbox.ShowDialog() == DialogResult.OK)
-            {
-                Settings.Theme.BackgroundStyle = inputbox.TextValue + ";";
-                textBox4.Text = Settings.Theme.BackgroundStyle;
-                colorToolStripMenuItem.Checked = false;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-            }
-
-        }
-
-        private void FromLocalFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog filedlg = new OpenFileDialog
-            {
-                Filter = anaform.imageFiles + "|*.jpg;*.png;*.bmp;*.jpeg;*.jfif;*.gif;*.apng;*.ico;*.svg;*.webp|" + anaform.allFiles + "|*.*",
-                Title = anaform.selectBackImage,
-                Multiselect = false
-            };
-            if (filedlg.ShowDialog() == DialogResult.OK)
-            {
-                if (HTAlt.Tools.ImageToBase64(Image.FromFile(filedlg.FileName)).Length <= 131072)
-                {
-                    string imageType = Path.GetExtension(filedlg.FileName).Replace(".", "");
-                    Settings.Theme.BackgroundStyle = "background-image: url('data:image/" + imageType + ";base64," + HTAlt.Tools.ImageToBase64(Image.FromFile(filedlg.FileName)) + "');";
-                    textBox4.Text = Settings.Theme.BackgroundStyle;
-                    colorToolStripMenuItem.Checked = false;
-                    Settings.JustChangedTheme(); ChangeTheme(true);
-                }
-                else
-                {
-                    FromLocalFileToolStripMenuItem_Click(sender, e);
-                }
-            }
-
-        }
-
-        private void RadioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbNewTab.Checked)
-            {
-                Settings.Homepage = "korot://newtab";
-                tbHomepage.Text = Settings.Homepage;
-            }
-        }
-        public int fromH = -1;
-        public int fromM = -1;
-        public int toH = -1;
-        public int toM = -1;
-        public bool Nsunday = false;
-        public bool Nmonday = false;
-        public bool Ntuesday = false;
-        public bool Nwednesday = false;
-        public bool Nthursday = false;
-        public bool Nfriday = false;
-        public bool Nsaturday = false;
-        public void RefreshScheduledSiletMode()
-        {
-            if (Settings.AutoSilent)
-            {
-                string Playlist = Settings.AutoSilentMode;
-                string[] SplittedFase = Playlist.Split(':');
-                if (SplittedFase.Length - 1 > 9)
-                {
-
-                    fromHour.Value = Convert.ToInt32(SplittedFase[0]);
-                    fromMin.Value = Convert.ToInt32(SplittedFase[1]);
-                    toHour.Value = Convert.ToInt32(SplittedFase[2]);
-                    toMin.Value = Convert.ToInt32(SplittedFase[3]);
-                    bool sunday = SplittedFase[4] == "1";
-                    bool monday = SplittedFase[5] == "1";
-                    bool tuesday = SplittedFase[6] == "1";
-                    bool wednesday = SplittedFase[7] == "1";
-                    bool thursday = SplittedFase[8] == "1";
-                    bool friday = SplittedFase[9] == "1";
-                    bool saturday = SplittedFase[10] == "1";
-                    fromH = Convert.ToInt32(SplittedFase[0]);
-                    fromM = Convert.ToInt32(SplittedFase[1]);
-                    toH = Convert.ToInt32(SplittedFase[2]);
-                    toM = Convert.ToInt32(SplittedFase[3]);
-                    Nsunday = sunday;
-                    Nmonday = monday;
-                    Ntuesday = tuesday;
-                    Nwednesday = wednesday;
-                    Nthursday = thursday;
-                    Nfriday = friday;
-                    Nsaturday = saturday;
-                    lbSunday.BackColor = sunday ? Settings.Theme.OverlayColor : Settings.Theme.BackColor;
-                    lbMonday.BackColor = monday ? Settings.Theme.OverlayColor : Settings.Theme.BackColor;
-                    lbTuesday.BackColor = tuesday ? Settings.Theme.OverlayColor : Settings.Theme.BackColor;
-                    lbWednesday.BackColor = wednesday ? Settings.Theme.OverlayColor : Settings.Theme.BackColor;
-                    lbThursday.BackColor = thursday ? Settings.Theme.OverlayColor : Settings.Theme.BackColor;
-                    lbFriday.BackColor = friday ? Settings.Theme.OverlayColor : Settings.Theme.BackColor;
-                    lbSaturday.BackColor = saturday ? Settings.Theme.OverlayColor : Settings.Theme.BackColor;
-                    lbSunday.Tag = sunday ? "1" : "0";
-                    lbMonday.Tag = monday ? "1" : "0";
-                    lbTuesday.Tag = tuesday ? "1" : "0";
-                    lbWednesday.Tag = wednesday ? "1" : "0";
-                    lbThursday.Tag = thursday ? "1" : "0";
-                    lbFriday.Tag = friday ? "1" : "0";
-                    lbSaturday.Tag = saturday ? "1" : "0";
-                }
-            }
-        }
-        public void writeSchedules()
-        {
-            string ScheduleBuild = fromHour.Value + ":";
-            ScheduleBuild += fromMin.Value + ":";
-            ScheduleBuild += toHour.Value + ":";
-            ScheduleBuild += toMin.Value + ":";
-            ScheduleBuild += (lbSunday.Tag != null ? lbSunday.Tag.ToString() : "0") + ":";
-            ScheduleBuild += (lbMonday.Tag != null ? lbMonday.Tag.ToString() : "0") + ":";
-            ScheduleBuild += (lbTuesday.Tag != null ? lbTuesday.Tag.ToString() : "0") + ":";
-            ScheduleBuild += (lbWednesday.Tag != null ? lbWednesday.Tag.ToString() : "0") + ":";
-            ScheduleBuild += (lbThursday.Tag != null ? lbThursday.Tag.ToString() : "0") + ":";
-            ScheduleBuild += (lbFriday.Tag != null ? lbFriday.Tag.ToString() : "0") + ":";
-            ScheduleBuild += (lbSaturday.Tag != null ? lbSaturday.Tag.ToString() : "0") + ":";
-            Settings.AutoSilentMode = ScheduleBuild;
-        }
-        private void tmrRefresher_Tick(object sender, EventArgs e)
-        {
-        }
-
-        private void label15_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Middle)
-            {
-                refreshThemeList();
-            }
-            else if (e.Button == MouseButtons.Right)
-            {
-                Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Themes\\" + "\"");
-            }
-        }
-
-        private void btInstall_Click(object sender, EventArgs e)
-        {
-            Process.Start(Application.ExecutablePath, "-update");
-            Application.Exit();
-        }
-        private string CheckUrl = "https://raw.githubusercontent.com/Haltroy/Korot/master/Korot.htupdate";
-
-        private void btUpdater_Click(object sender, EventArgs e)
-        {
-            if (UpdateWebC.IsBusy) { UpdateWebC.CancelAsync(); }
-            UpdateWebC.DownloadStringAsync(new Uri(CheckUrl));
-            updateProgress = 0;
-        }
-        private void Label2_Click(object sender, EventArgs e)
-        {
-            NewTab("https://haltroy.com/Korot.html");
-        }
-
-        public void LoadTheme(string ThemeFile)
-        {
-            Settings.Theme.LoadFromFile(ThemeFile);
-            Settings.JustChangedTheme(); ChangeTheme(true);
-        }
-        public void refreshThemeList()
-        {
-            int savedValue = listBox2.SelectedIndex;
-            int scroll = listBox2.TopIndex;
-            listBox2.Items.Clear();
-            string[] array = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\");
-            for (int i = 0; i < array.Length; i++)
-            {
-                string x = array[i];
-                if (x.EndsWith(".ktf", StringComparison.OrdinalIgnoreCase))
-                {
-                    listBox2.Items.Add(new FileInfo(x).Name);
-                }
-            }
-            if (savedValue <= (listBox2.Items.Count - 1))
-            {
-                listBox2.SelectedIndex = savedValue;
-                listBox2.TopIndex = scroll;
-            }
-        }
-
-
-        private void Button12_Click(object sender, EventArgs e)
-        {
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\"); }
-            string themeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf";
-            Theme saveTheme = new Theme("")
-            {
-                ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + comboBox1.Text + ".ktf",
-                BackColor = Settings.Theme.BackColor,
-                OverlayColor = Settings.Theme.OverlayColor,
-                MininmumKorotVersion = new Version(Application.ProductVersion),
-                Version = new Version(Application.ProductVersion),
-                Name = comboBox1.Text,
-                Author = userName,
-                BackgroundStyle = Settings.Theme.BackgroundStyle,
-                BackgroundStyleLayout = Settings.Theme.BackgroundStyleLayout,
-                CloseButtonColor = Settings.Theme.CloseButtonColor,
-                NewTabColor = Settings.Theme.NewTabColor
-            };
-            saveTheme.SaveTheme();
-            Settings.Theme.ThemeFile = themeFile;
-            refreshThemeList();
-        }
-
-        private readonly WebClient UpdateWebC = new WebClient();
-        public void Updater()
-        {
-            UpdateWebC.DownloadStringCompleted += Updater_DownloadStringCompleted;
-            UpdateWebC.DownloadProgressChanged += updater_checking;
-            UpdateWebC.DownloadStringAsync(new Uri(CheckUrl));
-            updateProgress = 0;
-        }
-
-        private bool alreadyCheckedForUpdatesOnce = false;
-        private void updater_checking(object sender, DownloadProgressChangedEventArgs e)
-        {
-            lbUpdateStatus.Text = anaform.checking;
-            updateProgress = 0;
-            btUpdater.Visible = false;
-        }
-        private void Updater_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            if (e.Error != null || e.Cancelled)
-            {
-                updateProgress = 3;
-                btInstall.Visible = false;
-                btUpdater.Visible = true;
-                lbUpdateStatus.Text = anaform.updateError;
-            }
-            else
-            {
-                UpdateResult(e.Result);
-            }
-        }
-
-        private void updateAvailable()
-        {
-            if (alreadyCheckedForUpdatesOnce || Settings.DismissUpdate || _Incognito || NotificationListenerMode)
-            {
-                updateProgress = 2;
-                lbUpdateStatus.Text = anaform.updateavailable;
-                btUpdater.Visible = true;
-                btInstall.Visible = true;
-            }
-            else
-            {
-                alreadyCheckedForUpdatesOnce = true;
-                updateProgress = 2;
-                lbUpdateStatus.Text = anaform.updateavailable;
-                btInstall.Visible = true;
-                btUpdater.Visible = true;
-                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(
-                    anaform.updateTitle,
-                    anaform.updateMessage,
-                    new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true })
-                { StartPosition = FormStartPosition.CenterParent, Yes = anaform.Yes, No = anaform.No, OK = anaform.OK, Cancel = anaform.Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
-                DialogResult diagres = mesaj.ShowDialog();
-                if (diagres == DialogResult.Yes)
-                {
-                    if (Application.OpenForms.OfType<frmUpdate>().Count() < 1)
-                    {
-                        Process.Start(Application.ExecutablePath, "-update");
-                    }
-                    else
-                    {
-                        foreach (frmUpdate x in Application.OpenForms)
-                        {
-                            x.Focus();
-                        }
-                    }
-                }
-                Settings.DismissUpdate = true;
-            }
-        }
-        private void UpdateResult(string info)
-        {
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(info);
-            KorotVersion Newest = new KorotVersion(doc.FirstChild.NextSibling.OuterXml);
-            KorotVersion Current = new KorotVersion();
-            bool isUpToDate = Current.WhicIsNew(Newest, Environment.Is64BitProcess ? "amd64" : "i86") == Current;
-            if (!isUpToDate)
-            {
-                updateAvailable();
-            }
-            else
-            {
-                btUpdater.Visible = true;
-                btInstall.Visible = false;
-                updateProgress = 1;
-                lbUpdateStatus.Text = anaform.uptodate;
-
-            }
-        }
         public HTTitleTabs ParentTabs => (ParentForm as HTTitleTabs);
+
         public HTTitleTab ParentTab
         {
             get
@@ -1431,9 +923,11 @@ namespace Korot
                         if (x.Content == this) { tabIndexes.Add(ParentTabs.Tabs.IndexOf(x)); }
                     }
                     return (tabIndexes.Count > 0 ? ParentTabs.Tabs[tabIndexes[0]] : null);
-                }else { return null; }
+                }
+                else { return null; }
             }
         }
+
         public void SetProxy(string ProxyFile)
         {
             List<Proxy> ProxyList = new List<Proxy>();
@@ -1474,6 +968,7 @@ namespace Korot
                 Output.WriteLine(" [Korot.Proxy] Cannot set proxy to \"" + prx.Address + "\" (ID=\"" + prx.ID + "\" File=\"" + ProxyFile + "\" Exception=\"" + prx.Exception.ToString() + "\")");
             }
         }
+
         public async void SetProxyAddress(string Address)
         {
             if (Address == null) { }
@@ -1497,11 +992,12 @@ namespace Korot
             Invoke(new Action(() =>
             {
                 if (!(privmenu is null)) { privmenu.Hide(); }
-                if(!(incognitomenu is null)){ incognitomenu.Hide(); }
-                if(!(profmenu is null)){ profmenu.Hide(); }
-                if(!(hammenu is null)){ hammenu.Hide(); }
+                if (!(incognitomenu is null)) { incognitomenu.Hide(); }
+                if (!(profmenu is null)) { profmenu.Hide(); }
+                if (!(hammenu is null)) { hammenu.Hide(); }
             }));
         }
+
         private void cef_LostFocus(object sender, EventArgs e)
         {
             if (cmsCEF != null)
@@ -1514,10 +1010,12 @@ namespace Korot
                 }));
             }
         }
+
         private void cef_consoleMessage(object sender, ConsoleMessageEventArgs e)
         {
             Output.WriteLine(" [Korot.ConsoleMessage] Message received: [Line: " + e.Line + " Level: " + e.Level + " Source: " + e.Source + " Message:" + e.Message + "]");
         }
+
         public void updateThemes()
         {
             foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\", "*.*", SearchOption.AllDirectories))
@@ -1545,10 +1043,12 @@ namespace Korot
 
         public bool certError = false;
         public bool cookieUsage = false;
+
         public void ChangeStatus(string status)
         {
             lbStatus.Text = status;
         }
+
         public void CreateNewCollection()
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot", anaform.newColInfo, anaform.newColName)
@@ -1568,6 +1068,7 @@ namespace Korot
                 else { CreateNewCollection(); }
             }
         }
+
         public void loadingstatechanged(object sender, LoadingStateChangedEventArgs e)
         {
             if (!IsDisposed)
@@ -1591,7 +1092,6 @@ namespace Korot
                     else
                     {
                         Invoke(new Action(() => Settings.History.Add(new Korot.Site() { Date = DateTime.Now.ToString(DateFormat), Name = Text, Url = tbAddress.Text })));
-
                     }
                     if (HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130)
                     {
@@ -1629,7 +1129,6 @@ namespace Korot
             else { return false; }
         }
 
-
         public bool OnJSConfirm(string url, string message, out bool returnval)
         {
             if (!NotificationListenerMode)
@@ -1641,7 +1140,6 @@ namespace Korot
             }
             else { returnval = false; return false; }
         }
-
 
         public bool OnJSPrompt(string url, string message, string defaultValue, out bool returnval, out string textresult)
         {
@@ -1655,6 +1153,7 @@ namespace Korot
             }
             else { textresult = null; returnval = false; return false; }
         }
+
         public void NewTab(string url)
         {
             anaform.Invoke(new Action(() => { anaform.CreateTab(ParentTab, url); }));
@@ -1681,75 +1180,41 @@ namespace Korot
         }
 
         private ToolStripMenuItem selectedFavorite = null;
+
         public void RefreshFavorites()
         {
-            mFavorites.Items.Clear();
-            LoadDynamicMenu();
-            if (mFavorites.Items.Count < 1)
+            if (Settings.UpdateFavorites.Contains(this))
             {
-                if (!isFavMenuHidden)
-                {
-                    hideFavMenu();
-                }
-            }
-            else
-            {
-                if (Settings.Favorites.ShowFavorites)
-                {
-                    if (isFavMenuHidden)
-                    {
-                        showFavMenu();
-                    }
-                }
-                else
+                Settings.UpdateFavorites.Remove(this);
+                mFavorites.Items.Clear();
+                LoadDynamicMenu();
+                if (mFavorites.Items.Count < 1)
                 {
                     if (!isFavMenuHidden)
                     {
                         hideFavMenu();
                     }
                 }
+                else
+                {
+                    if (Settings.Favorites.ShowFavorites)
+                    {
+                        if (isFavMenuHidden)
+                        {
+                            showFavMenu();
+                        }
+                    }
+                    else
+                    {
+                        if (!isFavMenuHidden)
+                        {
+                            hideFavMenu();
+                        }
+                    }
+                }
             }
         }
 
-        private void EasterEggs()
-        {
-            switch (new Random().Next(0, 10000))
-            {
-                case 6:
-                    lbKorot.Text = "Another Chromium-based web browser";
-                    break;
-                case 17:
-                    lbKorot.Text = "StoneBrowser";
-                    break;
-                case 45:
-                    lbKorot.Text = "null";
-                    break;
-                case 71:
-                    lbKorot.Text = "web browser made by retarded";
-                    break;
-                case 3:
-                    lbKorot.Text = "web browser designed to lag and eat ram";
-                    break;
-                case 9:
-                    lbKorot.Text = "korot";
-                    break;
-                case 35:
-                    lbKorot.Text = "StoneHomepage";
-                    break;
-                case 48:
-                    lbKorot.Text = "ZStone";
-                    break;
-                case 7:
-                    lbKorot.Text = (new Random().Next(0, int.MaxValue) % 2 == 0 ? "Pell" : "Kolme") + " Browser";
-                    break;
-                case 33:
-                    lbKorot.Text = new Random().Next(0, int.MaxValue) % 2 == 0 ? "Webtroy" : "Ninova";
-                    break;
-                default:
-                    lbKorot.Text = "Korot";
-                    break;
-            }
-        }
         private void miFavorite_MouseDown(object sender, MouseEventArgs e)
         {
             itemClicked = true;
@@ -1773,13 +1238,12 @@ namespace Korot
             {
                 loadPage(urlLower, Text);
             }
-
             else
             {
                 loadPage(Settings.SearchEngine + urlLower, Text);
-
             }
         }
+
         private void button5_Click(object sender, EventArgs e)
         {
             allowSwitching = true;
@@ -1793,54 +1257,32 @@ namespace Korot
             chromiumWebBrowser1.Load(SessionSystem.SelectedSession.Url);
         }
 
-
         public void button1_Click(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tpCef) //CEF
             {
                 bypassThisDeletion = true;
                 SessionSystem.GoBack(chromiumWebBrowser1);
+                resetPage();
                 //chromiumWebBrowser1.Back();
             }
-            else if (tabControl1.SelectedTab == tpCert) //Certificate Error Menu
-            {
-                bypassThisDeletion = true;
-                SessionSystem.GoBack(chromiumWebBrowser1);
-                resetPage();
-            }
-            else if (tabControl1.SelectedTab == tpSettings
-                     || tabControl1.SelectedTab == tpHistory
-                     || tabControl1.SelectedTab == tpDownload
-                     || tabControl1.SelectedTab == tpAbout
-                     || tabControl1.SelectedTab == tpTheme
-                     || tabControl1.SelectedTab == tpCollection
-                     || tabControl1.SelectedTab == tpSite
-                     || tabControl1.SelectedTab == tpNotification
-                     || tabControl1.SelectedTab == tpNewTab
-                     || tabControl1.SelectedTab == tpBlock) //Menu
+            else if (tabControl1.SelectedTab == tpSettings) //Menu
             {
                 resetPage();
             }
         }
+
         public void resetPage(bool doNotGoToCEFTab = false)
         {
             anaform.settingTab = anaform.settingTab == ParentTab ? null : anaform.settingTab;
-            anaform.themeTab = anaform.themeTab == ParentTab ? null : anaform.themeTab;
-            anaform.historyTab = anaform.historyTab == ParentTab ? null : anaform.historyTab;
-            anaform.downloadTab = anaform.downloadTab == ParentTab ? null : anaform.downloadTab;
-            anaform.siteTab = anaform.siteTab == ParentTab ? null : anaform.siteTab;
-            anaform.aboutTab = anaform.aboutTab == ParentTab ? null : anaform.aboutTab;
-            anaform.collectionTab = anaform.collectionTab == ParentTab ? null : anaform.collectionTab;
-            anaform.notificationTab = anaform.notificationTab == ParentTab ? null : anaform.notificationTab;
-            anaform.newtabeditTab = anaform.newtabeditTab == ParentTab ? null : anaform.newtabeditTab;
             anaform.licenseTab = anaform.licenseTab == ParentTab ? null : anaform.licenseTab;
-            anaform.blockTab = anaform.blockTab == ParentTab ? null : anaform.blockTab;
             if (!doNotGoToCEFTab)
             {
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpCef;
             }
         }
+
         public void button3_Click(object sender, EventArgs e)
         {
             bypassThisDeletion = true;
@@ -1859,9 +1301,11 @@ namespace Korot
             }
             else { chromiumWebBrowser1.Reload(); }
         }
-        List<string> AlreadyValidUrl = new List<string>();
-        List<string> AlreadyNotValidUrl = new List<string>();
+
+        private readonly List<string> AlreadyValidUrl = new List<string>();
+        private readonly List<string> AlreadyNotValidUrl = new List<string>();
         public string[] customProts = new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" };
+
         private void cef_AddressChanged(object sender, AddressChangedEventArgs e)
         {
             Invoke(new Action(() => tbAddress.Text = e.Address));
@@ -1888,6 +1332,7 @@ namespace Korot
                 }
             }
         }
+
         private void cef_onLoadError(object sender, LoadErrorEventArgs e)
         {
             if (e == null) //User Asked
@@ -1896,12 +1341,13 @@ namespace Korot
             }
             else
             {
-                if (e.FailedUrl.ToLower().StartsWith("korot") || e.FailedUrl.ToLower().StartsWith("chrome") || e.FailedUrl.ToLower().StartsWith("about")) 
-                { 
-                    if(e.Frame.IsMain)
+                if (e.FailedUrl.ToLower().StartsWith("korot") || e.FailedUrl.ToLower().StartsWith("chrome") || e.FailedUrl.ToLower().StartsWith("about"))
+                {
+                    if (e.Frame.IsMain)
                     {
                         chromiumWebBrowser1.Load(e.FailedUrl);
-                    }else
+                    }
+                    else
                     {
                         e.Frame.LoadUrl("korot://error/?e=FORBIDDEN?u=" + e.FailedUrl);
                     }
@@ -1920,7 +1366,6 @@ namespace Korot
             }
         }
 
-
         private void cef_TitleChanged(object sender, TitleChangedEventArgs e)
         {
             Invoke(new Action(() =>
@@ -1938,9 +1383,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://links") ||
 chromiumWebBrowser1.Address.ToLower().StartsWith("korot://license") ||
 chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                             {
-                                
                                 SessionSystem.Sessions[si].Title = e.Title;
-                                
                             }
                         }
                         else
@@ -1966,6 +1409,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 hammenu.BringToFront();
             }
         }
+
         public void retrieveKey(int code)
         {
             KeyEventArgs newE;
@@ -2005,6 +1449,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 tabform_KeyDown(this, newE);
             }
         }
+
         public void zoomIn()
         {
             Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
@@ -2013,6 +1458,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result + 0.25);
             }
         }
+
         public void zoomOut()
         {
             Task<double> zoomLevel = chromiumWebBrowser1.GetZoomLevelAsync();
@@ -2021,7 +1467,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 chromiumWebBrowser1.SetZoomLevel(zoomLevel.Result - 0.25);
             }
         }
+
         public bool isControlKeyPressed = false;
+
         public void tabform_KeyDown(object sender, KeyEventArgs e)
         {
             isControlKeyPressed = e.Control;
@@ -2140,6 +1588,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 e.SuppressKeyPress = true;
             }
         }
+
         public void SavePageAs()
         {
             SaveFileDialog save = new SaveFileDialog()
@@ -2154,11 +1603,13 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 HTAlt.Tools.WriteFile(save.FileName, htmlText.Result, Encoding.UTF8);
             }
         }
+
         public void ChangeMuteStatus()
         {
             isMuted = !isMuted;
             chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(isMuted);
         }
+
         public void GetScreenShot()
         {
             SaveFileDialog save = new SaveFileDialog()
@@ -2171,8 +1622,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 HTAlt.Tools.WriteFile(save.FileName, TakeScrenshot.ImageToByte2(TakeScrenshot.Snapshot(chromiumWebBrowser1)));
             }
-
         }
+
         private Image GetImageFromURL(string URL)
         {
             if (URL == "BACKCOLOR") { return null; }
@@ -2216,6 +1667,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 ChangeThemeForMenuItems(y);
             }
         }
+
         private Color oldBackColor;
         private Color oldOverlayColor;
         private string oldStyle;
@@ -2225,12 +1677,9 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             if (Settings.Theme.OverlayColor != oldOverlayColor || force)
             {
                 oldOverlayColor = Settings.Theme.OverlayColor;
-                pbOverlay.BackColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
+
                 pbProgress.BackColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
-                hsDownload.OverlayColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
-                hsDoNotTrack.OverlayColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
-                hsFav.OverlayColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
-                hsOpen.OverlayColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
+
                 if (Cef.IsInitialized)
                 {
                     if (chromiumWebBrowser1.IsBrowserInitialized)
@@ -2267,186 +1716,33 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                         if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
                     }
                 }
-                pbBack.BackColor = Settings.Theme.BackColor;
+
                 cmsFavorite.BackColor = Settings.Theme.BackColor;
                 cmsFavorite.ForeColor = ForeColor;
-                button12.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.collection_w : Properties.Resources.collection);
-                pbStore.Image = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.store_w : Properties.Resources.store);
-                btLangStore.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.store_w : Properties.Resources.store);
-                btlangFolder.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.extfolder_w : Properties.Resources.extfolder);
-                btClose6.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
-                btClose2.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
-                btClose4.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
-                btClose7.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
-                btClose.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
-                btClose5.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
-                btClose8.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
-                btClose9.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
-                btClose3.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
-                btClose10.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.cancel_w : Properties.Resources.cancel);
-                lbSettings.BackColor = Color.Transparent;
-                lbSettings.ForeColor = ForeColor;
 
                 pbPrivacy.BackColor = backcolor2;
-                pBlock.BackColor = backcolor2;
-                pBlock.ForeColor = ForeColor;
+
                 tbAddress.BackColor = backcolor2;
                 pbIncognito.BackColor = backcolor2;
-                fromHour.BackColor = backcolor2;
-                fromHour.ForeColor = ForeColor;
-                fromMin.BackColor = backcolor2;
-                fromMin.ForeColor = ForeColor;
-                toHour.BackColor = backcolor2;
-                toHour.ForeColor = ForeColor;
-                toMin.BackColor = backcolor2;
-                toMin.ForeColor = ForeColor;
-                cmsSearchEngine.BackColor = Settings.Theme.BackColor;
-                listBox2.ForeColor = ForeColor;
-                comboBox1.ForeColor = ForeColor;
-                tbHomepage.ForeColor = ForeColor;
-                tbSearchEngine.ForeColor = ForeColor;
-                btCertError.ForeColor = ForeColor;
-                btNewTab.BackColor = backcolor2;
-                btNewTab.ForeColor = ForeColor;
-                hsNotificationSound.BackColor = Settings.Theme.BackColor;
-                hsNotificationSound.ButtonColor = rbc2;
-                hsNotificationSound.ButtonHoverColor = rbc3;
-                hsNotificationSound.ButtonPressedColor = rbc4;
-                hsSilent.BackColor = Settings.Theme.BackColor;
-                hsSilent.ButtonColor = rbc2;
-                hsSilent.ButtonHoverColor = rbc3;
-                hsSilent.ButtonPressedColor = rbc4;
-                hsSchedule.BackColor = Settings.Theme.BackColor;
-                hsSchedule.ButtonColor = rbc2;
-                hsSchedule.ButtonHoverColor = rbc3;
-                hsSchedule.ButtonPressedColor = rbc4;
-                tbSoundLoc.BackColor = backcolor2;
-                tbSoundLoc.ForeColor = ForeColor;
-                hsDefaultSound.BackColor = Settings.Theme.BackColor;
-                hsDefaultSound.ButtonColor = rbc2;
-                hsDefaultSound.ButtonHoverColor = rbc3;
-                hsDefaultSound.ButtonPressedColor = rbc4;
-                btOpenSound.BackColor = backcolor3;
-                btOpenSound.ForeColor = ForeColor;
-                hsAutoRestore.BackColor = Settings.Theme.BackColor;
-                hsAutoRestore.ButtonColor = rbc2;
-                hsAutoRestore.ButtonHoverColor = rbc3;
-                hsAutoRestore.ButtonPressedColor = rbc4;
-                hsAutoForeColor.BackColor = Settings.Theme.BackColor;
-                hsAutoForeColor.ButtonColor = rbc2;
-                hsAutoForeColor.ButtonHoverColor = rbc3;
-                hsAutoForeColor.ButtonPressedColor = rbc4;
-                hsNinja.BackColor = Settings.Theme.BackColor;
-                hsNinja.ButtonColor = rbc2;
-                hsNinja.ButtonHoverColor = rbc3;
-                hsNinja.ButtonPressedColor = rbc4;
-                hsDownload.BackColor = Settings.Theme.BackColor;
-                hsDownload.ButtonColor = rbc2;
-                hsDownload.ButtonHoverColor = rbc3;
-                hsDownload.ButtonPressedColor = rbc4;
-                hsDoNotTrack.BackColor = Settings.Theme.BackColor;
-                hsDoNotTrack.ButtonColor = rbc2;
-                hsDoNotTrack.ButtonHoverColor = rbc3;
-                hsDoNotTrack.ButtonPressedColor = rbc4;
-                hsProxy.BackColor = Settings.Theme.BackColor;
-                hsProxy.ButtonColor = rbc2;
-                hsProxy.ButtonHoverColor = rbc3;
-                hsProxy.ButtonPressedColor = rbc4;
-                hsFav.BackColor = Settings.Theme.BackColor;
-                hsFav.ButtonColor = rbc2;
-                hsFav.ButtonHoverColor = rbc3;
-                hsFav.ButtonPressedColor = rbc4;
-                hsOpen.BackColor = Settings.Theme.BackColor;
-                hsOpen.ButtonColor = rbc2;
-                hsOpen.ButtonHoverColor = rbc3;
-                hsOpen.ButtonPressedColor = rbc4;
-                hsFlash.BackColor = Settings.Theme.BackColor;
-                hsFlash.ButtonColor = rbc2;
-                hsFlash.ButtonHoverColor = rbc3;
-                hsFlash.ButtonPressedColor = rbc4;
-                cmsSearchEngine.ForeColor = ForeColor;
-                listBox2.BackColor = backcolor2;
-                comboBox1.BackColor = backcolor2;
-                btCookie.BackColor = backcolor2;
-                btInstall.BackColor = backcolor2;
-                btUpdater.BackColor = backcolor2;
-                tbHomepage.BackColor = backcolor2;
-                btCleanLog.BackColor = backcolor2;
-                tbFolder.BackColor = backcolor2;
-                tbStartup.BackColor = backcolor2;
-                cmsStartup.BackColor = Settings.Theme.BackColor;
-                cmsStartup.ForeColor = ForeColor;
-                tbFolder.ForeColor = ForeColor;
-                tbStartup.ForeColor = ForeColor;
-                btReset.BackColor = backcolor2;
-                btDownloadFolder.BackColor = backcolor2;
-                button12.BackColor = backcolor2;
-                tbSearchEngine.BackColor = backcolor2;
-                btNotification.BackColor = backcolor2;
-                btNotification.ForeColor = ForeColor;
-                panel1.BackColor = backcolor2;
-                panel1.ForeColor = ForeColor;
-                btCertError.BackColor = backcolor2;
-                tbHomepage.BackColor = backcolor2;
-                tbSearchEngine.BackColor = backcolor2;
-                flpLayout.BackColor = Settings.Theme.BackColor;
-                flpLayout.ForeColor = ForeColor;
-                flpNewTab.BackColor = Settings.Theme.BackColor;
-                flpNewTab.ForeColor = ForeColor;
-                flpClose.BackColor = Settings.Theme.BackColor;
-                flpClose.ForeColor = ForeColor;
+
                 lbStatus.BackColor = Settings.Theme.BackColor;
-                BackColor = Settings.Theme.BackColor;
-                cbLang.BackColor = Settings.Theme.BackColor;
+
                 pbIncognito.Image = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.inctab_w : Properties.Resources.inctab);
                 tbAddress.ForeColor = ForeColor;
                 ForeColor = ForeColor;
-                tbTitle.BackColor = backcolor2;
-                tbTitle.ForeColor = ForeColor;
-                tbUrl.BackColor = backcolor2;
-                tbUrl.ForeColor = ForeColor;
+
                 lbStatus.ForeColor = ForeColor;
-                cbLang.ForeColor = ForeColor;
-                textBox4.ForeColor = ForeColor;
+
                 if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.star_on_w : Properties.Resources.star_on); } else { btFav.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.star : Properties.Resources.star_w); }
                 mFavorites.ForeColor = ForeColor;
                 if (!noProfilePic) { btProfile.ButtonImage = Settings.NinjaMode ? null : profilePic; } else { btProfile.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.profiles : Properties.Resources.profiles_w); }
                 btBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
                 btRefresh.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.refresh : Properties.Resources.refresh_w);
                 btNext.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w);
-                btNotifBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
-                btBlockBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
-                btNewTabBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
-                btCookieBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
                 btHome.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.home : Properties.Resources.home_w);
                 btHamburger.ButtonImage = Settings.NinjaMode ? null : (isbright ? (anaform is null ? Properties.Resources.hamburger : (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger)) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w)));
-                L0.BackColor = backcolor2;
-                L0.ForeColor = ForeColor;
-                L1.BackColor = backcolor2;
-                L1.ForeColor = ForeColor;
-                L2.BackColor = backcolor2;
-                L2.ForeColor = ForeColor;
-                L3.BackColor = backcolor2;
-                L3.ForeColor = ForeColor;
-                L4.BackColor = backcolor2;
-                L4.ForeColor = ForeColor;
-                L5.BackColor = backcolor2;
-                L5.ForeColor = ForeColor;
-                L6.BackColor = backcolor2;
-                L6.ForeColor = ForeColor;
-                L7.BackColor = backcolor2;
-                L7.ForeColor = ForeColor;
-                L8.BackColor = backcolor2;
-                L8.ForeColor = ForeColor;
-                L9.BackColor = backcolor2;
-                L9.ForeColor = ForeColor;
-                btClear.BackColor = backcolor2;
-                btClear.ForeColor = ForeColor;
                 tbAddress.BackColor = backcolor2;
-                textBox4.BackColor = backcolor2;
                 mFavorites.BackColor = Settings.Theme.BackColor;
-                cmsBStyle.BackColor = Settings.Theme.BackColor;
-                cmsBStyle.ForeColor = ForeColor;
                 cmsBack.BackColor = Settings.Theme.BackColor;
                 cmsBack.ForeColor = ForeColor;
                 cmsForward.BackColor = Settings.Theme.BackColor;
@@ -2520,6 +1816,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         }
 
         private double websiteprogress;
+
         public void ChangeProgress(double value)
         {
             if (value == 1) { websiteprogress = value; pbProgress.Width = Width; }
@@ -2529,6 +1826,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 pbProgress.Width = Convert.ToInt32(Convert.ToDouble(Width / 100) * Convert.ToDouble(value * 100));
             }
         }
+
         public async void getZoomLevel()
         {
             await Task.Run(() =>
@@ -2537,29 +1835,11 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 zoomLevel = zLevel.Result;
             });
         }
+
         public double zoomLevel = 0;
-        private void execTimer50Events()
-        {
-            hsDoNotTrack.Checked = Settings.DoNotTrack;
-            hsFlash.Checked = Settings.Flash;
-            tbHomepage.Text = Settings.Homepage;
-            rbNewTab.Checked = Settings.Homepage == "korot://newtab";
-            tbSearchEngine.Text = Settings.SearchEngine;
-            hsProxy.Checked = Settings.RememberLastProxy;
-            hsNotificationSound.Checked = !Settings.QuietMode;
-            hsSilent.Checked = Settings.Silent;
-            hsSchedule.Checked = Settings.AutoSilent;
-            panel1.Enabled = Settings.AutoSilent;
-            RefreshScheduledSiletMode();
-            refreshThemeList();
-            RefreshFavorites();
-            LoadNewTabSites();
-            btHamburger.ButtonImage = HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? (anaform is null ? Properties.Resources.hamburger : (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger)) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w));
-            comboBox1.Text = !onThemeName ? (Settings.Theme.LoadedDefaults ? "((default))" : Settings.Theme.Name) : comboBox1.Text;
-            Task.Run(() => getZoomLevel());
-        }
-        
+
         private int timer1int = 0;
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (chromiumWebBrowser1.IsDisposed)
@@ -2575,9 +1855,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             else
             {
                 timer1int = 0;
-                execTimer50Events();
+                btHamburger.ButtonImage = HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? (anaform is null ? Properties.Resources.hamburger : (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger)) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w));
+                Task.Run(() => getZoomLevel());
             }
-
+            RefreshFavorites();
             onCEFTab = (tabControl1.SelectedTab == tpCef);
             if (Settings.ThemeChangeForm.Contains(this))
             {
@@ -2588,8 +1869,14 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             {
                 Parent.Text = Text;
             }
-            RefreshTranslation();
-            Text = tabControl1.SelectedTab.Text;
+            if (tabControl1.SelectedTab == tpCef)
+            {
+                Text = tpCef.Text;
+            }
+            else
+            {
+                Text = setmenu.Text;
+            }
             if (NotificationListenerMode)
             {
                 isMuted = true;
@@ -2604,6 +1891,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             chromiumWebBrowser1.Load(((ToolStripMenuItem)sender).Tag.ToString());
         }
+
         private bool isPageFavorited(string url)
         {
             return Settings.Favorites.FavoritesWithNoFolders.Find(i => i.Url == url) != null;
@@ -2621,136 +1909,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 frmNewFav newFav = new frmNewFav(Text, chromiumWebBrowser1.Address, this);
                 newFav.ShowDialog();
             }
+            Settings.UpdateFavList();
             RefreshFavorites();
         }
 
-
-        public void RefreshSizes()
-        {
-            flpFrom.Location = new Point(scheduleFrom.Location.X + scheduleFrom.Width + 10, flpFrom.Location.Y);
-            scheduleTo.Location = new Point(flpFrom.Location.X + flpFrom.Width + 10, scheduleTo.Location.Y);
-            flpTo.Location = new Point(scheduleTo.Location.X + scheduleTo.Width + 10, flpTo.Location.Y);
-            flpEvery.Location = new Point(scheduleEvery.Location.X + scheduleEvery.Width + 10, flpEvery.Location.Y);
-            lbVersion.Location = new Point(lbKorot.Location.X + lbKorot.Width, lbVersion.Location.Y);
-            flpClose.Location = new Point(lbCloseColor.Location.X + lbCloseColor.Width, flpClose.Location.Y);
-            flpClose.Width = tpTheme.Width - (lbCloseColor.Width + lbCloseColor.Location.X + 25);
-            flpNewTab.Location = new Point(lbNewTabColor.Location.X + lbNewTabColor.Width, flpNewTab.Location.Y);
-            flpNewTab.Width = tpTheme.Width - (lbNewTabColor.Width + lbNewTabColor.Location.X + 25);
-            hsAutoRestore.Location = new Point(lbautoRestore.Location.X + lbautoRestore.Width + 5, hsAutoRestore.Location.Y);
-            hsFav.Location = new Point(lbShowFavorites.Location.X + lbShowFavorites.Width + 5, hsFav.Location.Y);
-            hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width + 5, hsDoNotTrack.Location.Y);
-            hsFlash.Location = new Point(lbFlash.Location.X + lbFlash.Width + 5, hsFlash.Location.Y);
-            hsOpen.Location = new Point(lbOpen.Location.X + lbOpen.Width + 5, hsOpen.Location.Y);
-            hsDownload.Location = new Point(lbAutoDownload.Location.X + lbAutoDownload.Width + 5, hsDownload.Location.Y);
-            hsProxy.Location = new Point(lbLastProxy.Location.X + lbLastProxy.Width + 5, hsProxy.Location.Y);
-            llLicenses.LinkArea = new LinkArea(0, llLicenses.Text.Length);
-            llLicenses.Location = new Point(label21.Location.X, label21.Location.Y + label21.Size.Height);
-            textBox4.Location = new Point(lbBackImage.Location.X + lbBackImage.Width, textBox4.Location.Y);
-            textBox4.Width = tpTheme.Width - (lbBackImage.Width + lbBackImage.Location.X + 25);
-            tbStartup.Location = new Point(lbAtStartup.Location.X + lbAtStartup.Width, tbStartup.Location.Y);
-            tbStartup.Width = tpSettings.Width - (lbAtStartup.Width + lbAtStartup.Location.X + 15);
-            tbTitle.Location = new Point(lbNTTitle.Location.X + lbNTTitle.Width, tbTitle.Location.Y);
-            tbTitle.Width = tpNewTab.Width - (lbNTTitle.Width + lbNTTitle.Location.X + 15);
-            tbUrl.Location = new Point(lbNTUrl.Location.X + lbNTUrl.Width, tbUrl.Location.Y);
-            tbUrl.Width = tpNewTab.Width - (lbNTUrl.Width + lbNTUrl.Location.X + 15);
-            flpLayout.Location = new Point(lbBackImageStyle.Location.X + lbBackImageStyle.Width, flpLayout.Location.Y);
-            flpLayout.Width = tpTheme.Width - (lbBackImageStyle.Width + lbBackImageStyle.Location.X + 25);
-            pbBack.Location = new Point(lbBackColor.Location.X + lbBackColor.Width, pbBack.Location.Y);
-            pbForeColor.Location = new Point(lbForeColor.Location.X + lbForeColor.Width, pbForeColor.Location.Y);
-            lbAutoSelect.Location = new Point(pbForeColor.Location.X + pbForeColor.Width + 10 , lbAutoSelect.Location.Y);
-            hsDefaultSound.Location = new Point(lbDefaultNotifSound.Location.X + lbDefaultNotifSound.Width, hsDefaultSound.Location.Y);
-            hsAutoForeColor.Location = new Point(lbAutoSelect.Location.X + lbAutoSelect.Width, hsAutoForeColor.Location.Y);
-            hsNinja.Location = new Point(lbNinja.Location.X + lbNinja.Width, hsNinja.Location.Y);
-            pbOverlay.Location = new Point(lbOveralColor.Location.X + lbOveralColor.Width, pbOverlay.Location.Y);
-            tbFolder.Location = new Point(lbDownloadFolder.Location.X + lbDownloadFolder.Width, tbFolder.Location.Y);
-            tbFolder.Width = tpDownload.Width - (lbDownloadFolder.Location.X + lbDownloadFolder.Width + btDownloadFolder.Width + 25);
-            btDownloadFolder.Location = new Point(tbFolder.Location.X + tbFolder.Width, btDownloadFolder.Location.Y);
-            comboBox1.Location = new Point(lbThemeName.Location.X + lbThemeName.Width, comboBox1.Location.Y);
-            comboBox1.Width = tpTheme.Width - (lbThemeName.Location.X + lbThemeName.Width + button12.Width + 25);
-            button12.Location = new Point(comboBox1.Location.X + comboBox1.Width, button12.Location.Y);
-            tbHomepage.Location = new Point(lbHomepage.Location.X + lbHomepage.Width + 5, tbHomepage.Location.Y);
-            tbHomepage.Width = tpSettings.Width - (lbHomepage.Location.X + lbHomepage.Width + rbNewTab.Width + 30);
-            rbNewTab.Location = new Point(tbHomepage.Location.X + tbHomepage.Width + 5, rbNewTab.Location.Y);
-            tbSearchEngine.Location = new Point(lbSearchEngine.Location.X + lbSearchEngine.Width + 5, tbSearchEngine.Location.Y);
-            tbSearchEngine.Width = tpSettings.Width - (lbSearchEngine.Location.X + lbSearchEngine.Width + 25);
-        }
-        public void RefreshTranslation()
-        {
-            label21.Text = anaform.aboutInfo.Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? anaform.anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? anaform.noname : Settings.Theme.Name) : "");
-            hsOpen.Checked = Settings.Downloads.OpenDownload;
-            hsAutoRestore.Checked = Settings.AutoRestore;
-            hsFav.Checked = Settings.Favorites.ShowFavorites;
-            switch ((int)Settings.Theme.CloseButtonColor)
-            {
-                case 0:
-                    rbBackColor1.Checked = true;
-                    break;
-                case 1:
-                    rbForeColor1.Checked = true;
-                    break;
-                case 2:
-                    rbOverlayColor1.Checked = true;
-                    break;
-            }
-            switch ((int)Settings.Theme.NewTabColor)
-            {
-                case 0:
-                    rbBackColor.Checked = true;
-                    break;
-                case 1:
-                    rbForeColor.Checked = true;
-                    break;
-                case 2:
-                    rbOverlayColor.Checked = true;
-                    break;
-            }
-            switch (Settings.Theme.BackgroundStyleLayout)
-            {
-                case 0:
-                    rbNone.Checked = true;
-                    break;
-                case 1:
-                    rbTile.Checked = true;
-                    break;
-                case 2:
-                    rbCenter.Checked = true;
-                    break;
-                case 3:
-                    rbStretch.Checked = true;
-                    break;
-                case 4:
-                    rbZoom.Checked = true;
-                    break;
-            }
-            hsDefaultSound.Checked = Settings.UseDefaultSound;
-            tbSoundLoc.Enabled = !hsDefaultSound.Checked;
-            tbSoundLoc.Text = Settings.SoundLocation;
-            btOpenSound.Enabled = !hsDefaultSound.Checked;
-            colorToolStripMenuItem.Checked = Settings.Theme.BackgroundStyle == "BACKCOLOR" ? true : false;
-            textBox4.Text = Settings.Theme.BackgroundStyle == "BACKCOLOR" ? anaform.usingBC : Settings.Theme.BackgroundStyle;
-            lbCertErrorTitle.Text = anaform.CertErrorPageTitle;
-            lbCertErrorInfo.Text = anaform.CertErrorPageMessage;
-            btCertError.Text = anaform.CertErrorPageButton;
-            if (Settings.Startup.ToLower() == "korot://newtab")
-            {
-                tbStartup.Text = showNewTabPageToolStripMenuItem.Text;
-            }
-            else if (Settings.Startup.ToLower() == "korot://homepage" || Settings.Startup.ToLower() == Settings.Homepage.ToLower())
-            {
-                tbStartup.Text = showHomepageToolStripMenuItem.Text;
-            }
-            else
-            {
-                tbStartup.Text = Settings.Startup;
-            }
-            hsAutoForeColor.Checked = Settings.Theme.AutoForeColor;
-            hsNinja.Checked = Settings.NinjaMode;
-            hsDownload.Checked = Settings.Downloads.UseDownloadFolder;
-            lbDownloadFolder.Enabled = hsDownload.Checked;
-            tbFolder.Enabled = hsDownload.Checked;
-            btDownloadFolder.Enabled = hsDownload.Checked;
-            tbFolder.Text = Settings.Downloads.DownloadDirectory;
-        }
         public void Fullscreenmode(bool fullscreen)
         {
             if (fullscreen != anaform.isFullScreen)
@@ -2794,6 +1956,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 profmenu.BringToFront();
             }
         }
+
         public void applyExtension(Extension ext)
         {
             if (ext.Settings.activateScript)
@@ -2818,6 +1981,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 formext.Show();
             }
         }
+
         public void showDevTools()
         {
             if (chromiumWebBrowser1.IsHandleCreated)
@@ -2826,19 +1990,19 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
         }
 
-
         public string certificatedetails = "";
         public bool isCertError = false;
+
         public void FrmCEF_SizeChanged(object sender, EventArgs e)
         {
             ChangeProgress(websiteprogress);
         }
 
-
         private void Panel1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             tabform_KeyDown(pCEF, new KeyEventArgs(e.KeyData));
         }
+
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             if (privmenu is null)
@@ -2862,13 +2026,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 privmenu.BringToFront();
             }
         }
+
         public List<string> CertAllowedUrls = new List<string>();
-        private void button10_Click(object sender, EventArgs e)
-        {
-            CertAllowedUrls.Add(btCertError.Tag.ToString());
-            chromiumWebBrowser1.Refresh();
-            pnlCert.Visible = false;
-        }
 
         public void SwitchToSettings()
         {
@@ -2879,7 +2038,19 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             else
             {
                 anaform.settingTab = ParentTab;
-                btNext.Enabled = true;
+                if (setmenu is null)
+                {
+                    setmenu = new frmSettings(Settings, this)
+                    {
+                        TopLevel = false,
+                        Dock = DockStyle.Fill,
+                        Visible = true,
+                        ShowInTaskbar = false,
+                    };
+                    tpSettings.Controls.Add(setmenu);
+                    setmenu.Show(); Settings.AllForms.Add(setmenu);
+                }
+                setmenu.SwitchSettings();
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpSettings;
             }
@@ -2914,11 +2085,11 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void restoreLastSessionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private bool allowSwitching = false;
         private bool onCEFTab = true;
+
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
             if (allowSwitching == false) { e.Cancel = true; } else { chromiumWebBrowser1.StopFinding(true); e.Cancel = false; allowSwitching = false; }
@@ -2928,41 +2099,32 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 cef_GotFocus(sender, e);
                 resetPage();
             }
-            else if (tabControl1.SelectedTab == tpCert)
-            {
-                cef_GotFocus(sender, e);
-                cef_LostFocus(sender, e);
-                resetPage();
-            }
             else
             {
                 cef_LostFocus(sender, e);
             }
         }
 
+        public string certErrorUrl = "";
+
         private void textBox4_Click(object sender, EventArgs e)
         {
-            cmsBStyle.Show(textBox4, 0, 0);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             NewTab("korot://licenses");
         }
+
         private void contextMenuStrip4_Opening(object sender, CancelEventArgs e)
         {
             Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Extensions\\\"");
             e.Cancel = true;
         }
 
-        private void hsDoNotTrack_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.DoNotTrack = hsDoNotTrack.Checked;
-        }
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if(incognitomenu is null)
+            if (incognitomenu is null)
             {
                 incognitomenu = new frmIncognito(this)
                 {
@@ -2984,6 +2146,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 incognitomenu.BringToFront();
             }
         }
+
         private void RecursiveNewTab(Folder folder, ToolStripMenuItem item)
         {
             if (folder != null)
@@ -2998,6 +2161,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 }
             }
         }
+
         private void openInNewTab_Click(object sender, EventArgs e)
         {
             if (selectedFavorite != null)
@@ -3019,6 +2183,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 }
             }
         }
+
         private void removeSelectedTSMI_Click(object sender, EventArgs e)
         {
             if (selectedFavorite != null)
@@ -3032,6 +2197,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 }
 
                 Settings.Favorites.DeleteFolder(selectedFavorite.Tag as Folder);
+                Settings.UpdateFavList();
                 RefreshFavorites();
             }
         }
@@ -3040,6 +2206,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             Settings.Favorites.Favorites.Clear();
             btFav.ButtonImage = HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130 ? Properties.Resources.star : Properties.Resources.star_w; ;
+            Settings.UpdateFavList();
             RefreshFavorites();
         }
 
@@ -3094,6 +2261,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 openİnNewIncognitoWindowToolStripMenuItem.Visible = true;
             }
         }
+
         public void takeScreenShot()
         {
             takeAScreenshotToolStripMenuItem_Click(null, null);
@@ -3144,7 +2312,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private void MouseScroll(object sender, MouseEventArgs e)
         {
-
             if (isControlKeyPressed)
             {
                 allowSwitching = true;
@@ -3164,95 +2331,122 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         public void SwitchToHistory()
         {
-            if (anaform.historyTab != null)
+            if (anaform.settingTab != null)
             {
-                anaform.SelectedTab = anaform.historyTab;
+                anaform.SelectedTab = anaform.settingTab;
             }
             else
             {
-                if (hisman is null)
+                anaform.settingTab = ParentTab;
+                if (setmenu is null)
                 {
-                    hisman = new frmHistory(this)
+                    setmenu = new frmSettings(Settings, this)
                     {
                         TopLevel = false,
                         FormBorderStyle = FormBorderStyle.None,
                         Dock = DockStyle.Fill,
-                        Visible = true
+                        Visible = true,
+                        ShowInTaskbar = false,
+                        Size = tpSettings.Size,
                     };
-                    pHisMan.Controls.Add(hisman);
-                    Settings.AllForms.Add(hisman);
+                    tpSettings.Controls.Add(setmenu);
+                    setmenu.Show(); Settings.AllForms.Add(setmenu);
                 }
-                anaform.historyTab = ParentTab;
-                btNext.Enabled = true;
                 allowSwitching = true;
-                tabControl1.SelectedTab = tpHistory;
+                setmenu.SwitchHistory();
+                tabControl1.SelectedTab = tpSettings;
             }
         }
 
         public void SwitchToDownloads()
         {
-            if (anaform.downloadTab != null)
+            if (anaform.settingTab != null)
             {
-                anaform.SelectedTab = anaform.downloadTab;
-                anaform.newDownload = false;
+                anaform.SelectedTab = anaform.settingTab;
             }
             else
             {
-                if (dowman is null)
+                anaform.settingTab = ParentTab;
+                if (setmenu is null)
                 {
-                    dowman = new frmDownload(this)
+                    setmenu = new frmSettings(Settings, this)
                     {
                         TopLevel = false,
                         FormBorderStyle = FormBorderStyle.None,
                         Dock = DockStyle.Fill,
-                        Visible = true
+                        Visible = true,
+                        ShowInTaskbar = false,
+                        Size = tpSettings.Size,
                     };
-                    pDowMan.Controls.Add(dowman);
-                    Settings.AllForms.Add(dowman);
+                    tpSettings.Controls.Add(setmenu);
+                    setmenu.Show(); Settings.AllForms.Add(setmenu);
                 }
-                anaform.downloadTab = ParentTab;
-                anaform.newDownload = false;
-                btNext.Enabled = true;
                 allowSwitching = true;
-                tabControl1.SelectedTab = tpDownload;
-            }
-        }
-        public void SwitchToAbout()
-        {
-            if (anaform.aboutTab != null)
-            {
-                anaform.SelectedTab = anaform.aboutTab;
-            }
-            else
-            {
-                anaform.aboutTab = ParentTab;
-                btNext.Enabled = true;
-                allowSwitching = true;
-                tabControl1.SelectedTab = tpAbout;
+                setmenu.SwitchDownloads();
+                tabControl1.SelectedTab = tpSettings;
             }
         }
 
-        private void hsProxy_CheckedChanged(object sender, EventArgs e)
+        public void SwitchToAbout()
         {
-            Settings.RememberLastProxy = hsProxy.Checked;
+            if (anaform.settingTab != null)
+            {
+                anaform.SelectedTab = anaform.settingTab;
+            }
+            else
+            {
+                anaform.settingTab = ParentTab;
+                if (setmenu is null)
+                {
+                    setmenu = new frmSettings(Settings, this)
+                    {
+                        TopLevel = false,
+                        FormBorderStyle = FormBorderStyle.None,
+                        Dock = DockStyle.Fill,
+                        Visible = true,
+                        ShowInTaskbar = false,
+                        Size = tpSettings.Size,
+                    };
+                    tpSettings.Controls.Add(setmenu);
+                    setmenu.Show(); Settings.AllForms.Add(setmenu);
+                }
+                allowSwitching = true;
+                setmenu.SwitchAbout();
+                tabControl1.SelectedTab = tpSettings;
+            }
         }
 
         public void SwitchToThemes()
         {
-            if (anaform.themeTab != null)
+            if (anaform.settingTab != null)
             {
-                anaform.SelectedTab = anaform.themeTab;
+                anaform.SelectedTab = anaform.settingTab;
             }
             else
             {
-                anaform.themeTab = ParentTab;
-                btNext.Enabled = true;
+                anaform.settingTab = ParentTab;
+                if (setmenu is null)
+                {
+                    setmenu = new frmSettings(Settings, this)
+                    {
+                        TopLevel = false,
+                        FormBorderStyle = FormBorderStyle.None,
+                        Dock = DockStyle.Fill,
+                        Visible = true,
+                        ShowInTaskbar = false,
+                        Size = tpSettings.Size,
+                    };
+                    tpSettings.Controls.Add(setmenu);
+                    setmenu.Show(); Settings.AllForms.Add(setmenu);
+                }
                 allowSwitching = true;
-                tabControl1.SelectedTab = tpTheme;
+                setmenu.SwitchThemes();
+                tabControl1.SelectedTab = tpSettings;
             }
         }
 
         private bool itemClicked = false;
+
         private void mFavorites_MouseClick(object sender, MouseEventArgs e)
         {
             if (!itemClicked) { if (e.Button == MouseButtons.Right) { selectedFavorite = null; cmsFavorite.Show(MousePosition); } }
@@ -3263,173 +2457,68 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             cmsFavorite_Opening(null, null);
         }
 
-        private void RefreshBlock()
-        {
-            blockmenu.GenerateUI();
-        }
         public void OpenSiteSettings()
         {
             Invoke(new Action(() =>
                 {
-                    if (anaform.siteTab != null)
+                    if (anaform.settingTab != null)
                     {
-                        anaform.SelectedTab = anaform.siteTab;
+                        anaform.SelectedTab = anaform.settingTab;
                     }
                     else
                     {
-                        if (siteman is null)
+                        anaform.settingTab = ParentTab;
+                        if (setmenu is null)
                         {
-                            siteman = new frmSites(this)
+                            setmenu = new frmSettings(Settings, this)
                             {
                                 TopLevel = false,
                                 FormBorderStyle = FormBorderStyle.None,
                                 Dock = DockStyle.Fill,
-                                Visible = true
+                                Visible = true,
+                                ShowInTaskbar = false,
+                                Size = tpSettings.Size,
                             };
-                            pSite.Controls.Add(siteman);
-                            Settings.AllForms.Add(siteman);
+                            tpSettings.Controls.Add(setmenu);
+                            setmenu.Show(); Settings.AllForms.Add(setmenu);
                         }
-                        resetPage(true);
-                        anaform.siteTab = ParentTab;
-                        btNext.Enabled = true;
                         allowSwitching = true;
-                        tabControl1.SelectedTab = tpSite;
-                        siteman.GenerateUI();
+                        setmenu.SwitchSite();
+                        tabControl1.SelectedTab = tpSettings;
                     }
                 }));
         }
+
         public void OpenBlockSettings()
         {
             Invoke(new Action(() =>
             {
-                if (anaform.blockTab != null)
+                if (anaform.settingTab != null)
                 {
-                    anaform.SelectedTab = anaform.blockTab;
+                    anaform.SelectedTab = anaform.settingTab;
                 }
                 else
                 {
-                    if (blockmenu is null)
+                    anaform.settingTab = ParentTab;
+                    if (setmenu is null)
                     {
-                        blockmenu = new frmBlock(this)
+                        setmenu = new frmSettings(Settings, this)
                         {
                             TopLevel = false,
                             FormBorderStyle = FormBorderStyle.None,
                             Dock = DockStyle.Fill,
-                            Visible = true
+                            Visible = true,
+                            ShowInTaskbar = false,
+                            Size = tpSettings.Size,
                         };
-                        pBlock.Controls.Add(blockmenu);
-                        Settings.AllForms.Add(blockmenu);
+                        tpSettings.Controls.Add(setmenu);
+                        setmenu.Show(); Settings.AllForms.Add(setmenu);
                     }
-                    resetPage(true);
-                    anaform.blockTab = ParentTab;
-                    btNext.Enabled = true;
                     allowSwitching = true;
-                    tabControl1.SelectedTab = tpBlock;
-                    RefreshBlock();
+                    setmenu.SwitchBlock();
+                    tabControl1.SelectedTab = tpSettings;
                 }
             }));
-        }
-
-        private void button15_Click(object sender, EventArgs e)
-        {
-            OpenSiteSettings();
-        }
-        private void button17_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog dialog = new FolderBrowserDialog() { Description = anaform.selectAFolder };
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                tbFolder.Text = dialog.SelectedPath;
-                Settings.Downloads.DownloadDirectory = tbFolder.Text;
-            }
-        }
-
-        private void tbFolder_TextChanged(object sender, EventArgs e)
-        {
-            Settings.Downloads.DownloadDirectory = tbFolder.Text;
-        }
-
-        private void hsDownload_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Downloads.UseDownloadFolder = hsDownload.Checked;
-            lbDownloadFolder.Enabled = hsDownload.Checked;
-            tbFolder.Enabled = hsDownload.Checked;
-            btDownloadFolder.Enabled = hsDownload.Checked;
-        }
-
-        private void showNewTabPageToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            tbStartup.Text = showNewTabPageToolStripMenuItem.Text;
-            Settings.Startup = "korot://newtab";
-        }
-
-        private void showHomepageToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            tbStartup.Text = showHomepageToolStripMenuItem.Text;
-            Settings.Startup = Settings.Homepage;
-        }
-
-        private void showAWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HTAlt.WinForms.HTInputBox inputb = new HTAlt.WinForms.HTInputBox("Korot", anaform.enterAValidUrl, Settings.SearchEngine) { Icon = Icon, SetToDefault = anaform.SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = anaform.OK, Cancel = anaform.Cancel, BackgroundColor = Settings.Theme.BackColor };
-            DialogResult diagres = inputb.ShowDialog();
-            if (diagres == DialogResult.OK)
-            {
-                if (string.IsNullOrWhiteSpace(inputb.TextValue) || (inputb.TextValue.ToLower() == "korot://newtab") || inputb.TextValue.ToLower() == Settings.Homepage.ToLower() || inputb.TextValue.ToLower() == "korot://homepage")
-                {
-                    showAWebsiteToolStripMenuItem_Click(sender, e);
-                }
-                else
-                {
-                    Settings.Startup = inputb.TextValue;
-                    tbStartup.Text = inputb.TextValue;
-                }
-            }
-        }
-
-        private void tbStartup_Click(object sender, EventArgs e)
-        {
-            cmsStartup.Show(MousePosition);
-        }
-
-        private void button18_Click(object sender, EventArgs e)
-        {
-            HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", anaform.resetConfirm,
-                                                                                      new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
-            { StartPosition = FormStartPosition.CenterParent, Yes = anaform.Yes, No = anaform.No, OK = anaform.OK, Cancel = anaform.Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
-            if (mesaj.ShowDialog() == DialogResult.Yes)
-            {
-                Process.Start(Application.ExecutablePath, "-oobe");
-                Application.Exit();
-
-            }
-        }
-
-        private void hsFav_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Favorites.ShowFavorites = hsFav.Checked;
-            RefreshFavorites();
-        }
-
-        private void btCleanLog_Click(object sender, EventArgs e)
-        {
-            string x = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Logs\\";
-            Program.RemoveDirectory(x);
-        }
-
-        private void hsOpen_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Downloads.OpenDownload = hsOpen.Checked;
-        }
-
-        private void tsWebStore_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            NewTab("https://haltroy.com/store/Korot/Themes/index.html");
         }
 
         private void newFolderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3443,6 +2532,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             frmNewFav newFav = new frmNewFav("", "", this);
             newFav.ShowDialog();
         }
+
         private void RecursiveNewWindow(Folder folder, ToolStripMenuItem item, bool isIncognito)
         {
             if (folder != null)
@@ -3457,6 +2547,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 }
             }
         }
+
         private void FavoriteInNewWindow(bool Incognito)
         {
             if (selectedFavorite != null)
@@ -3500,16 +2591,8 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 Settings.ThemeChangeForm.Remove(hammenu);
                 Settings.AllForms.Remove(hammenu);
                 hammenu.Close();
-                this.Controls.Remove(hammenu);
+                Controls.Remove(hammenu);
                 hammenu.Dispose();
-            }
-            if (blockmenu != null)
-            {
-                Settings.ThemeChangeForm.Remove(blockmenu);
-                Settings.AllForms.Remove(blockmenu);
-                blockmenu.Close();
-                pBlock.Controls.Remove(blockmenu);
-                blockmenu.Dispose();
             }
 
             if (profmenu != null)
@@ -3517,7 +2600,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 Settings.ThemeChangeForm.Remove(profmenu);
                 Settings.AllForms.Remove(profmenu);
                 profmenu.Close();
-                this.Controls.Remove(profmenu);
+                Controls.Remove(profmenu);
                 profmenu.Dispose();
             }
 
@@ -3526,7 +2609,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 Settings.ThemeChangeForm.Remove(incognitomenu);
                 Settings.AllForms.Remove(incognitomenu);
                 incognitomenu.Close();
-                this.Controls.Remove(incognitomenu);
+                Controls.Remove(incognitomenu);
                 incognitomenu.Dispose();
             }
 
@@ -3535,49 +2618,22 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 Settings.ThemeChangeForm.Remove(privmenu);
                 Settings.AllForms.Remove(privmenu);
                 privmenu.Close();
-                this.Controls.Remove(privmenu);
+                Controls.Remove(privmenu);
                 privmenu.Dispose();
             }
 
-            if (siteman != null)
+            if (setmenu != null)
             {
-                Settings.ThemeChangeForm.Remove(siteman);
-                Settings.AllForms.Remove(siteman);
-                siteman.Close();
-                pSite.Controls.Remove(siteman);
-                siteman.Dispose();
-            }
-
-
-            if (dowman != null)
-            {
-                Settings.ThemeChangeForm.Remove(dowman);
-                Settings.AllForms.Remove(dowman);
-                dowman.Close();
-                pDowMan.Controls.Remove(dowman);
-                dowman.Dispose();
-            }
-
-            if (hisman != null)
-            {
-                Settings.ThemeChangeForm.Remove(hisman);
-                Settings.AllForms.Remove(hisman);
-                hisman.Close();
-                pHisMan.Controls.Remove(hisman);
-                hisman.Dispose();
-            }
-
-            if (ColMan != null)
-            {
-                Settings.ThemeChangeForm.Remove(ColMan);
-                Settings.AllForms.Remove(ColMan);
-                ColMan.Close();
-                pColMan.Controls.Remove(ColMan);
-                ColMan.Dispose();
+                Settings.ThemeChangeForm.Remove(setmenu);
+                Settings.AllForms.Remove(setmenu);
+                setmenu.Close();
+                tpSettings.Controls.Remove(setmenu);
+                setmenu.Dispose();
             }
             resetPage();
             closing = true;
         }
+
         public void redirectTo(string url, string title)
         {
             SessionSystem.SkipAdd = bypassThisDeletion;
@@ -3594,7 +2650,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             Session[] prev = SessionSystem.Before();
             if (prev.Length > 0)
             {
-                for (int  i = 0; i < prev.Length; i++)
+                for (int i = 0; i < prev.Length; i++)
                 {
                     ToolStripMenuItem item = new ToolStripMenuItem
                     {
@@ -3660,243 +2716,38 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             cmsForward.Items.Add(tsForwardHistory);
         }
 
-        private void hsAutoRestore_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.AutoRestore = hsAutoRestore.Checked;
-        }
-
-        private void tpCollection_Enter(object sender, EventArgs e)
-        {
-            ColMan.genColList();
-        }
-
-
         public void SwitchToCollections()
         {
-            if (anaform.collectionTab != null)
+            if (anaform.settingTab != null)
             {
-                anaform.SelectedTab = anaform.collectionTab;
+                anaform.SelectedTab = anaform.settingTab;
             }
             else
             {
-                if (ColMan is null)
+                anaform.settingTab = ParentTab;
+                if (setmenu is null)
                 {
-                    ColMan = new frmCollection(this)
+                    setmenu = new frmSettings(Settings, this)
                     {
                         TopLevel = false,
                         FormBorderStyle = FormBorderStyle.None,
                         Dock = DockStyle.Fill,
-                        Visible = true
+                        Visible = true,
+                        ShowInTaskbar = false,
+                        Size = tpSettings.Size,
                     };
-                    pColMan.Controls.Add(ColMan);
-                    Settings.AllForms.Add(ColMan);
+                    tpSettings.Controls.Add(setmenu);
+                    setmenu.Show(); Settings.AllForms.Add(setmenu);
                 }
-                anaform.collectionTab = ParentTab;
-                btNext.Enabled = true;
                 allowSwitching = true;
-                tabControl1.SelectedTab = tpCollection;
-            }
-        }
-
-        private void rbNone_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbNone.Checked)
-            {
-                rbTile.Checked = false;
-                rbCenter.Checked = false;
-                rbStretch.Checked = false;
-                rbZoom.Checked = false;
-                Settings.Theme.BackgroundStyleLayout = 0;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-
-            }
-        }
-
-        private void rbTile_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbTile.Checked)
-            {
-                rbNone.Checked = false;
-                rbCenter.Checked = false;
-                rbStretch.Checked = false;
-                rbZoom.Checked = false;
-                Settings.Theme.BackgroundStyleLayout = 1;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-
-            }
-        }
-
-        private void rbCenter_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbCenter.Checked)
-            {
-                rbTile.Checked = false;
-                rbNone.Checked = false;
-                rbStretch.Checked = false;
-                rbZoom.Checked = false;
-                Settings.Theme.BackgroundStyleLayout = 2;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-
-            }
-        }
-
-        private void rbStretch_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbStretch.Checked)
-            {
-                rbTile.Checked = false;
-                rbCenter.Checked = false;
-                rbNone.Checked = false;
-                rbZoom.Checked = false;
-                Settings.Theme.BackgroundStyleLayout = 3;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-
-            }
-        }
-
-        private void rbZoom_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbZoom.Checked)
-            {
-                rbTile.Checked = false;
-                rbCenter.Checked = false;
-                rbStretch.Checked = false;
-                rbNone.Checked = false;
-                Settings.Theme.BackgroundStyleLayout = 4;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-
-            }
-        }
-
-        private void rbBackColor_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbBackColor.Checked)
-            {
-                rbForeColor.Checked = false;
-                rbOverlayColor.Checked = false;
-                Settings.Theme.NewTabColor = TabColors.BackColor;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-
-            }
-        }
-
-        private void rbForeColor_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbForeColor.Checked)
-            {
-                rbBackColor.Checked = false;
-                rbOverlayColor.Checked = false;
-                Settings.Theme.NewTabColor = TabColors.ForeColor;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-
-            }
-        }
-
-        private void rbOverlayColor_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbOverlayColor.Checked)
-            {
-                rbForeColor.Checked = false;
-                rbBackColor.Checked = false;
-                Settings.Theme.NewTabColor = TabColors.OverlayColor;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-
-            }
-        }
-
-        private void rbBackColor1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbBackColor1.Checked)
-            {
-                rbForeColor1.Checked = false;
-                rbOverlayColor1.Checked = false;
-                Settings.Theme.CloseButtonColor = TabColors.BackColor;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-
-            }
-        }
-
-        private void rbForeColor1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbForeColor1.Checked)
-            {
-                rbBackColor1.Checked = false;
-                rbOverlayColor1.Checked = false;
-                Settings.Theme.CloseButtonColor = TabColors.ForeColor;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-
-            }
-        }
-
-        private void rbOverlayColor1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbOverlayColor1.Checked)
-            {
-                rbForeColor1.Checked = false;
-                rbBackColor1.Checked = false;
-                Settings.Theme.CloseButtonColor = TabColors.OverlayColor;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-
+                setmenu.SwitchCollections();
+                tabControl1.SelectedTab = tpSettings;
             }
         }
 
         private void label2_TextChanged(object sender, EventArgs e)
         {
             lbStatus.Visible = !string.IsNullOrWhiteSpace(lbStatus.Text);
-        }
-
-        private void hsNotificationSound_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.QuietMode = !hsNotificationSound.Checked;
-        }
-
-        private void lbHaftaGunu_Click(object sender, EventArgs e)
-        {
-            Label myLabel = sender as Label;
-            if (myLabel.Tag.ToString() == "1")
-            {
-                myLabel.Tag = "0";
-                myLabel.BackColor = panel1.BackColor;
-            }
-            else if (myLabel.Tag.ToString() == "0")
-            {
-                myLabel.Tag = "1";
-                myLabel.BackColor = Settings.Theme.OverlayColor;
-            }
-            writeSchedules();
-            RefreshScheduledSiletMode();
-        }
-
-        private void fromHour_ValueChanged(object sender, EventArgs e)
-        {
-            writeSchedules();
-        }
-
-        private void hsSchedule_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.AutoSilent = hsSchedule.Checked;
-            panel1.Enabled = hsSchedule.Checked;
-        }
-
-        private void hsSilent_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.DoNotPlaySound = hsSilent.Checked;
-        }
-
-        private void button19_Click_1(object sender, EventArgs e)
-        {
-            if (anaform.notificationTab != null)
-            {
-                anaform.SelectedTab = anaform.notificationTab;
-            }
-            else
-            {
-                resetPage(true);
-                anaform.notificationTab = ParentTab;
-                btNext.Enabled = true;
-                allowSwitching = true;
-                tabControl1.SelectedTab = tpNotification;
-            }
         }
 
         private void btNotifBack_Click(object sender, EventArgs e)
@@ -3913,11 +2764,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 allowSwitching = true;
                 tabControl1.SelectedTab = tpSettings;
             }
-        }
-
-        private void btBlockBack_Click(object sender, EventArgs e)
-        {
-            OpenSiteSettings();
         }
 
         public bool isMuted = false;
@@ -3938,389 +2784,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             }
         }
 
-        private bool onThemeName = false;
-        private void comboBox1_Enter(object sender, EventArgs e)
-        {
-            onThemeName = true;
-        }
-
-        private void comboBox1_Leave(object sender, EventArgs e)
-        {
-            onThemeName = false;
-        }
-
-        private void hsFlash_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Flash = hsFlash.Checked;
-        }
-
-        private void tpHistory_Enter(object sender, EventArgs e)
-        {
-            hisman.RefreshList();
-        }
-
-        private void htButton1_Click(object sender, EventArgs e)
-        {
-            if (anaform.settingTab != null)
-            {
-                anaform.SelectedTab = anaform.settingTab;
-            }
-            else
-            {
-                resetPage(true);
-                anaform.settingTab = ParentTab;
-                btNext.Enabled = true;
-                allowSwitching = true;
-                tabControl1.SelectedTab = tpSettings;
-            }
-        }
-
-        private void btNewTab_Click(object sender, EventArgs e)
-        {
-            EditNewTabItem();
-        }
-
-        private void LoadNewTabSites()
-        {
-            NTRefreshNotDone = true;
-            //l0
-            bool fs0 = Settings.NewTabSites.FavoritedSite0 != null;
-            L0T.Text = fs0 ? Settings.NewTabSites.FavoritedSite0.Name : "...";
-            L0U.Text = fs0 ? Settings.NewTabSites.FavoritedSite0.Url : "...";
-            //l1
-            bool fs1 = Settings.NewTabSites.FavoritedSite1 != null;
-            L1T.Text = fs1 ? Settings.NewTabSites.FavoritedSite1.Name : "...";
-            L1U.Text = fs1 ? Settings.NewTabSites.FavoritedSite1.Url : "...";
-            //l2
-            bool fs2 = Settings.NewTabSites.FavoritedSite2 != null;
-            L2T.Text = fs2 ? Settings.NewTabSites.FavoritedSite2.Name : "...";
-            L2U.Text = fs2 ? Settings.NewTabSites.FavoritedSite2.Url : "...";
-            //l3
-            bool fs3 = Settings.NewTabSites.FavoritedSite3 != null;
-            L3T.Text = fs3 ? Settings.NewTabSites.FavoritedSite3.Name : "...";
-            L3U.Text = fs3 ? Settings.NewTabSites.FavoritedSite3.Url : "...";
-            //l4
-            bool fs4 = Settings.NewTabSites.FavoritedSite4 != null;
-            L4T.Text = fs4 ? Settings.NewTabSites.FavoritedSite4.Name : "...";
-            L4U.Text = fs4 ? Settings.NewTabSites.FavoritedSite4.Url : "...";
-            //l5
-            bool fs5 = Settings.NewTabSites.FavoritedSite5 != null;
-            L5T.Text = fs5 ? Settings.NewTabSites.FavoritedSite5.Name : "...";
-            L5U.Text = fs5 ? Settings.NewTabSites.FavoritedSite5.Url : "...";
-            //l6
-            bool fs6 = Settings.NewTabSites.FavoritedSite6 != null;
-            L6T.Text = fs6 ? Settings.NewTabSites.FavoritedSite6.Name : "...";
-            L6U.Text = fs6 ? Settings.NewTabSites.FavoritedSite6.Url : "...";
-            //l7
-            bool fs7 = Settings.NewTabSites.FavoritedSite7 != null;
-            L7T.Text = fs7 ? Settings.NewTabSites.FavoritedSite7.Name : "...";
-            L7U.Text = fs7 ? Settings.NewTabSites.FavoritedSite7.Url : "...";
-            //l8
-            bool fs8 = Settings.NewTabSites.FavoritedSite8 != null;
-            L8T.Text = fs8 ? Settings.NewTabSites.FavoritedSite8.Name : "...";
-            L8U.Text = fs8 ? Settings.NewTabSites.FavoritedSite8.Url : "...";
-            //l9
-            bool fs9 = Settings.NewTabSites.FavoritedSite9 != null;
-            L9T.Text = fs9 ? Settings.NewTabSites.FavoritedSite9.Name : "...";
-            L9U.Text = fs9 ? Settings.NewTabSites.FavoritedSite9.Url : "...";
-            L0.BorderStyle = editL == 0 ? BorderStyle.FixedSingle : BorderStyle.None;
-            L1.BorderStyle = editL == 1 ? BorderStyle.FixedSingle : BorderStyle.None;
-            L2.BorderStyle = editL == 2 ? BorderStyle.FixedSingle : BorderStyle.None;
-            L3.BorderStyle = editL == 3 ? BorderStyle.FixedSingle : BorderStyle.None;
-            L4.BorderStyle = editL == 4 ? BorderStyle.FixedSingle : BorderStyle.None;
-            L5.BorderStyle = editL == 5 ? BorderStyle.FixedSingle : BorderStyle.None;
-            L6.BorderStyle = editL == 6 ? BorderStyle.FixedSingle : BorderStyle.None;
-            L7.BorderStyle = editL == 7 ? BorderStyle.FixedSingle : BorderStyle.None;
-            L8.BorderStyle = editL == 8 ? BorderStyle.FixedSingle : BorderStyle.None;
-            L9.BorderStyle = editL == 9 ? BorderStyle.FixedSingle : BorderStyle.None;
-            NTRefreshNotDone = false;
-        }
-
-        private int editL = 0;
-
-        private void tbTitle_TextChanged(object sender, EventArgs e)
-        {
-            if (NTRefreshNotDone) { return; }
-            switch (editL)
-            {
-                case 0:
-                    if (Settings.NewTabSites.FavoritedSite0 == null) { Settings.NewTabSites.FavoritedSite0 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite0.Name = tbTitle.Text;
-                    break;
-                case 1:
-                    if (Settings.NewTabSites.FavoritedSite1 == null) { Settings.NewTabSites.FavoritedSite1 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite1.Name = tbTitle.Text;
-                    break;
-                case 2:
-                    if (Settings.NewTabSites.FavoritedSite2 == null) { Settings.NewTabSites.FavoritedSite2 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite2.Name = tbTitle.Text;
-                    break;
-                case 3:
-                    if (Settings.NewTabSites.FavoritedSite3 == null) { Settings.NewTabSites.FavoritedSite3 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite3.Name = tbTitle.Text;
-                    break;
-                case 4:
-                    if (Settings.NewTabSites.FavoritedSite4 == null) { Settings.NewTabSites.FavoritedSite4 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite4.Name = tbTitle.Text;
-                    break;
-                case 5:
-                    if (Settings.NewTabSites.FavoritedSite5 == null) { Settings.NewTabSites.FavoritedSite5 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite5.Name = tbTitle.Text;
-                    break;
-                case 6:
-                    if (Settings.NewTabSites.FavoritedSite6 == null) { Settings.NewTabSites.FavoritedSite6 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite6.Name = tbTitle.Text;
-                    break;
-                case 7:
-                    if (Settings.NewTabSites.FavoritedSite7 == null) { Settings.NewTabSites.FavoritedSite7 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite7.Name = tbTitle.Text;
-                    break;
-                case 8:
-                    if (Settings.NewTabSites.FavoritedSite8 == null) { Settings.NewTabSites.FavoritedSite8 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite8.Name = tbTitle.Text;
-                    break;
-                case 9:
-                    if (Settings.NewTabSites.FavoritedSite9 == null) { Settings.NewTabSites.FavoritedSite9 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite9.Name = tbTitle.Text;
-                    break;
-            }
-            LoadNewTabSites();
-        }
-
-        private void tbUrl_TextChanged(object sender, EventArgs e)
-        {
-            if (NTRefreshNotDone) { return; }
-            switch (editL)
-            {
-                case 0:
-                    if (Settings.NewTabSites.FavoritedSite0 == null) { Settings.NewTabSites.FavoritedSite0 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite0.Url = tbUrl.Text;
-                    break;
-                case 1:
-                    if (Settings.NewTabSites.FavoritedSite1 == null) { Settings.NewTabSites.FavoritedSite1 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite1.Url = tbUrl.Text;
-                    break;
-                case 2:
-                    if (Settings.NewTabSites.FavoritedSite2 == null) { Settings.NewTabSites.FavoritedSite2 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite2.Url = tbUrl.Text;
-                    break;
-                case 3:
-                    if (Settings.NewTabSites.FavoritedSite3 == null) { Settings.NewTabSites.FavoritedSite3 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite3.Url = tbUrl.Text;
-                    break;
-                case 4:
-                    if (Settings.NewTabSites.FavoritedSite4 == null) { Settings.NewTabSites.FavoritedSite4 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite4.Url = tbUrl.Text;
-                    break;
-                case 5:
-                    if (Settings.NewTabSites.FavoritedSite5 == null) { Settings.NewTabSites.FavoritedSite5 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite5.Url = tbUrl.Text;
-                    break;
-                case 6:
-                    if (Settings.NewTabSites.FavoritedSite6 == null) { Settings.NewTabSites.FavoritedSite6 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite6.Url = tbUrl.Text;
-                    break;
-                case 7:
-                    if (Settings.NewTabSites.FavoritedSite7 == null) { Settings.NewTabSites.FavoritedSite7 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite7.Url = tbUrl.Text;
-                    break;
-                case 8:
-                    if (Settings.NewTabSites.FavoritedSite8 == null) { Settings.NewTabSites.FavoritedSite8 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite8.Url = tbUrl.Text;
-                    break;
-                case 9:
-                    if (Settings.NewTabSites.FavoritedSite9 == null) { Settings.NewTabSites.FavoritedSite9 = new Site(); }
-                    Settings.NewTabSites.FavoritedSite9.Url = tbUrl.Text;
-                    break;
-            }
-            LoadNewTabSites();
-        }
-
-        private bool NTRefreshNotDone = false;
-        private void siteItem_Click(object sender, EventArgs e)
-        {
-            if (sender == null) { return; }
-            Control cntrl = sender as Control;
-            Panel pnl = cntrl is Panel ? cntrl as Panel : cntrl.Parent as Panel;
-            if (pnl == null) { return; }
-            if (pnl.Tag == null) { return; }
-            int itemid = Convert.ToInt32(pnl.Tag);
-            editL = itemid;
-            NTRefreshNotDone = true;
-            LoadNewTabSites();
-            switch (itemid)
-            {
-                case 0:
-                    if (Settings.NewTabSites.FavoritedSite0 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite0.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite0.Url; }
-                    tbTitle.Enabled = true;
-                    tbUrl.Enabled = true;
-                    btClear.Enabled = true;
-                    break;
-                case 1:
-                    if (Settings.NewTabSites.FavoritedSite1 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite1.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite1.Url; }
-                    tbTitle.Enabled = true;
-                    tbUrl.Enabled = true;
-                    btClear.Enabled = true;
-                    break;
-                case 2:
-                    if (Settings.NewTabSites.FavoritedSite2 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite2.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite2.Url; }
-                    tbTitle.Enabled = true;
-                    tbUrl.Enabled = true;
-                    btClear.Enabled = true;
-                    break;
-                case 3:
-                    if (Settings.NewTabSites.FavoritedSite3 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite3.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite3.Url; }
-                    tbTitle.Enabled = true;
-                    tbUrl.Enabled = true;
-                    btClear.Enabled = true;
-                    break;
-                case 4:
-                    if (Settings.NewTabSites.FavoritedSite4 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite4.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite4.Url; }
-                    tbTitle.Enabled = true;
-                    tbUrl.Enabled = true;
-                    btClear.Enabled = true;
-                    break;
-                case 5:
-                    if (Settings.NewTabSites.FavoritedSite5 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite5.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite5.Url; }
-                    tbTitle.Enabled = true;
-                    tbUrl.Enabled = true;
-                    btClear.Enabled = true;
-                    break;
-                case 6:
-                    if (Settings.NewTabSites.FavoritedSite6 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite6.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite6.Url; }
-                    tbTitle.Enabled = true;
-                    tbUrl.Enabled = true;
-                    btClear.Enabled = true;
-                    break;
-                case 7:
-                    if (Settings.NewTabSites.FavoritedSite7 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite7.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite7.Url; }
-                    tbTitle.Enabled = true;
-                    tbUrl.Enabled = true;
-                    btClear.Enabled = true;
-                    break;
-                case 8:
-                    if (Settings.NewTabSites.FavoritedSite8 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite8.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite8.Url; }
-                    tbTitle.Enabled = true;
-                    tbUrl.Enabled = true;
-                    btClear.Enabled = true;
-                    break;
-                case 9:
-                    if (Settings.NewTabSites.FavoritedSite9 == null) { tbTitle.Text = ""; tbUrl.Text = ""; } else { tbTitle.Text = Settings.NewTabSites.FavoritedSite9.Name; tbUrl.Text = Settings.NewTabSites.FavoritedSite9.Url; }
-                    tbTitle.Enabled = true;
-                    tbUrl.Enabled = true;
-                    btClear.Enabled = true;
-                    break;
-            }
-            NTRefreshNotDone = false;
-        }
-
-        private void btClear_Click(object sender, EventArgs e)
-        {
-            if (!NTRefreshNotDone)
-            {
-                if (editL == 0) { Settings.NewTabSites.FavoritedSite0 = null; }
-                else if (editL == 1) { Settings.NewTabSites.FavoritedSite1 = null; }
-                else if (editL == 2) { Settings.NewTabSites.FavoritedSite2 = null; }
-                else if (editL == 3) { Settings.NewTabSites.FavoritedSite3 = null; }
-                else if (editL == 4) { Settings.NewTabSites.FavoritedSite4 = null; }
-                else if (editL == 5) { Settings.NewTabSites.FavoritedSite5 = null; }
-                else if (editL == 6) { Settings.NewTabSites.FavoritedSite6 = null; }
-                else if (editL == 7) { Settings.NewTabSites.FavoritedSite7 = null; }
-                else if (editL == 8) { Settings.NewTabSites.FavoritedSite8 = null; }
-                else if (editL == 9) { Settings.NewTabSites.FavoritedSite9 = null; }
-                tbTitle.Text = "";
-                tbUrl.Text = "";
-                LoadNewTabSites();
-            }
-        }
-
-        private void btlangFolder_Click(object sender, EventArgs e)
-        {
-            Process.Start("explorer.exe", "\"" + Application.StartupPath + "\\Lang\\\"");
-        }
-
-        private void btLangStore_Click(object sender, EventArgs e)
-        {
-            NewTab("https://haltroy.com/store/Korot/Languages/index.html");
-        }
-
-        private void cbLang_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadLangFromFile(Application.StartupPath + "//Lang//" + cbLang.Text + ".klf");
-        }
-
-        private void btBlocked_Click(object sender, EventArgs e)
-        {
-            OpenBlockSettings();
-        }
-
-        private void btThemeWizard_Click(object sender, EventArgs e)
-        {
-            if (!(anaform is null))
-            {
-                anaform.Invoke(new Action(() =>
-                {
-                    frmThemeWizard wizard = new frmThemeWizard(Settings);
-                    wizard.ShowDialog();
-                }));
-            }
-        }
-
-        private void hsAutoForeColor_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Theme.AutoForeColor = hsAutoForeColor.Checked;
-            Settings.Theme.ForeColor = hsAutoForeColor.Checked ? (HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor)) : Settings.Theme.ForeColor;
-            Settings.JustChangedTheme(); ChangeTheme(true);
-        }
-
-        private void hsNinja_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.NinjaMode = hsNinja.Checked;
-            Settings.JustChangedTheme(); ChangeTheme(true);
-        }
-
-        private void pbForeColor_Click(object sender, EventArgs e)
-        {
-            ColorDialog colorpicker = new ColorDialog
-            {
-                Color = Settings.Theme.ForeColor,
-                AnyColor = true,
-                AllowFullOpen = true,
-                FullOpen = true
-            };
-            if (colorpicker.ShowDialog() == DialogResult.OK)
-            {
-                pbForeColor.BackColor = colorpicker.Color;
-                Settings.Theme.AutoForeColor = false;
-                Settings.Theme.ForeColor = colorpicker.Color;
-                Settings.JustChangedTheme(); ChangeTheme(true);
-            }
-        }
-
-        private void btOpenSound_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dialog = new OpenFileDialog()
-            {
-                InitialDirectory = Settings.SoundLocation,
-                FileName = Settings.SoundLocation,
-                Multiselect = false,
-                Filter = anaform.soundFiles + "|*.mp3;*.wav;*.aac;*.midi|" + anaform.allFiles + "|*.*"
-            };
-            DialogResult result = dialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                Settings.SoundLocation = dialog.FileName;
-                tbSoundLoc.Text = dialog.FileName;
-            }
-        }
-
-        private void hsDefaultSound_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.UseDefaultSound = hsDefaultSound.Checked;
-            tbSoundLoc.Enabled = !hsDefaultSound.Checked;
-            btOpenSound.Enabled = !hsDefaultSound.Checked;
-        }
-
         private void label20_MouseClick(object sender, MouseEventArgs e)
         {
             isLeftPressed = e.Button == MouseButtons.Left ? true : isLeftPressed;
@@ -4332,247 +2795,5 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 isRightPressed = false;
             }
         }
-    }
-    public class SessionSystem
-    {
-        public SessionSystem(string XMLCode)
-        {
-            if (!string.IsNullOrWhiteSpace(XMLCode))
-            {
-                XmlDocument document = new XmlDocument();
-                document.LoadXml(XMLCode);
-                XmlNode workNode = document.FirstChild;
-                if (document.FirstChild.Name.ToLower() == "xml") { workNode = document.FirstChild.NextSibling; }
-                if (workNode.Attributes["Index"] != null) {
-                    int si = Convert.ToInt32(workNode.Attributes["Index"].Value);
-                    foreach (XmlNode node in workNode.ChildNodes)
-                    {
-                        if (node.Name.ToLower() == "sessionsite")
-                        {
-                            if (node.Attributes["Url"] != null && node.Attributes["Title"] != null)
-                            {
-                                Sessions.Add(new Session(node.Attributes["Url"].Value, node.Attributes["Tİtle"].Value));
-                            }
-                        }
-                    }
-                    SelectedIndex = si;
-                    SelectedSession = Sessions[si];
-                }
-            }
-        }
-        public SessionSystem() : this("") { }
-        private List<Session> _Sessions = new List<Session>();
-        public string XmlOut()
-        {
-            string x = "<Session Index=\"" + SelectedIndex + "\" >" + Environment.NewLine;
-            for(int i = 0; i < Sessions.Count;i++)
-            {
-                x += "<SessionSite Url=\"" + Sessions[i].Url + "\" Title=\"" + Sessions[i].Title + "\" >" + Environment.NewLine;
-            }
-            return x + "</Session>";
-        }
-        public List<Session> Sessions
-        {
-            get => _Sessions;
-            set => _Sessions = value;
-        }
-        public bool SkipAdd = false;
-        public void GoBack(ChromiumWebBrowser browser)
-        {
-            if (CanGoBack())
-            {
-                SkipAdd = true;
-                SelectedIndex -= 1;
-                SelectedSession = Sessions[SelectedIndex];
-                browser.Invoke(new Action(() => browser.Load(SelectedSession.Url)));
-            }
-        }
-        public void GoForward(ChromiumWebBrowser browser)
-        {
-            if (CanGoForward())
-            {
-                SkipAdd = true;
-                SelectedIndex += 1;
-                SelectedSession = Sessions[SelectedIndex];
-                browser.Invoke(new Action(() => browser.Load(SelectedSession.Url)));
-            }
-        }
-        public Session SessionInIndex(int Index)
-        {
-            return Sessions[Index];
-        }
-        public Session SelectedSession { get; set; }
-        public int SelectedIndex { get; set; }
-        public void MoveTo(int i,ChromiumWebBrowser browser)
-        {
-            if (browser is null)
-            {
-                throw new ArgumentNullException("\"browser\" was null");
-            }
-            if (i >= 0 && i < Sessions.Count)
-            {
-                SkipAdd = true;
-                SelectedIndex = i;
-                SelectedSession = Sessions[i];
-                browser.Load(SelectedSession.Url);
-            }else
-            {
-                throw new ArgumentOutOfRangeException("\"i\" was bigger than Sessions.Count or smaller than 0. [i=\"" + i + "\" Count=\"" + Sessions.Count + "\"]");
-            }
-        }
-        public void Add(string url,string title)
-        {
-            Add(new Session(url, title));
-        }
-        public void Add(Session Session)
-        {
-            if (Session is null)
-            {
-                throw new ArgumentNullException("\"Session\" was null.");
-            }
-            if (Session.Url.ToLower().StartsWith("korot") && (!KorotTools.isNonRedirectKorotPage(Session.Url)))
-            {
-                return;
-            }
-            if (SkipAdd) { SkipAdd = false; return; }
-            if (CanGoForward() && SelectedIndex + 1 < Sessions.Count)
-            {
-                if (!Session.Equals(Sessions[SelectedIndex]))
-                {
-                    Console.WriteLine("Session Not Equal: 1:" + Session.Url + " 2:" + Sessions[SelectedIndex].Url);
-                    Session[] RemoveThese = After();
-                    for (int i = 0; i < RemoveThese.Length; i++)
-                    {
-                        Sessions.Remove(RemoveThese[i]);
-                    }
-                    if (Sessions.Count > 0)
-                    {
-                        if (Sessions[Sessions.Count - 1].Url != Session.Url)
-                        {
-                            Sessions.Add(Session);
-                        }
-                    }
-                    else
-                    {
-                        Sessions.Add(Session);
-                    }
-                }
-            }
-            else
-            {
-                if (Sessions.Count > 0)
-                {
-                    if (Sessions[Sessions.Count - 1].Url != Session.Url)
-                    {
-                        Sessions.Add(Session);
-                    }
-                }
-                else
-                {
-                    Sessions.Add(Session);
-                }
-            }
-            if (Sessions.Count > 0)
-            {
-                if (Sessions[Sessions.Count - 1].Url != Session.Url)
-                {
-                    SelectedSession = Session;
-                    SelectedIndex = Sessions.IndexOf(Session);
-                }
-                else
-                {
-                    SelectedSession = Sessions[Sessions.Count - 1];
-                    SelectedIndex = Sessions.Count - 1;
-                }
-            }
-            else
-            {
-                Sessions.Add(Session);
-            }
-        }
-        public bool CanGoBack() => CanGoBack(SelectedSession);
-        public bool CanGoBack(Session Session)
-        {
-            if (Session is null)
-            {
-                return false;
-            }
-            if (!Sessions.Contains(Session))
-            {
-                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
-            }
-            int current = Sessions.IndexOf(Session);
-            return current > 0;
-        }
-        public bool CanGoForward() => CanGoForward(SelectedSession);
-        public bool CanGoForward(Session Session)
-        {
-            if (Session is null)
-            {
-                return false;
-            }
-            if (!Sessions.Contains(Session))
-            {
-                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
-            }
-
-            int current = Sessions.IndexOf(Session) + 1;
-            return current < Sessions.Count;
-        }
-        public Session[] Before() => Before(SelectedSession);
-        public Session[] Before(Session Session)
-        {
-            if (Session is null)
-            {
-                return new Session[] { };
-            }
-            if (!Sessions.Contains(Session))
-            {
-                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
-            }
-            int current = Sessions.IndexOf(Session);
-            List<Session> fs = new List<Session>();
-            for(int i =0; i< current; i++)
-            {
-                fs.Add(Sessions[i]);
-            }
-            return fs.ToArray();
-        }
-        public Session[] After() => After(SelectedSession);
-        public Session[] After(Session Session)
-        {
-            if (Session is null)
-            {
-                return new Session[] { };
-            }
-            if (!Sessions.Contains(Session))
-            {
-                throw new ArgumentOutOfRangeException("Cannot find Session[Url=\"" + (Session.Url == null ? "null" : Session.Url) + "\" Title=\"" + (Session.Title == null ? "null" : Session.Title) + "\"].");
-            }
-            int current = Sessions.IndexOf(Session) + 1;
-            List<Session> fs = new List<Session>();
-            for (int i = current; i < Sessions.Count; i++)
-            {
-                fs.Add(Sessions[i]);
-            }
-            return fs.ToArray();
-        }
-    }
-    public class Session
-    {
-        public override bool Equals(object obj) => obj is Session session && Url == session.Url;
-
-        public override int GetHashCode() => -1915121810 + EqualityComparer<string>.Default.GetHashCode(Url);
-
-        public Session(string _Url, string _Title)
-        {
-            Url = _Url;
-            Title = _Title;
-        }
-        public Session() : this("", "") { }
-        public Session(string _Url) : this(_Url, _Url) { }
-
-        public string Url { get; set; }
-        public string Title { get; set; }
     }
 }

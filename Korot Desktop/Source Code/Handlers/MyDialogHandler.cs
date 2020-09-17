@@ -57,7 +57,6 @@ namespace Korot
                     return true;
                 }
                 else { callback.Cancel(); return false; }
-
             }
             else if (mode == CefFileDialogMode.OpenFolder)
             {

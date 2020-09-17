@@ -32,10 +32,12 @@ namespace Korot
         private readonly string favName;
         private readonly string favUrl;
         private readonly frmCEF Cefform;
+
         public frmMain anaform()
         {
             return ((frmMain)Cefform.ParentTabs);
         }
+
         public frmNewFav(string name, string url, frmCEF _frmCef)
         {
             Cefform = _frmCef;
@@ -47,6 +49,7 @@ namespace Korot
                 try { x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
         }
+
         public void LoadDynamicMenu()
         {
             treeView1.Nodes.Clear();
@@ -71,7 +74,6 @@ namespace Korot
                     };
 
                     rootNode.Nodes.Add(menuItem);
-
                 }
                 else
                 {
@@ -88,6 +90,7 @@ namespace Korot
             }
             treeView1.ExpandAll();
         }
+
         private void GenerateMenusFromXML(Folder folder, TreeNode menuItem)
         {
             TreeNode item = null;
@@ -127,9 +130,7 @@ namespace Korot
 
         private void frmNewFav_Load(object sender, EventArgs e)
         {
-
             LoadDynamicMenu();
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -156,7 +157,6 @@ namespace Korot
                     button1_Click(sender, e);
                 }
             }
-
         }
 
         private readonly string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\IconStorage\\";
@@ -197,7 +197,6 @@ namespace Korot
                         Name = textBox1.Text.Replace(" ", "").Replace(Environment.NewLine, ""),
                         Text = textBox1.Text,
                         Favorites = new System.Collections.Generic.List<Folder>(),
-
                     };
                     if (treeView1.SelectedNode.Name == "root" && treeView1.SelectedNode.ToolTipText == "korot://root")
                     {
@@ -210,6 +209,7 @@ namespace Korot
                         (treeView1.SelectedNode.Tag as Folder).Favorites.Add(newFav);
                     }
                 }
+                Cefform.Settings.UpdateFavList();
                 Close();
             }
         }

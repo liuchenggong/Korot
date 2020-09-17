@@ -27,10 +27,12 @@ namespace Korot
     public class JsHandler : IJsDialogHandler
     {
         private readonly frmCEF Cefform;
+
         public JsHandler(frmCEF _frmCEF)
         {
             Cefform = _frmCEF;
         }
+
         public bool OnBeforeUnloadDialog(IWebBrowser chromiumWebBrowser, IBrowser browser, string messageText, bool isReload, IJsDialogCallback callback)
         {
             return false;
@@ -38,7 +40,6 @@ namespace Korot
 
         public void OnDialogClosed(IWebBrowser browserControl, IBrowser browser)
         {
-
         }
 
         public bool OnJSBeforeUnload(IWebBrowser browserControl, IBrowser browser, string message, bool isReload, IJsDialogCallback callback)
@@ -72,13 +73,10 @@ namespace Korot
             {
                 return false;
             }
-
         }
-
 
         public void OnResetDialogState(IWebBrowser browserControl, IBrowser browser)
         {
-
         }
     }
 }

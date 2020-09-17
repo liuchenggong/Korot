@@ -9,6 +9,7 @@ namespace Korot
     public partial class frmSites : Form
     {
         public frmCEF cefform;
+
         public frmSites(frmCEF _cefform)
         {
             cefform = _cefform;
@@ -19,6 +20,7 @@ namespace Korot
         private readonly List<Label> cookieLabels = new List<Label>();
         private readonly List<Label> notificationLabels = new List<Label>();
         private readonly List<HTSwitch> switches = new List<HTSwitch>();
+
         public void GenerateUI()
         {
             cookieLabels.Clear();
@@ -34,8 +36,10 @@ namespace Korot
                 Controls.Add(lbEmpty);
             }
         }
+
         private readonly List<Site> selectedSites = new List<Site>();
         private readonly List<Panel> selectedPanels = new List<Panel>();
+
         private void item_Clicked(object sender, EventArgs e)
         {
             if (sender == null) { return; }
@@ -66,9 +70,9 @@ namespace Korot
             HTSwitch hsNotification = new HTSwitch();
             Label lbCookie = new Label();
             Label lbNotif = new Label();
-            // 
+            //
             // pSite
-            // 
+            //
             pSite.Controls.Add(flowLayoutPanel1);
             pSite.Controls.Add(lbClose);
             pSite.Controls.Add(lbAddress);
@@ -79,9 +83,9 @@ namespace Korot
             pSite.Margin = new System.Windows.Forms.Padding(5);
             pSite.Padding = new System.Windows.Forms.Padding(5);
             pSite.Size = new System.Drawing.Size(Width, 100);
-            // 
+            //
             // flowLayoutPanel1
-            // 
+            //
             flowLayoutPanel1.Controls.Add(hsCookie);
             flowLayoutPanel1.Controls.Add(lbCookie);
             flowLayoutPanel1.Controls.Add(hsNotification);
@@ -91,18 +95,18 @@ namespace Korot
             flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             flowLayoutPanel1.Location = new System.Drawing.Point(5, 68);
             flowLayoutPanel1.Size = new System.Drawing.Size(Width - 10, 27);
-            // 
+            //
             // hsCookie
-            // 
+            //
             hsCookie.Location = new System.Drawing.Point(412, 3);
             hsCookie.Size = new System.Drawing.Size(50, 19);
             hsCookie.Tag = site;
             hsCookie.Checked = site.AllowCookies;
             switches.Add(hsCookie);
             hsCookie.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(hsCookie_CheckedChanged);
-            // 
+            //
             // lbCookie
-            // 
+            //
             lbCookie.AutoSize = true;
             lbCookie.Dock = System.Windows.Forms.DockStyle.Fill;
             lbCookie.Location = new System.Drawing.Point(358, 0);
@@ -110,18 +114,18 @@ namespace Korot
             lbCookie.Text = "Cookies:";
             cookieLabels.Add(lbCookie);
             lbCookie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
+            //
             // hsNotification
-            // 
+            //
             hsNotification.Location = new System.Drawing.Point(302, 3);
             hsNotification.Size = new System.Drawing.Size(50, 19);
             hsNotification.Tag = site;
             hsNotification.Checked = site.AllowNotifications;
             switches.Add(hsNotification);
             hsNotification.CheckedChanged += new HTAlt.WinForms.HTSwitch.CheckedChangedDelegate(hsNotification_CheckedChanged);
-            // 
+            //
             // lbNotif
-            // 
+            //
             lbNotif.AutoSize = true;
             lbNotif.Dock = System.Windows.Forms.DockStyle.Fill;
             lbNotif.Location = new System.Drawing.Point(228, 0);
@@ -129,9 +133,9 @@ namespace Korot
             lbNotif.Text = "Notifications:";
             notificationLabels.Add(lbNotif);
             lbNotif.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
+            //
             // lbClose
-            // 
+            //
             lbClose.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
             lbClose.AutoSize = true;
             lbClose.Font = new System.Drawing.Font("Ubuntu", 12F);
@@ -140,18 +144,18 @@ namespace Korot
             lbClose.Text = "X";
             lbClose.Tag = site;
             lbClose.Click += new System.EventHandler(lbClose_Click);
-            // 
+            //
             // lbAddress
-            // 
+            //
             lbAddress.AutoSize = true;
             lbAddress.Click += item_Clicked;
             lbAddress.Font = new System.Drawing.Font("Ubuntu", 10F);
             lbAddress.Location = new System.Drawing.Point(10, 33);
             lbAddress.Size = new System.Drawing.Size(60, 17);
             lbAddress.Text = site.Url;
-            // 
+            //
             // lbTitle
-            // 
+            //
             lbTitle.AutoSize = true;
             lbTitle.Click += item_Clicked;
             lbTitle.Font = new System.Drawing.Font("Ubuntu", 15F);
@@ -162,6 +166,7 @@ namespace Korot
         }
 
         private bool rsMode = false;
+
         private void hsNotification_CheckedChanged(object sender, EventArgs e)
         {
             HTSwitch hsN = sender as HTSwitch;
@@ -188,6 +193,7 @@ namespace Korot
         }
 
         private bool didLostFocus = false;
+
         private void frmSites_Leave(object sender, EventArgs e)
         {
             didLostFocus = true;
@@ -224,7 +230,6 @@ namespace Korot
                 x.ButtonColor = ForeColor;
                 x.ButtonHoverColor = ForeColor;
                 x.ButtonPressedColor = ForeColor;
-
             }
             htButton1.BackColor = BackColor2;
             htButton1.ForeColor = ForeColor;

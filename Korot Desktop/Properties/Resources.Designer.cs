@@ -211,6 +211,29 @@ namespace Korot.Properties {
         }
         
         /// <summary>
+        ///   &lt;head&gt;
+        ///&lt;title&gt;Korot&lt;/title&gt;
+        ///&lt;style&gt;
+        ///body { background: #800000; color:white; font: Ubuntu; }
+        ///button { font-family: Ubuntu;  font-size: large;  background: #400000; color: white;}
+        ///&lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///&lt;h1&gt;§TITLE§&lt;/h1&gt;
+        ///&lt;h3&gt;§DESC§&lt;/h3&gt;
+        ///&lt;a&gt;§CERT§&lt;a&gt;
+        ///&lt;/br&gt;
+        ///&lt;/br&gt;
+        ///&lt;button onclick=&quot;window.location.href = &apos;korot://certcontinue&apos;&quot;&gt;§CONTINUE§&lt;/button&gt; 
+        ///&lt;/body&gt; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string certerror {
+            get {
+                return ResourceManager.GetString("certerror", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static System.Drawing.Bitmap collection {
@@ -1477,6 +1500,16 @@ namespace Korot.Properties {
             get {
                 object obj = ResourceManager.GetObject("tip-tema", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] Türkçe {
+            get {
+                object obj = ResourceManager.GetObject("Türkçe", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

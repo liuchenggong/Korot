@@ -1,4 +1,27 @@
-<Language CompatibleVersion="0.8.1.0">
+<Language CompatibleVersion="0.8.2.0">
+  <Translate ID="AutoClean" Text="Otomatik Temizleme" />
+  <Translate ID="AutoCleanMessage" Text="Önbelleği temizlemeden önce yeniden başlatmamız gerek. [NEWLINE] Devam etmek istediğinizden emin misiniz?" />
+  <Translate ID="AutoCleanButton" Text="Şimdi Temizle" />
+  <Translate ID="AutoCleanCache" Text="Önbelleği otomatik temizle:" />
+  <Translate ID="AutoCleanCacheT1" Text="Önbellek [VAL] MB'dan fazla olunca:" />
+  <Translate ID="AutoCleanCacheT2" Text="Her [VAL] günde bir temizle:" />
+  <Translate ID="AutoCleanHistory" Text="Geçmişi otomatik temizle:" />
+  <Translate ID="AutoCleanHistoryT1" Text="Kullanıcı dosyası [VAL] MB'dan fazla olunca:" />
+  <Translate ID="AutoCleanHistoryT3" Text="Her [VAL] günde bir temizle:" />
+  <Translate ID="AutoCleanHistoryT2" Text="[VAL] günden eski girişleri tenizle:" />
+  <Translate ID="AutoCleanLogs" Text="Günlükleri otomatik temizle:" />
+  <Translate ID="AutoCleanLogsT1" Text="Günlükler [VAL] MB'dan fazla olunca:" />
+  <Translate ID="AutoCleanLogsT2" Text="Her [VAL] günde bir temizle:" />
+  <Translate ID="AutoCleanLogsT3" Text="[VAL] günden eski günlükleri tenizle:" />
+  <Translate ID="AutoCleanDownloads" Text="İndirmeleri otomatik temizle:" />
+  <Translate ID="AutoCleanDownloadsT1" Text="Kullanıcı dosyası [VAL] MB'dan fazla olunca:" />
+  <Translate ID="AutoCleanDownloadsT3" Text="Her [VAL] günde bir temizle:" />
+  <Translate ID="AutoCleanDownloadsT2" Text="[VAL] günden eski indirmeleri tenizle:" />
+  <Translate ID="Language" Text="Dil:" />
+  <Translate ID="NewTheme" Text="&lt;yeni&gt;..." />
+  <Translate ID="KorotUpToDate" Text="Korot sürümünüz güncel." />
+  <Translate ID="KorotUpdating" Text="Güncelleme indiriliyor... %[PERC] tamamlandı." />
+  <Translate ID="KorotUpdated" Text="Güncelleme indirildi. Kurulum, uygulama kapatıldıktan sonra devam edecektir." />
   <Translate ID="Reload" Text="Sayfayı yenile" />
   <Translate ID="SoundFiles" Text="Ses Dosyaları" />
   <Translate ID="UseDefaultSound" Text="Varsayılan bildirim sesini kullan:" />
@@ -350,6 +373,7 @@
   <Translate ID="CleanLogData" Text="Çıkış dosyalarını temizle" />
   <Translate ID="Title" Text="Başlık" />
   <Translate ID="URL" Text="URL" />
+  <Translate ID="OpenFolder" Text="Klasörü aç" />
   <Translate ID="WebStore" Text="Web Mağazası" />
   <Translate ID="CopyImage" Text="Resmi kopyala" />
   <Translate ID="OpenLinkinaNewWindow" Text="Bağlantıyı yeni pencerede aç" />
