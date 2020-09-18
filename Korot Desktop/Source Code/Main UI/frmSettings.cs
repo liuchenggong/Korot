@@ -27,6 +27,25 @@ namespace Korot
             InitializeComponent();
             tbLang.Text = Path.GetFileNameWithoutExtension(Settings.LanguageSystem.LangFile);
             EasterEggs();
+            if (cefform.anaform.Updater.isUpToDate)
+            {
+                btUpdater.Enabled = true;
+                btUpdater.Visible = true;
+                lbUpdateStatus.Text = cefform.anaform.KorotUpToDate;
+            }
+            else if (cefform.anaform.Updater.isDownloading && !cefform.anaform.Updater.isUpToDate)
+            {
+                btUpdater.Enabled = false;
+                btUpdater.Visible = false;
+                string x = cefform.anaform.Updater.Progress.ToString();
+                lbUpdateStatus.Text = cefform.anaform.KorotUpdating.Replace("[PERC]", x);
+            }
+            else if (cefform.anaform.Updater.isReady && !cefform.anaform.Updater.isUpToDate)
+            {
+                btUpdater.Enabled = false;
+                btUpdater.Visible = false;
+                lbUpdateStatus.Text = cefform.anaform.KorotUpdated;
+            }
             ReloadTheme(true);
         }
 
@@ -85,6 +104,23 @@ namespace Korot
             {
                 Settings.ThemeChangeForm.Remove(this);
                 ReloadTheme();
+            }
+            if (cefform.anaform.Updater.isUpToDate)
+            {
+                btUpdater.Enabled = true;
+                btUpdater.Visible = true;
+                lbUpdateStatus.Text = cefform.anaform.KorotUpToDate;
+            }else if (cefform.anaform.Updater.isDownloading && !cefform.anaform.Updater.isUpToDate)
+            {
+                btUpdater.Enabled = false;
+                btUpdater.Visible = false;
+                string x = cefform.anaform.Updater.Progress.ToString();
+                lbUpdateStatus.Text = cefform.anaform.KorotUpdating.Replace("[PERC]", x);
+            }else if (cefform.anaform.Updater.isReady && !cefform.anaform.Updater.isUpToDate)
+            {
+                btUpdater.Enabled = false;
+                btUpdater.Visible = false;
+                lbUpdateStatus.Text = cefform.anaform.KorotUpdated;
             }
         }
 
@@ -1384,6 +1420,7 @@ namespace Korot
         private void themeTSMI_Click(object sender, EventArgs e)
         {
             Settings.Theme.LoadFromFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + ((ToolStripMenuItem)sender).Text + ".ktf");
+            tbTheme.Text = ((ToolStripMenuItem)sender).Text;
             Settings.JustChangedTheme(); ReloadTheme(true);
         }
 
@@ -1596,6 +1633,7 @@ namespace Korot
         private void langTSMI_Click(object sender, EventArgs e)
         {
             cefform.Invoke(new Action(() => { cefform.LoadLangFromFile(Application.StartupPath + "//Lang//" + ((ToolStripMenuItem)sender).Text + ".klf"); }));
+            tbLang.Text = ((ToolStripMenuItem)sender).Text;
         }
 
         private void tbLang_Click(object sender, EventArgs e)

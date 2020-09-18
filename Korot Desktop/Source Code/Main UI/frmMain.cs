@@ -518,8 +518,12 @@ namespace Korot
             if (skipMessage)
             {
                 Tabs.Clear();
-                foreach (Form x in Settings.AllForms)
+                Form[] forms = new Form[] { };
+                Array.Resize(ref forms, Settings.AllForms.Count);
+                Settings.AllForms.CopyTo(forms);
+                for (int i = 0; i < forms.Length; i++)
                 {
+                    Form x = forms[i];
                     if (x is frmCEF)
                     {
                         x.Close();
@@ -536,8 +540,12 @@ namespace Korot
                 if (result == DialogResult.Yes)
                 {
                     Tabs.Clear();
-                    foreach (Form x in Settings.AllForms)
+                    Form[] forms = new Form[] { };
+                    Array.Resize(ref forms, Settings.AllForms.Count);
+                    Settings.AllForms.CopyTo(forms);
+                    for (int i = 0; i < forms.Length; i++)
                     {
+                        Form x = forms[i];
                         if (x is frmCEF)
                         {
                             x.Close();

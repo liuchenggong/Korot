@@ -1,5 +1,4 @@
 ﻿//MIT License
-//MIT License
 //
 //Copyright (c) 2020 Eren "Haltroy" Kanat
 //
@@ -310,6 +309,10 @@ namespace Korot
                         chromiumWebBrowser1.ExecuteScriptAsync(@"  " + HTAlt.Tools.ReadFile(y.Background.Replace("[EXTFOLDER]", new FileInfo(y.ManifestFile).Directory + "\\"), Encoding.UTF8));
                     }
                 }
+            }
+            if (e.Frame.IsMain && e.Url.ToLower().StartsWith("korot://"))
+            {
+                Invoke(new Action(() => { Icon = anaform.Icon; pbPrivacy.Image = Properties.Resources.Korot; }));
             }
         }
 
@@ -1308,7 +1311,20 @@ namespace Korot
 
         private void cef_AddressChanged(object sender, AddressChangedEventArgs e)
         {
-            Invoke(new Action(() => tbAddress.Text = e.Address));
+            Invoke(new Action(() =>
+            {
+                if (e.Address.ToLower().StartsWith("korot://"))
+                {
+                    if (KorotTools.isNonRedirectKorotPage(e.Address))
+                    {
+                        tbAddress.Text = e.Address;
+                    }
+                }else
+                {
+                    tbAddress.Text = e.Address;
+                }
+
+            }));
             Invoke(new Action(() =>
             {
                 if (isPageFavorited(chromiumWebBrowser1.Address))
@@ -1831,8 +1847,11 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             await Task.Run(() =>
             {
-                Task<double> zLevel = chromiumWebBrowser1.GetZoomLevelAsync();
-                zoomLevel = zLevel.Result;
+                if (chromiumWebBrowser1.IsBrowserInitialized)
+                {
+                    Task<double> zLevel = chromiumWebBrowser1.GetZoomLevelAsync();
+                    zoomLevel = zLevel.Result;
+                }
             });
         }
 
