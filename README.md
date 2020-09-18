@@ -1,18 +1,15 @@
 <p align="center" style="text-align: center;">
-  <img width="128" height="128" src="https://haltroy.com/assets/images/Korot-s.png" />
+  <img width="128" height="128" src="https://haltroy.com/assets/images/Korot-1.png" />
 </p>
 
 # [Korot](https://haltroy.com/Korot.html "Korot's Page")
 A Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy's Website").
 
-Latest Stable Version: [`0.8.1.1`](https://github.com/Haltroy/Korot/tree/0.8.1.1).
-
-
-Development Version: [`0.8.2.0`](https://github.com/Haltroy/Korot/tree/0.8.2.0).
+Latest Stable Version: [`0.8.2.0`](https://github.com/Haltroy/Korot/tree/0.8.2.0).
 
 
 <p align="center" style="text-align: center;">
-  <img width="641" height="523" src="https://haltroy.com/assets/images/korot-0600pre0.png" />
+  <img width="641" height="523" src="https://haltroy.com/assets/images/korot0820.png" />
 </p>
 
 ## Features:
