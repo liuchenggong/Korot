@@ -1,503 +1,481 @@
-<Language CompatibleVersion="0.8.2.0">
-  <Translate ID="AutoClean" Text="Otomatik Temizleme" />
-  <Translate ID="AutoCleanMessage" Text="Önbelleği temizlemeden önce yeniden başlatmamız gerek. [NEWLINE] Devam etmek istediğinizden emin misiniz?" />
-  <Translate ID="AutoCleanButton" Text="Şimdi Temizle" />
-  <Translate ID="AutoCleanCache" Text="Önbelleği otomatik temizle:" />
-  <Translate ID="AutoCleanCacheT1" Text="Önbellek [VAL] MB'dan fazla olunca:" />
-  <Translate ID="AutoCleanCacheT2" Text="Her [VAL] günde bir temizle:" />
-  <Translate ID="AutoCleanHistory" Text="Geçmişi otomatik temizle:" />
-  <Translate ID="AutoCleanHistoryT1" Text="Kullanıcı dosyası [VAL] MB'dan fazla olunca:" />
-  <Translate ID="AutoCleanHistoryT3" Text="Her [VAL] günde bir temizle:" />
-  <Translate ID="AutoCleanHistoryT2" Text="[VAL] günden eski girişleri tenizle:" />
-  <Translate ID="AutoCleanLogs" Text="Günlükleri otomatik temizle:" />
-  <Translate ID="AutoCleanLogsT1" Text="Günlükler [VAL] MB'dan fazla olunca:" />
-  <Translate ID="AutoCleanLogsT2" Text="Her [VAL] günde bir temizle:" />
-  <Translate ID="AutoCleanLogsT3" Text="[VAL] günden eski günlükleri tenizle:" />
-  <Translate ID="AutoCleanDownloads" Text="İndirmeleri otomatik temizle:" />
-  <Translate ID="AutoCleanDownloadsT1" Text="Kullanıcı dosyası [VAL] MB'dan fazla olunca:" />
-  <Translate ID="AutoCleanDownloadsT3" Text="Her [VAL] günde bir temizle:" />
-  <Translate ID="AutoCleanDownloadsT2" Text="[VAL] günden eski indirmeleri tenizle:" />
-  <Translate ID="Language" Text="Dil:" />
-  <Translate ID="NewTheme" Text="&lt;yeni&gt;..." />
-  <Translate ID="KorotUpToDate" Text="Korot sürümünüz güncel." />
-  <Translate ID="KorotUpdating" Text="Güncelleme indiriliyor... %[PERC] tamamlandı." />
-  <Translate ID="KorotUpdated" Text="Güncelleme indirildi. Kurulum, uygulama kapatıldıktan sonra devam edecektir." />
-  <Translate ID="Reload" Text="Sayfayı yenile" />
-  <Translate ID="SoundFiles" Text="Ses Dosyaları" />
-  <Translate ID="UseDefaultSound" Text="Varsayılan bildirim sesini kullan:" />
-  <Translate ID="ForeColor" Text="Önplan rengi:" />
-  <Translate ID="AutoForeColor" Text="Önplan rengini otomatik seç:" />
-  <Translate ID="NinjaMode" Text="Ninja Modu:" />
-  <Translate ID="ThemeAvocado" Text="Avokado" />
-  <Translate ID="ThemeAvocadoDesc" Text="Taze!" />
-  <Translate ID="ThemeTeal" Text="Turkuaz" />
-  <Translate ID="ThemeTealDesc" Text="Dinlenmek için iyi bir tema." />
-  <Translate ID="ThemeYellow" Text="Sarı" />
-  <Translate ID="ThemeYellowDesc" Text="çünkü muzları severiz!" />
-  <Translate ID="ThemeOrange" Text="Portakal" />
-  <Translate ID="ThemeOrangeDesc" Text="Kusura bakmayın, bu temada C vitamini bulunmamakta." />
-  <Translate ID="ThemeBrown" Text="Kahverengi" />
-  <Translate ID="ThemeBrownDesc" Text="Kahve severler için." />
-  <Translate ID="ThemeLeather" Text="Deri" />
-  <Translate ID="ThemeLeatherDesc" Text="Ceket gibi." />
-  <Translate ID="ThemeGold" Text="Altın" />
-  <Translate ID="ThemeGoldDesc" Text="Yürüyebilen domuzlar için, aynı zamanda kare olanlar." />
-  <Translate ID="ThemeCreme" Text="Krem" />
-  <Translate ID="ThemeCremeDesc" Text="Vanliya koktu, dur lütfen ekranı koklama!" />
-  <Translate ID="ThemePurple" Text="Mor" />
-  <Translate ID="ThemePurpleDesc" Text="Haltroy bu temayı sevmiyor." />
-  <Translate ID="ThemeRaspberry" Text="Frambuaz" />
-  <Translate ID="ThemeRaspberryDesc" Text="3,142857142857143" />
-  <Translate ID="ThemeLavender" Text="Lavanta" />
-  <Translate ID="ThemeLavenderDesc" Text="Merak etmeyin, bu tema sizi hastanelki etmez. Haltroy hariç." />
-  <Translate ID="ThemeFuchsia" Text="Fuşya" />
-  <Translate ID="ThemeFuchsiaDesc" Text="Cennetten toplanmış çiçeklerden yapılma tema." />
-  <Translate ID="ThemePink" Text="Pembe" />
-  <Translate ID="ThemePinkDesc" Text="Tema hazır patr0n." />
-  <Translate ID="ThemeBrick" Text="Tuğla" />
-  <Translate ID="ThemeBrickDesc" Text="Elbette, duvarda." />
-  <Translate ID="ThemeDarkBlue" Text="Lacivert" />
-  <Translate ID="ThemeDarkBlueDesc" Text="İşler koyulaşıyor, ama hoşuma gitti." />
-  <Translate ID="ThemeSea" Text="Deniz" />
-  <Translate ID="ThemeSeaDesc" Text="Kim yüzmek ister?" />
-  <Translate ID="CloseNLInfo" Text="[TITLE]([URL]) bildirimlerini kapatmak istediğinizden emin misiniz?" />
-  <Translate ID="PickRandom" Text="Rastgele Seç" />
-  <Translate ID="TryAgain" Text="Tekrar dene" />
-  <Translate ID="ApplyTheme" Text="Bunu uygula ve kapat" />
-  <Translate ID="SelectThisTheme" Text="Bunu seç" />
-  <Translate ID="YourThemeIs" Text="Sizin temanız" />
-  <Translate ID="BlackWhite" Text="Siyah-Beyaz" />
-  <Translate ID="BlackWhiteDesc" Text="Sadece bazı gri tonları, elbette dengelidir." />
-  <Translate ID="Colorful" Text="Renkli" />
-  <Translate ID="ColorfulDesc" Text="50'lerde kalmadık, az bi' renk olsun." />
-  <Translate ID="Yellow" Text="Sarı" />
-  <Translate ID="YellowDesc" Text="Poszitif ve arkadaş canlısı temalar." />
-  <Translate ID="Purple" Text="Mor" />
-  <Translate ID="PurpleDesc" Text="Yaratıcılığı arttıran temalar." />
-  <Translate ID="Red" Text="Kırmızı" />
-  <Translate ID="RedDesc" Text="Hadi heyecanlı bir tema seçelim!" />
-  <Translate ID="Green" Text="Yeşil" />
-  <Translate ID="GreenDesc" Text="Barışçıl bir tema da iyidir." />
-  <Translate ID="Blue" Text="Mavi" />
-  <Translate ID="BlueDesc" Text="Güvenebileceğiniz temalar." />
-  <Translate ID="ThemeTitle" Text="Korot Tema Sihirbazı" />
-  <Translate ID="ThemeTitle1" Text="Bir seçenek seçin" />
-  <Translate ID="ThemeTitle2" Text="Bir renk seçin" />
-  <Translate ID="ThemeTitle3" Text="Bir ton seçin" />
-  <Translate ID="ThemeTitle4" Text="Sonuç" />
-  <Translate ID="ThemeWizardButton" Text="Tema Sihirbazını Çalıştır" />
-  <Translate ID="OOBEThemeWizard" Text="Kapandıktan sonra Tema Sihirbazını çalıştır" />
-  <Translate ID="ThemeLight" Text="Açık" />
-  <Translate ID="ThemeLightDesc" Text="Gözlerim için mükemmel fotonlar." />
-  <Translate ID="ThemeCement" Text="Çimento" />
-  <Translate ID="ThemeCementDesc" Text="Sonunda, taştan yapılma tarayıcı... ya da çimentodan." />
-  <Translate ID="ThemeGray" Text="Gri" />
-  <Translate ID="ThemeGrayDesc" Text="Açık ile Koyu arasında kalanlar için." />
-  <Translate ID="ThemeShadow" Text="Gölge" />
-  <Translate ID="ThemeShadowDesc" Text="Bir çok-karanlık-olmayan güzel tema." />
-  <Translate ID="ThemeDark" Text="Koyu" />
-  <Translate ID="ThemeDarkDesc" Text="Sonunda, gözlerim yanmayacak." />
-  <Translate ID="ThemeBlue" Text="Mavi" />
-  <Translate ID="ThemeBlueDesc" Text="1999'daki gibi o mavi." />
-  <Translate ID="ThemeSunrise" Text="Gündoğumu" />
-  <Translate ID="ThemeSunriseDesc" Text="Bir krallık için iyi isim ama rengi farklı." />
-  <Translate ID="ThemeDodgerBlue" Text="Dodger Mavisi" />
-  <Translate ID="ThemeDodgerBlueDesc" Text="Eskiden gelen bir tema, Haltroy isminden bile önce." />
-  <Translate ID="ThemeMidnight" Text="Gece yarısı" />
-  <Translate ID="ThemeMidnightDesc" Text="Bir website arkaplanı için güzel bir renk." />
-  <Translate ID="ThemeRed" Text="Kırmızı" />
-  <Translate ID="ThemeRedDesc" Text="Bu rengi 2007'de bir atış oyununda tanış." />
-  <Translate ID="ThemeStrawberry" Text="Çilek" />
-  <Translate ID="ThemeStrawberryDesc" Text="nesin sen Korot'un en iyi teması falan mı?" />
-  <Translate ID="ThemeCrimson" Text="Kızıl" />
-  <Translate ID="ThemeCrimsonDesc" Text="Canlı kanlı!" />
-  <Translate ID="ThemeGreen" Text="Yeşil" />
-  <Translate ID="ThemeGreenDesc" Text="Bu takıma katıl, belki o ışınları izleyebilirler." />
-  <Translate ID="ThemeEmerald" Text="Zümrüt" />
-  <Translate ID="ThemeEmeraldDesc" Text="Bu temayı takas için kullanabilirsiniz, şaka. Böcek toplamak için güzel bir tema." />
-  <Translate ID="ThemeDarkLeaf" Text="Koyu Yaprak" />
-  <Translate ID="ThemeDarkLeafDesc" Text="Onlar ağaçlarda iyi gözüküyor, elinde yanıyorken değil." />
-  <Translate ID="EditBlockItem" Text="Bloğu düzenle..." />
-  <Translate ID="AddBlockItem" Text="Yeni blok ekle..." />
-  <Translate ID="Lv0" Text="Seviye 0" />
-  <Translate ID="Lv1" Text="Seviye 1" />
-  <Translate ID="Lv2" Text="Seviye 2" />
-  <Translate ID="Lv3" Text="Seviye 3" />
-  <Translate ID="BlockLevel" Text="Blok Seviyesi:" />
-  <Translate ID="Done" Text="Bitti" />
-  <Translate ID="LV0Info" Text="Url'ün websitesinde bloklar." />
-  <Translate ID="LV1Info" Text="Url'ün websitesini bloklar." />
-  <Translate ID="LV2Info" Text="Url'ün websitesini alt alan adları ile bloklar" />
-  <Translate ID="LV3Info" Text="Url'ü içeren her siteyi bloklar." />
-  <Translate ID="BlockThisSite" Text="Bu siteyi blokla..." />
-  <Translate ID="BlockMenuTitle" Text="Bloklu Siteler" />
-  <Translate ID="BlockMenuButton" Text="Bloklu Siteler..." />
-  <Translate ID="ChangePicInfo" Text="Yeni bir resim mi seçmek istersiniz yoksa sıfırlamak mı?" />
-  <Translate ID="ResetImage" Text="Resmi sıfırla" />
-  <Translate ID="SelectNewImage" Text="Yeni resim seç" />
-  <Translate ID="ProfileNameTemp" Text="Selam, [NAME] !" />
-  <Translate ID="ChangePic" Text="Resmi değiştir" />
-  <Translate ID="LangFolder" Text="Diller Klasörü" />
-  <Translate ID="ExtFolder" Text="Eklentiler Klasörü" />
-  <Translate ID="NewTabEditorTitle" Text="Yeni Sekme Sayfası İçeriği" />
-  <Translate ID="NewTabEditButton" Text="Yeni Sekme İçeriği..." />
-  <Translate ID="NewTabEditTitle" Text="Başlık:" />
-  <Translate ID="NewTabEditUrl" Text="Url:" />
-  <Translate ID="NewTabEditClear" Text="Temizle" />
-  <Translate ID="NewTabEdit" Text="Düzenle" />
-  <Translate ID="EnableFlash" Text="Flash'ı etkinleştir:" />
-  <Translate ID="FlashInfo" Text="Flash ayarı değiştirildikten sonra etkisini göstermesi için yeniden başlatın." />
-  <Translate ID="Incognito" Text="Gizli Mod" />
-  <Translate ID="KorotUpdate" Text="Korot - Güncelleme" />
-  <Translate ID="KorotUpdateAvailable" Text="Güncelleme bulundu.Güncellemek ister misiniz?" />
-  <Translate ID="KorotUpdateError" Text="Güncelleme sırasında hata." />
-  <Translate ID="NewTab" Text="Yeni Sekme" />
-  <Translate ID="SearchEngineInfo" Text="(Not: Aranan yazı bu adresin sonuna eklenir.)" />
-  <Translate ID="SearchengineTitle" Text="Kişisel Arama Motoru adresini yazın" />
-  <Translate ID="NewWindow" Text="Yeni Pencere" />
-  <Translate ID="NewIncognitoWindow" Text="Yeni Gizli Pencere" />
-  <Translate ID="Settings" Text="Ayarlar" />
-  <Translate ID="History" Text="Geçmiş" />
-  <Translate ID="HomePage" Text="Ana sayfa:" />
-  <Translate ID="SearchEngine" Text="Arama Motoru:" />
-  <Translate ID="Theme" Text="Tema" />
-  <Translate ID="Custom" Text="Özel" />
-  <Translate ID="RemoveSelected" Text="Seçileni Sil" />
-  <Translate ID="BackgroundStyle" Text="Arkaplan Düzeni:" />
-  <Translate ID="Clear" Text="Temizle" />
-  <Translate ID="About" Text="Hakkında" />
-  <Translate ID="GoBack" Text="Geriye Git" />
-  <Translate ID="GoForward" Text="İleriye git" />
-  <Translate ID="Refresh" Text="Yenile" />
-  <Translate ID="RefreshNoCache" Text="Yenile (Çerezsiz)" />
-  <Translate ID="Stop" Text="Dur" />
-  <Translate ID="SelectAll" Text="Hepsini Seç" />
-  <Translate ID="OpenLinkInNewTab" Text="Bağlantıyı Yeni Sekmede Aç" />
-  <Translate ID="CopyLink" Text="Bağlantı Adresini Kopyala" />
-  <Translate ID="SaveImageAs" Text="Resmi Kaydet" />
-  <Translate ID="OpenImageInNewTab" Text="Resmi Yeni Sekmede Aç" />
-  <Translate ID="Paste" Text="Yapıştır" />
-  <Translate ID="Copy" Text="Kopyala" />
-  <Translate ID="Cut" Text="Kes" />
-  <Translate ID="Undo" Text="Geri Al" />
-  <Translate ID="Redo" Text="İleri Al" />
-  <Translate ID="Delete" Text="Sil" />
-  <Translate ID="SearchOpenTheSelected" Text="Seçileni Ara/Git" />
-  <Translate ID="DeveloperTools" Text="Geliştirici Araçları" />
-  <Translate ID="ViewSource" Text="Kaynağı Görüntüle" />
-  <Translate ID="Downloads" Text="İndirmeler" />
-  <Translate ID="BackgroundColor" Text="Arkaplan rengi :" />
-  <Translate ID="OverlayColor" Text="Tema Rengi :" />
-  <Translate ID="KorotDownloading" Text="Korot - İndiriyor" />
-  <Translate ID="OpenFilesAfterDownload" Text="İndirme bitince dosyaları aç:" />
-  <Translate ID="Open" Text="Aç" />
-  <Translate ID="To" Text="Hedef" />
-  <Translate ID="Date" Text="Tarih" />
-  <Translate ID="From" Text="Kaynak" />
-  <Translate ID="From1" Text="Kaynak :" />
-  <Translate ID="To1" Text="Hedef :" />
-  <Translate ID="KorotError" Text="Korot - Hata" />
-  <Translate ID="About" Text="Hakkında" />
-  <Translate ID="Themes" Text="Temalar" />
-  <Translate ID="ThemeName" Text="Tema Adı :" />
-  <Translate ID="Save" Text="Kaydet" />
-  <Translate ID="ResetToFefaultProxySetting" Text="Varsayılan proxy ayarına sıfırla" />
-  <Translate ID="OpenInNewTab" Text="Yeni sekmede aç" />
-  <Translate ID="OpenFile" Text="Dosyayı Aç" />
-  <Translate ID="OpenFolderContainingThisFile" Text="Dosyayı içeren klasörü aç" />
-  <Translate ID="SearchOnThisPage" Text="Bu sayfada ara" />
-  <Translate ID="CaseSensitive" Text="Büyük/küçük duyarlı" />
-  <Translate ID="NewTabDays" Text="&quot;Pazar&quot;,&quot;Pazartesi&quot;,&quot;Salı&quot;,&quot;Çarşamba&quot;,&quot;Perşembe&quot;,&quot;Cuma&quot;,&quot;Cumartesi&quot;" />
-  <Translate ID="NewTabMonths" Text="&quot;Ocak&quot;,&quot;Şubat&quot;,&quot;Mart&quot;,&quot;Nisan&quot;,&quot;Mayıs&quot;,&quot;Haziran&quot;,&quot;Temmuz&quot;,&quot;Ağustos&quot;,&quot;Eylül&quot;,&quot;Ekim&quot;,&quot;Kasım&quot;,&quot;Aralık&quot;" />
-  <Translate ID="NewTabSearch" Text="Web&apos;te arayın veya URL girin" />
-  <Translate ID="ErrorTitle" Text="Korot bu ekranı görünütüleyemiyor." />
-  <Translate ID="ErrorTitle1" Text="Bu sebeplerden olabilir:" />
-  <Translate ID="ErrorT1M1" Text="URL doğru olmayabilir." />
-  <Translate ID="ErrorT1M2" Text="Adresteki web sayfası çok meşgul veya yanıt vermiyor." />
-  <Translate ID="ErrorT1M3" Text="Makineniz Internet&apos;e bağlı değil veya bağlantı çok yavaş." />
-  <Translate ID="ErrorT1M4" Text="Antivirüs programı bu siteyi veya bu tarayıcıyı virüs olarak algıladı." />
-  <Translate ID="ErrorTitle2" Text="Önerimiz:" />
-  <Translate ID="ErrorT2M1" Text="Adresteki yazım hatalarına dikkat ederek tekrar yazın." />
-  <Translate ID="ErrorT2M2" Text="Makinenizi Internet&apos;e bağlayın." />
-  <Translate ID="ErrorT2M3" Text="Bir süre sonra tekrar deneyin." />
-  <Translate ID="ErrorT2M4" Text="Antivürüs programını geçici olarak kapatın veya bu tarayıcıyı güvenilir listesine alın." />
-  <Translate ID="Search" Text="Ara" />
-  <Translate ID="SwitchTo" Text="Başka bir profile geç..." />
-  <Translate ID="NewProfile" Text="Yeni Profil" />
-  <Translate ID="DeleteThisProfile" Text="Bu profili sil" />
-  <Translate ID="AddressBar1" Text="&quot;[TEXT]&quot; adresine git" />
-  <Translate ID="AddressBar2" Text="Web&apos;te ara : &quot;[TEXT]&quot;" />
-  <Translate ID="EnterAValidURL" Text="Lütfen geçerli bir URL girin." />
-  <Translate ID="EnterAProfileName" Text="Lütfen yeni profil için ad giriniz.Şunları içermemelidir:" />
-  <Translate ID="RestoreLastSession" Text="Önceki oturumu yükle" />
-  <Translate ID="Yes" Text="Evet" />
-  <Translate ID="No" Text="Hayır" />
-  <Translate ID="OK" Text="Tamam" />
-  <Translate ID="Cancel" Text="İptal" />
-  <Translate ID="UpdateAvailable" Text="Güncelleme bulundu." />
-  <Translate ID="CheckingForUpdates" Text="Güncellemeler aranıyor..." />
-  <Translate ID="UpToDate" Text="Korot&apos;unuz güncel." />
-  <Translate ID="CheckForUpdates" Text="Güncellemeleri Ara" />
-  <Translate ID="InstallUpdate" Text="Güncellemeyi Kur" />
-  <Translate ID="UpdatingMessage" Text="Güncelleme indiriliyor ve kuruluyor..." />
-  <Translate ID="DownloadProgress" Text="[PERC]% | [TOTAL] KB&apos;dan [CURRENT] KB indirildi." />
-  <Translate ID="ThemeList" Text="Temalar :" />
-  <Translate ID="ApplyThemeInfo" Text="Bu temayı uygulamak istediğinizden emin misiniz?" />
-  <Translate ID="ThemeFileCorrupted" Text="Bu tema dosyası bozulmuş veya bu sürüm ile uyumlu değil." />
-  <Translate ID="CertificateErrorDetails" Text="Sertifika Hata Detayları" />
-  <Translate ID="NotSafe" Text="Güvenli Değil" />
-  <Translate ID="WebsiteWithErrors" Text="Bu websitesi hatalı bir sertifika kullanıyor." />
-  <Translate ID="Safe" Text="Güvenli" />
-  <Translate ID="WebsiteNoErrors" Text="Bu websitesi hatasız bir sertifika kullanıyor." />
-  <Translate ID="ShowCertificateError" Text="Sertifika hatasını görüntüle" />
-  <Translate ID="WebsiteUsesCookies" Text="Bu website çerezleri kullanıyor." />
-  <Translate ID="WebsiteNoCookies" Text="Bu website çerezleri kullanmıyor." />
-  <Translate ID="WebsiteNotSafe" Text="Bu website güvenli değil." />
-  <Translate ID="WebsiteNotSafeInfo" Text="Bu websitesi hatalı bir sertifika kullanıyor. Bu da bazı bilgileriniz (kredi kartı,şifreler,mesajlar...) tanınmayan kişiler tarafından çalınabilir kılıyor." />
-  <Translate ID="UserUnderstandsRisks" Text="Bu riskleri anlıyorum." />
-  <Translate ID="KorotAbout" Text="Korot, CefSharp kullanarak Google tarafından yapılan Chromium&apos;u kullanıyor.[NEWLINE]Korot, Microsoft tarafından Visual Studio Community kullanılarak C# dilinde yazılmıştır.[NEWLINE]Korot, EasyTabs&apos;in değiştirilmiş sürümünü kullanır.[NEWLINE]Korot, Dalton Maag &amp;&amp; Canonical Ltd. tarafından yapılmış olan Ubuntu fontunu kullanır.[NEWLINE]Çeviri Haltroy tarafından yapılmıştır.[NEWLINE]Logo, freepik tarafından yapılmıştır." />
-  <Translate ID="LicensesSpecialThanks" Text="Lisanslar &amp;&amp; Özel Teşekkürler..." />
-  <Translate ID="ExtensionRequiresPermission" Text="Bu eklenti şu izinleri istiyor." />
-  <Translate ID="ExtensionNoPermission" Text="Bu eklenti bir izin istemiyor." />
-  <Translate ID="ExtensionInstallError" Text="Bu eklenti yüklenemez." />
-  <Translate ID="Installing" Text="Yükleniyor..." />
-  <Translate ID="Installed" Text="Yüklendi." />
-  <Translate ID="Close" Text="Kapat" />
-  <Translate ID="Install" Text="Yükle" />
-  <Translate ID="Initializing" Text="Hazırlanıyor..." />
-  <Translate ID="autoLoad" Text="Otomatik yüklenme" />
-  <Translate ID="autoLoadInfo" Text="Bu eklenti, websitesi yükelndiğinde otomatik başlatılır." />
-  <Translate ID="canAccessWebContent" Text="Web içeriğine erişim" />
-  <Translate ID="canAccessWebContentInfo" Text="Bu eklenti, parolalar ve kredi kartı bilgileri gibi web site içeriklerine erişebilir." />
-  <Translate ID="onlineFiles" Text="Çevrimiçi dosyalar" />
-  <Translate ID="onlineFilesInfo" Text="Bu eklenti, yere olmayan web dosyalarını kullanıyor. Bu biraz veri tüketebilir." />
-  <Translate ID="EnableDoNotTrack" Text="DoNotTrack&apos;ı Etkinleştir:" />
-  <Translate ID="PleaseWait" Text="Lütfen bekleyiniz..." />
-  <Translate ID="UseBackgroundColor" Text="Arkaplan rengini kullan" />
-  <Translate ID="UsingBackgroundColor" Text="Arkaplan rengi kullanılıyor" />
-  <Translate ID="ImageFromBase64" Text="Bir base64 kodunu kullan" />
-  <Translate ID="ImageFromFile" Text="Yerel bir görüntüyü kullan" />
-  <Translate ID="ImageFiles" Text="Resim Dosyası" />
-  <Translate ID="AllFiles" Text="Tüm Dosyalar" />
-  <Translate ID="SelectBackgroundImage" Text="Arkaplan resmi seçin..." />
-  <Translate ID="BackgroundImageLayout" Text="Arkaplan Resmi Düzeni:" />
-  <Translate ID="ExtensionInstallConfirm" Text="Yüklemek istiyor musunuz?" />
-  <Translate ID="Extension" Text="Eklenti" />
-  <Translate ID="OOBETitle" Text="Korot Kurulumu" />
-  <Translate ID="OOBEContinue" Text="Devam et" />
-  <Translate ID="OOBEWelcome" Text="Korot&apos;a Hoşgeldiniz!" />
-  <Translate ID="OOBEProfile" Text="Lütfen profiliniz için bir isim yazın:" />
-  <Translate ID="OOBENotContain" Text="Bunları içermemelidir:" />
-  <Translate ID="OOBEProfileInfo" Text="Daha sonra yeni bir profil oluşturabilir,profil silebilir veya o profile geçebilirsiniz." />
-  <Translate ID="OOBEThemeInfo" Text="3-nokta menüsündeki Temalar seçeneğinden yeni temalar olışturabilir, temalar uygulayabilir ve değiştirebilirsiniz..[NEWLINE][NEWLINE]Üstelik tema listesinin sağ üst kısmında bulunan poşet ikonuna tıklayarak web mağazasından tema yükleyebilirsiniz." />
-  <Translate ID="OOBEProfilesInfo" Text="Profil menüsünden yeni profiller oluşturabilşr, profilinizi silebilir ve profiller arasından geçiş yapabilirsiniz.[NEWLINE][NEWLINE]Her profilin çerezleri, geçmişi, ayarları vb. kendisine özgüdür." />
-  <Translate ID="OOBEBack" Text="Geriye git" />
-  <Translate ID="OOBEFinishBack" Text="Bitirmek için lütfen aşağıdaki &quot;Bitir&quot; butonuna basın.[NEWLINE]Geriye gitmek için lütfen aşağıdaki &quot;Geriye git&quot; butonuna basın." />
-  <Translate ID="OOBEExtensionInfo" Text="3-nokta menüsünden eklentilere erişebilirsiniz.[NEWLINE][NEWLINE]&quot;Web Store&quot; seçeneğine dokunarak yeni eklentileri yükleyebilirsiniz." />
-  <Translate ID="OOBEBestWishes" Text="Hayırlı Olsun" />
-  <Translate ID="OOBEProfilesTitle" Text="Profiller" />
-  <Translate ID="OOBEContinueBack" Text="Devam etmek için lütfen aşağıdaki &quot;Devam et&quot; butonuna basın.[NEWLINE]Geriye gitmek için lütfen aşağıdaki &quot;Geriye git&quot; butonuna basın." />
-  <Translate ID="OOBEButtonFinish" Text="Kurulumu bitir ve Korot&apos;u başlat." />
-  <Translate ID="OOBECloseMessage" Text="Kurulum bitmeden önce kapatmak istediğinizden emin misiniz?" />
-  <Translate ID="DisallowCookie" Text="Bu sayfanın çerez iznini kapat" />
-  <Translate ID="AllowCookie" Text="Bu sayfanın çerez iznini aç" />
-  <Translate ID="IncognitoInfoTitle" Text="Gizli Moddasınız!" />
-  <Translate ID="IncognitoInfoTitle1" Text="Korot şunları yapmaz:" />
-  <Translate ID="IncognitoInfoT1M1" Text="Geçmişi ve indirmeleri kaydetme" />
-  <Translate ID="IncognitoInfoT1M2" Text="Çerezleri, form detaylarını ve oturumları kaydetme" />
-  <Translate ID="IncognitoInfoT1M3" Text="Ayaraları kaydetme" />
-  <Translate ID="IncognitoInfoTitle2" Text="Fakat aktiviteniz şunlara görünebilir:" />
-  <Translate ID="IncognitoInfoT2M1" Text="Websiteler" />
-  <Translate ID="IncognitoInfoT2M2" Text="Yerel Internet sahibiniz ve Internet servis sağlayıcınız" />
-  <Translate ID="IncognitoInfoT2M3" Text="İzleyenler" />
-  <Translate ID="Print" Text="Yazdır" />
-  <Translate ID="HTMLFile" Text="HTML Dosyası" />
-  <Translate ID="TakeScreenShot" Text="Ekran görüntüsü al" />
-  <Translate ID="SavePage" Text="Sayfayı kaydet" />
-  <Translate ID="ZoomIn" Text="Yakınlaştır" />
-  <Translate ID="ResetZoom" Text="Yakınlaştırmayı Sıfırla" />
-  <Translate ID="ZoomOut" Text="Uzaklaştır" />
-  <Translate ID="EnterValidBase64" Text="Lütfen geçerli bir base64 kodu giriniz." />
-  <Translate ID="RenderProcessTerminated" Text="Oluşturucu işlem sonlandırıldı. Korot bu işlem olmadan çalışamaz. Uygulamayı kapatmak için Tamam butonuna basın." />
-  <Translate ID="NotRatedContent" Text="İncelenmemiş İçerik" />
-  <Translate ID="NotRatedContentInfo" Text="Korot, bu temanın içeriğini otomatik olarak algılamaz. Sonuç olarak, bu tema epileptik ve/ya kullanım için uygun olmayan içerik içerebilir." />
-  <Translate ID="Extensions" Text="Eklentiler" />
-  <Translate ID="AboutInfoTheme" Text="[THEMENAME] teması [THEMEAUTHOR] tarafından yapılmıştır." />
-  <Translate ID="ThemeUnknownPerson" Text="bilinmeyen birisi" />
-  <Translate ID="ThemeNameUnknown" Text="Adı bilinmeyen Korot" />
-  <Translate ID="FindNext" Text="Sonrakini bul" />
-  <Translate ID="RememberLastProxy" Text="Proxy ayarını hatırla:" />
-  <Translate ID="Current" Text="Seçili:" />
-  <Translate ID="Total" Text="Toplam:" />
-  <Translate ID="Last" Text="(Sonuncu)" />
-  <Translate ID="NotSearchingNoResults" Text="Arama yapılmıyor veya sonuç yok" />
-  <Translate ID="Status" Text="Durum" />
-  <Translate ID="IncognitoMode" Text="Gizli Mod" />
-  <Translate ID="IncognitoModeInfo" Text="Bu oturum kaydedilmeyecektir." />
-  <Translate ID="ClickToLearnMore" Text="Daha fazla bilgi için buraya tıklayın." />
-  <Translate ID="SiteSettings" Text="Site Ayarları" />
-  <Translate ID="SiteSettingsButton" Text="Site Ayarları..." />
-  <Translate ID="ResetKorotInfo" Text="Korot&apos;u sıfırlamak istediğinizden emin misiniz?[NEWLINE](Tüm kişisel bilgileriniz kaybolucak. Bu bilgiler profiller, ayarlar, indirmeler, çerezler vb. içerir.)" />
-  <Translate ID="ResetKorotButton" Text="Korot&apos;u sıfırla..." />
-  <Translate ID="AtStartup" Text="Başlangıçta:" />
-  <Translate ID="Auto-downloadFolder" Text="Bir klasöre otomatik olarak indir:" />
-  <Translate ID="DownloadToFolder" Text="Bu klasöre indir:" />
-  <Translate ID="ShowNewTabPage" Text="Yeni Sekme sayfasını göster" />
-  <Translate ID="ShowHomepage" Text="Ana sayfayı göster" />
-  <Translate ID="GoToURL" Text="Bir adrese git" />
-  <Translate ID="Save" Text="Kaydet" />
-  <Translate ID="DownloadFolderInfo" Text="İndirmeler için bir klasör seçin." />
-  <Translate ID="ConfirmDialog" Text="[TITLE] sayfasından onay:" />
-  <Translate ID="MessageDialog" Text="[TITLE] sayfasından bir mesaj:" />
-  <Translate ID="TitleLicensesSpecialThanks" Text="Lisanslar &amp; Özel Teşekkür Sayfası" />
-  <Translate ID="KorotLicense" Text="Korot Lisansı" />
-  <Translate ID="MSVS2019CLicense" Text="Microsoft Visual Studio 2019 Community Lisansı" />
-  <Translate ID="ChromiumLicense" Text="Chromium Lisansı" />
-  <Translate ID="CefSharpLicense" Text="CefSharp Lisansı" />
-  <Translate ID="EasyTabsLicense" Text="EasyTabs Lisansı" />
-  <Translate ID="SpecialThanks" Text="Özel Teşekkürler..." />
-  <Translate ID="None" Text="Hiçbiri" />
-  <Translate ID="Tile" Text="Desen" />
-  <Translate ID="Center" Text="Ortala" />
-  <Translate ID="Stretch" Text="Genişlet" />
-  <Translate ID="Zoom" Text="Büyüt" />
-  <Translate ID="BackColor" Text="Arkaplan rengi" />
-  <Translate ID="ForeColor" Text="Yazı rengi" />
-  <Translate ID="OverlayColor2" Text="Tema Rengi" />
-  <Translate ID="NewTabButtonColor" Text="Yeni sekme butonu rengi:" />
-  <Translate ID="CloseButtonColor" Text="Sekme kapatma butonu rengi:" />
-  <Translate ID="ShowFavoritesMenu" Text="Favoriler menüsünü göster:" />
-  <Translate ID="Notifications" Text="Bildirimler:" />
-  <Translate ID="Cookies" Text="Çerezler:" />
-  <Translate ID="Empty" Text="((boş))" />
-  <Translate ID="CleanLogData" Text="Çıkış dosyalarını temizle" />
-  <Translate ID="Title" Text="Başlık" />
-  <Translate ID="URL" Text="URL" />
-  <Translate ID="OpenFolder" Text="Klasörü aç" />
-  <Translate ID="WebStore" Text="Web Mağazası" />
-  <Translate ID="CopyImage" Text="Resmi kopyala" />
-  <Translate ID="OpenLinkinaNewWindow" Text="Bağlantıyı yeni pencerede aç" />
-  <Translate ID="OpenLinkinaNewIncognitoWindow" Text="Bağlantıyı yeni gizli pencerede aç" />
-  <Translate ID="CopyImageAddress" Text="Resim bağlantısını kopyala" />
-  <Translate ID="SaveLinkAs" Text="Bağlantıyı farklı kaydet..." />
-  <Translate ID="NewFavorite" Text="Yeni Favori" />
-  <Translate ID="Name" Text="Ad :" />
-  <Translate ID="Url" Text="Url :" />
-  <Translate ID="Add" Text="Ekle..." />
-  <Translate ID="NewFolderButton" Text="Yeni Klasör..." />
-  <Translate ID="NewFolder" Text="Yeni Klasör" />
-  <Translate ID="PleaseenteranamefornewFolder" Text="Lütfen yeni klasör için bir ad giriniz." />
-  <Translate ID="OpenAllInNewTab" Text="Hepsini yeni sekmede aç" />
-  <Translate ID="OpeninNewWindow" Text="Yeni pencerede aç" />
-  <Translate ID="OpenAllinNewWindow" Text="Hepsini yeni pencere(ler)de aç" />
-  <Translate ID="OpeninNewIncognitoWindow" Text="Yeni gizli pencerede aç" />
-  <Translate ID="OpenAllinNewIncognitoWindow" Text="Hepsini yeni gizli pencere(ler)de aç" />
-  <Translate ID="NewFavorite" Text="Yeni Favori..." />
-  <Translate ID="FullScreen" Text="Tam Ekran" />
-  <Translate ID="KorotThemeUpdater" Text="Korot Tema Güncelleyicisi" />
-  <Translate ID="KorotExtensionUpdater" Text="Korot Eklenti Güncelleyicisi" />
-  <Translate ID="ExtensionUpdatingInfo" Text="[NAME] güncelleniyor...[NEWLINE]Lütfen bekleyin..." />
-  <Translate ID="UbuntuFontLicense" Text="Ubuntu Font Lisansı" />
-  <Translate ID="ErrorDesc1" Text="Korot bir problem ile karşılaştı ve hata verdi." />
-  <Translate ID="ErrorDesc2" Text="Korot kurulumunuz güvende fakat anlık olarak Korot çalışamaz durumda.[NEWLINE]Eğer bu sıklıkla oluyorsa lütfen GitHub&apos;dan bir issue oluşturmaktan çekinmeyin." />
-  <Translate ID="ErrorTI" Text="Teknik Bilgiler:" />
-  <Translate ID="ErrorRestart" Text="Yeniden başlat" />
-  <Translate ID="Installing" Text="Kuruluyor..." />
-  <Translate ID="YoureGoodToGo" Text="Artık hazırsınız." />
-  <Translate ID="OOBEArrowKeys" Text="Ok tuşlarını kullanarak ipucular arasında gezebilirsiniz." />
-  <Translate ID="OOBEContinueInfo" Text="Devam etmek için lütfen aşağıdaki &quot;Devam et&quot; butonuna basın." />
-  <Translate ID="ChooseALanguage" Text="Bir Dil seçiniz..." />
-  <Translate ID="RestoreOldSessions" Text="Başlangıçta eski oturumları kurtar:" />
-  <Translate ID="CertificateError" Text="Sertifika Hatası" />
-  <Translate ID="Collections" Text="Koleksiyonlar" />
-  <Translate ID="CollectionItemImage" Text="Görsel" />
-  <Translate ID="CollectionItemText" Text="Yazı" />
-  <Translate ID="CollectionItemLink" Text="Link" />
-  <Translate ID="CollectionCommon" Text="Ortak" />
-  <Translate ID="CollectionTextBased" Text="Yazı-bazlı" />
-  <Translate ID="CollectionOnline" Text="Çevrimiçi" />
-  <Translate ID="CollectionPicture" Text="Görsel" />
-  <Translate ID="CollectionID" Text="ID:" />
-  <Translate ID="CollectionBackColor" Text="ArkaplanRengi:" />
-  <Translate ID="CollectionText" Text="Yazı:" />
-  <Translate ID="CollectionFont" Text="Font:" />
-  <Translate ID="CollectionFontSize" Text="FontBoyutu:" />
-  <Translate ID="CollectionFontProperties" Text="FontÖzelliği:" />
-  <Translate ID="Regular" Text="Sıradan" />
-  <Translate ID="Bold" Text="Kalın" />
-  <Translate ID="Italic" Text="İtalik" />
-  <Translate ID="Underline" Text="Altıçizili" />
-  <Translate ID="Strikeout" Text="Üstüçizili" />
-  <Translate ID="CollectionForeColor" Text="YazıRengi:" />
-  <Translate ID="CollectionSource" Text="Kaynak:" />
-  <Translate ID="CollectionWidth" Text="Genişlik:" />
-  <Translate ID="CollectionHeight" Text="Yükseklik:" />
-  <Translate ID="CollectionDone" Text="Bitti" />
-  <Translate ID="EditCollectionItem" Text="Eşyayı düzenle" />
-  <Translate ID="NewCollectionInfo" Text="Yeni koleksiyon için bir isim giriniz." />
-  <Translate ID="NewCollectionName" Text="Yeni koleksiyon" />
-  <Translate ID="ImportCollectionInfo" Text="Koleksiyon kodunu giriniz." />
-  <Translate ID="CollectionDeleteInfo" Text="$ koleksiyonunu silmek istediğinize emin misiniz?" />
-  <Translate ID="CollectionClearInfo" Text="Hepsini silmek istediğinize emin misiniz?" />
-  <Translate ID="OKTOClipboard" Text="Hepsini kopyalamak için OK butonuna basın." />
-  <Translate ID="NewCollection" Text="Yeni Koleksiyon" />
-  <Translate ID="DeleteCollection" Text="Bu koleksiyonu sil" />
-  <Translate ID="Import" Text="İçe aktar" />
-  <Translate ID="Export" Text="Dışa aktar" />
-  <Translate ID="DeleteItem" Text="Bu eşyayı sil" />
-  <Translate ID="ExportItem" Text="Bu eşyayı dışa aktar" />
-  <Translate ID="EditItem" Text="Bu eşyayı düzenle" />
-  <Translate ID="AddToCollection" Text="Koleksiyona ekle" />
-  <Translate ID="ChangeTitleColor" Text="Başlık arkaplanını değiştir" />
-  <Translate ID="ChangeTitleColorInfo" Text="Üstteki kareye dokunarak rengi değiştirebilirsiniz." />
-  <Translate ID="SetToDefault" Text="Varsayılana sıfırla" />
-  <Translate ID="ImportItem" Text="Eşya içe aktar" />
-  <Translate ID="ImportItemInfo" Text="İçe aktarma için lütfen geçerli bir eşya kodu giriniz." />
-  <Translate ID="ChangeCollectionID" Text="Koleksiyon ID&apos;sini değiştir" />
-  <Translate ID="ChangeCollectionIDInfo" Text="Bu koleksiyon için yeni bir ID giriniz." />
-  <Translate ID="ChangeCollectionText" Text="Koleksiyon yazısını değiştir" />
-  <Translate ID="ChangeCollectionTextInfo" Text="Bu koleksiyon için yeni bir yazı giriniz." />
-  <Translate ID="Allow" Text="İzin ver" />
-  <Translate ID="Deny" Text="Engelle" />
-  <Translate ID="NotificationInfo" Text="&quot;[URL]&quot; sitesinin bildirim göndermesine izin verilsin mi?" />
-  <Translate ID="NotificationSettingsButton" Text="Bildirim Ayarları..." />
-  <Translate ID="NotificationSettings" Text="Bildirim Ayarları" />
-  <Translate ID="PlayNotificationSound" Text="Bildirimde ses çal:" />
-  <Translate ID="SilentMode" Text="Sessiz Mod:" />
-  <Translate ID="ScheduleSilentMode" Text="Sessiz Modu Ayarla:" />
-  <Translate ID="StartFrom" Text="Başlangıç:" />
-  <Translate ID="EndAt" Text="Bitiş:" />
-  <Translate ID="24HourInfo" Text="24-saat biçimini kullanır. Öğleden sonraları için saat kısımlarına 12 ekleyiniz." />
-  <Translate ID="Every" Text="Her:" />
-  <Translate ID="Su" Text="P" />
-  <Translate ID="M" Text="Pt" />
-  <Translate ID="T" Text="S" />
-  <Translate ID="W" Text="Ç" />
-  <Translate ID="Th" Text="P" />
-  <Translate ID="F" Text="C" />
-  <Translate ID="S" Text="Ct" />
-  <Translate ID="CloseAll" Text="Tümünü kapat..." />
-  <Translate ID="CloseKorot" Text="Korot&apos;u kapat..." />
-  <Translate ID="CloseAllInfo" Text="Tüm bildirim dinleyicilerini kapatmak istediğinizden emin misiniz?" />
-  <Translate ID="CloseKorotInfo" Text="Korot&apos;u tamamen kapatmak istediğinzden emin misiniz?" />
-  <Translate ID="MuteThisTab" Text="Bu sekmenin sesini kapat" />
-  <Translate ID="UnmuteThisTab" Text="Bu sekmenin sesini aç" />
-  <Translate ID="ImportProfileInfo" Text="Profili içe aktar..." />
-  <Translate ID="ExportProfileInfo" Text="Profili dışa aktar..." />
-  <Translate ID="ImportProfile" Text="Profili içe aktar" />
-  <Translate ID="ExportProfile" Text="Profili dışa aktar" />
-  <Translate ID="ProfileFileInfo" Text="Korot Profil Arşivi" />
-  <Translate ID="Month1" Text="Ocak" />
-  <Translate ID="Month2" Text="Şubat" />
-  <Translate ID="Month3" Text="Mart" />
-  <Translate ID="Month4" Text="Nisan" />
-  <Translate ID="Month5" Text="Mayıs" />
-  <Translate ID="Month6" Text="Haziran" />
-  <Translate ID="Month7" Text="Temmuz" />
-  <Translate ID="Month8" Text="Ağustos" />
-  <Translate ID="Month9" Text="Eylül" />
-  <Translate ID="Month10" Text="Ekim" />
-  <Translate ID="Month11" Text="Kasım" />
-  <Translate ID="Month12" Text="Aralık" />
-  <Translate ID="Month0" Text="Haltroy" />
+<Language CompatibleVersion="0.8.3.0">
+  <Translate ID="BDDay" Text="Gün:" />
+  <Translate ID="BDMonth" Text="Ay:" />
+  <Translate ID="BDYear" Text="Yıl" />
+  <Translate ID="BDDesc" Text="Doğum günün ne zaman? Sadece sordum." />
+  <Translate ID="BDOK" Text="Teşekkürler ♥." />
+  <Translate ID="HappyBDay" Text="Doğum günün kutlu olsun!" />
+<Translate ID="AutoClean" Text="Otomatik Temizleme" />
+<Translate ID="AutoCleanMessage" Text="Önbelleği temizlemeden önce yeniden başlatmamız gerek. [NEWLINE] Devam etmek istediğinizden emin misiniz?" />
+<Translate ID="AutoCleanButton" Text="Şimdi Temizle" />
+<Translate ID="AutoCleanCache" Text="Önbelleği otomatik temizle:" />
+<Translate ID="AutoCleanCacheT1" Text="Önbellek [VAL] MB'dan fazla olunca:" />
+<Translate ID="AutoCleanCacheT2" Text="Her [VAL] günde bir temizle:" />
+<Translate ID="AutoCleanHistory" Text="Geçmişi otomatik temizle:" />
+<Translate ID="AutoCleanHistoryT1" Text="Kullanıcı dosyası [VAL] MB'dan fazla olunca:" />
+<Translate ID="AutoCleanHistoryT3" Text="Her [VAL] günde bir temizle:" />
+<Translate ID="AutoCleanHistoryT2" Text="[VAL] günden eski girişleri tenizle:" />
+<Translate ID="AutoCleanLogs" Text="Günlükleri otomatik temizle:" />
+<Translate ID="AutoCleanLogsT1" Text="Günlükler [VAL] MB'dan fazla olunca:" />
+<Translate ID="AutoCleanLogsT2" Text="Her [VAL] günde bir temizle:" />
+<Translate ID="AutoCleanLogsT3" Text="[VAL] günden eski günlükleri tenizle:" />
+<Translate ID="AutoCleanDownloads" Text="İndirmeleri otomatik temizle:" />
+<Translate ID="AutoCleanDownloadsT1" Text="Kullanıcı dosyası [VAL] MB'dan fazla olunca:" />
+<Translate ID="AutoCleanDownloadsT3" Text="Her [VAL] günde bir temizle:" />
+<Translate ID="AutoCleanDownloadsT2" Text="[VAL] günden eski indirmeleri tenizle:" />
+<Translate ID="Language" Text="Dil:" />
+<Translate ID="NewTheme" Text="&lt;yeni&gt;..." />
+<Translate ID="KorotUpToDate" Text="Korot sürümünüz güncel." />
+<Translate ID="KorotUpdating" Text="Güncelleme indiriliyor... %[PERC] tamamlandı." />
+<Translate ID="KorotUpdated" Text="Güncelleme indirildi. Kurulum, uygulama kapatıldıktan sonra devam edecektir." />
+<Translate ID="Reload" Text="Sayfayı yenile" />
+<Translate ID="SoundFiles" Text="Ses Dosyaları" />
+<Translate ID="UseDefaultSound" Text="Varsayılan bildirim sesini kullan:" />
+<Translate ID="ForeColor" Text="Önplan rengi:" />
+<Translate ID="AutoForeColor" Text="Önplan rengini otomatik seç:" />
+<Translate ID="NinjaMode" Text="Ninja Modu:" />
+<Translate ID="ThemeAvocado" Text="Avokado" />
+<Translate ID="ThemeAvocadoDesc" Text="Taze!" />
+<Translate ID="ThemeTeal" Text="Turkuaz" />
+<Translate ID="ThemeTealDesc" Text="Dinlenmek için iyi bir tema." />
+<Translate ID="ThemeYellow" Text="Sarı" />
+<Translate ID="ThemeYellowDesc" Text="çünkü muzları severiz!" />
+<Translate ID="ThemeOrange" Text="Portakal" />
+<Translate ID="ThemeOrangeDesc" Text="Kusura bakmayın, bu temada C vitamini bulunmamakta." />
+<Translate ID="ThemeBrown" Text="Kahverengi" />
+<Translate ID="ThemeBrownDesc" Text="Kahve severler için." />
+<Translate ID="ThemeLeather" Text="Deri" />
+<Translate ID="ThemeLeatherDesc" Text="Ceket gibi." />
+<Translate ID="ThemeGold" Text="Altın" />
+<Translate ID="ThemeGoldDesc" Text="Yürüyebilen domuzlar için, aynı zamanda kare olanlar." />
+<Translate ID="ThemeCreme" Text="Krem" />
+<Translate ID="ThemeCremeDesc" Text="Vanliya koktu, dur lütfen ekranı koklama!" />
+<Translate ID="ThemePurple" Text="Mor" />
+<Translate ID="ThemePurpleDesc" Text="Haltroy bu temayı sevmiyor." />
+<Translate ID="ThemeRaspberry" Text="Frambuaz" />
+<Translate ID="ThemeRaspberryDesc" Text="3,142857142857143" />
+<Translate ID="ThemeLavender" Text="Lavanta" />
+<Translate ID="ThemeLavenderDesc" Text="Merak etmeyin, bu tema sizi hastanelki etmez. Haltroy hariç." />
+<Translate ID="ThemeFuchsia" Text="Fuşya" />
+<Translate ID="ThemeFuchsiaDesc" Text="Cennetten toplanmış çiçeklerden yapılma tema." />
+<Translate ID="ThemePink" Text="Pembe" />
+<Translate ID="ThemePinkDesc" Text="Tema hazır patr0n." />
+<Translate ID="ThemeBrick" Text="Tuğla" />
+<Translate ID="ThemeBrickDesc" Text="Elbette, duvarda." />
+<Translate ID="ThemeDarkBlue" Text="Lacivert" />
+<Translate ID="ThemeDarkBlueDesc" Text="İşler koyulaşıyor, ama hoşuma gitti." />
+<Translate ID="ThemeSea" Text="Deniz" />
+<Translate ID="ThemeSeaDesc" Text="Kim yüzmek ister?" />
+<Translate ID="CloseNLInfo" Text="[TITLE]([URL]) bildirimlerini kapatmak istediğinizden emin misiniz?" />
+<Translate ID="PickRandom" Text="Rastgele Seç" />
+<Translate ID="TryAgain" Text="Tekrar dene" />
+<Translate ID="ApplyTheme" Text="Bunu uygula ve kapat" />
+<Translate ID="SelectThisTheme" Text="Bunu seç" />
+<Translate ID="YourThemeIs" Text="Sizin temanız" />
+<Translate ID="BlackWhite" Text="Siyah-Beyaz" />
+<Translate ID="BlackWhiteDesc" Text="Sadece bazı gri tonları, elbette dengelidir." />
+<Translate ID="Colorful" Text="Renkli" />
+<Translate ID="ColorfulDesc" Text="50'lerde kalmadık, az bi' renk olsun." />
+<Translate ID="Yellow" Text="Sarı" />
+<Translate ID="YellowDesc" Text="Poszitif ve arkadaş canlısı temalar." />
+<Translate ID="Purple" Text="Mor" />
+<Translate ID="PurpleDesc" Text="Yaratıcılığı arttıran temalar." />
+<Translate ID="Red" Text="Kırmızı" />
+<Translate ID="RedDesc" Text="Hadi heyecanlı bir tema seçelim!" />
+<Translate ID="Green" Text="Yeşil" />
+<Translate ID="GreenDesc" Text="Barışçıl bir tema da iyidir." />
+<Translate ID="Blue" Text="Mavi" />
+<Translate ID="BlueDesc" Text="Güvenebileceğiniz temalar." />
+<Translate ID="ThemeTitle" Text="Korot Tema Sihirbazı" />
+<Translate ID="ThemeTitle1" Text="Bir seçenek seçin" />
+<Translate ID="ThemeTitle2" Text="Bir renk seçin" />
+<Translate ID="ThemeTitle3" Text="Bir ton seçin" />
+<Translate ID="ThemeTitle4" Text="Sonuç" />
+<Translate ID="ThemeWizardButton" Text="Tema Sihirbazını Çalıştır" />
+<Translate ID="OOBEThemeWizard" Text="Kapandıktan sonra Tema Sihirbazını çalıştır" />
+<Translate ID="ThemeLight" Text="Açık" />
+<Translate ID="ThemeLightDesc" Text="Gözlerim için mükemmel fotonlar." />
+<Translate ID="ThemeCement" Text="Çimento" />
+<Translate ID="ThemeCementDesc" Text="Sonunda, taştan yapılma tarayıcı... ya da çimentodan." />
+<Translate ID="ThemeGray" Text="Gri" />
+<Translate ID="ThemeGrayDesc" Text="Açık ile Koyu arasında kalanlar için." />
+<Translate ID="ThemeShadow" Text="Gölge" />
+<Translate ID="ThemeShadowDesc" Text="Bir çok-karanlık-olmayan güzel tema." />
+<Translate ID="ThemeDark" Text="Koyu" />
+<Translate ID="ThemeDarkDesc" Text="Sonunda, gözlerim yanmayacak." />
+<Translate ID="ThemeBlue" Text="Mavi" />
+<Translate ID="ThemeBlueDesc" Text="1999'daki gibi o mavi." />
+<Translate ID="ThemeSunrise" Text="Gündoğumu" />
+<Translate ID="ThemeSunriseDesc" Text="Bir krallık için iyi isim ama rengi farklı." />
+<Translate ID="ThemeDodgerBlue" Text="Dodger Mavisi" />
+<Translate ID="ThemeDodgerBlueDesc" Text="Eskiden gelen bir tema, Haltroy isminden bile önce." />
+<Translate ID="ThemeMidnight" Text="Gece yarısı" />
+<Translate ID="ThemeMidnightDesc" Text="Bir website arkaplanı için güzel bir renk." />
+<Translate ID="ThemeRed" Text="Kırmızı" />
+<Translate ID="ThemeRedDesc" Text="Bu rengi 2007'de bir atış oyununda tanış." />
+<Translate ID="ThemeStrawberry" Text="Çilek" />
+<Translate ID="ThemeStrawberryDesc" Text="nesin sen Korot'un en iyi teması falan mı?" />
+<Translate ID="ThemeCrimson" Text="Kızıl" />
+<Translate ID="ThemeCrimsonDesc" Text="Canlı kanlı!" />
+<Translate ID="ThemeGreen" Text="Yeşil" />
+<Translate ID="ThemeGreenDesc" Text="Bu takıma katıl, belki o ışınları izleyebilirler." />
+<Translate ID="ThemeEmerald" Text="Zümrüt" />
+<Translate ID="ThemeEmeraldDesc" Text="Bu temayı takas için kullanabilirsiniz, şaka. Böcek toplamak için güzel bir tema." />
+<Translate ID="ThemeDarkLeaf" Text="Koyu Yaprak" />
+<Translate ID="ThemeDarkLeafDesc" Text="Onlar ağaçlarda iyi gözüküyor, elinde yanıyorken değil." />
+<Translate ID="EditBlockItem" Text="Bloğu düzenle..." />
+<Translate ID="AddBlockItem" Text="Yeni blok ekle..." />
+<Translate ID="Lv0" Text="Seviye 0" />
+<Translate ID="Lv1" Text="Seviye 1" />
+<Translate ID="Lv2" Text="Seviye 2" />
+<Translate ID="Lv3" Text="Seviye 3" />
+<Translate ID="BlockLevel" Text="Blok Seviyesi:" />
+<Translate ID="Done" Text="Bitti" />
+<Translate ID="LV0Info" Text="Url'ün websitesinde bloklar." />
+<Translate ID="LV1Info" Text="Url'ün websitesini bloklar." />
+<Translate ID="LV2Info" Text="Url'ün websitesini alt alan adları ile bloklar" />
+<Translate ID="LV3Info" Text="Url'ü içeren her siteyi bloklar." />
+<Translate ID="BlockThisSite" Text="Bu siteyi blokla..." />
+<Translate ID="BlockMenuTitle" Text="Bloklu Siteler" />
+<Translate ID="BlockMenuButton" Text="Bloklu Siteler..." />
+<Translate ID="ChangePicInfo" Text="Yeni bir resim mi seçmek istersiniz yoksa sıfırlamak mı?" />
+<Translate ID="ResetImage" Text="Resmi sıfırla" />
+<Translate ID="SelectNewImage" Text="Yeni resim seç" />
+<Translate ID="ProfileNameTemp" Text="Selam, [NAME] !" />
+<Translate ID="ChangePic" Text="Resmi değiştir" />
+<Translate ID="NewTabEditorTitle" Text="Yeni Sekme Sayfası İçeriği" />
+<Translate ID="NewTabEditTitle" Text="Başlık:" />
+<Translate ID="NewTabEditUrl" Text="Url:" />
+<Translate ID="NewTabEditClear" Text="Temizle" />
+<Translate ID="NewTabEdit" Text="Düzenle" />
+<Translate ID="EnableFlash" Text="Flash'ı etkinleştir:" />
+<Translate ID="FlashInfo" Text="Flash ayarı değiştirildikten sonra etkisini göstermesi için yeniden başlatın." />
+<Translate ID="Incognito" Text="Gizli Mod" />
+<Translate ID="KorotUpdate" Text="Korot - Güncelleme" />
+<Translate ID="KorotUpdateAvailable" Text="Güncelleme bulundu.Güncellemek ister misiniz?" />
+<Translate ID="KorotUpdateError" Text="Güncelleme sırasında hata." />
+<Translate ID="NewTab" Text="Yeni Sekme" />
+<Translate ID="SearchEngineInfo" Text="(Not: Aranan yazı bu adresin sonuna eklenir.)" />
+<Translate ID="SearchengineTitle" Text="Kişisel Arama Motoru adresini yazın" />
+<Translate ID="NewWindow" Text="Yeni Pencere" />
+<Translate ID="NewIncognitoWindow" Text="Yeni Gizli Pencere" />
+<Translate ID="Settings" Text="Ayarlar" />
+<Translate ID="History" Text="Geçmiş" />
+<Translate ID="HomePage" Text="Ana sayfa:" />
+<Translate ID="SearchEngine" Text="Arama Motoru:" />
+<Translate ID="Theme" Text="Tema" />
+<Translate ID="Custom" Text="Özel" />
+<Translate ID="RemoveSelected" Text="Seçileni Sil" />
+<Translate ID="BackgroundStyle" Text="Arkaplan Düzeni:" />
+<Translate ID="Clear" Text="Temizle" />
+<Translate ID="About" Text="Hakkında" />
+<Translate ID="GoBack" Text="Geriye Git" />
+<Translate ID="GoForward" Text="İleriye git" />
+<Translate ID="Refresh" Text="Yenile" />
+<Translate ID="RefreshNoCache" Text="Yenile (Çerezsiz)" />
+<Translate ID="Stop" Text="Dur" />
+<Translate ID="SelectAll" Text="Hepsini Seç" />
+<Translate ID="OpenLinkInNewTab" Text="Bağlantıyı Yeni Sekmede Aç" />
+<Translate ID="CopyLink" Text="Bağlantı Adresini Kopyala" />
+<Translate ID="SaveImageAs" Text="Resmi Kaydet" />
+<Translate ID="OpenImageInNewTab" Text="Resmi Yeni Sekmede Aç" />
+<Translate ID="Paste" Text="Yapıştır" />
+<Translate ID="Copy" Text="Kopyala" />
+<Translate ID="Cut" Text="Kes" />
+<Translate ID="Undo" Text="Geri Al" />
+<Translate ID="Redo" Text="İleri Al" />
+<Translate ID="Delete" Text="Sil" />
+<Translate ID="SearchOpenTheSelected" Text="Seçileni Ara/Git" />
+<Translate ID="DeveloperTools" Text="Geliştirici Araçları" />
+<Translate ID="ViewSource" Text="Kaynağı Görüntüle" />
+<Translate ID="Downloads" Text="İndirmeler" />
+<Translate ID="BackgroundColor" Text="Arkaplan rengi :" />
+<Translate ID="OverlayColor" Text="Tema Rengi :" />
+<Translate ID="KorotDownloading" Text="Korot - İndiriyor" />
+<Translate ID="OpenFilesAfterDownload" Text="İndirme bitince dosyaları aç:" />
+<Translate ID="Open" Text="Aç" />
+<Translate ID="From1" Text="Kaynak :" />
+<Translate ID="To1" Text="Hedef :" />
+<Translate ID="KorotError" Text="Korot - Hata" />
+<Translate ID="About" Text="Hakkında" />
+<Translate ID="Themes" Text="Temalar" />
+<Translate ID="ThemeName" Text="Tema Adı :" />
+<Translate ID="ResetToFefaultProxySetting" Text="Varsayılan proxy ayarına sıfırla" />
+<Translate ID="OpenInNewTab" Text="Yeni sekmede aç" />
+<Translate ID="OpenFile" Text="Dosyayı Aç" />
+<Translate ID="OpenFolderContainingThisFile" Text="Dosyayı içeren klasörü aç" />
+<Translate ID="SearchOnThisPage" Text="Bu sayfada ara" />
+<Translate ID="NewTabDays" Text="&quot;Pazar&quot;,&quot;Pazartesi&quot;,&quot;Salı&quot;,&quot;Çarşamba&quot;,&quot;Perşembe&quot;,&quot;Cuma&quot;,&quot;Cumartesi&quot;" />
+<Translate ID="NewTabMonths" Text="&quot;Ocak&quot;,&quot;Şubat&quot;,&quot;Mart&quot;,&quot;Nisan&quot;,&quot;Mayıs&quot;,&quot;Haziran&quot;,&quot;Temmuz&quot;,&quot;Ağustos&quot;,&quot;Eylül&quot;,&quot;Ekim&quot;,&quot;Kasım&quot;,&quot;Aralık&quot;" />
+<Translate ID="NewTabSearch" Text="Web'te arayın veya URL girin" />
+<Translate ID="ErrorTitle" Text="Korot bu ekranı görünütüleyemiyor." />
+<Translate ID="ErrorTitle1" Text="Bu sebeplerden olabilir:" />
+<Translate ID="ErrorT1M1" Text="URL doğru olmayabilir." />
+<Translate ID="ErrorT1M2" Text="Adresteki web sayfası çok meşgul veya yanıt vermiyor." />
+<Translate ID="ErrorT1M3" Text="Makineniz Internet'e bağlı değil veya bağlantı çok yavaş." />
+<Translate ID="ErrorT1M4" Text="Antivirüs programı bu siteyi veya bu tarayıcıyı virüs olarak algıladı." />
+<Translate ID="ErrorTitle2" Text="Önerimiz:" />
+<Translate ID="ErrorT2M1" Text="Adresteki yazım hatalarına dikkat ederek tekrar yazın." />
+<Translate ID="ErrorT2M2" Text="Makinenizi Internet'e bağlayın." />
+<Translate ID="ErrorT2M3" Text="Bir süre sonra tekrar deneyin." />
+<Translate ID="ErrorT2M4" Text="Antivürüs programını geçici olarak kapatın veya bu tarayıcıyı güvenilir listesine alın." />
+<Translate ID="Search" Text="Ara" />
+<Translate ID="SwitchTo" Text="Başka bir profile geç..." />
+<Translate ID="NewProfile" Text="Yeni Profil" />
+<Translate ID="DeleteThisProfile" Text="Bu profili sil" />
+<Translate ID="AddressBar1" Text="&quot;[TEXT]&quot; adresine git" />
+<Translate ID="AddressBar2" Text="Web'te ara : &quot;[TEXT]&quot;" />
+<Translate ID="EnterAValidURL" Text="Lütfen geçerli bir URL girin." />
+<Translate ID="EnterAProfileName" Text="Lütfen yeni profil için ad giriniz.Şunları içermemelidir:" />
+<Translate ID="RestoreLastSession" Text="Önceki oturumu yükle" />
+<Translate ID="Yes" Text="Evet" />
+<Translate ID="No" Text="Hayır" />
+<Translate ID="OK" Text="Tamam" />
+<Translate ID="Cancel" Text="İptal" />
+<Translate ID="CheckingForUpdates" Text="Güncellemeler aranıyor..." />
+<Translate ID="UpToDate" Text="Korot'unuz güncel." />
+<Translate ID="CheckForUpdates" Text="Güncellemeleri Ara" />
+<Translate ID="UpdatingMessage" Text="Güncelleme indiriliyor ve kuruluyor..." />
+<Translate ID="DownloadProgress" Text="[PERC]% | [TOTAL] KB'dan [CURRENT] KB indirildi." />
+<Translate ID="ApplyThemeInfo" Text="Bu temayı uygulamak istediğinizden emin misiniz?" />
+<Translate ID="ThemeFileCorrupted" Text="Bu tema dosyası bozulmuş veya bu sürüm ile uyumlu değil." />
+<Translate ID="CertificateErrorDetails" Text="Sertifika Hata Detayları" />
+<Translate ID="NotSafe" Text="Güvenli Değil" />
+<Translate ID="WebsiteWithErrors" Text="Bu websitesi hatalı bir sertifika kullanıyor." />
+<Translate ID="Safe" Text="Güvenli" />
+<Translate ID="WebsiteNoErrors" Text="Bu websitesi hatasız bir sertifika kullanıyor." />
+<Translate ID="ShowCertificateError" Text="Sertifika hatasını görüntüle" />
+<Translate ID="WebsiteUsesCookies" Text="Bu website çerezleri kullanıyor." />
+<Translate ID="WebsiteNoCookies" Text="Bu website çerezleri kullanmıyor." />
+<Translate ID="WebsiteNotSafe" Text="Bu website güvenli değil." />
+<Translate ID="WebsiteNotSafeInfo" Text="Bu websitesi hatalı bir sertifika kullanıyor. Bu da bazı bilgileriniz (kredi kartı,şifreler,mesajlar...) tanınmayan kişiler tarafından çalınabilir kılıyor." />
+<Translate ID="UserUnderstandsRisks" Text="Bu riskleri anlıyorum." />
+<Translate ID="KorotAbout" Text="Korot, CefSharp kullanarak Google tarafından yapılan Chromium'u kullanıyor.[NEWLINE]Korot, Microsoft tarafından Visual Studio Community kullanılarak C# dilinde yazılmıştır.[NEWLINE]Korot, EasyTabs'in değiştirilmiş sürümünü kullanır.[NEWLINE]Korot, Dalton Maag &quot;&quot; Canonical Ltd. tarafından yapılmış olan Ubuntu fontunu kullanır.[NEWLINE]Çeviri Haltroy tarafından yapılmıştır.[NEWLINE]Logo, freepik tarafından yapılmıştır." />
+<Translate ID="LicensesSpecialThanks" Text="Lisanslar &quot;&quot; Özel Teşekkürler..." />
+<Translate ID="ExtensionRequiresPermission" Text="Bu eklenti şu izinleri istiyor." />
+<Translate ID="ExtensionNoPermission" Text="Bu eklenti bir izin istemiyor." />
+<Translate ID="ExtensionInstallError" Text="Bu eklenti yüklenemez." />
+<Translate ID="Installing" Text="Yükleniyor..." />
+<Translate ID="Installed" Text="Yüklendi." />
+<Translate ID="Close" Text="Kapat" />
+<Translate ID="Install" Text="Yükle" />
+<Translate ID="Initializing" Text="Hazırlanıyor..." />
+<Translate ID="autoLoad" Text="Otomatik yüklenme" />
+<Translate ID="autoLoadInfo" Text="Bu eklenti, websitesi yükelndiğinde otomatik başlatılır." />
+<Translate ID="canAccessWebContent" Text="Web içeriğine erişim" />
+<Translate ID="canAccessWebContentInfo" Text="Bu eklenti, parolalar ve kredi kartı bilgileri gibi web site içeriklerine erişebilir." />
+<Translate ID="onlineFiles" Text="Çevrimiçi dosyalar" />
+<Translate ID="onlineFilesInfo" Text="Bu eklenti, yere olmayan web dosyalarını kullanıyor. Bu biraz veri tüketebilir." />
+<Translate ID="EnableDoNotTrack" Text="DoNotTrack'ı Etkinleştir:" />
+<Translate ID="PleaseWait" Text="Lütfen bekleyiniz..." />
+<Translate ID="UseBackgroundColor" Text="Arkaplan rengini kullan" />
+<Translate ID="UsingBackgroundColor" Text="Arkaplan rengi kullanılıyor" />
+<Translate ID="ImageFromBase64" Text="Bir base64 kodunu kullan" />
+<Translate ID="ImageFromFile" Text="Yerel bir görüntüyü kullan" />
+<Translate ID="ImageFiles" Text="Resim Dosyası" />
+<Translate ID="AllFiles" Text="Tüm Dosyalar" />
+<Translate ID="SelectBackgroundImage" Text="Arkaplan resmi seçin..." />
+<Translate ID="BackgroundImageLayout" Text="Arkaplan Resmi Düzeni:" />
+<Translate ID="Extension" Text="Eklenti" />
+<Translate ID="OOBETitle" Text="Korot Kurulumu" />
+<Translate ID="OOBEContinue" Text="Devam et" />
+<Translate ID="OOBEWelcome" Text="Korot'a Hoşgeldiniz!" />
+<Translate ID="OOBEProfile" Text="Lütfen profiliniz için bir isim yazın:" />
+<Translate ID="OOBENotContain" Text="Bunları içermemelidir:" />
+<Translate ID="OOBEProfileInfo" Text="Daha sonra yeni bir profil oluşturabilir,profil silebilir veya o profile geçebilirsiniz." />
+<Translate ID="OOBEThemeInfo" Text="3-nokta menüsündeki Temalar seçeneğinden yeni temalar olışturabilir, temalar uygulayabilir ve değiştirebilirsiniz..[NEWLINE][NEWLINE]Üstelik tema listesinin sağ üst kısmında bulunan poşet ikonuna tıklayarak web mağazasından tema yükleyebilirsiniz." />
+<Translate ID="OOBEProfilesInfo" Text="Profil menüsünden yeni profiller oluşturabilşr, profilinizi silebilir ve profiller arasından geçiş yapabilirsiniz.[NEWLINE][NEWLINE]Her profilin çerezleri, geçmişi, ayarları vb. kendisine özgüdür." />
+<Translate ID="OOBEBack" Text="Geriye git" />
+<Translate ID="OOBEFinishBack" Text="Bitirmek için lütfen aşağıdaki &quot;Bitir&quot; butonuna basın.[NEWLINE]Geriye gitmek için lütfen aşağıdaki &quot;Geriye git&quot; butonuna basın." />
+<Translate ID="OOBEExtensionInfo" Text="3-nokta menüsünden eklentilere erişebilirsiniz.[NEWLINE][NEWLINE]&quot;Web Store&quot; seçeneğine dokunarak yeni eklentileri yükleyebilirsiniz." />
+<Translate ID="OOBEBestWishes" Text="Hayırlı Olsun" />
+<Translate ID="OOBEProfilesTitle" Text="Profiller" />
+<Translate ID="OOBEContinueBack" Text="Devam etmek için lütfen aşağıdaki &quot;Devam et&quot; butonuna basın.[NEWLINE]Geriye gitmek için lütfen aşağıdaki &quot;Geriye git&quot; butonuna basın." />
+<Translate ID="OOBEButtonFinish" Text="Kurulumu bitir ve Korot'u başlat." />
+<Translate ID="OOBECloseMessage" Text="Kurulum bitmeden önce kapatmak istediğinizden emin misiniz?" />
+<Translate ID="DisallowCookie" Text="Bu sayfanın çerez iznini kapat" />
+<Translate ID="AllowCookie" Text="Bu sayfanın çerez iznini aç" />
+<Translate ID="IncognitoInfoTitle" Text="Gizli Moddasınız!" />
+<Translate ID="IncognitoInfoT1M1" Text="Geçmişi ve indirmeleri kaydetme" />
+<Translate ID="IncognitoInfoT1M2" Text="Çerezleri, form detaylarını ve oturumları kaydetme" />
+<Translate ID="IncognitoInfoT1M3" Text="Ayaraları kaydetme" />
+<Translate ID="IncognitoInfoTitle2" Text="Fakat aktiviteniz şunlara görünebilir:" />
+<Translate ID="IncognitoInfoT2M1" Text="Websiteler" />
+<Translate ID="IncognitoInfoT2M2" Text="Yerel Internet sahibiniz ve Internet servis sağlayıcınız" />
+<Translate ID="IncognitoInfoT2M3" Text="İzleyenler" />
+<Translate ID="Print" Text="Yazdır" />
+<Translate ID="HTMLFile" Text="HTML Dosyası" />
+<Translate ID="ResetZoom" Text="Yakınlaştırmayı Sıfırla" />
+<Translate ID="EnterValidBase64" Text="Lütfen geçerli bir base64 kodu giriniz." />
+<Translate ID="RenderProcessTerminated" Text="Oluşturucu işlem sonlandırıldı. Korot bu işlem olmadan çalışamaz. Uygulamayı kapatmak için Tamam butonuna basın." />
+<Translate ID="NotRatedContent" Text="İncelenmemiş İçerik" />
+<Translate ID="NotRatedContentInfo" Text="Korot, bu temanın içeriğini otomatik olarak algılamaz. Sonuç olarak, bu tema epileptik ve/ya kullanım için uygun olmayan içerik içerebilir." />
+<Translate ID="Extensions" Text="Eklentiler" />
+<Translate ID="AboutInfoTheme" Text="[THEMENAME] teması [THEMEAUTHOR] tarafından yapılmıştır." />
+<Translate ID="ThemeUnknownPerson" Text="bilinmeyen birisi" />
+<Translate ID="ThemeNameUnknown" Text="Adı bilinmeyen Korot" />
+<Translate ID="RememberLastProxy" Text="Proxy ayarını hatırla:" />
+<Translate ID="Current" Text="Seçili:" />
+<Translate ID="Total" Text="Toplam:" />
+<Translate ID="Last" Text="(Sonuncu)" />
+<Translate ID="NotSearchingNoResults" Text="Arama yapılmıyor veya sonuç yok" />
+<Translate ID="IncognitoMode" Text="Gizli Mod" />
+<Translate ID="IncognitoModeInfo" Text="Bu oturum kaydedilmeyecektir." />
+<Translate ID="ClickToLearnMore" Text="Daha fazla bilgi için buraya tıklayın." />
+<Translate ID="SiteSettings" Text="Site Ayarları" />
+<Translate ID="SiteSettingsButton" Text="Site Ayarları..." />
+<Translate ID="ResetKorotInfo" Text="Korot'u sıfırlamak istediğinizden emin misiniz?[NEWLINE](Tüm kişisel bilgileriniz kaybolucak. Bu bilgiler profiller, ayarlar, indirmeler, çerezler vb. içerir.)" />
+<Translate ID="ResetKorotButton" Text="Korot'u sıfırla..." />
+<Translate ID="AtStartup" Text="Başlangıçta:" />
+<Translate ID="Auto-downloadFolder" Text="Bir klasöre otomatik olarak indir:" />
+<Translate ID="DownloadToFolder" Text="Bu klasöre indir:" />
+<Translate ID="ShowNewTabPage" Text="Yeni Sekme sayfasını göster" />
+<Translate ID="ShowHomepage" Text="Ana sayfayı göster" />
+<Translate ID="GoToURL" Text="Bir adrese git" />
+<Translate ID="DownloadFolderInfo" Text="İndirmeler için bir klasör seçin." />
+<Translate ID="ConfirmDialog" Text="[TITLE] sayfasından onay:" />
+<Translate ID="MessageDialog" Text="[TITLE] sayfasından bir mesaj:" />
+<Translate ID="TitleLicensesSpecialThanks" Text="Lisanslar &quot;&quot; Özel Teşekkür Sayfası" />
+<Translate ID="KorotLicense" Text="Korot Lisansı" />
+<Translate ID="MSVS2019CLicense" Text="Microsoft Visual Studio 2019 Community Lisansı" />
+<Translate ID="ChromiumLicense" Text="Chromium Lisansı" />
+<Translate ID="CefSharpLicense" Text="CefSharp Lisansı" />
+<Translate ID="EasyTabsLicense" Text="EasyTabs Lisansı" />
+<Translate ID="SpecialThanks" Text="Özel Teşekkürler..." />
+<Translate ID="None" Text="Hiçbiri" />
+<Translate ID="Tile" Text="Desen" />
+<Translate ID="Center" Text="Ortala" />
+<Translate ID="Stretch" Text="Genişlet" />
+<Translate ID="Zoom" Text="Büyüt" />
+<Translate ID="BackColor" Text="Arkaplan rengi" />
+<Translate ID="ForeColor" Text="Yazı rengi" />
+<Translate ID="OverlayColor2" Text="Tema Rengi" />
+<Translate ID="NewTabButtonColor" Text="Yeni sekme butonu rengi:" />
+<Translate ID="CloseButtonColor" Text="Sekme kapatma butonu rengi:" />
+<Translate ID="ShowFavoritesMenu" Text="Favoriler menüsünü göster:" />
+<Translate ID="Notifications" Text="Bildirimler:" />
+<Translate ID="Cookies" Text="Çerezler:" />
+<Translate ID="Empty" Text="((boş))" />
+<Translate ID="OpenFolder" Text="Klasörü aç" />
+<Translate ID="WebStore" Text="Web Mağazası" />
+<Translate ID="CopyImage" Text="Resmi kopyala" />
+<Translate ID="OpenLinkinaNewWindow" Text="Bağlantıyı yeni pencerede aç" />
+<Translate ID="OpenLinkinaNewIncognitoWindow" Text="Bağlantıyı yeni gizli pencerede aç" />
+<Translate ID="CopyImageAddress" Text="Resim bağlantısını kopyala" />
+<Translate ID="SaveLinkAs" Text="Bağlantıyı farklı kaydet..." />
+<Translate ID="NewFavorite" Text="Yeni Favori" />
+<Translate ID="Name" Text="Ad :" />
+<Translate ID="Url" Text="Url :" />
+<Translate ID="Add" Text="Ekle..." />
+<Translate ID="NewFolderButton" Text="Yeni Klasör..." />
+<Translate ID="NewFolder" Text="Yeni Klasör" />
+<Translate ID="PleaseenteranamefornewFolder" Text="Lütfen yeni klasör için bir ad giriniz." />
+<Translate ID="OpenAllInNewTab" Text="Hepsini yeni sekmede aç" />
+<Translate ID="OpeninNewWindow" Text="Yeni pencerede aç" />
+<Translate ID="OpenAllinNewWindow" Text="Hepsini yeni pencere(ler)de aç" />
+<Translate ID="OpeninNewIncognitoWindow" Text="Yeni gizli pencerede aç" />
+<Translate ID="OpenAllinNewIncognitoWindow" Text="Hepsini yeni gizli pencere(ler)de aç" />
+<Translate ID="NewFavorite" Text="Yeni Favori..." />
+<Translate ID="KorotThemeUpdater" Text="Korot Tema Güncelleyicisi" />
+<Translate ID="KorotExtensionUpdater" Text="Korot Eklenti Güncelleyicisi" />
+<Translate ID="ExtensionUpdatingInfo" Text="[NAME] güncelleniyor...[NEWLINE]Lütfen bekleyin..." />
+<Translate ID="UbuntuFontLicense" Text="Ubuntu Font Lisansı" />
+<Translate ID="ErrorDesc1" Text="Korot bir problem ile karşılaştı ve hata verdi." />
+<Translate ID="ErrorTI" Text="Teknik Bilgiler:" />
+<Translate ID="ErrorRestart" Text="Yeniden başlat" />
+<Translate ID="Installing" Text="Kuruluyor..." />
+<Translate ID="YoureGoodToGo" Text="Artık hazırsınız." />
+<Translate ID="OOBEArrowKeys" Text="Ok tuşlarını kullanarak ipucular arasında gezebilirsiniz." />
+<Translate ID="OOBEContinueInfo" Text="Devam etmek için lütfen aşağıdaki &quot;Devam et&quot; butonuna basın." />
+<Translate ID="ChooseALanguage" Text="Bir Dil seçiniz..." />
+<Translate ID="RestoreOldSessions" Text="Başlangıçta eski oturumları kurtar:" />
+<Translate ID="CertificateError" Text="Sertifika Hatası" />
+<Translate ID="Collections" Text="Koleksiyonlar" />
+<Translate ID="CollectionItemImage" Text="Görsel" />
+<Translate ID="CollectionItemText" Text="Yazı" />
+<Translate ID="CollectionItemLink" Text="Link" />
+<Translate ID="CollectionCommon" Text="Ortak" />
+<Translate ID="CollectionTextBased" Text="Yazı-bazlı" />
+<Translate ID="CollectionOnline" Text="Çevrimiçi" />
+<Translate ID="CollectionPicture" Text="Görsel" />
+<Translate ID="CollectionID" Text="ID:" />
+<Translate ID="CollectionBackColor" Text="ArkaplanRengi:" />
+<Translate ID="CollectionText" Text="Yazı:" />
+<Translate ID="CollectionFont" Text="Font:" />
+<Translate ID="CollectionFontSize" Text="FontBoyutu:" />
+<Translate ID="CollectionFontProperties" Text="FontÖzelliği:" />
+<Translate ID="Regular" Text="Sıradan" />
+<Translate ID="Bold" Text="Kalın" />
+<Translate ID="Italic" Text="İtalik" />
+<Translate ID="Underline" Text="Altıçizili" />
+<Translate ID="Strikeout" Text="Üstüçizili" />
+<Translate ID="CollectionForeColor" Text="YazıRengi:" />
+<Translate ID="CollectionSource" Text="Kaynak:" />
+<Translate ID="CollectionWidth" Text="Genişlik:" />
+<Translate ID="CollectionHeight" Text="Yükseklik:" />
+<Translate ID="CollectionDone" Text="Bitti" />
+<Translate ID="EditCollectionItem" Text="Eşyayı düzenle" />
+<Translate ID="NewCollectionInfo" Text="Yeni koleksiyon için bir isim giriniz." />
+<Translate ID="NewCollectionName" Text="Yeni koleksiyon" />
+<Translate ID="ImportCollectionInfo" Text="Koleksiyon kodunu giriniz." />
+<Translate ID="CollectionDeleteInfo" Text="$ koleksiyonunu silmek istediğinize emin misiniz?" />
+<Translate ID="CollectionClearInfo" Text="Hepsini silmek istediğinize emin misiniz?" />
+<Translate ID="OKTOClipboard" Text="Hepsini kopyalamak için OK butonuna basın." />
+<Translate ID="DeleteCollection" Text="Bu koleksiyonu sil" />
+<Translate ID="Import" Text="İçe aktar" />
+<Translate ID="Export" Text="Dışa aktar" />
+<Translate ID="DeleteItem" Text="Bu eşyayı sil" />
+<Translate ID="ExportItem" Text="Bu eşyayı dışa aktar" />
+<Translate ID="EditItem" Text="Bu eşyayı düzenle" />
+<Translate ID="AddToCollection" Text="Koleksiyona ekle" />
+<Translate ID="ChangeTitleColorInfo" Text="Üstteki kareye dokunarak rengi değiştirebilirsiniz." />
+<Translate ID="SetToDefault" Text="Varsayılana sıfırla" />
+<Translate ID="ImportItem" Text="Eşya içe aktar" />
+<Translate ID="ImportItemInfo" Text="İçe aktarma için lütfen geçerli bir eşya kodu giriniz." />
+<Translate ID="ChangeCollectionID" Text="Koleksiyon ID'sini değiştir" />
+<Translate ID="ChangeCollectionIDInfo" Text="Bu koleksiyon için yeni bir ID giriniz." />
+<Translate ID="ChangeCollectionText" Text="Koleksiyon yazısını değiştir" />
+<Translate ID="ChangeCollectionTextInfo" Text="Bu koleksiyon için yeni bir yazı giriniz." />
+<Translate ID="Allow" Text="İzin ver" />
+<Translate ID="Deny" Text="Engelle" />
+<Translate ID="NotificationInfo" Text="&quot;[URL]&quot; sitesinin bildirim göndermesine izin verilsin mi?" />
+<Translate ID="NotificationSettings" Text="Bildirim Ayarları" />
+<Translate ID="PlayNotificationSound" Text="Bildirimde ses çal:" />
+<Translate ID="SilentMode" Text="Sessiz Mod:" />
+<Translate ID="ScheduleSilentMode" Text="Sessiz Modu Ayarla:" />
+<Translate ID="StartFrom" Text="Başlangıç:" />
+<Translate ID="EndAt" Text="Bitiş:" />
+<Translate ID="24HourInfo" Text="24-saat biçimini kullanır. Öğleden sonraları için saat kısımlarına 12 ekleyiniz." />
+<Translate ID="Every" Text="Her:" />
+<Translate ID="Su" Text="P" />
+<Translate ID="M" Text="Pt" />
+<Translate ID="T" Text="S" />
+<Translate ID="W" Text="Ç" />
+<Translate ID="Th" Text="P" />
+<Translate ID="F" Text="C" />
+<Translate ID="S" Text="Ct" />
+<Translate ID="CloseAll" Text="Tümünü kapat..." />
+<Translate ID="CloseKorot" Text="Korot'u kapat..." />
+<Translate ID="CloseAllInfo" Text="Tüm bildirim dinleyicilerini kapatmak istediğinizden emin misiniz?" />
+<Translate ID="CloseKorotInfo" Text="Korot'u tamamen kapatmak istediğinzden emin misiniz?" />
+<Translate ID="MuteThisTab" Text="Bu sekmenin sesini kapat" />
+<Translate ID="UnmuteThisTab" Text="Bu sekmenin sesini aç" />
+<Translate ID="ImportProfileInfo" Text="Profili içe aktar..." />
+<Translate ID="ExportProfileInfo" Text="Profili dışa aktar..." />
+<Translate ID="ImportProfile" Text="Profili içe aktar" />
+<Translate ID="ExportProfile" Text="Profili dışa aktar" />
+<Translate ID="ProfileFileInfo" Text="Korot Profil Arşivi" />
+<Translate ID="Month1" Text="Ocak" />
+<Translate ID="Month2" Text="Şubat" />
+<Translate ID="Month3" Text="Mart" />
+<Translate ID="Month4" Text="Nisan" />
+<Translate ID="Month5" Text="Mayıs" />
+<Translate ID="Month6" Text="Haziran" />
+<Translate ID="Month7" Text="Temmuz" />
+<Translate ID="Month8" Text="Ağustos" />
+<Translate ID="Month9" Text="Eylül" />
+<Translate ID="Month10" Text="Ekim" />
+<Translate ID="Month11" Text="Kasım" />
+<Translate ID="Month12" Text="Aralık" />
+<Translate ID="Month0" Text="Haltroy" />
 </Language>

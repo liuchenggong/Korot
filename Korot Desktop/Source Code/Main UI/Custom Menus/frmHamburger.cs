@@ -241,13 +241,13 @@ namespace Korot
             switch (dialog.ShowDialog())
             {
                 case DialogResult.OK:
-                    cefform.ParentTab.BackColor = dialog.Color;
-                    cefform.ParentTab.UseDefaultBackColor = false;
+                    cefform.TabColor = dialog.Color;
+                    cefform.AutoTabColor = false;
                     break;
 
                 case DialogResult.Abort:
-                    cefform.ParentTab.BackColor = BackColor;
-                    cefform.ParentTab.UseDefaultBackColor = true;
+                    cefform.TabColor = BackColor;
+                    cefform.AutoTabColor = true;
                     break;
             }
         }

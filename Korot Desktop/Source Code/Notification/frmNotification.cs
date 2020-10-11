@@ -126,7 +126,7 @@ namespace Korot
             bool n = cefform.Settings.IsQuietTime;
             if (cefform.Settings.DoNotPlaySound) { PlayNotificationSound(); }
             if (!cefform.Settings.QuietMode) { Hide(); }
-            lbKorot.Text = "Korot " + Application.ProductVersion.ToString() + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)") + " (" + VersionInfo.CodeName + ")";
+            lbKorot.Text = "Korot " + Application.ProductVersion.ToString() + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)") + " [" + VersionInfo.CodeName + "]";
         }
 
         private void lbClose_Click(object sender, EventArgs e)

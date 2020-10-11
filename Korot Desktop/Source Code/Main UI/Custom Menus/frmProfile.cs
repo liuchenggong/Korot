@@ -166,9 +166,9 @@ namespace Korot
             if (cefform.noProfilePic) { NewProfilePic(); }
             else
             {
-                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", cefform.anaform.ChangePicInfo, new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", cefform.anaform.ChangePicInfo, new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.YesNoCancel))
                 {
-                    BackgroundColor = cefform.Settings.Theme.BackColor,
+                    BackColor = cefform.Settings.Theme.BackColor, AutoForeColor = false, ForeColor = cefform.Settings.Theme.ForeColor,
                     Yes = cefform.anaform.ResetImage,
                     No = cefform.anaform.SelectNewImage,
                     Cancel = cefform.anaform.Cancel,

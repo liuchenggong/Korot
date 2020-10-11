@@ -33,7 +33,7 @@ namespace Korot
         {
             cefform = frm;
             InitializeComponent();
-            pictureBox1.BackColor = cefform.ParentTab.BackColor;
+            pictureBox1.BackColor = cefform.TabColor;
             DialogResult = DialogResult.Cancel;
             label1.Text = cefform.anaform.titleBackInfo;
             btDefault.Text = cefform.anaform.SetToDefault;

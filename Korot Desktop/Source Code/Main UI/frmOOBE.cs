@@ -127,7 +127,7 @@ namespace Korot
         {
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\"))
             {
-                Program.RemoveDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\");
+                Program.RemoveDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\",false);
             }
             RefreshLangList();
         }
@@ -190,7 +190,7 @@ namespace Korot
         {
             if (!allowClose)
             {
-                HTAlt.WinForms.HTMsgBox msgBox = new HTAlt.WinForms.HTMsgBox(Text, closeMessage, new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true }) { Yes = Yes, No = No, OK = OK, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
+                HTAlt.WinForms.HTMsgBox msgBox = new HTAlt.WinForms.HTMsgBox(Text, closeMessage, new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.YesNo)) { Yes = Yes, No = No, OK = OK, Cancel = Cancel, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor, BackColor = Settings.Theme.BackColor, Icon = Icon };
                 if (msgBox.ShowDialog() == DialogResult.Yes)
                 {
                     e.Cancel = false;
