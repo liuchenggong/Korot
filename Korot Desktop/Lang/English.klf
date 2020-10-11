@@ -1,4 +1,10 @@
-<Language CompatibleVersion="0.8.2.0">
+<Language CompatibleVersion="0.8.3.0">
+  <Translate ID="BDDay" Text="Day:" />
+  <Translate ID="BDMonth" Text="Month:" />
+  <Translate ID="BDYear" Text="Year" />
+  <Translate ID="BDDesc" Text="When is your birthday? Just asking." />
+  <Translate ID="BDOK" Text="Thank You ♥." />
+  <Translate ID="HappyBDay" Text="Happy Birthday!" />
   <Translate ID="AutoClean" Text="Auto-Clean" />
   <Translate ID="AutoCleanMessage" Text="Cleaning cache requires a restart first. [NEWLINE] Do you want to continue?" />
   <Translate ID="AutoCleanButton" Text="Clean Now" />
@@ -137,10 +143,7 @@
   <Translate ID="SelectNewImage" Text="Select a new image" />
   <Translate ID="ProfileNameTemp" Text="Hello, [NAME] !" />
   <Translate ID="ChangePic" Text="Change picture" />
-  <Translate ID="LangFolder" Text="Languages Folder" />
-  <Translate ID="ExtFolder" Text="Extensions Folder" />
   <Translate ID="NewTabEditorTitle" Text="New Tab Page Content" />
-  <Translate ID="NewTabEditButton" Text="New Tab Content..." />
   <Translate ID="NewTabEditTitle" Text="Title:" />
   <Translate ID="NewTabEditUrl" Text="Url:" />
   <Translate ID="NewTabEditClear" Text="Clear" />
@@ -191,26 +194,20 @@
   <Translate ID="KorotDownloading" Text="Korot - Downloading" />
   <Translate ID="OpenFilesAfterDownload" Text="Open files after download:" />
   <Translate ID="Open" Text="Open" />
-  <Translate ID="To" Text="To" />
-  <Translate ID="Date" Text="Date" />
-  <Translate ID="From" Text="From" />
   <Translate ID="From1" Text="From :" />
   <Translate ID="To1" Text="To :" />
   <Translate ID="KorotError" Text="Korot - Error" />
   <Translate ID="About" Text="About" />
   <Translate ID="ThemeName" Text="Theme Name :" />
-  <Translate ID="Save" Text="Save" />
   <Translate ID="ResetToFefaultProxySetting" Text="Reset to default proxy setting" />
-  <Translate ID="ThemeList" Text="Themes :" />
   <Translate ID="OpenInNewTab" Text="Open in New Tab" />
   <Translate ID="OpenFile" Text="Open File" />
   <Translate ID="OpenFolderContainingThisFile" Text="Open Folder containing this file" />
   <Translate ID="SearchOnThisPage" Text="Search on this page" />
-  <Translate ID="CaseSensitive" Text="Case Sensitive" />
   <Translate ID="NewTabDays" Text="&quot;Sunday&quot;,&quot;Monday&quot;,&quot;Tuesday&quot;,&quot;Wednesday&quot;,&quot;Thursday&quot;,&quot;Friday&quot;,&quot;Saturday&quot;" />
   <Translate ID="NewTabMonths" Text="&quot;January&quot;,&quot;February&quot;,&quot;March&quot;,&quot;April&quot;,&quot;May&quot;,&quot;June&quot;,&quot;July&quot;,&quot;August&quot;,&quot;September&quot;,&quot;October&quot;,&quot;November&quot;,&quot;December&quot;" />
   <Translate ID="NewTabSearch" Text="Search on web or enter an URL" />
-  <Translate ID="ErrorTitle" Text="Korot can&apos;t display this page." />
+  <Translate ID="ErrorTitle" Text="Korot can't display this page." />
   <Translate ID="ErrorTitle1" Text="It could be for these reasons:" />
   <Translate ID="ErrorT1M1" Text="The URL is incorrect." />
   <Translate ID="ErrorT1M2" Text="The website is not responding,too busy or slow." />
@@ -225,8 +222,6 @@
   <Translate ID="SwitchTo" Text="Switch to another profile..." />
   <Translate ID="NewProfile" Text="New Profile" />
   <Translate ID="DeleteThisProfile" Text="Delete this profile" />
-  <Translate ID="AddressBar1" Text="Go to &quot;[TEXT]&quot;" />
-  <Translate ID="AddressBar2" Text="Search &quot;[TEXT]&quot; on Web" />
   <Translate ID="EnterAValidURL" Text="Please enter a valid URL." />
   <Translate ID="EnterAProfileName" Text="Please enter a name for the new profile.It should not contain:" />
   <Translate ID="RestoreLastSession" Text="Restore last session" />
@@ -234,11 +229,9 @@
   <Translate ID="No" Text="No" />
   <Translate ID="OK" Text="OK" />
   <Translate ID="Cancel" Text="Cancel" />
-  <Translate ID="UpdateAvailable" Text="Update Available." />
   <Translate ID="CheckingForUpdates" Text="Checking for updates..." />
   <Translate ID="UpToDate" Text="Your Korot is Up-To-Date." />
   <Translate ID="CheckForUpdates" Text="Check For Updates" />
-  <Translate ID="InstallUpdate" Text="Install Update" />
   <Translate ID="UpdatingMessage" Text="Downloading and Installing Update..." />
   <Translate ID="DownloadProgress" Text="[PERC]% | [CURRENT] KB downloaded out of [TOTAL] KB" />
   <Translate ID="Themes" Text="Themes" />
@@ -281,7 +274,6 @@
   <Translate ID="AllFiles" Text="All Files" />
   <Translate ID="SelectBackgroundImage" Text="Select a background image..." />
   <Translate ID="BackgroundImageLayout" Text="Background Image Layout:" />
-  <Translate ID="ExtensionInstallConfirm" Text="Do you want to install it?" />
   <Translate ID="Extension" Text="Extension" />
   <Translate ID="OOBETitle" Text="Korot Installation" />
   <Translate ID="OOBEContinue" Text="Continue" />
@@ -289,7 +281,7 @@
   <Translate ID="OOBEProfile" Text="Please enter a name for your profile:" />
   <Translate ID="OOBENotContain" Text="Should not contain these:" />
   <Translate ID="OOBEProfileInfo" Text="You can create new profiles, delete profiles or switch to them later." />
-  <Translate ID="OOBEThemeInfo" Text="You can apply, change or save themes from 3-dot menu -&gt; Themes.[NEWLINE][NEWLINE]You can also download and install new themes by clicking bag icon on right top of theme list." />
+  <Translate ID="OOBEThemeInfo" Text="You can apply, change or save themes from 3-dot menu -> Themes.[NEWLINE][NEWLINE]You can also download and install new themes by clicking bag icon on right top of theme list." />
   <Translate ID="OOBEProfilesInfo" Text="You can create, delete or switch to multiple profiles from the profiles menu.[NEWLINE][NEWLINE]Each profile has its own cookies, settings, history, etc." />
   <Translate ID="OOBEBack" Text="Go Back" />
   <Translate ID="OOBEFinishBack" Text="To finish, please press the &quot;Finish&quot; button below.[NEWLINE]To go back, please press the &quot;Go Back&quot; button below." />
@@ -302,7 +294,6 @@
   <Translate ID="DisallowCookie" Text="Disallow this page for cookie access" />
   <Translate ID="AllowCookie" Text="Allow this page for cookie access" />
   <Translate ID="IncognitoInfoTitle" Text="You are now in Incognito Mode!" />
-  <Translate ID="IncognitoInfoTitle1" Text="Korot will not going to:" />
   <Translate ID="IncognitoInfoT1M1" Text="Record your history and downloads" />
   <Translate ID="IncognitoInfoT1M2" Text="Record cookies, sessions and form details" />
   <Translate ID="IncognitoInfoT1M3" Text="Record settings" />
@@ -312,11 +303,7 @@
   <Translate ID="IncognitoInfoT2M3" Text="Other viewers" />
   <Translate ID="Print" Text="Print" />
   <Translate ID="HTMLFile" Text="HTML File" />
-  <Translate ID="TakeScreenShot" Text="Take a Screen Shot" />
-  <Translate ID="SavePage" Text="Save this Page" />
-  <Translate ID="ZoomIn" Text="Zoom In" />
   <Translate ID="ResetZoom" Text="Reset Zoom" />
-  <Translate ID="ZoomOut" Text="Zoom Out" />
   <Translate ID="EnterValidBase64" Text="Please enter a valid base64 code." />
   <Translate ID="RenderProcessTerminated" Text="Render Process Terminated. Korot cannot work without this process. Press OK to close application." />
   <Translate ID="NotRatedContent" Text="Not Rated Content" />
@@ -325,13 +312,11 @@
   <Translate ID="AboutInfoTheme" Text="[THEMENAME] theme made by [THEMEAUTHOR]." />
   <Translate ID="ThemeUnknownPerson" Text="an unknown person" />
   <Translate ID="ThemeNameUnknown" Text="This unknown Korot" />
-  <Translate ID="FindNext" Text="Find Next" />
   <Translate ID="RememberLastProxy" Text="Remember the last proxy:" />
   <Translate ID="Current" Text="Current:" />
   <Translate ID="Total" Text="Total:" />
   <Translate ID="Last" Text="(Last)" />
   <Translate ID="NotSearchingNoResults" Text="Not Searching or No Results" />
-  <Translate ID="Status" Text="Status" />
   <Translate ID="IncognitoMode" Text="Incognito Mode" />
   <Translate ID="IncognitoModeInfo" Text="This session is not going to be saved." />
   <Translate ID="ClickToLearnMore" Text="Click here to learn more." />
@@ -345,11 +330,10 @@
   <Translate ID="ShowNewTabPage" Text="Show New Tab Page" />
   <Translate ID="ShowHomepage" Text="Show Homepage" />
   <Translate ID="GoToURL" Text="Go to an URL" />
-  <Translate ID="Save" Text="Save" />
   <Translate ID="DownloadFolderInfo" Text="Select a folder for downloads." />
   <Translate ID="ConfirmDialog" Text="Confirm on page [TITLE]:" />
   <Translate ID="MessageDialog" Text="A message from page [TITLE]:" />
-  <Translate ID="TitleLicensesSpecialThanks" Text="Licenses &amp; Special Thanks Page" />
+  <Translate ID="TitleLicensesSpecialThanks" Text="Licenses &amp;&amp; Special Thanks Page" />
   <Translate ID="KorotLicense" Text="Korot License" />
   <Translate ID="MSVS2019CLicense" Text="Microsoft Visual Studio 2019 Community License" />
   <Translate ID="ChromiumLicense" Text="Chromium License" />
@@ -370,9 +354,6 @@
   <Translate ID="Notifications" Text="Notifications:" />
   <Translate ID="Cookies" Text="Cookies:" />
   <Translate ID="Empty" Text="((empty))" />
-  <Translate ID="CleanLogData" Text="Clean Log Data" />
-  <Translate ID="Title" Text="Title" />
-  <Translate ID="URL" Text="URL" />
   <Translate ID="OpenFolder" Text="Open Folder" />
   <Translate ID="WebStore" Text="Web Store" />
   <Translate ID="CopyImage" Text="Copy Image" />
@@ -393,17 +374,15 @@
   <Translate ID="OpeninNewIncognitoWindow" Text="Open in New Incognito Window" />
   <Translate ID="OpenAllinNewIncognitoWindow" Text="Open All in New Incognito Window(s)" />
   <Translate ID="NewFavorite" Text="New Favorite..." />
-  <Translate ID="FullScreen" Text="Full Screen" />
   <Translate ID="KorotThemeUpdater" Text="Korot Theme Updater" />
   <Translate ID="KorotExtensionUpdater" Text="Korot Extension Updater" />
   <Translate ID="ExtensionUpdatingInfo" Text="Updating [NAME]...[NEWLINE]Please wait..." />
   <Translate ID="UbuntuFontLicense" Text="Ubuntu Font License" />
   <Translate ID="ErrorDesc1" Text="Korot ran into a problem and crashed." />
-  <Translate ID="ErrorDesc2" Text="Your Korot installation is safe but Korot cannot continue at this point.[NEWLINE]If this happens frequently, feel free to open issues on GitHub." />
   <Translate ID="ErrorTI" Text="Techical Information:" />
   <Translate ID="ErrorRestart" Text="Restart" />
   <Translate ID="Installing" Text="Installing..." />
-  <Translate ID="YoureGoodToGo" Text="You&apos;re good to go." />
+  <Translate ID="YoureGoodToGo" Text="You're good to go." />
   <Translate ID="OOBEArrowKeys" Text="Use arrow keys to see tips." />
   <Translate ID="OOBEContinueInfo" Text="To continue, please press the &quot;Continue&quot; button below." />
   <Translate ID="ChooseALanguage" Text="Choose a language..." />
@@ -440,7 +419,6 @@
   <Translate ID="CollectionDeleteInfo" Text="Do you really want to delete $?" />
   <Translate ID="CollectionClearInfo" Text="Do you really want to delete all?" />
   <Translate ID="OKTOClipboard" Text="Press OK to copy to clipboard." />
-  <Translate ID="NewCollection" Text="New Collection" />
   <Translate ID="DeleteCollection" Text="Delete this collection" />
   <Translate ID="Import" Text="Import" />
   <Translate ID="Export" Text="Export" />
@@ -448,7 +426,6 @@
   <Translate ID="ExportItem" Text="Export this Translate" />
   <Translate ID="EditItem" Text="Edit this Translate" />
   <Translate ID="AddToCollection" Text="Add to collection" />
-  <Translate ID="ChangeTitleColor" Text="Change title background color" />
   <Translate ID="ChangeTitleColorInfo" Text="Click the rectangle on top to change color." />
   <Translate ID="SetToDefault" Text="Set to Default" />
   <Translate ID="ImportItem" Text="Import Translate" />
@@ -460,7 +437,6 @@
   <Translate ID="Allow" Text="Allow" />
   <Translate ID="Deny" Text="Deny" />
   <Translate ID="NotificationInfo" Text="Allow &quot;[URL]&quot; for sending notifications?" />
-  <Translate ID="NotificationSettingsButton" Text="Notification Settings.." />
   <Translate ID="NotificationSettings" Text="Notification Settings" />
   <Translate ID="PlayNotificationSound" Text="Play Notification Sound:" />
   <Translate ID="SilentMode" Text="Silent Mode:" />
@@ -500,4 +476,4 @@
   <Translate ID="Month11" Text="November" />
   <Translate ID="Month12" Text="December" />
   <Translate ID="Month0" Text="Haltroy" />
-</Language>
+  </Language>

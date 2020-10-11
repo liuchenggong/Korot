@@ -20,11 +20,13 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using CefSharp;
+using HTAlt;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Korot
 {
@@ -43,13 +45,6 @@ namespace Korot
         public SchemeHandlerFactory(frmCEF _CefForm)
         {
             CefForm = _CefForm;
-        }
-
-        public static bool ValidHaltroyWebsite(string s)
-        {
-            string Pattern = @"(?:http\:\/\/haltroy\.com)|(?:https\:\/\/haltroy\.com)";
-            Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            return Rgx.IsMatch(s.Substring(0, 19));
         }
 
         public string GetBackStyle()
@@ -80,19 +75,11 @@ namespace Korot
             return "background-color: rgb(" + altBackColor.R + " ," + altBackColor.G + " , " + altBackColor.B + "); color: " + (HTAlt.Tools.IsBright(altBackColor) ? "black" : "white") + ";";
         }
 
-        public static bool isValidKorotPage(string url)
+        private bool isBirthDay()
         {
-            string[] KorotPages = { "korot://newtab", "korot://incognito", "korot://search", "korot://empty", "korot://licenses", "korot://error", "korot://dad", "korot://me", "korot://sister", "korot://links", "korot://extension", "korot://refresh", "korot://folder", "korot://root" };
-            for (int i = 0; i < KorotPages.Length; i++)
-            {
-                if (url.ToLower().StartsWith(KorotPages[i]))
-                {
-                    return true;
-                }
-            }
-            return false;
+            string today = DateTime.Now.ToString("dd//MM//yyyy");
+            return CefForm.Settings.CelebrateBirthday ? (CefForm.Settings.Birthday == today) : false;
         }
-
         public string GetNewTabItems()
         {
             string x = "";
@@ -128,6 +115,7 @@ namespace Korot
             }
         }
 
+
         public IResourceHandler Create(IBrowser browser, IFrame frame, string schemeName, IRequest request)
         {
             if (CefForm.Settings.IsUrlAllowed(request.Url))
@@ -136,11 +124,39 @@ namespace Korot
                 {
                     if (request.Url.ToLower().StartsWith("korot://newtab"))
                     {
-                        return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§ITEMS§", GetNewTabItems()).Replace("§BACKSTYLE3§", GetBackStyle3()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.anaform.SearchHelpText).Replace("§SEARCH§", CefForm.anaform.Search).Replace("§DAYS§", CefForm.anaform.DayNames).Replace("§MONTHS§", CefForm.anaform.MonthNames).Replace("§TITLE§", CefForm.anaform.NewTabtitle).Replace("§EDIT§", CefForm.anaform.NewTabEdit));
+                        return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BDAY§",isBirthDay() ? CefForm.anaform.HappyBDay : "").Replace("§ITEMS§", GetNewTabItems()).Replace("§BACKSTYLE3§", GetBackStyle3()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.anaform.SearchHelpText).Replace("§SEARCH§", CefForm.anaform.Search).Replace("§DAYS§", CefForm.anaform.DayNames).Replace("§MONTHS§", CefForm.anaform.MonthNames).Replace("§TITLE§", CefForm.anaform.NewTabtitle).Replace("§EDIT§", CefForm.anaform.NewTabEdit));
                     }
                     else if (request.Url.ToLower().StartsWith("korot://incognito"))
                     {
                         return ResourceHandler.FromString(Properties.Resources.incognito.Replace("§TITLE§", CefForm.anaform.IncognitoT).Replace("§INCTITLE§", CefForm.anaform.IncognitoTitle).Replace("§INCTITLE1§", CefForm.anaform.IncognitoTitle1).Replace("§INCTITLE2§", CefForm.anaform.IncognitoTitle2).Replace("§INCTITLE1M1§", CefForm.anaform.IncognitoT1M1).Replace("§INCTITLE1M2§", CefForm.anaform.IncognitoT1M2).Replace("§INCTITLE1M3§", CefForm.anaform.IncognitoT1M3).Replace("§INCTITLE2M1§", CefForm.anaform.IncognitoT2M1).Replace("§INCTITLE2M2§", CefForm.anaform.IncognitoT2M2).Replace("§INCTITLE2M3§", CefForm.anaform.IncognitoT2M3));
+                    }
+                    else if (request.Url.ToLower().StartsWith("korot://technical"))
+                    {
+                        string KorotVersion = Application.ProductVersion.ToString();
+                        HTInfo htinfo = new HTAlt.HTInfo();
+                        string Arch = Environment.Is64BitProcess ? "amd64" : "i86";
+                        string uAgent = KorotTools.GetUserAgent();
+                        return ResourceHandler.FromString(Properties.Resources.technical
+                            .Replace("§BACKSTYLE2§", GetBackStyle2())
+                            .Replace("§KOROTVER§", KorotVersion)
+                            .Replace("§VER§", VersionInfo.VersionNumber.ToString())
+                            .Replace("§CNAME§", VersionInfo.CodeName)
+                            .Replace("§ARCH§", Arch)
+                            .Replace("§OS§", System.Runtime.InteropServices.RuntimeInformation.OSDescription)
+                            .Replace("§BACKCOLOR§", HTAlt.Tools.ColorToHex(CefForm.Settings.Theme.BackColor))
+                            .Replace("§FORECOLOR§", HTAlt.Tools.ColorToHex(CefForm.Settings.Theme.ForeColor))
+                            .Replace("§OVERLAYCOLOR§", HTAlt.Tools.ColorToHex(CefForm.Settings.Theme.OverlayColor))
+                            .Replace("§ARGS§", string.Join(" ", Environment.GetCommandLineArgs())).Replace("§APPPATH§", Application.ExecutablePath)
+                            .Replace("§PROFILEPATH§", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\")
+                            .Replace("§LANGPATH§", CefForm.Settings.LanguageSystem.LangFile)
+                            .Replace("§LANGCOUNT§", "" + CefForm.Settings.LanguageSystem.ItemCount)
+                            .Replace("§HTALTS§", htinfo.ProjectVersion + "[" + htinfo.ProjectCodeName + "]")
+                            .Replace("§HTALTW§", htinfo.ProjectVersion + "[" + htinfo.ProjectCodeName + "]")
+                            .Replace("§EASYTABS§", "2.0.0 [modified]")
+                            .Replace("§CHROMIUM§", Cef.ChromiumVersion)
+                            .Replace("§CEF§", Cef.CefVersion)
+                            .Replace("§CEFSHARP§", Cef.CefSharpVersion)
+                            .Replace("§AGENT§", uAgent));
                     }
                     else if (request.Url.StartsWith("korot://search/?q="))
                     {

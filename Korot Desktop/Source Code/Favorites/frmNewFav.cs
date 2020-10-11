@@ -138,7 +138,7 @@ namespace Korot
             HTAlt.WinForms.HTInputBox HTInputBox = new HTAlt.WinForms.HTInputBox("Korot",
                                                                                                     Cefform.anaform.folderInfo,
                                                                                                     Cefform.anaform.defaultFolderName)
-            { Icon = Cefform.Icon, OK = Cefform.anaform.OK, SetToDefault = Cefform.anaform.SetToDefault, Cancel = Cefform.anaform.Cancel, BackgroundColor = Cefform.Settings.Theme.BackColor };
+            { Icon = Cefform.Icon, OK = Cefform.anaform.OK, SetToDefault = Cefform.anaform.SetToDefault, Cancel = Cefform.anaform.Cancel, BackColor = Cefform.Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Cefform.Settings.Theme.ForeColor };
             if (HTInputBox.ShowDialog() == DialogResult.OK)
             {
                 if (!string.IsNullOrWhiteSpace(HTInputBox.TextValue))

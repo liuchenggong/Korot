@@ -21,6 +21,7 @@
 //SOFTWARE.
 using CefSharp;
 using CefSharp.WinForms;
+using EasyTabs;
 using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,8 @@ namespace Korot
         private readonly List<ToolStripMenuItem> favoritesFolders = new List<ToolStripMenuItem>();
         private readonly List<ToolStripMenuItem> favoritesNoIcon = new List<ToolStripMenuItem>();
         public bool NotificationListenerMode = false;
+        public Color TabColor = Color.White;
+        public bool AutoTabColor = true;
         private readonly frmMain _anaform;
         private frmMain _parentform => ((frmMain)ParentTabs);
 
@@ -224,15 +227,7 @@ namespace Korot
         {
             CefSettings settings = new CefSettings
             {
-                UserAgent = "Mozilla/5.0 ( Windows "
-                + KorotTools.getOSInfo()
-                + "; "
-                + (Environment.Is64BitProcess ? "Win64" : "Win32NT")
-                + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
-                + Cef.ChromiumVersion
-                + " Safari/537.36 Korot/"
-                + Application.ProductVersion.ToString()
-                + " (" + VersionInfo.CodeName + ")"
+                UserAgent = KorotTools.GetUserAgent()
             };
             if (_Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
             else { settings.CachePath = userCache; settings.RootCachePath = userCache; }
@@ -568,301 +563,281 @@ namespace Korot
         public void LoadLangFromFile(string fileLocation)
         {
             if (Settings.LanguageSystem.LangFile != fileLocation) { Settings.LanguageSystem.ReadFromFile(fileLocation, true); }
-            anaform.Reload = Settings.LanguageSystem.GetItemText("Reload");
-            anaform.soundFiles = Settings.LanguageSystem.GetItemText("SoundFiles");
-            anaform.KorotUpToDate = Settings.LanguageSystem.GetItemText("KorotUpToDate");
-            anaform.KorotUpdating = Settings.LanguageSystem.GetItemText("KorotUpdating");
-            anaform.KorotUpdated = Settings.LanguageSystem.GetItemText("KorotUpdated");
-            anaform.CleanCacheMessage = Settings.LanguageSystem.GetItemText("AutoCleanMessage");
-            anaform.Extensions = Settings.LanguageSystem.GetItemText("Extensions");
-            anaform.editblockitem = Settings.LanguageSystem.GetItemText("EditBlockItem");
-            anaform.addblockitem = Settings.LanguageSystem.GetItemText("AddBlockItem");
-            anaform.lv0 = Settings.LanguageSystem.GetItemText("Lv0");
-            anaform.lv1 = Settings.LanguageSystem.GetItemText("Lv1");
-            anaform.lv2 = Settings.LanguageSystem.GetItemText("Lv2");
-            anaform.lv3 = Settings.LanguageSystem.GetItemText("Lv3");
-            anaform.blocklevel = Settings.LanguageSystem.GetItemText("BlockLevel");
-            anaform.Done = Settings.LanguageSystem.GetItemText("Done");
-            anaform.BlockThisSite = Settings.LanguageSystem.GetItemText("BlockThisSite");
-            anaform.lv0info = Settings.LanguageSystem.GetItemText("LV0Info");
-            anaform.lv1info = Settings.LanguageSystem.GetItemText("LV1Info");
-            anaform.lv2info = Settings.LanguageSystem.GetItemText("LV2Info");
-            anaform.lv3info = Settings.LanguageSystem.GetItemText("LV3Info");
-
-            anaform.ChangePicInfo = Settings.LanguageSystem.GetItemText("ChangePicInfo");
-            anaform.ResetImage = Settings.LanguageSystem.GetItemText("ResetImage");
-            anaform.SelectNewImage = Settings.LanguageSystem.GetItemText("SelectNewImage");
-            anaform.MuteThisTab = Settings.LanguageSystem.GetItemText("MuteThisTab");
-            anaform.ChangePic = Settings.LanguageSystem.GetItemText("ChangePic");
-            anaform.ProfileNameTemp = Settings.LanguageSystem.GetItemText("ProfileNameTemp");
-            anaform.UnmuteThisTab = Settings.LanguageSystem.GetItemText("UnmuteThisTab");
-            anaform.allowCookie = Settings.LanguageSystem.GetItemText("AllowCookie");
-            anaform.NewTabEdit = Settings.LanguageSystem.GetItemText("NewTabEdit");
-
-            anaform.Clear = Settings.LanguageSystem.GetItemText("Clear");
-            anaform.RemoveSelected = Settings.LanguageSystem.GetItemText("RemoveSelected");
-            anaform.ImportProfile = Settings.LanguageSystem.GetItemText("ImportProfile");
-            anaform.importProfileInfo = Settings.LanguageSystem.GetItemText("ImportProfileInfo");
-            anaform.ExportProfile = Settings.LanguageSystem.GetItemText("ExportProfile");
-            anaform.exportProfileInfo = Settings.LanguageSystem.GetItemText("ExportProfileInfo");
-            anaform.ProfileFileInfo = Settings.LanguageSystem.GetItemText("ProfileFileInfo");
+            if (anaform.LoadedLang != fileLocation)
+            {
+                anaform.LoadedLang = fileLocation;
+                anaform.Reload = Settings.LanguageSystem.GetItemText("Reload");
+                anaform.soundFiles = Settings.LanguageSystem.GetItemText("SoundFiles");
+                anaform.KorotUpToDate = Settings.LanguageSystem.GetItemText("KorotUpToDate");
+                anaform.KorotUpdating = Settings.LanguageSystem.GetItemText("KorotUpdating");
+                anaform.KorotUpdated = Settings.LanguageSystem.GetItemText("KorotUpdated");
+                anaform.CleanCacheMessage = Settings.LanguageSystem.GetItemText("AutoCleanMessage");
+                anaform.Extensions = Settings.LanguageSystem.GetItemText("Extensions");
+                anaform.editblockitem = Settings.LanguageSystem.GetItemText("EditBlockItem");
+                anaform.addblockitem = Settings.LanguageSystem.GetItemText("AddBlockItem");
+                anaform.lv0 = Settings.LanguageSystem.GetItemText("Lv0");
+                anaform.lv1 = Settings.LanguageSystem.GetItemText("Lv1");
+                anaform.lv2 = Settings.LanguageSystem.GetItemText("Lv2");
+                anaform.lv3 = Settings.LanguageSystem.GetItemText("Lv3");
+                anaform.blocklevel = Settings.LanguageSystem.GetItemText("BlockLevel");
+                anaform.Done = Settings.LanguageSystem.GetItemText("Done");
+                anaform.BlockThisSite = Settings.LanguageSystem.GetItemText("BlockThisSite");
+                anaform.lv0info = Settings.LanguageSystem.GetItemText("LV0Info");
+                anaform.lv1info = Settings.LanguageSystem.GetItemText("LV1Info");
+                anaform.lv2info = Settings.LanguageSystem.GetItemText("LV2Info");
+                anaform.lv3info = Settings.LanguageSystem.GetItemText("LV3Info");
+                anaform.ChangePicInfo = Settings.LanguageSystem.GetItemText("ChangePicInfo");
+                anaform.ResetImage = Settings.LanguageSystem.GetItemText("ResetImage");
+                anaform.SelectNewImage = Settings.LanguageSystem.GetItemText("SelectNewImage");
+                anaform.MuteThisTab = Settings.LanguageSystem.GetItemText("MuteThisTab");
+                anaform.ChangePic = Settings.LanguageSystem.GetItemText("ChangePic");
+                anaform.ProfileNameTemp = Settings.LanguageSystem.GetItemText("ProfileNameTemp");
+                anaform.UnmuteThisTab = Settings.LanguageSystem.GetItemText("UnmuteThisTab");
+                anaform.allowCookie = Settings.LanguageSystem.GetItemText("AllowCookie");
+                anaform.NewTabEdit = Settings.LanguageSystem.GetItemText("NewTabEdit");
+                anaform.HappyBDay = Settings.LanguageSystem.GetItemText("HappyBDay");
+                anaform.Clear = Settings.LanguageSystem.GetItemText("Clear");
+                anaform.RemoveSelected = Settings.LanguageSystem.GetItemText("RemoveSelected");
+                anaform.ImportProfile = Settings.LanguageSystem.GetItemText("ImportProfile");
+                anaform.importProfileInfo = Settings.LanguageSystem.GetItemText("ImportProfileInfo");
+                anaform.ExportProfile = Settings.LanguageSystem.GetItemText("ExportProfile");
+                anaform.exportProfileInfo = Settings.LanguageSystem.GetItemText("ExportProfileInfo");
+                anaform.ProfileFileInfo = Settings.LanguageSystem.GetItemText("ProfileFileInfo");
+                anaform.notificationPermission = Settings.LanguageSystem.GetItemText("NotificationInfo");
+                anaform.deny = Settings.LanguageSystem.GetItemText("Deny");
+                anaform.allow = Settings.LanguageSystem.GetItemText("Allow");
+                anaform.changeColID = Settings.LanguageSystem.GetItemText("ChangeCollectionID");
+                anaform.siteCookies = Settings.LanguageSystem.GetItemText("Cookies");
+                anaform.siteNotifications = Settings.LanguageSystem.GetItemText("Notifications");
+                anaform.changeColIDInfo = Settings.LanguageSystem.GetItemText("ChangeCollectionIDInfo");
+                anaform.changeColText = Settings.LanguageSystem.GetItemText("ChangeCollectionText");
+                anaform.changeColTextInfo = Settings.LanguageSystem.GetItemText("ChangeCollectionTextInfo");
+                anaform.importColItem = Settings.LanguageSystem.GetItemText("ImportItemInfo");
+                anaform.importColItemInfo = Settings.LanguageSystem.GetItemText("ImportItem");
+                anaform.SetToDefault = Settings.LanguageSystem.GetItemText("SetToDefault");
+                anaform.titleBackInfo = Settings.LanguageSystem.GetItemText("ChangeTitleColorInfo");
+                anaform.addToCollection = Settings.LanguageSystem.GetItemText("AddToCollection");
+                anaform.newColInfo = Settings.LanguageSystem.GetItemText("NewCollectionInfo");
+                anaform.newColName = Settings.LanguageSystem.GetItemText("NewCollectionName");
+                anaform.importColInfo = Settings.LanguageSystem.GetItemText("ImportCollectionInfo");
+                anaform.delColInfo = Settings.LanguageSystem.GetItemText("CollectionDeleteInfo");
+                anaform.clearColInfo = Settings.LanguageSystem.GetItemText("CollectionClearInfo");
+                anaform.okToClipboard = Settings.LanguageSystem.GetItemText("OKTOClipboard");
+                anaform.deleteCollection = Settings.LanguageSystem.GetItemText("DeleteCollection");
+                anaform.importCollection = Settings.LanguageSystem.GetItemText("Import");
+                anaform.exportCollection = Settings.LanguageSystem.GetItemText("Export");
+                anaform.deleteItem = Settings.LanguageSystem.GetItemText("DeleteItem");
+                anaform.exportItem = Settings.LanguageSystem.GetItemText("ExportItem");
+                anaform.editItem = Settings.LanguageSystem.GetItemText("EditItem");
+                anaform.catCommon = Settings.LanguageSystem.GetItemText("CollectionCommon");
+                anaform.catText = Settings.LanguageSystem.GetItemText("CollectionTextBased");
+                anaform.catOnline = Settings.LanguageSystem.GetItemText("CollectionOnline");
+                anaform.catPicture = Settings.LanguageSystem.GetItemText("CollectionPicture");
+                anaform.TitleID = Settings.LanguageSystem.GetItemText("CollectionID");
+                anaform.TitleBackColor = Settings.LanguageSystem.GetItemText("CollectionBackColor");
+                anaform.TitleText = Settings.LanguageSystem.GetItemText("CollectionText");
+                anaform.TitleFont = Settings.LanguageSystem.GetItemText("CollectionFont");
+                anaform.TitleSize = Settings.LanguageSystem.GetItemText("CollectionFontSize");
+                anaform.TitleProp = Settings.LanguageSystem.GetItemText("CollectionFontProperties");
+                anaform.TitleRegular = Settings.LanguageSystem.GetItemText("Regular");
+                anaform.TitleBold = Settings.LanguageSystem.GetItemText("Bold");
+                anaform.TitleItalic = Settings.LanguageSystem.GetItemText("Italic");
+                anaform.TitleUnderline = Settings.LanguageSystem.GetItemText("Underline");
+                anaform.TitleStrikeout = Settings.LanguageSystem.GetItemText("Strikeout");
+                anaform.TitleForeColor = Settings.LanguageSystem.GetItemText("CollectionForeColor");
+                anaform.TitleSource = Settings.LanguageSystem.GetItemText("CollectionSource");
+                anaform.TitleWidth = Settings.LanguageSystem.GetItemText("CollectionWidth");
+                anaform.TitleHeight = Settings.LanguageSystem.GetItemText("CollectionHeight");
+                anaform.TitleDone = Settings.LanguageSystem.GetItemText("CollectionDone");
+                anaform.TitleEditItem = Settings.LanguageSystem.GetItemText("EditCollectionItem");
+                anaform.image = Settings.LanguageSystem.GetItemText("CollectionItemImage");
+                anaform.text = Settings.LanguageSystem.GetItemText("CollectionItemText");
+                anaform.link = Settings.LanguageSystem.GetItemText("CollectionItemLink");
+                anaform.Collections = Settings.LanguageSystem.GetItemText("Collections");
+                anaform.CertificateError = Settings.LanguageSystem.GetItemText("CertificateError");
+                anaform.AboutText = Settings.LanguageSystem.GetItemText("About");
+                tpSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
+                anaform.SettingsText = Settings.LanguageSystem.GetItemText("Settings");
+                anaform.DownloadsText = Settings.LanguageSystem.GetItemText("Downloads");
+                anaform.HistoryText = Settings.LanguageSystem.GetItemText("History");
+                anaform.ThemesText = Settings.LanguageSystem.GetItemText("Themes");
+                anaform.ubuntuLicense = Settings.LanguageSystem.GetItemText("UbuntuFontLicense");
+                anaform.updateTitleTheme = Settings.LanguageSystem.GetItemText("KorotThemeUpdater");
+                anaform.updateTitleExt = Settings.LanguageSystem.GetItemText("KorotExtensionUpdater");
+                anaform.updateExtInfo = Settings.LanguageSystem.GetItemText("ExtensionUpdatingInfo");
+                anaform.openInNewWindow = Settings.LanguageSystem.GetItemText("OpeninNewWindow");
+                anaform.openAllInNewWindow = Settings.LanguageSystem.GetItemText("OpenAllinNewWindow");
+                anaform.openInNewIncWindow = Settings.LanguageSystem.GetItemText("OpeninNewIncognitoWindow");
+                anaform.openAllInNewIncWindow = Settings.LanguageSystem.GetItemText("OpenAllinNewIncognitoWindow");
+                anaform.openAllInNewTab = Settings.LanguageSystem.GetItemText("OpenAllInNewTab");
+                anaform.newFavorite = Settings.LanguageSystem.GetItemText("NewFavorite");
+                anaform.nametd = Settings.LanguageSystem.GetItemText("Name");
+                anaform.urltd = Settings.LanguageSystem.GetItemText("Url");
+                anaform.add = Settings.LanguageSystem.GetItemText("Add");
+                anaform.newFolder = Settings.LanguageSystem.GetItemText("NewFolderButton");
+                anaform.defaultFolderName = Settings.LanguageSystem.GetItemText("NewFolder");
+                anaform.folderInfo = Settings.LanguageSystem.GetItemText("PleaseenteranamefornewFolder");
+                anaform.copyImage = Settings.LanguageSystem.GetItemText("CopyImage");
+                anaform.openLinkInNewWindow = Settings.LanguageSystem.GetItemText("OpenLinkinaNewWindow");
+                anaform.openLinkInNewIncWindow = Settings.LanguageSystem.GetItemText("OpenLinkinaNewIncognitoWindow");
+                anaform.copyImageAddress = Settings.LanguageSystem.GetItemText("CopyImageAddress");
+                anaform.saveLinkAs = Settings.LanguageSystem.GetItemText("SaveLinkAs");
+                anaform.empty = Settings.LanguageSystem.GetItemText("Empty");
+                anaform.licenseTitle = Settings.LanguageSystem.GetItemText("TitleLicensesSpecialThanks");
+                anaform.kLicense = Settings.LanguageSystem.GetItemText("KorotLicense");
+                anaform.vsLicense = Settings.LanguageSystem.GetItemText("MSVS2019CLicense");
+                anaform.chLicense = Settings.LanguageSystem.GetItemText("ChromiumLicense");
+                anaform.cefLicense = Settings.LanguageSystem.GetItemText("CefSharpLicense");
+                anaform.etLicense = Settings.LanguageSystem.GetItemText("EasyTabsLicense");
+                anaform.specialThanks = Settings.LanguageSystem.GetItemText("SpecialThanks");
+                anaform.JSAlert = Settings.LanguageSystem.GetItemText("MessageDialog");
+                anaform.JSConfirm = Settings.LanguageSystem.GetItemText("ConfirmDialog");
+                anaform.selectAFolder = Settings.LanguageSystem.GetItemText("DownloadFolderInfo");
+                anaform.resetConfirm = Settings.LanguageSystem.GetItemText("ResetKorotInfo");
+                anaform.IncognitoModeTitle = Settings.LanguageSystem.GetItemText("IncognitoMode");
+                anaform.IncognitoModeInfo = Settings.LanguageSystem.GetItemText("IncognitoModeInfo");
+                anaform.LearnMore = Settings.LanguageSystem.GetItemText("ClickToLearnMore");
+                anaform.findC = Settings.LanguageSystem.GetItemText("Current");
+                anaform.findT = Settings.LanguageSystem.GetItemText("Total");
+                anaform.findL = Settings.LanguageSystem.GetItemText("Last");
+                anaform.noSearch = Settings.LanguageSystem.GetItemText("NotSearchingNoResults");
+                anaform.anon = Settings.LanguageSystem.GetItemText("ThemeUnknownPerson");
+                anaform.noname = Settings.LanguageSystem.GetItemText("ThemeNameUnknown");
+                anaform.themeInfo = Settings.LanguageSystem.GetItemText("AboutInfoTheme");
+                anaform.renderProcessDies = Settings.LanguageSystem.GetItemText("RenderProcessTerminated");
+                anaform.enterAValidCode = Settings.LanguageSystem.GetItemText("EnterValidBase64");
+                anaform.ResetZoom = Settings.LanguageSystem.GetItemText("ResetZoom");
+                anaform.htmlFiles = Settings.LanguageSystem.GetItemText("HTMLFile");
+                anaform.print = Settings.LanguageSystem.GetItemText("Print");
+                anaform.IncognitoTitle1 = Settings.LanguageSystem.GetItemText("IncognitoInfoTitle");
+                anaform.IncognitoT1M1 = Settings.LanguageSystem.GetItemText("IncognitoInfoT1M1");
+                anaform.IncognitoT1M2 = Settings.LanguageSystem.GetItemText("IncognitoInfoT1M2");
+                anaform.IncognitoT1M3 = Settings.LanguageSystem.GetItemText("IncognitoInfoT1M3");
+                anaform.IncognitoTitle2 = Settings.LanguageSystem.GetItemText("IncognitoInfoTitle2");
+                anaform.IncognitoT2M1 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M1");
+                anaform.IncognitoT2M2 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M2");
+                anaform.IncognitoT2M3 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M3");
+                anaform.disallowCookie = Settings.LanguageSystem.GetItemText("DisallowCookie");
+                anaform.imageFiles = Settings.LanguageSystem.GetItemText("ImageFiles");
+                anaform.allFiles = Settings.LanguageSystem.GetItemText("AllFiles");
+                anaform.selectBackImage = Settings.LanguageSystem.GetItemText("SelectBackgroundImage");
+                anaform.usingBC = Settings.LanguageSystem.GetItemText("UsingBackgroundColor");
+                anaform.CertErrorPageButton = Settings.LanguageSystem.GetItemText("UserUnderstandsRisks");
+                anaform.CertErrorPageMessage = Settings.LanguageSystem.GetItemText("WebsiteNotSafeInfo");
+                anaform.CertErrorPageTitle = Settings.LanguageSystem.GetItemText("WebsiteNotSafe");
+                anaform.usesCookies = Settings.LanguageSystem.GetItemText("WebsiteUsesCookies");
+                anaform.notUsesCookies = Settings.LanguageSystem.GetItemText("WebsiteNoCookies");
+                anaform.showCertError = Settings.LanguageSystem.GetItemText("ShowCertificateError");
+                anaform.CertificateErrorMenuTitle = Settings.LanguageSystem.GetItemText("CertificateErrorDetails");
+                anaform.CertificateErrorTitle = Settings.LanguageSystem.GetItemText("NotSafe");
+                anaform.CertificateError = Settings.LanguageSystem.GetItemText("WebsiteWithErrors");
+                anaform.CertificateOKTitle = Settings.LanguageSystem.GetItemText("Safe");
+                anaform.CertificateOK = Settings.LanguageSystem.GetItemText("WebsiteNoErrors");
+                anaform.ErrorTheme = Settings.LanguageSystem.GetItemText("ThemeFileCorrupted");
+                anaform.ThemeMessage = Settings.LanguageSystem.GetItemText("ApplyThemeInfo");
+                anaform.checking = Settings.LanguageSystem.GetItemText("CheckingForUpdates");
+                anaform.uptodate = Settings.LanguageSystem.GetItemText("UpToDate");
+                anaform.installStatus = Settings.LanguageSystem.GetItemText("UpdatingMessage");
+                anaform.StatusType = Settings.LanguageSystem.GetItemText("DownloadProgress");
+                anaform.updateavailable = Settings.LanguageSystem.GetItemText("UpdateAvailable"); ;
+                anaform.privatemode = Settings.LanguageSystem.GetItemText("Incognito");
+                anaform.updateTitle = Settings.LanguageSystem.GetItemText("KorotUpdate");
+                anaform.updateMessage = Settings.LanguageSystem.GetItemText("KorotUpdateAvailable");
+                anaform.updateError = Settings.LanguageSystem.GetItemText("KorotUpdateError");
+                anaform.NewTabtitle = Settings.LanguageSystem.GetItemText("NewTab");
+                anaform.customSearchNote = Settings.LanguageSystem.GetItemText("SearchEngineInfo");
+                anaform.customSearchMessage = Settings.LanguageSystem.GetItemText("SearchengineTitle");
+                anaform.newWindow = Settings.LanguageSystem.GetItemText("NewWindow");
+                anaform.newincognitoWindow = Settings.LanguageSystem.GetItemText("NewIncognitoWindow");
+                anaform.SearchOnPage = Settings.LanguageSystem.GetItemText("SearchOnThisPage");
+                anaform.settingstitle = Settings.LanguageSystem.GetItemText("Settings");
+                anaform.IncognitoT = Settings.LanguageSystem.GetItemText("Incognito");
+                anaform.IncognitoTitle = Settings.LanguageSystem.GetItemText("IncognitoInfoTitle");
+                anaform.newCollection = Settings.LanguageSystem.GetItemText("NewCollectionName");
+                anaform.clearCollection = Settings.LanguageSystem.GetItemText("DeleteCollection");
+                anaform.goBack = Settings.LanguageSystem.GetItemText("GoBack");
+                anaform.goForward = Settings.LanguageSystem.GetItemText("GoForward");
+                anaform.refresh = Settings.LanguageSystem.GetItemText("Refresh");
+                anaform.refreshNoCache = Settings.LanguageSystem.GetItemText("RefreshNoCache");
+                anaform.stop = Settings.LanguageSystem.GetItemText("Stop");
+                anaform.selectAll = Settings.LanguageSystem.GetItemText("SelectAll");
+                anaform.openLinkInNewTab = Settings.LanguageSystem.GetItemText("OpenLinkInNewTab");
+                anaform.copyLink = Settings.LanguageSystem.GetItemText("CopyLink");
+                anaform.saveImageAs = Settings.LanguageSystem.GetItemText("SaveImageAs");
+                anaform.openImageInNewTab = Settings.LanguageSystem.GetItemText("OpenImageInNewTab");
+                anaform.paste = Settings.LanguageSystem.GetItemText("Paste");
+                anaform.copy = Settings.LanguageSystem.GetItemText("Copy");
+                anaform.cut = Settings.LanguageSystem.GetItemText("Cut");
+                anaform.undo = Settings.LanguageSystem.GetItemText("Undo");
+                anaform.redo = Settings.LanguageSystem.GetItemText("Redo");
+                anaform.delete = Settings.LanguageSystem.GetItemText("Delete");
+                anaform.SearchOrOpenSelectedInNewTab = Settings.LanguageSystem.GetItemText("SearchOpenTheSelected");
+                anaform.developerTools = Settings.LanguageSystem.GetItemText("DeveloperTools");
+                anaform.viewSource = Settings.LanguageSystem.GetItemText("ViewSource");
+                anaform.restoreOldSessions = Settings.LanguageSystem.GetItemText("RestoreLastSession");
+                anaform.enterAValidUrl = Settings.LanguageSystem.GetItemText("EnterAValidURL");
+                anaform.Month1 = Settings.LanguageSystem.GetItemText("Month1");
+                anaform.Month2 = Settings.LanguageSystem.GetItemText("Month2");
+                anaform.Month3 = Settings.LanguageSystem.GetItemText("Month3");
+                anaform.Month4 = Settings.LanguageSystem.GetItemText("Month4");
+                anaform.Month5 = Settings.LanguageSystem.GetItemText("Month5");
+                anaform.Month6 = Settings.LanguageSystem.GetItemText("Month6");
+                anaform.Month7 = Settings.LanguageSystem.GetItemText("Month7");
+                anaform.Month8 = Settings.LanguageSystem.GetItemText("Month8");
+                anaform.Month9 = Settings.LanguageSystem.GetItemText("Month9");
+                anaform.Month10 = Settings.LanguageSystem.GetItemText("Month10");
+                anaform.Month11 = Settings.LanguageSystem.GetItemText("Month11");
+                anaform.Month12 = Settings.LanguageSystem.GetItemText("Month12");
+                anaform.Month0 = Settings.LanguageSystem.GetItemText("Month0");
+                anaform.fromtwodot = Settings.LanguageSystem.GetItemText("From1");
+                anaform.totwodot = Settings.LanguageSystem.GetItemText("To1");
+                anaform.korotdownloading = Settings.LanguageSystem.GetItemText("KorotDownloading");
+                anaform.open = Settings.LanguageSystem.GetItemText("Open");
+                anaform.openLinkInNewTab = Settings.LanguageSystem.GetItemText("OpenLinkInNewTab");
+                anaform.OpenInNewTab = Settings.LanguageSystem.GetItemText("OpenInNewTab");
+                anaform.OpenFile = Settings.LanguageSystem.GetItemText("OpenFile");
+                anaform.OpenFileInExplorert = Settings.LanguageSystem.GetItemText("OpenFolderContainingThisFile");
+                anaform.ResetToDefaultProxy = Settings.LanguageSystem.GetItemText("ResetToFefaultProxySetting");
+                anaform.Yes = Settings.LanguageSystem.GetItemText("Yes");
+                anaform.No = Settings.LanguageSystem.GetItemText("No");
+                anaform.OK = Settings.LanguageSystem.GetItemText("OK");
+                anaform.Cancel = Settings.LanguageSystem.GetItemText("Cancel");
+                anaform.SearchOnWeb = Settings.LanguageSystem.GetItemText("AddressBar2");
+                anaform.goTotxt = Settings.LanguageSystem.GetItemText("AddressBar1");
+                anaform.newProfileInfo = Settings.LanguageSystem.GetItemText("EnterAProfileName");
+                anaform.MonthNames = Settings.LanguageSystem.GetItemText("NewTabMonths");
+                anaform.DayNames = Settings.LanguageSystem.GetItemText("NewTabDays");
+                anaform.SearchHelpText = Settings.LanguageSystem.GetItemText("NewTabSearch");
+                anaform.ErrorPageTitle = Settings.LanguageSystem.GetItemText("KorotError");
+                anaform.KT = Settings.LanguageSystem.GetItemText("ErrorTitle");
+                anaform.ET = Settings.LanguageSystem.GetItemText("ErrorTitle1");
+                anaform.E1 = Settings.LanguageSystem.GetItemText("ErrorT1M1");
+                anaform.E2 = Settings.LanguageSystem.GetItemText("ErrorT1M2");
+                anaform.E3 = Settings.LanguageSystem.GetItemText("ErrorT1M3");
+                anaform.E4 = Settings.LanguageSystem.GetItemText("ErrorT1M4");
+                anaform.RT = Settings.LanguageSystem.GetItemText("ErrorTitle2");
+                anaform.R1 = Settings.LanguageSystem.GetItemText("ErrorT2M1");
+                anaform.R2 = Settings.LanguageSystem.GetItemText("ErrorT2M2");
+                anaform.R3 = Settings.LanguageSystem.GetItemText("ErrorT2M3");
+                anaform.R4 = Settings.LanguageSystem.GetItemText("ErrorT2M4");
+                anaform.Search = Settings.LanguageSystem.GetItemText("Search");
+                anaform.newprofile = Settings.LanguageSystem.GetItemText("NewProfile");
+                anaform.switchTo = Settings.LanguageSystem.GetItemText("SwitchTo");
+                anaform.deleteProfile = Settings.LanguageSystem.GetItemText("DeleteThisProfile");
+                anaform.aboutInfo = Settings.LanguageSystem.GetItemText("KorotAbout");
+            }
             string[] errormenu = new string[] { Settings.LanguageSystem.GetItemText("ErrorRestart"), Settings.LanguageSystem.GetItemText("ErrorDesc1"), Settings.LanguageSystem.GetItemText("ErrorDesc2"), Settings.LanguageSystem.GetItemText("ErrorTI") };
             SafeFileSettingOrganizedClass.ErrorMenu = errormenu;
-            anaform.notificationPermission = Settings.LanguageSystem.GetItemText("NotificationInfo");
-            anaform.deny = Settings.LanguageSystem.GetItemText("Deny");
-            anaform.allow = Settings.LanguageSystem.GetItemText("Allow");
-            anaform.changeColID = Settings.LanguageSystem.GetItemText("ChangeCollectionID");
-            anaform.siteCookies = Settings.LanguageSystem.GetItemText("Cookies");
-            anaform.siteNotifications = Settings.LanguageSystem.GetItemText("Notifications");
-            anaform.changeColIDInfo = Settings.LanguageSystem.GetItemText("ChangeCollectionIDInfo");
-            anaform.changeColText = Settings.LanguageSystem.GetItemText("ChangeCollectionText");
-            anaform.changeColTextInfo = Settings.LanguageSystem.GetItemText("ChangeCollectionTextInfo");
-            anaform.importColItem = Settings.LanguageSystem.GetItemText("ImportItemInfo");
-            anaform.importColItemInfo = Settings.LanguageSystem.GetItemText("ImportItem");
-            anaform.SetToDefault = Settings.LanguageSystem.GetItemText("SetToDefault");
-            anaform.titleBackInfo = Settings.LanguageSystem.GetItemText("ChangeTitleColorInfo");
-            anaform.addToCollection = Settings.LanguageSystem.GetItemText("AddToCollection");
-            anaform.newColInfo = Settings.LanguageSystem.GetItemText("NewCollectionInfo");
-            anaform.newColName = Settings.LanguageSystem.GetItemText("NewCollectionName");
-            anaform.importColInfo = Settings.LanguageSystem.GetItemText("ImportCollectionInfo");
-            anaform.delColInfo = Settings.LanguageSystem.GetItemText("CollectionDeleteInfo");
-            anaform.clearColInfo = Settings.LanguageSystem.GetItemText("CollectionClearInfo");
-            anaform.okToClipboard = Settings.LanguageSystem.GetItemText("OKTOClipboard");
-            anaform.deleteCollection = Settings.LanguageSystem.GetItemText("DeleteCollection");
-            anaform.importCollection = Settings.LanguageSystem.GetItemText("Import");
-            anaform.exportCollection = Settings.LanguageSystem.GetItemText("Export");
-            anaform.deleteItem = Settings.LanguageSystem.GetItemText("DeleteItem");
-            anaform.exportItem = Settings.LanguageSystem.GetItemText("ExportItem");
-            anaform.editItem = Settings.LanguageSystem.GetItemText("EditItem");
-            anaform.catCommon = Settings.LanguageSystem.GetItemText("CollectionCommon");
-            anaform.catText = Settings.LanguageSystem.GetItemText("CollectionTextBased");
-            anaform.catOnline = Settings.LanguageSystem.GetItemText("CollectionOnline");
-            anaform.catPicture = Settings.LanguageSystem.GetItemText("CollectionPicture");
-            anaform.TitleID = Settings.LanguageSystem.GetItemText("CollectionID");
-            anaform.TitleBackColor = Settings.LanguageSystem.GetItemText("CollectionBackColor");
-            anaform.TitleText = Settings.LanguageSystem.GetItemText("CollectionText");
-            anaform.TitleFont = Settings.LanguageSystem.GetItemText("CollectionFont");
-            anaform.TitleSize = Settings.LanguageSystem.GetItemText("CollectionFontSize");
-            anaform.TitleProp = Settings.LanguageSystem.GetItemText("CollectionFontProperties");
-            anaform.TitleRegular = Settings.LanguageSystem.GetItemText("Regular");
-            anaform.TitleBold = Settings.LanguageSystem.GetItemText("Bold");
-            anaform.TitleItalic = Settings.LanguageSystem.GetItemText("Italic");
-            anaform.TitleUnderline = Settings.LanguageSystem.GetItemText("Underline");
-            anaform.TitleStrikeout = Settings.LanguageSystem.GetItemText("Strikeout");
-            anaform.TitleForeColor = Settings.LanguageSystem.GetItemText("CollectionForeColor");
-            anaform.TitleSource = Settings.LanguageSystem.GetItemText("CollectionSource");
-            anaform.TitleWidth = Settings.LanguageSystem.GetItemText("CollectionWidth");
-            anaform.TitleHeight = Settings.LanguageSystem.GetItemText("CollectionHeight");
-            anaform.TitleDone = Settings.LanguageSystem.GetItemText("CollectionDone");
-            anaform.TitleEditItem = Settings.LanguageSystem.GetItemText("EditCollectionItem");
-            anaform.image = Settings.LanguageSystem.GetItemText("CollectionItemImage");
-            anaform.text = Settings.LanguageSystem.GetItemText("CollectionItemText");
-            anaform.link = Settings.LanguageSystem.GetItemText("CollectionItemLink");
-
-            anaform.Collections = Settings.LanguageSystem.GetItemText("Collections");
-            anaform.CertificateError = Settings.LanguageSystem.GetItemText("CertificateError");
-
-            anaform.AboutText = Settings.LanguageSystem.GetItemText("About");
-            tpSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
-            anaform.SettingsText = Settings.LanguageSystem.GetItemText("Settings");
-            anaform.DownloadsText = Settings.LanguageSystem.GetItemText("Downloads");
-
-            anaform.HistoryText = Settings.LanguageSystem.GetItemText("History");
-
-            anaform.ThemesText = Settings.LanguageSystem.GetItemText("Themes");
-
-            anaform.ubuntuLicense = Settings.LanguageSystem.GetItemText("UbuntuFontLicense");
-            anaform.updateTitleTheme = Settings.LanguageSystem.GetItemText("KorotThemeUpdater");
-            anaform.updateTitleExt = Settings.LanguageSystem.GetItemText("KorotExtensionUpdater");
-            anaform.updateExtInfo = Settings.LanguageSystem.GetItemText("ExtensionUpdatingInfo");
-            anaform.openInNewWindow = Settings.LanguageSystem.GetItemText("OpeninNewWindow");
-            anaform.openAllInNewWindow = Settings.LanguageSystem.GetItemText("OpenAllinNewWindow");
-            anaform.openInNewIncWindow = Settings.LanguageSystem.GetItemText("OpeninNewIncognitoWindow");
-            anaform.openAllInNewIncWindow = Settings.LanguageSystem.GetItemText("OpenAllinNewIncognitoWindow");
-            anaform.openAllInNewTab = Settings.LanguageSystem.GetItemText("OpenAllInNewTab");
-            anaform.newFavorite = Settings.LanguageSystem.GetItemText("NewFavorite");
-            anaform.nametd = Settings.LanguageSystem.GetItemText("Name");
-            anaform.urltd = Settings.LanguageSystem.GetItemText("Url");
-            anaform.add = Settings.LanguageSystem.GetItemText("Add");
             newFavoriteToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("NewFavorite");
             newFolderToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("NewFolderButton");
-            anaform.newFolder = Settings.LanguageSystem.GetItemText("NewFolderButton");
-            anaform.defaultFolderName = Settings.LanguageSystem.GetItemText("NewFolder");
-            anaform.folderInfo = Settings.LanguageSystem.GetItemText("PleaseenteranamefornewFolder");
-            anaform.copyImage = Settings.LanguageSystem.GetItemText("CopyImage");
-            anaform.openLinkInNewWindow = Settings.LanguageSystem.GetItemText("OpenLinkinaNewWindow");
-            anaform.openLinkInNewIncWindow = Settings.LanguageSystem.GetItemText("OpenLinkinaNewIncognitoWindow");
-            anaform.copyImageAddress = Settings.LanguageSystem.GetItemText("CopyImageAddress");
-            anaform.saveLinkAs = Settings.LanguageSystem.GetItemText("SaveLinkAs");
-            anaform.empty = Settings.LanguageSystem.GetItemText("Empty");
-            anaform.licenseTitle = Settings.LanguageSystem.GetItemText("TitleLicensesSpecialThanks");
-            anaform.kLicense = Settings.LanguageSystem.GetItemText("KorotLicense");
-            anaform.vsLicense = Settings.LanguageSystem.GetItemText("MSVS2019CLicense");
-            anaform.chLicense = Settings.LanguageSystem.GetItemText("ChromiumLicense");
-            anaform.cefLicense = Settings.LanguageSystem.GetItemText("CefSharpLicense");
-            anaform.etLicense = Settings.LanguageSystem.GetItemText("EasyTabsLicense");
-            anaform.specialThanks = Settings.LanguageSystem.GetItemText("SpecialThanks");
-            anaform.JSAlert = Settings.LanguageSystem.GetItemText("MessageDialog");
-            anaform.JSConfirm = Settings.LanguageSystem.GetItemText("ConfirmDialog");
-            anaform.selectAFolder = Settings.LanguageSystem.GetItemText("DownloadFolderInfo");
-
-            anaform.resetConfirm = Settings.LanguageSystem.GetItemText("ResetKorotInfo");
-
-            anaform.IncognitoModeTitle = Settings.LanguageSystem.GetItemText("IncognitoMode");
-            anaform.IncognitoModeInfo = Settings.LanguageSystem.GetItemText("IncognitoModeInfo");
-            anaform.LearnMore = Settings.LanguageSystem.GetItemText("ClickToLearnMore");
-
-            anaform.findC = Settings.LanguageSystem.GetItemText("Current");
-            anaform.findT = Settings.LanguageSystem.GetItemText("Total");
-            anaform.findL = Settings.LanguageSystem.GetItemText("Last");
-            anaform.noSearch = Settings.LanguageSystem.GetItemText("NotSearchingNoResults");
-            anaform.anon = Settings.LanguageSystem.GetItemText("ThemeUnknownPerson");
-            anaform.noname = Settings.LanguageSystem.GetItemText("ThemeNameUnknown");
-            anaform.themeInfo = Settings.LanguageSystem.GetItemText("AboutInfoTheme");
-            anaform.renderProcessDies = Settings.LanguageSystem.GetItemText("RenderProcessTerminated");
-            anaform.enterAValidCode = Settings.LanguageSystem.GetItemText("EnterValidBase64");
-            anaform.ResetZoom = Settings.LanguageSystem.GetItemText("ResetZoom");
-            anaform.htmlFiles = Settings.LanguageSystem.GetItemText("HTMLFile");
-            anaform.print = Settings.LanguageSystem.GetItemText("Print");
-
-            anaform.IncognitoTitle1 = Settings.LanguageSystem.GetItemText("IncognitoInfoTitle");
-            anaform.IncognitoT1M1 = Settings.LanguageSystem.GetItemText("IncognitoInfoT1M1");
-            anaform.IncognitoT1M2 = Settings.LanguageSystem.GetItemText("IncognitoInfoT1M2");
-            anaform.IncognitoT1M3 = Settings.LanguageSystem.GetItemText("IncognitoInfoT1M3");
-            anaform.IncognitoTitle2 = Settings.LanguageSystem.GetItemText("IncognitoInfoTitle2");
-            anaform.IncognitoT2M1 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M1");
-            anaform.IncognitoT2M2 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M2");
-            anaform.IncognitoT2M3 = Settings.LanguageSystem.GetItemText("IncognitoInfoT2M3");
-            anaform.disallowCookie = Settings.LanguageSystem.GetItemText("DisallowCookie");
-
-            anaform.imageFiles = Settings.LanguageSystem.GetItemText("ImageFiles");
-            anaform.allFiles = Settings.LanguageSystem.GetItemText("AllFiles");
-            anaform.selectBackImage = Settings.LanguageSystem.GetItemText("SelectBackgroundImage");
-
-            anaform.usingBC = Settings.LanguageSystem.GetItemText("UsingBackgroundColor");
-
-            anaform.CertErrorPageButton = Settings.LanguageSystem.GetItemText("UserUnderstandsRisks");
-            anaform.CertErrorPageMessage = Settings.LanguageSystem.GetItemText("WebsiteNotSafeInfo");
-            anaform.CertErrorPageTitle = Settings.LanguageSystem.GetItemText("WebsiteNotSafe");
-            anaform.usesCookies = Settings.LanguageSystem.GetItemText("WebsiteUsesCookies");
-            anaform.notUsesCookies = Settings.LanguageSystem.GetItemText("WebsiteNoCookies");
-            anaform.showCertError = Settings.LanguageSystem.GetItemText("ShowCertificateError");
-            anaform.CertificateErrorMenuTitle = Settings.LanguageSystem.GetItemText("CertificateErrorDetails");
-            anaform.CertificateErrorTitle = Settings.LanguageSystem.GetItemText("NotSafe");
-            anaform.CertificateError = Settings.LanguageSystem.GetItemText("WebsiteWithErrors");
-            anaform.CertificateOKTitle = Settings.LanguageSystem.GetItemText("Safe");
-            anaform.CertificateOK = Settings.LanguageSystem.GetItemText("WebsiteNoErrors");
-            anaform.ErrorTheme = Settings.LanguageSystem.GetItemText("ThemeFileCorrupted");
-            anaform.ThemeMessage = Settings.LanguageSystem.GetItemText("ApplyThemeInfo");
-
-            anaform.checking = Settings.LanguageSystem.GetItemText("CheckingForUpdates");
-            anaform.uptodate = Settings.LanguageSystem.GetItemText("UpToDate");
-            anaform.installStatus = Settings.LanguageSystem.GetItemText("UpdatingMessage");
-            anaform.StatusType = Settings.LanguageSystem.GetItemText("DownloadProgress");
-
-            anaform.updateavailable = Settings.LanguageSystem.GetItemText("UpdateAvailable"); ;
-            anaform.privatemode = Settings.LanguageSystem.GetItemText("Incognito");
-            anaform.updateTitle = Settings.LanguageSystem.GetItemText("KorotUpdate");
-            anaform.updateMessage = Settings.LanguageSystem.GetItemText("KorotUpdateAvailable");
-            anaform.updateError = Settings.LanguageSystem.GetItemText("KorotUpdateError");
-            anaform.NewTabtitle = Settings.LanguageSystem.GetItemText("NewTab");
-            anaform.customSearchNote = Settings.LanguageSystem.GetItemText("SearchEngineInfo");
-            anaform.customSearchMessage = Settings.LanguageSystem.GetItemText("SearchengineTitle");
-
-            anaform.newWindow = Settings.LanguageSystem.GetItemText("NewWindow");
-            anaform.newincognitoWindow = Settings.LanguageSystem.GetItemText("NewIncognitoWindow");
-
-            anaform.SearchOnPage = Settings.LanguageSystem.GetItemText("SearchOnThisPage");
-
-            anaform.settingstitle = Settings.LanguageSystem.GetItemText("Settings");
-
-            anaform.IncognitoT = Settings.LanguageSystem.GetItemText("Incognito");
-            anaform.IncognitoTitle = Settings.LanguageSystem.GetItemText("IncognitoInfoTitle");
-            anaform.newCollection = Settings.LanguageSystem.GetItemText("NewCollectionName");
-            anaform.clearCollection = Settings.LanguageSystem.GetItemText("DeleteCollection");
-            anaform.goBack = Settings.LanguageSystem.GetItemText("GoBack");
-            anaform.goForward = Settings.LanguageSystem.GetItemText("GoForward");
-            anaform.refresh = Settings.LanguageSystem.GetItemText("Refresh");
-            anaform.refreshNoCache = Settings.LanguageSystem.GetItemText("RefreshNoCache");
-            anaform.stop = Settings.LanguageSystem.GetItemText("Stop");
-            anaform.selectAll = Settings.LanguageSystem.GetItemText("SelectAll");
-            anaform.openLinkInNewTab = Settings.LanguageSystem.GetItemText("OpenLinkInNewTab");
-            anaform.copyLink = Settings.LanguageSystem.GetItemText("CopyLink");
-            anaform.saveImageAs = Settings.LanguageSystem.GetItemText("SaveImageAs");
-            anaform.openImageInNewTab = Settings.LanguageSystem.GetItemText("OpenImageInNewTab");
-            anaform.paste = Settings.LanguageSystem.GetItemText("Paste");
-            anaform.copy = Settings.LanguageSystem.GetItemText("Copy");
-            anaform.cut = Settings.LanguageSystem.GetItemText("Cut");
-            anaform.undo = Settings.LanguageSystem.GetItemText("Undo");
-            anaform.redo = Settings.LanguageSystem.GetItemText("Redo");
-            anaform.delete = Settings.LanguageSystem.GetItemText("Delete");
-            anaform.SearchOrOpenSelectedInNewTab = Settings.LanguageSystem.GetItemText("SearchOpenTheSelected");
-            anaform.developerTools = Settings.LanguageSystem.GetItemText("DeveloperTools");
-            anaform.viewSource = Settings.LanguageSystem.GetItemText("ViewSource");
-            anaform.restoreOldSessions = Settings.LanguageSystem.GetItemText("RestoreLastSession");
-
-            anaform.enterAValidUrl = Settings.LanguageSystem.GetItemText("EnterAValidURL");
-
-            anaform.Month1 = Settings.LanguageSystem.GetItemText("Month1");
-            anaform.Month2 = Settings.LanguageSystem.GetItemText("Month2");
-            anaform.Month3 = Settings.LanguageSystem.GetItemText("Month3");
-            anaform.Month4 = Settings.LanguageSystem.GetItemText("Month4");
-            anaform.Month5 = Settings.LanguageSystem.GetItemText("Month5");
-            anaform.Month6 = Settings.LanguageSystem.GetItemText("Month6");
-            anaform.Month7 = Settings.LanguageSystem.GetItemText("Month7");
-            anaform.Month8 = Settings.LanguageSystem.GetItemText("Month8");
-            anaform.Month9 = Settings.LanguageSystem.GetItemText("Month9");
-            anaform.Month10 = Settings.LanguageSystem.GetItemText("Month10");
-            anaform.Month11 = Settings.LanguageSystem.GetItemText("Month11");
-            anaform.Month12 = Settings.LanguageSystem.GetItemText("Month12");
-            anaform.Month0 = Settings.LanguageSystem.GetItemText("Month0");
-            anaform.fromtwodot = Settings.LanguageSystem.GetItemText("From1");
-            anaform.totwodot = Settings.LanguageSystem.GetItemText("To1");
-            anaform.korotdownloading = Settings.LanguageSystem.GetItemText("KorotDownloading");
-
-            anaform.open = Settings.LanguageSystem.GetItemText("Open");
-            anaform.openLinkInNewTab = Settings.LanguageSystem.GetItemText("OpenLinkInNewTab");
             removeSelectedTSMI.Text = Settings.LanguageSystem.GetItemText("RemoveSelected");
             clearTSMI.Text = Settings.LanguageSystem.GetItemText("Clear");
-            anaform.OpenInNewTab = Settings.LanguageSystem.GetItemText("OpenInNewTab");
-            anaform.OpenFile = Settings.LanguageSystem.GetItemText("OpenFile");
-            anaform.OpenFileInExplorert = Settings.LanguageSystem.GetItemText("OpenFolderContainingThisFile");
-            anaform.ResetToDefaultProxy = Settings.LanguageSystem.GetItemText("ResetToFefaultProxySetting");
 
-            anaform.Yes = Settings.LanguageSystem.GetItemText("Yes");
-            anaform.No = Settings.LanguageSystem.GetItemText("No");
-            anaform.OK = Settings.LanguageSystem.GetItemText("OK");
-            anaform.Cancel = Settings.LanguageSystem.GetItemText("Cancel");
-
-            anaform.SearchOnWeb = Settings.LanguageSystem.GetItemText("AddressBar2");
-            anaform.goTotxt = Settings.LanguageSystem.GetItemText("AddressBar1");
-            anaform.newProfileInfo = Settings.LanguageSystem.GetItemText("EnterAProfileName");
-
-            anaform.MonthNames = Settings.LanguageSystem.GetItemText("NewTabMonths");
-            anaform.DayNames = Settings.LanguageSystem.GetItemText("NewTabDays");
-            anaform.SearchHelpText = Settings.LanguageSystem.GetItemText("NewTabSearch");
-            anaform.ErrorPageTitle = Settings.LanguageSystem.GetItemText("KorotError");
-            anaform.KT = Settings.LanguageSystem.GetItemText("ErrorTitle");
-            anaform.ET = Settings.LanguageSystem.GetItemText("ErrorTitle1");
-            anaform.E1 = Settings.LanguageSystem.GetItemText("ErrorT1M1");
-            anaform.E2 = Settings.LanguageSystem.GetItemText("ErrorT1M2");
-            anaform.E3 = Settings.LanguageSystem.GetItemText("ErrorT1M3");
-            anaform.E4 = Settings.LanguageSystem.GetItemText("ErrorT1M4");
-            anaform.RT = Settings.LanguageSystem.GetItemText("ErrorTitle2");
-            anaform.R1 = Settings.LanguageSystem.GetItemText("ErrorT2M1");
-            anaform.R2 = Settings.LanguageSystem.GetItemText("ErrorT2M2");
-            anaform.R3 = Settings.LanguageSystem.GetItemText("ErrorT2M3");
-            anaform.R4 = Settings.LanguageSystem.GetItemText("ErrorT2M4");
-            anaform.Search = Settings.LanguageSystem.GetItemText("Search");
-            anaform.newprofile = Settings.LanguageSystem.GetItemText("NewProfile");
-            anaform.switchTo = Settings.LanguageSystem.GetItemText("SwitchTo");
-            anaform.deleteProfile = Settings.LanguageSystem.GetItemText("DeleteThisProfile");
-            anaform.aboutInfo = Settings.LanguageSystem.GetItemText("KorotAbout");
         }
 
-        #endregion "Translate"
+    #endregion "Translate"
 
-        public string GetMonthNameOfDate(int month)
+    public string GetMonthNameOfDate(int month)
         {
             switch (month)
             {
@@ -912,16 +887,16 @@ namespace Korot
             return date.Day + " " + GetMonthNameOfDate(date.Month) + " " + date.Year + " " + date.Hour.ToString("00") + ":" + date.Minute.ToString("00") + ":" + date.Second.ToString("00");
         }
 
-        public HTTitleTabs ParentTabs => (ParentForm as HTTitleTabs);
+        public TitleBarTabs ParentTabs => (ParentForm as TitleBarTabs);
 
-        public HTTitleTab ParentTab
+        public TitleBarTab ParentTab
         {
             get
             {
                 if (!NotificationListenerMode)
                 {
                     List<int> tabIndexes = new List<int>();
-                    foreach (HTTitleTab x in ParentTabs.Tabs)
+                    foreach (TitleBarTab x in ParentTabs.Tabs)
                     {
                         if (x.Content == this) { tabIndexes.Add(ParentTabs.Tabs.IndexOf(x)); }
                     }
@@ -1055,7 +1030,7 @@ namespace Korot
         public void CreateNewCollection()
         {
             HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox("Korot", anaform.newColInfo, anaform.newColName)
-            { Icon = Icon, OK = anaform.OK, SetToDefault = anaform.SetToDefault, Cancel = anaform.Cancel, BackgroundColor = Settings.Theme.BackColor };
+            { Icon = Icon, OK = anaform.OK, SetToDefault = anaform.SetToDefault, Cancel = anaform.Cancel, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor };
             DialogResult diagres = mesaj.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -1124,8 +1099,8 @@ namespace Korot
         {
             if (!NotificationListenerMode)
             {
-                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(anaform.JSAlert.Replace("[TITLE]", Text).Replace("[URL]", url), message, new HTAlt.WinForms.HTDialogBoxContext() { OK = true, Cancel = true })
-                { StartPosition = FormStartPosition.CenterParent, Yes = anaform.Yes, No = anaform.No, OK = anaform.OK, Cancel = anaform.Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(anaform.JSAlert.Replace("[TITLE]", Text).Replace("[URL]", url), message, new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.OKCancel))
+                { StartPosition = FormStartPosition.CenterParent, Yes = anaform.Yes, No = anaform.No, OK = anaform.OK, Cancel = anaform.Cancel, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor, Icon = Icon };
                 mesaj.ShowDialog();
                 return true;
             }
@@ -1136,8 +1111,8 @@ namespace Korot
         {
             if (!NotificationListenerMode)
             {
-                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(anaform.JSConfirm.Replace("[TITLE]", Text).Replace("[URL]", url), message, new HTAlt.WinForms.HTDialogBoxContext() { OK = true, Cancel = true })
-                { StartPosition = FormStartPosition.CenterParent, Yes = anaform.Yes, No = anaform.No, OK = anaform.OK, Cancel = anaform.Cancel, BackgroundColor = Settings.Theme.BackColor, Icon = Icon };
+                HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(anaform.JSConfirm.Replace("[TITLE]", Text).Replace("[URL]", url), message, new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.OKCancel))
+                { StartPosition = FormStartPosition.CenterParent, Yes = anaform.Yes, No = anaform.No, OK = anaform.OK, Cancel = anaform.Cancel, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor, Icon = Icon };
                 if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
                 return true;
             }
@@ -1149,7 +1124,7 @@ namespace Korot
             if (!NotificationListenerMode)
             {
                 HTAlt.WinForms.HTInputBox mesaj = new HTAlt.WinForms.HTInputBox(url, message, defaultValue)
-                { SetToDefault = anaform.SetToDefault, StartPosition = FormStartPosition.CenterParent, Icon = Icon, OK = anaform.OK, Cancel = anaform.Cancel, BackgroundColor = Settings.Theme.BackColor };
+                { SetToDefault = anaform.SetToDefault, StartPosition = FormStartPosition.CenterParent, Icon = Icon, OK = anaform.OK, Cancel = anaform.Cancel, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor };
                 if (mesaj.ShowDialog() == DialogResult.OK) { returnval = true; } else { returnval = false; }
                 textresult = mesaj.TextValue;
                 return true;
@@ -1237,7 +1212,7 @@ namespace Korot
             allowSwitching = true;
             tabControl1.SelectedTab = tpCef;
             string urlLower = tbAddress.Text.ToLower();
-            if (HTAlt.Tools.ValidUrl(urlLower, new string[] { "http", "https", "about", "ftp", "smtp", "pop", "korot" }))
+            if (KorotTools.ValidHttpURL(urlLower))
             {
                 loadPage(urlLower, Text);
             }

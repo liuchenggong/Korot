@@ -20,6 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 using CefSharp;
+using EasyTabs;
 using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ using System.Xml;
 
 namespace Korot
 {
-    public partial class frmMain : HTAlt.WinForms.HTTitleTabs
+    public partial class frmMain : TitleBarTabs
     {
         public Settings Settings;
         private readonly MyJumplist list;
@@ -42,13 +43,12 @@ namespace Korot
         public List<frmNotification> notifications { get; set; }
         public bool newDownload = false;
         public bool isIncognito = false;
-        public HTTabRenderer tabRenderer;
-        public HTTitleTab licenseTab = null;
-        public HTTitleTab settingTab = null;
+        public TitleBarTab licenseTab = null;
+        public TitleBarTab settingTab = null;
         public frmUpdate Updater;
 
         #region Notification Listener
-
+        public string LoadedLang = "";
         private string closeKorotMessage = "Do you want to close Korot?";
 #pragma warning disable 414
         private string closeAllMessage = "Do you really want to close them all?";
@@ -138,8 +138,8 @@ namespace Korot
                 {
                     HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot",
                                                       closeNLinfo.Replace("[TITLE]", cefform.Text).Replace("[URL]", cefform.chromiumWebBrowser1.Address),
-                                                      new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
-                    { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor };
+                                                      new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.YesNoCancel))
+                    { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor };
                     DialogResult diares = mesaj.ShowDialog();
                     if (diares == DialogResult.Yes)
                     {
@@ -164,8 +164,8 @@ namespace Korot
         {
             HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot",
                                                       closeAllMessage,
-                                                      new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
-            { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor };
+                                                      new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.YesNoCancel))
+            { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor };
             DialogResult diares = mesaj.ShowDialog();
             if (diares == DialogResult.Yes)
             {
@@ -190,8 +190,8 @@ namespace Korot
         {
             HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot",
                                                       closeKorotMessage,
-                                                      new HTAlt.WinForms.HTDialogBoxContext() { Yes = true, No = true, Cancel = true })
-            { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackgroundColor = Settings.Theme.BackColor };
+                                                      new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.YesNoCancel))
+            { Icon = Properties.Resources.KorotIcon, Yes = Yes, No = No, Cancel = Cancel, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor };
             DialogResult diares = mesaj.ShowDialog();
             if (diares == DialogResult.Yes)
             {
@@ -202,7 +202,7 @@ namespace Korot
         #endregion Notification Listener
 
         #region "Translate"
-
+        public string HappyBDay = "Happy Birthday!";
         public string CleanCacheMessage = "Cleaning cache requires a restart first." + Environment.NewLine + "Do you still want to continue?";
         public string ThemeSaveInfo = "Please enter a name for this theme.";
         public string KorotUpToDate = "Your Korot is up to date.";
@@ -476,8 +476,7 @@ namespace Korot
         {
             Settings = settings;
             AeroPeekEnabled = true;
-            tabRenderer = new HTTabRenderer(this);
-            TabRenderer = tabRenderer;
+            TabRenderer = new KorotTabRenderer(this);
             Icon = Properties.Resources.KorotIcon;
             Updater = new frmUpdate(Settings)
             {
@@ -535,7 +534,7 @@ namespace Korot
             }
             else
             {
-                HTMsgBox mesaj = new HTMsgBox("Korot", CleanCacheMessage, new HTDialogBoxContext() { Yes = true, No = true, Cancel = true }) { Yes = Yes, No = No, Cancel = Cancel, Icon = Icon, BackgroundColor = Settings.Theme.BackColor };
+                HTMsgBox mesaj = new HTMsgBox("Korot", CleanCacheMessage, new HTDialogBoxContext(MessageBoxButtons.YesNoCancel)) { Yes = Yes, No = No, Cancel = Cancel, Icon = Icon, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor };
                 DialogResult result = mesaj.ShowDialog();
                 if (result == DialogResult.Yes)
                 {
@@ -578,8 +577,9 @@ namespace Korot
 
         private void PrintImages()
         {
+            var tabRenderer = TabRenderer as KorotTabRenderer;
             tabRenderer.ApplyColors(Settings.Theme.BackColor, HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor), Settings.Theme.OverlayColor, Settings.Theme.BackColor);
-            Update();
+            tabRenderer.Redraw();
             MinimumSize = new System.Drawing.Size(650, 350);
             BackColor = Settings.Theme.BackColor;
             ForeColor = HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor);
@@ -650,7 +650,7 @@ namespace Korot
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
                 frmCEF cefform = new frmCEF(this, Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser, false, node.OuterXml);
-                HTTitleTab tab = new HTTitleTab(this)
+                TitleBarTab tab = new TitleBarTab(this)
                 {
                     Content = cefform
                 };
@@ -670,7 +670,7 @@ namespace Korot
         public void WriteCurrentSession()
         {
             string CurrentSessionURIs = "<root>" + Environment.NewLine;
-            foreach (HTTitleTab x in Tabs)
+            foreach (TitleBarTab x in Tabs)
             {
                 frmCEF cefform = (frmCEF)x.Content;
                 CurrentSessionURIs += cefform.SessionSystem.XmlOut() + Environment.NewLine;
@@ -681,14 +681,17 @@ namespace Korot
 
         public bool closing = false;
 
-        public void CreateTab(HTTitleTab referenceTab, string url = "korot://newtab")
+        public void CreateTab(TitleBarTab referenceTab, string url = "korot://newtab")
         {
-            frmCEF cefform = new frmCEF(this, Settings, isIncognito, url, SafeFileSettingOrganizedClass.LastUser);
-            Settings.AllForms.Add(cefform);
-            HTTitleTab newTab = new HTTitleTab(this)
+            var _refcef = referenceTab.Content as frmCEF;
+            frmCEF cefform = new frmCEF(this, Settings, isIncognito, url, SafeFileSettingOrganizedClass.LastUser)
             {
-                BackColor = referenceTab.BackColor,
-                UseDefaultBackColor = referenceTab.UseDefaultBackColor,
+                AutoTabColor = _refcef.AutoTabColor,
+                TabColor = _refcef.TabColor,
+            };
+            Settings.AllForms.Add(cefform);
+            TitleBarTab newTab = new TitleBarTab(this)
+            {
                 Content = cefform
             };
             Tabs.Insert(Tabs.IndexOf(referenceTab) + 1, newTab);
@@ -698,26 +701,30 @@ namespace Korot
 
         public void CreateTab(string url = "korot://newtab")
         {
-            frmCEF cefform = new frmCEF(this, Settings, isIncognito, url, SafeFileSettingOrganizedClass.LastUser);
-            Settings.AllForms.Add(cefform);
-            HTTitleTab newTab = new HTTitleTab(this)
+            frmCEF cefform = new frmCEF(this, Settings, isIncognito, url, SafeFileSettingOrganizedClass.LastUser)
             {
-                BackColor = Settings.Theme.BackColor,
-                UseDefaultBackColor = true,
+                AutoTabColor = true,
+                TabColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false),
+            };
+            Settings.AllForms.Add(cefform);
+            TitleBarTab newTab = new TitleBarTab(this)
+            {
                 Content = cefform
             };
             Tabs.Add(newTab);
             SelectedTabIndex = Tabs.Count - 1;
         }
 
-        public override HTTitleTab CreateTab()
+        public override TitleBarTab CreateTab()
         {
-            frmCEF cefform = new frmCEF(this, Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser);
-            Settings.AllForms.Add(cefform);
-            return new HTTitleTab(this)
+            frmCEF cefform = new frmCEF(this, Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser)
             {
-                BackColor = Settings.Theme.BackColor,
-                UseDefaultBackColor = true,
+                AutoTabColor = true,
+                TabColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor,20,false),
+            };
+            Settings.AllForms.Add(cefform);
+            return new TitleBarTab(this)
+            {
                 Content = cefform
             };
         }
@@ -797,7 +804,7 @@ namespace Korot
 
         private void frmMain_Resize(object sender, EventArgs e)
         {
-            foreach (HTTitleTab x in Tabs)
+            foreach (TitleBarTab x in Tabs)
             {
                 ((frmCEF)x.Content).Invoke(new Action(() => ((frmCEF)x.Content).FrmCEF_SizeChanged(null, null)));
             }

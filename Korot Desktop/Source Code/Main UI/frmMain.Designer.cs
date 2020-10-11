@@ -21,9 +21,10 @@
 //SOFTWARE.
 using HTAlt.WinForms;
 using Korot;
+using EasyTabs;
 namespace Korot
 {
-    partial class frmMain : HTTitleTabs
+    partial class frmMain : TitleBarTabs
     {
         /// <summary>
         /// Required designer variable.
