@@ -21,6 +21,7 @@
 //SOFTWARE.
 using CefSharp;
 using CefSharp.WinForms;
+using EasyTabs;
 using HTAlt;
 using HTAlt.WinForms;
 using System;
@@ -37,9 +38,9 @@ namespace Korot
 {
     public static class VersionInfo
     {
-        public static string CodeName => "Shisha no kodo"; //死者のコード
+        public static string CodeName => "Qarabağ";
 
-        public static int VersionNumber = 50;
+        public static int VersionNumber = 51;
     }
 
     internal static class Program
@@ -55,6 +56,15 @@ namespace Korot
                 KorotTools.FixDefaultLanguage();
             }
             Settings settings = new Settings(SafeFileSettingOrganizedClass.LastUser);
+            if (string.IsNullOrWhiteSpace(settings.Birthday) && !settings.CelebrateBirthday)
+            {
+                settings.BirthdayCount++;
+            }
+            if(settings.BirthdayCount > 10)
+            {
+                frmAskBirthday askBDay = new frmAskBirthday(settings);
+                askBDay.ShowDialog();
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             bool appStarted = false;
@@ -90,7 +100,7 @@ namespace Korot
                         {
                             frmCEF cefform = new frmCEF(testApp, settings, true, "korot://incognito", SafeFileSettingOrganizedClass.LastUser) { };
                             settings.AllForms.Add(cefform);
-                            testApp.Tabs.Add(new HTTitleTab(testApp) { Content = cefform });
+                            testApp.Tabs.Add(new TitleBarTab(testApp) { Content = cefform });
                         }
                         else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
                         {
@@ -107,13 +117,13 @@ namespace Korot
                         frmCEF cefform = new frmCEF(testApp, settings, isIncognito, settings.Startup, SafeFileSettingOrganizedClass.LastUser);
                         settings.AllForms.Add(cefform);
                         testApp.Tabs.Add(
-new HTTitleTab(testApp)
+new TitleBarTab(testApp)
 {
     Content = cefform
 });
                     }
                     testApp.SelectedTabIndex = 0;
-                    HTTitleTabsApplicationContext applicationContext = new HTTitleTabsApplicationContext();
+                    TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
                     applicationContext.Start(testApp);
                     Application.Run(applicationContext);
                     appStarted = true;
@@ -163,8 +173,10 @@ new HTTitleTab(testApp)
             string ManifestXML = HTAlt.Tools.ReadFile(ProfileDirectory + "settings.kpf", Encoding.UTF8);
             XmlDocument document = new XmlDocument();
             document.LoadXml(ManifestXML);
+            List<string> loadedSettings = new List<string>();
             foreach (XmlNode node in document.FirstChild.NextSibling.ChildNodes)
             {
+                if (loadedSettings.Contains(node.Name.ToLower())) { return; } else { loadedSettings.Add(node.Name.ToLower()); }
                 if (node.Name.ToLower() == "homepage")
                 {
                     Homepage = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
@@ -228,6 +240,15 @@ new HTTitleTab(testApp)
                 else if (node.Name.ToLower() == "flash")
                 {
                     Flash = node.InnerText == "true";
+                }
+                else if(node.Name.ToLower() == "birthday")
+                {
+                    if (node.Attributes["Celebrate"] != null && node.Attributes["Date"] != null && node.Attributes["Count"] != null)
+                    {
+                        CelebrateBirthday = node.Attributes["Celebrate"].Value == "true";
+                        Birthday = node.Attributes["Date"].Value;
+                        BirthdayCount = Convert.ToInt32(node.Attributes["Count"].Value);
+                    }
                 }
                 else if (node.Name.ToLower() == "autorestore")
                 {
@@ -449,6 +470,9 @@ new HTTitleTab(testApp)
 
         #region Defaults
 
+        private string _birthday = "";
+        private bool _celebrateBDay = true;
+        private int _bDayCount = 0;
         private AutoCleaner _AutoCleaner = new AutoCleaner("");
         private bool _UseDefaultSound = true;
         private string _SoundLoc = "";
@@ -463,7 +487,7 @@ new HTTitleTab(testApp)
         private bool _DoNotPlaySound = false;
         private bool _QuietMode = false;
         private string _AutoSilentMode = "";
-        private string _ProfileName = "Helvetica Standard";
+        private string _ProfileName = "";
         private bool _DismissUpdate = false;
         private string _Homepage = "korot://newtab";
         private Size _MenuSize = new Size(720, 720);
@@ -490,6 +514,9 @@ new HTTitleTab(testApp)
         #endregion Defaults
 
         #region Properties
+        public string Birthday { get => _birthday; set => _birthday = value; }
+        public bool CelebrateBirthday { get => _celebrateBDay; set => _celebrateBDay = value; }
+        public int BirthdayCount { get => _bDayCount; set => _bDayCount = value; }
 
         public AutoCleaner AutoCleaner { get => _AutoCleaner; set => _AutoCleaner = value; }
         public List<frmCEF> UpdateFavorites { get => _UpdateFavorites; set => _UpdateFavorites = value; }
@@ -732,25 +759,10 @@ new HTTitleTab(testApp)
         {
             get
             {
-                int fromH = -1;
-                int fromM = -1;
-                int toH = -1;
-                int toM = -1;
-                bool Nsunday = false;
-                bool Nmonday = false;
-                bool Ntuesday = false;
-                bool Nwednesday = false;
-                bool Nthursday = false;
-                bool Nfriday = false;
-                bool Nsaturday = false;
                 string Playlist = AutoSilentMode;
                 string[] SplittedFase = Playlist.Split(':');
                 if (SplittedFase.Length - 1 > 9)
                 {
-                    fromH = Convert.ToInt32(SplittedFase[0]);
-                    fromM = Convert.ToInt32(SplittedFase[1]);
-                    toH = Convert.ToInt32(SplittedFase[2]);
-                    toM = Convert.ToInt32(SplittedFase[3]);
                     bool sunday = SplittedFase[4] == "1";
                     bool monday = SplittedFase[5] == "1";
                     bool tuesday = SplittedFase[6] == "1";
@@ -758,17 +770,17 @@ new HTTitleTab(testApp)
                     bool thursday = SplittedFase[8] == "1";
                     bool friday = SplittedFase[9] == "1";
                     bool saturday = SplittedFase[10] == "1";
-                    fromH = Convert.ToInt32(SplittedFase[0]);
-                    fromM = Convert.ToInt32(SplittedFase[1]);
-                    toH = Convert.ToInt32(SplittedFase[2]);
-                    toM = Convert.ToInt32(SplittedFase[3]);
-                    Nsunday = sunday;
-                    Nmonday = monday;
-                    Ntuesday = tuesday;
-                    Nwednesday = wednesday;
-                    Nthursday = thursday;
-                    Nfriday = friday;
-                    Nsaturday = saturday;
+                    int fromH = Convert.ToInt32(SplittedFase[0]);
+                    int fromM = Convert.ToInt32(SplittedFase[1]);
+                    int toH = Convert.ToInt32(SplittedFase[2]);
+                    int toM = Convert.ToInt32(SplittedFase[3]);
+                    bool Nsunday = sunday;
+                    bool Nmonday = monday;
+                    bool Ntuesday = tuesday;
+                    bool Nwednesday = wednesday;
+                    bool Nthursday = thursday;
+                    bool Nfriday = friday;
+                    bool Nsaturday = saturday;
                     if (AutoSilent)
                     {
                         DayOfWeek wk = DateTime.Today.DayOfWeek;
@@ -860,6 +872,7 @@ new HTTitleTab(testApp)
             "   <LastProxy>" + LastProxy.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LastProxy>" + Environment.NewLine +
             "   <MenuWasMaximized>" + (MenuWasMaximized ? "true" : "false") + "</MenuWasMaximized>" + Environment.NewLine +
             "   <Flash>" + (Flash ? "true" : "false") + "</Flash>" + Environment.NewLine +
+            "   <Birthday Celebrate=\"" + (CelebrateBirthday ? "true" : "false") + "\" Date=\"" + Birthday + "\" Count=\"" + BirthdayCount + "\" />" + Environment.NewLine +
             "   <DoNotTrack>" + (DoNotTrack ? "true" : "false") + "</DoNotTrack>" + Environment.NewLine +
             "   <AutoRestore>" + (AutoRestore ? "true" : "false") + "</AutoRestore>" + Environment.NewLine +
             "   <RememberLastProxy>" + (RememberLastProxy ? "true" : "false") + "</RememberLastProxy>" + Environment.NewLine +
@@ -1370,7 +1383,7 @@ new HTTitleTab(testApp)
             }
             else
             {
-                return item.Text.Replace("[NEWLINE]", Environment.NewLine);
+                return item.Text.Replace("[NEWLINE]", Environment.NewLine).Replace("[VERSION]", Application.ProductVersion.ToString()).Replace("[CODENAME]", VersionInfo.CodeName);
             }
         }
 
@@ -1919,7 +1932,8 @@ new HTTitleTab(testApp)
             return (Url.ToLower().StartsWith("korot://newtab")
                 || Url.ToLower().StartsWith("korot://links")
                 || Url.ToLower().StartsWith("korot://license")
-                || Url.ToLower().StartsWith("korot://incognito"));
+                || Url.ToLower().StartsWith("korot://incognito")
+                || Url.ToLower().StartsWith("korot://technical"));
         }
 
         public static bool createFolders()
@@ -1939,6 +1953,18 @@ new HTTitleTab(testApp)
             string Pattern = @"^((http(s)?|korot|file|pop|smtp|ftp|chrome|about):(\/\/)?)|(^([\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$))|(.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4})";
             Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return Rgx.IsMatch(s);
+        }
+        public static string GetUserAgent()
+        {
+            return "Mozilla/5.0 ( Windows "
+                + KorotTools.getOSInfo()
+                + "; "
+                + (Environment.Is64BitProcess ? "Win64" : "Win32NT") + "; " + (Environment.Is64BitProcess ? "x64" : "x86")
+                + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
+                + Cef.ChromiumVersion
+                + " Safari/537.36 Korot/"
+                + Application.ProductVersion.ToString()
+                + " [" + VersionInfo.CodeName + "]";
         }
 
         public static bool FixDefaultLanguage()

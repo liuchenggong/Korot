@@ -129,6 +129,8 @@ namespace Korot
             // 
             this.btRestart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.btRestart.FlatAppearance.BorderSize = 0;
+            this.btRestart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btRestart.Location = new System.Drawing.Point(12, 376);
             this.btRestart.Name = "btRestart";
             this.btRestart.Size = new System.Drawing.Size(382, 23);

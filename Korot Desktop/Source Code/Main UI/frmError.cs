@@ -57,6 +57,7 @@ namespace Korot
             BackColor = Settings.Theme.BackColor;
             ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
             Color BackColor2 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);
+            btRestart.BackColor = BackColor2;
             textBox1.BackColor = BackColor2;
             lbErrorCode.BackColor = BackColor2;
             textBox1.ForeColor = ForeColor;

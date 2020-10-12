@@ -48,7 +48,7 @@ namespace Korot
 
         public static bool NewProfile(frmCEF cefform)
         {
-            HTAlt.WinForms.HTInputBox newprof = new HTAlt.WinForms.HTInputBox("Korot", cefform.anaform.newProfileInfo + Environment.NewLine + "/ \\ : ? * |", "") { Icon = cefform.anaform.Icon, SetToDefault = cefform.anaform.SetToDefault, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackgroundColor = cefform.Settings.Theme.BackColor };
+            HTAlt.WinForms.HTInputBox newprof = new HTAlt.WinForms.HTInputBox("Korot", cefform.anaform.newProfileInfo + Environment.NewLine + "/ \\ : ? * |", "") { Icon = cefform.anaform.Icon, SetToDefault = cefform.anaform.SetToDefault, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackColor = cefform.Settings.Theme.BackColor, AutoForeColor = false, ForeColor = cefform.Settings.Theme.ForeColor };
             DialogResult diagres = newprof.ShowDialog();
             if (diagres == DialogResult.OK)
             {
@@ -57,6 +57,8 @@ namespace Korot
                 else
                 {
                     Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + newprof.TextValue);
+                    Settings newSettings = new Settings(newprof.TextValue);
+                    newSettings.Save();
                     SwitchProfile(newprof.TextValue, cefform);
                 }
             }

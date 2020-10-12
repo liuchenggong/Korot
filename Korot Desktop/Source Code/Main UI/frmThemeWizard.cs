@@ -531,6 +531,7 @@ namespace Korot
         {
             KorotTools.createThemes();
             Settings.Theme = new Theme(themePath + Theme.ToString() + ".ktf");
+            Settings.JustChangedTheme();
             Settings.Save();
             Close();
         }

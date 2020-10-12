@@ -91,23 +91,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CustomMarshalers" />
-    <Reference Include="HTAlt WinForms, Version=0.1.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HTAlt.WinForms.0.1.5.1\lib\net461\HTAlt WinForms.dll</HintPath>
+    <Reference Include="Fizzler, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4ebff4844e382110, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fizzler.1.2.0\lib\netstandard2.0\Fizzler.dll</HintPath>
     </Reference>
-    <Reference Include="HTAlt.Standart, Version=0.1.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HTAlt.Standart.0.1.5.1\lib\netstandard2.0\HTAlt.Standart.dll</HintPath>
+    <Reference Include="HTAlt WinForms, Version=0.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HTAlt.WinForms.0.1.6\lib\net461\HTAlt WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.4.0, Culture=neutral, PublicKeyToken=8985beaab7ea3f04, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft-WindowsAPICodePack-Core.1.1.4\lib\net48\Microsoft.WindowsAPICodePack.dll</HintPath>
+    <Reference Include="HTAlt.Standart, Version=0.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HTAlt.Standart.0.1.6\lib\netstandard2.0\HTAlt.Standart.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.4.0, Culture=neutral, PublicKeyToken=8985beaab7ea3f04, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft-WindowsAPICodePack-Shell.1.1.4\lib\net48\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore">
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationFramework">
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Svg, Version=3.1.0.0, Culture=neutral, PublicKeyToken=12a0bac221edeae2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Svg.3.1.1\lib\net452\Svg.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>
@@ -131,6 +137,7 @@
     <Reference Include="System.Speech">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <Private>False</Private>
@@ -235,6 +242,12 @@
       <DependentUpon>frmSites.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Handlers\StreamResponseFilter.cs" />
+    <Compile Include="Source Code\Main UI\frmAskBirthday.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Main UI\frmAskBirthday.Designer.cs">
+      <DependentUpon>frmAskBirthday.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source Code\Main UI\frmBlockSite.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,6 +308,7 @@
     <Compile Include="Source Code\Main UI\frmThemeWizard.Designer.cs">
       <DependentUpon>frmThemeWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Main UI\KorotTabRenderer.cs" />
     <Compile Include="Source Code\Notification\frmNotification.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -404,38 +418,51 @@
     <EmbeddedResource Include="Source Code\Main UI\Custom Menus\frmProfile.resx">
       <DependentUpon>frmProfile.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Main UI\frmAskBirthday.resx">
+      <DependentUpon>frmAskBirthday.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmBlockSite.resx">
       <DependentUpon>frmBlockSite.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmSettings.resx">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmThemeWizard.resx">
       <DependentUpon>frmThemeWizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Update\frmUpdate.resx">
       <DependentUpon>frmUpdate.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmChangeTBTBack.resx">
       <DependentUpon>frmChangeTBTBack.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Collections\frmCollection.resx">
       <DependentUpon>frmCollection.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Collections\frmEditCollection.resx">
       <DependentUpon>frmEditCollection.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmError.resx">
       <DependentUpon>frmError.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Ext\frmExt.resx">
       <DependentUpon>frmExt.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Ext\frmInstallExt.resx">
       <DependentUpon>frmInstallExt.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -444,30 +471,37 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmCEF.resx">
       <DependentUpon>frmCEF.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Ext\frmMakeExt.resx">
       <DependentUpon>frmMakeExt.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Favorites\frmNewFav.resx">
       <DependentUpon>frmNewFav.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Notification\frmNotification.resx">
       <DependentUpon>frmNotification.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmOOBE.resx">
       <DependentUpon>frmOOBE.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmPopup.resx">
       <DependentUpon>frmPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Ext\frmProxyGen.resx">
       <DependentUpon>frmProxyGen.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\Custom Menus\frmSites.resx">
       <DependentUpon>frmSites.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Ext\frmUpdateExt.resx">
       <DependentUpon>frmUpdateExt.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Notification\frmNotificationPermission.resx">
       <DependentUpon>frmNotificationPermission.cs</DependentUpon>
@@ -631,8 +665,6 @@
     <None Include="Resources\ThemeRed.PNG" />
     <None Include="Resources\ThemeStrawberry.PNG" />
     <None Include="Resources\ThemeSunrise.PNG" />
-    <None Include="Resources\temp2.txt" />
-    <None Include="Resources\temp1.txt" />
     <None Include="Resources\ThemeYellow.PNG" />
     <None Include="Resources\ThemeAvocado.PNG" />
     <None Include="Resources\ThemeBrick.PNG" />
@@ -652,6 +684,24 @@
     <None Include="Resources\PurpleColors.PNG" />
     <None Include="Resources\YellowColors.png" />
     <None Include="Resources\certerror.html" />
+    <Content Include="Resources\EasyTabsResources\Chrome\Add.png" />
+    <Content Include="Resources\EasyTabsResources\Chrome\AddHover.png" />
+    <Content Include="Resources\EasyTabsResources\Chrome\Background.png" />
+    <Content Include="Resources\EasyTabsResources\Chrome\Center.png" />
+    <Content Include="Resources\EasyTabsResources\Chrome\Close.png" />
+    <Content Include="Resources\EasyTabsResources\Chrome\CloseHover.png" />
+    <Content Include="Resources\EasyTabsResources\Chrome\InactiveCenter.png" />
+    <Content Include="Resources\EasyTabsResources\Chrome\InactiveLeft.png" />
+    <Content Include="Resources\EasyTabsResources\Chrome\InactiveRight.png" />
+    <Content Include="Resources\EasyTabsResources\Chrome\InactiveRightNoDivider.png" />
+    <Content Include="Resources\EasyTabsResources\Chrome\Left.png" />
+    <Content Include="Resources\EasyTabsResources\Chrome\Right.png" />
+    <Content Include="Resources\EasyTabsResources\Windows10\Close.svg" />
+    <Content Include="Resources\EasyTabsResources\Windows10\CloseHighlight.svg" />
+    <Content Include="Resources\EasyTabsResources\Windows10\Maximize.svg" />
+    <Content Include="Resources\EasyTabsResources\Windows10\Minimize.svg" />
+    <Content Include="Resources\EasyTabsResources\Windows10\Restore.svg" />
+    <None Include="Resources\technical.html" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -719,6 +769,12 @@
     <None Include="Resources\star-w.png" />
     <None Include="Resources\star-on.png" />
     <None Include="Resources\star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EasyTabs\EasyTabs.csproj">
+      <Project>{690ba0f7-d8fe-4ebe-ba39-8058086c7a09}</Project>
+      <Name>EasyTabs</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
