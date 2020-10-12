@@ -25,7 +25,6 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Korot
@@ -80,6 +79,7 @@ namespace Korot
             string today = DateTime.Now.ToString("dd//MM//yyyy");
             return CefForm.Settings.CelebrateBirthday ? (CefForm.Settings.Birthday == today) : false;
         }
+
         public string GetNewTabItems()
         {
             string x = "";
@@ -115,7 +115,6 @@ namespace Korot
             }
         }
 
-
         public IResourceHandler Create(IBrowser browser, IFrame frame, string schemeName, IRequest request)
         {
             if (CefForm.Settings.IsUrlAllowed(request.Url))
@@ -124,7 +123,7 @@ namespace Korot
                 {
                     if (request.Url.ToLower().StartsWith("korot://newtab"))
                     {
-                        return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BDAY§",isBirthDay() ? CefForm.anaform.HappyBDay : "").Replace("§ITEMS§", GetNewTabItems()).Replace("§BACKSTYLE3§", GetBackStyle3()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.anaform.SearchHelpText).Replace("§SEARCH§", CefForm.anaform.Search).Replace("§DAYS§", CefForm.anaform.DayNames).Replace("§MONTHS§", CefForm.anaform.MonthNames).Replace("§TITLE§", CefForm.anaform.NewTabtitle).Replace("§EDIT§", CefForm.anaform.NewTabEdit));
+                        return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BDAY§", isBirthDay() ? CefForm.anaform.HappyBDay : "").Replace("§ITEMS§", GetNewTabItems()).Replace("§BACKSTYLE3§", GetBackStyle3()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.anaform.SearchHelpText).Replace("§SEARCH§", CefForm.anaform.Search).Replace("§DAYS§", CefForm.anaform.DayNames).Replace("§MONTHS§", CefForm.anaform.MonthNames).Replace("§TITLE§", CefForm.anaform.NewTabtitle).Replace("§EDIT§", CefForm.anaform.NewTabEdit));
                     }
                     else if (request.Url.ToLower().StartsWith("korot://incognito"))
                     {

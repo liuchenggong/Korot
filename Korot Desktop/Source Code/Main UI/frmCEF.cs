@@ -22,7 +22,6 @@
 using CefSharp;
 using CefSharp.WinForms;
 using EasyTabs;
-using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -832,12 +831,11 @@ namespace Korot
             newFolderToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("NewFolderButton");
             removeSelectedTSMI.Text = Settings.LanguageSystem.GetItemText("RemoveSelected");
             clearTSMI.Text = Settings.LanguageSystem.GetItemText("Clear");
-
         }
 
-    #endregion "Translate"
+        #endregion "Translate"
 
-    public string GetMonthNameOfDate(int month)
+        public string GetMonthNameOfDate(int month)
         {
             switch (month)
             {
@@ -1294,11 +1292,11 @@ namespace Korot
                     {
                         tbAddress.Text = e.Address;
                     }
-                }else
+                }
+                else
                 {
                     tbAddress.Text = e.Address;
                 }
-
             }));
             Invoke(new Action(() =>
             {

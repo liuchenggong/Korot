@@ -37,7 +37,7 @@ namespace Korot
             {
                 btUpdater.Enabled = false;
                 btUpdater.Visible = false;
-                string x =  "" + cefform.anaform.Updater.Progress;
+                string x = "" + cefform.anaform.Updater.Progress;
                 lbUpdateStatus.Text = cefform.anaform.KorotUpdating.Replace("[PERC]", x);
             }
             else if (cefform.anaform.Updater.isReady && !cefform.anaform.Updater.isUpToDate)
@@ -110,13 +110,15 @@ namespace Korot
                 btUpdater.Enabled = true;
                 btUpdater.Visible = true;
                 lbUpdateStatus.Text = cefform.anaform.KorotUpToDate;
-            }else if (cefform.anaform.Updater.isDownloading && !cefform.anaform.Updater.isUpToDate)
+            }
+            else if (cefform.anaform.Updater.isDownloading && !cefform.anaform.Updater.isUpToDate)
             {
                 btUpdater.Enabled = false;
                 btUpdater.Visible = false;
-                string x =  "" + cefform.anaform.Updater.Progress;
+                string x = "" + cefform.anaform.Updater.Progress;
                 lbUpdateStatus.Text = cefform.anaform.KorotUpdating.Replace("[PERC]", x);
-            }else if (cefform.anaform.Updater.isReady && !cefform.anaform.Updater.isUpToDate)
+            }
+            else if (cefform.anaform.Updater.isReady && !cefform.anaform.Updater.isUpToDate)
             {
                 btUpdater.Enabled = false;
                 btUpdater.Visible = false;
@@ -727,110 +729,110 @@ namespace Korot
             {
                 pSidebar.Width = btSidebar.Width + 20;
             }
-                lbSettings.Visible = !isSideBarClosed; lbSettings.Enabled = !isSideBarClosed;
-                lbDownload.Visible = !isSideBarClosed; lbDownloads.Enabled = !isSideBarClosed;
-                lbHistory.Visible = !isSideBarClosed; lbHistory.Enabled = !isSideBarClosed;
-                lbCollections.Visible = !isSideBarClosed; lbCollections.Enabled = !isSideBarClosed;
-                lbAbout.Visible = !isSideBarClosed; lbAbout.Enabled = !isSideBarClosed;
-                pTitle.Location = new Point(pSidebar.Location.X + pSidebar.Width, pTitle.Location.Y); pTitle.Width = Width - pSidebar.Width;
-                tabControl1.Location = new Point(pSidebar.Location.X + pSidebar.Width - 5, tabControl1.Location.Y); tabControl1.Width = Width - pSidebar.Width + 5;
-                lbLayout.Width = tpSettings.Width - 56;
-                btClear.Width = lbLayout.Width;
-                tlpNewTab.Width = lbLayout.Width;
-                pCleanCache.Width = lbLayout.Width;
-                pCleanHistory.Width = lbLayout.Width;
-                pCleanLog.Width = lbLayout.Width;
-                pCleanDownload.Width = lbLayout.Width;
-                hsCleanCache.Location = new Point(lbCleanCache.Location.X + lbCleanCache.Width, hsCleanCache.Location.Y);
-                hsCleanLog.Location = new Point(lbCleanLog.Location.X + lbCleanLog.Width, hsCleanLog.Location.Y);
-                hsCleanHistory.Location = new Point(lbCleanHistory.Location.X + lbCleanHistory.Width, hsCleanHistory.Location.Y);
-                hsCleanDownload.Location = new Point(lbCleanDownload.Location.X + lbCleanDownload.Width, hsCleanDownload.Location.Y);
-                btClean.Location = new Point(lbLayout.Width - btClean.Width, btClean.Location.Y);
-                nudCC1.Location = new Point(lbCC1.Location.X + lbCC1.Width, nudCC1.Location.Y);
-                lbCC2.Location = new Point(nudCC1.Location.X + nudCC1.Width, lbCC2.Location.Y);
-                hsCC1.Location = new Point(lbCC2.Location.X + lbCC2.Width, hsCC1.Location.Y);
-                nudCC2.Location = new Point(lbCC3.Location.X + lbCC3.Width, nudCC2.Location.Y);
-                lbCC4.Location = new Point(nudCC2.Location.X + nudCC2.Width, lbCC4.Location.Y);
-                hsCC2.Location = new Point(lbCC4.Location.X + lbCC4.Width, hsCC2.Location.Y);
-                nudCHFile.Location = new Point(lbCH1.Location.X + lbCH1.Width, nudCHFile.Location.Y);
-                lbCH2.Location = new Point(nudCHFile.Location.X + nudCHFile.Width, lbCH2.Location.Y);
-                hsCHFile.Location = new Point(lbCH2.Location.X + lbCH2.Width, hsCHFile.Location.Y);
-                nudCHDay.Location = new Point(lbCH3.Location.X + lbCH3.Width, nudCHDay.Location.Y);
-                lbCH4.Location = new Point(nudCHDay.Location.X + nudCHDay.Width, lbCH4.Location.Y);
-                hsCHDay.Location = new Point(lbCH4.Location.X + lbCH4.Width, hsCHDay.Location.Y);
-                nudCHOld.Location = new Point(lbCH5.Location.X + lbCH5.Width, nudCHOld.Location.Y);
-                lbCH6.Location = new Point(nudCHOld.Location.X + nudCHOld.Width, lbCH6.Location.Y);
-                hsCHOld.Location = new Point(lbCH6.Location.X + lbCH6.Width, hsCHOld.Location.Y);
-                nudCDFile.Location = new Point(lbCD1.Location.X + lbCD1.Width, nudCDFile.Location.Y);
-                lbCD2.Location = new Point(nudCDFile.Location.X + nudCDFile.Width, lbCD2.Location.Y);
-                hsCDFile.Location = new Point(lbCD2.Location.X + lbCD2.Width, hsCDFile.Location.Y);
-                nudCDDay.Location = new Point(lbCD3.Location.X + lbCD3.Width, nudCDDay.Location.Y);
-                lbCD4.Location = new Point(nudCDDay.Location.X + nudCDDay.Width, lbCD4.Location.Y);
-                hsCDDay.Location = new Point(lbCD4.Location.X + lbCD4.Width, hsCDDay.Location.Y);
-                nudCDOld.Location = new Point(lbCD5.Location.X + lbCD5.Width, nudCDOld.Location.Y);
-                lbCD6.Location = new Point(nudCDOld.Location.X + nudCDOld.Width, lbCD6.Location.Y);
-                hsCDOld.Location = new Point(lbCD6.Location.X + lbCD6.Width, hsCDOld.Location.Y);
-                nudCLFile.Location = new Point(lbCL1.Location.X + lbCL1.Width, nudCLFile.Location.Y);
-                lbCL2.Location = new Point(nudCLFile.Location.X + nudCLFile.Width, lbCL2.Location.Y);
-                hsCLFile.Location = new Point(lbCL2.Location.X + lbCL2.Width, hsCLFile.Location.Y);
-                nudCLDay.Location = new Point(lbCL3.Location.X + lbCL3.Width, nudCLDay.Location.Y);
-                lbCL4.Location = new Point(nudCLDay.Location.X + nudCLDay.Width, lbCL4.Location.Y);
-                hsCLDay.Location = new Point(lbCL4.Location.X + lbCL4.Width, hsCLDay.Location.Y);
-                nudCLOld.Location = new Point(lbCL5.Location.X + lbCL5.Width, nudCLOld.Location.Y);
-                lbCL6.Location = new Point(nudCLOld.Location.X + nudCLOld.Width, lbCL6.Location.Y);
-                hsCLOld.Location = new Point(lbCL6.Location.X + lbCL6.Width, hsCLOld.Location.Y);
-                flpFrom.Location = new Point(scheduleFrom.Location.X + scheduleFrom.Width, flpFrom.Location.Y);
-                scheduleTo.Location = new Point(flpFrom.Location.X + flpFrom.Width, scheduleTo.Location.Y);
-                flpTo.Location = new Point(scheduleTo.Location.X + scheduleTo.Width, flpTo.Location.Y);
-                flpEvery.Location = new Point(scheduleEvery.Location.X + scheduleEvery.Width, flpEvery.Location.Y);
-                lbVersion.Location = new Point(lbKorot.Location.X + lbKorot.Width, lbVersion.Location.Y);
-                flpClose.Location = new Point(lbCloseColor.Location.X + lbCloseColor.Width, flpClose.Location.Y);
-                flpClose.Width = lbLayout.Width - (lbCloseColor.Width + lbCloseColor.Location.X);
-                flpNewTab.Location = new Point(lbNewTabColor.Location.X + lbNewTabColor.Width, flpNewTab.Location.Y);
-                flpNewTab.Width = lbLayout.Width - (lbNewTabColor.Width + lbNewTabColor.Location.X);
-                hsAutoRestore.Location = new Point(lbautoRestore.Location.X + lbautoRestore.Width, hsAutoRestore.Location.Y);
-                hsFav.Location = new Point(lbShowFavorites.Location.X + lbShowFavorites.Width, hsFav.Location.Y);
-                hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width, hsDoNotTrack.Location.Y);
-                hsFlash.Location = new Point(lbFlash.Location.X + lbFlash.Width, hsFlash.Location.Y);
-                hsOpen.Location = new Point(lbOpen.Location.X + lbOpen.Width, hsOpen.Location.Y);
-                hsDownload.Location = new Point(lbAutoDownload.Location.X + lbAutoDownload.Width, hsDownload.Location.Y);
-                hsProxy.Location = new Point(lbLastProxy.Location.X + lbLastProxy.Width, hsProxy.Location.Y);
-                llLicenses.LinkArea = new LinkArea(0, llLicenses.Text.Length);
-                llLicenses.Location = new Point(label21.Location.X, label21.Location.Y + label21.Size.Height);
-                textBox4.Location = new Point(lbBackImage.Location.X + lbBackImage.Width, textBox4.Location.Y);
-                textBox4.Width = lbLayout.Width - (lbBackImage.Width + lbBackImage.Location.X);
-                tbStartup.Location = new Point(lbAtStartup.Location.X + lbAtStartup.Width, tbStartup.Location.Y);
-                tbStartup.Width = lbLayout.Width - (lbAtStartup.Width + lbAtStartup.Location.X + 15);
-                tbTitle.Location = new Point(lbNTTitle.Location.X + lbNTTitle.Width, tbTitle.Location.Y);
-                tbTitle.Width = lbLayout.Width - (lbNTTitle.Width + lbNTTitle.Location.X);
-                tbSoundLoc.Width = lbLayout.Width - btOpenSound.Width;
-                btOpenSound.Location = new Point(tbSoundLoc.Location.X + tbSoundLoc.Width, btOpenSound.Location.Y);
-                tbUrl.Location = new Point(lbNTUrl.Location.X + lbNTUrl.Width, tbUrl.Location.Y);
-                tbUrl.Width = lbLayout.Width - (lbNTUrl.Width + lbNTUrl.Location.X);
-                flpLayout.Location = new Point(lbBackImageStyle.Location.X + lbBackImageStyle.Width, flpLayout.Location.Y);
-                flpLayout.Width = lbLayout.Width - (lbBackImageStyle.Width + lbBackImageStyle.Location.X);
-                pbBack.Location = new Point(lbBackColor.Location.X + lbBackColor.Width, pbBack.Location.Y);
-                pbForeColor.Location = new Point(lbForeColor.Location.X + lbForeColor.Width, pbForeColor.Location.Y);
-                lbAutoSelect.Location = new Point(pbForeColor.Location.X + pbForeColor.Width, lbAutoSelect.Location.Y);
-                hsDefaultSound.Location = new Point(lbDefaultNotifSound.Location.X + lbDefaultNotifSound.Width, hsDefaultSound.Location.Y);
-                hsAutoForeColor.Location = new Point(lbAutoSelect.Location.X + lbAutoSelect.Width, hsAutoForeColor.Location.Y);
-                hsNinja.Location = new Point(lbNinja.Location.X + lbNinja.Width, hsNinja.Location.Y);
-                pbOverlay.Location = new Point(lbOveralColor.Location.X + lbOveralColor.Width, pbOverlay.Location.Y);
-                tbFolder.Location = new Point(lbDownloadFolder.Location.X + lbDownloadFolder.Width, tbFolder.Location.Y);
-                tbFolder.Width = lbLayout.Width - (lbDownloadFolder.Location.X + lbDownloadFolder.Width + btDownloadFolder.Width);
-                btDownloadFolder.Location = new Point(tbFolder.Location.X + tbFolder.Width, btDownloadFolder.Location.Y);
-                tbTheme.Location = new Point(lbThemeName.Location.X + lbThemeName.Width, tbTheme.Location.Y);
-                tbTheme.Width = lbLayout.Width - (lbThemeName.Location.X + lbThemeName.Width);
-                tbHomepage.Location = new Point(lbHomepage.Location.X + lbHomepage.Width, tbHomepage.Location.Y);
-                tbHomepage.Width = lbLayout.Width - (lbHomepage.Location.X + lbHomepage.Width + rbNewTab.Width);
-                rbNewTab.Location = new Point(tbHomepage.Location.X + tbHomepage.Width, rbNewTab.Location.Y);
-                tbSearchEngine.Location = new Point(lbSearchEngine.Location.X + lbSearchEngine.Width, tbSearchEngine.Location.Y);
-                tbSearchEngine.Width = lbLayout.Width - (lbSearchEngine.Location.X + lbSearchEngine.Width);
-                btReset.Location = new Point(llLicenses.Location.X, llLicenses.Location.Y + llLicenses.Height);
-                lbUpdateStatus.Location = new Point(btReset.Location.X, btReset.Location.Y + btReset.Height);
-                btUpdater.Location = new Point(lbUpdateStatus.Location.X, lbUpdateStatus.Location.Y + lbUpdateStatus.Height);
-                tbLang.Location = new Point(lbLang.Location.X + lbLang.Width, tbLang.Location.Y);
-                tbLang.Width = lbLayout.Width - (lbLang.Location.X + lbLang.Width);
+            lbSettings.Visible = !isSideBarClosed; lbSettings.Enabled = !isSideBarClosed;
+            lbDownload.Visible = !isSideBarClosed; lbDownloads.Enabled = !isSideBarClosed;
+            lbHistory.Visible = !isSideBarClosed; lbHistory.Enabled = !isSideBarClosed;
+            lbCollections.Visible = !isSideBarClosed; lbCollections.Enabled = !isSideBarClosed;
+            lbAbout.Visible = !isSideBarClosed; lbAbout.Enabled = !isSideBarClosed;
+            pTitle.Location = new Point(pSidebar.Location.X + pSidebar.Width, pTitle.Location.Y); pTitle.Width = Width - pSidebar.Width;
+            tabControl1.Location = new Point(pSidebar.Location.X + pSidebar.Width - 5, tabControl1.Location.Y); tabControl1.Width = Width - pSidebar.Width + 5;
+            lbLayout.Width = tpSettings.Width - 56;
+            btClear.Width = lbLayout.Width;
+            tlpNewTab.Width = lbLayout.Width;
+            pCleanCache.Width = lbLayout.Width;
+            pCleanHistory.Width = lbLayout.Width;
+            pCleanLog.Width = lbLayout.Width;
+            pCleanDownload.Width = lbLayout.Width;
+            hsCleanCache.Location = new Point(lbCleanCache.Location.X + lbCleanCache.Width, hsCleanCache.Location.Y);
+            hsCleanLog.Location = new Point(lbCleanLog.Location.X + lbCleanLog.Width, hsCleanLog.Location.Y);
+            hsCleanHistory.Location = new Point(lbCleanHistory.Location.X + lbCleanHistory.Width, hsCleanHistory.Location.Y);
+            hsCleanDownload.Location = new Point(lbCleanDownload.Location.X + lbCleanDownload.Width, hsCleanDownload.Location.Y);
+            btClean.Location = new Point(lbLayout.Width - btClean.Width, btClean.Location.Y);
+            nudCC1.Location = new Point(lbCC1.Location.X + lbCC1.Width, nudCC1.Location.Y);
+            lbCC2.Location = new Point(nudCC1.Location.X + nudCC1.Width, lbCC2.Location.Y);
+            hsCC1.Location = new Point(lbCC2.Location.X + lbCC2.Width, hsCC1.Location.Y);
+            nudCC2.Location = new Point(lbCC3.Location.X + lbCC3.Width, nudCC2.Location.Y);
+            lbCC4.Location = new Point(nudCC2.Location.X + nudCC2.Width, lbCC4.Location.Y);
+            hsCC2.Location = new Point(lbCC4.Location.X + lbCC4.Width, hsCC2.Location.Y);
+            nudCHFile.Location = new Point(lbCH1.Location.X + lbCH1.Width, nudCHFile.Location.Y);
+            lbCH2.Location = new Point(nudCHFile.Location.X + nudCHFile.Width, lbCH2.Location.Y);
+            hsCHFile.Location = new Point(lbCH2.Location.X + lbCH2.Width, hsCHFile.Location.Y);
+            nudCHDay.Location = new Point(lbCH3.Location.X + lbCH3.Width, nudCHDay.Location.Y);
+            lbCH4.Location = new Point(nudCHDay.Location.X + nudCHDay.Width, lbCH4.Location.Y);
+            hsCHDay.Location = new Point(lbCH4.Location.X + lbCH4.Width, hsCHDay.Location.Y);
+            nudCHOld.Location = new Point(lbCH5.Location.X + lbCH5.Width, nudCHOld.Location.Y);
+            lbCH6.Location = new Point(nudCHOld.Location.X + nudCHOld.Width, lbCH6.Location.Y);
+            hsCHOld.Location = new Point(lbCH6.Location.X + lbCH6.Width, hsCHOld.Location.Y);
+            nudCDFile.Location = new Point(lbCD1.Location.X + lbCD1.Width, nudCDFile.Location.Y);
+            lbCD2.Location = new Point(nudCDFile.Location.X + nudCDFile.Width, lbCD2.Location.Y);
+            hsCDFile.Location = new Point(lbCD2.Location.X + lbCD2.Width, hsCDFile.Location.Y);
+            nudCDDay.Location = new Point(lbCD3.Location.X + lbCD3.Width, nudCDDay.Location.Y);
+            lbCD4.Location = new Point(nudCDDay.Location.X + nudCDDay.Width, lbCD4.Location.Y);
+            hsCDDay.Location = new Point(lbCD4.Location.X + lbCD4.Width, hsCDDay.Location.Y);
+            nudCDOld.Location = new Point(lbCD5.Location.X + lbCD5.Width, nudCDOld.Location.Y);
+            lbCD6.Location = new Point(nudCDOld.Location.X + nudCDOld.Width, lbCD6.Location.Y);
+            hsCDOld.Location = new Point(lbCD6.Location.X + lbCD6.Width, hsCDOld.Location.Y);
+            nudCLFile.Location = new Point(lbCL1.Location.X + lbCL1.Width, nudCLFile.Location.Y);
+            lbCL2.Location = new Point(nudCLFile.Location.X + nudCLFile.Width, lbCL2.Location.Y);
+            hsCLFile.Location = new Point(lbCL2.Location.X + lbCL2.Width, hsCLFile.Location.Y);
+            nudCLDay.Location = new Point(lbCL3.Location.X + lbCL3.Width, nudCLDay.Location.Y);
+            lbCL4.Location = new Point(nudCLDay.Location.X + nudCLDay.Width, lbCL4.Location.Y);
+            hsCLDay.Location = new Point(lbCL4.Location.X + lbCL4.Width, hsCLDay.Location.Y);
+            nudCLOld.Location = new Point(lbCL5.Location.X + lbCL5.Width, nudCLOld.Location.Y);
+            lbCL6.Location = new Point(nudCLOld.Location.X + nudCLOld.Width, lbCL6.Location.Y);
+            hsCLOld.Location = new Point(lbCL6.Location.X + lbCL6.Width, hsCLOld.Location.Y);
+            flpFrom.Location = new Point(scheduleFrom.Location.X + scheduleFrom.Width, flpFrom.Location.Y);
+            scheduleTo.Location = new Point(flpFrom.Location.X + flpFrom.Width, scheduleTo.Location.Y);
+            flpTo.Location = new Point(scheduleTo.Location.X + scheduleTo.Width, flpTo.Location.Y);
+            flpEvery.Location = new Point(scheduleEvery.Location.X + scheduleEvery.Width, flpEvery.Location.Y);
+            lbVersion.Location = new Point(lbKorot.Location.X + lbKorot.Width, lbVersion.Location.Y);
+            flpClose.Location = new Point(lbCloseColor.Location.X + lbCloseColor.Width, flpClose.Location.Y);
+            flpClose.Width = lbLayout.Width - (lbCloseColor.Width + lbCloseColor.Location.X);
+            flpNewTab.Location = new Point(lbNewTabColor.Location.X + lbNewTabColor.Width, flpNewTab.Location.Y);
+            flpNewTab.Width = lbLayout.Width - (lbNewTabColor.Width + lbNewTabColor.Location.X);
+            hsAutoRestore.Location = new Point(lbautoRestore.Location.X + lbautoRestore.Width, hsAutoRestore.Location.Y);
+            hsFav.Location = new Point(lbShowFavorites.Location.X + lbShowFavorites.Width, hsFav.Location.Y);
+            hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width, hsDoNotTrack.Location.Y);
+            hsFlash.Location = new Point(lbFlash.Location.X + lbFlash.Width, hsFlash.Location.Y);
+            hsOpen.Location = new Point(lbOpen.Location.X + lbOpen.Width, hsOpen.Location.Y);
+            hsDownload.Location = new Point(lbAutoDownload.Location.X + lbAutoDownload.Width, hsDownload.Location.Y);
+            hsProxy.Location = new Point(lbLastProxy.Location.X + lbLastProxy.Width, hsProxy.Location.Y);
+            llLicenses.LinkArea = new LinkArea(0, llLicenses.Text.Length);
+            llLicenses.Location = new Point(label21.Location.X, label21.Location.Y + label21.Size.Height);
+            textBox4.Location = new Point(lbBackImage.Location.X + lbBackImage.Width, textBox4.Location.Y);
+            textBox4.Width = lbLayout.Width - (lbBackImage.Width + lbBackImage.Location.X);
+            tbStartup.Location = new Point(lbAtStartup.Location.X + lbAtStartup.Width, tbStartup.Location.Y);
+            tbStartup.Width = lbLayout.Width - (lbAtStartup.Width + lbAtStartup.Location.X + 15);
+            tbTitle.Location = new Point(lbNTTitle.Location.X + lbNTTitle.Width, tbTitle.Location.Y);
+            tbTitle.Width = lbLayout.Width - (lbNTTitle.Width + lbNTTitle.Location.X);
+            tbSoundLoc.Width = lbLayout.Width - btOpenSound.Width;
+            btOpenSound.Location = new Point(tbSoundLoc.Location.X + tbSoundLoc.Width, btOpenSound.Location.Y);
+            tbUrl.Location = new Point(lbNTUrl.Location.X + lbNTUrl.Width, tbUrl.Location.Y);
+            tbUrl.Width = lbLayout.Width - (lbNTUrl.Width + lbNTUrl.Location.X);
+            flpLayout.Location = new Point(lbBackImageStyle.Location.X + lbBackImageStyle.Width, flpLayout.Location.Y);
+            flpLayout.Width = lbLayout.Width - (lbBackImageStyle.Width + lbBackImageStyle.Location.X);
+            pbBack.Location = new Point(lbBackColor.Location.X + lbBackColor.Width, pbBack.Location.Y);
+            pbForeColor.Location = new Point(lbForeColor.Location.X + lbForeColor.Width, pbForeColor.Location.Y);
+            lbAutoSelect.Location = new Point(pbForeColor.Location.X + pbForeColor.Width, lbAutoSelect.Location.Y);
+            hsDefaultSound.Location = new Point(lbDefaultNotifSound.Location.X + lbDefaultNotifSound.Width, hsDefaultSound.Location.Y);
+            hsAutoForeColor.Location = new Point(lbAutoSelect.Location.X + lbAutoSelect.Width, hsAutoForeColor.Location.Y);
+            hsNinja.Location = new Point(lbNinja.Location.X + lbNinja.Width, hsNinja.Location.Y);
+            pbOverlay.Location = new Point(lbOveralColor.Location.X + lbOveralColor.Width, pbOverlay.Location.Y);
+            tbFolder.Location = new Point(lbDownloadFolder.Location.X + lbDownloadFolder.Width, tbFolder.Location.Y);
+            tbFolder.Width = lbLayout.Width - (lbDownloadFolder.Location.X + lbDownloadFolder.Width + btDownloadFolder.Width);
+            btDownloadFolder.Location = new Point(tbFolder.Location.X + tbFolder.Width, btDownloadFolder.Location.Y);
+            tbTheme.Location = new Point(lbThemeName.Location.X + lbThemeName.Width, tbTheme.Location.Y);
+            tbTheme.Width = lbLayout.Width - (lbThemeName.Location.X + lbThemeName.Width);
+            tbHomepage.Location = new Point(lbHomepage.Location.X + lbHomepage.Width, tbHomepage.Location.Y);
+            tbHomepage.Width = lbLayout.Width - (lbHomepage.Location.X + lbHomepage.Width + rbNewTab.Width);
+            rbNewTab.Location = new Point(tbHomepage.Location.X + tbHomepage.Width, rbNewTab.Location.Y);
+            tbSearchEngine.Location = new Point(lbSearchEngine.Location.X + lbSearchEngine.Width, tbSearchEngine.Location.Y);
+            tbSearchEngine.Width = lbLayout.Width - (lbSearchEngine.Location.X + lbSearchEngine.Width);
+            btReset.Location = new Point(llLicenses.Location.X, llLicenses.Location.Y + llLicenses.Height);
+            lbUpdateStatus.Location = new Point(btReset.Location.X, btReset.Location.Y + btReset.Height);
+            btUpdater.Location = new Point(lbUpdateStatus.Location.X, lbUpdateStatus.Location.Y + lbUpdateStatus.Height);
+            tbLang.Location = new Point(lbLang.Location.X + lbLang.Width, tbLang.Location.Y);
+            tbLang.Width = lbLayout.Width - (lbLang.Location.X + lbLang.Width);
         }
 
         private void htButton1_Click(object sender, EventArgs e)
@@ -1393,7 +1395,7 @@ namespace Korot
         private void newTSMI_Click(object sender, EventArgs e)
         {
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\"); }
-            HTInputBox input = new HTInputBox("Korot", cefform.anaform.ThemeSaveInfo, new HTDialogBoxContext(MessageBoxButtons.OKCancel,false,true), Path.GetFileNameWithoutExtension(Settings.Theme.ThemeFile)) { Icon = cefform.anaform.Icon, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, SetToDefault = cefform.anaform.SetToDefault, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor };
+            HTInputBox input = new HTInputBox("Korot", cefform.anaform.ThemeSaveInfo, new HTDialogBoxContext(MessageBoxButtons.OKCancel, false, true), Path.GetFileNameWithoutExtension(Settings.Theme.ThemeFile)) { Icon = cefform.anaform.Icon, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, SetToDefault = cefform.anaform.SetToDefault, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor };
             DialogResult result = input.ShowDialog();
             if (result == DialogResult.OK)
             {

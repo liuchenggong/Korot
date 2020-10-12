@@ -48,6 +48,7 @@ namespace Korot
         public frmUpdate Updater;
 
         #region Notification Listener
+
         public string LoadedLang = "";
         private string closeKorotMessage = "Do you want to close Korot?";
 #pragma warning disable 414
@@ -202,6 +203,7 @@ namespace Korot
         #endregion Notification Listener
 
         #region "Translate"
+
         public string HappyBDay = "Happy Birthday!";
         public string CleanCacheMessage = "Cleaning cache requires a restart first." + Environment.NewLine + "Do you still want to continue?";
         public string ThemeSaveInfo = "Please enter a name for this theme.";
@@ -577,7 +579,7 @@ namespace Korot
 
         private void PrintImages()
         {
-            var tabRenderer = TabRenderer as KorotTabRenderer;
+            KorotTabRenderer tabRenderer = TabRenderer as KorotTabRenderer;
             tabRenderer.ApplyColors(Settings.Theme.BackColor, HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor), Settings.Theme.OverlayColor, Settings.Theme.BackColor);
             tabRenderer.Redraw();
             MinimumSize = new System.Drawing.Size(650, 350);
@@ -683,7 +685,7 @@ namespace Korot
 
         public void CreateTab(TitleBarTab referenceTab, string url = "korot://newtab")
         {
-            var _refcef = referenceTab.Content as frmCEF;
+            frmCEF _refcef = referenceTab.Content as frmCEF;
             frmCEF cefform = new frmCEF(this, Settings, isIncognito, url, SafeFileSettingOrganizedClass.LastUser)
             {
                 AutoTabColor = _refcef.AutoTabColor,
@@ -720,7 +722,7 @@ namespace Korot
             frmCEF cefform = new frmCEF(this, Settings, isIncognito, "korot://newtab", SafeFileSettingOrganizedClass.LastUser)
             {
                 AutoTabColor = true,
-                TabColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor,20,false),
+                TabColor = HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false),
             };
             Settings.AllForms.Add(cefform);
             return new TitleBarTab(this)

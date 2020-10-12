@@ -168,7 +168,9 @@ namespace Korot
             {
                 HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox("Korot", cefform.anaform.ChangePicInfo, new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.YesNoCancel))
                 {
-                    BackColor = cefform.Settings.Theme.BackColor, AutoForeColor = false, ForeColor = cefform.Settings.Theme.ForeColor,
+                    BackColor = cefform.Settings.Theme.BackColor,
+                    AutoForeColor = false,
+                    ForeColor = cefform.Settings.Theme.ForeColor,
                     Yes = cefform.anaform.ResetImage,
                     No = cefform.anaform.SelectNewImage,
                     Cancel = cefform.anaform.Cancel,

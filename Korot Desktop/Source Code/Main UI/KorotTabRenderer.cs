@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EasyTabs;
 using HTAlt;
-using EasyTabs;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms.Design;
+using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Windows.Forms;
 using Win32Interop.Enums;
-using System.Drawing.Drawing2D;
-using System.Runtime.CompilerServices;
 
 namespace Korot
 {
     public class KorotTabRenderer : BaseTabRenderer
     {
-        WindowsSizingBoxes _windowsSizingBoxes = null;
-        Font _captionFont = null;
+        private readonly WindowsSizingBoxes _windowsSizingBoxes = null;
+        private readonly Font _captionFont = null;
         public Color BackColor = Color.White;
         public Color OverlayBackColor = Color.White;
-        public Color OverlayColor = Color.FromArgb(255, 71, 191, 255); 
+        public Color OverlayColor = Color.FromArgb(255, 71, 191, 255);
+
         public KorotTabRenderer(TitleBarTabs parentWindow) : base(parentWindow)
         {
             // Initialize the various images to use during rendering
@@ -70,46 +67,16 @@ namespace Korot
             _parentWindow.RedrawTabs();
         }
 
-        public override Font CaptionFont
-        {
-            get
-            {
-                return _captionFont;
-            }
-        }
+        public override Font CaptionFont => _captionFont;
 
-        public override int TabHeight
-        {
-            get
-            {
-                return _parentWindow.WindowState == FormWindowState.Maximized ? base.TabHeight : base.TabHeight + TopPadding;
-            }
-        }
+        public override int TabHeight => _parentWindow.WindowState == FormWindowState.Maximized ? base.TabHeight : base.TabHeight + TopPadding;
 
-        public override int TopPadding
-        {
-            get
-            {
-                return _parentWindow.WindowState == FormWindowState.Maximized ? 0 : 8;
-            }
-        }
+        public override int TopPadding => _parentWindow.WindowState == FormWindowState.Maximized ? 0 : 8;
 
         /// <summary>Since Chrome tabs overlap, we set this property to the amount that they overlap by.</summary>
-        public override int OverlapWidth
-        {
-            get
-            {
-                return 14;
-            }
-        }
+        public override int OverlapWidth => 14;
 
-        public override bool RendersEntireTitleBar
-        {
-            get
-            {
-                return IsWindows10;
-            }
-        }
+        public override bool RendersEntireTitleBar => IsWindows10;
 
         public override bool IsOverSizingBox(Point cursor)
         {
@@ -129,7 +96,6 @@ namespace Korot
                 return;
             }
 
-
             Point screenCoordinates = _parentWindow.PointToScreen(_parentWindow.ClientRectangle.Location);
 
             // Calculate the maximum tab area, excluding the add button and any minimize/maximize/close buttons in the window
@@ -137,11 +103,11 @@ namespace Korot
             _maxTabArea.Width = GetMaxTabAreaWidth(tabs, offset);
             _maxTabArea.Height = TabHeight;
 
-            // Get the width of the content area for each tab by taking the parent window's client width, subtracting the left and right border widths and the 
+            // Get the width of the content area for each tab by taking the parent window's client width, subtracting the left and right border widths and the
             // add button area (if applicable) and then dividing by the number of tabs
             int tabContentWidth = Math.Min(_activeCenterImage.Width, Convert.ToInt32(Math.Floor(Convert.ToDouble(_maxTabArea.Width / tabs.Count))));
 
-            // Determine if we need to redraw the TabImage properties for each tab by seeing if the content width that we calculated above is equal to content 
+            // Determine if we need to redraw the TabImage properties for each tab by seeing if the content width that we calculated above is equal to content
             // width we had in the previous rendering pass
             bool redraw = tabContentWidth != _tabContentWidth || forceRedraw;
 
@@ -278,11 +244,11 @@ namespace Korot
                 graphicsContext.FillEllipse(new SolidBrush(Tools.ShiftBrightness(BackColor, cursorOverAddButton ? 60 : 40, false)), _addButtonArea);
 
                 // Draw horizontal line of plus
-                graphicsContext.DrawLine(new Pen(ForeColor, 1F), 
-                    _addButtonArea.X + ((_addButtonArea.Width / 2)), 
+                graphicsContext.DrawLine(new Pen(ForeColor, 1F),
+                    _addButtonArea.X + ((_addButtonArea.Width / 2)),
                     _addButtonArea.Y + (_addButtonArea.Height - _plusOffset),
                     _addButtonArea.X + ((_addButtonArea.Width / 2)),
-                    _addButtonArea.Y +  _plusOffset);
+                    _addButtonArea.Y + _plusOffset);
 
                 // Draw vertical line of plus
                 graphicsContext.DrawLine(new Pen(ForeColor, 1F),
@@ -292,7 +258,7 @@ namespace Korot
                     _addButtonArea.Y + ((_addButtonArea.Height / 2)));
 
                 // OLD: Draws image
-                
+
                 //graphicsContext.DrawImage(
                 //					cursorOverAddButton
                 //						? _addButtonHoverImage
@@ -348,18 +314,17 @@ namespace Korot
                 tabRightImage = Properties.Resources.InactiveRightNoDivider;
             }
 
-
             if (_suspendRendering)
             {
                 return;
             }
-           
+
             // If we need to redraw the tab image
             if (tab.TabImage == null)
             {
-                var cefform = tab.Content as frmCEF;
+                frmCEF cefform = tab.Content as frmCEF;
                 Color tabColor = cefform.AutoTabColor ? (tab.Active ? Tools.ShiftBrightness(BackColor, 40, false) : Tools.ShiftBrightness(BackColor, 20, false)) : cefform.TabColor;
-                // We render the tab to an internal property so that we don't necessarily have to redraw it in every rendering pass, only if its width or 
+                // We render the tab to an internal property so that we don't necessarily have to redraw it in every rendering pass, only if its width or
                 // status have changed
                 tab.TabImage = new Bitmap(area.Width <= 0 ? 1 : area.Width, tabCenterImage.Height <= 0 ? 1 : tabCenterImage.Height);
 
@@ -406,7 +371,7 @@ namespace Korot
                         int _closeOffsetSize = 10;
                         int _closeOffsetLoc = 5;
 
-                        tabGraphicsContext.DrawPath(new Pen(ForeColor,1F), GetXPath(tab.CloseButtonArea.X + _closeOffsetLoc, tab.CloseButtonArea.Y + _closeOffsetLoc, tab.CloseButtonArea.Width - _closeOffsetSize, tab.CloseButtonArea.Height - _closeOffsetSize));
+                        tabGraphicsContext.DrawPath(new Pen(ForeColor, 1F), GetXPath(tab.CloseButtonArea.X + _closeOffsetLoc, tab.CloseButtonArea.Y + _closeOffsetLoc, tab.CloseButtonArea.Width - _closeOffsetSize, tab.CloseButtonArea.Height - _closeOffsetSize));
 
                         // OLD: Draws image
 
@@ -468,6 +433,7 @@ namespace Korot
                     });
             }
         }
+
         protected override int GetMaxTabAreaWidth(List<TitleBarTab> tabs, Point offset)
         {
             return _parentWindow.ClientRectangle.Width - offset.X -
@@ -481,18 +447,18 @@ namespace Korot
 
     public class KorotWSB : WindowsSizingBoxes
     {
-        public KorotWSB(TitleBarTabs parentWindow) : base(parentWindow) { }
+        public KorotWSB(TitleBarTabs parentWindow) : base(parentWindow)
+        {
+        }
 
         public override void Render(Graphics graphicsContext, Point cursor)
         {
             int right = _parentWindow.ClientRectangle.Width;
-            var tRender = _parentWindow.TabRenderer as KorotTabRenderer;
+            KorotTabRenderer tRender = _parentWindow.TabRenderer as KorotTabRenderer;
             Color inactiveColor = tRender.BackColor;
             Color activeColor = tRender.OverlayColor;
             Color fColor1 = Tools.AutoWhiteBlack(inactiveColor);
             Color fColor2 = Tools.AutoWhiteBlack(activeColor);
-
-
 
             _minimizeButtonArea.X = right - 135;
             _maximizeRestoreButtonArea.X = right - 90;
@@ -501,22 +467,22 @@ namespace Korot
             // Minimize
             bool minimizeButtonHighlighted = _minimizeButtonArea.Contains(cursor);
             graphicsContext.FillRectangle(new SolidBrush(minimizeButtonHighlighted ? activeColor : inactiveColor), _minimizeButtonArea);
-            graphicsContext.DrawLine(new Pen(minimizeButtonHighlighted ? fColor2 : fColor1, 1F), new Point(_minimizeButtonArea.Location.X + ((_minimizeButtonArea.Width / 2) - 5), _minimizeButtonArea.Location.Y + (_minimizeButtonArea.Height / 2)), new Point(_minimizeButtonArea.Location.X + (_minimizeButtonArea.Width / 2) + 5, _minimizeButtonArea.Location.Y + (_minimizeButtonArea.Height/2)));
+            graphicsContext.DrawLine(new Pen(minimizeButtonHighlighted ? fColor2 : fColor1, 1F), new Point(_minimizeButtonArea.Location.X + ((_minimizeButtonArea.Width / 2) - 5), _minimizeButtonArea.Location.Y + (_minimizeButtonArea.Height / 2)), new Point(_minimizeButtonArea.Location.X + (_minimizeButtonArea.Width / 2) + 5, _minimizeButtonArea.Location.Y + (_minimizeButtonArea.Height / 2)));
             //graphicsContext.DrawImage(_minimizeImage, _minimizeButtonArea.X + 17, _minimizeButtonArea.Y + 9);
 
             // Maximize
             bool maximizeButtonHighligted = _maximizeRestoreButtonArea.Contains(cursor);
             bool isMaximized = _parentWindow.WindowState == FormWindowState.Maximized;
             graphicsContext.FillRectangle(new SolidBrush(maximizeButtonHighligted ? activeColor : inactiveColor), _maximizeRestoreButtonArea);
-            graphicsContext.DrawRectangle(new Pen(maximizeButtonHighligted ? fColor2 : fColor1, 1F), _maximizeRestoreButtonArea.X  + ((_maximizeRestoreButtonArea.Width / 5) *2), _maximizeRestoreButtonArea.Y + ((_maximizeRestoreButtonArea.Height / 5) * 2), _maximizeRestoreButtonArea.Width / 5,(!isMaximized ? _maximizeRestoreButtonArea.Width : _maximizeRestoreButtonArea.Height) / 5);
+            graphicsContext.DrawRectangle(new Pen(maximizeButtonHighligted ? fColor2 : fColor1, 1F), _maximizeRestoreButtonArea.X + ((_maximizeRestoreButtonArea.Width / 5) * 2), _maximizeRestoreButtonArea.Y + ((_maximizeRestoreButtonArea.Height / 5) * 2), _maximizeRestoreButtonArea.Width / 5, (!isMaximized ? _maximizeRestoreButtonArea.Width : _maximizeRestoreButtonArea.Height) / 5);
             //graphicsContext.DrawImage(_parentWindow.WindowState == FormWindowState.Maximized ? _restoreImage : _maximizeImage, _maximizeRestoreButtonArea.X + 17, _maximizeRestoreButtonArea.Y + 9);
-
 
             // Close
             bool closeButtonHighlighted = _closeButtonArea.Contains(cursor);
             graphicsContext.FillRectangle(closeButtonHighlighted ? new SolidBrush(activeColor) : new SolidBrush(inactiveColor), _closeButtonArea);
             graphicsContext.DrawPath(new Pen(closeButtonHighlighted ? fColor2 : fColor1, 1F), GetXPath(_closeButtonArea.X + 17, _closeButtonArea.Y + 9, 10, 10));
         }
+
         private static GraphicsPath GetXPath(int x, int y, int w, int h)
         {
             System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();

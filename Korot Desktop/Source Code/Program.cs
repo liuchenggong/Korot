@@ -23,7 +23,6 @@ using CefSharp;
 using CefSharp.WinForms;
 using EasyTabs;
 using HTAlt;
-using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -60,7 +59,7 @@ namespace Korot
             {
                 settings.BirthdayCount++;
             }
-            if(settings.BirthdayCount > 10)
+            if (settings.BirthdayCount > 10)
             {
                 frmAskBirthday askBDay = new frmAskBirthday(settings);
                 askBDay.ShowDialog();
@@ -241,7 +240,7 @@ new TitleBarTab(testApp)
                 {
                     Flash = node.InnerText == "true";
                 }
-                else if(node.Name.ToLower() == "birthday")
+                else if (node.Name.ToLower() == "birthday")
                 {
                     if (node.Attributes["Celebrate"] != null && node.Attributes["Date"] != null && node.Attributes["Count"] != null)
                     {
@@ -514,6 +513,7 @@ new TitleBarTab(testApp)
         #endregion Defaults
 
         #region Properties
+
         public string Birthday { get => _birthday; set => _birthday = value; }
         public bool CelebrateBirthday { get => _celebrateBDay; set => _celebrateBDay = value; }
         public int BirthdayCount { get => _bDayCount; set => _bDayCount = value; }
@@ -1954,6 +1954,7 @@ new TitleBarTab(testApp)
             Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return Rgx.IsMatch(s);
         }
+
         public static string GetUserAgent()
         {
             return "Mozilla/5.0 ( Windows "

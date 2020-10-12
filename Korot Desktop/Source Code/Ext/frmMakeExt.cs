@@ -144,7 +144,9 @@ namespace Korot
             HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Do you really want to clear current workspace?", new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.YesNoCancel))
             {
                 Icon = Icon,
-                BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                BackColor = BackColor,
+                AutoForeColor = false,
+                ForeColor = ForeColor,
                 Yes = "Yes",
                 No = "No",
                 Cancel = "Cancel",
@@ -187,7 +189,9 @@ namespace Korot
                 HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "This action clears current workspace. Do you wish to continue?", new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.YesNoCancel))
                 {
                     Icon = Icon,
-                    BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                    BackColor = BackColor,
+                    AutoForeColor = false,
+                    ForeColor = ForeColor,
                     Yes = "Yes",
                     No = "No",
                     Cancel = "Cancel",
@@ -260,7 +264,9 @@ namespace Korot
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                             Icon = Icon,
                         };
@@ -278,7 +284,9 @@ namespace Korot
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                             Icon = Icon,
                         };
@@ -296,7 +304,9 @@ namespace Korot
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                             Icon = Icon,
                         };
@@ -314,7 +324,9 @@ namespace Korot
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                             Icon = Icon,
                         };
@@ -332,7 +344,9 @@ namespace Korot
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                             Icon = Icon,
                         };
@@ -350,7 +364,9 @@ namespace Korot
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                             Icon = Icon,
                         };
@@ -368,7 +384,9 @@ namespace Korot
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                             Icon = Icon,
                         };
@@ -386,7 +404,9 @@ namespace Korot
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                             Icon = Icon,
                         };
@@ -404,7 +424,9 @@ namespace Korot
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                             Icon = Icon,
                         };
@@ -422,7 +444,9 @@ namespace Korot
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Invalid inner text for \"" + node.Name.ToLower() + "\" node.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                             Icon = Icon,
                         };
@@ -440,7 +464,9 @@ namespace Korot
                     {
                         HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Invalid inner text for \"" + node.Name.ToLower() + "\" node.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                             Icon = Icon,
                         };
@@ -472,7 +498,9 @@ namespace Korot
                             {
                                 HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Setting \"" + subnode.Name + "\" can only get value of \"true\" or \"false\".", new HTDialogBoxContext(MessageBoxButtons.OK))
                                 {
-                                    BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                                    BackColor = BackColor,
+                                    AutoForeColor = false,
+                                    ForeColor = ForeColor,
                                     OK = "OK",
                                     Icon = Icon,
                                 };
@@ -487,7 +515,9 @@ namespace Korot
                             {
                                 HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Setting \"" + subnode.Name + "\" can only get value of \"true\" or \"false\".", new HTDialogBoxContext(MessageBoxButtons.OK))
                                 {
-                                    BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                                    BackColor = BackColor,
+                                    AutoForeColor = false,
+                                    ForeColor = ForeColor,
                                     OK = "OK",
                                     Icon = Icon,
                                 };
@@ -502,7 +532,9 @@ namespace Korot
                             {
                                 HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Setting \"" + subnode.Name + "\" can only get value of \"true\" or \"false\".", new HTDialogBoxContext(MessageBoxButtons.OK))
                                 {
-                                    BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                                    BackColor = BackColor,
+                                    AutoForeColor = false,
+                                    ForeColor = ForeColor,
                                     OK = "OK",
                                     Icon = Icon,
                                 };
@@ -517,7 +549,9 @@ namespace Korot
                             {
                                 HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Setting \"" + subnode.Name + "\" can only get value of \"true\" or \"false\".", new HTDialogBoxContext(MessageBoxButtons.OK))
                                 {
-                                    BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                                    BackColor = BackColor,
+                                    AutoForeColor = false,
+                                    ForeColor = ForeColor,
                                     OK = "OK",
                                     Icon = Icon,
                                 };
@@ -532,7 +566,9 @@ namespace Korot
                             {
                                 HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Setting \"" + subnode.Name + "\" can only get value of \"true\" or \"false\".", new HTDialogBoxContext(MessageBoxButtons.OK))
                                 {
-                                    BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                                    BackColor = BackColor,
+                                    AutoForeColor = false,
+                                    ForeColor = ForeColor,
                                     OK = "OK",
                                     Icon = Icon,
                                 };
@@ -547,7 +583,9 @@ namespace Korot
                             {
                                 HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Setting \"" + subnode.Name + "\" can only get value of \"true\" or \"false\".", new HTDialogBoxContext(MessageBoxButtons.OK))
                                 {
-                                    BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                                    BackColor = BackColor,
+                                    AutoForeColor = false,
+                                    ForeColor = ForeColor,
                                     OK = "OK",
                                     Icon = Icon,
                                 };
@@ -569,7 +607,9 @@ namespace Korot
                 HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Cannot create an extension. Workspace is incomplete. Please fill all informations correctly." + Environment.NewLine + incompleteError, new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.OK))
                 {
                     Icon = Icon,
-                    BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                    BackColor = BackColor,
+                    AutoForeColor = false,
+                    ForeColor = ForeColor,
                     OK = "OK",
                 };
                 mesaj.ShowDialog();
@@ -750,12 +790,14 @@ namespace Korot
                 {
                     string defaultValue = lbLocation.SelectedItem.ToString();
                     int index = lbLocation.SelectedIndex;
-                    HTInputBox input = new HTInputBox(Text, "Please enter a valid address for source.", new HTDialogBoxContext(MessageBoxButtons.OKCancel,false,true), defaultValue)
+                    HTInputBox input = new HTInputBox(Text, "Please enter a valid address for source.", new HTDialogBoxContext(MessageBoxButtons.OKCancel, false, true), defaultValue)
                     {
                         SetToDefault = "Revert",
                         OK = "OK",
                         Cancel = "Cancel",
-                        BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                        BackColor = BackColor,
+                        AutoForeColor = false,
+                        ForeColor = ForeColor,
                         Icon = Icon,
                     };
                     DialogResult res = input.ShowDialog();
@@ -777,12 +819,14 @@ namespace Korot
                 {
                     string defaultValue = lbSafeName.SelectedItem.ToString();
                     int index = lbSafeName.SelectedIndex;
-                    HTInputBox input = new HTInputBox(Text, "Please enter a valid address for target.", new HTDialogBoxContext(MessageBoxButtons.OKCancel,false,true), defaultValue)
+                    HTInputBox input = new HTInputBox(Text, "Please enter a valid address for target.", new HTDialogBoxContext(MessageBoxButtons.OKCancel, false, true), defaultValue)
                     {
                         SetToDefault = "Revert",
                         OK = "OK",
                         Cancel = "Cancel",
-                        BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                        BackColor = BackColor,
+                        AutoForeColor = false,
+                        ForeColor = ForeColor,
                         Icon = Icon,
                     };
                     DialogResult res = input.ShowDialog();
@@ -823,7 +867,9 @@ namespace Korot
                 HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "This action clears current workspace. Do you wish to continue?", new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.YesNoCancel))
                 {
                     Icon = Icon,
-                    BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                    BackColor = BackColor,
+                    AutoForeColor = false,
+                    ForeColor = ForeColor,
                     Yes = "Yes",
                     No = "No",
                     Cancel = "Cancel",
@@ -889,7 +935,9 @@ namespace Korot
                         HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Error while loading old-style manifest file." + Environment.NewLine + "Setting \"autoLoad\" can only get \"1\" or \"0\".", new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             Icon = Icon,
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                         };
                         mesaj.ShowDialog(); clear();
@@ -909,7 +957,9 @@ namespace Korot
                         HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Error while loading old-style manifest file." + Environment.NewLine + "Setting \"onlineFiles\" can only get \"1\" or \"0\".", new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             Icon = Icon,
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                         };
                         mesaj.ShowDialog(); clear();
@@ -929,7 +979,9 @@ namespace Korot
                         HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Error while loading old-style manifest file." + Environment.NewLine + "Setting \"showPopupMenu\" can only get \"1\" or \"0\".", new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             Icon = Icon,
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                         };
                         mesaj.ShowDialog(); clear();
@@ -949,7 +1001,9 @@ namespace Korot
                         HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Error while loading old-style manifest file." + Environment.NewLine + "Setting \"activateScript\" can only get \"1\" or \"0\".", new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             Icon = Icon,
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                         };
                         mesaj.ShowDialog(); clear();
@@ -969,7 +1023,9 @@ namespace Korot
                         HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Error while loading old-style manifest file." + Environment.NewLine + "Setting \"hasProxy\" can only get \"1\" or \"0\".", new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             Icon = Icon,
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                         };
                         mesaj.ShowDialog(); clear();
@@ -989,7 +1045,9 @@ namespace Korot
                         HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Error while loading old-style manifest file." + Environment.NewLine + "Setting \"useHaltroyUpdater\" can only get \"1\" or \"0\".", new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             Icon = Icon,
-                            BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                            BackColor = BackColor,
+                            AutoForeColor = false,
+                            ForeColor = ForeColor,
                             OK = "OK",
                         };
                         mesaj.ShowDialog(); clear();
@@ -1001,7 +1059,9 @@ namespace Korot
                     HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Error while loading old-style manifest file." + Environment.NewLine + "Some required lines are empty.", new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.OK))
                     {
                         Icon = Icon,
-                        BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                        BackColor = BackColor,
+                        AutoForeColor = false,
+                        ForeColor = ForeColor,
                         OK = "OK",
                     };
                     mesaj.ShowDialog(); clear();
@@ -1013,7 +1073,9 @@ namespace Korot
                 HTAlt.WinForms.HTMsgBox mesaj = new HTAlt.WinForms.HTMsgBox(Text, "Error while loading old-style manifest file." + Environment.NewLine + "Some required lines are empty.", new HTAlt.WinForms.HTDialogBoxContext(MessageBoxButtons.OK))
                 {
                     Icon = Icon,
-                    BackColor = BackColor, AutoForeColor = false, ForeColor = ForeColor,
+                    BackColor = BackColor,
+                    AutoForeColor = false,
+                    ForeColor = ForeColor,
                     OK = "OK",
                 };
                 mesaj.ShowDialog(); clear();

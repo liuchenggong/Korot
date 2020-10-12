@@ -52,7 +52,7 @@ namespace Korot
         {
             CefSettings settings = new CefSettings
             {
-                UserAgent = KorotTools.GetUserAgent() 
+                UserAgent = KorotTools.GetUserAgent()
             };
             if (tabform._Incognito) { settings.CachePath = null; settings.PersistSessionCookies = false; settings.RootCachePath = null; }
             else { settings.CachePath = userCache; settings.RootCachePath = userCache; }

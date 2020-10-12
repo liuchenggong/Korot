@@ -127,7 +127,7 @@ namespace Korot
         {
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\"))
             {
-                Program.RemoveDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\",false);
+                Program.RemoveDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\", false);
             }
             RefreshLangList();
         }
