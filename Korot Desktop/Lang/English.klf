@@ -1,4 +1,7 @@
 <Language CompatibleVersion="0.8.3.0">
+  <Translate ID="32BitTitle" Text="You are using unsupported build of Korot." />
+  <Translate ID="32BitDesc" Text="32-bit builds for Korot are now unsupported and updates for your machine is halted.[NEWLINE]You still can build your own Korot from source code." />
+  <Translate ID="32LearnMore" Text="Learn more..." />
   <Translate ID="BDDay" Text="Day:" />
   <Translate ID="BDMonth" Text="Month:" />
   <Translate ID="BDYear" Text="Year" />

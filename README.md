@@ -5,9 +5,9 @@
 # [Korot](https://haltroy.com/Korot.html "Korot's Page")
 A Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy's Website").
 
-Latest Stable Version: [`0.8.2.0`](https://github.com/Haltroy/Korot/tree/0.8.2.0).
+Latest Stable Version: [`0.8.3.0`](https://github.com/Haltroy/Korot/tree/0.8.3.0).
 
-Developing Version: [`0.8.3.0`](https://github.com/Haltroy/Korot/tree/0.8.3.0).
+Developing Version: `0.8.4.0`.
 
 
 <p align="center" style="text-align: center;">
@@ -33,8 +33,9 @@ Developing Version: [`0.8.3.0`](https://github.com/Haltroy/Korot/tree/0.8.3.0).
  | Branch                                                              | CEFSharp Version | VC++ Version | .Net | HTAlt  | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-----|-------------------|
 | [`master`](https://github.com/haltroy/korot)                      | 84 | 2015 | Framework 4.8 | b1.6 | Master | `1.0.0.0`: Unknown |
-| [`0.8.3.0`](https://github.com/Haltroy/Korot/tree/0.8.3.0) | 84 | 2015 | Framework 4.8 | b1.6 | `Development` | ?? October 2020 |
-| [`0.8.2.0`](https://github.com/Haltroy/Korot/tree/0.8.2.0) | 84 | 2015 | Framework 4.8 | b1.5.1 | **Latest Release** | 18 September 2020 |
+| [`0.8.4.0`](https://github.com/Haltroy/Korot/tree/0.8.4.0) | 84 | 2015 | Framework 4.8 | b1.6 | `Development` | ?? November 2020 |
+| [`0.8.3.0`](https://github.com/Haltroy/Korot/tree/0.8.3.0) | 84 | 2015 | Framework 4.8 | b1.6 | **Latest Release** | 13 October 2020 |
+| [`0.8.2.0`](https://github.com/Haltroy/Korot/tree/0.8.2.0) | 84 | 2015 | Framework 4.8 | b1.5.1 | Unsupported | 18 September 2020 |
 | [`0.8.1.1`](https://github.com/Haltroy/Korot/tree/0.8.1.1) | 84 | 2015 | Framework 4.8 | b1.5.1 | Unsupported | 31 August 2020 |
 | [`0.8.1.0`](https://github.com/Haltroy/Korot/tree/0.8.1.0) | 84 | 2015 | Framework 4.8 | b1.5 | Unsupported | 26 August 2020 |
 | [`0.8.0.0`](https://github.com/Haltroy/Korot/tree/0.8.0.0) | 83 | 2015 | Framework 4.8 | b1.4.2 | Unsupported | 27 July 2020 |

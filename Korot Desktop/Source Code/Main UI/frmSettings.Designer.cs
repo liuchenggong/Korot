@@ -283,6 +283,10 @@
             this.tsSepTheme = new System.Windows.Forms.ToolStripSeparator();
             this.TOpenTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.TWebStoreTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.l32title = new System.Windows.Forms.Label();
+            this.l32desc = new System.Windows.Forms.Label();
+            this.ll32bit = new System.Windows.Forms.LinkLabel();
+            this.p32bit = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl1.SuspendLayout();
             this.tpSettings.SuspendLayout();
             this.pCleanDownload.SuspendLayout();
@@ -334,6 +338,7 @@
             this.cmsBStyle.SuspendLayout();
             this.cmsLanguage.SuspendLayout();
             this.cmsTheme.SuspendLayout();
+            this.p32bit.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbTitle
@@ -1084,7 +1089,7 @@
             this.tbTheme.Location = new System.Drawing.Point(77, 2073);
             this.tbTheme.Name = "tbTheme";
             this.tbTheme.ReadOnly = true;
-            this.tbTheme.Size = new System.Drawing.Size(412, 21);
+            this.tbTheme.Size = new System.Drawing.Size(395, 21);
             this.tbTheme.TabIndex = 121;
             this.tbTheme.Tag = "";
             this.tbTheme.Click += new System.EventHandler(this.tbTheme_Click);
@@ -1102,7 +1107,7 @@
             this.pSchedule.Controls.Add(this.scheduleTo);
             this.pSchedule.Location = new System.Drawing.Point(19, 1118);
             this.pSchedule.Name = "pSchedule";
-            this.pSchedule.Size = new System.Drawing.Size(487, 116);
+            this.pSchedule.Size = new System.Drawing.Size(470, 116);
             this.pSchedule.TabIndex = 120;
             // 
             // flpFrom
@@ -1277,7 +1282,7 @@
             this.lb24HType.BackColor = System.Drawing.Color.Transparent;
             this.lb24HType.Location = new System.Drawing.Point(12, 47);
             this.lb24HType.Name = "lb24HType";
-            this.lb24HType.Size = new System.Drawing.Size(472, 19);
+            this.lb24HType.Size = new System.Drawing.Size(455, 19);
             this.lb24HType.TabIndex = 40;
             this.lb24HType.Text = "Based on 24-hour type. Add 12 to hours on PM.";
             // 
@@ -1487,7 +1492,7 @@
             this.flpClose.Controls.Add(this.rbOverlayColor1);
             this.flpClose.Location = new System.Drawing.Point(151, 2036);
             this.flpClose.Name = "flpClose";
-            this.flpClose.Size = new System.Drawing.Size(338, 27);
+            this.flpClose.Size = new System.Drawing.Size(321, 27);
             this.flpClose.TabIndex = 109;
             // 
             // rbBackColor1
@@ -1536,7 +1541,7 @@
             this.flpNewTab.Controls.Add(this.rbOverlayColor);
             this.flpNewTab.Location = new System.Drawing.Point(166, 2005);
             this.flpNewTab.Name = "flpNewTab";
-            this.flpNewTab.Size = new System.Drawing.Size(323, 27);
+            this.flpNewTab.Size = new System.Drawing.Size(306, 27);
             this.flpNewTab.TabIndex = 108;
             // 
             // rbBackColor
@@ -1587,7 +1592,7 @@
             this.flpLayout.Controls.Add(this.rbZoom);
             this.flpLayout.Location = new System.Drawing.Point(181, 1939);
             this.flpLayout.Name = "flpLayout";
-            this.flpLayout.Size = new System.Drawing.Size(308, 27);
+            this.flpLayout.Size = new System.Drawing.Size(291, 27);
             this.flpLayout.TabIndex = 110;
             // 
             // rbNone
@@ -1752,7 +1757,7 @@
             this.textBox4.MaxLength = 2147483647;
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(333, 21);
+            this.textBox4.Size = new System.Drawing.Size(316, 21);
             this.textBox4.TabIndex = 93;
             this.textBox4.Text = "download ivan\'s sexy calculator pls";
             this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
@@ -1777,7 +1782,7 @@
             this.lbLayout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbLayout.Location = new System.Drawing.Point(16, 2157);
             this.lbLayout.Name = "lbLayout";
-            this.lbLayout.Size = new System.Drawing.Size(473, 16);
+            this.lbLayout.Size = new System.Drawing.Size(456, 16);
             this.lbLayout.TabIndex = 97;
             this.lbLayout.Tag = "";
             // 
@@ -1799,7 +1804,7 @@
             this.btOpenSound.FlatAppearance.BorderSize = 0;
             this.btOpenSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btOpenSound.Font = new System.Drawing.Font("Ubuntu", 9F);
-            this.btOpenSound.Location = new System.Drawing.Point(450, 999);
+            this.btOpenSound.Location = new System.Drawing.Point(433, 999);
             this.btOpenSound.Name = "btOpenSound";
             this.btOpenSound.Size = new System.Drawing.Size(27, 26);
             this.btOpenSound.TabIndex = 92;
@@ -1813,7 +1818,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSoundLoc.Location = new System.Drawing.Point(19, 1004);
             this.tbSoundLoc.Name = "tbSoundLoc";
-            this.tbSoundLoc.Size = new System.Drawing.Size(431, 21);
+            this.tbSoundLoc.Size = new System.Drawing.Size(414, 21);
             this.tbSoundLoc.TabIndex = 91;
             this.tbSoundLoc.TextChanged += new System.EventHandler(this.tbSoundLoc_TextChanged);
             // 
@@ -1987,7 +1992,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFolder.Location = new System.Drawing.Point(161, 849);
             this.tbFolder.Name = "tbFolder";
-            this.tbFolder.Size = new System.Drawing.Size(289, 21);
+            this.tbFolder.Size = new System.Drawing.Size(272, 21);
             this.tbFolder.TabIndex = 76;
             this.tbFolder.Tag = "";
             this.tbFolder.TextChanged += new System.EventHandler(this.tbFolder_TextChanged);
@@ -2001,7 +2006,7 @@
             this.btDownloadFolder.FlatAppearance.BorderSize = 0;
             this.btDownloadFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDownloadFolder.Font = new System.Drawing.Font("Ubuntu", 9F);
-            this.btDownloadFolder.Location = new System.Drawing.Point(450, 846);
+            this.btDownloadFolder.Location = new System.Drawing.Point(433, 846);
             this.btDownloadFolder.Name = "btDownloadFolder";
             this.btDownloadFolder.Size = new System.Drawing.Size(27, 26);
             this.btDownloadFolder.TabIndex = 77;
@@ -2051,7 +2056,7 @@
             this.tbUrl.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.tbUrl.Location = new System.Drawing.Point(54, 549);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(429, 21);
+            this.tbUrl.Size = new System.Drawing.Size(412, 21);
             this.tbUrl.TabIndex = 73;
             this.tbUrl.TextChanged += new System.EventHandler(this.tbUrl_TextChanged);
             // 
@@ -2062,7 +2067,7 @@
             this.tbTitle.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.tbTitle.Location = new System.Drawing.Point(65, 516);
             this.tbTitle.Name = "tbTitle";
-            this.tbTitle.Size = new System.Drawing.Size(418, 21);
+            this.tbTitle.Size = new System.Drawing.Size(401, 21);
             this.tbTitle.TabIndex = 72;
             this.tbTitle.TextChanged += new System.EventHandler(this.tbTitle_TextChanged);
             // 
@@ -2091,7 +2096,7 @@
             this.tlpNewTab.RowCount = 2;
             this.tlpNewTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpNewTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpNewTab.Size = new System.Drawing.Size(464, 133);
+            this.tlpNewTab.Size = new System.Drawing.Size(447, 133);
             this.tlpNewTab.TabIndex = 71;
             // 
             // L9
@@ -2099,9 +2104,9 @@
             this.L9.Controls.Add(this.L9T);
             this.L9.Controls.Add(this.L9U);
             this.L9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L9.Location = new System.Drawing.Point(371, 69);
+            this.L9.Location = new System.Drawing.Point(359, 69);
             this.L9.Name = "L9";
-            this.L9.Size = new System.Drawing.Size(90, 61);
+            this.L9.Size = new System.Drawing.Size(85, 61);
             this.L9.TabIndex = 9;
             this.L9.Tag = "9";
             this.L9.Click += new System.EventHandler(this.siteItem_Click);
@@ -2112,7 +2117,7 @@
             this.L9T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L9T.Location = new System.Drawing.Point(0, 20);
             this.L9T.Name = "L9T";
-            this.L9T.Size = new System.Drawing.Size(90, 22);
+            this.L9T.Size = new System.Drawing.Size(85, 22);
             this.L9T.TabIndex = 0;
             this.L9T.Tag = "9";
             this.L9T.Text = "Title";
@@ -2125,7 +2130,7 @@
             this.L9U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L9U.Location = new System.Drawing.Point(0, 42);
             this.L9U.Name = "L9U";
-            this.L9U.Size = new System.Drawing.Size(90, 19);
+            this.L9U.Size = new System.Drawing.Size(85, 19);
             this.L9U.TabIndex = 1;
             this.L9U.Tag = "9";
             this.L9U.Text = "Title";
@@ -2137,9 +2142,9 @@
             this.L8.Controls.Add(this.L8T);
             this.L8.Controls.Add(this.L8U);
             this.L8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L8.Location = new System.Drawing.Point(279, 69);
+            this.L8.Location = new System.Drawing.Point(270, 69);
             this.L8.Name = "L8";
-            this.L8.Size = new System.Drawing.Size(86, 61);
+            this.L8.Size = new System.Drawing.Size(83, 61);
             this.L8.TabIndex = 8;
             this.L8.Tag = "8";
             this.L8.Click += new System.EventHandler(this.siteItem_Click);
@@ -2150,7 +2155,7 @@
             this.L8T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L8T.Location = new System.Drawing.Point(0, 20);
             this.L8T.Name = "L8T";
-            this.L8T.Size = new System.Drawing.Size(86, 22);
+            this.L8T.Size = new System.Drawing.Size(83, 22);
             this.L8T.TabIndex = 0;
             this.L8T.Tag = "8";
             this.L8T.Text = "Title";
@@ -2163,7 +2168,7 @@
             this.L8U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L8U.Location = new System.Drawing.Point(0, 42);
             this.L8U.Name = "L8U";
-            this.L8U.Size = new System.Drawing.Size(86, 19);
+            this.L8U.Size = new System.Drawing.Size(83, 19);
             this.L8U.TabIndex = 1;
             this.L8U.Tag = "8";
             this.L8U.Text = "Title";
@@ -2175,9 +2180,9 @@
             this.L7.Controls.Add(this.L7T);
             this.L7.Controls.Add(this.L7U);
             this.L7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L7.Location = new System.Drawing.Point(187, 69);
+            this.L7.Location = new System.Drawing.Point(181, 69);
             this.L7.Name = "L7";
-            this.L7.Size = new System.Drawing.Size(86, 61);
+            this.L7.Size = new System.Drawing.Size(83, 61);
             this.L7.TabIndex = 7;
             this.L7.Tag = "7";
             this.L7.Click += new System.EventHandler(this.siteItem_Click);
@@ -2188,7 +2193,7 @@
             this.L7T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L7T.Location = new System.Drawing.Point(0, 20);
             this.L7T.Name = "L7T";
-            this.L7T.Size = new System.Drawing.Size(86, 22);
+            this.L7T.Size = new System.Drawing.Size(83, 22);
             this.L7T.TabIndex = 0;
             this.L7T.Tag = "7";
             this.L7T.Text = "Title";
@@ -2201,7 +2206,7 @@
             this.L7U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L7U.Location = new System.Drawing.Point(0, 42);
             this.L7U.Name = "L7U";
-            this.L7U.Size = new System.Drawing.Size(86, 19);
+            this.L7U.Size = new System.Drawing.Size(83, 19);
             this.L7U.TabIndex = 1;
             this.L7U.Tag = "7";
             this.L7U.Text = "Title";
@@ -2213,9 +2218,9 @@
             this.L6.Controls.Add(this.L6T);
             this.L6.Controls.Add(this.L6U);
             this.L6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L6.Location = new System.Drawing.Point(95, 69);
+            this.L6.Location = new System.Drawing.Point(92, 69);
             this.L6.Name = "L6";
-            this.L6.Size = new System.Drawing.Size(86, 61);
+            this.L6.Size = new System.Drawing.Size(83, 61);
             this.L6.TabIndex = 6;
             this.L6.Tag = "6";
             this.L6.Click += new System.EventHandler(this.siteItem_Click);
@@ -2226,7 +2231,7 @@
             this.L6T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L6T.Location = new System.Drawing.Point(0, 20);
             this.L6T.Name = "L6T";
-            this.L6T.Size = new System.Drawing.Size(86, 22);
+            this.L6T.Size = new System.Drawing.Size(83, 22);
             this.L6T.TabIndex = 0;
             this.L6T.Tag = "6";
             this.L6T.Text = "Title";
@@ -2239,7 +2244,7 @@
             this.L6U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L6U.Location = new System.Drawing.Point(0, 42);
             this.L6U.Name = "L6U";
-            this.L6U.Size = new System.Drawing.Size(86, 19);
+            this.L6U.Size = new System.Drawing.Size(83, 19);
             this.L6U.TabIndex = 1;
             this.L6U.Tag = "6";
             this.L6U.Text = "Title";
@@ -2253,7 +2258,7 @@
             this.L5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.L5.Location = new System.Drawing.Point(3, 69);
             this.L5.Name = "L5";
-            this.L5.Size = new System.Drawing.Size(86, 61);
+            this.L5.Size = new System.Drawing.Size(83, 61);
             this.L5.TabIndex = 5;
             this.L5.Tag = "5";
             this.L5.Click += new System.EventHandler(this.siteItem_Click);
@@ -2264,7 +2269,7 @@
             this.L5T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L5T.Location = new System.Drawing.Point(0, 20);
             this.L5T.Name = "L5T";
-            this.L5T.Size = new System.Drawing.Size(86, 22);
+            this.L5T.Size = new System.Drawing.Size(83, 22);
             this.L5T.TabIndex = 0;
             this.L5T.Tag = "5";
             this.L5T.Text = "Title";
@@ -2277,7 +2282,7 @@
             this.L5U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L5U.Location = new System.Drawing.Point(0, 42);
             this.L5U.Name = "L5U";
-            this.L5U.Size = new System.Drawing.Size(86, 19);
+            this.L5U.Size = new System.Drawing.Size(83, 19);
             this.L5U.TabIndex = 1;
             this.L5U.Tag = "5";
             this.L5U.Text = "Title";
@@ -2289,9 +2294,9 @@
             this.L4.Controls.Add(this.L4T);
             this.L4.Controls.Add(this.L4U);
             this.L4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L4.Location = new System.Drawing.Point(371, 3);
+            this.L4.Location = new System.Drawing.Point(359, 3);
             this.L4.Name = "L4";
-            this.L4.Size = new System.Drawing.Size(90, 60);
+            this.L4.Size = new System.Drawing.Size(85, 60);
             this.L4.TabIndex = 4;
             this.L4.Tag = "4";
             this.L4.Click += new System.EventHandler(this.siteItem_Click);
@@ -2302,7 +2307,7 @@
             this.L4T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L4T.Location = new System.Drawing.Point(0, 19);
             this.L4T.Name = "L4T";
-            this.L4T.Size = new System.Drawing.Size(90, 22);
+            this.L4T.Size = new System.Drawing.Size(85, 22);
             this.L4T.TabIndex = 0;
             this.L4T.Tag = "4";
             this.L4T.Text = "Title";
@@ -2315,7 +2320,7 @@
             this.L4U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L4U.Location = new System.Drawing.Point(0, 41);
             this.L4U.Name = "L4U";
-            this.L4U.Size = new System.Drawing.Size(90, 19);
+            this.L4U.Size = new System.Drawing.Size(85, 19);
             this.L4U.TabIndex = 1;
             this.L4U.Tag = "4";
             this.L4U.Text = "Title";
@@ -2327,9 +2332,9 @@
             this.L3.Controls.Add(this.L3T);
             this.L3.Controls.Add(this.L3U);
             this.L3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L3.Location = new System.Drawing.Point(279, 3);
+            this.L3.Location = new System.Drawing.Point(270, 3);
             this.L3.Name = "L3";
-            this.L3.Size = new System.Drawing.Size(86, 60);
+            this.L3.Size = new System.Drawing.Size(83, 60);
             this.L3.TabIndex = 3;
             this.L3.Tag = "3";
             this.L3.Click += new System.EventHandler(this.siteItem_Click);
@@ -2340,7 +2345,7 @@
             this.L3T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L3T.Location = new System.Drawing.Point(0, 19);
             this.L3T.Name = "L3T";
-            this.L3T.Size = new System.Drawing.Size(86, 22);
+            this.L3T.Size = new System.Drawing.Size(83, 22);
             this.L3T.TabIndex = 0;
             this.L3T.Tag = "3";
             this.L3T.Text = "Title";
@@ -2353,7 +2358,7 @@
             this.L3U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L3U.Location = new System.Drawing.Point(0, 41);
             this.L3U.Name = "L3U";
-            this.L3U.Size = new System.Drawing.Size(86, 19);
+            this.L3U.Size = new System.Drawing.Size(83, 19);
             this.L3U.TabIndex = 1;
             this.L3U.Tag = "3";
             this.L3U.Text = "Title";
@@ -2365,9 +2370,9 @@
             this.L2.Controls.Add(this.L2T);
             this.L2.Controls.Add(this.L2U);
             this.L2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L2.Location = new System.Drawing.Point(187, 3);
+            this.L2.Location = new System.Drawing.Point(181, 3);
             this.L2.Name = "L2";
-            this.L2.Size = new System.Drawing.Size(86, 60);
+            this.L2.Size = new System.Drawing.Size(83, 60);
             this.L2.TabIndex = 2;
             this.L2.Tag = "2";
             this.L2.Click += new System.EventHandler(this.siteItem_Click);
@@ -2378,7 +2383,7 @@
             this.L2T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L2T.Location = new System.Drawing.Point(0, 19);
             this.L2T.Name = "L2T";
-            this.L2T.Size = new System.Drawing.Size(86, 22);
+            this.L2T.Size = new System.Drawing.Size(83, 22);
             this.L2T.TabIndex = 0;
             this.L2T.Tag = "2";
             this.L2T.Text = "Title";
@@ -2391,7 +2396,7 @@
             this.L2U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L2U.Location = new System.Drawing.Point(0, 41);
             this.L2U.Name = "L2U";
-            this.L2U.Size = new System.Drawing.Size(86, 19);
+            this.L2U.Size = new System.Drawing.Size(83, 19);
             this.L2U.TabIndex = 1;
             this.L2U.Tag = "2";
             this.L2U.Text = "Title";
@@ -2403,9 +2408,9 @@
             this.L1.Controls.Add(this.L1T);
             this.L1.Controls.Add(this.L1U);
             this.L1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L1.Location = new System.Drawing.Point(95, 3);
+            this.L1.Location = new System.Drawing.Point(92, 3);
             this.L1.Name = "L1";
-            this.L1.Size = new System.Drawing.Size(86, 60);
+            this.L1.Size = new System.Drawing.Size(83, 60);
             this.L1.TabIndex = 1;
             this.L1.Tag = "1";
             this.L1.Click += new System.EventHandler(this.siteItem_Click);
@@ -2416,7 +2421,7 @@
             this.L1T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L1T.Location = new System.Drawing.Point(0, 19);
             this.L1T.Name = "L1T";
-            this.L1T.Size = new System.Drawing.Size(86, 22);
+            this.L1T.Size = new System.Drawing.Size(83, 22);
             this.L1T.TabIndex = 0;
             this.L1T.Tag = "1";
             this.L1T.Text = "Title";
@@ -2429,7 +2434,7 @@
             this.L1U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L1U.Location = new System.Drawing.Point(0, 41);
             this.L1U.Name = "L1U";
-            this.L1U.Size = new System.Drawing.Size(86, 19);
+            this.L1U.Size = new System.Drawing.Size(83, 19);
             this.L1U.TabIndex = 1;
             this.L1U.Tag = "1";
             this.L1U.Text = "Title";
@@ -2444,7 +2449,7 @@
             this.L0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.L0.Location = new System.Drawing.Point(3, 3);
             this.L0.Name = "L0";
-            this.L0.Size = new System.Drawing.Size(86, 60);
+            this.L0.Size = new System.Drawing.Size(83, 60);
             this.L0.TabIndex = 0;
             this.L0.Tag = "0";
             this.L0.Click += new System.EventHandler(this.siteItem_Click);
@@ -2455,7 +2460,7 @@
             this.L0T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L0T.Location = new System.Drawing.Point(0, 17);
             this.L0T.Name = "L0T";
-            this.L0T.Size = new System.Drawing.Size(84, 22);
+            this.L0T.Size = new System.Drawing.Size(81, 22);
             this.L0T.TabIndex = 0;
             this.L0T.Tag = "0";
             this.L0T.Text = "Title";
@@ -2468,7 +2473,7 @@
             this.L0U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L0U.Location = new System.Drawing.Point(0, 39);
             this.L0U.Name = "L0U";
-            this.L0U.Size = new System.Drawing.Size(84, 19);
+            this.L0U.Size = new System.Drawing.Size(81, 19);
             this.L0U.TabIndex = 1;
             this.L0U.Tag = "0";
             this.L0U.Text = "Title";
@@ -2484,7 +2489,7 @@
             this.btClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClear.Location = new System.Drawing.Point(19, 581);
             this.btClear.Name = "btClear";
-            this.btClear.Size = new System.Drawing.Size(464, 23);
+            this.btClear.Size = new System.Drawing.Size(447, 23);
             this.btClear.TabIndex = 70;
             this.btClear.Text = "Clear";
             this.btClear.UseVisualStyleBackColor = true;
@@ -2647,7 +2652,7 @@
             this.rbNewTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbNewTab.AutoSize = true;
             this.rbNewTab.BackColor = System.Drawing.Color.Transparent;
-            this.rbNewTab.Location = new System.Drawing.Point(412, 41);
+            this.rbNewTab.Location = new System.Drawing.Point(395, 41);
             this.rbNewTab.Name = "rbNewTab";
             this.rbNewTab.Size = new System.Drawing.Size(74, 19);
             this.rbNewTab.TabIndex = 46;
@@ -2685,7 +2690,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHomepage.Location = new System.Drawing.Point(104, 39);
             this.tbHomepage.Name = "tbHomepage";
-            this.tbHomepage.Size = new System.Drawing.Size(300, 21);
+            this.tbHomepage.Size = new System.Drawing.Size(283, 21);
             this.tbHomepage.TabIndex = 45;
             this.tbHomepage.Tag = "";
             this.tbHomepage.TextChanged += new System.EventHandler(this.tbHomepage_TextChanged);
@@ -2697,7 +2702,7 @@
             this.tbLang.Location = new System.Drawing.Point(87, 153);
             this.tbLang.Name = "tbLang";
             this.tbLang.ReadOnly = true;
-            this.tbLang.Size = new System.Drawing.Size(399, 21);
+            this.tbLang.Size = new System.Drawing.Size(382, 21);
             this.tbLang.TabIndex = 49;
             this.tbLang.Tag = "";
             this.tbLang.Click += new System.EventHandler(this.tbLang_Click);
@@ -2709,7 +2714,7 @@
             this.tbStartup.Location = new System.Drawing.Point(87, 118);
             this.tbStartup.Name = "tbStartup";
             this.tbStartup.ReadOnly = true;
-            this.tbStartup.Size = new System.Drawing.Size(399, 21);
+            this.tbStartup.Size = new System.Drawing.Size(382, 21);
             this.tbStartup.TabIndex = 49;
             this.tbStartup.Tag = "";
             this.tbStartup.Click += new System.EventHandler(this.tbStartup_Click);
@@ -2722,7 +2727,7 @@
             this.tbSearchEngine.Location = new System.Drawing.Point(116, 79);
             this.tbSearchEngine.Name = "tbSearchEngine";
             this.tbSearchEngine.ReadOnly = true;
-            this.tbSearchEngine.Size = new System.Drawing.Size(370, 21);
+            this.tbSearchEngine.Size = new System.Drawing.Size(353, 21);
             this.tbSearchEngine.TabIndex = 47;
             this.tbSearchEngine.Tag = "";
             this.tbSearchEngine.Click += new System.EventHandler(this.tbSearchEngine_Click);
@@ -2784,6 +2789,7 @@
             // 
             // tpAbout
             // 
+            this.tpAbout.Controls.Add(this.p32bit);
             this.tpAbout.Controls.Add(this.btReset);
             this.tpAbout.Controls.Add(this.lbUpdateStatus);
             this.tpAbout.Controls.Add(this.btUpdater);
@@ -3312,6 +3318,52 @@
             this.TWebStoreTSMI.Text = "Web Store";
             this.TWebStoreTSMI.Click += new System.EventHandler(this.TWebStoreTSMI_Click);
             // 
+            // l32title
+            // 
+            this.l32title.AutoSize = true;
+            this.l32title.BackColor = System.Drawing.Color.Transparent;
+            this.l32title.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.l32title.Location = new System.Drawing.Point(3, 0);
+            this.l32title.Name = "l32title";
+            this.l32title.Size = new System.Drawing.Size(370, 25);
+            this.l32title.TabIndex = 9;
+            this.l32title.Text = "You are using unsupported build of Korot.";
+            // 
+            // l32desc
+            // 
+            this.l32desc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.l32desc.AutoSize = true;
+            this.l32desc.BackColor = System.Drawing.Color.Transparent;
+            this.l32desc.Location = new System.Drawing.Point(3, 25);
+            this.l32desc.Name = "l32desc";
+            this.l32desc.Size = new System.Drawing.Size(459, 30);
+            this.l32desc.TabIndex = 13;
+            this.l32desc.Text = "32-bit builds for Korot are now unsupported and updates for your machine is halte" +
+    "d.\r\nYou still can build your own Korot from source code.";
+            // 
+            // ll32bit
+            // 
+            this.ll32bit.AutoSize = true;
+            this.ll32bit.BackColor = System.Drawing.Color.Transparent;
+            this.ll32bit.Location = new System.Drawing.Point(468, 25);
+            this.ll32bit.Name = "ll32bit";
+            this.ll32bit.Size = new System.Drawing.Size(80, 15);
+            this.ll32bit.TabIndex = 7;
+            this.ll32bit.TabStop = true;
+            this.ll32bit.Text = "Learn more...";
+            this.ll32bit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ll32bit_LinkClicked);
+            // 
+            // p32bit
+            // 
+            this.p32bit.Controls.Add(this.l32title);
+            this.p32bit.Controls.Add(this.l32desc);
+            this.p32bit.Controls.Add(this.ll32bit);
+            this.p32bit.Location = new System.Drawing.Point(18, 287);
+            this.p32bit.Name = "p32bit";
+            this.p32bit.Size = new System.Drawing.Size(560, 100);
+            this.p32bit.TabIndex = 16;
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -3390,6 +3442,8 @@
             this.cmsBStyle.ResumeLayout(false);
             this.cmsLanguage.ResumeLayout(false);
             this.cmsTheme.ResumeLayout(false);
+            this.p32bit.ResumeLayout(false);
+            this.p32bit.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3650,5 +3704,9 @@
         private HTAlt.WinForms.HTSwitch hsCC1;
         private System.Windows.Forms.Label lbCleanHistory;
         private HTAlt.WinForms.HTSwitch hsCleanHistory;
+        private System.Windows.Forms.Label l32title;
+        private System.Windows.Forms.Label l32desc;
+        private System.Windows.Forms.LinkLabel ll32bit;
+        private System.Windows.Forms.FlowLayoutPanel p32bit;
     }
 }
