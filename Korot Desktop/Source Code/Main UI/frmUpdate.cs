@@ -23,11 +23,11 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
+using System.Linq;
+//using System.IO.Compression;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -39,7 +39,7 @@ namespace Korot
         private string downloadUrl;
         private string fileName = "";
         private int UpdateType; //0 = zip 1 = installer
-        private readonly string downloadFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\";
+        private readonly string downloadFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Haltroy\\Korot\\";
         private readonly WebClient WebC = new WebClient();
         public int Progress = 0;
         public bool isUpToDate = false;
@@ -99,6 +99,7 @@ namespace Korot
                             UpdateType = 1;
                             fileName = "install.exe";
                             downloadUrl = Newest.InstallerUrl;
+                            
                             break;
 
                         case KorotVersion.UpdateType.Upgrade:
@@ -113,9 +114,9 @@ namespace Korot
                             downloadUrl = arch.FullUpdate.Replace("[VERSION]", Newest.Version);
                             break;
                     }
-                    if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\")) { Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\", true); }
+                    if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Haltroy\\Korot\\")) { Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Haltroy\\Korot\\", true); }
                     if (File.Exists(downloadFolder + fileName)) { File.Delete(downloadFolder + fileName); }
-                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\");
+                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Haltroy\\Korot\\");
                     isDownloading = true;
                     WebC.DownloadFileAsync(new Uri(downloadUrl), downloadFolder + fileName);
                 }
@@ -129,76 +130,6 @@ namespace Korot
                 }
             }
         }
-
-        private readonly string backupFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateBackup\\";
-
-        private async void GetBackup()
-        {
-            await Task.Run(() =>
-            {
-                if (Directory.Exists(backupFolder))
-                {
-                    Directory.Delete(backupFolder, true);
-                }
-                Directory.CreateDirectory(backupFolder);
-                KorotTools.Copy(Application.StartupPath, backupFolder);
-                try
-                {
-                    string newVerLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateNewVer\\";
-                    if (Directory.Exists(newVerLocation)) { Directory.Delete(newVerLocation, true); }
-                    Directory.CreateDirectory(newVerLocation);
-                    ZipFile.ExtractToDirectory(downloadFolder + fileName, newVerLocation, Encoding.UTF8);
-                    KorotTools.Copy(newVerLocation, Application.StartupPath);
-                    File.Delete(downloadFolder + fileName);
-                    Directory.Delete(newVerLocation, true);
-                    Directory.Delete(backupFolder, true);
-                    if (doRestart)
-                    {
-                        Restart();
-                    }
-                    else
-                    {
-                        Application.Exit();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Output.WriteLine(" [frmUpdate] Error while extracting: " + ex.ToString());
-                    ReturnBackup();
-                }
-            });
-        }
-
-        private async void ReturnBackup()
-        {
-            await Task.Run(() =>
-            {
-                if (!Directory.Exists(Application.StartupPath)) { Directory.CreateDirectory(Application.StartupPath); }
-                KorotTools.Copy(backupFolder, Application.StartupPath);
-                File.Delete(downloadFolder + fileName);
-                string newVerLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\UpdateNewVer\\";
-                if (Directory.Exists(newVerLocation)) { Directory.Delete(newVerLocation, true); }
-                Directory.Delete(backupFolder, true);
-                if (doRestart)
-                {
-                    Restart();
-                }
-                else
-                {
-                    Application.Exit();
-                }
-            });
-        }
-
-        public bool doRestart = false;
-
-        private void Restart(bool notUpdated = false)
-        {
-            Process.Start(Application.ExecutablePath, notUpdated ? "" : "https://github.com/Haltroy/Korot/releases");
-            allowClose = true;
-            Application.Exit();
-        }
-
         private void WebC_DownloadFileAsyncCompleted(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -215,12 +146,14 @@ namespace Korot
             }
             else
             {
+                isDownloading = false;
                 isReady = true;
             }
         }
-
+        private bool alreadyOpenInstaller = false;
         public void ApplyUpdate()
         {
+            if (alreadyOpenInstaller) { return; } else { alreadyOpenInstaller = true; }
             isInstalling = true;
             if (UpdateType == 1)
             {
@@ -230,7 +163,7 @@ namespace Korot
             }
             else
             {
-                GetBackup();
+                Process.Start(Application.StartupPath + "\\KorotUpdate.exe", "\"" + downloadFolder + fileName + "\"");
             }
         }
 

@@ -330,7 +330,7 @@ namespace Korot
             else if (cntrl.Tag is string)
             {
                 string loc = cntrl.Tag as string;
-                cefform.chromiumWebBrowser1.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsyncWhenPageLoaded(HTAlt.Tools.ReadFile(loc, Encoding.UTF8))));
+                cefform.chromiumWebBrowser1.Invoke(new Action(() => cefform.chromiumWebBrowser1.ExecuteScriptAsyncWhenPageLoaded(HTAlt.Tools.ReadFile(loc, Encoding.Unicode))));
             }
         }
 

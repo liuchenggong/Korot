@@ -118,7 +118,7 @@ namespace Korot
         {
             ManifestFile = ManifestFileLocation;
             // Read the file
-            string ManifestXML = HTAlt.Tools.ReadFile(ManifestFileLocation, Encoding.UTF8);
+            string ManifestXML = HTAlt.Tools.ReadFile(ManifestFileLocation, Encoding.Unicode);
             string ExtFolder = new FileInfo(ManifestFileLocation).DirectoryName + "\\";
             Folder = ExtFolder;
             // Write XML to Stream so we don't need to load the same file again.

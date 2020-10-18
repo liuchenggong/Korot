@@ -14,15 +14,15 @@ namespace Korot
             {
                 if (File.Exists(GetUserFolder + "LASTUSER.SFSOC"))
                 {
-                    return HTAlt.Tools.ReadFile(GetUserFolder + "LASTUSER.SFSOC", Encoding.UTF8);
+                    return HTAlt.Tools.ReadFile(GetUserFolder + "LASTUSER.SFSOC", Encoding.Unicode);
                 }
                 else
                 {
-                    HTAlt.Tools.WriteFile(GetUserFolder + "LASTUSER.SFSOC", "", Encoding.UTF8);
+                    HTAlt.Tools.WriteFile(GetUserFolder + "LASTUSER.SFSOC", "", Encoding.Unicode);
                     return LastUser;
                 }
             }
-            set => HTAlt.Tools.WriteFile(GetUserFolder + "LASTUSER.SFSOC", value, Encoding.UTF8);
+            set => HTAlt.Tools.WriteFile(GetUserFolder + "LASTUSER.SFSOC", value, Encoding.Unicode);
         }
 
         public static string LastSession
@@ -31,15 +31,15 @@ namespace Korot
             {
                 if (File.Exists(GetUserFolder + "LASTSESSION.SFSOC"))
                 {
-                    return HTAlt.Tools.ReadFile(GetUserFolder + "LASTSESSION.SFSOC", Encoding.UTF8);
+                    return HTAlt.Tools.ReadFile(GetUserFolder + "LASTSESSION.SFSOC", Encoding.Unicode);
                 }
                 else
                 {
-                    HTAlt.Tools.WriteFile(GetUserFolder + "LASTSESSION.SFSOC", "", Encoding.UTF8);
+                    HTAlt.Tools.WriteFile(GetUserFolder + "LASTSESSION.SFSOC", "", Encoding.Unicode);
                     return LastSession;
                 }
             }
-            set => HTAlt.Tools.WriteFile(GetUserFolder + "LASTSESSION.SFSOC", value, Encoding.UTF8);
+            set => HTAlt.Tools.WriteFile(GetUserFolder + "LASTSESSION.SFSOC", value, Encoding.Unicode);
         }
 
         public static string[] ErrorMenu
@@ -49,11 +49,11 @@ namespace Korot
                 if (File.Exists(GetUserFolder + "ERRORMENU.SFSOC"))
                 {
                     char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-                    return HTAlt.Tools.ReadFile(GetUserFolder + "ERRORMENU.SFSOC", Encoding.UTF8).Split(token);
+                    return HTAlt.Tools.ReadFile(GetUserFolder + "ERRORMENU.SFSOC", Encoding.Unicode).Split(token);
                 }
                 else
                 {
-                    HTAlt.Tools.WriteFile(GetUserFolder + "ERRORMENU.SFSOC", "", Encoding.UTF8);
+                    HTAlt.Tools.WriteFile(GetUserFolder + "ERRORMENU.SFSOC", "", Encoding.Unicode);
                     return ErrorMenu;
                 }
             }
@@ -64,7 +64,7 @@ namespace Korot
                 {
                     newval += x + Environment.NewLine;
                 }
-                HTAlt.Tools.WriteFile(GetUserFolder + "ERRORMENU.SFSOC", newval, Encoding.UTF8);
+                HTAlt.Tools.WriteFile(GetUserFolder + "ERRORMENU.SFSOC", newval, Encoding.Unicode);
             }
         }
     }

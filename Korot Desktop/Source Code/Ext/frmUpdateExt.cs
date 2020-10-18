@@ -67,7 +67,7 @@ namespace Korot
 
         private void readKEM()
         {
-            string Playlist = HTAlt.Tools.ReadFile(extKEM, Encoding.UTF8);
+            string Playlist = HTAlt.Tools.ReadFile(extKEM, Encoding.Unicode);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
             currentVersion = new Version(SplittedFase[1].Substring(1).Replace(Environment.NewLine, ""));
@@ -85,7 +85,7 @@ namespace Korot
 
         private void readKTF()
         {
-            string Playlist = HTAlt.Tools.ReadFile(extKEM, Encoding.UTF8);
+            string Playlist = HTAlt.Tools.ReadFile(extKEM, Encoding.Unicode);
             char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
             string[] SplittedFase = Playlist.Split(token);
             currentVersion = new Version(SplittedFase[1].Substring(1).Replace(Environment.NewLine, ""));

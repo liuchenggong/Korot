@@ -1,5 +1,5 @@
 <p align="center" style="text-align: center;">
-  <img width="128" height="128" src="https://haltroy.com/assets/images/Korot-1.png" />
+  <img width="128" height="128" src="https://en.haltroy.com/assets/images/Korot-1.png" />
 </p>
 
 # [Korot](https://haltroy.com/Korot.html "Korot's Page")
@@ -11,7 +11,7 @@ Developing Version: `0.8.4.0`.
 
 
 <p align="center" style="text-align: center;">
-  <img width="641" height="523" src="https://haltroy.com/assets/images/korot0820.png" />
+  <img width="641" height="523" src="http://en.haltroy.com/assets/images/korot0820.png" />
 </p>
 
 ## Features:
@@ -32,8 +32,9 @@ Developing Version: `0.8.4.0`.
 
  | Branch                                                              | CEFSharp Version | VC++ Version | .Net | HTAlt  | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-----|-------------------|
-| [`master`](https://github.com/haltroy/korot)                      | 84 | 2015 | Framework 4.8 | b1.6 | Master | `1.0.0.0`: Unknown |
-| [`0.8.4.0`](https://github.com/Haltroy/Korot/tree/0.8.4.0) | 84 | 2015 | Framework 4.8 | b1.6 | `Development` | ?? November 2020 |
+| [`master`](https://github.com/haltroy/korot)                      | 85 | 2015 | Framework 4.8 | b1.6 | Master | `1.0.0.0`: Unknown |
+| [`0.8.4.0`](https://github.com/Haltroy/Korot/tree/0.8.4.0) | 85 | 2015 | Framework 4.8 | b1.6 | `Development` | ?? November 2020 |
+| [`0.8.3.1`](https://github.com/Haltroy/Korot/tree/0.8.3.1) | 85 | 2015 | Framework 4.8 | b1.6 | `Development` | ?? Cotober 2020 |
 | [`0.8.3.0`](https://github.com/Haltroy/Korot/tree/0.8.3.0) | 84 | 2015 | Framework 4.8 | b1.6 | **Latest Release** | 13 October 2020 |
 | [`0.8.2.0`](https://github.com/Haltroy/Korot/tree/0.8.2.0) | 84 | 2015 | Framework 4.8 | b1.5.1 | Unsupported | 18 September 2020 |
 | [`0.8.1.1`](https://github.com/Haltroy/Korot/tree/0.8.1.1) | 84 | 2015 | Framework 4.8 | b1.5.1 | Unsupported | 31 August 2020 |

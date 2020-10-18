@@ -391,7 +391,7 @@ namespace Korot
             ToolStripMenuItem item = sender as ToolStripMenuItem;
             if (item.Tag == null || !(item.Tag is RightClickOption)) { return; }
             RightClickOption rco = item.Tag as RightClickOption;
-            chromiumWebBrowser1.ExecuteScriptAsyncWhenPageLoaded(HTAlt.Tools.ReadFile(rco.Script, Encoding.UTF8), true);
+            chromiumWebBrowser1.ExecuteScriptAsyncWhenPageLoaded(HTAlt.Tools.ReadFile(rco.Script, Encoding.Unicode), true);
         }
 
         private void RefreshRCO()

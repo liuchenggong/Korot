@@ -83,7 +83,7 @@ namespace Korot
                         Directory.Delete(tempFolder, true);
                     }
                     Directory.CreateDirectory(tempFolder);
-                    ZipFile.ExtractToDirectory(ExtFile, tempFolder, Encoding.UTF8);
+                    ZipFile.ExtractToDirectory(ExtFile, tempFolder, Encoding.Unicode);
                     ExtFile = tempFolder + "ext.kem";
                     Invoke(new Action(() => ReadKEM(ExtFile)));
                 }
@@ -96,7 +96,7 @@ namespace Korot
                         Directory.Delete(tempFolder, true);
                     }
                     Directory.CreateDirectory(tempFolder);
-                    ZipFile.ExtractToDirectory(ExtFile, tempFolder, Encoding.UTF8);
+                    ZipFile.ExtractToDirectory(ExtFile, tempFolder, Encoding.Unicode);
                     ExtFile = tempFolder + "ext.kem";
                     if (new FileInfo(ExtFile).Length < 1048576)
                     {

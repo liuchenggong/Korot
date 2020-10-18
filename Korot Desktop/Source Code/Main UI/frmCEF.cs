@@ -101,13 +101,28 @@ namespace Korot
             userName = profileName;
             profilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + profileName + "\\";
             userCache = profilePath + "cache\\";
-            InitializeComponent();
+            if (!notifListenMode)
+            {
+                InitializeComponent();
+            }else
+            {
+                InitNLTimer();
+            }
             InitializeChromium();
             RefreshProfilePic();
             foreach (Control x in Controls)
             {
                 try { x.KeyDown += tabform_KeyDown; x.MouseWheel += MouseScroll; x.Font = new Font("Ubuntu", x.Font.Size, x.Font.Style); } catch { continue; }
             }
+        }
+        private void InitNLTimer()
+        {
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 300000;
+            this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
         }
 
         public void LoadDynamicMenu()
@@ -247,28 +262,31 @@ namespace Korot
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
             chromiumWebBrowser1 = new ChromiumWebBrowser("");
             pCEF.Controls.Add(chromiumWebBrowser1);
+            if (!NotificationListenerMode)
+            {
+                chromiumWebBrowser1.FindHandler = new FindHandler(hammenu);
+                chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this);
+                chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(this);
+                chromiumWebBrowser1.LifeSpanHandler = new BrowserLifeSpanHandler(this);
+                chromiumWebBrowser1.KeyDown += tabform_KeyDown;
+                chromiumWebBrowser1.LostFocus += cef_LostFocus;
+                chromiumWebBrowser1.Enter += cef_GotFocus;
+                chromiumWebBrowser1.GotFocus += cef_GotFocus;
+                chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(this);
+                chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this);
+                chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
+                chromiumWebBrowser1.DownloadHandler = new DownloadHandler(this);
+                chromiumWebBrowser1.JsDialogHandler = new JsHandler(this);
+                chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
+                chromiumWebBrowser1.MouseWheel += MouseScroll;
+            }
             chromiumWebBrowser1.IsBrowserInitializedChanged += OnIsBrowserInitializedChanged;
             chromiumWebBrowser1.ConsoleMessage += cef_consoleMessage;
-            chromiumWebBrowser1.FindHandler = new FindHandler(hammenu);
-            chromiumWebBrowser1.KeyboardHandler = new KeyboardHandler(this);
-            chromiumWebBrowser1.RequestHandler = new RequestHandlerKorot(this);
-            chromiumWebBrowser1.DisplayHandler = new DisplayHandler(this);
-            chromiumWebBrowser1.LoadingStateChanged += loadingstatechanged;
             chromiumWebBrowser1.TitleChanged += cef_TitleChanged;
             chromiumWebBrowser1.AddressChanged += cef_AddressChanged;
             chromiumWebBrowser1.LoadError += cef_onLoadError;
-            chromiumWebBrowser1.KeyDown += tabform_KeyDown;
-            chromiumWebBrowser1.LostFocus += cef_LostFocus;
-            chromiumWebBrowser1.Enter += cef_GotFocus;
-            chromiumWebBrowser1.GotFocus += cef_GotFocus;
-            chromiumWebBrowser1.MenuHandler = new ContextMenuHandler(this);
-            chromiumWebBrowser1.LifeSpanHandler = new BrowserLifeSpanHandler(this);
-            chromiumWebBrowser1.DownloadHandler = new DownloadHandler(this);
-            chromiumWebBrowser1.JsDialogHandler = new JsHandler(this);
-            chromiumWebBrowser1.DialogHandler = new MyDialogHandler();
             chromiumWebBrowser1.JavascriptMessageReceived += OnBrowserJavascriptMessageReceived;
             chromiumWebBrowser1.FrameLoadEnd += OnFrameLoadEnd;
-            chromiumWebBrowser1.MouseWheel += MouseScroll;
             chromiumWebBrowser1.Dock = DockStyle.Fill;
             chromiumWebBrowser1.Show();
             chromiumWebBrowser1.Load(string.IsNullOrWhiteSpace(loaduri) ? "korot://newtab" : loaduri);
@@ -290,7 +308,7 @@ namespace Korot
                     {
                         if (y.Settings.autoLoad)
                         {
-                            chromiumWebBrowser1.ExecuteScriptAsync(@"  " + HTAlt.Tools.ReadFile(y.Startup.Replace("[EXTFOLDER]", new FileInfo(y.ManifestFile).Directory + "\\"), Encoding.UTF8));
+                            chromiumWebBrowser1.ExecuteScriptAsync(@"  " + HTAlt.Tools.ReadFile(y.Startup.Replace("[EXTFOLDER]", new FileInfo(y.ManifestFile).Directory + "\\"), Encoding.Unicode));
                         }
                     }
                     startupScriptsExecuted = true;
@@ -300,7 +318,7 @@ namespace Korot
                 {
                     if (y.Settings.autoLoad)
                     {
-                        chromiumWebBrowser1.ExecuteScriptAsync(@"  " + HTAlt.Tools.ReadFile(y.Background.Replace("[EXTFOLDER]", new FileInfo(y.ManifestFile).Directory + "\\"), Encoding.UTF8));
+                        chromiumWebBrowser1.ExecuteScriptAsync(@"  " + HTAlt.Tools.ReadFile(y.Background.Replace("[EXTFOLDER]", new FileInfo(y.ManifestFile).Directory + "\\"), Encoding.Unicode));
                     }
                 }
             }
@@ -464,7 +482,10 @@ namespace Korot
 
         private void tabform_Load(object sender, EventArgs e)
         {
-            timer1.Start();
+            if (NotificationListenerMode)
+            {
+                timer1.Start();
+            }
             LoadLangFromFile(Settings.LanguageSystem.LangFile);
             Uri testUri = new Uri("https://haltroy.com");
             Uri aUri = WebRequest.GetSystemWebProxy().GetProxy(testUri);
@@ -909,7 +930,7 @@ namespace Korot
             List<Proxy> ProxyList = new List<Proxy>();
             List<Proxy> ErrorProxies = new List<Proxy>();
             XmlDocument document = new XmlDocument();
-            document.LoadXml(HTAlt.Tools.ReadFile(ProxyFile, Encoding.UTF8));
+            document.LoadXml(HTAlt.Tools.ReadFile(ProxyFile, Encoding.Unicode));
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
                 if (node.Name.ToLower() == "proxy")
@@ -998,7 +1019,7 @@ namespace Korot
             {
                 if (x.EndsWith(".ktf", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    string Playlist = HTAlt.Tools.ReadFile(x, Encoding.UTF8);
+                    string Playlist = HTAlt.Tools.ReadFile(x, Encoding.Unicode);
                     char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
                     string[] SplittedFase = Playlist.Split(token);
                     if (SplittedFase[9].Substring(1).Replace(Environment.NewLine, "") == "1")
@@ -1589,7 +1610,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             if (save.ShowDialog() == DialogResult.OK)
             {
                 Task<string> htmlText = chromiumWebBrowser1.GetSourceAsync();
-                HTAlt.Tools.WriteFile(save.FileName, htmlText.Result, Encoding.UTF8);
+                HTAlt.Tools.WriteFile(save.FileName, htmlText.Result, Encoding.Unicode);
             }
         }
 
@@ -1953,7 +1974,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
         {
             if (ext.Settings.activateScript)
             {
-                chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(HTAlt.Tools.ReadFile(ext.Startup, Encoding.UTF8), "korot://extension/" + ext.CodeName);
+                chromiumWebBrowser1.GetMainFrame().ExecuteJavaScriptAsync(HTAlt.Tools.ReadFile(ext.Startup, Encoding.Unicode), "korot://extension/" + ext.CodeName);
             }
             if (defaultProxy != null && ext.Settings.hasProxy)
             {
@@ -2293,7 +2314,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
             if (save.ShowDialog() == DialogResult.OK)
             {
                 Task<string> htmlText = chromiumWebBrowser1.GetSourceAsync();
-                HTAlt.Tools.WriteFile(save.FileName, htmlText.Result, Encoding.UTF8);
+                HTAlt.Tools.WriteFile(save.FileName, htmlText.Result, Encoding.Unicode);
             }
         }
 

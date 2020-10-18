@@ -95,7 +95,6 @@ namespace Korot
             this.tpCef = new System.Windows.Forms.TabPage();
             this.pCEF = new System.Windows.Forms.Panel();
             this.tpSettings = new System.Windows.Forms.TabPage();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pNavigate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).BeginInit();
@@ -564,11 +563,6 @@ namespace Korot
             this.tpSettings.TabIndex = 9;
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 300000;
-            this.timer1.Tick += new System.EventHandler(this.tmrNotifListener_Tick);
             // 
             // frmCEF
             // 

@@ -111,24 +111,27 @@ namespace Korot
                 Settings.ThemeChangeForm.Remove(this);
                 ReloadTheme();
             }
-            if (cefform.anaform.Updater.isUpToDate)
+            if (Environment.Is64BitProcess)
             {
-                btUpdater.Enabled = true;
-                btUpdater.Visible = true;
-                lbUpdateStatus.Text = cefform.anaform.KorotUpToDate;
-            }
-            else if (cefform.anaform.Updater.isDownloading && !cefform.anaform.Updater.isUpToDate)
-            {
-                btUpdater.Enabled = false;
-                btUpdater.Visible = false;
-                string x = "" + cefform.anaform.Updater.Progress;
-                lbUpdateStatus.Text = cefform.anaform.KorotUpdating.Replace("[PERC]", x);
-            }
-            else if (cefform.anaform.Updater.isReady && !cefform.anaform.Updater.isUpToDate)
-            {
-                btUpdater.Enabled = false;
-                btUpdater.Visible = false;
-                lbUpdateStatus.Text = cefform.anaform.KorotUpdated;
+                if (cefform.anaform.Updater.isUpToDate)
+                {
+                    btUpdater.Enabled = true;
+                    btUpdater.Visible = true;
+                    lbUpdateStatus.Text = cefform.anaform.KorotUpToDate;
+                }
+                else if (cefform.anaform.Updater.isDownloading && !cefform.anaform.Updater.isUpToDate)
+                {
+                    btUpdater.Enabled = false;
+                    btUpdater.Visible = false;
+                    string x = "" + cefform.anaform.Updater.Progress;
+                    lbUpdateStatus.Text = cefform.anaform.KorotUpdating.Replace("[PERC]", x);
+                }
+                else if (cefform.anaform.Updater.isReady && !cefform.anaform.Updater.isUpToDate)
+                {
+                    btUpdater.Enabled = false;
+                    btUpdater.Visible = false;
+                    lbUpdateStatus.Text = cefform.anaform.KorotUpdated;
+                }
             }
         }
 
@@ -556,7 +559,7 @@ namespace Korot
 
         private void EasterEggs()
         {
-            switch (new Random().Next(0, 10000))
+            switch (new Random().Next(0, 100000))
             {
                 case 6:
                     lbKorot.Text = "Another Chromium-based web browser";
@@ -574,7 +577,7 @@ namespace Korot
                     lbKorot.Text = "web browser made by retarded";
                     break;
 
-                case 3:
+                case 21:
                     lbKorot.Text = "web browser designed to lag and eat ram";
                     break;
 
@@ -588,6 +591,62 @@ namespace Korot
 
                 case 48:
                     lbKorot.Text = "ZStone";
+                    break;
+
+                case 31:
+                    lbKorot.Text = "Ivan's Sexy Web Browser";
+                    break;
+
+                case 69:
+                    lbKorot.Text = "haltroy browser";
+                    break;
+
+                case 420:
+                    lbKorot.Text = "The browser that no one knows";
+                    break;
+
+                case 520:
+                    lbKorot.Text = "hamood habibi";
+                    break;
+
+                case 620:
+                    lbKorot.Text = "Korot: TempleOS Edition???r";
+                    break;
+
+                case 666:
+                    lbKorot.Text = "Korot: Hell Edition";
+                    break;
+
+                case 3301:
+                    lbKorot.Text = "*crypted text saying Korot*";
+                    break;
+
+                case 720:
+                    lbKorot.Text = "Korot: Web Simulator + Space Chalice";
+                    break;
+
+                case 1080:
+                    lbKorot.Text = "It's just a browser, a Chromium-based browser!";
+                    break;
+
+                case 22000:
+                    lbKorot.Text = "a";
+                    break;
+
+                case 12121:
+                    lbKorot.Text = "Turkish browser homoseg K12121";
+                    break;
+
+                case 34000:
+                    lbKorot.Text = "Korot: Android Edition???";
+                    break;
+
+                case 32000:
+                    lbKorot.Text = "Korot: Linux Edition???";
+                    break;
+
+                case 3:
+                    lbKorot.Text = "Korot: Afyon Edition???";
                     break;
 
                 case 7:

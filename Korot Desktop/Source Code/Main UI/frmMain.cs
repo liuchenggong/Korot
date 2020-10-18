@@ -512,26 +512,29 @@ namespace Korot
                 tmrNL.Start();
             }
             list = new MyJumplist(Handle, settings);
+            Updater.CheckForUpdates();
         }
-
+        private void CloseTabs()
+        {
+            Tabs.Clear();
+            Form[] forms = new Form[] { };
+            Array.Resize(ref forms, Settings.AllForms.Count);
+            Settings.AllForms.CopyTo(forms);
+            for (int i = 0; i < forms.Length; i++)
+            {
+                Form x = forms[i];
+                if (x is frmCEF)
+                {
+                    x.Close();
+                    x.Dispose();
+                }
+            }
+        }
         public void CleanNow(bool skipMessage)
         {
             if (skipMessage)
             {
-                Tabs.Clear();
-                Form[] forms = new Form[] { };
-                Array.Resize(ref forms, Settings.AllForms.Count);
-                Settings.AllForms.CopyTo(forms);
-                for (int i = 0; i < forms.Length; i++)
-                {
-                    Form x = forms[i];
-                    if (x is frmCEF)
-                    {
-                        x.Close();
-                        x.Dispose();
-                    }
-                }
-                Cef.Shutdown();
+                CloseTabs();
                 Settings.AutoCleaner.DoCleanup();
             }
             else
@@ -540,20 +543,7 @@ namespace Korot
                 DialogResult result = mesaj.ShowDialog();
                 if (result == DialogResult.Yes)
                 {
-                    Tabs.Clear();
-                    Form[] forms = new Form[] { };
-                    Array.Resize(ref forms, Settings.AllForms.Count);
-                    Settings.AllForms.CopyTo(forms);
-                    for (int i = 0; i < forms.Length; i++)
-                    {
-                        Form x = forms[i];
-                        if (x is frmCEF)
-                        {
-                            x.Close();
-                            x.Dispose();
-                        }
-                    }
-                    Cef.Shutdown();
+                    CloseTabs();
                     Settings.AutoCleaner.DoForceCleanup();
                 }
             }
@@ -790,11 +780,14 @@ namespace Korot
                 {
                     WriteCurrentSession();
                 }
+                CloseTabs();
+                Cef.Shutdown();
                 if (Updater.isReady)
                 {
                     Updater.ApplyUpdate();
                 }
                 CleanNow(true);
+
                 Settings.Save();
             }
         }

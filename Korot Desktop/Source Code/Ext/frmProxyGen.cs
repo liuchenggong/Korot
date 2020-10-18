@@ -91,7 +91,7 @@ namespace Korot
         private void LoadKPF(string kpfloc)
         {
             // Read the file
-            string ManifestXML = HTAlt.Tools.ReadFile(kpfloc, Encoding.UTF8);
+            string ManifestXML = HTAlt.Tools.ReadFile(kpfloc, Encoding.Unicode);
             // Write XML to Stream so we don't need to load the same file again.
             MemoryStream stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);
@@ -141,7 +141,7 @@ namespace Korot
             {
                 savelocation = dialog.FileName;
                 safelocation = Path.GetFileName(savelocation);
-                HTAlt.Tools.WriteFile(dialog.FileName, buildProxyFile, Encoding.UTF8);
+                HTAlt.Tools.WriteFile(dialog.FileName, buildProxyFile, Encoding.Unicode);
             }
         }
 

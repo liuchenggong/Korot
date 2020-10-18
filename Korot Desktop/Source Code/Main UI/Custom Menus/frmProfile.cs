@@ -117,7 +117,7 @@ namespace Korot
             DialogResult dialog = fileDialog.ShowDialog();
             if (dialog == DialogResult.OK)
             {
-                ZipFile.CreateFromDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\", fileDialog.FileName, CompressionLevel.Optimal, true, Encoding.UTF8);
+                ZipFile.CreateFromDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\", fileDialog.FileName, CompressionLevel.Optimal, true, Encoding.Unicode);
             }
         }
 
@@ -132,7 +132,7 @@ namespace Korot
             DialogResult dialog = fileDialog.ShowDialog();
             if (dialog == DialogResult.OK)
             {
-                ZipFile.ExtractToDirectory(fileDialog.FileName, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\", Encoding.UTF8);
+                ZipFile.ExtractToDirectory(fileDialog.FileName, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\", Encoding.Unicode);
             }
         }
 

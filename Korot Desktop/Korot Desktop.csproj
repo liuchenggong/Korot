@@ -355,10 +355,10 @@
     <Compile Include="Source Code\System Stuff\UACControl.cs" />
     <Compile Include="Source Code\Collections\CollectionManagement.cs" />
     <Compile Include="Source Code\System Stuff\ConsoleOutputLog.cs" />
-    <Compile Include="Source Code\Update\frmUpdate.cs">
+    <Compile Include="Source Code\Main UI\frmUpdate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source Code\Update\frmUpdate.Designer.cs">
+    <Compile Include="Source Code\Main UI\frmUpdate.Designer.cs">
       <DependentUpon>frmUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Ext\frmExt.cs">
@@ -432,7 +432,7 @@
       <DependentUpon>frmThemeWizard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source Code\Update\frmUpdate.resx">
+    <EmbeddedResource Include="Source Code\Main UI\frmUpdate.resx">
       <DependentUpon>frmUpdate.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -505,6 +505,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Notification\frmNotificationPermission.resx">
       <DependentUpon>frmNotificationPermission.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Lang\English.klf">
@@ -774,6 +775,10 @@
     <ProjectReference Include="..\EasyTabs\EasyTabs.csproj">
       <Project>{690ba0f7-d8fe-4ebe-ba39-8058086c7a09}</Project>
       <Name>EasyTabs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KorotUpdate\KorotUpdate.csproj">
+      <Project>{6f5571c0-e808-4528-94ab-2e059b6aa558}</Project>
+      <Name>KorotUpdate</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

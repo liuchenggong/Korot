@@ -242,12 +242,12 @@ namespace Korot
                                     string fileLoc = x.Substring(x.IndexOf(codename + ""));
                                     if (cext.FileExists(fileLoc))
                                     {
-                                        return ResourceHandler.FromString(HTAlt.Tools.ReadFile(cext.Folder + fileLoc, Encoding.UTF8));
+                                        return ResourceHandler.FromString(HTAlt.Tools.ReadFile(cext.Folder + fileLoc, Encoding.Unicode));
                                     }
                                 }
                                 else
                                 {
-                                    return ResourceHandler.FromString(HTAlt.Tools.ReadFile(cext.Popup, Encoding.UTF8));
+                                    return ResourceHandler.FromString(HTAlt.Tools.ReadFile(cext.Popup, Encoding.Unicode));
                                 }
                             }
                         }
