@@ -241,7 +241,30 @@ namespace Korot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 格慥㹤਍††琼瑩敬䬾牯瑯⼼楴汴㹥਍††猼祴敬ാ †††戠摯⁹ൻ †††††戠捡杫潲湵㩤⌠〸〰〰഻ †††††挠汯牯›桷瑩㭥਍††††††潦瑮›払湵畴഻ †††素਍਍††††畢瑴湯笠਍††††††潦瑮昭浡汩㩹唠畢瑮㭵਍††††††潦瑮猭穩㩥氠牡敧഻ †††††戠捡杫潲湵㩤⌠〴〰〰഻ †††††挠汯牯›桷瑩㭥਍††††ൽ †㰠猯祴敬ാ㰊栯慥㹤਍戼摯㹹਍††格㸱Ꟃ䥔䱔쉅㲧栯㸱਍††格㸳Ꟃ䕄䍓Ꟃ⼼㍨ാ †㰠㹡Ꟃ䕃呒Ꟃ⼼㹡਍††⼼牢ാ †㰠戯㹲਍††戼瑵潴⁮湯汣捩㵫眢湩潤⹷潬慣楴湯栮敲⁦‽欧牯瑯⼺振牥捴湯楴畮❥㸢Ꟃ佃呎义䕕Ꟃ⼼畢瑴湯ാ㰊戯摯㹹.
+        ///   Looks up a localized string similar to &lt;head&gt;
+        ///    &lt;title&gt;Korot&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            background: #800000;
+        ///            color: white;
+        ///            font: Ubuntu;
+        ///        }
+        ///
+        ///        button {
+        ///            font-family: Ubuntu;
+        ///            font-size: large;
+        ///            background: #400000;
+        ///            color: white;
+        ///        }
+        ///    &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;h1&gt;§TITLE§&lt;/h1&gt;
+        ///    &lt;h3&gt;§DESC§&lt;/h3&gt;
+        ///    &lt;a&gt;§CERT§&lt;/a&gt;
+        ///    &lt;/br&gt;
+        ///    &lt;/br&gt;
+        ///    &lt;button onclick=&quot;window.location.href = &apos;korot://certcontinue&apos;&quot;&gt;§CONTINUE§ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string certerror {
             get {
@@ -649,7 +672,17 @@ namespace Korot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 格慥㹤਍††ℼⴭ䥍⁔楌散獮൥ഊ †䌠灯特杩瑨⠠⥣㈠㈰‰牅湥∠慈瑬潲≹䬠湡瑡਍਍††敐浲獩楳湯椠⁳敨敲祢朠慲瑮摥‬牦敥漠⁦档牡敧‬潴愠祮瀠牥潳⁮扯慴湩湩⁧⁡潣祰਍††景琠楨⁳潳瑦慷敲愠摮愠獳捯慩整⁤潤畣敭瑮瑡潩⁮楦敬⁳琨敨∠潓瑦慷敲⤢‬潴搠慥൬ †椠⁮桴⁥潓瑦慷敲眠瑩潨瑵爠獥牴捩楴湯‬湩汣摵湩⁧楷桴畯⁴楬業慴楴湯琠敨爠杩瑨൳ †琠⁯獵ⱥ挠灯ⱹ洠摯晩ⱹ洠牥敧‬異汢獩ⱨ搠獩牴扩瑵ⱥ猠扵楬散獮ⱥ愠摮漯⁲敳汬਍††潣楰獥漠⁦桴⁥潓瑦慷敲‬湡⁤潴瀠牥業⁴数獲湯⁳潴眠潨⁭桴⁥潓瑦慷敲椠൳ †映牵楮桳摥琠⁯潤猠Ɐ猠扵敪瑣琠⁯桴⁥潦汬睯湩⁧潣摮瑩潩獮ഺഊ †吠敨愠潢敶挠灯特杩瑨渠瑯捩⁥湡⁤桴獩瀠牥業獳潩⁮潮楴散猠慨汬戠⁥湩汣摵摥椠⁮污൬ †挠灯敩⁳牯猠扵瑳湡楴污瀠牯楴湯⁳景琠敨匠景睴牡⹥਍਍††䡔⁅体呆䅗䕒䤠⁓剐噏䑉䑅∠十䤠≓‬䥗䡔問⁔䅗剒乁奔传⁆乁⁙䥋䑎‬塅剐卅⁓剏਍††䵉䱐䕉ⱄ䤠䍎啌䥄䝎䈠呕丠呏䰠䵉呉䑅吠⁏䡔⁅䅗剒乁䥔卅传⁆䕍䍒䅈呎䉁䱉呉ⱙ਍††䥆乔卅⁓但⁒⁁䅐呒䍉䱕剁倠剕佐䕓䄠䑎丠乏义剆义䕇䕍呎‮义丠⁏噅久⁔䡓䱁⁌䡔൅ †䄠呕佈卒传⁒佃奐䥒䡇⁔佈䑌剅⁓䕂䰠䅉䱂⁅但⁒乁⁙䱃䥁ⱍ䐠䵁䝁卅传⁒呏䕈൒ †䰠䅉䥂䥌奔‬䡗呅䕈⁒义䄠 [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;head&gt;
+        ///    &lt;!--MIT License
+        ///
+        ///    Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///
+        ///    Permission is hereby granted, free of charge, to any person obtaining a copy
+        ///    of this software and associated documentation files (the &quot;Software&quot;), to deal
+        ///    in the Software without restriction, including without limitation the rights
+        ///    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        ///    copies of the Software, and to permit persons to whom the Software is
+        ///    furnished to do so, subject t [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string incognito {
             get {
@@ -857,7 +890,19 @@ namespace Korot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 格浴㹬਍ℼⴭ䥍⁔楌散獮൥ഊ䌊灯特杩瑨⠠⥣㈠㈰‰牅湥∠慈瑬潲≹䬠湡瑡਍਍敐浲獩楳湯椠⁳敨敲祢朠慲瑮摥‬牦敥漠⁦档牡敧‬潴愠祮瀠牥潳⁮扯慴湩湩⁧⁡潣祰਍景琠楨⁳潳瑦慷敲愠摮愠獳捯慩整⁤潤畣敭瑮瑡潩⁮楦敬⁳琨敨∠潓瑦慷敲⤢‬潴搠慥൬椊⁮桴⁥潓瑦慷敲眠瑩潨瑵爠獥牴捩楴湯‬湩汣摵湩⁧楷桴畯⁴楬業慴楴湯琠敨爠杩瑨൳琊⁯獵ⱥ挠灯ⱹ洠摯晩ⱹ洠牥敧‬異汢獩ⱨ搠獩牴扩瑵ⱥ猠扵楬散獮ⱥ愠摮漯⁲敳汬਍潣楰獥漠⁦桴⁥潓瑦慷敲‬湡⁤潴瀠牥業⁴数獲湯⁳潴眠潨⁭桴⁥潓瑦慷敲椠൳昊牵楮桳摥琠⁯潤猠Ɐ猠扵敪瑣琠⁯桴⁥潦汬睯湩⁧潣摮瑩潩獮ഺഊ吊敨愠潢敶挠灯特杩瑨渠瑯捩⁥湡⁤桴獩瀠牥業獳潩⁮潮楴散猠慨汬戠⁥湩汣摵摥椠⁮污൬挊灯敩⁳牯猠扵瑳湡楴污瀠牯楴湯⁳景琠敨匠景睴牡⹥਍਍䡔⁅体呆䅗䕒䤠⁓剐噏䑉䑅∠十䤠≓‬䥗䡔問⁔䅗剒乁奔传⁆乁⁙䥋䑎‬塅剐卅⁓剏਍䵉䱐䕉ⱄ䤠䍎啌䥄䝎䈠呕丠呏䰠䵉呉䑅吠⁏䡔⁅䅗剒乁䥔卅传⁆䕍䍒䅈呎䉁䱉呉ⱙ਍䥆乔卅⁓但⁒⁁䅐呒䍉䱕剁倠剕佐䕓䄠䑎丠乏义剆义䕇䕍呎‮义丠⁏噅久⁔䡓䱁⁌䡔൅䄊呕佈卒传⁒佃奐䥒䡇⁔佈䑌剅⁓䕂䰠䅉䱂⁅但⁒乁⁙䱃䥁ⱍ䐠䵁䝁卅传⁒呏䕈൒䰊䅉䥂䥌奔‬䡗呅䕈⁒义䄠⁎䍁䥔乏传⁆佃呎䅒呃‬佔呒传⁒呏䕈坒卉ⱅ䄠䥒䥓䝎䘠佒ⱍ਍問⁔ [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;html&gt;
+        ///&lt;!--MIT License
+        ///
+        ///Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///
+        ///Permission is hereby granted, free of charge, to any person obtaining a copy
+        ///of this software and associated documentation files (the &quot;Software&quot;), to deal
+        ///in the Software without restriction, including without limitation the rights
+        ///to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        ///copies of the Software, and to permit persons to whom the Software is
+        ///furnished to do so, subject to the following conditions:
+        ///
+        ///T [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string newtab {
             get {

@@ -151,9 +151,6 @@
   <data name="ThemeMidnight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\THemeMidnight.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="licenses" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\licenses.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1254</value>
-  </data>
   <data name="hamburger-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hamburger-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -208,17 +205,11 @@
   <data name="profiles-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\profiles-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="incognito" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\incognito.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="extfolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\extfolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="newtab" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\newtab.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="ThemeStrawberry" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ThemeStrawberry.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -340,17 +331,11 @@
   <data name="4-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\4-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="notificationDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\notificationDefault.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="web" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\web.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="restore-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\restore-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="korotlinks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\korotlinks.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1254</value>
   </data>
   <data name="theme" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\theme.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -363,9 +348,6 @@
   </data>
   <data name="ThemeFuchsia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ThemeFuchsia.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="errorpage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\errorpage.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="ThemeDarkLeaf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ThemeDarkLeaf.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -523,9 +505,6 @@
   <data name="YellowColors" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\YellowColors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="certerror" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\certerror.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="Türkçe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\lang\türkçe.klf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -577,7 +556,28 @@
   <data name="Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\easytabsresources\chrome\right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="certerror" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\specialpages\certerror.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="errorpage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\specialpages\errorpage.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="incognito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\specialpages\incognito.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="korotlinks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\specialpages\korotlinks.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1254</value>
+  </data>
+  <data name="licenses" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\specialpages\licenses.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1254</value>
+  </data>
+  <data name="newtab" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\specialpages\newtab.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="notificationDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\specialpages\notificationdefault.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="technical" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\technical.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1254</value>
+    <value>..\specialpages\technical.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1254</value>
   </data>
 </root>

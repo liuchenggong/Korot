@@ -34,7 +34,6 @@ Developing Version: `0.8.4.0`.
 |----------------------------------------------------------------------|------|------|-------|-----------------|-----|-------------------|
 | [`master`](https://github.com/haltroy/korot)                      | 85 | 2015 | Framework 4.8 | b1.6 | Master | `1.0.0.0`: Unknown |
 | [`0.8.4.0`](https://github.com/Haltroy/Korot/tree/0.8.4.0) | 85 | 2015 | Framework 4.8 | b1.6 | `Development` | ?? November 2020 |
-| [`0.8.3.1`](https://github.com/Haltroy/Korot/tree/0.8.3.1) | 85 | 2015 | Framework 4.8 | b1.6 | `Development` | ?? Cotober 2020 |
 | [`0.8.3.0`](https://github.com/Haltroy/Korot/tree/0.8.3.0) | 84 | 2015 | Framework 4.8 | b1.6 | **Latest Release** | 13 October 2020 |
 | [`0.8.2.0`](https://github.com/Haltroy/Korot/tree/0.8.2.0) | 84 | 2015 | Framework 4.8 | b1.5.1 | Unsupported | 18 September 2020 |
 | [`0.8.1.1`](https://github.com/Haltroy/Korot/tree/0.8.1.1) | 84 | 2015 | Framework 4.8 | b1.5.1 | Unsupported | 31 August 2020 |

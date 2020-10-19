@@ -166,6 +166,9 @@
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Ude, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UDE.CSharp.1.1.0\lib\Ude.dll</HintPath>
+    </Reference>
     <Reference Include="Win32Interop.Dwmapi, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Win32Interop.Dwmapi.1.0.1\lib\Win32Interop.Dwmapi.dll</HintPath>
     </Reference>
@@ -187,6 +190,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SimpleHelpers\FileEncoding.cs" />
     <Compile Include="Source Code\Ext\frmProxyGen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -616,7 +620,7 @@
     <None Include="Resources\tip-tema.png" />
     <None Include="Resources\collection.png" />
     <None Include="Resources\collection-w.png" />
-    <None Include="Resources\notificationDefault.js" />
+    <None Include="SpecialPages\notificationDefault.js" />
     <None Include="Resources\download-i1.png" />
     <None Include="Resources\download-i-w1.png" />
     <None Include="Resources\hamburger-i1.png" />
@@ -684,7 +688,7 @@
     <None Include="Resources\ThemeTeal.PNG" />
     <None Include="Resources\PurpleColors.PNG" />
     <None Include="Resources\YellowColors.png" />
-    <None Include="Resources\certerror.html" />
+    <None Include="SpecialPages\certerror.html" />
     <Content Include="Resources\EasyTabsResources\Chrome\Add.png" />
     <Content Include="Resources\EasyTabsResources\Chrome\AddHover.png" />
     <Content Include="Resources\EasyTabsResources\Chrome\Background.png" />
@@ -702,7 +706,7 @@
     <Content Include="Resources\EasyTabsResources\Windows10\Maximize.svg" />
     <Content Include="Resources\EasyTabsResources\Windows10\Minimize.svg" />
     <Content Include="Resources\EasyTabsResources\Windows10\Restore.svg" />
-    <None Include="Resources\technical.html" />
+    <None Include="SpecialPages\technical.html" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -725,7 +729,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\KorotIcon.ico" />
-    <None Include="Resources\licenses.html" />
+    <None Include="SpecialPages\licenses.html" />
     <None Include="Resources\1.png" />
     <None Include="Resources\1-w.png" />
     <None Include="Resources\2.png" />
@@ -738,7 +742,7 @@
     <None Include="Resources\korotcenter.png" />
     <None Include="Resources\korotclose.png" />
     <None Include="Resources\korotleft.png" />
-    <None Include="Resources\incognito.html" />
+    <None Include="SpecialPages\incognito.html" />
     <None Include="Resources\4.png" />
     <None Include="Resources\4-w.png" />
     <None Include="Resources\about.png" />
@@ -755,12 +759,12 @@
     <None Include="Resources\folder-w.png" />
     <None Include="Resources\web-w.png" />
     <Content Include="Source Code\Korot.ico" />
-    <Content Include="Resources\errorpage.html" />
-    <Content Include="Resources\korotlinks.html" />
+    <Content Include="SpecialPages\errorpage.html" />
+    <Content Include="SpecialPages\korotlinks.html" />
     <None Include="Resources\lockg.png" />
     <None Include="Resources\locko.png" />
     <None Include="Resources\lockr.png" />
-    <Content Include="Resources\newtab.html" />
+    <Content Include="SpecialPages\newtab.html" />
     <None Include="Resources\ext-w.png" />
     <None Include="Resources\ext.png" />
     <None Include="Resources\profiles-w.png" />

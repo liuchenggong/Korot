@@ -37,7 +37,7 @@ namespace Korot
 {
     public static class VersionInfo
     {
-        public static string CodeName => "Qarabağ";
+        public static string CodeName => "Interstellar";
 
         public static int VersionNumber = 52;
     }
@@ -92,8 +92,9 @@ namespace Korot
                     settings.AllForms.Add(testApp);
                     bool isIncognito = args.Contains("-incognito");
                     if (SafeFileSettingOrganizedClass.LastUser == "") { SafeFileSettingOrganizedClass.LastUser = "user0"; }
-                    foreach (string x in args)
+                    for (int i = 0; i < args.Length; i++)
                     {
+                        string x = args[i];
                         if (x == Application.ExecutablePath || x == "-oobe" || x == "-update") { }
                         else if (x == "-incognito")
                         {
@@ -1596,6 +1597,20 @@ new TitleBarTab(testApp)
 
     public class KorotTools
     {
+        public static Encoding GetFileEncoding(string fileName)
+        {
+            using (var reader = new StreamReader(fileName, Encoding.Default, true))
+            {
+                reader.Peek(); // you need this!
+                return reader.CurrentEncoding;
+            }
+        }
+
+        public static void CovertStringToUTF16(string fileName)
+        {
+            string cv = HTAlt.Tools.ReadFile(fileName, GetFileEncoding(fileName));
+            HTAlt.Tools.WriteFile(fileName, cv, Encoding.Unicode);
+        }
         public static string getOSInfo()
         {
             string fullName = System.Runtime.InteropServices.RuntimeInformation.OSDescription;

@@ -197,7 +197,7 @@ namespace Korot
                     }
                     else if (request.Url.ToLower().StartsWith("korot://licenses"))
                     {
-                        return ResourceHandler.FromString(Properties.Resources.licenses.Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§UF§", CefForm.anaform.ubuntuLicense).Replace("§TITLE§", CefForm.anaform.licenseTitle).Replace("§ET§", CefForm.anaform.etLicense).Replace("§K§", CefForm.anaform.kLicense).Replace("§VS§", CefForm.anaform.vsLicense).Replace("§CH§", CefForm.anaform.chLicense).Replace("§CEF§", CefForm.anaform.cefLicense).Replace("§ST§", CefForm.anaform.specialThanks));
+                        return ResourceHandler.FromString(Properties.Resources.licenses.Replace("§OCOLOR§", Tools.IsBright(CefForm.Settings.Theme.OverlayColor) ? "black" : "white").Replace("§OVERLAYCOLOR§",Tools.ColorToHex(CefForm.Settings.Theme.OverlayColor)).Replace("§OVERLAYCOLOR2§", Tools.ColorToHex(Tools.ShiftBrightness(CefForm.Settings.Theme.OverlayColor,20,false))).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§UF§", CefForm.anaform.ubuntuLicense).Replace("§TITLE§", CefForm.anaform.licenseTitle).Replace("§ET§", CefForm.anaform.etLicense).Replace("§K§", CefForm.anaform.kLicense).Replace("§VS§", CefForm.anaform.vsLicense).Replace("§CH§", CefForm.anaform.chLicense).Replace("§CEF§", CefForm.anaform.cefLicense).Replace("§ST§", CefForm.anaform.specialThanks));
                     }
                     else if (request.Url.StartsWith("korot://error"))
                     {
