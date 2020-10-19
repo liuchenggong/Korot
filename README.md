@@ -7,7 +7,7 @@ A Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy's Website"
 
 Latest Stable Version: [`0.8.3.0`](https://github.com/Haltroy/Korot/tree/0.8.3.0).
 
-Developing Version: `0.8.4.0`.
+Developing Version: [`0.8.4.0`](https://github.com/Haltroy/Korot/tree/0.8.4.0).
 
 
 <p align="center" style="text-align: center;">
