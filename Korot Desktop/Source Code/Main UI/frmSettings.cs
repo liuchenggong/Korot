@@ -1485,7 +1485,7 @@ namespace Korot
             if (result == DialogResult.OK)
             {
                 string themeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + input.TextValue + ".ktf";
-                Theme saveTheme = new Theme("")
+                Theme saveTheme = new Theme("",Settings)
                 {
                     ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + input.TextValue + ".ktf",
                     BackColor = Settings.Theme.BackColor,

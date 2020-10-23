@@ -530,7 +530,7 @@ namespace Korot
         private void htButton1_Click(object sender, EventArgs e)
         {
             KorotTools.createThemes();
-            Settings.Theme = new Theme(themePath + Theme.ToString() + ".ktf");
+            Settings.Theme = new Theme(themePath + Theme.ToString() + ".ktf",Settings);
             Settings.JustChangedTheme();
             Settings.Save();
             Close();

@@ -50,10 +50,13 @@ namespace Korot
         private void timer1_Tick(object sender, EventArgs e)
         {
             string[] ErrorMenu = SafeFileSettingOrganizedClass.ErrorMenu;
-            label1.Text = ErrorMenu[0];
-            label2.Text = ErrorMenu[1].Replace("[NEWLINE]", Environment.NewLine);
-            label3.Text = ErrorMenu[2];
-            btRestart.Text = ErrorMenu[3];
+            if (ErrorMenu.Length > 2)
+            {
+                label1.Text = ErrorMenu[0];
+                label2.Text = ErrorMenu[1].Replace("[NEWLINE]", Environment.NewLine);
+                label3.Text = ErrorMenu[2];
+                btRestart.Text = ErrorMenu[3];
+            }
             BackColor = Settings.Theme.BackColor;
             ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;
             Color BackColor2 = Settings.NinjaMode ? Settings.Theme.BackColor : HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 20, false);

@@ -39,7 +39,10 @@ namespace Korot
                 IconReference = new IconReference(Application.ExecutablePath, 0)
             };
             list.AddUserTasks(jlN);
-            list.Refresh();
+            try
+            {
+                list.Refresh();
+            }catch (Exception) { } //ignored
         }
     }
 }

@@ -176,7 +176,7 @@ namespace Korot
             Theme extension;
             try
             {
-                extension = new Theme(fileLocation);
+                extension = new Theme(fileLocation,Settings);
                 Invoke(new Action(() =>
                 {
                     lbName.Text = extension.Name;

@@ -516,7 +516,7 @@ namespace Korot
                 pbIncognito.Visible = false;
                 tbAddress.Size = new Size(tbAddress.Size.Width + pbIncognito.Size.Width, tbAddress.Size.Height);
             }
-            Settings.Extensions.UpdateExtensions();
+            updateAddons();
         }
 
         private readonly string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\IconStorage\\";
@@ -681,7 +681,6 @@ namespace Korot
                 anaform.DownloadsText = Settings.LanguageSystem.GetItemText("Downloads");
                 anaform.HistoryText = Settings.LanguageSystem.GetItemText("History");
                 anaform.ThemesText = Settings.LanguageSystem.GetItemText("Themes");
-                anaform.ubuntuLicense = Settings.LanguageSystem.GetItemText("UbuntuFontLicense");
                 anaform.updateTitleTheme = Settings.LanguageSystem.GetItemText("KorotThemeUpdater");
                 anaform.updateTitleExt = Settings.LanguageSystem.GetItemText("KorotExtensionUpdater");
                 anaform.updateExtInfo = Settings.LanguageSystem.GetItemText("ExtensionUpdatingInfo");
@@ -704,12 +703,6 @@ namespace Korot
                 anaform.saveLinkAs = Settings.LanguageSystem.GetItemText("SaveLinkAs");
                 anaform.empty = Settings.LanguageSystem.GetItemText("Empty");
                 anaform.licenseTitle = Settings.LanguageSystem.GetItemText("TitleLicensesSpecialThanks");
-                anaform.kLicense = Settings.LanguageSystem.GetItemText("KorotLicense");
-                anaform.vsLicense = Settings.LanguageSystem.GetItemText("MSVS2019CLicense");
-                anaform.chLicense = Settings.LanguageSystem.GetItemText("ChromiumLicense");
-                anaform.cefLicense = Settings.LanguageSystem.GetItemText("CefSharpLicense");
-                anaform.etLicense = Settings.LanguageSystem.GetItemText("EasyTabsLicense");
-                anaform.specialThanks = Settings.LanguageSystem.GetItemText("SpecialThanks");
                 anaform.JSAlert = Settings.LanguageSystem.GetItemText("MessageDialog");
                 anaform.JSConfirm = Settings.LanguageSystem.GetItemText("ConfirmDialog");
                 anaform.selectAFolder = Settings.LanguageSystem.GetItemText("DownloadFolderInfo");
@@ -759,10 +752,8 @@ namespace Korot
                 anaform.uptodate = Settings.LanguageSystem.GetItemText("UpToDate");
                 anaform.installStatus = Settings.LanguageSystem.GetItemText("UpdatingMessage");
                 anaform.StatusType = Settings.LanguageSystem.GetItemText("DownloadProgress");
-                anaform.updateavailable = Settings.LanguageSystem.GetItemText("UpdateAvailable"); ;
                 anaform.privatemode = Settings.LanguageSystem.GetItemText("Incognito");
                 anaform.updateTitle = Settings.LanguageSystem.GetItemText("KorotUpdate");
-                anaform.updateMessage = Settings.LanguageSystem.GetItemText("KorotUpdateAvailable");
                 anaform.updateError = Settings.LanguageSystem.GetItemText("KorotUpdateError");
                 anaform.NewTabtitle = Settings.LanguageSystem.GetItemText("NewTab");
                 anaform.customSearchNote = Settings.LanguageSystem.GetItemText("SearchEngineInfo");
@@ -1013,29 +1004,19 @@ namespace Korot
             Output.WriteLine(" [Korot.ConsoleMessage] Message received: [Line: " + e.Line + " Level: " + e.Level + " Source: " + e.Source + " Message:" + e.Message + "]");
         }
 
-        public void updateThemes()
+        public void updateAddons()
         {
+            if(anaform.addonsUpdated) { return; }
+            Settings.Extensions.UpdateExtensions();
             foreach (string x in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\", "*.*", SearchOption.AllDirectories))
             {
                 if (x.EndsWith(".ktf", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    string Playlist = HTAlt.Tools.ReadFile(x, Encoding.Unicode);
-                    char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-                    string[] SplittedFase = Playlist.Split(token);
-                    if (SplittedFase[9].Substring(1).Replace(Environment.NewLine, "") == "1")
-                    {
-                        frmUpdateExt extUpdate = new frmUpdateExt(x, true, Settings)
-                        {
-                            Text = anaform.updateTitleTheme
-                        };
-                        extUpdate.label1.Text = anaform.updateExtInfo
-.Replace("[NAME]", SplittedFase[0].Substring(0).Replace(Environment.NewLine, ""))
-.Replace("[NEWLINE]", Environment.NewLine);
-                        extUpdate.infoTemp = anaform.StatusType;
-                        extUpdate.Show();
-                    }
+                    Theme theme = new Theme(x, Settings);
+                    theme.Update();
                 }
             }
+            anaform.addonsUpdated = true;
         }
 
         public bool certError = false;

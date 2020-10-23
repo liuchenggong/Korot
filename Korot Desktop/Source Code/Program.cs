@@ -23,6 +23,7 @@ using CefSharp;
 using CefSharp.WinForms;
 using EasyTabs;
 using HTAlt;
+using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -50,6 +51,8 @@ namespace Korot
             Cef.EnableHighDPISupport();
             KorotTools.createFolders();
             KorotTools.createThemes();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             if (!File.Exists(Application.StartupPath + "\\Lang\\English.klf"))
             {
                 KorotTools.FixDefaultLanguage();
@@ -64,8 +67,6 @@ namespace Korot
                 frmAskBirthday askBDay = new frmAskBirthday(settings);
                 askBDay.ShowDialog();
             }
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             bool appStarted = false;
             List<frmNotification> notifications = new List<frmNotification>();
             try
@@ -152,6 +153,8 @@ new TitleBarTab(testApp)
         {
             ProfileName = Profile;
             Extensions.Settings = this;
+            LanguageSystem.Settings = this;
+            Theme.Settings = this;
             if (string.IsNullOrWhiteSpace(Profile))
             {
                 LoadedDefaults = true;
@@ -270,7 +273,7 @@ new TitleBarTab(testApp)
                 {
                     string themeFile = node.Attributes["File"] != null ? node.Attributes["File"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
                     if (!File.Exists(themeFile)) { themeFile = ""; }
-                    Theme = new Theme(themeFile);
+                    Theme = new Theme(themeFile,this);
                     foreach (XmlNode subnode in node.ChildNodes)
                     {
                         if (subnode.Name.ToLower() == "name")
@@ -465,62 +468,17 @@ new TitleBarTab(testApp)
             {
                 Downloads.DownloadDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads\\";
             }
-            _AutoCleaner.Settings = this;
+            AutoCleaner.Settings = this;
         }
 
-        #region Defaults
-
-        private string _birthday = "";
-        private bool _celebrateBDay = true;
-        private int _bDayCount = 0;
-        private AutoCleaner _AutoCleaner = new AutoCleaner("");
-        private bool _UseDefaultSound = true;
-        private string _SoundLoc = "";
-        private bool _NinjaMode = false;
-        private List<BlockSite> _Filters = new List<BlockSite>();
-        private NewTabSites _NewTabSites = new NewTabSites("");
-        private bool _Flash = false;
-        public bool LoadedDefaults = false;
-        private bool _Silent = false;
-        private List<Site> _Sites = new List<Site>();
-        private bool _AutoSilent = false;
-        private bool _DoNotPlaySound = false;
-        private bool _QuietMode = false;
-        private string _AutoSilentMode = "";
-        private string _ProfileName = "";
-        private bool _DismissUpdate = false;
-        private string _Homepage = "korot://newtab";
-        private Size _MenuSize = new Size(720, 720);
-        private Point _MenuPoint = new Point(0, 0);
-        private string _SearchEngine = "https://www.google.com/search?q=";
-        private bool _RememberLastProxy = false;
-        private string _LastProxy = "";
-        private bool _DisableLanguageError = false;
-        private bool _MenuWasMaximized = true;
-        private string _Startup = "korot://newtab";
-        private bool _AutoRestore = false;
-        private bool _DoNotTrack = true;
-        private Theme _Theme = new Theme("");
-        private List<Site> _History = new List<Site>();
-        private LanguageSystem _LanguageSystem = new LanguageSystem("");
-        private DownloadSettings _DownloadSettings = new DownloadSettings() { DownloadDirectory = "", Downloads = new List<Site>(), OpenDownload = false, UseDownloadFolder = false };
-        private CollectionManager _CollectionManager = new CollectionManager("") { Collections = new List<Collection>() };
-        private FavoritesSettings _Favorites = new FavoritesSettings("") { Favorites = new List<Folder>(), ShowFavorites = true };
-        private string _saveFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        private string _screenshotFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-        private Extensions _Extensions = new Extensions("");
-        private List<frmCEF> _UpdateFavorites = new List<frmCEF>();
-
-        #endregion Defaults
-
         #region Properties
+        public bool LoadedDefaults = false;
+        public string Birthday { get; set; } = "";
+        public bool CelebrateBirthday { get; set; } = true;
+        public int BirthdayCount { get; set; } = 0;
 
-        public string Birthday { get => _birthday; set => _birthday = value; }
-        public bool CelebrateBirthday { get => _celebrateBDay; set => _celebrateBDay = value; }
-        public int BirthdayCount { get => _bDayCount; set => _bDayCount = value; }
-
-        public AutoCleaner AutoCleaner { get => _AutoCleaner; set => _AutoCleaner = value; }
-        public List<frmCEF> UpdateFavorites { get => _UpdateFavorites; set => _UpdateFavorites = value; }
+        public AutoCleaner AutoCleaner { get; set; } = new AutoCleaner("");
+        public List<frmCEF> UpdateFavorites { get; set; } = new List<frmCEF>();
 
         public void UpdateFavList()
         {
@@ -533,11 +491,11 @@ new TitleBarTab(testApp)
             }
         }
 
-        public bool UseDefaultSound { get => _UseDefaultSound; set => _UseDefaultSound = value; }
-        public string SoundLocation { get => _SoundLoc; set => _SoundLoc = value; }
-        public bool NinjaMode { get => _NinjaMode; set => _NinjaMode = value; }
-        public string ScreenShotFolder { get => _screenshotFolder; set => _screenshotFolder = value; }
-        public string SaveFolder { get => _saveFolder; set => _saveFolder = value; }
+        public bool UseDefaultSound { get; set; } = true;
+        public string SoundLocation { get; set; } = "";
+        public bool NinjaMode { get; set; } = false;
+        public string ScreenShotFolder { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+        public string SaveFolder { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
         public class BlockLevels
         {
@@ -572,179 +530,63 @@ new TitleBarTab(testApp)
             }
         }
 
-        public List<BlockSite> Filters
-        {
-            get => _Filters;
-            set => _Filters = value;
-        }
+        public List<BlockSite> Filters { get; set; } = new List<BlockSite>();
 
-        public NewTabSites NewTabSites
-        {
-            get => _NewTabSites;
-            set => _NewTabSites = value;
-        }
+        public NewTabSites NewTabSites { get; set; } = new NewTabSites("");
 
-        public bool Flash
-        {
-            get => _Flash;
-            set => _Flash = value;
-        }
+        public bool Flash { get; set; } = false;
 
-        public bool Silent
-        {
-            get => _Silent;
-            set => _Silent = value;
-        }
+        public bool Silent { get; set; } = false;
 
-        public List<Site> Sites
-        {
-            get => _Sites;
-            set => _Sites = value;
-        }
+        public List<Site> Sites { get; set; } = new List<Site>();
 
-        public bool AutoSilent
-        {
-            get => _AutoSilent;
-            set => _AutoSilent = value;
-        }
+        public bool AutoSilent { get; set; } = false;
 
-        public bool DoNotPlaySound
-        {
-            get => _DoNotPlaySound;
-            set => _DoNotPlaySound = value;
-        }
+        public bool DoNotPlaySound { get; set; } = false;
 
-        public bool QuietMode
-        {
-            get => _QuietMode;
-            set => _QuietMode = value;
-        }
+        public bool QuietMode { get; set; } = false;
 
-        public string AutoSilentMode
-        {
-            get => _AutoSilentMode;
-            set => _AutoSilentMode = value;
-        }
+        public string AutoSilentMode { get; set; } = "";
 
-        public string ProfileName
-        {
-            get => _ProfileName;
-            set => _ProfileName = value;
-        }
+        public string ProfileName { get; set; } = "";
 
-        public bool DismissUpdate
-        {
-            get => _DismissUpdate;
-            set => _DismissUpdate = value;
-        }
+        public bool DismissUpdate { get; set; } = false;
 
-        public string Homepage
-        {
-            get => _Homepage;
-            set => _Homepage = value;
-        }
+        public string Homepage { get; set; } = "korot://newtab";
 
-        public Size MenuSize
-        {
-            get => _MenuSize;
-            set => _MenuSize = value;
-        }
+        public Size MenuSize { get; set; } = new Size(720, 720);
 
-        public Point MenuPoint
-        {
-            get => _MenuPoint;
-            set => _MenuPoint = value;
-        }
+        public Point MenuPoint { get; set; } = new Point(0, 0);
 
-        public string SearchEngine
-        {
-            get => _SearchEngine;
-            set => _SearchEngine = value;
-        }
+        public string SearchEngine { get; set; } = "https://www.google.com/search?q=";
 
-        public bool RememberLastProxy
-        {
-            get => _RememberLastProxy;
-            set => _RememberLastProxy = value;
-        }
+        public bool RememberLastProxy { get; set; } = false;
 
-        public string LastProxy
-        {
-            get => _LastProxy;
-            set => _LastProxy = value;
-        }
+        public string LastProxy { get; set; } = "";
 
-        public bool DisableLanguageError
-        {
-            get => _DisableLanguageError;
-            set => _DisableLanguageError = value;
-        }
+        public bool DisableLanguageError { get; set; } = false;
 
-        public bool MenuWasMaximized
-        {
-            get => _MenuWasMaximized;
-            set => _MenuWasMaximized = value;
-        }
+        public bool MenuWasMaximized { get; set; } = true;
 
-        public bool DoNotTrack
-        {
-            get => _DoNotTrack;
-            set => _DoNotTrack = value;
-        }
+        public bool DoNotTrack { get; set; } = true;
 
-        public Theme Theme
-        {
-            get => _Theme;
-            set => _Theme = value;
-        }
+        public Theme Theme { get; set; } = new Theme("", null);
 
-        public DownloadSettings Downloads
-        {
-            get => _DownloadSettings;
-            set => _DownloadSettings = value;
-        }
+        public DownloadSettings Downloads { get; set; } = new DownloadSettings() { DownloadDirectory = "", Downloads = new List<Site>(), OpenDownload = false, UseDownloadFolder = false };
 
-        public LanguageSystem LanguageSystem
-        {
-            get => _LanguageSystem;
-            set => _LanguageSystem = value;
-        }
+        public LanguageSystem LanguageSystem { get; set; } = new LanguageSystem("",null);
 
-        public CollectionManager CollectionManager
-        {
-            get => _CollectionManager;
-            set => _CollectionManager = value;
-        }
+        public CollectionManager CollectionManager { get; set; } = new CollectionManager("") { Collections = new List<Collection>() };
 
-        public List<Site> History
-        {
-            get => _History;
-            set => _History = value;
-        }
+        public List<Site> History { get; set; } = new List<Site>();
 
-        public FavoritesSettings Favorites
-        {
-            get => _Favorites;
-            set => _Favorites = value;
-        }
+        public FavoritesSettings Favorites { get; set; } = new FavoritesSettings("") { Favorites = new List<Folder>(), ShowFavorites = true };
 
-        public Extensions Extensions
-        {
-            get => _Extensions;
-            set => _Extensions = value;
-        }
+        public Extensions Extensions { get; set; } = new Extensions("");
 
-        public string Startup
-        {
-            get => _Startup;
-            set => _Startup = value;
-        }
+        public string Startup { get; set; } = "korot://newtab";
 
-        public bool AutoRestore
-        {
-            get => _AutoRestore;
-            set => _AutoRestore = value;
-        }
+        public bool AutoRestore { get; set; } = false;
 
         #endregion Properties
 
@@ -974,20 +816,11 @@ new TitleBarTab(testApp)
 
         public void LoadFromFile(string themeFile)
         {
-            if (string.IsNullOrWhiteSpace(themeFile))
+            if (!string.IsNullOrWhiteSpace(themeFile) && File.Exists(themeFile))
             {
-                Name = "Korot Light";
-                ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Light.ktf";
-                Author = "Haltroy";
-                UseHaltroyUpdate = false;
-                Version = new Version(Application.ProductVersion);
-                MininmumKorotVersion = Version;
-                BackColor = Color.FromArgb(255, 255, 255, 255);
-                OverlayColor = Color.FromArgb(255, 85, 180, 212);
-                BackgroundStyle = "BACKCOLOR";
-                BackgroundStyleLayout = 0;
-                NewTabColor = TabColors.OverlayColor;
-                CloseButtonColor = TabColors.OverlayColor;
+                LoadedDefaults = false;
+            }else
+            {
                 LoadedDefaults = true;
                 return;
             }
@@ -1121,14 +954,31 @@ new TitleBarTab(testApp)
 
         public bool AutoForeColor { get; set; }
 
-        public Theme(string themeFile)
+        public Theme(string themeFile,Settings settings)
         {
+            Settings = settings;
+            Name = "Korot Light";
+            ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\Korot Light.ktf";
+            Author = "Haltroy";
+            UseHaltroyUpdate = false;
+            Version = new Version(Application.ProductVersion);
+            MininmumKorotVersion = Version;
+            BackColor = Color.FromArgb(255, 255, 255, 255);
+            OverlayColor = Color.FromArgb(255, 85, 180, 212);
+            BackgroundStyle = "BACKCOLOR";
+            BackgroundStyleLayout = 0;
+            NewTabColor = TabColors.OverlayColor;
+            CloseButtonColor = TabColors.OverlayColor;
+            LoadedDefaults = true;
             LoadFromFile(themeFile);
         }
+
+        public Settings Settings { get; set; } = null;
 
         public bool LoadedDefaults = false;
         public Version Version { get; set; }
         public bool UseHaltroyUpdate { get; set; }
+        public string CodeName => Author + "." + Name;
         public Version MininmumKorotVersion { get; set; }
         public string Name { get; set; }
         public string Author { get; set; }
@@ -1140,6 +990,14 @@ new TitleBarTab(testApp)
         public int BackgroundStyleLayout { get; set; }
         public TabColors NewTabColor { get; set; }
         public TabColors CloseButtonColor { get; set; }
+        public void Update()
+        {
+            if (UseHaltroyUpdate)
+            {
+                frmUpdateExt frmUpdate = new frmUpdateExt(this, Settings);
+                frmUpdate.Show();
+            }
+        }
     }
 
     public class DownloadSettings
@@ -1381,7 +1239,7 @@ new TitleBarTab(testApp)
             LanguageItem item = LanguageItems.Find(i => i.ID.Trim() == ID.Trim());
             if (item == null)
             {
-                Output.WriteLine(" [Language] Missing Item [ID=\"" + ID + "\" LangFile=\"" + _LangFile + "\" ItemCount=\"" + LanguageItems.Count + "\"]");
+                Output.WriteLine(" [Language] Missing Item [ID=\"" + ID + "\" LangFile=\"" + LangFile + "\" ItemCount=\"" + LanguageItems.Count + "\"]");
                 return "[MI] " + ID;
             }
             else
@@ -1390,44 +1248,74 @@ new TitleBarTab(testApp)
             }
         }
 
-        private string _LangFile = Application.StartupPath + "\\Lang\\English.klf";
         public int ItemCount => LanguageItems.Count;
-        public string LangFile => _LangFile;
-
-        public LanguageSystem(string fileLoc)
+        public string LangFile { get; private set; } = Application.StartupPath + "\\Lang\\English.klf";
+        public Settings Settings { get; set; } = null;
+        public LanguageSystem(string fileLoc,Settings settings)
         {
-            ReadFromFile(!string.IsNullOrWhiteSpace(fileLoc) ? fileLoc : (Application.StartupPath + "\\Lang\\English.klf"), true);
+            Settings = settings;
+            ReadFromFile(!string.IsNullOrWhiteSpace(fileLoc) ? fileLoc : LangFile, true);
         }
 
         public void ForceReadFromFile(string fileLoc, bool clear = true)
         {
-            _LangFile = fileLoc;
+            LangFile = fileLoc;
             string code = HTAlt.Tools.ReadFile(fileLoc, Encoding.Unicode);
             ReadCode(code, clear);
         }
 
         public void ReadFromFile(string fileLoc, bool clear = true)
         {
-            if (_LangFile != fileLoc || LanguageItems.Count == 0)
+            if (LangFile != fileLoc || LanguageItems.Count == 0)
             {
                 ForceReadFromFile(fileLoc, clear);
             }
         }
-
         public void ReadCode(string xmlCode, bool clear = true)
         {
             if (clear) { LanguageItems.Clear(); }
             XmlDocument document = new XmlDocument();
             document.LoadXml(xmlCode);
-            foreach (XmlNode node in document.FirstChild.ChildNodes)
+            XmlNode rootNode = document.FirstChild;
+            if (rootNode.Name == "Language")
             {
-                if (node.Name == "Translate")
+                if (rootNode.Attributes["CompatibleVersion"] != null)
                 {
-                    string id = node.Attributes["ID"] != null ? node.Attributes["ID"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"") : HTAlt.Tools.GenerateRandomText(12);
-                    string text = node.Attributes["Text"] != null ? node.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"") : id;
-                    if (!string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(text))
+                    Version compVersion = new Version(rootNode.Attributes["CompatibleVersion"].Value);
+                    Version current = new Version(Application.ProductVersion);
+                    if (compVersion.CompareTo(current) != 0  && LangFile != Application.StartupPath + "\\Lang\\English.klf")
                     {
-                        LanguageItems.Add(new LanguageItem() { ID = id, Text = text });
+                        HTMsgBox msgbox = new HTMsgBox("Korot", "This language file is not compatible with your Korot version."
+                            + Environment.NewLine
+                            + Environment.NewLine
+                            + "Language File Compatible Version: "
+                            + rootNode.Attributes["CompatibleVersion"].Value
+                            + Environment.NewLine
+                            + "Your Korot Version: "
+                            + Application.ProductVersion.ToString()
+                            + Environment.NewLine
+                            + Environment.NewLine
+                            + "Would you still want to continue?", new HTDialogBoxContext(MessageBoxButtons.YesNoCancel))
+                        {
+                            BackColor = (Settings != null ? Settings.Theme.BackColor : Color.White), ForeColor = (Settings != null ? Settings.Theme.ForeColor : Color.Black), Yes = "Yes", No = "No" , Cancel = "Cancel", AutoForeColor = false, Icon = Properties.Resources.KorotIcon
+                        };
+                        DialogResult result = msgbox.ShowDialog();
+                        if (result != DialogResult.Yes)
+                        {
+                            return;
+                        }
+                    }
+                    foreach (XmlNode node in rootNode.ChildNodes)
+                    {
+                        if (node.Name == "Translate")
+                        {
+                            string id = node.Attributes["ID"] != null ? node.Attributes["ID"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"") : HTAlt.Tools.GenerateRandomText(12);
+                            string text = node.Attributes["Text"] != null ? node.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"") : id;
+                            if (!string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(text))
+                            {
+                                LanguageItems.Add(new LanguageItem() { ID = id, Text = text });
+                            }
+                        }
                     }
                 }
             }
@@ -1597,20 +1485,6 @@ new TitleBarTab(testApp)
 
     public class KorotTools
     {
-        public static Encoding GetFileEncoding(string fileName)
-        {
-            using (var reader = new StreamReader(fileName, Encoding.Default, true))
-            {
-                reader.Peek(); // you need this!
-                return reader.CurrentEncoding;
-            }
-        }
-
-        public static void CovertStringToUTF16(string fileName)
-        {
-            string cv = HTAlt.Tools.ReadFile(fileName, GetFileEncoding(fileName));
-            HTAlt.Tools.WriteFile(fileName, cv, Encoding.Unicode);
-        }
         public static string getOSInfo()
         {
             string fullName = System.Runtime.InteropServices.RuntimeInformation.OSDescription;

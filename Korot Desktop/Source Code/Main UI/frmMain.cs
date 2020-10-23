@@ -36,6 +36,7 @@ namespace Korot
     public partial class frmMain : TitleBarTabs
     {
         public Settings Settings;
+        public bool addonsUpdated = false;
         private readonly MyJumplist list;
         public List<DownloadItem> CurrentDownloads = new List<DownloadItem>();
         public List<string> CancelledDownloads = new List<string>();
@@ -232,7 +233,6 @@ namespace Korot
         public string notificationPermission = "Allow [URL] for sending notifications?";
         public string allow = "Allow";
         public string deny = "Deny";
-        public string ubuntuLicense = "Ubuntu Font License";
         public string newProfileInfo = "Please enter a name for the new profile.It should not contain: ";
         public string updateTitleTheme = "Korot Theme Updater";
         public string updateTitleExt = "Korot Extension Updater";
@@ -273,13 +273,7 @@ namespace Korot
         public string SearchOrOpenSelectedInNewTab = "Search/Open Selected in New Tab";
         public string developerTools = "Developer Tools";
         public string viewSource = "View Source";
-        public string licenseTitle = "Licenses & Special Thanks Page";
-        public string kLicense = "Korot License";
-        public string vsLicense = "Microsoft Visual Studio 2019 Community License";
-        public string chLicense = "Chromium License";
-        public string cefLicense = "CefSharp License";
-        public string etLicense = "EasyTabs License";
-        public string specialThanks = "Special Thanks...";
+        public string licenseTitle = "Licenses";
         public string JSConfirm = "Confirm on page [TITLE]:";
         public string JSAlert = "A message from page [TITLE]:";
         public string selectAFolder = "Select a folder for downloads.";
@@ -336,11 +330,9 @@ namespace Korot
         public string privatemode = "Incognito";
 
         public string updateTitle = "Korot - Update";
-        public string updateMessage = "Update available.Do you want to update?";
         public string updateError = "Error while checking for the updates.";
         public string checking = "Checking for updates...";
         public string uptodate = "Your Korot is up-to-date.";
-        public string updateavailable = "Update available.";
         public string NewTabtitle = "New Tab";
         public string customSearchNote = "(Note: Searched text will be put after the url)";
         public string customSearchMessage = "Write Custom Search Url";

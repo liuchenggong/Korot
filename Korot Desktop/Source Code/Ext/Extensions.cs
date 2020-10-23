@@ -343,7 +343,7 @@ namespace Korot
         {
             if (Settings.useHaltroyUpdater)
             {
-                frmUpdateExt frmUpdate = new frmUpdateExt(ManifestFile, false, LocalSettings);
+                frmUpdateExt frmUpdate = new frmUpdateExt(this, LocalSettings);
                 frmUpdate.Show();
             }
         }
