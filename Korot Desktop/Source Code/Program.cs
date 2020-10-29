@@ -1,24 +1,10 @@
-﻿//MIT License
-//
-//Copyright (c) 2020 Eren "Haltroy" Kanat
-//
-//Permission is hereby granted, free of charge, to any person obtaining a copy
-//of this software and associated documentation files (the "Software"), to deal
-//in the Software without restriction, including without limitation the rights
-//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//copies of the Software, and to permit persons to whom the Software is
-//furnished to do so, subject to the following conditions:
-//
-//The above copyright notice and this permission notice shall be included in all
-//copies or substantial portions of the Software.
-//
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//SOFTWARE.
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
 using CefSharp;
 using CefSharp.WinForms;
 using EasyTabs;
@@ -145,6 +131,13 @@ new TitleBarTab(testApp)
             foreach (string x in Directory.GetDirectories(directory)) { try { Directory.Delete(x, true); } catch (Exception ex) { errors.Add(new FileFolderError(x, ex, true)); } }
             if (displayresult) { if (errors.Count == 0) { Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with no errors."); } else { Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with " + errors.Count + " error(s)."); foreach (FileFolderError x in errors) { Output.WriteLine(" [RemoveDirectory] " + (x.isDirectory ? "Directory" : "File") + " Error: " + x.Location + " [" + x.Error.ToString() + "]"); } } }
         }
+
+        public static T Clone<T>(this T obj)
+        {
+            var inst = obj.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+            return (T)inst?.Invoke(obj, null);
+        }
     }
 
     public class Settings
@@ -224,6 +217,16 @@ new TitleBarTab(testApp)
                 else if (node.Name.ToLower() == "usedefaultsound")
                 {
                     UseDefaultSound = node.InnerText == "true";
+                }
+                else if (node.Name.ToLower() == "synth")
+                {
+                    if (node.Attributes["Volume"] != null && node.Attributes["Rate"] != null)
+                    {
+                        int rate = Convert.ToInt32(node.Attributes["Rate"].Value);
+                        SynthRate = rate < -10 ? -10 : (rate > 10 ? 10 : rate);
+                        int volume = Convert.ToInt32(node.Attributes["Volume"].Value);
+                        SynthVolume = volume < 0 ? 0 : (volume > 100 ? 100 : volume);
+                    }
                 }
                 else if (node.Name.ToLower() == "soundlocation")
                 {
@@ -551,6 +554,8 @@ new TitleBarTab(testApp)
         public string ProfileName { get; set; } = "";
 
         public bool DismissUpdate { get; set; } = false;
+        public int SynthVolume { get; set; } = 100;
+        public int SynthRate { get; set; } = -2;
 
         public string Homepage { get; set; } = "korot://newtab";
 
@@ -720,6 +725,7 @@ new TitleBarTab(testApp)
             "   <DoNotTrack>" + (DoNotTrack ? "true" : "false") + "</DoNotTrack>" + Environment.NewLine +
             "   <AutoRestore>" + (AutoRestore ? "true" : "false") + "</AutoRestore>" + Environment.NewLine +
             "   <RememberLastProxy>" + (RememberLastProxy ? "true" : "false") + "</RememberLastProxy>" + Environment.NewLine +
+            "   <Synth Volume=\"" + SynthVolume + "\" Rate=\"" + SynthRate + "\" />" + Environment.NewLine +
             "   <Silent>" + (Silent ? "true" : "false") + "</Silent>" + Environment.NewLine +
             "   <AutoSilent>" + (AutoSilent ? "true" : "false") + "</AutoSilent> " + Environment.NewLine +
             "   <DoNotPlaySound>" + (DoNotPlaySound ? "true" : "false") + "</DoNotPlaySound>" + Environment.NewLine +
@@ -1485,6 +1491,34 @@ new TitleBarTab(testApp)
 
     public class KorotTools
     {
+        public static string GetAssociatedProgram(string FileExtension)
+        {
+            Microsoft.Win32.RegistryKey objExtReg = Microsoft.Win32.Registry.ClassesRoot;
+            Microsoft.Win32.RegistryKey objAppReg = Microsoft.Win32.Registry.ClassesRoot;
+            string strExtValue;
+            try
+            {
+                // Add trailing period if doesn't exist
+                if (FileExtension.Substring(0, 1) != ".")
+                    FileExtension = "." + FileExtension;
+                // Open registry areas containing launching app details
+                objExtReg = objExtReg.OpenSubKey(FileExtension.Trim());
+                strExtValue = System.Convert.ToString(objExtReg.GetValue(""));
+                objAppReg = objAppReg.OpenSubKey(strExtValue + @"\shell\open\command");
+                // Parse out, tidy up and return result
+                string[] SplitArray;
+                SplitArray = Convert.ToString(objAppReg.GetValue(null)).Split('"');
+                if (SplitArray[0].Trim().Length > 0)
+                    return SplitArray[0].Replace("%1", "");
+                else
+                    return SplitArray[1].Replace("%1", "");
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
         public static string getOSInfo()
         {
             string fullName = System.Runtime.InteropServices.RuntimeInformation.OSDescription;

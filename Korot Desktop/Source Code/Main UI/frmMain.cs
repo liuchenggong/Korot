@@ -1,24 +1,10 @@
-﻿//MIT License
-//
-//Copyright (c) 2020 Eren "Haltroy" Kanat
-//
-//Permission is hereby granted, free of charge, to any person obtaining a copy
-//of this software and associated documentation files (the "Software"), to deal
-//in the Software without restriction, including without limitation the rights
-//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//copies of the Software, and to permit persons to whom the Software is
-//furnished to do so, subject to the following conditions:
-//
-//The above copyright notice and this permission notice shall be included in all
-//copies or substantial portions of the Software.
-//
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//SOFTWARE.
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
 using CefSharp;
 using EasyTabs;
 using HTAlt.WinForms;
@@ -42,6 +28,7 @@ namespace Korot
         public List<string> CancelledDownloads = new List<string>();
         public List<string> notificationAsked = new List<string>();
         public List<frmNotification> notifications { get; set; }
+
         public bool newDownload = false;
         public bool isIncognito = false;
         public TitleBarTab licenseTab = null;
@@ -205,6 +192,13 @@ namespace Korot
 
         #region "Translate"
 
+        public string ReadTTS = "Read it";
+        public string KorotUpdateError = "Unable to get updates.";
+        public string addToDict = "Add to dictionary";
+        public string openLinkInBack = "Open link in background";
+        public string NoInt1 = "No Internet";
+        public string NoInt2 = "It seems like you lost your internet connection.";
+        public string NoInt3 = "Tip: You still can visit korot:// or local pages.";
         public string HappyBDay = "Happy Birthday!";
         public string CleanCacheMessage = "Cleaning cache requires a restart first." + Environment.NewLine + "Do you still want to continue?";
         public string ThemeSaveInfo = "Please enter a name for this theme.";
@@ -665,7 +659,7 @@ namespace Korot
 
         public bool closing = false;
 
-        public void CreateTab(TitleBarTab referenceTab, string url = "korot://newtab")
+        public void CreateTab(TitleBarTab referenceTab, string url = "korot://newtab", bool inBG = false)
         {
             frmCEF _refcef = referenceTab.Content as frmCEF;
             frmCEF cefform = new frmCEF(this, Settings, isIncognito, url, SafeFileSettingOrganizedClass.LastUser)
@@ -679,7 +673,7 @@ namespace Korot
                 Content = cefform
             };
             Tabs.Insert(Tabs.IndexOf(referenceTab) + 1, newTab);
-            SelectedTabIndex = Tabs.IndexOf(referenceTab) + 1;
+            if (!inBG) { SelectedTabIndex = Tabs.IndexOf(referenceTab) + 1; }
             //Tabs.Add(newTab);
         }
 

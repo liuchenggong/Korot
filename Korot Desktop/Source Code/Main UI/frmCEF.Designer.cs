@@ -1,24 +1,10 @@
-﻿//MIT License
-//
-//Copyright (c) 2020 Eren "Haltroy" Kanat
-//
-//Permission is hereby granted, free of charge, to any person obtaining a copy
-//of this software and associated documentation files (the "Software"), to deal
-//in the Software without restriction, including without limitation the rights
-//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//copies of the Software, and to permit persons to whom the Software is
-//furnished to do so, subject to the following conditions:
-//
-//The above copyright notice and this permission notice shall be included in all
-//copies or substantial portions of the Software.
-//
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//SOFTWARE.
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
 namespace Korot
 {
     partial class frmCEF
@@ -56,6 +42,8 @@ namespace Korot
             this.pbPrivacy = new System.Windows.Forms.PictureBox();
             this.pbProgress = new System.Windows.Forms.PictureBox();
             this.mFavorites = new System.Windows.Forms.MenuStrip();
+            this.pbSolKenar = new System.Windows.Forms.PictureBox();
+            this.pbSağKenar = new System.Windows.Forms.PictureBox();
             this.pbIncognito = new System.Windows.Forms.PictureBox();
             this.btHome = new HTAlt.WinForms.HTButton();
             this.btFav = new HTAlt.WinForms.HTButton();
@@ -95,37 +83,47 @@ namespace Korot
             this.tpCef = new System.Windows.Forms.TabPage();
             this.pCEF = new System.Windows.Forms.Panel();
             this.tpSettings = new System.Windows.Forms.TabPage();
+            this.pbAddress = new System.Windows.Forms.PictureBox();
             this.pNavigate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSolKenar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSağKenar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbIncognito)).BeginInit();
             this.cmsForward.SuspendLayout();
             this.cmsBack.SuspendLayout();
             this.cmsFavorite.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpCef.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAddress)).BeginInit();
             this.SuspendLayout();
             // 
             // tbAddress
             // 
             this.tbAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tbAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
+            this.tbAddress.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.tbAddress.Location = new System.Drawing.Point(140, 4);
+            this.tbAddress.Location = new System.Drawing.Point(162, 8);
             this.tbAddress.MaxLength = 2147483647;
             this.tbAddress.Name = "tbAddress";
-            this.tbAddress.Size = new System.Drawing.Size(475, 23);
+            this.tbAddress.Size = new System.Drawing.Size(433, 16);
             this.tbAddress.TabIndex = 5;
+            this.tbAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbAddress.WordWrap = false;
             // 
             // pNavigate
             // 
             this.pNavigate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pNavigate.Controls.Add(this.pbIncognito);
             this.pNavigate.Controls.Add(this.pbPrivacy);
             this.pNavigate.Controls.Add(this.pbProgress);
             this.pNavigate.Controls.Add(this.mFavorites);
             this.pNavigate.Controls.Add(this.tbAddress);
-            this.pNavigate.Controls.Add(this.pbIncognito);
+            this.pNavigate.Controls.Add(this.pbSolKenar);
+            this.pNavigate.Controls.Add(this.pbSağKenar);
             this.pNavigate.Controls.Add(this.btHome);
             this.pNavigate.Controls.Add(this.btFav);
             this.pNavigate.Controls.Add(this.btNext);
@@ -133,6 +131,7 @@ namespace Korot
             this.pNavigate.Controls.Add(this.btHamburger);
             this.pNavigate.Controls.Add(this.btProfile);
             this.pNavigate.Controls.Add(this.btRefresh);
+            this.pNavigate.Controls.Add(this.pbAddress);
             this.pNavigate.Dock = System.Windows.Forms.DockStyle.Top;
             this.pNavigate.Location = new System.Drawing.Point(0, 0);
             this.pNavigate.Name = "pNavigate";
@@ -142,12 +141,11 @@ namespace Korot
             // pbPrivacy
             // 
             this.pbPrivacy.BackColor = System.Drawing.Color.Transparent;
-            this.pbPrivacy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbPrivacy.Image = global::Korot.Properties.Resources.lockg;
-            this.pbPrivacy.Location = new System.Drawing.Point(118, 4);
+            this.pbPrivacy.Location = new System.Drawing.Point(140, 4);
             this.pbPrivacy.Name = "pbPrivacy";
             this.pbPrivacy.Size = new System.Drawing.Size(23, 23);
-            this.pbPrivacy.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbPrivacy.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPrivacy.TabIndex = 7;
             this.pbPrivacy.TabStop = false;
             this.pbPrivacy.Click += new System.EventHandler(this.pictureBox2_Click);
@@ -173,13 +171,37 @@ namespace Korot
             this.mFavorites.Text = "menuStrip1";
             this.mFavorites.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mFavorites_MouseClick);
             // 
+            // pbSolKenar
+            // 
+            this.pbSolKenar.BackColor = System.Drawing.Color.Transparent;
+            this.pbSolKenar.Image = global::Korot.Properties.Resources.temp_left;
+            this.pbSolKenar.Location = new System.Drawing.Point(131, 4);
+            this.pbSolKenar.Name = "pbSolKenar";
+            this.pbSolKenar.Size = new System.Drawing.Size(10, 23);
+            this.pbSolKenar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbSolKenar.TabIndex = 5;
+            this.pbSolKenar.TabStop = false;
+            this.pbSolKenar.Text = "test";
+            // 
+            // pbSağKenar
+            // 
+            this.pbSağKenar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbSağKenar.BackColor = System.Drawing.Color.Transparent;
+            this.pbSağKenar.Image = global::Korot.Properties.Resources.temp_right;
+            this.pbSağKenar.Location = new System.Drawing.Point(616, 4);
+            this.pbSağKenar.Name = "pbSağKenar";
+            this.pbSağKenar.Size = new System.Drawing.Size(10, 23);
+            this.pbSağKenar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbSağKenar.TabIndex = 5;
+            this.pbSağKenar.TabStop = false;
+            this.pbSağKenar.Text = "test";
+            // 
             // pbIncognito
             // 
             this.pbIncognito.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbIncognito.BackColor = System.Drawing.Color.Transparent;
-            this.pbIncognito.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbIncognito.Image = global::Korot.Properties.Resources.inctab;
-            this.pbIncognito.Location = new System.Drawing.Point(614, 4);
+            this.pbIncognito.Location = new System.Drawing.Point(595, 4);
             this.pbIncognito.Name = "pbIncognito";
             this.pbIncognito.Size = new System.Drawing.Size(23, 23);
             this.pbIncognito.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -511,12 +533,17 @@ namespace Korot
             // 
             // lbStatus
             // 
-            this.lbStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbStatus.AutoSize = true;
             this.lbStatus.Location = new System.Drawing.Point(3, 587);
             this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(732, 18);
+            this.lbStatus.Size = new System.Drawing.Size(229, 15);
             this.lbStatus.TabIndex = 0;
+            this.lbStatus.Text = "korot://technical for technical information.";
             this.lbStatus.TextChanged += new System.EventHandler(this.label2_TextChanged);
+            this.lbStatus.MouseEnter += new System.EventHandler(this.lbStatus_MouseHover);
+            this.lbStatus.MouseLeave += new System.EventHandler(this.lbStatus_MouseLeave);
+            this.lbStatus.MouseHover += new System.EventHandler(this.lbStatus_MouseHover);
             // 
             // tabControl1
             // 
@@ -535,8 +562,8 @@ namespace Korot
             // 
             // tpCef
             // 
-            this.tpCef.Controls.Add(this.pCEF);
             this.tpCef.Controls.Add(this.lbStatus);
+            this.tpCef.Controls.Add(this.pCEF);
             this.tpCef.Location = new System.Drawing.Point(4, 24);
             this.tpCef.Name = "tpCef";
             this.tpCef.Padding = new System.Windows.Forms.Padding(3);
@@ -551,7 +578,7 @@ namespace Korot
             this.pCEF.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCEF.Location = new System.Drawing.Point(3, 3);
             this.pCEF.Name = "pCEF";
-            this.pCEF.Size = new System.Drawing.Size(732, 584);
+            this.pCEF.Size = new System.Drawing.Size(732, 602);
             this.pCEF.TabIndex = 0;
             this.pCEF.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Panel1_PreviewKeyDown);
             // 
@@ -563,6 +590,16 @@ namespace Korot
             this.tpSettings.TabIndex = 9;
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
+            // 
+            // pbAddress
+            // 
+            this.pbAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbAddress.Location = new System.Drawing.Point(141, 4);
+            this.pbAddress.Name = "pbAddress";
+            this.pbAddress.Size = new System.Drawing.Size(476, 23);
+            this.pbAddress.TabIndex = 11;
+            this.pbAddress.TabStop = false;
             // 
             // frmCEF
             // 
@@ -591,12 +628,16 @@ namespace Korot
             this.pNavigate.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrivacy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProgress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSolKenar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSağKenar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbIncognito)).EndInit();
             this.cmsForward.ResumeLayout(false);
             this.cmsBack.ResumeLayout(false);
             this.cmsFavorite.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tpCef.ResumeLayout(false);
+            this.tpCef.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAddress)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -647,5 +688,8 @@ namespace Korot
         private System.Windows.Forms.ToolStripSeparator tsSepBack;
         private System.Windows.Forms.ToolStripMenuItem tsBackHistory;
         private System.Windows.Forms.TabPage tpSettings;
+        private System.Windows.Forms.PictureBox pbSağKenar;
+        private System.Windows.Forms.PictureBox pbSolKenar;
+        private System.Windows.Forms.PictureBox pbAddress;
     }
 }

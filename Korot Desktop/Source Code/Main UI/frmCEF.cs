@@ -1,24 +1,10 @@
-﻿//MIT License
-//
-//Copyright (c) 2020 Eren "Haltroy" Kanat
-//
-//Permission is hereby granted, free of charge, to any person obtaining a copy
-//of this software and associated documentation files (the "Software"), to deal
-//in the Software without restriction, including without limitation the rights
-//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//copies of the Software, and to permit persons to whom the Software is
-//furnished to do so, subject to the following conditions:
-//
-//The above copyright notice and this permission notice shall be included in all
-//copies or substantial portions of the Software.
-//
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//SOFTWARE.
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
 using CefSharp;
 using CefSharp.WinForms;
 using EasyTabs;
@@ -302,6 +288,10 @@ namespace Korot
         {
             if (e.Frame.IsMain && chromiumWebBrowser1.CanExecuteJavascriptInMainFrame)
             {
+                if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot:"))
+                {
+                    chromiumWebBrowser1.ExecuteScriptAsync("setContext(\"" + (string.IsNullOrEmpty(searchText) ? "" : searchText) + "\");");
+                }
                 if (!startupScriptsExecuted)
                 {
                     foreach (Extension y in Settings.Extensions.ExtensionList)
@@ -428,9 +418,14 @@ namespace Korot
                 tabControl1.SelectedTab = tpSettings;
             }
         }
+        private string searchText;
 
         public void refreshPage()
         {
+            if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot:") && chromiumWebBrowser1.CanExecuteJavascriptInMainFrame)
+            {
+                chromiumWebBrowser1.ExecuteScriptAsync(@"getContext()");
+            }
             chromiumWebBrowser1.Reload();
         }
 
@@ -444,6 +439,10 @@ namespace Korot
                 {
                     EditNewTabItem();
                 }
+            }
+            else if (message.StartsWith("[Korot.SearchText]") && chromiumWebBrowser1.Address.ToLower().StartsWith("korot:"))
+            {
+                searchText = message.Substring(18);
             }
             else if (string.Equals(message, "[Korot.Notification.RequestPermission]"))
             {
@@ -514,8 +513,11 @@ namespace Korot
             else
             {
                 pbIncognito.Visible = false;
-                tbAddress.Size = new Size(tbAddress.Size.Width + pbIncognito.Size.Width, tbAddress.Size.Height);
             }
+            tbAddress.Width = pNavigate.Width - (btBack.Width + btNext.Width + btHome.Width + btRefresh.Width + btFav.Width + 5 + btProfile.Width + btHamburger.Width + pbSolKenar.Width + pbSağKenar.Width + pbPrivacy.Width + (_Incognito ? pbIncognito.Width : 0));
+            pbAddress.Width = pNavigate.Width - (btBack.Width + btNext.Width + btHome.Width + btRefresh.Width + btFav.Width + 5 + btProfile.Width + btHamburger.Width + pbSolKenar.Width + pbSağKenar.Width);
+            pbIncognito.Location = new Point(tbAddress.Location.X + tbAddress.Width, pbIncognito.Location.Y);
+            pbSağKenar.Location = new Point(_Incognito ? (pbIncognito.Location.X + pbIncognito.Width) :(tbAddress.Location.X + tbAddress.Width), pbSağKenar.Location.Y);
             updateAddons();
         }
 
@@ -586,6 +588,10 @@ namespace Korot
             if (anaform.LoadedLang != fileLocation)
             {
                 anaform.LoadedLang = fileLocation;
+                anaform.ReadTTS = Settings.LanguageSystem.GetItemText("ReadTTS");
+                anaform.addToDict = Settings.LanguageSystem.GetItemText("AddToDict");
+                anaform.openLinkInBack = Settings.LanguageSystem.GetItemText("OpenLinkInBack");
+                anaform.KorotUpdateError = Settings.LanguageSystem.GetItemText("KorotUpdateError");
                 anaform.Reload = Settings.LanguageSystem.GetItemText("Reload");
                 anaform.soundFiles = Settings.LanguageSystem.GetItemText("SoundFiles");
                 anaform.KorotUpToDate = Settings.LanguageSystem.GetItemText("KorotUpToDate");
@@ -1132,9 +1138,9 @@ namespace Korot
             else { textresult = null; returnval = false; return false; }
         }
 
-        public void NewTab(string url)
+        public void NewTab(string url, bool inBack = false)
         {
-            anaform.Invoke(new Action(() => { anaform.CreateTab(ParentTab, url); }));
+            anaform.Invoke(new Action(() => { anaform.CreateTab(ParentTab, url, inBack); }));
         }
 
         private bool isFavMenuHidden = false;
@@ -1675,7 +1681,7 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 {
                     if (chromiumWebBrowser1.IsBrowserInitialized)
                     {
-                        if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                        if (chromiumWebBrowser1.Address.StartsWith("korot:")) { refreshPage(); }
                     }
                 }
             }
@@ -1704,9 +1710,12 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 {
                     if (chromiumWebBrowser1.IsBrowserInitialized)
                     {
-                        if (chromiumWebBrowser1.Address.StartsWith("korot:")) { chromiumWebBrowser1.Reload(); }
+                        if (chromiumWebBrowser1.Address.StartsWith("korot:")) { refreshPage(); }
                     }
                 }
+                pbAddress.BackColor = backcolor2;
+                pbSolKenar.Image = HTAlt.Tools.ColorReplace(Properties.Resources.temp_left, 1, HTAlt.Tools.HexToColor("#A0A0A0"), backcolor2);
+                pbSağKenar.Image = HTAlt.Tools.ColorReplace(Properties.Resources.temp_right, 1, HTAlt.Tools.HexToColor("#A0A0A0"), backcolor2);
 
                 cmsFavorite.BackColor = Settings.Theme.BackColor;
                 cmsFavorite.ForeColor = ForeColor;
@@ -2776,6 +2785,16 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 isMuted = true;
                 chromiumWebBrowser1.GetBrowserHost().SetAudioMuted(true);
             }
+        }
+
+        private void lbStatus_MouseHover(object sender, EventArgs e)
+        {
+            lbStatus.Visible = false;
+        }
+
+        private void lbStatus_MouseLeave(object sender, EventArgs e)
+        {
+            lbStatus.Visible = true;
         }
 
         private void label20_MouseClick(object sender, MouseEventArgs e)

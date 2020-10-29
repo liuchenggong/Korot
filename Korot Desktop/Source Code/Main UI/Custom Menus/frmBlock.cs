@@ -1,4 +1,12 @@
-﻿using HTAlt.WinForms;
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
+
+using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

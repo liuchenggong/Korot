@@ -9,11 +9,6 @@
  * Korot Desktop Client 0.6 and later
  * github.com/haltroy/korot
  */
-
-//
-// Does the browser support the the Notification API?
-// .. and does it have a permission property?
-//
 function makeid(length) {
 	var result = '';
 	var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

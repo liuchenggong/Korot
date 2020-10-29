@@ -8,6 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
+
 namespace Korot.Properties {
     using System;
     
@@ -931,6 +939,25 @@ namespace Korot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;head&gt;
+        ///    &lt;!--MIT License
+        ///
+        ///    Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///
+        ///    Permission is hereby granted, free of charge, to any person obtaining a copy
+        ///    of this software and associated documentation files (the &quot;Software&quot;), to deal
+        ///    in the Software without restriction, including without limitation the rights
+        ///    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        ///    copies of the Software, and to permit persons to whom the Software is
+        ///    furnished to do so, subject t [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string nointernet {
+            get {
+                return ResourceManager.GetString("nointernet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap normalscreen {
@@ -1254,6 +1281,26 @@ namespace Korot.Properties {
         internal static string technical {
             get {
                 return ResourceManager.GetString("technical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap temp_left {
+            get {
+                object obj = ResourceManager.GetObject("temp_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap temp_right {
+            get {
+                object obj = ResourceManager.GetObject("temp_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
