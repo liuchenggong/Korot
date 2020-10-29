@@ -9,13 +9,13 @@ This roadmap shows plans for Korot. Keep in mind that this roadmap can be change
 
 | Korot 0.8.4.0 | Status     | Description |
 |---------------|------------|-------------|
-| October 2020  | Planned | Beta minor update. |
+| October 2020  | Completed | Beta minor update. |
 
 •
 
 | Korot 0.8.5.0 | Status     | Description |
 |---------------|------------|-------------|
-| November 2020  | Planned | Beta minor update. |
+| November 2020  | Started | Beta minor update. |
 
 •
 
