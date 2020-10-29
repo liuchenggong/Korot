@@ -1,125 +1,120 @@
 <html>
-<!--MIT License
+<!-- 
 
-Copyright (c) 2020 Eren "Haltroy" Kanat
+Copyright © 2020 Eren "Haltroy" Kanat
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. -->
+-->
 <head>
-    <title>§TITLE§</title>
-    <script>
+	<title>§TITLE§</title>
+	<script>
 			function EditItem()
 		{
 		CefSharp.PostMessage("[Korot.EditNewTabItem]");
 		}
-    </script>
-    <style>
-        body {
-            §BACKSTYLE§ background-size: cover;
-            position: relative;
-            background-repeat: no-repeat;
-            background-size: 100% 100vh;
-        }
+	</script>
+	<style>
+		body {
+			§BACKSTYLE§ background-size: cover;
+			position: relative;
+			background-repeat: no-repeat;
+			background-size: 100% 100vh;
+		}
 
-        .bw {
-            font-family: Ubuntu;
-            background-color: rgba(0,0,0,0.5);
-            color: white;
-        }
+		.bw {
+			font-family: Ubuntu;
+			background-color: rgba(0,0,0,0.5);
+			color: white;
+		}
 
-        .merkez {
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            position: absolute;
-            top: 15%;
-            left: 25%;
-            width: 100%;
-            heigth: 100%;
-            transform: translateX(-25%) translateY(-25%);
-        }
+		.merkez {
+			margin: 0;
+			padding: 0;
+			text-align: center;
+			position: absolute;
+			top: 15%;
+			left: 25%;
+			width: 100%;
+			heigth: 100%;
+			transform: translateX(-25%) translateY(-25%);
+		}
 
-        input {
-            font-family: Ubuntu;
-            font-size: large;
-            §BACKSTYLE2§
-        }
+		input {
+			font-family: Ubuntu;
+			font-size: large;
+			§BACKSTYLE2§
+		}
 
-            input[type=text] {
-                width: 35%;
-            }
+			input[type=text] {
+				width: 35%;
+			}
 
-        .grid-container {
-            §BACKSTYLE2§ display: grid;
-            font-family: Ubuntu;
-            grid-template-columns: auto auto auto auto auto;
-            grid-gap: 10px;
-            padding: 10px;
-        }
+		.grid-container {
+			§BACKSTYLE2§ display: grid;
+			font-family: Ubuntu;
+			grid-template-columns: auto auto auto auto auto;
+			grid-gap: 10px;
+			padding: 10px;
+		}
 
-            .grid-container > div {
-                §BACKSTYLE3§ font-family: Ubuntu;
-                text-align: center;
-                font-size: 30px;
-            }
+			.grid-container > div {
+				§BACKSTYLE3§ font-family: Ubuntu;
+				text-align: center;
+				font-size: 30px;
+			}
 
-        .editItem {
-            font-family: Ubuntu;
-            font-size: small;
-            grid-area: 3 / 1 / 3 / 6;
-        }
-    </style>
+		.editItem {
+			font-family: Ubuntu;
+			font-size: small;
+			grid-area: 3 / 1 / 3 / 6;
+		}
+	</style>
 
-    <script>
-        function startTime() {
-        var today = new Date();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        m = checkTime(m);
-        s = checkTime(s);
-        document.getElementById('saat').innerHTML = h + ':' + m + ':' + s;
-        var days = [§DAYS§];
-        var months = [§MONTHS§];
-        document.getElementById("date").innerHTML = days[today.getDay()] + ' , '+ today.getDate() + ' '  + months[today.getMonth()] + ' ' + today.getFullYear();
-        var t = setTimeout(startTime, 500);
-        }
-        function checkTime(i) {
-        if (i < 10) {i = "0" + i};
-        return i;
-        }
-    </script>
+	<script>
+		function getContext() {
+			var textval = document.getElementById("searchbar").value;
+			CefSharp.PostMessage("[Korot.SearchText]" + textval);
+		}
+
+		function setContext(context) {
+			document.getElementById("searchbar").value = context;
+		}
+
+		function startTime() {
+		var today = new Date();
+		var h = today.getHours();
+		var m = today.getMinutes();
+		var s = today.getSeconds();
+		m = checkTime(m);
+		s = checkTime(s);
+		document.getElementById('saat').innerHTML = h + ':' + m + ':' + s;
+		var days = [§DAYS§];
+		var months = [§MONTHS§];
+		document.getElementById("date").innerHTML = days[today.getDay()] + ' , '+ today.getDate() + ' '  + months[today.getMonth()] + ' ' + today.getFullYear();
+		var t = setTimeout(startTime, 500);
+		}
+		function checkTime(i) {
+		if (i < 10) {i = "0" + i};
+		return i;
+		}
+	</script>
 </head>
 <body onload="startTime()">
-    <panel class="merkez">
-        <h1 style="text-align: center;"> <span class="bw" id="saat" /></h1>
-        <h2 style="text-align: center;"> <span class="bw" id="date" /></h2>
-        <form action="korot://search/?">
-            <input type=text name="q" placeholder="§SEARCHHELP§" />
-            <input type=submit value="§SEARCH§" />
-        </form>
-        <div class="grid-container">
-            §ITEMS§
-            <div class="editItem">
-                <a onclick="EditItem()" style="§BACKSTYLE3§">§EDIT§</a>
-            </div>
-        </div>
-        <a class="bw">§BDAY§</a>
-    </panel>
+	<panel class="merkez">
+		<h1 style="text-align: center;"> <span class="bw" id="saat" /></h1>
+		<h2 style="text-align: center;"> <span class="bw" id="date" /></h2>
+		<form action="korot://search/?">
+			<input id="searchbar" type=text name="q" placeholder="§SEARCHHELP§" />
+			<input type=submit value="§SEARCH§" />
+		</form>
+		<div class="grid-container">
+			§ITEMS§
+			<div class="editItem">
+				<a onclick="EditItem()" style="§BACKSTYLE3§">§EDIT§</a>
+			</div>
+		</div>
+		<a class="bw">§BDAY§</a>
+	</panel>
 </body>
 </html>

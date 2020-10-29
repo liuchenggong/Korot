@@ -1,30 +1,18 @@
-﻿//MIT License
-//
-//Copyright (c) 2020 Eren "Haltroy" Kanat
-//
-//Permission is hereby granted, free of charge, to any person obtaining a copy
-//of this software and associated documentation files (the "Software"), to deal
-//in the Software without restriction, including without limitation the rights
-//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//copies of the Software, and to permit persons to whom the Software is
-//furnished to do so, subject to the following conditions:
-//
-//The above copyright notice and this permission notice shall be included in all
-//copies or substantial portions of the Software.
-//
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//SOFTWARE.
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
 using CefSharp;
+using CefSharp.WinForms;
 using HTAlt;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Korot
@@ -197,7 +185,7 @@ namespace Korot
                     }
                     else if (request.Url.ToLower().StartsWith("korot://licenses"))
                     {
-                        return ResourceHandler.FromString(Properties.Resources.licenses.Replace("§OCOLOR§", Tools.IsBright(CefForm.Settings.Theme.OverlayColor) ? "black" : "white").Replace("§OVERLAYCOLOR§",Tools.ColorToHex(CefForm.Settings.Theme.OverlayColor)).Replace("§OVERLAYCOLOR2§", Tools.ColorToHex(Tools.ShiftBrightness(CefForm.Settings.Theme.OverlayColor,20,false))).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§UF§", CefForm.anaform.ubuntuLicense).Replace("§TITLE§", CefForm.anaform.licenseTitle).Replace("§ET§", CefForm.anaform.etLicense).Replace("§K§", CefForm.anaform.kLicense).Replace("§VS§", CefForm.anaform.vsLicense).Replace("§CH§", CefForm.anaform.chLicense).Replace("§CEF§", CefForm.anaform.cefLicense).Replace("§ST§", CefForm.anaform.specialThanks));
+                        return ResourceHandler.FromString(Properties.Resources.licenses.Replace("§OCOLOR§", Tools.IsBright(CefForm.Settings.Theme.OverlayColor) ? "black" : "white").Replace("§OVERLAYCOLOR§",Tools.ColorToHex(CefForm.Settings.Theme.OverlayColor)).Replace("§OVERLAYCOLOR2§", Tools.ColorToHex(Tools.ShiftBrightness(CefForm.Settings.Theme.OverlayColor,20,false))).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.anaform.licenseTitle));
                     }
                     else if (request.Url.StartsWith("korot://error"))
                     {
@@ -209,7 +197,16 @@ namespace Korot
                             x = x.Replace("?u" + errorPage, "");
                             errorPage = SearchPrettify(errorPage);
                         }
+                        if (!string.IsNullOrWhiteSpace(errorPage)) 
+                        {
+                            CheckInternetConnection(errorPage, frame);
+                        }
                         return ResourceHandler.FromString(Properties.Resources.errorpage.Replace("§RELOAD§", CefForm.anaform.Reload).Replace("§ERROR§", x).Replace("§URL§", (string.IsNullOrWhiteSpace(errorPage) ? "korot://empty" : errorPage)).Replace("§OVERLAY§", GetOverlay()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.anaform.ErrorPageTitle).Replace("§KT§", CefForm.anaform.KT).Replace("§ET§", CefForm.anaform.ET).Replace("§E1§", CefForm.anaform.E1).Replace("§E2§", CefForm.anaform.E2).Replace("§E3§", CefForm.anaform.E3).Replace("§E4§", CefForm.anaform.E4).Replace("§RT§", CefForm.anaform.RT).Replace("§R1§", CefForm.anaform.R1).Replace("§R2§", CefForm.anaform.R2).Replace("§R3§", CefForm.anaform.R3).Replace("§R4§", CefForm.anaform.R4));
+                    }
+                    else if (request.Url.StartsWith("korot://noint"))
+                    {
+                        string x = request.Url.Substring(request.Url.IndexOf("=") + 1);
+                        return ResourceHandler.FromString(Properties.Resources.nointernet.Replace("§RELOAD§", CefForm.anaform.Reload).Replace("§URL§", (string.IsNullOrWhiteSpace(x) ? "korot://empty" : x)).Replace("§OVERLAY§", GetOverlay()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.anaform.ErrorPageTitle).Replace("§NI1§", CefForm.anaform.NoInt1).Replace("§NI2§", CefForm.anaform.NoInt2).Replace("§NI3§", CefForm.anaform.NoInt3));
                     }
                     else if (request.Url.ToLower().StartsWith("korot://dad"))
                     {
@@ -218,10 +215,6 @@ namespace Korot
                     else if (request.Url.ToLower().StartsWith("korot://me"))
                     {
                         return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = https://haltroy.com/Korot.html \" />");
-                    }
-                    else if (request.Url.ToLower().StartsWith("korot://sister"))
-                    {
-                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url = https://haltroy.com/playtroy.html \" />");
                     }
                     else if (request.Url.ToLower().StartsWith("korot://links"))
                     {
@@ -288,6 +281,15 @@ namespace Korot
             {
                 return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =  http://korot://error/?e=BLOCKED \" />");
             }
+        }
+        private async void CheckInternetConnection(string url,IFrame frame)
+        {
+            await Task.Run(() => {
+                if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+                {
+                    frame.LoadUrl("korot://noint/?u=" + url);
+                }
+            });
         }
     }
 }

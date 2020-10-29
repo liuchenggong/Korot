@@ -1,4 +1,12 @@
-﻿namespace Korot
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
+
+namespace Korot
 {
     partial class frmSettings
     {
@@ -231,6 +239,10 @@
             this.tpDownloads = new System.Windows.Forms.TabPage();
             this.tpCollections = new System.Windows.Forms.TabPage();
             this.tpAbout = new System.Windows.Forms.TabPage();
+            this.p32bit = new System.Windows.Forms.FlowLayoutPanel();
+            this.l32title = new System.Windows.Forms.Label();
+            this.l32desc = new System.Windows.Forms.Label();
+            this.ll32bit = new System.Windows.Forms.LinkLabel();
             this.btReset = new HTAlt.WinForms.HTButton();
             this.lbUpdateStatus = new System.Windows.Forms.Label();
             this.btUpdater = new HTAlt.WinForms.HTButton();
@@ -283,10 +295,10 @@
             this.tsSepTheme = new System.Windows.Forms.ToolStripSeparator();
             this.TOpenTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.TWebStoreTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.l32title = new System.Windows.Forms.Label();
-            this.l32desc = new System.Windows.Forms.Label();
-            this.ll32bit = new System.Windows.Forms.LinkLabel();
-            this.p32bit = new System.Windows.Forms.FlowLayoutPanel();
+            this.lbSynthVol = new System.Windows.Forms.Label();
+            this.lbSynthRate = new System.Windows.Forms.Label();
+            this.nudSynthVol = new System.Windows.Forms.NumericUpDown();
+            this.nudSynthRate = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tpSettings.SuspendLayout();
             this.pCleanDownload.SuspendLayout();
@@ -330,6 +342,7 @@
             this.L1.SuspendLayout();
             this.L0.SuspendLayout();
             this.tpAbout.SuspendLayout();
+            this.p32bit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.pTitle.SuspendLayout();
             this.pSidebar.SuspendLayout();
@@ -338,7 +351,8 @@
             this.cmsBStyle.SuspendLayout();
             this.cmsLanguage.SuspendLayout();
             this.cmsTheme.SuspendLayout();
-            this.p32bit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSynthVol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSynthRate)).BeginInit();
             this.SuspendLayout();
             // 
             // lbTitle
@@ -374,6 +388,8 @@
             // tpSettings
             // 
             this.tpSettings.AutoScroll = true;
+            this.tpSettings.Controls.Add(this.nudSynthRate);
+            this.tpSettings.Controls.Add(this.nudSynthVol);
             this.tpSettings.Controls.Add(this.pCleanDownload);
             this.tpSettings.Controls.Add(this.lbCleanDownload);
             this.tpSettings.Controls.Add(this.hsCleanDownload);
@@ -445,6 +461,8 @@
             this.tpSettings.Controls.Add(this.lbFlashInfo);
             this.tpSettings.Controls.Add(this.lbFlash);
             this.tpSettings.Controls.Add(this.hsFlash);
+            this.tpSettings.Controls.Add(this.lbSynthRate);
+            this.tpSettings.Controls.Add(this.lbSynthVol);
             this.tpSettings.Controls.Add(this.lbDNT);
             this.tpSettings.Controls.Add(this.hsDoNotTrack);
             this.tpSettings.Controls.Add(this.lbautoRestore);
@@ -483,7 +501,7 @@
             this.pCleanDownload.Controls.Add(this.lbCD1);
             this.pCleanDownload.Controls.Add(this.hsCDDay);
             this.pCleanDownload.Controls.Add(this.hsCDFile);
-            this.pCleanDownload.Location = new System.Drawing.Point(19, 1684);
+            this.pCleanDownload.Location = new System.Drawing.Point(19, 1748);
             this.pCleanDownload.Name = "pCleanDownload";
             this.pCleanDownload.Size = new System.Drawing.Size(538, 88);
             this.pCleanDownload.TabIndex = 130;
@@ -624,7 +642,7 @@
             // 
             this.lbCleanDownload.AutoSize = true;
             this.lbCleanDownload.BackColor = System.Drawing.Color.Transparent;
-            this.lbCleanDownload.Location = new System.Drawing.Point(16, 1659);
+            this.lbCleanDownload.Location = new System.Drawing.Point(16, 1723);
             this.lbCleanDownload.Name = "lbCleanDownload";
             this.lbCleanDownload.Size = new System.Drawing.Size(135, 15);
             this.lbCleanDownload.TabIndex = 129;
@@ -632,7 +650,7 @@
             // 
             // hsCleanDownload
             // 
-            this.hsCleanDownload.Location = new System.Drawing.Point(156, 1659);
+            this.hsCleanDownload.Location = new System.Drawing.Point(156, 1723);
             this.hsCleanDownload.Name = "hsCleanDownload";
             this.hsCleanDownload.Size = new System.Drawing.Size(50, 19);
             this.hsCleanDownload.TabIndex = 128;
@@ -652,7 +670,7 @@
             this.pCleanLog.Controls.Add(this.hsCLDay);
             this.pCleanLog.Controls.Add(this.hsCLFile);
             this.pCleanLog.Controls.Add(this.hsCLOld);
-            this.pCleanLog.Location = new System.Drawing.Point(19, 1554);
+            this.pCleanLog.Location = new System.Drawing.Point(19, 1618);
             this.pCleanLog.Name = "pCleanLog";
             this.pCleanLog.Size = new System.Drawing.Size(538, 83);
             this.pCleanLog.TabIndex = 126;
@@ -793,7 +811,7 @@
             // 
             this.lbCleanLog.AutoSize = true;
             this.lbCleanLog.BackColor = System.Drawing.Color.Transparent;
-            this.lbCleanLog.Location = new System.Drawing.Point(16, 1529);
+            this.lbCleanLog.Location = new System.Drawing.Point(16, 1593);
             this.lbCleanLog.Name = "lbCleanLog";
             this.lbCleanLog.Size = new System.Drawing.Size(100, 15);
             this.lbCleanLog.TabIndex = 125;
@@ -801,7 +819,7 @@
             // 
             // hsCleanLog
             // 
-            this.hsCleanLog.Location = new System.Drawing.Point(121, 1529);
+            this.hsCleanLog.Location = new System.Drawing.Point(121, 1593);
             this.hsCleanLog.Name = "hsCleanLog";
             this.hsCleanLog.Size = new System.Drawing.Size(50, 19);
             this.hsCleanLog.TabIndex = 124;
@@ -816,7 +834,7 @@
             this.btClean.FlatAppearance.BorderSize = 0;
             this.btClean.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClean.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btClean.Location = new System.Drawing.Point(472, 1249);
+            this.btClean.Location = new System.Drawing.Point(472, 1313);
             this.btClean.Name = "btClean";
             this.btClean.Size = new System.Drawing.Size(85, 27);
             this.btClean.TabIndex = 123;
@@ -838,7 +856,7 @@
             this.pCleanHistory.Controls.Add(this.hsCHFile);
             this.pCleanHistory.Controls.Add(this.lbCH5);
             this.pCleanHistory.Controls.Add(this.hsCHOld);
-            this.pCleanHistory.Location = new System.Drawing.Point(19, 1419);
+            this.pCleanHistory.Location = new System.Drawing.Point(19, 1483);
             this.pCleanHistory.Name = "pCleanHistory";
             this.pCleanHistory.Size = new System.Drawing.Size(538, 87);
             this.pCleanHistory.TabIndex = 122;
@@ -987,7 +1005,7 @@
             this.pCleanCache.Controls.Add(this.lbCC1);
             this.pCleanCache.Controls.Add(this.hsCC2);
             this.pCleanCache.Controls.Add(this.hsCC1);
-            this.pCleanCache.Location = new System.Drawing.Point(19, 1314);
+            this.pCleanCache.Location = new System.Drawing.Point(19, 1378);
             this.pCleanCache.Name = "pCleanCache";
             this.pCleanCache.Size = new System.Drawing.Size(538, 62);
             this.pCleanCache.TabIndex = 122;
@@ -1086,10 +1104,10 @@
             // 
             this.tbTheme.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbTheme.Location = new System.Drawing.Point(77, 2073);
+            this.tbTheme.Location = new System.Drawing.Point(77, 2137);
             this.tbTheme.Name = "tbTheme";
             this.tbTheme.ReadOnly = true;
-            this.tbTheme.Size = new System.Drawing.Size(395, 21);
+            this.tbTheme.Size = new System.Drawing.Size(378, 21);
             this.tbTheme.TabIndex = 121;
             this.tbTheme.Tag = "";
             this.tbTheme.Click += new System.EventHandler(this.tbTheme_Click);
@@ -1105,9 +1123,9 @@
             this.pSchedule.Controls.Add(this.flpTo);
             this.pSchedule.Controls.Add(this.scheduleEvery);
             this.pSchedule.Controls.Add(this.scheduleTo);
-            this.pSchedule.Location = new System.Drawing.Point(19, 1118);
+            this.pSchedule.Location = new System.Drawing.Point(19, 1182);
             this.pSchedule.Name = "pSchedule";
-            this.pSchedule.Size = new System.Drawing.Size(470, 116);
+            this.pSchedule.Size = new System.Drawing.Size(453, 116);
             this.pSchedule.TabIndex = 120;
             // 
             // flpFrom
@@ -1282,7 +1300,7 @@
             this.lb24HType.BackColor = System.Drawing.Color.Transparent;
             this.lb24HType.Location = new System.Drawing.Point(12, 47);
             this.lb24HType.Name = "lb24HType";
-            this.lb24HType.Size = new System.Drawing.Size(455, 19);
+            this.lb24HType.Size = new System.Drawing.Size(438, 19);
             this.lb24HType.TabIndex = 40;
             this.lb24HType.Text = "Based on 24-hour type. Add 12 to hours on PM.";
             // 
@@ -1377,7 +1395,7 @@
             this.btThemeWizard.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btThemeWizard.FlatAppearance.BorderSize = 0;
             this.btThemeWizard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btThemeWizard.Location = new System.Drawing.Point(19, 2112);
+            this.btThemeWizard.Location = new System.Drawing.Point(19, 2176);
             this.btThemeWizard.Name = "btThemeWizard";
             this.btThemeWizard.Size = new System.Drawing.Size(123, 25);
             this.btThemeWizard.TabIndex = 119;
@@ -1394,7 +1412,7 @@
             this.btBlocked.FlatAppearance.BorderSize = 0;
             this.btBlocked.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btBlocked.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btBlocked.Location = new System.Drawing.Point(19, 430);
+            this.btBlocked.Location = new System.Drawing.Point(19, 494);
             this.btBlocked.Name = "btBlocked";
             this.btBlocked.Size = new System.Drawing.Size(115, 27);
             this.btBlocked.TabIndex = 118;
@@ -1411,7 +1429,7 @@
             this.btCookie.FlatAppearance.BorderSize = 0;
             this.btCookie.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btCookie.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btCookie.Location = new System.Drawing.Point(19, 394);
+            this.btCookie.Location = new System.Drawing.Point(19, 458);
             this.btCookie.Name = "btCookie";
             this.btCookie.Size = new System.Drawing.Size(105, 27);
             this.btCookie.TabIndex = 118;
@@ -1421,7 +1439,7 @@
             // 
             // hsAutoForeColor
             // 
-            this.hsAutoForeColor.Location = new System.Drawing.Point(286, 1844);
+            this.hsAutoForeColor.Location = new System.Drawing.Point(286, 1908);
             this.hsAutoForeColor.Name = "hsAutoForeColor";
             this.hsAutoForeColor.Size = new System.Drawing.Size(50, 19);
             this.hsAutoForeColor.TabIndex = 116;
@@ -1432,7 +1450,7 @@
             this.lbAutoSelect.AutoSize = true;
             this.lbAutoSelect.BackColor = System.Drawing.Color.Transparent;
             this.lbAutoSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbAutoSelect.Location = new System.Drawing.Point(200, 1845);
+            this.lbAutoSelect.Location = new System.Drawing.Point(200, 1909);
             this.lbAutoSelect.Name = "lbAutoSelect";
             this.lbAutoSelect.Size = new System.Drawing.Size(80, 16);
             this.lbAutoSelect.TabIndex = 114;
@@ -1441,7 +1459,7 @@
             // 
             // hsNinja
             // 
-            this.hsNinja.Location = new System.Drawing.Point(166, 1908);
+            this.hsNinja.Location = new System.Drawing.Point(166, 1972);
             this.hsNinja.Name = "hsNinja";
             this.hsNinja.Size = new System.Drawing.Size(50, 19);
             this.hsNinja.TabIndex = 115;
@@ -1452,7 +1470,7 @@
             this.lbNinja.AutoSize = true;
             this.lbNinja.BackColor = System.Drawing.Color.Transparent;
             this.lbNinja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbNinja.Location = new System.Drawing.Point(17, 1911);
+            this.lbNinja.Location = new System.Drawing.Point(17, 1975);
             this.lbNinja.Name = "lbNinja";
             this.lbNinja.Size = new System.Drawing.Size(80, 16);
             this.lbNinja.TabIndex = 113;
@@ -1462,7 +1480,7 @@
             // pbForeColor
             // 
             this.pbForeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbForeColor.Location = new System.Drawing.Point(171, 1839);
+            this.pbForeColor.Location = new System.Drawing.Point(171, 1903);
             this.pbForeColor.Name = "pbForeColor";
             this.pbForeColor.Size = new System.Drawing.Size(23, 23);
             this.pbForeColor.TabIndex = 112;
@@ -1475,7 +1493,7 @@
             this.lbForeColor.AutoSize = true;
             this.lbForeColor.BackColor = System.Drawing.Color.Transparent;
             this.lbForeColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbForeColor.Location = new System.Drawing.Point(16, 1844);
+            this.lbForeColor.Location = new System.Drawing.Point(16, 1908);
             this.lbForeColor.Name = "lbForeColor";
             this.lbForeColor.Size = new System.Drawing.Size(122, 16);
             this.lbForeColor.TabIndex = 111;
@@ -1490,9 +1508,9 @@
             this.flpClose.Controls.Add(this.rbBackColor1);
             this.flpClose.Controls.Add(this.rbForeColor1);
             this.flpClose.Controls.Add(this.rbOverlayColor1);
-            this.flpClose.Location = new System.Drawing.Point(151, 2036);
+            this.flpClose.Location = new System.Drawing.Point(151, 2100);
             this.flpClose.Name = "flpClose";
-            this.flpClose.Size = new System.Drawing.Size(321, 27);
+            this.flpClose.Size = new System.Drawing.Size(304, 27);
             this.flpClose.TabIndex = 109;
             // 
             // rbBackColor1
@@ -1539,9 +1557,9 @@
             this.flpNewTab.Controls.Add(this.rbBackColor);
             this.flpNewTab.Controls.Add(this.rbForeColor);
             this.flpNewTab.Controls.Add(this.rbOverlayColor);
-            this.flpNewTab.Location = new System.Drawing.Point(166, 2005);
+            this.flpNewTab.Location = new System.Drawing.Point(166, 2069);
             this.flpNewTab.Name = "flpNewTab";
-            this.flpNewTab.Size = new System.Drawing.Size(306, 27);
+            this.flpNewTab.Size = new System.Drawing.Size(289, 27);
             this.flpNewTab.TabIndex = 108;
             // 
             // rbBackColor
@@ -1590,9 +1608,9 @@
             this.flpLayout.Controls.Add(this.rbCenter);
             this.flpLayout.Controls.Add(this.rbStretch);
             this.flpLayout.Controls.Add(this.rbZoom);
-            this.flpLayout.Location = new System.Drawing.Point(181, 1939);
+            this.flpLayout.Location = new System.Drawing.Point(181, 2003);
             this.flpLayout.Name = "flpLayout";
-            this.flpLayout.Size = new System.Drawing.Size(291, 27);
+            this.flpLayout.Size = new System.Drawing.Size(274, 27);
             this.flpLayout.TabIndex = 110;
             // 
             // rbNone
@@ -1660,7 +1678,7 @@
             this.lbBackImageStyle.AutoSize = true;
             this.lbBackImageStyle.BackColor = System.Drawing.Color.Transparent;
             this.lbBackImageStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbBackImageStyle.Location = new System.Drawing.Point(17, 1943);
+            this.lbBackImageStyle.Location = new System.Drawing.Point(17, 2007);
             this.lbBackImageStyle.Name = "lbBackImageStyle";
             this.lbBackImageStyle.Size = new System.Drawing.Size(158, 16);
             this.lbBackImageStyle.TabIndex = 100;
@@ -1672,7 +1690,7 @@
             this.lbCloseColor.AutoSize = true;
             this.lbCloseColor.BackColor = System.Drawing.Color.Transparent;
             this.lbCloseColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbCloseColor.Location = new System.Drawing.Point(17, 2040);
+            this.lbCloseColor.Location = new System.Drawing.Point(17, 2104);
             this.lbCloseColor.Name = "lbCloseColor";
             this.lbCloseColor.Size = new System.Drawing.Size(121, 16);
             this.lbCloseColor.TabIndex = 101;
@@ -1684,7 +1702,7 @@
             this.lbNewTabColor.AutoSize = true;
             this.lbNewTabColor.BackColor = System.Drawing.Color.Transparent;
             this.lbNewTabColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbNewTabColor.Location = new System.Drawing.Point(16, 2009);
+            this.lbNewTabColor.Location = new System.Drawing.Point(16, 2073);
             this.lbNewTabColor.Name = "lbNewTabColor";
             this.lbNewTabColor.Size = new System.Drawing.Size(141, 16);
             this.lbNewTabColor.TabIndex = 96;
@@ -1696,7 +1714,7 @@
             this.lbBackImage.AutoSize = true;
             this.lbBackImage.BackColor = System.Drawing.Color.Transparent;
             this.lbBackImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbBackImage.Location = new System.Drawing.Point(16, 1975);
+            this.lbBackImage.Location = new System.Drawing.Point(16, 2039);
             this.lbBackImage.Name = "lbBackImage";
             this.lbBackImage.Size = new System.Drawing.Size(128, 16);
             this.lbBackImage.TabIndex = 102;
@@ -1706,7 +1724,7 @@
             // pbBack
             // 
             this.pbBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbBack.Location = new System.Drawing.Point(171, 1807);
+            this.pbBack.Location = new System.Drawing.Point(171, 1871);
             this.pbBack.Name = "pbBack";
             this.pbBack.Size = new System.Drawing.Size(23, 23);
             this.pbBack.TabIndex = 104;
@@ -1717,7 +1735,7 @@
             // pbOverlay
             // 
             this.pbOverlay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbOverlay.Location = new System.Drawing.Point(171, 1874);
+            this.pbOverlay.Location = new System.Drawing.Point(171, 1938);
             this.pbOverlay.Name = "pbOverlay";
             this.pbOverlay.Size = new System.Drawing.Size(23, 23);
             this.pbOverlay.TabIndex = 106;
@@ -1730,7 +1748,7 @@
             this.lbBackColor.AutoSize = true;
             this.lbBackColor.BackColor = System.Drawing.Color.Transparent;
             this.lbBackColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbBackColor.Location = new System.Drawing.Point(16, 1811);
+            this.lbBackColor.Location = new System.Drawing.Point(16, 1875);
             this.lbBackColor.Name = "lbBackColor";
             this.lbBackColor.Size = new System.Drawing.Size(125, 16);
             this.lbBackColor.TabIndex = 99;
@@ -1742,7 +1760,7 @@
             this.lbOveralColor.AutoSize = true;
             this.lbOveralColor.BackColor = System.Drawing.Color.Transparent;
             this.lbOveralColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbOveralColor.Location = new System.Drawing.Point(17, 1876);
+            this.lbOveralColor.Location = new System.Drawing.Point(17, 1940);
             this.lbOveralColor.Name = "lbOveralColor";
             this.lbOveralColor.Size = new System.Drawing.Size(92, 16);
             this.lbOveralColor.TabIndex = 103;
@@ -1753,11 +1771,11 @@
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(156, 1975);
+            this.textBox4.Location = new System.Drawing.Point(156, 2039);
             this.textBox4.MaxLength = 2147483647;
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(316, 21);
+            this.textBox4.Size = new System.Drawing.Size(299, 21);
             this.textBox4.TabIndex = 93;
             this.textBox4.Text = "download ivan\'s sexy calculator pls";
             this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
@@ -1767,7 +1785,7 @@
             this.lbThemeName.AutoSize = true;
             this.lbThemeName.BackColor = System.Drawing.Color.Transparent;
             this.lbThemeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbThemeName.Location = new System.Drawing.Point(16, 2076);
+            this.lbThemeName.Location = new System.Drawing.Point(16, 2140);
             this.lbThemeName.Name = "lbThemeName";
             this.lbThemeName.Size = new System.Drawing.Size(57, 16);
             this.lbThemeName.TabIndex = 98;
@@ -1780,9 +1798,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbLayout.BackColor = System.Drawing.Color.Transparent;
             this.lbLayout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbLayout.Location = new System.Drawing.Point(16, 2157);
+            this.lbLayout.Location = new System.Drawing.Point(16, 2221);
             this.lbLayout.Name = "lbLayout";
-            this.lbLayout.Size = new System.Drawing.Size(456, 16);
+            this.lbLayout.Size = new System.Drawing.Size(439, 16);
             this.lbLayout.TabIndex = 97;
             this.lbLayout.Tag = "";
             // 
@@ -1790,7 +1808,7 @@
             // 
             this.lbTheme.AutoSize = true;
             this.lbTheme.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.lbTheme.Location = new System.Drawing.Point(14, 1775);
+            this.lbTheme.Location = new System.Drawing.Point(14, 1839);
             this.lbTheme.Name = "lbTheme";
             this.lbTheme.Size = new System.Drawing.Size(74, 25);
             this.lbTheme.TabIndex = 107;
@@ -1804,7 +1822,7 @@
             this.btOpenSound.FlatAppearance.BorderSize = 0;
             this.btOpenSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btOpenSound.Font = new System.Drawing.Font("Ubuntu", 9F);
-            this.btOpenSound.Location = new System.Drawing.Point(433, 999);
+            this.btOpenSound.Location = new System.Drawing.Point(416, 1063);
             this.btOpenSound.Name = "btOpenSound";
             this.btOpenSound.Size = new System.Drawing.Size(27, 26);
             this.btOpenSound.TabIndex = 92;
@@ -1816,9 +1834,9 @@
             // 
             this.tbSoundLoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSoundLoc.Location = new System.Drawing.Point(19, 1004);
+            this.tbSoundLoc.Location = new System.Drawing.Point(19, 1068);
             this.tbSoundLoc.Name = "tbSoundLoc";
-            this.tbSoundLoc.Size = new System.Drawing.Size(414, 21);
+            this.tbSoundLoc.Size = new System.Drawing.Size(397, 21);
             this.tbSoundLoc.TabIndex = 91;
             this.tbSoundLoc.TextChanged += new System.EventHandler(this.tbSoundLoc_TextChanged);
             // 
@@ -1826,7 +1844,7 @@
             // 
             this.lbSchedule.AutoSize = true;
             this.lbSchedule.BackColor = System.Drawing.Color.Transparent;
-            this.lbSchedule.Location = new System.Drawing.Point(16, 1076);
+            this.lbSchedule.Location = new System.Drawing.Point(16, 1140);
             this.lbSchedule.Name = "lbSchedule";
             this.lbSchedule.Size = new System.Drawing.Size(131, 15);
             this.lbSchedule.TabIndex = 87;
@@ -1836,7 +1854,7 @@
             // 
             this.lbSilentMode.AutoSize = true;
             this.lbSilentMode.BackColor = System.Drawing.Color.Transparent;
-            this.lbSilentMode.Location = new System.Drawing.Point(16, 1043);
+            this.lbSilentMode.Location = new System.Drawing.Point(16, 1107);
             this.lbSilentMode.Name = "lbSilentMode";
             this.lbSilentMode.Size = new System.Drawing.Size(76, 15);
             this.lbSilentMode.TabIndex = 88;
@@ -1844,7 +1862,7 @@
             // 
             // hsSchedule
             // 
-            this.hsSchedule.Location = new System.Drawing.Point(164, 1074);
+            this.hsSchedule.Location = new System.Drawing.Point(164, 1138);
             this.hsSchedule.Name = "hsSchedule";
             this.hsSchedule.Size = new System.Drawing.Size(50, 19);
             this.hsSchedule.TabIndex = 83;
@@ -1852,7 +1870,7 @@
             // 
             // hsSilent
             // 
-            this.hsSilent.Location = new System.Drawing.Point(97, 1040);
+            this.hsSilent.Location = new System.Drawing.Point(97, 1104);
             this.hsSilent.Name = "hsSilent";
             this.hsSilent.Size = new System.Drawing.Size(50, 19);
             this.hsSilent.TabIndex = 84;
@@ -1862,7 +1880,7 @@
             // 
             this.lbDefaultNotifSound.AutoSize = true;
             this.lbDefaultNotifSound.BackColor = System.Drawing.Color.Transparent;
-            this.lbDefaultNotifSound.Location = new System.Drawing.Point(16, 974);
+            this.lbDefaultNotifSound.Location = new System.Drawing.Point(16, 1038);
             this.lbDefaultNotifSound.Name = "lbDefaultNotifSound";
             this.lbDefaultNotifSound.Size = new System.Drawing.Size(171, 15);
             this.lbDefaultNotifSound.TabIndex = 89;
@@ -1870,7 +1888,7 @@
             // 
             // hsDefaultSound
             // 
-            this.hsDefaultSound.Location = new System.Drawing.Point(204, 974);
+            this.hsDefaultSound.Location = new System.Drawing.Point(204, 1038);
             this.hsDefaultSound.Name = "hsDefaultSound";
             this.hsDefaultSound.Size = new System.Drawing.Size(50, 19);
             this.hsDefaultSound.TabIndex = 85;
@@ -1880,7 +1898,7 @@
             // 
             this.lbCleanHistory.AutoSize = true;
             this.lbCleanHistory.BackColor = System.Drawing.Color.Transparent;
-            this.lbCleanHistory.Location = new System.Drawing.Point(16, 1394);
+            this.lbCleanHistory.Location = new System.Drawing.Point(16, 1458);
             this.lbCleanHistory.Name = "lbCleanHistory";
             this.lbCleanHistory.Size = new System.Drawing.Size(110, 15);
             this.lbCleanHistory.TabIndex = 90;
@@ -1890,7 +1908,7 @@
             // 
             this.lbCleanCache.AutoSize = true;
             this.lbCleanCache.BackColor = System.Drawing.Color.Transparent;
-            this.lbCleanCache.Location = new System.Drawing.Point(16, 1289);
+            this.lbCleanCache.Location = new System.Drawing.Point(16, 1353);
             this.lbCleanCache.Name = "lbCleanCache";
             this.lbCleanCache.Size = new System.Drawing.Size(108, 15);
             this.lbCleanCache.TabIndex = 90;
@@ -1898,7 +1916,7 @@
             // 
             // hsCleanHistory
             // 
-            this.hsCleanHistory.Location = new System.Drawing.Point(131, 1394);
+            this.hsCleanHistory.Location = new System.Drawing.Point(131, 1458);
             this.hsCleanHistory.Name = "hsCleanHistory";
             this.hsCleanHistory.Size = new System.Drawing.Size(50, 19);
             this.hsCleanHistory.TabIndex = 86;
@@ -1908,7 +1926,7 @@
             // 
             this.lbPlayNotifSound.AutoSize = true;
             this.lbPlayNotifSound.BackColor = System.Drawing.Color.Transparent;
-            this.lbPlayNotifSound.Location = new System.Drawing.Point(16, 935);
+            this.lbPlayNotifSound.Location = new System.Drawing.Point(16, 999);
             this.lbPlayNotifSound.Name = "lbPlayNotifSound";
             this.lbPlayNotifSound.Size = new System.Drawing.Size(136, 15);
             this.lbPlayNotifSound.TabIndex = 90;
@@ -1916,7 +1934,7 @@
             // 
             // hsCleanCache
             // 
-            this.hsCleanCache.Location = new System.Drawing.Point(131, 1289);
+            this.hsCleanCache.Location = new System.Drawing.Point(131, 1353);
             this.hsCleanCache.Name = "hsCleanCache";
             this.hsCleanCache.Size = new System.Drawing.Size(50, 19);
             this.hsCleanCache.TabIndex = 86;
@@ -1924,7 +1942,7 @@
             // 
             // hsNotificationSound
             // 
-            this.hsNotificationSound.Location = new System.Drawing.Point(162, 934);
+            this.hsNotificationSound.Location = new System.Drawing.Point(162, 998);
             this.hsNotificationSound.Name = "hsNotificationSound";
             this.hsNotificationSound.Size = new System.Drawing.Size(50, 19);
             this.hsNotificationSound.TabIndex = 86;
@@ -1934,7 +1952,7 @@
             // 
             this.lbAutoClean.AutoSize = true;
             this.lbAutoClean.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.lbAutoClean.Location = new System.Drawing.Point(14, 1246);
+            this.lbAutoClean.Location = new System.Drawing.Point(14, 1310);
             this.lbAutoClean.Name = "lbAutoClean";
             this.lbAutoClean.Size = new System.Drawing.Size(115, 25);
             this.lbAutoClean.TabIndex = 82;
@@ -1944,7 +1962,7 @@
             // 
             this.lbNotifSetting.AutoSize = true;
             this.lbNotifSetting.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.lbNotifSetting.Location = new System.Drawing.Point(14, 892);
+            this.lbNotifSetting.Location = new System.Drawing.Point(14, 956);
             this.lbNotifSetting.Name = "lbNotifSetting";
             this.lbNotifSetting.Size = new System.Drawing.Size(133, 25);
             this.lbNotifSetting.TabIndex = 82;
@@ -1954,7 +1972,7 @@
             // 
             this.lbDownloads.AutoSize = true;
             this.lbDownloads.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.lbDownloads.Location = new System.Drawing.Point(14, 752);
+            this.lbDownloads.Location = new System.Drawing.Point(14, 816);
             this.lbDownloads.Name = "lbDownloads";
             this.lbDownloads.Size = new System.Drawing.Size(114, 25);
             this.lbDownloads.TabIndex = 79;
@@ -1972,7 +1990,7 @@
             // 
             // hsOpen
             // 
-            this.hsOpen.Location = new System.Drawing.Point(174, 786);
+            this.hsOpen.Location = new System.Drawing.Point(174, 850);
             this.hsOpen.Name = "hsOpen";
             this.hsOpen.Size = new System.Drawing.Size(50, 19);
             this.hsOpen.TabIndex = 74;
@@ -1980,7 +1998,7 @@
             // 
             // hsDownload
             // 
-            this.hsDownload.Location = new System.Drawing.Point(180, 817);
+            this.hsDownload.Location = new System.Drawing.Point(180, 881);
             this.hsDownload.Name = "hsDownload";
             this.hsDownload.Size = new System.Drawing.Size(50, 19);
             this.hsDownload.TabIndex = 75;
@@ -1990,9 +2008,9 @@
             // 
             this.tbFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFolder.Location = new System.Drawing.Point(161, 849);
+            this.tbFolder.Location = new System.Drawing.Point(161, 913);
             this.tbFolder.Name = "tbFolder";
-            this.tbFolder.Size = new System.Drawing.Size(272, 21);
+            this.tbFolder.Size = new System.Drawing.Size(255, 21);
             this.tbFolder.TabIndex = 76;
             this.tbFolder.Tag = "";
             this.tbFolder.TextChanged += new System.EventHandler(this.tbFolder_TextChanged);
@@ -2006,7 +2024,7 @@
             this.btDownloadFolder.FlatAppearance.BorderSize = 0;
             this.btDownloadFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDownloadFolder.Font = new System.Drawing.Font("Ubuntu", 9F);
-            this.btDownloadFolder.Location = new System.Drawing.Point(433, 846);
+            this.btDownloadFolder.Location = new System.Drawing.Point(416, 910);
             this.btDownloadFolder.Name = "btDownloadFolder";
             this.btDownloadFolder.Size = new System.Drawing.Size(27, 26);
             this.btDownloadFolder.TabIndex = 77;
@@ -2018,7 +2036,7 @@
             // 
             this.lbDownloadFolder.AutoSize = true;
             this.lbDownloadFolder.BackColor = System.Drawing.Color.Transparent;
-            this.lbDownloadFolder.Location = new System.Drawing.Point(16, 852);
+            this.lbDownloadFolder.Location = new System.Drawing.Point(16, 916);
             this.lbDownloadFolder.Name = "lbDownloadFolder";
             this.lbDownloadFolder.Size = new System.Drawing.Size(135, 15);
             this.lbDownloadFolder.TabIndex = 78;
@@ -2030,7 +2048,7 @@
             this.lbOpen.AutoSize = true;
             this.lbOpen.BackColor = System.Drawing.Color.Transparent;
             this.lbOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lbOpen.Location = new System.Drawing.Point(16, 790);
+            this.lbOpen.Location = new System.Drawing.Point(16, 854);
             this.lbOpen.Name = "lbOpen";
             this.lbOpen.Size = new System.Drawing.Size(149, 15);
             this.lbOpen.TabIndex = 80;
@@ -2042,7 +2060,7 @@
             this.lbAutoDownload.AutoSize = true;
             this.lbAutoDownload.BackColor = System.Drawing.Color.Transparent;
             this.lbAutoDownload.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lbAutoDownload.Location = new System.Drawing.Point(16, 820);
+            this.lbAutoDownload.Location = new System.Drawing.Point(16, 884);
             this.lbAutoDownload.Name = "lbAutoDownload";
             this.lbAutoDownload.Size = new System.Drawing.Size(149, 15);
             this.lbAutoDownload.TabIndex = 81;
@@ -2054,9 +2072,9 @@
             this.tbUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbUrl.Font = new System.Drawing.Font("Ubuntu", 9F);
-            this.tbUrl.Location = new System.Drawing.Point(54, 549);
+            this.tbUrl.Location = new System.Drawing.Point(54, 613);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(412, 21);
+            this.tbUrl.Size = new System.Drawing.Size(395, 21);
             this.tbUrl.TabIndex = 73;
             this.tbUrl.TextChanged += new System.EventHandler(this.tbUrl_TextChanged);
             // 
@@ -2065,9 +2083,9 @@
             this.tbTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbTitle.Font = new System.Drawing.Font("Ubuntu", 9F);
-            this.tbTitle.Location = new System.Drawing.Point(65, 516);
+            this.tbTitle.Location = new System.Drawing.Point(65, 580);
             this.tbTitle.Name = "tbTitle";
-            this.tbTitle.Size = new System.Drawing.Size(401, 21);
+            this.tbTitle.Size = new System.Drawing.Size(384, 21);
             this.tbTitle.TabIndex = 72;
             this.tbTitle.TextChanged += new System.EventHandler(this.tbTitle_TextChanged);
             // 
@@ -2091,12 +2109,12 @@
             this.tlpNewTab.Controls.Add(this.L2, 2, 0);
             this.tlpNewTab.Controls.Add(this.L1, 1, 0);
             this.tlpNewTab.Controls.Add(this.L0, 0, 0);
-            this.tlpNewTab.Location = new System.Drawing.Point(19, 610);
+            this.tlpNewTab.Location = new System.Drawing.Point(19, 674);
             this.tlpNewTab.Name = "tlpNewTab";
             this.tlpNewTab.RowCount = 2;
             this.tlpNewTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpNewTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpNewTab.Size = new System.Drawing.Size(447, 133);
+            this.tlpNewTab.Size = new System.Drawing.Size(430, 133);
             this.tlpNewTab.TabIndex = 71;
             // 
             // L9
@@ -2104,9 +2122,9 @@
             this.L9.Controls.Add(this.L9T);
             this.L9.Controls.Add(this.L9U);
             this.L9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L9.Location = new System.Drawing.Point(359, 69);
+            this.L9.Location = new System.Drawing.Point(347, 69);
             this.L9.Name = "L9";
-            this.L9.Size = new System.Drawing.Size(85, 61);
+            this.L9.Size = new System.Drawing.Size(80, 61);
             this.L9.TabIndex = 9;
             this.L9.Tag = "9";
             this.L9.Click += new System.EventHandler(this.siteItem_Click);
@@ -2117,7 +2135,7 @@
             this.L9T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L9T.Location = new System.Drawing.Point(0, 20);
             this.L9T.Name = "L9T";
-            this.L9T.Size = new System.Drawing.Size(85, 22);
+            this.L9T.Size = new System.Drawing.Size(80, 22);
             this.L9T.TabIndex = 0;
             this.L9T.Tag = "9";
             this.L9T.Text = "Title";
@@ -2130,7 +2148,7 @@
             this.L9U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L9U.Location = new System.Drawing.Point(0, 42);
             this.L9U.Name = "L9U";
-            this.L9U.Size = new System.Drawing.Size(85, 19);
+            this.L9U.Size = new System.Drawing.Size(80, 19);
             this.L9U.TabIndex = 1;
             this.L9U.Tag = "9";
             this.L9U.Text = "Title";
@@ -2142,9 +2160,9 @@
             this.L8.Controls.Add(this.L8T);
             this.L8.Controls.Add(this.L8U);
             this.L8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L8.Location = new System.Drawing.Point(270, 69);
+            this.L8.Location = new System.Drawing.Point(261, 69);
             this.L8.Name = "L8";
-            this.L8.Size = new System.Drawing.Size(83, 61);
+            this.L8.Size = new System.Drawing.Size(80, 61);
             this.L8.TabIndex = 8;
             this.L8.Tag = "8";
             this.L8.Click += new System.EventHandler(this.siteItem_Click);
@@ -2155,7 +2173,7 @@
             this.L8T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L8T.Location = new System.Drawing.Point(0, 20);
             this.L8T.Name = "L8T";
-            this.L8T.Size = new System.Drawing.Size(83, 22);
+            this.L8T.Size = new System.Drawing.Size(80, 22);
             this.L8T.TabIndex = 0;
             this.L8T.Tag = "8";
             this.L8T.Text = "Title";
@@ -2168,7 +2186,7 @@
             this.L8U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L8U.Location = new System.Drawing.Point(0, 42);
             this.L8U.Name = "L8U";
-            this.L8U.Size = new System.Drawing.Size(83, 19);
+            this.L8U.Size = new System.Drawing.Size(80, 19);
             this.L8U.TabIndex = 1;
             this.L8U.Tag = "8";
             this.L8U.Text = "Title";
@@ -2180,9 +2198,9 @@
             this.L7.Controls.Add(this.L7T);
             this.L7.Controls.Add(this.L7U);
             this.L7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L7.Location = new System.Drawing.Point(181, 69);
+            this.L7.Location = new System.Drawing.Point(175, 69);
             this.L7.Name = "L7";
-            this.L7.Size = new System.Drawing.Size(83, 61);
+            this.L7.Size = new System.Drawing.Size(80, 61);
             this.L7.TabIndex = 7;
             this.L7.Tag = "7";
             this.L7.Click += new System.EventHandler(this.siteItem_Click);
@@ -2193,7 +2211,7 @@
             this.L7T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L7T.Location = new System.Drawing.Point(0, 20);
             this.L7T.Name = "L7T";
-            this.L7T.Size = new System.Drawing.Size(83, 22);
+            this.L7T.Size = new System.Drawing.Size(80, 22);
             this.L7T.TabIndex = 0;
             this.L7T.Tag = "7";
             this.L7T.Text = "Title";
@@ -2206,7 +2224,7 @@
             this.L7U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L7U.Location = new System.Drawing.Point(0, 42);
             this.L7U.Name = "L7U";
-            this.L7U.Size = new System.Drawing.Size(83, 19);
+            this.L7U.Size = new System.Drawing.Size(80, 19);
             this.L7U.TabIndex = 1;
             this.L7U.Tag = "7";
             this.L7U.Text = "Title";
@@ -2218,9 +2236,9 @@
             this.L6.Controls.Add(this.L6T);
             this.L6.Controls.Add(this.L6U);
             this.L6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L6.Location = new System.Drawing.Point(92, 69);
+            this.L6.Location = new System.Drawing.Point(89, 69);
             this.L6.Name = "L6";
-            this.L6.Size = new System.Drawing.Size(83, 61);
+            this.L6.Size = new System.Drawing.Size(80, 61);
             this.L6.TabIndex = 6;
             this.L6.Tag = "6";
             this.L6.Click += new System.EventHandler(this.siteItem_Click);
@@ -2231,7 +2249,7 @@
             this.L6T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L6T.Location = new System.Drawing.Point(0, 20);
             this.L6T.Name = "L6T";
-            this.L6T.Size = new System.Drawing.Size(83, 22);
+            this.L6T.Size = new System.Drawing.Size(80, 22);
             this.L6T.TabIndex = 0;
             this.L6T.Tag = "6";
             this.L6T.Text = "Title";
@@ -2244,7 +2262,7 @@
             this.L6U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L6U.Location = new System.Drawing.Point(0, 42);
             this.L6U.Name = "L6U";
-            this.L6U.Size = new System.Drawing.Size(83, 19);
+            this.L6U.Size = new System.Drawing.Size(80, 19);
             this.L6U.TabIndex = 1;
             this.L6U.Tag = "6";
             this.L6U.Text = "Title";
@@ -2258,7 +2276,7 @@
             this.L5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.L5.Location = new System.Drawing.Point(3, 69);
             this.L5.Name = "L5";
-            this.L5.Size = new System.Drawing.Size(83, 61);
+            this.L5.Size = new System.Drawing.Size(80, 61);
             this.L5.TabIndex = 5;
             this.L5.Tag = "5";
             this.L5.Click += new System.EventHandler(this.siteItem_Click);
@@ -2269,7 +2287,7 @@
             this.L5T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L5T.Location = new System.Drawing.Point(0, 20);
             this.L5T.Name = "L5T";
-            this.L5T.Size = new System.Drawing.Size(83, 22);
+            this.L5T.Size = new System.Drawing.Size(80, 22);
             this.L5T.TabIndex = 0;
             this.L5T.Tag = "5";
             this.L5T.Text = "Title";
@@ -2282,7 +2300,7 @@
             this.L5U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L5U.Location = new System.Drawing.Point(0, 42);
             this.L5U.Name = "L5U";
-            this.L5U.Size = new System.Drawing.Size(83, 19);
+            this.L5U.Size = new System.Drawing.Size(80, 19);
             this.L5U.TabIndex = 1;
             this.L5U.Tag = "5";
             this.L5U.Text = "Title";
@@ -2294,9 +2312,9 @@
             this.L4.Controls.Add(this.L4T);
             this.L4.Controls.Add(this.L4U);
             this.L4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L4.Location = new System.Drawing.Point(359, 3);
+            this.L4.Location = new System.Drawing.Point(347, 3);
             this.L4.Name = "L4";
-            this.L4.Size = new System.Drawing.Size(85, 60);
+            this.L4.Size = new System.Drawing.Size(80, 60);
             this.L4.TabIndex = 4;
             this.L4.Tag = "4";
             this.L4.Click += new System.EventHandler(this.siteItem_Click);
@@ -2307,7 +2325,7 @@
             this.L4T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L4T.Location = new System.Drawing.Point(0, 19);
             this.L4T.Name = "L4T";
-            this.L4T.Size = new System.Drawing.Size(85, 22);
+            this.L4T.Size = new System.Drawing.Size(80, 22);
             this.L4T.TabIndex = 0;
             this.L4T.Tag = "4";
             this.L4T.Text = "Title";
@@ -2320,7 +2338,7 @@
             this.L4U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L4U.Location = new System.Drawing.Point(0, 41);
             this.L4U.Name = "L4U";
-            this.L4U.Size = new System.Drawing.Size(85, 19);
+            this.L4U.Size = new System.Drawing.Size(80, 19);
             this.L4U.TabIndex = 1;
             this.L4U.Tag = "4";
             this.L4U.Text = "Title";
@@ -2332,9 +2350,9 @@
             this.L3.Controls.Add(this.L3T);
             this.L3.Controls.Add(this.L3U);
             this.L3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L3.Location = new System.Drawing.Point(270, 3);
+            this.L3.Location = new System.Drawing.Point(261, 3);
             this.L3.Name = "L3";
-            this.L3.Size = new System.Drawing.Size(83, 60);
+            this.L3.Size = new System.Drawing.Size(80, 60);
             this.L3.TabIndex = 3;
             this.L3.Tag = "3";
             this.L3.Click += new System.EventHandler(this.siteItem_Click);
@@ -2345,7 +2363,7 @@
             this.L3T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L3T.Location = new System.Drawing.Point(0, 19);
             this.L3T.Name = "L3T";
-            this.L3T.Size = new System.Drawing.Size(83, 22);
+            this.L3T.Size = new System.Drawing.Size(80, 22);
             this.L3T.TabIndex = 0;
             this.L3T.Tag = "3";
             this.L3T.Text = "Title";
@@ -2358,7 +2376,7 @@
             this.L3U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L3U.Location = new System.Drawing.Point(0, 41);
             this.L3U.Name = "L3U";
-            this.L3U.Size = new System.Drawing.Size(83, 19);
+            this.L3U.Size = new System.Drawing.Size(80, 19);
             this.L3U.TabIndex = 1;
             this.L3U.Tag = "3";
             this.L3U.Text = "Title";
@@ -2370,9 +2388,9 @@
             this.L2.Controls.Add(this.L2T);
             this.L2.Controls.Add(this.L2U);
             this.L2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L2.Location = new System.Drawing.Point(181, 3);
+            this.L2.Location = new System.Drawing.Point(175, 3);
             this.L2.Name = "L2";
-            this.L2.Size = new System.Drawing.Size(83, 60);
+            this.L2.Size = new System.Drawing.Size(80, 60);
             this.L2.TabIndex = 2;
             this.L2.Tag = "2";
             this.L2.Click += new System.EventHandler(this.siteItem_Click);
@@ -2383,7 +2401,7 @@
             this.L2T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L2T.Location = new System.Drawing.Point(0, 19);
             this.L2T.Name = "L2T";
-            this.L2T.Size = new System.Drawing.Size(83, 22);
+            this.L2T.Size = new System.Drawing.Size(80, 22);
             this.L2T.TabIndex = 0;
             this.L2T.Tag = "2";
             this.L2T.Text = "Title";
@@ -2396,7 +2414,7 @@
             this.L2U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L2U.Location = new System.Drawing.Point(0, 41);
             this.L2U.Name = "L2U";
-            this.L2U.Size = new System.Drawing.Size(83, 19);
+            this.L2U.Size = new System.Drawing.Size(80, 19);
             this.L2U.TabIndex = 1;
             this.L2U.Tag = "2";
             this.L2U.Text = "Title";
@@ -2408,9 +2426,9 @@
             this.L1.Controls.Add(this.L1T);
             this.L1.Controls.Add(this.L1U);
             this.L1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.L1.Location = new System.Drawing.Point(92, 3);
+            this.L1.Location = new System.Drawing.Point(89, 3);
             this.L1.Name = "L1";
-            this.L1.Size = new System.Drawing.Size(83, 60);
+            this.L1.Size = new System.Drawing.Size(80, 60);
             this.L1.TabIndex = 1;
             this.L1.Tag = "1";
             this.L1.Click += new System.EventHandler(this.siteItem_Click);
@@ -2421,7 +2439,7 @@
             this.L1T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L1T.Location = new System.Drawing.Point(0, 19);
             this.L1T.Name = "L1T";
-            this.L1T.Size = new System.Drawing.Size(83, 22);
+            this.L1T.Size = new System.Drawing.Size(80, 22);
             this.L1T.TabIndex = 0;
             this.L1T.Tag = "1";
             this.L1T.Text = "Title";
@@ -2434,7 +2452,7 @@
             this.L1U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L1U.Location = new System.Drawing.Point(0, 41);
             this.L1U.Name = "L1U";
-            this.L1U.Size = new System.Drawing.Size(83, 19);
+            this.L1U.Size = new System.Drawing.Size(80, 19);
             this.L1U.TabIndex = 1;
             this.L1U.Tag = "1";
             this.L1U.Text = "Title";
@@ -2449,7 +2467,7 @@
             this.L0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.L0.Location = new System.Drawing.Point(3, 3);
             this.L0.Name = "L0";
-            this.L0.Size = new System.Drawing.Size(83, 60);
+            this.L0.Size = new System.Drawing.Size(80, 60);
             this.L0.TabIndex = 0;
             this.L0.Tag = "0";
             this.L0.Click += new System.EventHandler(this.siteItem_Click);
@@ -2460,7 +2478,7 @@
             this.L0T.Font = new System.Drawing.Font("Ubuntu", 11F);
             this.L0T.Location = new System.Drawing.Point(0, 17);
             this.L0T.Name = "L0T";
-            this.L0T.Size = new System.Drawing.Size(81, 22);
+            this.L0T.Size = new System.Drawing.Size(78, 22);
             this.L0T.TabIndex = 0;
             this.L0T.Tag = "0";
             this.L0T.Text = "Title";
@@ -2473,7 +2491,7 @@
             this.L0U.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.L0U.Location = new System.Drawing.Point(0, 39);
             this.L0U.Name = "L0U";
-            this.L0U.Size = new System.Drawing.Size(81, 19);
+            this.L0U.Size = new System.Drawing.Size(78, 19);
             this.L0U.TabIndex = 1;
             this.L0U.Tag = "0";
             this.L0U.Text = "Title";
@@ -2487,9 +2505,9 @@
             this.btClear.DrawImage = true;
             this.btClear.FlatAppearance.BorderSize = 0;
             this.btClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClear.Location = new System.Drawing.Point(19, 581);
+            this.btClear.Location = new System.Drawing.Point(19, 645);
             this.btClear.Name = "btClear";
-            this.btClear.Size = new System.Drawing.Size(447, 23);
+            this.btClear.Size = new System.Drawing.Size(430, 23);
             this.btClear.TabIndex = 70;
             this.btClear.Text = "Clear";
             this.btClear.UseVisualStyleBackColor = true;
@@ -2499,7 +2517,7 @@
             // 
             this.lbNTUrl.AutoSize = true;
             this.lbNTUrl.Font = new System.Drawing.Font("Ubuntu", 11F);
-            this.lbNTUrl.Location = new System.Drawing.Point(15, 549);
+            this.lbNTUrl.Location = new System.Drawing.Point(15, 613);
             this.lbNTUrl.Name = "lbNTUrl";
             this.lbNTUrl.Size = new System.Drawing.Size(33, 19);
             this.lbNTUrl.TabIndex = 69;
@@ -2509,7 +2527,7 @@
             // 
             this.lbNTTitle.AutoSize = true;
             this.lbNTTitle.Font = new System.Drawing.Font("Ubuntu", 11F);
-            this.lbNTTitle.Location = new System.Drawing.Point(15, 516);
+            this.lbNTTitle.Location = new System.Drawing.Point(15, 580);
             this.lbNTTitle.Name = "lbNTTitle";
             this.lbNTTitle.Size = new System.Drawing.Size(44, 19);
             this.lbNTTitle.TabIndex = 68;
@@ -2519,7 +2537,7 @@
             // 
             this.lbNewTabTitle.AutoSize = true;
             this.lbNewTabTitle.Font = new System.Drawing.Font("Ubuntu", 15F);
-            this.lbNewTabTitle.Location = new System.Drawing.Point(14, 471);
+            this.lbNewTabTitle.Location = new System.Drawing.Point(14, 535);
             this.lbNewTabTitle.Name = "lbNewTabTitle";
             this.lbNewTabTitle.Size = new System.Drawing.Size(219, 25);
             this.lbNewTabTitle.TabIndex = 67;
@@ -2539,7 +2557,7 @@
             // 
             this.lbFlashInfo.AutoSize = true;
             this.lbFlashInfo.BackColor = System.Drawing.Color.Transparent;
-            this.lbFlashInfo.Location = new System.Drawing.Point(16, 362);
+            this.lbFlashInfo.Location = new System.Drawing.Point(16, 426);
             this.lbFlashInfo.Name = "lbFlashInfo";
             this.lbFlashInfo.Size = new System.Drawing.Size(310, 15);
             this.lbFlashInfo.TabIndex = 62;
@@ -2549,7 +2567,7 @@
             // 
             this.lbFlash.AutoSize = true;
             this.lbFlash.BackColor = System.Drawing.Color.Transparent;
-            this.lbFlash.Location = new System.Drawing.Point(16, 332);
+            this.lbFlash.Location = new System.Drawing.Point(16, 396);
             this.lbFlash.Name = "lbFlash";
             this.lbFlash.Size = new System.Drawing.Size(85, 15);
             this.lbFlash.TabIndex = 61;
@@ -2557,7 +2575,7 @@
             // 
             // hsFlash
             // 
-            this.hsFlash.Location = new System.Drawing.Point(104, 332);
+            this.hsFlash.Location = new System.Drawing.Point(104, 396);
             this.hsFlash.Name = "hsFlash";
             this.hsFlash.Size = new System.Drawing.Size(50, 19);
             this.hsFlash.TabIndex = 60;
@@ -2652,7 +2670,7 @@
             this.rbNewTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbNewTab.AutoSize = true;
             this.rbNewTab.BackColor = System.Drawing.Color.Transparent;
-            this.rbNewTab.Location = new System.Drawing.Point(395, 41);
+            this.rbNewTab.Location = new System.Drawing.Point(378, 41);
             this.rbNewTab.Name = "rbNewTab";
             this.rbNewTab.Size = new System.Drawing.Size(74, 19);
             this.rbNewTab.TabIndex = 46;
@@ -2690,7 +2708,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHomepage.Location = new System.Drawing.Point(104, 39);
             this.tbHomepage.Name = "tbHomepage";
-            this.tbHomepage.Size = new System.Drawing.Size(283, 21);
+            this.tbHomepage.Size = new System.Drawing.Size(266, 21);
             this.tbHomepage.TabIndex = 45;
             this.tbHomepage.Tag = "";
             this.tbHomepage.TextChanged += new System.EventHandler(this.tbHomepage_TextChanged);
@@ -2702,7 +2720,7 @@
             this.tbLang.Location = new System.Drawing.Point(87, 153);
             this.tbLang.Name = "tbLang";
             this.tbLang.ReadOnly = true;
-            this.tbLang.Size = new System.Drawing.Size(382, 21);
+            this.tbLang.Size = new System.Drawing.Size(365, 21);
             this.tbLang.TabIndex = 49;
             this.tbLang.Tag = "";
             this.tbLang.Click += new System.EventHandler(this.tbLang_Click);
@@ -2714,7 +2732,7 @@
             this.tbStartup.Location = new System.Drawing.Point(87, 118);
             this.tbStartup.Name = "tbStartup";
             this.tbStartup.ReadOnly = true;
-            this.tbStartup.Size = new System.Drawing.Size(382, 21);
+            this.tbStartup.Size = new System.Drawing.Size(365, 21);
             this.tbStartup.TabIndex = 49;
             this.tbStartup.Tag = "";
             this.tbStartup.Click += new System.EventHandler(this.tbStartup_Click);
@@ -2727,7 +2745,7 @@
             this.tbSearchEngine.Location = new System.Drawing.Point(116, 79);
             this.tbSearchEngine.Name = "tbSearchEngine";
             this.tbSearchEngine.ReadOnly = true;
-            this.tbSearchEngine.Size = new System.Drawing.Size(353, 21);
+            this.tbSearchEngine.Size = new System.Drawing.Size(336, 21);
             this.tbSearchEngine.TabIndex = 47;
             this.tbSearchEngine.Tag = "";
             this.tbSearchEngine.Click += new System.EventHandler(this.tbSearchEngine_Click);
@@ -2805,6 +2823,52 @@
             this.tpAbout.TabIndex = 6;
             this.tpAbout.Text = "About";
             this.tpAbout.UseVisualStyleBackColor = true;
+            // 
+            // p32bit
+            // 
+            this.p32bit.Controls.Add(this.l32title);
+            this.p32bit.Controls.Add(this.l32desc);
+            this.p32bit.Controls.Add(this.ll32bit);
+            this.p32bit.Location = new System.Drawing.Point(18, 287);
+            this.p32bit.Name = "p32bit";
+            this.p32bit.Size = new System.Drawing.Size(560, 100);
+            this.p32bit.TabIndex = 16;
+            // 
+            // l32title
+            // 
+            this.l32title.AutoSize = true;
+            this.l32title.BackColor = System.Drawing.Color.Transparent;
+            this.l32title.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.l32title.Location = new System.Drawing.Point(3, 0);
+            this.l32title.Name = "l32title";
+            this.l32title.Size = new System.Drawing.Size(370, 25);
+            this.l32title.TabIndex = 9;
+            this.l32title.Text = "You are using unsupported build of Korot.";
+            // 
+            // l32desc
+            // 
+            this.l32desc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.l32desc.AutoSize = true;
+            this.l32desc.BackColor = System.Drawing.Color.Transparent;
+            this.l32desc.Location = new System.Drawing.Point(3, 25);
+            this.l32desc.Name = "l32desc";
+            this.l32desc.Size = new System.Drawing.Size(459, 30);
+            this.l32desc.TabIndex = 13;
+            this.l32desc.Text = "32-bit builds for Korot are now unsupported and updates for your machine is halte" +
+    "d.\r\nYou still can build your own Korot from source code.";
+            // 
+            // ll32bit
+            // 
+            this.ll32bit.AutoSize = true;
+            this.ll32bit.BackColor = System.Drawing.Color.Transparent;
+            this.ll32bit.Location = new System.Drawing.Point(468, 25);
+            this.ll32bit.Name = "ll32bit";
+            this.ll32bit.Size = new System.Drawing.Size(80, 15);
+            this.ll32bit.TabIndex = 7;
+            this.ll32bit.TabStop = true;
+            this.ll32bit.Text = "Learn more...";
+            this.ll32bit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ll32bit_LinkClicked);
             // 
             // btReset
             // 
@@ -3318,51 +3382,61 @@
             this.TWebStoreTSMI.Text = "Web Store";
             this.TWebStoreTSMI.Click += new System.EventHandler(this.TWebStoreTSMI_Click);
             // 
-            // l32title
+            // lbSynthVol
             // 
-            this.l32title.AutoSize = true;
-            this.l32title.BackColor = System.Drawing.Color.Transparent;
-            this.l32title.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.l32title.Location = new System.Drawing.Point(3, 0);
-            this.l32title.Name = "l32title";
-            this.l32title.Size = new System.Drawing.Size(370, 25);
-            this.l32title.TabIndex = 9;
-            this.l32title.Text = "You are using unsupported build of Korot.";
+            this.lbSynthVol.AutoSize = true;
+            this.lbSynthVol.BackColor = System.Drawing.Color.Transparent;
+            this.lbSynthVol.Location = new System.Drawing.Point(16, 331);
+            this.lbSynthVol.Name = "lbSynthVol";
+            this.lbSynthVol.Size = new System.Drawing.Size(130, 15);
+            this.lbSynthVol.TabIndex = 58;
+            this.lbSynthVol.Text = "Speech Synth Volume:";
             // 
-            // l32desc
+            // lbSynthRate
             // 
-            this.l32desc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.l32desc.AutoSize = true;
-            this.l32desc.BackColor = System.Drawing.Color.Transparent;
-            this.l32desc.Location = new System.Drawing.Point(3, 25);
-            this.l32desc.Name = "l32desc";
-            this.l32desc.Size = new System.Drawing.Size(459, 30);
-            this.l32desc.TabIndex = 13;
-            this.l32desc.Text = "32-bit builds for Korot are now unsupported and updates for your machine is halte" +
-    "d.\r\nYou still can build your own Korot from source code.";
+            this.lbSynthRate.AutoSize = true;
+            this.lbSynthRate.BackColor = System.Drawing.Color.Transparent;
+            this.lbSynthRate.Location = new System.Drawing.Point(16, 360);
+            this.lbSynthRate.Name = "lbSynthRate";
+            this.lbSynthRate.Size = new System.Drawing.Size(114, 15);
+            this.lbSynthRate.TabIndex = 58;
+            this.lbSynthRate.Text = "Speech Synth Rate:";
             // 
-            // ll32bit
+            // nudSynthVol
             // 
-            this.ll32bit.AutoSize = true;
-            this.ll32bit.BackColor = System.Drawing.Color.Transparent;
-            this.ll32bit.Location = new System.Drawing.Point(468, 25);
-            this.ll32bit.Name = "ll32bit";
-            this.ll32bit.Size = new System.Drawing.Size(80, 15);
-            this.ll32bit.TabIndex = 7;
-            this.ll32bit.TabStop = true;
-            this.ll32bit.Text = "Learn more...";
-            this.ll32bit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ll32bit_LinkClicked);
+            this.nudSynthVol.Location = new System.Drawing.Point(158, 329);
+            this.nudSynthVol.Name = "nudSynthVol";
+            this.nudSynthVol.Size = new System.Drawing.Size(55, 21);
+            this.nudSynthVol.TabIndex = 131;
+            this.nudSynthVol.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudSynthVol.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
-            // p32bit
+            // nudSynthRate
             // 
-            this.p32bit.Controls.Add(this.l32title);
-            this.p32bit.Controls.Add(this.l32desc);
-            this.p32bit.Controls.Add(this.ll32bit);
-            this.p32bit.Location = new System.Drawing.Point(18, 287);
-            this.p32bit.Name = "p32bit";
-            this.p32bit.Size = new System.Drawing.Size(560, 100);
-            this.p32bit.TabIndex = 16;
+            this.nudSynthRate.Location = new System.Drawing.Point(147, 358);
+            this.nudSynthRate.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudSynthRate.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
+            this.nudSynthRate.Name = "nudSynthRate";
+            this.nudSynthRate.Size = new System.Drawing.Size(55, 21);
+            this.nudSynthRate.TabIndex = 131;
+            this.nudSynthRate.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            -2147483648});
+            this.nudSynthRate.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
             // frmSettings
             // 
@@ -3432,6 +3506,8 @@
             this.L0.ResumeLayout(false);
             this.tpAbout.ResumeLayout(false);
             this.tpAbout.PerformLayout();
+            this.p32bit.ResumeLayout(false);
+            this.p32bit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.pTitle.ResumeLayout(false);
             this.pTitle.PerformLayout();
@@ -3442,8 +3518,8 @@
             this.cmsBStyle.ResumeLayout(false);
             this.cmsLanguage.ResumeLayout(false);
             this.cmsTheme.ResumeLayout(false);
-            this.p32bit.ResumeLayout(false);
-            this.p32bit.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSynthVol)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSynthRate)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3708,5 +3784,9 @@
         private System.Windows.Forms.Label l32desc;
         private System.Windows.Forms.LinkLabel ll32bit;
         private System.Windows.Forms.FlowLayoutPanel p32bit;
+        private System.Windows.Forms.NumericUpDown nudSynthRate;
+        private System.Windows.Forms.NumericUpDown nudSynthVol;
+        private System.Windows.Forms.Label lbSynthRate;
+        private System.Windows.Forms.Label lbSynthVol;
     }
 }

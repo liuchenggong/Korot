@@ -1,4 +1,12 @@
-﻿using System;
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -343,7 +351,7 @@ namespace Korot
         {
             if (Settings.useHaltroyUpdater)
             {
-                frmUpdateExt frmUpdate = new frmUpdateExt(ManifestFile, false, LocalSettings);
+                frmUpdateExt frmUpdate = new frmUpdateExt(this, LocalSettings);
                 frmUpdate.Show();
             }
         }

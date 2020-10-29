@@ -1,4 +1,12 @@
-﻿using HTAlt.WinForms;
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
+
+using HTAlt.WinForms;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -45,6 +53,12 @@ namespace Korot
                 btUpdater.Enabled = false;
                 btUpdater.Visible = false;
                 lbUpdateStatus.Text = cefform.anaform.KorotUpdated;
+            }
+            else if (cefform.anaform.Updater.isError)
+            {
+                btUpdater.Enabled = true;
+                btUpdater.Visible = true;
+                lbUpdateStatus.Text = cefform.anaform.KorotUpdateError;
             }
             p32bit.Visible = !Environment.Is64BitProcess;
             p32bit.Enabled = !Environment.Is64BitProcess;
@@ -131,6 +145,12 @@ namespace Korot
                     btUpdater.Enabled = false;
                     btUpdater.Visible = false;
                     lbUpdateStatus.Text = cefform.anaform.KorotUpdated;
+                }
+                else if (cefform.anaform.Updater.isError)
+                {
+                    btUpdater.Enabled = true;
+                    btUpdater.Visible = true;
+                    lbUpdateStatus.Text = cefform.anaform.KorotUpdateError;
                 }
             }
         }
@@ -388,6 +408,19 @@ namespace Korot
                 L8.ForeColor = ForeColor;
                 L9.BackColor = backcolor2;
                 L9.ForeColor = ForeColor;
+                nudCC1.BackColor = backcolor3; nudCC1.ForeColor = ForeColor;
+                nudCC2.BackColor = backcolor3; nudCC2.ForeColor = ForeColor;
+                nudCDDay.BackColor = backcolor3; nudCDDay.ForeColor = ForeColor;
+                nudCDFile.BackColor = backcolor3; nudCDFile.ForeColor = ForeColor;
+                nudCDOld.BackColor = backcolor3; nudCDOld.ForeColor = ForeColor;
+                nudCHDay.BackColor = backcolor3; nudCHDay.ForeColor = ForeColor;
+                nudCHFile.BackColor = backcolor3; nudCHFile.ForeColor = ForeColor;
+                nudCHOld.BackColor = backcolor3; nudCHOld.ForeColor = ForeColor;
+                nudCLDay.BackColor = backcolor3; nudCLDay.ForeColor = ForeColor;
+                nudCLFile.BackColor = backcolor3; nudCLFile.ForeColor = ForeColor;
+                nudCLOld.BackColor = backcolor3; nudCLOld.ForeColor = ForeColor;
+                nudSynthRate.BackColor = backcolor3; nudSynthRate.ForeColor = ForeColor;
+                nudSynthVol.BackColor = backcolor3; nudSynthVol.ForeColor = ForeColor;
                 btClear.BackColor = backcolor2;
                 btClear.ForeColor = ForeColor;
                 textBox4.BackColor = backcolor2;
@@ -403,6 +436,8 @@ namespace Korot
             if (loadedLang != Settings.LanguageSystem.LangFile || force)
             {
                 loadedLang = Settings.LanguageSystem.LangFile;
+                lbSynthRate.Text = Settings.LanguageSystem.GetItemText("SynthRate");
+                lbSynthVol.Text = Settings.LanguageSystem.GetItemText("SynthVol");
                 l32title.Text = Settings.LanguageSystem.GetItemText("32BitTitle");
                 l32desc.Text = Settings.LanguageSystem.GetItemText("32BitDesc");
                 ll32bit.Text = Settings.LanguageSystem.GetItemText("32LearnMore");
@@ -677,6 +712,8 @@ namespace Korot
             label21.Text = cefform.anaform.aboutInfo.Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? cefform.anaform.anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? cefform.anaform.noname : Settings.Theme.Name) : "");
             hsOpen.Checked = Settings.Downloads.OpenDownload;
             hsAutoRestore.Checked = Settings.AutoRestore;
+            nudSynthRate.Value = Settings.SynthRate;
+            nudSynthVol.Value = Settings.SynthVolume;
             hsFav.Checked = Settings.Favorites.ShowFavorites;
             switch ((int)Settings.Theme.CloseButtonColor)
             {
@@ -865,6 +902,8 @@ namespace Korot
             nudCLOld.Location = new Point(lbCL5.Location.X + lbCL5.Width, nudCLOld.Location.Y);
             lbCL6.Location = new Point(nudCLOld.Location.X + nudCLOld.Width, lbCL6.Location.Y);
             hsCLOld.Location = new Point(lbCL6.Location.X + lbCL6.Width, hsCLOld.Location.Y);
+            nudSynthRate.Location = new Point(lbSynthRate.Location.X + lbSynthRate.Width, nudSynthRate.Location.Y);
+            nudSynthVol.Location = new Point(lbSynthVol.Location.X + lbSynthVol.Width, nudSynthVol.Location.Y);
             flpFrom.Location = new Point(scheduleFrom.Location.X + scheduleFrom.Width, flpFrom.Location.Y);
             scheduleTo.Location = new Point(flpFrom.Location.X + flpFrom.Width, scheduleTo.Location.Y);
             flpTo.Location = new Point(scheduleTo.Location.X + scheduleTo.Width, flpTo.Location.Y);
@@ -1485,7 +1524,7 @@ namespace Korot
             if (result == DialogResult.OK)
             {
                 string themeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + input.TextValue + ".ktf";
-                Theme saveTheme = new Theme("")
+                Theme saveTheme = new Theme("",Settings)
                 {
                     ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + input.TextValue + ".ktf",
                     BackColor = Settings.Theme.BackColor,
@@ -1601,7 +1640,15 @@ namespace Korot
         #endregion Startup
 
         #region General
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.SynthVolume = Convert.ToInt32(nudSynthVol.Value);
+        }
 
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.SynthRate = Convert.ToInt32(nudSynthRate.Value);
+        }
         private void htButton3_Click(object sender, EventArgs e)
         {
             allowSwtich = true;
@@ -2309,6 +2356,7 @@ namespace Korot
         }
 
         #endregion About
+
 
     }
 }

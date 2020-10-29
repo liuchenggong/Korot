@@ -1,4 +1,12 @@
-﻿using Microsoft.WindowsAPICodePack.Shell;
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
+
+using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
 using System.Windows.Forms;
@@ -39,7 +47,10 @@ namespace Korot
                 IconReference = new IconReference(Application.ExecutablePath, 0)
             };
             list.AddUserTasks(jlN);
-            list.Refresh();
+            try
+            {
+                list.Refresh();
+            }catch (Exception) { } //ignored
         }
     }
 }

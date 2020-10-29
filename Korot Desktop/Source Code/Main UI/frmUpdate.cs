@@ -1,24 +1,10 @@
-﻿//MIT License
-//
-//Copyright (c) 2020 Eren "Haltroy" Kanat
-//
-//Permission is hereby granted, free of charge, to any person obtaining a copy
-//of this software and associated documentation files (the "Software"), to deal
-//in the Software without restriction, including without limitation the rights
-//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//copies of the Software, and to permit persons to whom the Software is
-//furnished to do so, subject to the following conditions:
-//
-//The above copyright notice and this permission notice shall be included in all
-//copies or substantial portions of the Software.
-//
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//SOFTWARE.
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -45,6 +31,7 @@ namespace Korot
         public bool isUpToDate = false;
         public bool isDownloading = false;
         public bool isReady = false;
+        public bool isError = false;
         public Settings Settings;
 
         public frmUpdate(Settings settings)
@@ -79,7 +66,7 @@ namespace Korot
             if (e.Error != null || e.Cancelled)
             {
                 if (((WebClient)sender).IsBusy) { ((WebClient)sender).CancelAsync(); }
-                WebC.DownloadStringAsync(new Uri(CheckUrl));
+                isError = true;
             }
             else
             {
@@ -134,12 +121,14 @@ namespace Korot
         {
             if (e.Error != null)
             {
+                isError = true;
                 Output.WriteLine("[frmUpdate] Download File Error: " + e.Error.ToString());
                 if (((WebClient)sender).IsBusy) { ((WebClient)sender).CancelAsync(); }
             ((WebClient)sender).DownloadFileAsync(new Uri(downloadUrl), downloadFolder + fileName);
             }
             else if (e.Cancelled)
             {
+                isError = true;
                 Output.WriteLine("[frmUpdate] Download File Cancelled.");
                 if (((WebClient)sender).IsBusy) { ((WebClient)sender).CancelAsync(); }
             ((WebClient)sender).DownloadFileAsync(new Uri(downloadUrl), downloadFolder + fileName);

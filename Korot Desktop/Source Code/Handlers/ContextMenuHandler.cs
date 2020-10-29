@@ -1,37 +1,26 @@
-﻿//MIT License
-//
-//Copyright (c) 2020 Eren "Haltroy" Kanat
-//
-//Permission is hereby granted, free of charge, to any person obtaining a copy
-//of this software and associated documentation files (the "Software"), to deal
-//in the Software without restriction, including without limitation the rights
-//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//copies of the Software, and to permit persons to whom the Software is
-//furnished to do so, subject to the following conditions:
-//
-//The above copyright notice and this permission notice shall be included in all
-//copies or substantial portions of the Software.
-//
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//SOFTWARE.
+﻿/* 
+
+Copyright © 2020 Eren "Haltroy" Kanat
+
+Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+
+*/
 using CefSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Text;
+using System.Speech;
 using System.Windows.Forms;
+using System.Speech.Synthesis;
 
 namespace Korot
 {
     internal class ContextMenuHandler : IContextMenuHandler
     {
         private readonly frmCEF ActiveForm;
+        private bool initComplete = false;
 
         public ContextMenuHandler(frmCEF activeform)
         {
@@ -42,45 +31,48 @@ namespace Korot
 
         private void InitializeCMSComponent()
         {
-            cmsCef = new System.Windows.Forms.ContextMenuStrip();
-            backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            extensionsTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            forwardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            refreshNoCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            addToCollection = new System.Windows.Forms.ToolStripMenuItem();
-            selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            newCollection = new System.Windows.Forms.ToolStripMenuItem();
-            tsSepCol = new System.Windows.Forms.ToolStripSeparator();
-            tsSep1 = new System.Windows.Forms.ToolStripSeparator();
-            openLinkInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            copyLinkAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            openImageInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            saveImageAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            tsSep2 = new System.Windows.Forms.ToolStripSeparator();
-            pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            searchOrOpenSelectedInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            tsSep3 = new System.Windows.Forms.ToolStripSeparator();
-            printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            showDevToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            viewSourceToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            tsEmptyCol = new System.Windows.Forms.ToolStripMenuItem();
-            copyImageTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            openLinkINWTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            openLinkINAIWTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            copyImageAddressTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            saveLinkAsTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            cmsCef.SuspendLayout();
-            //
-            // cmsCef
-            //
-            cmsCef.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            if (!initComplete)
+            {
+                initComplete = true;
+                cmsCef = new System.Windows.Forms.ContextMenuStrip();
+                backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                extensionsTSMI = new System.Windows.Forms.ToolStripMenuItem();
+                forwardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                refreshNoCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                addToCollection = new System.Windows.Forms.ToolStripMenuItem();
+                selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                newCollection = new System.Windows.Forms.ToolStripMenuItem();
+                tsSepCol = new System.Windows.Forms.ToolStripSeparator();
+                tsSep1 = new System.Windows.Forms.ToolStripSeparator();
+                openLinkInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                addToDictTSMI = new System.Windows.Forms.ToolStripMenuItem();
+                openLinkInBackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                copyLinkAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                openImageInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                saveImageAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                tsSep2 = new System.Windows.Forms.ToolStripSeparator();
+                missSpellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                readToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                searchOrOpenSelectedInNewTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                tsSep3 = new System.Windows.Forms.ToolStripSeparator();
+                printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                showDevToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                viewSourceToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                tsEmptyCol = new System.Windows.Forms.ToolStripMenuItem();
+                copyImageTSMI = new System.Windows.Forms.ToolStripMenuItem();
+                openLinkINWTSMI = new System.Windows.Forms.ToolStripMenuItem();
+                openLinkINAIWTSMI = new System.Windows.Forms.ToolStripMenuItem();
+                copyImageAddressTSMI = new System.Windows.Forms.ToolStripMenuItem();
+                saveLinkAsTSMI = new System.Windows.Forms.ToolStripMenuItem();
+                cmsCef.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             backToolStripMenuItem,
             forwardToolStripMenuItem,
             refreshToolStripMenuItem,
@@ -91,6 +83,7 @@ namespace Korot
             extensionsTSMI,
             tsSep1,
             openLinkInNewTabToolStripMenuItem,
+            openLinkInBackToolStripMenuItem,
             openLinkINWTSMI,
             openLinkINAIWTSMI,
             saveLinkAsTSMI,
@@ -100,6 +93,8 @@ namespace Korot
             openImageInNewTabToolStripMenuItem,
             saveImageAsToolStripMenuItem,
             tsSep2,
+            missSpellToolStripMenuItem,
+            readToolStripMenuItem,
             copyToolStripMenuItem,
             cutToolStripMenuItem,
             pasteToolStripMenuItem,
@@ -111,234 +106,175 @@ namespace Korot
             printToolStripMenuItem,
             showDevToolsToolStripMenuItem,
             viewSourceToolsToolStripMenuItem});
-            cmsCef.Name = "cmsCef";
+                backToolStripMenuItem.Click += new System.EventHandler(backToolStripMenuItem_Click);
+                forwardToolStripMenuItem.Click += new System.EventHandler(forwardToolStripMenuItem_Click);
+                refreshToolStripMenuItem.Click += new System.EventHandler(refreshToolStripMenuItem_Click);
+                refreshNoCacheToolStripMenuItem.Click += new System.EventHandler(refreshNoCacheToolStripMenuItem_Click);
+                stopToolStripMenuItem.Click += new System.EventHandler(stopToolStripMenuItem_Click);
+                selectAllToolStripMenuItem.Click += new System.EventHandler(selectAllToolStripMenuItem_Click);
+                newCollection.Click += new System.EventHandler(newCollection_Click);
+                addToDictTSMI.Click += new System.EventHandler(addToDict_Click);
+                openLinkInBackToolStripMenuItem.Click += new System.EventHandler(openLinkInBackToolStripMenuItem_Click);
+                openLinkInNewTabToolStripMenuItem.Click += new System.EventHandler(openLinkInNewTabToolStripMenuItem_Click);
+                copyLinkAddressToolStripMenuItem.Click += new System.EventHandler(copyLinkAddressToolStripMenuItem_Click);
+                openImageInNewTabToolStripMenuItem.Click += new System.EventHandler(openImageInNewTabToolStripMenuItem_Click);
+                saveImageAsToolStripMenuItem.Click += new System.EventHandler(saveImageAsToolStripMenuItem_Click);
+                pasteToolStripMenuItem.Click += new System.EventHandler(pasteToolStripMenuItem_Click);
+                cutToolStripMenuItem.Click += new System.EventHandler(cutToolStripMenuItem_Click);
+                addToCollection.DropDown.Items.AddRange(new ToolStripItem[] { tsSepCol, newCollection });
+                readToolStripMenuItem.Click += new System.EventHandler(read_Click);
+                saveLinkAsTSMI.Click += new System.EventHandler(saveLinkAs);
+                copyImageTSMI.Click += new System.EventHandler(copyImage);
+                copyImageAddressTSMI.Click += new System.EventHandler(copyImageAddress);
+                openLinkINWTSMI.Click += new System.EventHandler(openLinkInANewWindow);
+                openLinkINAIWTSMI.Click += new System.EventHandler(openLinkInANewIncognitoWindow);
+                copyToolStripMenuItem.Click += new System.EventHandler(copyToolStripMenuItem_Click);
+                undoToolStripMenuItem.Click += new System.EventHandler(undoToolStripMenuItem_Click);
+                redoToolStripMenuItem.Click += new System.EventHandler(redoToolStripMenuItem_Click);
+                deleteToolStripMenuItem.Click += new System.EventHandler(deleteToolStripMenuItem_Click);
+                searchOrOpenSelectedInNewTabToolStripMenuItem.Click += new System.EventHandler(seacrhOrOpenSelectedInNewTabToolStripMenuItem_Click);
+                printToolStripMenuItem.Click += new System.EventHandler(printToolStripMenuItem_Click);
+                showDevToolsToolStripMenuItem.Click += new System.EventHandler(showDevToolsToolStripMenuItem_Click);
+                viewSourceToolsToolStripMenuItem.Click += new System.EventHandler(viewSourceToolsToolStripMenuItem_Click);
+
+            }
+            cmsCef.SuspendLayout();
+            //
+            // cmsCef
+            //
+            cmsCef.AutoSize = true;
             cmsCef.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             cmsCef.ShowImageMargin = false;
-            cmsCef.Size = new System.Drawing.Size(241, 484);
             //
             // backToolStripMenuItem
             //
-            backToolStripMenuItem.Name = "backToolStripMenuItem";
-            backToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             backToolStripMenuItem.Text = ActiveForm.anaform.goBack;
-            backToolStripMenuItem.Click += new System.EventHandler(backToolStripMenuItem_Click);
             //
             // forwardToolStripMenuItem
             //
-            forwardToolStripMenuItem.Name = "forwardToolStripMenuItem";
-            forwardToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             forwardToolStripMenuItem.Text = ActiveForm.anaform.goForward;
-            forwardToolStripMenuItem.Click += new System.EventHandler(forwardToolStripMenuItem_Click);
             //
             // extensionsTSMI
             //
-            extensionsTSMI.Name = "extensionsTSMI";
-            extensionsTSMI.Size = new System.Drawing.Size(240, 22);
             extensionsTSMI.Text = ActiveForm.anaform.Extensions;
             extensionsTSMI.Image = HTAlt.Tools.IsBright(ActiveForm.anaform.Settings.Theme.BackColor) ? Properties.Resources.ext : Properties.Resources.ext_w;
             //
             // refreshToolStripMenuItem
             //
-            refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            refreshToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             refreshToolStripMenuItem.Text = ActiveForm.anaform.refresh;
-            refreshToolStripMenuItem.Click += new System.EventHandler(refreshToolStripMenuItem_Click);
             //
             // refreshNoCacheToolStripMenuItem
             //
-            refreshNoCacheToolStripMenuItem.Name = "refreshNoCacheToolStripMenuItem";
-            refreshNoCacheToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             refreshNoCacheToolStripMenuItem.Text = ActiveForm.anaform.refreshNoCache;
-            refreshNoCacheToolStripMenuItem.Click += new System.EventHandler(refreshNoCacheToolStripMenuItem_Click);
             //
             // stopToolStripMenuItem
             //
-            stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            stopToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             stopToolStripMenuItem.Text = ActiveForm.anaform.stop;
-            stopToolStripMenuItem.Click += new System.EventHandler(stopToolStripMenuItem_Click);
             //
             // selectAllToolStripMenuItem
             //
-            selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            selectAllToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             selectAllToolStripMenuItem.Text = ActiveForm.anaform.selectAll;
-            selectAllToolStripMenuItem.Click += new System.EventHandler(selectAllToolStripMenuItem_Click);
             //
             // addToCollection
             //
-            addToCollection.Name = "addToCollection";
-            addToCollection.DropDown.Items.AddRange(new ToolStripItem[] { tsSepCol, newCollection });
-            addToCollection.Size = new System.Drawing.Size(240, 22);
             addToCollection.Text = ActiveForm.anaform.addToCollection;
             //
             // tsEmptyCol
             //
             tsEmptyCol.Enabled = false;
-            tsEmptyCol.Name = "tsEmptyCol";
-            tsEmptyCol.Size = new System.Drawing.Size(240, 22);
             tsEmptyCol.Text = ActiveForm.anaform.empty;
             //
             // newCollection
             //
-            newCollection.Name = "newCollection";
-            newCollection.Size = new System.Drawing.Size(240, 22);
             newCollection.Text = ActiveForm.anaform.newCollection;
-            newCollection.Click += new System.EventHandler(newCollection_Click);
             //
-            // tsSep1
+            // addToDictTSMI
             //
-            tsSep1.Name = "tsSep1";
-            tsSep1.Size = new System.Drawing.Size(237, 6);
+            addToDictTSMI.Text = ActiveForm.anaform.addToDict;
             //
-            // tsSepCol
+            // openLinkInBackToolStripMenuItem
             //
-            tsSepCol.Name = "tsSepCol";
-            tsSepCol.Size = new System.Drawing.Size(237, 6);
+            openLinkInBackToolStripMenuItem.Text = ActiveForm.anaform.openLinkInBack;
             //
             // openLinkInNewTabToolStripMenuItem
             //
-            openLinkInNewTabToolStripMenuItem.Name = "openLinkInNewTabToolStripMenuItem";
-            openLinkInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             openLinkInNewTabToolStripMenuItem.Text = ActiveForm.anaform.openLinkInNewTab;
-            openLinkInNewTabToolStripMenuItem.Click += new System.EventHandler(openLinkInNewTabToolStripMenuItem_Click);
             //
             // copyLinkAddressToolStripMenuItem
             //
-            copyLinkAddressToolStripMenuItem.Name = "copyLinkAddressToolStripMenuItem";
-            copyLinkAddressToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             copyLinkAddressToolStripMenuItem.Text = ActiveForm.anaform.copyLink;
-            copyLinkAddressToolStripMenuItem.Click += new System.EventHandler(copyLinkAddressToolStripMenuItem_Click);
             //
             // openImageInNewTabToolStripMenuItem
             //
-            openImageInNewTabToolStripMenuItem.Name = "openImageInNewTabToolStripMenuItem";
-            openImageInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             openImageInNewTabToolStripMenuItem.Text = ActiveForm.anaform.openImageInNewTab;
-            openImageInNewTabToolStripMenuItem.Click += new System.EventHandler(openImageInNewTabToolStripMenuItem_Click);
             //
             // saveImageAsToolStripMenuItem
             //
-            saveImageAsToolStripMenuItem.Name = "saveImageAsToolStripMenuItem";
-            saveImageAsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             saveImageAsToolStripMenuItem.Text = ActiveForm.anaform.saveImageAs;
-            saveImageAsToolStripMenuItem.Click += new System.EventHandler(saveImageAsToolStripMenuItem_Click);
             //
-            // tsSep2
+            // readToolStripMenuItem
             //
-            tsSep2.Name = "tsSep2";
-            tsSep2.Size = new System.Drawing.Size(237, 6);
+            readToolStripMenuItem.Text = ActiveForm.anaform.ReadTTS;
             //
             // pasteToolStripMenuItem
             //
-            pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            pasteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             pasteToolStripMenuItem.Text = ActiveForm.anaform.paste;
-            pasteToolStripMenuItem.Click += new System.EventHandler(pasteToolStripMenuItem_Click);
             //
             // cutToolStripMenuItem
             //
-            cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            cutToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             cutToolStripMenuItem.Text = ActiveForm.anaform.cut;
-            cutToolStripMenuItem.Click += new System.EventHandler(cutToolStripMenuItem_Click);
             //
             // saveLinkAsTSMI
             //
-            saveLinkAsTSMI.Name = "saveLinkAsTSMI";
-            saveLinkAsTSMI.Size = new System.Drawing.Size(240, 22);
             saveLinkAsTSMI.Text = ActiveForm.anaform.saveLinkAs;
-            saveLinkAsTSMI.Click += new System.EventHandler(saveLinkAs);
             //
             // copyImageTSMI
             //
-            copyImageTSMI.Name = "copyImageTSMI";
-            copyImageTSMI.Size = new System.Drawing.Size(240, 22);
             copyImageTSMI.Text = ActiveForm.anaform.copyImage;
-            copyImageTSMI.Click += new System.EventHandler(copyImage);
             //
             // copyImageAddressTSMI
             //
-            copyImageAddressTSMI.Name = "copyImageAddressTSMI";
-            copyImageAddressTSMI.Size = new System.Drawing.Size(240, 22);
             copyImageAddressTSMI.Text = ActiveForm.anaform.copyImageAddress;
-            copyImageAddressTSMI.Click += new System.EventHandler(copyImageAddress);
             //
             // openLinkINWTSMI
             //
-            openLinkINWTSMI.Name = "openLinkINWTSMI";
-            openLinkINWTSMI.Size = new System.Drawing.Size(240, 22);
             openLinkINWTSMI.Text = ActiveForm.anaform.openLinkInNewWindow;
-            openLinkINWTSMI.Click += new System.EventHandler(openLinkInANewWindow);
             //
             // openLinkINWTSMI
             //
-            openLinkINAIWTSMI.Name = "openLinkINAIWTSMI";
-            openLinkINAIWTSMI.Size = new System.Drawing.Size(240, 22);
             openLinkINAIWTSMI.Text = ActiveForm.anaform.openLinkInNewIncWindow;
-            openLinkINAIWTSMI.Click += new System.EventHandler(openLinkInANewIncognitoWindow);
             //
             // copyToolStripMenuItem
             //
-            copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            copyToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             copyToolStripMenuItem.Text = ActiveForm.anaform.copy;
-            copyToolStripMenuItem.Click += new System.EventHandler(copyToolStripMenuItem_Click);
             //
             // undoToolStripMenuItem
             //
-            undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            undoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             undoToolStripMenuItem.Text = ActiveForm.anaform.undo;
-            undoToolStripMenuItem.Click += new System.EventHandler(undoToolStripMenuItem_Click);
             //
             // redoToolStripMenuItem
             //
-            redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            redoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             redoToolStripMenuItem.Text = ActiveForm.anaform.redo;
-            redoToolStripMenuItem.Click += new System.EventHandler(redoToolStripMenuItem_Click);
             //
             // deleteToolStripMenuItem
             //
-            deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             deleteToolStripMenuItem.Text = ActiveForm.anaform.delete;
-            deleteToolStripMenuItem.Click += new System.EventHandler(deleteToolStripMenuItem_Click);
             //
             // searchOrOpenSelectedInNewTabToolStripMenuItem
             //
-            searchOrOpenSelectedInNewTabToolStripMenuItem.Name = "searchOrOpenSelectedInNewTabToolStripMenuItem";
-            searchOrOpenSelectedInNewTabToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             searchOrOpenSelectedInNewTabToolStripMenuItem.Text = ActiveForm.anaform.SearchOrOpenSelectedInNewTab;
-            searchOrOpenSelectedInNewTabToolStripMenuItem.Click += new System.EventHandler(seacrhOrOpenSelectedInNewTabToolStripMenuItem_Click);
-            //
-            // tsSep3
-            //
-            tsSep3.Name = "tsSep3";
-            tsSep3.Size = new System.Drawing.Size(237, 6);
             //
             // printToolStripMenuItem
             //
-            printToolStripMenuItem.Name = "printToolStripMenuItem";
-            printToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             printToolStripMenuItem.Text = ActiveForm.anaform.print;
-            printToolStripMenuItem.Click += new System.EventHandler(printToolStripMenuItem_Click);
             //
             // showDevToolsToolStripMenuItem
             //
-            showDevToolsToolStripMenuItem.Name = "showDevToolsToolStripMenuItem";
-            showDevToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             showDevToolsToolStripMenuItem.Text = ActiveForm.anaform.developerTools;
-            showDevToolsToolStripMenuItem.Click += new System.EventHandler(showDevToolsToolStripMenuItem_Click);
             //
             // viewSourceToolsToolStripMenuItem
             //
-            viewSourceToolsToolStripMenuItem.Name = "viewSourceToolsToolStripMenuItem";
-            viewSourceToolsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             viewSourceToolsToolStripMenuItem.Text = ActiveForm.anaform.viewSource;
-            viewSourceToolsToolStripMenuItem.Click += new System.EventHandler(viewSourceToolsToolStripMenuItem_Click);
-            //
             cmsCef.ResumeLayout(false);
             foreach (ToolStripItem x in cmsCef.Items)
             {
@@ -357,10 +293,14 @@ namespace Korot
         public System.Windows.Forms.ToolStripSeparator tsSepCol;
         public System.Windows.Forms.ToolStripMenuItem extensionsTSMI;
         public System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem addToDictTSMI;
         public System.Windows.Forms.ToolStripMenuItem openLinkInNewTabToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem openLinkInBackToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem copyLinkAddressToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem openImageInNewTabToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem saveImageAsToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem missSpellToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem readToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
@@ -394,6 +334,25 @@ namespace Korot
             chromiumWebBrowser1.ExecuteScriptAsyncWhenPageLoaded(HTAlt.Tools.ReadFile(rco.Script, Encoding.Unicode), true);
         }
 
+        private void RefreshDict()
+        {
+            missSpellToolStripMenuItem.DropDown.Items.Clear();
+            foreach(string x in DictSuggestions)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem
+                {
+                    Text = "\"" + x + "\"",
+                    Name = HTAlt.Tools.GenerateRandomText(12),
+                    Tag = x,
+                };
+                item.Click += dictWord_Click;
+                item.BackColor = ActiveForm.Settings.Theme.BackColor;
+                item.ForeColor = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Color.Black : Color.White;
+                missSpellToolStripMenuItem.DropDown.Items.Add(item);
+            }
+            missSpellToolStripMenuItem.DropDown.Items.Add(addToDictTSMI);
+        }
+
         private void RefreshRCO()
         {
             extensionsTSMI.DropDownItems.Clear();
@@ -408,23 +367,23 @@ namespace Korot
                     }
                     else if (option.Option == RightClickOptionStyle.Edit)
                     {
-                        if (isEditable) { options.Add(option); }
+                        if (IsEditable) { options.Add(option); }
                     }
                     else if (option.Option == RightClickOptionStyle.Image)
                     {
-                        if (hasImageContents && !string.IsNullOrWhiteSpace(SourceURL)) { options.Add(option); }
+                        if (HasImageContents && !string.IsNullOrWhiteSpace(SourceUrl)) { options.Add(option); }
                     }
                     else if (option.Option == RightClickOptionStyle.Link)
                     {
-                        if (!string.IsNullOrWhiteSpace(LinkURL)) { options.Add(option); }
+                        if (!string.IsNullOrWhiteSpace(LinkUrl)) { options.Add(option); }
                     }
                     else if (option.Option == RightClickOptionStyle.None)
                     {
-                        if (!isEditable && !hasImageContents && string.IsNullOrWhiteSpace(SourceURL) && string.IsNullOrWhiteSpace(LinkURL) && string.IsNullOrWhiteSpace(SelectedText)) { options.Add(option); }
+                        if (!IsEditable && !HasImageContents && string.IsNullOrWhiteSpace(SourceUrl) && string.IsNullOrWhiteSpace(LinkUrl) && string.IsNullOrWhiteSpace(SelectionText)) { options.Add(option); }
                     }
                     else if (option.Option == RightClickOptionStyle.Text)
                     {
-                        if (!string.IsNullOrWhiteSpace(SelectedText)) { options.Add(option); }
+                        if (!string.IsNullOrWhiteSpace(SelectionText)) { options.Add(option); }
                     }
                 }
             }
@@ -455,42 +414,48 @@ namespace Korot
                 extensionsTSMI.DropDown.Items.Add(empty);
             }
         }
-
+        private void read_Click(object sender,EventArgs e)
+        {
+            SpeechSynthesizer synth = new SpeechSynthesizer();
+            synth.Volume = ActiveForm.Settings.SynthVolume;
+            synth.Rate = ActiveForm.Settings.SynthRate;
+            synth.SpeakAsync(SelectionText);
+        }
         private void item_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
-            if (!string.IsNullOrWhiteSpace(SelectedText))
+            if (!string.IsNullOrWhiteSpace(SelectionText))
             {
-                string newItem = "<text ID=\"" + HTAlt.Tools.GenerateRandomText(12) + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />";
+                string newItem = "<text ID=\"" + HTAlt.Tools.GenerateRandomText(12) + "\" Text=\"" + SelectionText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />";
                 ActiveForm.Settings.CollectionManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                 return;
             }
-            if (!string.IsNullOrWhiteSpace(SourceURL))
+            if (!string.IsNullOrWhiteSpace(SourceUrl))
             {
-                string newItem = "<image ID=\"" + HTAlt.Tools.GenerateRandomText(12) + "\" Source=\"" + SourceURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />";
+                string newItem = "<image ID=\"" + HTAlt.Tools.GenerateRandomText(12) + "\" Source=\"" + SourceUrl.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />";
                 ActiveForm.Settings.CollectionManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                 return;
             }
-            if (!string.IsNullOrWhiteSpace(LinkURL))
+            if (!string.IsNullOrWhiteSpace(LinkUrl))
             {
-                if (!string.IsNullOrWhiteSpace(SelectedText))
+                if (!string.IsNullOrWhiteSpace(SelectionText))
                 {
-                    string newItem = "<link ID =\"" + HTAlt.Tools.GenerateRandomText(12) + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />";
+                    string newItem = "<link ID =\"" + HTAlt.Tools.GenerateRandomText(12) + "\" Text=\"" + SelectionText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + LinkUrl.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />";
                     ActiveForm.Settings.CollectionManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                     return;
                 }
                 else
                 {
-                    string newItem = "<link ID=\"" + HTAlt.Tools.GenerateRandomText(12) + "\" Text=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + LinkURL.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />";
+                    string newItem = "<link ID=\"" + HTAlt.Tools.GenerateRandomText(12) + "\" Text=\"" + LinkUrl.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + LinkUrl.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />";
                     ActiveForm.Settings.CollectionManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                     return;
                 }
             }
             else
             {
-                if (!string.IsNullOrWhiteSpace(SelectedText))
+                if (!string.IsNullOrWhiteSpace(SelectionText))
                 {
-                    string newItem = "<link ID=\"" + HTAlt.Tools.GenerateRandomText(12) + "\" Text=\"" + SelectedText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + chromiumWebBrowser1.Address.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />";
+                    string newItem = "<link ID=\"" + HTAlt.Tools.GenerateRandomText(12) + "\" Text=\"" + SelectionText.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" Source=\"" + chromiumWebBrowser1.Address.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "\" />";
                     ActiveForm.Settings.CollectionManager.GetCollectionFromID(item.Name).NewItemFromCode(newItem);
                     return;
                 }
@@ -526,48 +491,96 @@ namespace Korot
             addToCollection.DropDown.Items.Add(tsSepCol);
             addToCollection.DropDown.Items.Add(newCollection);
         }
+        private string MisspelledWord;
+        private string LinkUrl;
+        private string UnfilteredLinkUrl;
+        private string SourceUrl;
+        private bool HasImageContents;
+        private bool IsEditable;
+        private bool IsSpellCheckEnabled;
+        private string SelectionText;
+        private string[] DictSuggestions;
 
-        public void showCMS(string link, string source, string selected, bool hasimage, bool editable, IWebBrowser cwb)
+        public void showCMS(IContextMenuParams CMparams,IWebBrowser cwb)
         {
+            MisspelledWord = CMparams.MisspelledWord;
+            LinkUrl = CMparams.LinkUrl;
+            UnfilteredLinkUrl = CMparams.UnfilteredLinkUrl;
+            SourceUrl = CMparams.SourceUrl;
+            HasImageContents = CMparams.HasImageContents;
+            IsEditable = CMparams.IsEditable;
+            SelectionText = CMparams.SelectionText;
+            IsSpellCheckEnabled = CMparams.IsSpellCheckEnabled;
+            DictSuggestions = CMparams.DictionarySuggestions.ToArray();
             InitializeCMSComponent();
             currentCMS = cmsCef;
             chromiumWebBrowser1 = cwb;
             cmsCef.BackColor = ActiveForm.Settings.Theme.BackColor;
-            cmsCef.ForeColor = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            cmsCef.ForeColor = ActiveForm.Settings.Theme.ForeColor;
             addToCollection.DropDown.BackColor = ActiveForm.Settings.Theme.BackColor;
-            addToCollection.DropDown.ForeColor = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Color.Black : Color.White;
+            addToCollection.DropDown.ForeColor = ActiveForm.Settings.Theme.ForeColor;
             extensionsTSMI.DropDown.BackColor = ActiveForm.Settings.Theme.BackColor;
-            extensionsTSMI.DropDown.ForeColor = HTAlt.Tools.IsBright(ActiveForm.Settings.Theme.BackColor) ? Color.Black : Color.White;
-            LinkURL = link;
-            hasImageContents = hasimage;
-            SourceURL = source;
-            isEditable = editable;
-            SelectedText = selected;
+            extensionsTSMI.DropDown.ForeColor = ActiveForm.Settings.Theme.ForeColor;
+            missSpellToolStripMenuItem.DropDown.BackColor = ActiveForm.Settings.Theme.BackColor;
+            missSpellToolStripMenuItem.DropDown.ForeColor = ActiveForm.Settings.Theme.ForeColor;
             RefreshRCO();
             CollectionList();
+            if (!string.IsNullOrEmpty(MisspelledWord))
+            {
+                missSpellToolStripMenuItem.Text = "\"" + MisspelledWord + "\"";
+                missSpellToolStripMenuItem.Enabled = true;
+                missSpellToolStripMenuItem.Visible = true;
+                RefreshDict();
+            }else
+            {
+                missSpellToolStripMenuItem.Enabled = false;
+                missSpellToolStripMenuItem.Visible = false;
+            }
             // Links
-            openLinkInNewTabToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(LinkURL);
-            copyLinkAddressToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(LinkURL);
-            openLinkINAIWTSMI.Visible = !string.IsNullOrWhiteSpace(LinkURL);
-            openLinkINWTSMI.Visible = !string.IsNullOrWhiteSpace(LinkURL);
-            saveLinkAsTSMI.Visible = !string.IsNullOrWhiteSpace(LinkURL);
-            tsSep2.Visible = (!string.IsNullOrWhiteSpace(LinkURL) || (!string.IsNullOrWhiteSpace(SourceURL) && hasImageContents));
+            openLinkInBackToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(LinkUrl);
+            openLinkInNewTabToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(LinkUrl);
+            copyLinkAddressToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(LinkUrl);
+            openLinkINAIWTSMI.Visible = !string.IsNullOrWhiteSpace(LinkUrl);
+            openLinkINWTSMI.Visible = !string.IsNullOrWhiteSpace(LinkUrl);
+            saveLinkAsTSMI.Visible = !string.IsNullOrWhiteSpace(LinkUrl);
+            tsSep2.Visible = (!string.IsNullOrWhiteSpace(LinkUrl) || (!string.IsNullOrWhiteSpace(SourceUrl) && HasImageContents));
+            openLinkInBackToolStripMenuItem.Enabled = !string.IsNullOrWhiteSpace(LinkUrl);
+            openLinkInNewTabToolStripMenuItem.Enabled = !string.IsNullOrWhiteSpace(LinkUrl);
+            copyLinkAddressToolStripMenuItem.Enabled = !string.IsNullOrWhiteSpace(LinkUrl);
+            openLinkINAIWTSMI.Enabled = !string.IsNullOrWhiteSpace(LinkUrl);
+            openLinkINWTSMI.Enabled = !string.IsNullOrWhiteSpace(LinkUrl);
+            saveLinkAsTSMI.Enabled = !string.IsNullOrWhiteSpace(LinkUrl);
+            tsSep2.Enabled = (!string.IsNullOrWhiteSpace(LinkUrl) || (!string.IsNullOrWhiteSpace(SourceUrl) && HasImageContents));
             // Images
-            copyImageTSMI.Visible = (!string.IsNullOrWhiteSpace(SourceURL) && hasImageContents);
-            copyImageAddressTSMI.Visible = (!string.IsNullOrWhiteSpace(SourceURL) && hasImageContents);
-            saveImageAsToolStripMenuItem.Visible = (!string.IsNullOrWhiteSpace(SourceURL) && hasImageContents);
-            openImageInNewTabToolStripMenuItem.Visible = (!string.IsNullOrWhiteSpace(SourceURL) && hasImageContents);
+            copyImageTSMI.Visible = (!string.IsNullOrWhiteSpace(SourceUrl) && HasImageContents);
+            copyImageAddressTSMI.Visible = (!string.IsNullOrWhiteSpace(SourceUrl) && HasImageContents);
+            saveImageAsToolStripMenuItem.Visible = (!string.IsNullOrWhiteSpace(SourceUrl) && HasImageContents);
+            openImageInNewTabToolStripMenuItem.Visible = (!string.IsNullOrWhiteSpace(SourceUrl) && HasImageContents);
+            copyImageTSMI.Enabled = (!string.IsNullOrWhiteSpace(SourceUrl) && HasImageContents);
+            copyImageAddressTSMI.Enabled = (!string.IsNullOrWhiteSpace(SourceUrl) && HasImageContents);
+            saveImageAsToolStripMenuItem.Enabled = (!string.IsNullOrWhiteSpace(SourceUrl) && HasImageContents);
+            openImageInNewTabToolStripMenuItem.Enabled = (!string.IsNullOrWhiteSpace(SourceUrl) && HasImageContents);
             // Text - Selection
-            copyToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(SelectedText);
-            searchOrOpenSelectedInNewTabToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(SelectedText);
-            tsSep3.Visible = (!string.IsNullOrWhiteSpace(SelectedText) || isEditable || (!string.IsNullOrWhiteSpace(SelectedText) && isEditable));
+            readToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(SelectionText);
+            copyToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(SelectionText);
+            searchOrOpenSelectedInNewTabToolStripMenuItem.Visible = !string.IsNullOrWhiteSpace(SelectionText);
+            tsSep3.Visible = (!string.IsNullOrWhiteSpace(SelectionText) || IsEditable || (!string.IsNullOrWhiteSpace(SelectionText) && IsEditable));
+            readToolStripMenuItem.Enabled = !string.IsNullOrWhiteSpace(SelectionText);
+            copyToolStripMenuItem.Enabled = !string.IsNullOrWhiteSpace(SelectionText);
+            searchOrOpenSelectedInNewTabToolStripMenuItem.Enabled = !string.IsNullOrWhiteSpace(SelectionText);
+            tsSep3.Enabled = (!string.IsNullOrWhiteSpace(SelectionText) || IsEditable || (!string.IsNullOrWhiteSpace(SelectionText) && IsEditable));
             // Text - Editable
-            pasteToolStripMenuItem.Visible = isEditable;
-            undoToolStripMenuItem.Visible = isEditable;
-            redoToolStripMenuItem.Visible = isEditable;
+            pasteToolStripMenuItem.Visible = IsEditable;
+            undoToolStripMenuItem.Visible = IsEditable;
+            redoToolStripMenuItem.Visible = IsEditable;
+            pasteToolStripMenuItem.Enabled = IsEditable;
+            undoToolStripMenuItem.Enabled = IsEditable;
+            redoToolStripMenuItem.Enabled = IsEditable;
             // Text - Editable & Selection
-            cutToolStripMenuItem.Visible = (!string.IsNullOrWhiteSpace(SelectedText) && isEditable);
-            deleteToolStripMenuItem.Visible = (!string.IsNullOrWhiteSpace(SelectedText) && isEditable);
+            cutToolStripMenuItem.Visible = (!string.IsNullOrWhiteSpace(SelectionText) && IsEditable);
+            deleteToolStripMenuItem.Visible = (!string.IsNullOrWhiteSpace(SelectionText) && IsEditable);
+            cutToolStripMenuItem.Enabled = (!string.IsNullOrWhiteSpace(SelectionText) && IsEditable);
+            deleteToolStripMenuItem.Enabled = (!string.IsNullOrWhiteSpace(SelectionText) && IsEditable);
             // Final
             cmsCef.Show(Cursor.Position);
             cmsCef.BringToFront();
@@ -575,16 +588,23 @@ namespace Korot
         }
 
         public IWebBrowser chromiumWebBrowser1;
-        public string LinkURL = "";
-        public bool hasImageContents = false;
-        public string SourceURL = "";
-        public bool isEditable = false;
-        public string SelectedText = "";
+
         public ContextMenuStrip currentCMS;
 
-        private void NewTab(string url)
+        private void addToDict_Click(object sender,EventArgs e)
         {
-            ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(url)));
+            chromiumWebBrowser1.AddWordToDictionary(MisspelledWord);
+        }
+        private void dictWord_Click(object sender, EventArgs e)
+        {
+            if (sender is null) { return; }
+            var cntrl = sender as ToolStripMenuItem;
+            chromiumWebBrowser1.ReplaceMisspelling(cntrl.Tag.ToString());
+        }
+
+        private void NewTab(string url, bool back = false)
+        {
+            ActiveForm.Invoke(new Action(() => ActiveForm.NewTab(url, back)));
         }
 
         private void newCollection_Click(object sender, EventArgs e)
@@ -604,27 +624,27 @@ namespace Korot
 
         private void openLinkInANewWindow(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(LinkURL)) { Process.Start(Application.ExecutablePath, LinkURL); }
+            if (!string.IsNullOrWhiteSpace(LinkUrl)) { Process.Start(Application.ExecutablePath, LinkUrl); }
         }
 
         private void openLinkInANewIncognitoWindow(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(LinkURL)) { Process.Start(Application.ExecutablePath, "-incognito \"" + LinkURL + "\""); }
+            if (!string.IsNullOrWhiteSpace(LinkUrl)) { Process.Start(Application.ExecutablePath, "-incognito \"" + LinkUrl + "\""); }
         }
 
         private void copyImage(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SourceURL)) { Clipboard.SetImage(HTAlt.Tools.GetImageFromUrl(SourceURL)); }
+            if (!string.IsNullOrWhiteSpace(SourceUrl)) { Clipboard.SetImage(HTAlt.Tools.GetImageFromUrl(SourceUrl)); }
         }
 
         private void copyImageAddress(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SourceURL)) { Clipboard.SetText(SourceURL); }
+            if (!string.IsNullOrWhiteSpace(SourceUrl)) { Clipboard.SetText(SourceUrl); }
         }
 
         private void saveLinkAs(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(LinkURL)) { chromiumWebBrowser1.GetBrowserHost().StartDownload(LinkURL); }
+            if (!string.IsNullOrWhiteSpace(LinkUrl)) { chromiumWebBrowser1.GetBrowserHost().StartDownload(LinkUrl); }
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -649,27 +669,32 @@ namespace Korot
 
         private void seacrhOrOpenSelectedInNewTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SelectedText)) { NewTab(SelectedText); }
+            if (!string.IsNullOrWhiteSpace(SelectionText)) { NewTab(SelectionText); }
         }
 
         private void openLinkInNewTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(LinkURL)) { NewTab(LinkURL); }
+            if (!string.IsNullOrWhiteSpace(LinkUrl)) { NewTab(LinkUrl); }
+        }
+
+        private void openLinkInBackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(LinkUrl)) { NewTab(LinkUrl, true); }
         }
 
         private void copyLinkAddressToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(LinkURL)) { Clipboard.SetText(LinkURL); }
+            if (!string.IsNullOrWhiteSpace(LinkUrl)) { Clipboard.SetText(LinkUrl); }
         }
 
         private void openImageInNewTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SourceURL)) { NewTab(SourceURL); }
+            if (!string.IsNullOrWhiteSpace(SourceUrl)) { NewTab(SourceUrl); }
         }
 
         private void saveImageAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SourceURL)) { chromiumWebBrowser1.GetBrowserHost().StartDownload(SourceURL); }
+            if (!string.IsNullOrWhiteSpace(SourceUrl)) { chromiumWebBrowser1.GetBrowserHost().StartDownload(SourceUrl); }
         }
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
@@ -724,12 +749,7 @@ namespace Korot
             if (!parameters.IsPepperMenu)
             {
                 model.Clear();
-                showCMS(parameters.LinkUrl,
-                        parameters.SourceUrl,
-                        parameters.SelectionText,
-                        parameters.HasImageContents,
-                        parameters.IsEditable,
-                        browserControl);
+                showCMS(parameters, browserControl);
             }
         }
 
