@@ -1,8 +1,8 @@
-﻿/* 
+﻿/*
 
 Copyright © 2020 Eren "Haltroy" Kanat
 
-Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
 
 */
 
@@ -225,7 +225,6 @@ namespace Korot
                 ll32bit.LinkColor = Settings.Theme.OverlayColor;
                 ll32bit.VisitedLinkColor = Settings.Theme.OverlayColor;
                 ll32bit.ForeColor = Settings.Theme.OverlayColor;
-
 
                 llLicenses.ActiveLinkColor = Settings.Theme.OverlayColor;
                 llLicenses.DisabledLinkColor = Settings.Theme.OverlayColor;
@@ -1524,7 +1523,7 @@ namespace Korot
             if (result == DialogResult.OK)
             {
                 string themeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + input.TextValue + ".ktf";
-                Theme saveTheme = new Theme("",Settings)
+                Theme saveTheme = new Theme("", Settings)
                 {
                     ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + input.TextValue + ".ktf",
                     BackColor = Settings.Theme.BackColor,
@@ -1640,6 +1639,7 @@ namespace Korot
         #endregion Startup
 
         #region General
+
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             Settings.SynthVolume = Convert.ToInt32(nudSynthVol.Value);
@@ -1649,6 +1649,7 @@ namespace Korot
         {
             Settings.SynthRate = Convert.ToInt32(nudSynthRate.Value);
         }
+
         private void htButton3_Click(object sender, EventArgs e)
         {
             allowSwtich = true;
@@ -2356,7 +2357,5 @@ namespace Korot
         }
 
         #endregion About
-
-
     }
 }

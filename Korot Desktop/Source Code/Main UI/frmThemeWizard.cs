@@ -1,8 +1,8 @@
-﻿/* 
+﻿/*
 
 Copyright © 2020 Eren "Haltroy" Kanat
 
-Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
 
 */
 
@@ -538,7 +538,7 @@ namespace Korot
         private void htButton1_Click(object sender, EventArgs e)
         {
             KorotTools.createThemes();
-            Settings.Theme = new Theme(themePath + Theme.ToString() + ".ktf",Settings);
+            Settings.Theme = new Theme(themePath + Theme.ToString() + ".ktf", Settings);
             Settings.JustChangedTheme();
             Settings.Save();
             Close();

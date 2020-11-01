@@ -1,10 +1,11 @@
-﻿/* 
+﻿/*
 
 Copyright © 2020 Eren "Haltroy" Kanat
 
-Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
 
 */
+
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -18,8 +19,8 @@ namespace Korot
     public partial class frmUpdateExt : Form
     {
         public Settings Settings;
-        Extension Extension;
-        Theme Theme;
+        private Extension Extension;
+        private Theme Theme;
         public bool isTheme = false;
         private readonly WebClient webC = new WebClient();
         private Version currentVersion;

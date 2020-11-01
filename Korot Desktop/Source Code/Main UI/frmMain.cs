@@ -1,10 +1,11 @@
-﻿/* 
+﻿/*
 
 Copyright © 2020 Eren "Haltroy" Kanat
 
-Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
 
 */
+
 using CefSharp;
 using EasyTabs;
 using HTAlt.WinForms;
@@ -500,6 +501,7 @@ namespace Korot
             list = new MyJumplist(Handle, settings);
             Updater.CheckForUpdates();
         }
+
         private void CloseTabs()
         {
             Tabs.Clear();
@@ -516,6 +518,7 @@ namespace Korot
                 }
             }
         }
+
         public void CleanNow(bool skipMessage)
         {
             if (skipMessage)

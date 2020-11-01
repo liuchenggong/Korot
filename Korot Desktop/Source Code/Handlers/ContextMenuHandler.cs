@@ -1,19 +1,19 @@
-﻿/* 
+﻿/*
 
 Copyright © 2020 Eren "Haltroy" Kanat
 
-Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
 
 */
+
 using CefSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Text;
-using System.Speech;
-using System.Windows.Forms;
 using System.Speech.Synthesis;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Korot
 {
@@ -136,7 +136,6 @@ namespace Korot
                 printToolStripMenuItem.Click += new System.EventHandler(printToolStripMenuItem_Click);
                 showDevToolsToolStripMenuItem.Click += new System.EventHandler(showDevToolsToolStripMenuItem_Click);
                 viewSourceToolsToolStripMenuItem.Click += new System.EventHandler(viewSourceToolsToolStripMenuItem_Click);
-
             }
             cmsCef.SuspendLayout();
             //
@@ -337,7 +336,7 @@ namespace Korot
         private void RefreshDict()
         {
             missSpellToolStripMenuItem.DropDown.Items.Clear();
-            foreach(string x in DictSuggestions)
+            foreach (string x in DictSuggestions)
             {
                 ToolStripMenuItem item = new ToolStripMenuItem
                 {
@@ -414,13 +413,15 @@ namespace Korot
                 extensionsTSMI.DropDown.Items.Add(empty);
             }
         }
-        private void read_Click(object sender,EventArgs e)
+
+        private void read_Click(object sender, EventArgs e)
         {
             SpeechSynthesizer synth = new SpeechSynthesizer();
             synth.Volume = ActiveForm.Settings.SynthVolume;
             synth.Rate = ActiveForm.Settings.SynthRate;
             synth.SpeakAsync(SelectionText);
         }
+
         private void item_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
@@ -491,6 +492,7 @@ namespace Korot
             addToCollection.DropDown.Items.Add(tsSepCol);
             addToCollection.DropDown.Items.Add(newCollection);
         }
+
         private string MisspelledWord;
         private string LinkUrl;
         private string UnfilteredLinkUrl;
@@ -501,7 +503,7 @@ namespace Korot
         private string SelectionText;
         private string[] DictSuggestions;
 
-        public void showCMS(IContextMenuParams CMparams,IWebBrowser cwb)
+        public void showCMS(IContextMenuParams CMparams, IWebBrowser cwb)
         {
             MisspelledWord = CMparams.MisspelledWord;
             LinkUrl = CMparams.LinkUrl;
@@ -531,7 +533,8 @@ namespace Korot
                 missSpellToolStripMenuItem.Enabled = true;
                 missSpellToolStripMenuItem.Visible = true;
                 RefreshDict();
-            }else
+            }
+            else
             {
                 missSpellToolStripMenuItem.Enabled = false;
                 missSpellToolStripMenuItem.Visible = false;
@@ -591,10 +594,11 @@ namespace Korot
 
         public ContextMenuStrip currentCMS;
 
-        private void addToDict_Click(object sender,EventArgs e)
+        private void addToDict_Click(object sender, EventArgs e)
         {
             chromiumWebBrowser1.AddWordToDictionary(MisspelledWord);
         }
+
         private void dictWord_Click(object sender, EventArgs e)
         {
             if (sender is null) { return; }

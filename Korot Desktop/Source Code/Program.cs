@@ -1,10 +1,11 @@
-﻿/* 
+﻿/*
 
 Copyright © 2020 Eren "Haltroy" Kanat
 
-Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
 
 */
+
 using CefSharp;
 using CefSharp.WinForms;
 using EasyTabs;
@@ -24,9 +25,9 @@ namespace Korot
 {
     public static class VersionInfo
     {
-        public static string CodeName => "Interstellar";
+        public static string CodeName => "Pergo";
 
-        public static int VersionNumber = 52;
+        public static int VersionNumber = 53;
     }
 
     internal static class Program
@@ -276,7 +277,7 @@ new TitleBarTab(testApp)
                 {
                     string themeFile = node.Attributes["File"] != null ? node.Attributes["File"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
                     if (!File.Exists(themeFile)) { themeFile = ""; }
-                    Theme = new Theme(themeFile,this);
+                    Theme = new Theme(themeFile, this);
                     foreach (XmlNode subnode in node.ChildNodes)
                     {
                         if (subnode.Name.ToLower() == "name")
@@ -475,6 +476,7 @@ new TitleBarTab(testApp)
         }
 
         #region Properties
+
         public bool LoadedDefaults = false;
         public string Birthday { get; set; } = "";
         public bool CelebrateBirthday { get; set; } = true;
@@ -579,7 +581,7 @@ new TitleBarTab(testApp)
 
         public DownloadSettings Downloads { get; set; } = new DownloadSettings() { DownloadDirectory = "", Downloads = new List<Site>(), OpenDownload = false, UseDownloadFolder = false };
 
-        public LanguageSystem LanguageSystem { get; set; } = new LanguageSystem("",null);
+        public LanguageSystem LanguageSystem { get; set; } = new LanguageSystem("", null);
 
         public CollectionManager CollectionManager { get; set; } = new CollectionManager("") { Collections = new List<Collection>() };
 
@@ -704,7 +706,6 @@ new TitleBarTab(testApp)
             return allowed;
         }
 
-
         public void Save()
         {
             string x =
@@ -825,7 +826,8 @@ new TitleBarTab(testApp)
             if (!string.IsNullOrWhiteSpace(themeFile) && File.Exists(themeFile))
             {
                 LoadedDefaults = false;
-            }else
+            }
+            else
             {
                 LoadedDefaults = true;
                 return;
@@ -960,7 +962,7 @@ new TitleBarTab(testApp)
 
         public bool AutoForeColor { get; set; }
 
-        public Theme(string themeFile,Settings settings)
+        public Theme(string themeFile, Settings settings)
         {
             Settings = settings;
             Name = "Korot Light";
@@ -996,6 +998,7 @@ new TitleBarTab(testApp)
         public int BackgroundStyleLayout { get; set; }
         public TabColors NewTabColor { get; set; }
         public TabColors CloseButtonColor { get; set; }
+
         public void Update()
         {
             if (UseHaltroyUpdate)
@@ -1257,7 +1260,8 @@ new TitleBarTab(testApp)
         public int ItemCount => LanguageItems.Count;
         public string LangFile { get; private set; } = Application.StartupPath + "\\Lang\\English.klf";
         public Settings Settings { get; set; } = null;
-        public LanguageSystem(string fileLoc,Settings settings)
+
+        public LanguageSystem(string fileLoc, Settings settings)
         {
             Settings = settings;
             ReadFromFile(!string.IsNullOrWhiteSpace(fileLoc) ? fileLoc : LangFile, true);
@@ -1277,6 +1281,7 @@ new TitleBarTab(testApp)
                 ForceReadFromFile(fileLoc, clear);
             }
         }
+
         public void ReadCode(string xmlCode, bool clear = true)
         {
             if (clear) { LanguageItems.Clear(); }
@@ -1289,7 +1294,7 @@ new TitleBarTab(testApp)
                 {
                     Version compVersion = new Version(rootNode.Attributes["CompatibleVersion"].Value);
                     Version current = new Version(Application.ProductVersion);
-                    if (compVersion.CompareTo(current) != 0  && LangFile != Application.StartupPath + "\\Lang\\English.klf")
+                    if (compVersion.CompareTo(current) != 0 && LangFile != Application.StartupPath + "\\Lang\\English.klf")
                     {
                         HTMsgBox msgbox = new HTMsgBox("Korot", "This language file is not compatible with your Korot version."
                             + Environment.NewLine
@@ -1303,7 +1308,13 @@ new TitleBarTab(testApp)
                             + Environment.NewLine
                             + "Would you still want to continue?", new HTDialogBoxContext(MessageBoxButtons.YesNoCancel))
                         {
-                            BackColor = (Settings != null ? Settings.Theme.BackColor : Color.White), ForeColor = (Settings != null ? Settings.Theme.ForeColor : Color.Black), Yes = "Yes", No = "No" , Cancel = "Cancel", AutoForeColor = false, Icon = Properties.Resources.KorotIcon
+                            BackColor = (Settings != null ? Settings.Theme.BackColor : Color.White),
+                            ForeColor = (Settings != null ? Settings.Theme.ForeColor : Color.Black),
+                            Yes = "Yes",
+                            No = "No",
+                            Cancel = "Cancel",
+                            AutoForeColor = false,
+                            Icon = Properties.Resources.KorotIcon
                         };
                         DialogResult result = msgbox.ShowDialog();
                         if (result != DialogResult.Yes)
@@ -1903,8 +1914,6 @@ new TitleBarTab(testApp)
             Tools.WriteFile(Application.StartupPath + "\\Lang\\Türkçe.klf", Properties.Resources.Türkçe);
             return true;
         }
-
-       
     }
 
     public class KorotVersion

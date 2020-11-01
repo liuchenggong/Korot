@@ -1,19 +1,19 @@
-﻿/* 
+﻿/*
 
 Copyright © 2020 Eren "Haltroy" Kanat
 
-Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
 
 */
+
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
+
 //using System.IO.Compression;
 using System.Net;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -86,7 +86,7 @@ namespace Korot
                             UpdateType = 1;
                             fileName = "install.exe";
                             downloadUrl = Newest.InstallerUrl;
-                            
+
                             break;
 
                         case KorotVersion.UpdateType.Upgrade:
@@ -117,6 +117,7 @@ namespace Korot
                 }
             }
         }
+
         private void WebC_DownloadFileAsyncCompleted(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -139,7 +140,9 @@ namespace Korot
                 isReady = true;
             }
         }
+
         private bool alreadyOpenInstaller = false;
+
         public void ApplyUpdate()
         {
             if (alreadyOpenInstaller) { return; } else { alreadyOpenInstaller = true; }

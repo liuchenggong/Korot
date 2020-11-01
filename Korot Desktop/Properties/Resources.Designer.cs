@@ -8,14 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-/* 
-
-Copyright © 2020 Eren "Haltroy" Kanat
-
-Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
-
-*/
-
 namespace Korot.Properties {
     using System;
     
@@ -250,6 +242,13 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
+        ///    &lt;!--
+        ///
+        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
+        ///
+        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///
+        ///    --&gt;
         ///    &lt;title&gt;Korot&lt;/title&gt;
         ///    &lt;style&gt;
         ///        body {
@@ -264,15 +263,7 @@ namespace Korot.Properties {
         ///            background: #400000;
         ///            color: white;
         ///        }
-        ///    &lt;/style&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///    &lt;h1&gt;§TITLE§&lt;/h1&gt;
-        ///    &lt;h3&gt;§DESC§&lt;/h3&gt;
-        ///    &lt;a&gt;§CERT§&lt;/a&gt;
-        ///    &lt;/br&gt;
-        ///    &lt;/br&gt;
-        ///    &lt;button onclick=&quot;window.location.href = &apos;korot://certcontinue&apos;&quot;&gt;§CONTINUE§ [rest of string was truncated]&quot;;.
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string certerror {
             get {
@@ -452,16 +443,19 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
-        ///    &lt;!--MIT License
+        ///    &lt;!--
         ///
-        ///    Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///    Permission is hereby granted, free of charge, to any person obtaining a copy
-        ///    of this software and associated documentation files (the &quot;Software&quot;), to deal
-        ///    in the Software without restriction, including without limitation the rights
-        ///    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        ///    copies of the Software, and to permit persons to whom the Software is
-        ///    furnished to do so, subject t [rest of string was truncated]&quot;;.
+        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///
+        ///    --&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;§TITLE§&lt;/title&gt;
+        ///    &lt;!--
+        ///        Hello am 48 year man from somalia. Sorry for my bed england. I selled my wife for internet connection
+        ///        for play &quot;conter strik&quot; and i want to become the goodest player like you I play with 400 ping on
+        ///        brazil and i am gl [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string errorpage {
             get {
@@ -681,16 +675,28 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
-        ///    &lt;!--MIT License
+        ///    &lt;!--
         ///
-        ///    Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///    Permission is hereby granted, free of charge, to any person obtaining a copy
-        ///    of this software and associated documentation files (the &quot;Software&quot;), to deal
-        ///    in the Software without restriction, including without limitation the rights
-        ///    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        ///    copies of the Software, and to permit persons to whom the Software is
-        ///    furnished to do so, subject t [rest of string was truncated]&quot;;.
+        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///
+        ///    --&gt;
+        ///    &lt;style&gt;
+        ///        .content {
+        ///            max-width: 500px;
+        ///            margin: auto;
+        ///        }
+        ///
+        ///        body {
+        ///            font-family: Ubuntu;
+        ///            background-color: rgb(33,33,33);
+        ///            color: white;
+        ///        }
+        ///    &lt;/style&gt;
+        ///    &lt;title&gt;§TITLE§&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///&lt;body class=&quot;content&quot;&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string incognito {
             get {
@@ -741,16 +747,26 @@ namespace Korot.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
-        ///&lt;!--MIT License
+        ///&lt;!--
         ///
-        ///Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///Permission is hereby granted, free of charge, to any person obtaining a copy
-        ///of this software and associated documentation files (the &quot;Software&quot;), to deal
-        ///in the Software without restriction, including without limitation the rights
-        ///to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        ///copies of the Software, and to permit persons to whom the Software is
-        ///furnished to do so, subject to the following [rest of string was truncated]&quot;;.
+        ///Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///
+        ///--&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;Korot Links&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            §BACKSTYLE2§ font-family: Ubuntu;
+        ///            background-size: cover;
+        ///            position: relative;
+        ///            background-repeat: no-repeat;
+        ///            background-size: 100% 100vh;
+        ///        }
+        ///    &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string korotlinks {
             get {
@@ -810,16 +826,25 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
-        ///    &lt;!--MIT License
+        ///    &lt;!--
         ///
-        ///    Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///    Permission is hereby granted, free of charge, to any person obtaining a copy
-        ///    of this software and associated documentation files (the &quot;Software&quot;), to deal
-        ///    in the Software without restriction, including without limitation the rights
-        ///    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        ///    copies of the Software, and to permit persons to whom the Software is
-        ///    furnished to do so, subject t [rest of string was truncated]&quot;;.
+        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///
+        ///    --&gt;
+        ///    &lt;title&gt;§TITLE§&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            §BACKSTYLE2§ font-family: Ubuntu;
+        ///            background-size: cover;
+        ///            position: relative;
+        ///            background-repeat: no-repeat;
+        ///            background-size: 100% 100vh;
+        ///        }
+        ///
+        ///        .btn-group button {
+        ///           [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string licenses {
             get {
@@ -899,18 +924,27 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;html&gt;
-        ///&lt;!--MIT License
+        ///&lt;!--
         ///
-        ///Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///Permission is hereby granted, free of charge, to any person obtaining a copy
-        ///of this software and associated documentation files (the &quot;Software&quot;), to deal
-        ///in the Software without restriction, including without limitation the rights
-        ///to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        ///copies of the Software, and to permit persons to whom the Software is
-        ///furnished to do so, subject to the following conditions:
+        ///Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
         ///
-        ///T [rest of string was truncated]&quot;;.
+        ///--&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;§TITLE§&lt;/title&gt;
+        ///    &lt;script&gt;
+        ///			function EditItem()
+        ///		{
+        ///		CefSharp.PostMessage(&quot;[Korot.EditNewTabItem]&quot;);
+        ///		}
+        ///    &lt;/script&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            §BACKSTYLE§ background-size: cover;
+        ///            position: relative;
+        ///            background-repeat: no-repeat;
+        ///            background- [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string newtab {
             get {
@@ -940,16 +974,23 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
-        ///    &lt;!--MIT License
+        ///    &lt;!--
         ///
-        ///    Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///    Permission is hereby granted, free of charge, to any person obtaining a copy
-        ///    of this software and associated documentation files (the &quot;Software&quot;), to deal
-        ///    in the Software without restriction, including without limitation the rights
-        ///    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        ///    copies of the Software, and to permit persons to whom the Software is
-        ///    furnished to do so, subject t [rest of string was truncated]&quot;;.
+        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///
+        ///    --&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;§TITLE§&lt;/title&gt;
+        ///    &lt;!--
+        ///        Hello am 48 year man from somalia. Sorry for my bed england. I not selled my wife for internet connection
+        ///        for nothing. please no copy pasterino my story.
+        ///        --&gt;
+        ///    &lt;style&gt;
+        ///        .center {
+        ///            margin: auto;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string nointernet {
             get {
@@ -989,15 +1030,12 @@ namespace Korot.Properties {
         /// * Korot Desktop Client 0.6 and later
         /// * github.com/haltroy/korot
         /// */
-        ///
-        /////
-        ///// Does the browser support the the Notification API?
-        ///// .. and does it have a permission property?
-        /////
         ///function makeid(length) {
         ///	var result = &apos;&apos;;
         ///	var characters = &apos;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&apos;;
-        ///	var charactersLength = char [rest of string was truncated]&quot;;.
+        ///	var charactersLength = characters.length;
+        ///	for (var i = 0; i &lt; length; i++) {
+        ///		result += characters.charAt(Math.floor(Math.random() * ch [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string notificationDefault {
             get {
@@ -1267,16 +1305,25 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
-        ///    &lt;!--MIT License
+        ///    &lt;!--
         ///
-        ///    Copyright (c) 2020 Eren &quot;Haltroy&quot; Kanat
+        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///    Permission is hereby granted, free of charge, to any person obtaining a copy
-        ///    of this software and associated documentation files (the &quot;Software&quot;), to deal
-        ///    in the Software without restriction, including without limitation the rights
-        ///    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        ///    copies of the Software, and to permit persons to whom the Software is
-        ///    furnished to do so, subject t [rest of string was truncated]&quot;;.
+        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///
+        ///    --&gt;
+        ///    &lt;title&gt;Korot&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            §BACKSTYLE2§ font-family: Ubuntu;
+        ///            background-size: cover;
+        ///            position: relative;
+        ///            background-repeat: no-repeat;
+        ///            background-size: 100% 100vh;
+        ///        }
+        ///
+        ///        textarea {
+        ///            §BACKSTYL [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string technical {
             get {
