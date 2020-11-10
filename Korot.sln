@@ -43,6 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InstallSchemes", "InstallSc
 		InstallSchemes\KorotDesktop-Interstellar.hti = InstallSchemes\KorotDesktop-Interstellar.hti
 		InstallSchemes\KorotDesktop-Old.hti = InstallSchemes\KorotDesktop-Old.hti
 		InstallSchemes\KorotDesktop-PergoPreOut.hti = InstallSchemes\KorotDesktop-PergoPreOut.hti
+		InstallSchemes\KorotDesktop-Qarabag.hti = InstallSchemes\KorotDesktop-Qarabag.hti
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InstallLang", "InstallLang", "{36E0D439-5D56-4656-BCB9-80E2D7D5D447}"
