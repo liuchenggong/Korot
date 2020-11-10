@@ -710,6 +710,7 @@
     <None Include="Resources\left.png" />
     <None Include="Resources\right.png" />
     <Content Include="SpecialPages\nointernet.html" />
+    <Content Include="SpecialPages\randomSites.xml" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -783,9 +784,9 @@
       <Project>{690ba0f7-d8fe-4ebe-ba39-8058086c7a09}</Project>
       <Name>EasyTabs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\KorotUpdate\KorotUpdate.csproj">
+    <ProjectReference Include="..\KorotUpdate\Korot Installer.csproj">
       <Project>{6f5571c0-e808-4528-94ab-2e059b6aa558}</Project>
-      <Name>KorotUpdate</Name>
+      <Name>Korot Installer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

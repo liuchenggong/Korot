@@ -334,6 +334,7 @@ namespace Korot
                 hsDownload.ButtonColor = rbc2;
                 hsDownload.ButtonHoverColor = rbc3;
                 hsDownload.ButtonPressedColor = rbc4;
+
                 hsDoNotTrack.BackColor = Settings.Theme.BackColor;
                 hsDoNotTrack.ButtonColor = rbc2;
                 hsDoNotTrack.ButtonHoverColor = rbc3;
@@ -342,6 +343,12 @@ namespace Korot
                 hsProxy.ButtonColor = rbc2;
                 hsProxy.ButtonHoverColor = rbc3;
                 hsProxy.ButtonPressedColor = rbc4;
+
+                hsDefaultBrowser.BackColor = Settings.Theme.BackColor;
+                hsDefaultBrowser.ButtonColor = rbc2;
+                hsDefaultBrowser.ButtonHoverColor = rbc3;
+                hsDefaultBrowser.ButtonPressedColor = rbc4;
+
                 hsFav.BackColor = Settings.Theme.BackColor;
                 hsFav.ButtonColor = rbc2;
                 hsFav.ButtonHoverColor = rbc3;
@@ -350,10 +357,6 @@ namespace Korot
                 hsOpen.ButtonColor = rbc2;
                 hsOpen.ButtonHoverColor = rbc3;
                 hsOpen.ButtonPressedColor = rbc4;
-                hsFlash.BackColor = Settings.Theme.BackColor;
-                hsFlash.ButtonColor = rbc2;
-                hsFlash.ButtonHoverColor = rbc3;
-                hsFlash.ButtonPressedColor = rbc4;
                 cmsSearchEngine.ForeColor = ForeColor;
                 tbTheme.BackColor = backcolor2;
                 tbLang.BackColor = backcolor2;
@@ -428,7 +431,6 @@ namespace Korot
                 cmsBStyle.ForeColor = ForeColor;
             }
         }
-
         private string loadedLang;
 
         private void ReloadLanguage(bool force = false)
@@ -436,6 +438,7 @@ namespace Korot
             if (loadedLang != Settings.LanguageSystem.LangFile || force)
             {
                 loadedLang = Settings.LanguageSystem.LangFile;
+                lbDefaultBrowser.Text = Settings.LanguageSystem.GetItemText("DefaultBrowserSetting");
                 lbSynthRate.Text = Settings.LanguageSystem.GetItemText("SynthRate");
                 lbSynthVol.Text = Settings.LanguageSystem.GetItemText("SynthVol");
                 l32title.Text = Settings.LanguageSystem.GetItemText("32BitTitle");
@@ -508,8 +511,6 @@ namespace Korot
                 ımageFromURLToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImageFromBase64");
                 ımageFromLocalFileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImageFromFile");
                 lbDNT.Text = Settings.LanguageSystem.GetItemText("EnableDoNotTrack");
-                lbFlash.Text = Settings.LanguageSystem.GetItemText("EnableFlash");
-                lbFlashInfo.Text = Settings.LanguageSystem.GetItemText("FlashInfo");
                 llLicenses.Text = Settings.LanguageSystem.GetItemText("LicensesSpecialThanks");
                 lbSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
                 colorToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("UseBackgroundColor");
@@ -569,7 +570,7 @@ namespace Korot
                 lbCD4.Text = CD2.Substring(CD2.IndexOf(AutoCleanSplitter) + AutoCleanSplitter.Length);
                 lbCD5.Text = CD3.Substring(0, CD3.IndexOf(AutoCleanSplitter));
                 lbCD6.Text = CD3.Substring(CD3.IndexOf(AutoCleanSplitter) + AutoCleanSplitter.Length);
-                label21.Text = cefform.anaform.aboutInfo.Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? cefform.anaform.anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? cefform.anaform.noname : Settings.Theme.Name) : "");
+                label21.Text = cefform.anaform.aboutInfo + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? cefform.anaform.anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? cefform.anaform.noname : Settings.Theme.Name) : "");
             }
         }
 
@@ -617,7 +618,11 @@ namespace Korot
                     break;
 
                 case 9:
-                    lbKorot.Text = "korot";
+                    lbKorot.Text = "the dog with a butter on him";
+                    break;
+
+                case 91:
+                    lbKorot.Text = "hey shitass wanna make browser";
                     break;
 
                 case 35:
@@ -693,7 +698,7 @@ namespace Korot
                     break;
 
                 default:
-                    lbKorot.Text = "Korot";
+                    lbKorot.Text = new Random().Next(int.MinValue,int.MaxValue) % 2 == 0  ? "Korot" : "korot";
                     break;
             }
         }
@@ -709,12 +714,13 @@ namespace Korot
             pbForeColor.BackColor = Settings.Theme.ForeColor;
             pbOverlay.BackColor = Settings.Theme.OverlayColor;
             lbVersion.Text = Application.ProductVersion.ToString() + " " + "[" + VersionInfo.CodeName + "]" + " " + (Environment.Is64BitProcess ? "(64 bit)" : "(32 bit)");
-            label21.Text = cefform.anaform.aboutInfo.Replace("[NEWLINE]", Environment.NewLine) + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? cefform.anaform.anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? cefform.anaform.noname : Settings.Theme.Name) : "");
+            label21.Text = cefform.anaform.aboutInfo + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? cefform.anaform.anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? cefform.anaform.noname : Settings.Theme.Name) : "");
             hsOpen.Checked = Settings.Downloads.OpenDownload;
             hsAutoRestore.Checked = Settings.AutoRestore;
             nudSynthRate.Value = Settings.SynthRate;
             nudSynthVol.Value = Settings.SynthVolume;
             hsFav.Checked = Settings.Favorites.ShowFavorites;
+            hsDefaultBrowser.Checked = Settings.CheckIfDefault;
             switch ((int)Settings.Theme.CloseButtonColor)
             {
                 case 0:
@@ -878,6 +884,7 @@ namespace Korot
             nudCHFile.Location = new Point(lbCH1.Location.X + lbCH1.Width, nudCHFile.Location.Y);
             lbCH2.Location = new Point(nudCHFile.Location.X + nudCHFile.Width, lbCH2.Location.Y);
             hsCHFile.Location = new Point(lbCH2.Location.X + lbCH2.Width, hsCHFile.Location.Y);
+            hsDefaultBrowser.Location = new Point(lbDefaultBrowser.Location.X + lbDefaultBrowser.Width, hsDefaultBrowser.Location.Y);
             nudCHDay.Location = new Point(lbCH3.Location.X + lbCH3.Width, nudCHDay.Location.Y);
             lbCH4.Location = new Point(nudCHDay.Location.X + nudCHDay.Width, lbCH4.Location.Y);
             hsCHDay.Location = new Point(lbCH4.Location.X + lbCH4.Width, hsCHDay.Location.Y);
@@ -916,7 +923,6 @@ namespace Korot
             hsAutoRestore.Location = new Point(lbautoRestore.Location.X + lbautoRestore.Width, hsAutoRestore.Location.Y);
             hsFav.Location = new Point(lbShowFavorites.Location.X + lbShowFavorites.Width, hsFav.Location.Y);
             hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width, hsDoNotTrack.Location.Y);
-            hsFlash.Location = new Point(lbFlash.Location.X + lbFlash.Width, hsFlash.Location.Y);
             hsOpen.Location = new Point(lbOpen.Location.X + lbOpen.Width, hsOpen.Location.Y);
             hsDownload.Location = new Point(lbAutoDownload.Location.X + lbAutoDownload.Width, hsDownload.Location.Y);
             hsProxy.Location = new Point(lbLastProxy.Location.X + lbLastProxy.Width, hsProxy.Location.Y);
@@ -1752,10 +1758,6 @@ namespace Korot
             Settings.DoNotTrack = hsDoNotTrack.Checked;
         }
 
-        private void hsFlash_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Flash = hsFlash.Checked;
-        }
 
         private bool allowSwtich = false;
 
@@ -1778,6 +1780,11 @@ namespace Korot
         private void cmsLanguage_Opening(object sender, CancelEventArgs e)
         {
             RefreshLangList();
+        }
+
+        private void htSwitch1_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.CheckIfDefault = hsDefaultBrowser.Checked;
         }
 
         private void btCookie_Click(object sender, EventArgs e)
@@ -2355,8 +2362,8 @@ namespace Korot
             cefform.Invoke(new Action(() => cefform.NewTab("https://github.com/Haltroy/Korot/issues/142")));
         }
 
+
+
         #endregion About
-
-
     }
 }

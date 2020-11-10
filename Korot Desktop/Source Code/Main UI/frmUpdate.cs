@@ -76,7 +76,6 @@ namespace Korot
                 KorotVersion Current = new KorotVersion("");
                 bool _isUpToDate = Current.WhicIsNew(Newest, Environment.Is64BitProcess ? "amd64" : "i86") == Current;
                 KorotVersion.UpdateType type = Current.GetUpdateType(Newest);
-                KorotVersion.Architecture arch = Newest.Archs.Find(i => i.Type == (Environment.Is64BitProcess ? "amd64" : "i86"));
                 if (!_isUpToDate)
                 {
                     isUpToDate = false;

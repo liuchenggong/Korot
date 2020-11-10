@@ -111,7 +111,7 @@ namespace Korot
                 {
                     if (request.Url.ToLower().StartsWith("korot://newtab"))
                     {
-                        return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BDAY§", isBirthDay() ? CefForm.anaform.HappyBDay : "").Replace("§ITEMS§", GetNewTabItems()).Replace("§BACKSTYLE3§", GetBackStyle3()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§SEARCHHELP§", CefForm.anaform.SearchHelpText).Replace("§SEARCH§", CefForm.anaform.Search).Replace("§DAYS§", CefForm.anaform.DayNames).Replace("§MONTHS§", CefForm.anaform.MonthNames).Replace("§TITLE§", CefForm.anaform.NewTabtitle).Replace("§EDIT§", CefForm.anaform.NewTabEdit));
+                        return ResourceHandler.FromString(Properties.Resources.newtab.Replace("§BDAY§", isBirthDay() ? CefForm.anaform.HappyBDay : "").Replace("§ITEMS§", GetNewTabItems()).Replace("§BACKSTYLE3§", GetBackStyle3()).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§BORED§",CefForm.anaform.ImBored).Replace("§SEARCHHELP§", CefForm.anaform.SearchHelpText).Replace("§SEARCH§", CefForm.anaform.Search).Replace("§DAYS§", CefForm.anaform.DayNames).Replace("§MONTHS§", CefForm.anaform.MonthNames).Replace("§TITLE§", CefForm.anaform.NewTabtitle).Replace("§EDIT§", CefForm.anaform.NewTabEdit));
                     }
                     else if (request.Url.ToLower().StartsWith("korot://incognito"))
                     {
@@ -169,6 +169,19 @@ namespace Korot
                         {
                             return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =" + CefForm.Settings.SearchEngine + x + "\" />");
                         }
+                    }
+                    else if (request.Url.StartsWith("korot://command"))
+                    {
+                        string x = request.Url.Substring(request.Url.IndexOf("=", 10) + 1);
+                        return ResourceHandler.FromString("<head><title>" + CefForm.anaform.KorotCommand + "</title></head><body><h1>Command Received:</h1><p>" + x + "</p></body>");
+                    }
+                    else if (request.Url.StartsWith("korot://completerandom"))
+                    {
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url=" + CefForm.Settings.GiveRandomSite(true) + "\" />");
+                    }
+                    else if (request.Url.StartsWith("korot://random"))
+                    {
+                        return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url=" + CefForm.Settings.GiveRandomSite(false) + "\" />");
                     }
                     else if (request.Url.ToLower().StartsWith("korot://certerror"))
                     {

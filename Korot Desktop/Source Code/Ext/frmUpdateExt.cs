@@ -59,7 +59,7 @@ namespace Korot
         private void Lang()
         {
             Text = Settings.LanguageSystem.GetItemText("KorotExtensionUpdater");
-            info = Settings.LanguageSystem.GetItemText("ExtensionUpdatingInfo").Replace("[NEWLINE]", Environment.NewLine);
+            info = Settings.LanguageSystem.GetItemText("ExtensionUpdatingInfo");
             infoTemp = Settings.LanguageSystem.GetItemText("DownloadProgress");
         }
 

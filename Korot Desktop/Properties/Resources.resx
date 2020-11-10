@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-<!-- 
-
-Copyright © 2020 Eren "Haltroy" Kanat
-
-Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
-
--->
   <!-- 
     Microsoft ResX Schema 
     
@@ -595,5 +588,8 @@ Use of this source code is governed by MIT License that can be found in github.c
   </data>
   <data name="temp_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="randomSites" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\specialpages\randomsites.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
 </root>

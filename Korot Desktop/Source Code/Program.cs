@@ -6,10 +6,12 @@ Use of this source code is governed by MIT License that can be found in github.c
 
 */
 using CefSharp;
+using CefSharp.DevTools.DOMSnapshot;
 using CefSharp.WinForms;
 using EasyTabs;
 using HTAlt;
 using HTAlt.WinForms;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -24,9 +26,11 @@ namespace Korot
 {
     public static class VersionInfo
     {
-        public static string CodeName => "Interstellar";
-
-        public static int VersionNumber = 52;
+        public static string CodeName => "Pergo";
+        public static int VersionNumber = 54;
+        public static string Version => isPreOut ? PreOutName : Application.ProductVersion.ToString();
+        public static string PreOutName => "y20m11u1";
+        public static bool isPreOut => false;
     }
 
     internal static class Program
@@ -243,10 +247,6 @@ new TitleBarTab(testApp)
                 {
                     DoNotTrack = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "flash")
-                {
-                    Flash = node.InnerText == "true";
-                }
                 else if (node.Name.ToLower() == "birthday")
                 {
                     if (node.Attributes["Celebrate"] != null && node.Attributes["Date"] != null && node.Attributes["Count"] != null)
@@ -259,6 +259,10 @@ new TitleBarTab(testApp)
                 else if (node.Name.ToLower() == "autorestore")
                 {
                     AutoRestore = node.InnerText == "true";
+                }
+                else if (node.Name.ToLower() == "checkdefault")
+                {
+                    CheckIfDefault = node.InnerText == "true";
                 }
                 else if (node.Name.ToLower() == "rememberlastproxy")
                 {
@@ -472,14 +476,52 @@ new TitleBarTab(testApp)
                 Downloads.DownloadDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads\\";
             }
             AutoCleaner.Settings = this;
+            LoadRandomSites();
+        }
+
+        private void LoadRandomSites()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(Properties.Resources.randomSites);
+            XmlNode mainnode = doc.FirstChild.NextSibling;
+            foreach(XmlNode node in mainnode.ChildNodes)
+            {
+                if (node.Name == "RandomSite" && node.Attributes["Url"] != null)
+                {
+                    RandomSites.Add(node.Attributes["Url"].Value);
+                }
+            }
+            Output.WriteLine(" [INFO] [Settings] Loaded " + RandomSites.Count + " random sites.");
+        }
+
+        public string GiveRandomSite(bool completeRandom = false)
+        {
+            if (completeRandom)
+            {
+                int rndm = new Random().Next(0,(RandomSites.Count -1 ) * 2);
+                if (rndm < RandomSites.Count)
+                {
+                    return "http://" + HTAlt.Tools.GenerateRandomText(new Random().Next(1,15)) + "." + HTAlt.Tools.GenerateRandomText(new Random().Next(1, 15));
+                }else
+                {
+                    return RandomSites[rndm - RandomSites.Count];
+                }
+            }else
+            {
+                return RandomSites[new Random().Next(0, RandomSites.Count - 1)];
+            }
         }
 
         #region Properties
+
+        public bool CheckIfDefault { get; set; } = true;
+
         public bool LoadedDefaults = false;
         public string Birthday { get; set; } = "";
         public bool CelebrateBirthday { get; set; } = true;
         public int BirthdayCount { get; set; } = 0;
 
+        public List<string> RandomSites { get; set; } = new List<string>();
         public AutoCleaner AutoCleaner { get; set; } = new AutoCleaner("");
         public List<frmCEF> UpdateFavorites { get; set; } = new List<frmCEF>();
 
@@ -536,8 +578,6 @@ new TitleBarTab(testApp)
         public List<BlockSite> Filters { get; set; } = new List<BlockSite>();
 
         public NewTabSites NewTabSites { get; set; } = new NewTabSites("");
-
-        public bool Flash { get; set; } = false;
 
         public bool Silent { get; set; } = false;
 
@@ -720,11 +760,11 @@ new TitleBarTab(testApp)
             "   <Startup>" + Startup.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</Startup>" + Environment.NewLine +
             "   <LastProxy>" + LastProxy.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;") + "</LastProxy>" + Environment.NewLine +
             "   <MenuWasMaximized>" + (MenuWasMaximized ? "true" : "false") + "</MenuWasMaximized>" + Environment.NewLine +
-            "   <Flash>" + (Flash ? "true" : "false") + "</Flash>" + Environment.NewLine +
             "   <Birthday Celebrate=\"" + (CelebrateBirthday ? "true" : "false") + "\" Date=\"" + Birthday + "\" Count=\"" + BirthdayCount + "\" />" + Environment.NewLine +
             "   <DoNotTrack>" + (DoNotTrack ? "true" : "false") + "</DoNotTrack>" + Environment.NewLine +
             "   <AutoRestore>" + (AutoRestore ? "true" : "false") + "</AutoRestore>" + Environment.NewLine +
             "   <RememberLastProxy>" + (RememberLastProxy ? "true" : "false") + "</RememberLastProxy>" + Environment.NewLine +
+            "   <CheckDefault>" + (CheckIfDefault ? "true" : "false") + "</CheckDefault>" + Environment.NewLine +
             "   <Synth Volume=\"" + SynthVolume + "\" Rate=\"" + SynthRate + "\" />" + Environment.NewLine +
             "   <Silent>" + (Silent ? "true" : "false") + "</Silent>" + Environment.NewLine +
             "   <AutoSilent>" + (AutoSilent ? "true" : "false") + "</AutoSilent> " + Environment.NewLine +
@@ -1236,8 +1276,82 @@ new TitleBarTab(testApp)
         public Exception Error { get; set; }
     }
 
+    /// <summary>
+    /// Global variable used in <see cref="LanguageItem"/>.
+    /// </summary>
+    public class LanguageGlobalVar
+    {
+        /// <summary>
+        /// Creates a new <see cref="LanguageGlobalVar"/>.
+        /// </summary>
+        /// <param name="name">Name of new <see cref="LanguageGlobalVar"/>.</param>
+        /// <param name="textOrCondition">Text or Condition of new <see cref="LanguageGlobalVar"/>.</param>
+        /// <param name="isCondition"><c>true</c> if new <see cref="LanguageGlobalVar"/> is a <see cref="VarType.Conditioned"/>, otherwise <c>false</c>.</param>
+        public LanguageGlobalVar(string name, string textOrCondition, bool isCondition = false)
+        {
+            Name = name;
+            if (isCondition)
+            {
+                ConditionString = textOrCondition;
+                Type = VarType.Conditioned;
+            }
+            else
+            {
+                Type = VarType.Normal;
+                Text = textOrCondition;
+            }
+        }
+        /// <summary>
+        /// Types of <see cref="LanguageGlobalVar"/>.
+        /// </summary>
+        public enum VarType
+        {
+            Normal,
+            Changeable,
+            Conditioned
+        }
+        /// <summary>
+        /// Creates a new <see cref="LanguageGlobalVar"/> with <see cref="Type"/> being <see cref="VarType.Changeable"/>.
+        /// </summary>
+        /// <param name="name">Name of <see cref="LanguageGlobalVar"/>.</param>
+        /// <param name="defaultVal">Default value of <see cref="LanguageGlobalVar"/>.</param>
+        public LanguageGlobalVar(string name, string defaultVal = "")
+        {
+            Type = VarType.Changeable;
+            Text = defaultVal;
+            Name = name;
+        }
+        /// <summary>
+        /// Type of <see cref="LanguageGlobalVar"/>.
+        /// </summary>
+        public VarType Type { get; set; }
+
+        /// <summary>
+        /// nbame of <see cref="LanguageGlobalVar"/>.
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// Text or value of <see cref="LanguageGlobalVar"/>.
+        /// </summary>
+        public string Text { get; set; }
+        /// <summary>
+        /// Condition of <see cref="LanguageGlobalVar"/>. Used by <see cref="Condition"/>.
+        /// </summary>
+        public string ConditionString { get; set; }
+        /// <summary>
+        /// Returns a <see cref="string"/> result of <see cref="ConditionString"/>.
+        /// </summary>
+        public string Condition
+        {
+            get 
+            {
+                return "[EXPERIMENTAL] CONDITION: " + ConditionString;
+            }
+        }
+    }
     public class LanguageSystem
     {
+        public List<LanguageGlobalVar> GlobalVars { get; set; } = new List<LanguageGlobalVar>();
         public List<LanguageItem> LanguageItems { get; set; } = new List<LanguageItem>();
 
         public string GetItemText(string ID)
@@ -1250,7 +1364,20 @@ new TitleBarTab(testApp)
             }
             else
             {
-                return item.Text.Replace("[NEWLINE]", Environment.NewLine).Replace("[VERSION]", Application.ProductVersion.ToString()).Replace("[CODENAME]", VersionInfo.CodeName);
+                string itemText = item.Text;
+                for(int i = 0; i < GlobalVars.Count;i++)
+                {
+                    LanguageGlobalVar globalVar = GlobalVars[i];
+                    if (globalVar.Type == LanguageGlobalVar.VarType.Conditioned) 
+                    {
+                        itemText = KorotTools.RuleifyString(itemText, globalVar.Name, globalVar.Condition);
+                    }
+                    else
+                    {
+                        itemText = KorotTools.RuleifyString(itemText, globalVar.Name, string.IsNullOrEmpty(globalVar.Text) ? "" : globalVar.Text);
+                    }
+                }
+                return itemText;
             }
         }
 
@@ -1277,9 +1404,22 @@ new TitleBarTab(testApp)
                 ForceReadFromFile(fileLoc, clear);
             }
         }
+
+        private void LoadDefaultGlobalVars()
+        {
+            GlobalVars.Add(new LanguageGlobalVar("NEWLINE", Environment.NewLine, false));
+            GlobalVars.Add(new LanguageGlobalVar("CODENAME", VersionInfo.CodeName, false));
+            GlobalVars.Add(new LanguageGlobalVar("VERNO", "" + VersionInfo.VersionNumber, false));
+            GlobalVars.Add(new LanguageGlobalVar("VERSION", Application.ProductVersion, false));
+        }
         public void ReadCode(string xmlCode, bool clear = true)
         {
-            if (clear) { LanguageItems.Clear(); }
+            if (clear) 
+            { 
+                LanguageItems.Clear(); 
+                GlobalVars.Clear();
+                LoadDefaultGlobalVars();
+            }
             XmlDocument document = new XmlDocument();
             document.LoadXml(xmlCode);
             XmlNode rootNode = document.FirstChild;
@@ -1313,7 +1453,28 @@ new TitleBarTab(testApp)
                     }
                     foreach (XmlNode node in rootNode.ChildNodes)
                     {
-                        if (node.Name == "Translate")
+                        if (node.Name.ToLower() == "globalvariables")
+                        {
+                            foreach(XmlNode subnode in node.ChildNodes)
+                            {
+                                if (subnode.Name.ToLower() == "globalvar")
+                                {
+                                    if (subnode.Attributes["ID"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Condition"] == null && subnode.Attributes["Default"] == null)
+                                    {
+                                        GlobalVars.Add(new LanguageGlobalVar(subnode.Attributes["ID"].Value, subnode.Attributes["Text"].Value, false));
+                                    }
+                                    else if (subnode.Attributes["ID"] != null && subnode.Attributes["Condition"] != null && subnode.Attributes["Default"] == null && subnode.Attributes["Text"] == null)
+                                    {
+                                        GlobalVars.Add(new LanguageGlobalVar(subnode.Attributes["ID"].Value, subnode.Attributes["Condition"].Value, true));
+                                    }
+                                    else if (subnode.Attributes["ID"] != null && subnode.Attributes["Condition"] == null && subnode.Attributes["Default"] != null && subnode.Attributes["Text"] == null)
+                                    {
+                                        GlobalVars.Add(new LanguageGlobalVar(subnode.Attributes["ID"].Value, subnode.Attributes["Default"].Value));
+                                    }
+                                }
+                            }
+                        }
+                        else if (node.Name.ToLower() == "translate")
                         {
                             string id = node.Attributes["ID"] != null ? node.Attributes["ID"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"") : HTAlt.Tools.GenerateRandomText(12);
                             string text = node.Attributes["Text"] != null ? node.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"") : id;
@@ -1491,34 +1652,33 @@ new TitleBarTab(testApp)
 
     public class KorotTools
     {
-        public static string GetAssociatedProgram(string FileExtension)
+        public static string RuleifyString(string main, string rule,string replaceWith)
         {
-            Microsoft.Win32.RegistryKey objExtReg = Microsoft.Win32.Registry.ClassesRoot;
-            Microsoft.Win32.RegistryKey objAppReg = Microsoft.Win32.Registry.ClassesRoot;
-            string strExtValue;
-            try
+            string ignored = "§IGNORED_" + HTAlt.Tools.GenerateRandomText(12) + "§";
+            main = main.Replace("![" + rule.ToUpper() + "]", ignored);
+            main = main.Replace("[" + rule.ToUpper() + "]", replaceWith);
+            main = main.Replace(ignored,"[" + rule.ToUpper() + "]");
+            return main;
+        }
+        public static bool isKorotDefaultBrowser()
+        {
+            const string userChoice = @"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice";
+            string progId;
+            using (RegistryKey userChoiceKey = Registry.CurrentUser.OpenSubKey(userChoice))
             {
-                // Add trailing period if doesn't exist
-                if (FileExtension.Substring(0, 1) != ".")
-                    FileExtension = "." + FileExtension;
-                // Open registry areas containing launching app details
-                objExtReg = objExtReg.OpenSubKey(FileExtension.Trim());
-                strExtValue = System.Convert.ToString(objExtReg.GetValue(""));
-                objAppReg = objAppReg.OpenSubKey(strExtValue + @"\shell\open\command");
-                // Parse out, tidy up and return result
-                string[] SplitArray;
-                SplitArray = Convert.ToString(objAppReg.GetValue(null)).Split('"');
-                if (SplitArray[0].Trim().Length > 0)
-                    return SplitArray[0].Replace("%1", "");
-                else
-                    return SplitArray[1].Replace("%1", "");
-            }
-            catch
-            {
-                return "";
+                if (userChoiceKey == null)
+                {
+                    return false;
+                }
+                object progIdValue = userChoiceKey.GetValue("Progid");
+                if (progIdValue == null)
+                {
+                    return false;
+                }
+                progId = progIdValue.ToString();
+                return progId.ToLower() == "korot";
             }
         }
-
         public static string getOSInfo()
         {
             string fullName = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
@@ -1858,6 +2018,7 @@ new TitleBarTab(testApp)
                 || Url.ToLower().StartsWith("korot://links")
                 || Url.ToLower().StartsWith("korot://license")
                 || Url.ToLower().StartsWith("korot://incognito")
+                || Url.ToLower().StartsWith("korot://command")
                 || Url.ToLower().StartsWith("korot://technical"));
         }
 
@@ -1905,190 +2066,6 @@ new TitleBarTab(testApp)
         }
 
        
-    }
-
-    public class KorotVersion
-    {
-        public KorotVersion() : this("<HaltroyUpdate><AppName>Korot</AppName><AppVersion>" + Application.ProductVersion.ToString() + "</AppVersion><AppVersionNo>" + VersionInfo.VersionNumber + "</AppVersionNo><MinimumNo>48</MinimumNo><InstallNo>47</InstallNo><AppInstallerUrl>http://bit.ly/KorotSetup</AppInstallerUrl><Architectures><Architecture Type=\"amd64\" VersionNo=\"" + VersionInfo.VersionNumber + "\" Upgrade=\"korot://empty\" FullUpgrade=\"korot://empty\" /><Architecture Type=\"i86\" VersionNo=\"" + VersionInfo.VersionNumber + "\" Upgrade=\"korot://empty\" FullUpgrade=\"korot://empty\" /></Architectures></HaltroyUpdate>")
-        {
-        }
-
-        public KorotVersion(string XMLCode)
-        {
-            XmlDocument doc = new XmlDocument();
-            Archs = new List<Architecture>();
-            AppName = Application.ProductName;
-            Version = Application.ProductVersion.ToString();
-            VersionNumber = VersionInfo.VersionNumber;
-            UpdateMinVer = VersionNumber - 1;
-            InstallVer = VersionNumber - 2;
-            InstallerUrl = "http://bit.ly/KorotSetup";
-            if (!string.IsNullOrWhiteSpace(XMLCode))
-            {
-                doc.LoadXml(XMLCode);
-                foreach (XmlNode node in doc.FirstChild.ChildNodes)
-                {
-                    switch (node.Name)
-                    {
-                        case "AppName":
-                            AppName = node.InnerText;
-                            break;
-
-                        case "AppVersion":
-                            Version = node.InnerText;
-                            break;
-
-                        case "AppVersionNo":
-                            VersionNumber = Convert.ToInt32(node.InnerText);
-                            break;
-
-                        case "MinimumNo":
-                            UpdateMinVer = Convert.ToInt32(node.InnerText);
-                            break;
-
-                        case "InstallNo":
-                            InstallVer = Convert.ToInt32(node.InnerText);
-                            break;
-
-                        case "AppInstallerUrl":
-                            InstallerUrl = node.InnerText;
-                            break;
-
-                        case "Architectures":
-                            {
-                                foreach (XmlNode subnode in node.ChildNodes)
-                                {
-                                    if (subnode.Name == "Architecture")
-                                    {
-                                        if (subnode.Attributes["Type"] != null && subnode.Attributes["VersionNo"] != null && subnode.Attributes["Upgrade"] != null && subnode.Attributes["FullUpgrade"] != null)
-                                        {
-                                            Architecture arch = new Architecture()
-                                            {
-                                                Type = subnode.Attributes["Type"].Value,
-                                                VersionNo = Convert.ToInt32(subnode.Attributes["VersionNo"].Value),
-                                                FullUpdate = subnode.Attributes["FullUpgrade"].Value,
-                                                Update = subnode.Attributes["Upgrade"].Value
-                                            };
-                                            Archs.Add(arch);
-                                        }
-                                    }
-                                }
-
-                                break;
-                            }
-                    }
-                }
-            }
-            if (Archs.Count == 0)
-            {
-                Archs.Add(new Architecture() { Type = Environment.Is64BitProcess ? "amd64" : "i86", VersionNo = VersionNumber, FullUpdate = "korot://empty", Update = "korot://empty" });
-            }
-        }
-
-        public List<Architecture> Archs { get; set; }
-        public string AppName { get; set; }
-        public string Version { get; set; }
-        public int VersionNumber { get; set; }
-        public int UpdateMinVer { get; set; }
-        public int InstallVer { get; set; }
-        public string InstallerUrl { get; set; }
-
-        public enum UpdateType
-        {
-            UpToDate,
-            Upgrade,
-            FullUpgrade,
-            Installer
-        }
-
-        public UpdateType GetUpdateType(KorotVersion version)
-        {
-            if (version != null)
-            {
-                if (WhicIsNew(version) != this)
-                {
-                    if (VersionNumber < version.UpdateMinVer)
-                    {
-                        if (VersionNumber < version.InstallVer)
-                        {
-                            return UpdateType.Installer;
-                        }
-                        else
-                        {
-                            return UpdateType.FullUpgrade;
-                        }
-                    }
-                    else
-                    {
-                        return UpdateType.Upgrade;
-                    }
-                }
-                else
-                {
-                    return UpdateType.UpToDate;
-                }
-            }
-            else
-            {
-                throw new NullReferenceException("version was null.");
-            }
-        }
-
-        public KorotVersion WhicIsNew(KorotVersion version, string Arch)
-        {
-            if (version != null && !string.IsNullOrWhiteSpace(Arch))
-            {
-                Architecture arch = Archs.Find(i => i.Type == Arch);
-                Architecture Narch = version.Archs.Find(i => i.Type == Arch);
-                if (arch != null && Narch != null)
-                {
-                    if (VersionNumber >= version.VersionNumber)
-                    {
-                        if (arch.VersionNo >= Narch.VersionNo)
-                        {
-                            return this;
-                        }
-                        else
-                        {
-                            return version;
-                        }
-                    }
-                    return version;
-                }
-                else
-                {
-                    throw new NullReferenceException("Cannot find specific architectures for both versions.");
-                }
-            }
-            else
-            {
-                throw new ArgumentException("version or Arch is empty or null.");
-            }
-        }
-
-        public KorotVersion WhicIsNew(KorotVersion version)
-        {
-            if (version != null)
-            {
-                if (version.VersionNumber <= VersionNumber)
-                {
-                    return this;
-                }
-                return version;
-            }
-            else
-            {
-                throw new ArgumentException("version was null.");
-            }
-        }
-
-        public class Architecture
-        {
-            public string Type { get; set; }
-            public string FullUpdate { get; set; }
-            public string Update { get; set; }
-            public int VersionNo { get; set; }
-        }
     }
 
     public class SessionSystem
@@ -2819,5 +2796,187 @@ new TitleBarTab(testApp)
         public bool LogsCleanToday => (DateTime.Now.ToString("dd/MM/yy") == NextLogsCleanup) && CleanLogs;
 
         #endregion Logs
+    }
+    public class VersionManager
+    {
+        public string LatesVersion { get; set; }
+        public int LatestVersionNumber { get; set; }
+        public int LatestUpdateMinVer { get; set; }
+        public int InstallVer { get; set; }
+        public List<K_Version> Versions { get; set; } = new List<K_Version>();
+
+        public List<K_Version> PreOutVersions { get => Versions.FindAll(i => i.isPreOut); }
+        public enum UpdateType
+        {
+            /// <summary>
+            /// Application is up to date.
+            /// </summary>
+            UpToDate,
+            /// <summary>
+            /// Application requires minimal update.
+            /// </summary>
+            Upgrade,
+            /// <summary>
+            /// Application requires complete reinstallation
+            /// </summary>
+            FullUpgrade,
+            /// <summary>
+            /// Application requşres update in PreOut mode.
+            /// </summary>
+            PreOutUpdate,
+            /// <summary>
+            /// A full release is available even for latest PreOut version.
+            /// </summary>
+            PreOutFull,
+        }
+
+        public UpdateType GetUpdateType(this K_Version version1, K_Version version2)
+        {
+            if (version1 != null && version2 != null)
+            {
+                if (version1.WhichIsNew(version2) != version1)
+                {
+                    if (version1.VersionNo < version.UpdateMinVer)
+                    {
+                        if (VersionNumber < version.InstallVer)
+                        {
+                            return UpdateType.Installer;
+                        }
+                        else
+                        {
+                            return UpdateType.FullUpgrade;
+                        }
+                    }
+                    else
+                    {
+                        return UpdateType.Upgrade;
+                    }
+                }
+                else
+                {
+                    return UpdateType.UpToDate;
+                }
+            }
+            else
+            {
+                throw new ArgumentException("One of the versions are null.");
+            }
+        }
+
+        public K_Version WhichIsNew(this K_Version version1, K_Version version2)
+        {
+            if (version1 != null && version2 != null)
+            {
+                if (version1.VersionNo <= version2.VersionNo)
+                {
+                    return version2;
+                }
+                return version1;
+            }
+            else
+            {
+                throw new ArgumentException("One of the versions are null.");
+            }
+        }
+    }
+    public class K_Version
+    {
+        public K_Version(string _text, int _no, string _zipPath, string _flags)
+        {
+            if (!string.IsNullOrWhiteSpace(_flags))
+            {
+                Flags = _flags.Split(';');
+            }
+            VersionText = _text;
+            VersionNo = _no;
+            ZipPath = _zipPath;
+        }
+        public K_Version(string _text, int _no)
+        {
+            VersionText = _text;
+            VersionNo = _no;
+        }
+        public K_Version(string _text, int _no, string _flags)
+        {
+            if (!string.IsNullOrWhiteSpace(_flags))
+            {
+                Flags = _flags.Split(';');
+            }
+            VersionText = _text;
+            VersionNo = _no;
+        }
+        public bool isOnlyx86 => Flags.Contains("onlyx86");
+        public bool isOnlyx64 => Flags.Contains("onlyx64");
+        public bool isPreOut => Flags.Contains("preout");
+        public bool isMissing => Flags.Contains("missing");
+        /// <summary>
+        /// .Net Framework 4.8
+        /// </summary>
+        public bool RequiresNet48 => Flags.Contains("reqnet48");
+        /// <summary>
+        /// .Net Framework 4.5.2
+        /// </summary>
+        public bool RequiresNet452 => Flags.Contains("reqnet452");
+        /// <summary>
+        /// Visual C++ 2015
+        /// </summary>
+        public bool RequiresVisualC2015 => Flags.Contains("reqvc2015");
+        public string[] Flags { get; set; } = new  string[] {};
+        public string VersionText { get; set; } = "";
+        public int VersionNo { get; set; } = 0;
+        public string ZipPath { get; set; } = "";
+    }
+    public class KorotVersion
+    {
+        public KorotVersion() : this("<HaltroyUpdate><AppName>Korot</AppName><AppVersion>" + Application.ProductVersion.ToString() + "</AppVersion><AppVersionNo>" + VersionInfo.VersionNumber + "</AppVersionNo><MinimumNo>48</MinimumNo><InstallNo>47</InstallNo><AppInstallerUrl>http://bit.ly/KorotSetup</AppInstallerUrl><Architectures><Architecture Type=\"amd64\" VersionNo=\"" + VersionInfo.VersionNumber + "\" Upgrade=\"korot://empty\" FullUpgrade=\"korot://empty\" /><Architecture Type=\"i86\" VersionNo=\"" + VersionInfo.VersionNumber + "\" Upgrade=\"korot://empty\" FullUpgrade=\"korot://empty\" /></Architectures></HaltroyUpdate>")
+        {
+        }
+
+        public KorotVersion(string XMLCode)
+        {
+            XmlDocument doc = new XmlDocument();
+            Version = Application.ProductVersion.ToString();
+            VersionNumber = VersionInfo.VersionNumber;
+            UpdateMinVer = VersionNumber - 1;
+            InstallVer = VersionNumber - 2;
+            InstallerUrl = "http://bit.ly/KorotSetup";
+            if (!string.IsNullOrWhiteSpace(XMLCode))
+            {
+                doc.LoadXml(XMLCode);
+                foreach (XmlNode node in doc.FirstChild.ChildNodes)
+                {
+                    switch (node.Name)
+                    {
+
+                        case "AppVersion":
+                            Version = node.InnerText;
+                            break;
+
+                        case "AppVersionNo":
+                            VersionNumber = Convert.ToInt32(node.InnerText);
+                            break;
+
+                        case "MinimumNo":
+                            UpdateMinVer = Convert.ToInt32(node.InnerText);
+                            break;
+
+                        case "InstallNo":
+                            InstallVer = Convert.ToInt32(node.InnerText);
+                            break;
+
+                        case "AppInstallerUrl":
+                            InstallerUrl = node.InnerText;
+                            break;
+                    }
+                }
+            }
+        }
+        public string Version { get; set; }
+        public int VersionNumber { get; set; }
+        public int UpdateMinVer { get; set; }
+        public int InstallVer { get; set; }
+        public string InstallerUrl { get; set; }
+
+        
     }
 }

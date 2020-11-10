@@ -19,6 +19,12 @@ This roadmap shows plans for Korot. Keep in mind that this roadmap can be change
 
 •
 
+| Korot 0.8.6.0 | Status     | Description |
+|---------------|------------|-------------|
+| November-December 2020  | Planned | Beta minor update. |
+
+•
+
 | Korot Android | Status     | Description |
 |---------------|------------|-------------|
 | November-December 2020 | Planned    | Port Korot to Android. |

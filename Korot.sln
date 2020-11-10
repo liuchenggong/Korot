@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Korot Desktop Linux", "Koro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyTabs", "EasyTabs\EasyTabs.csproj", "{690BA0F7-D8FE-4EBE-BA39-8058086C7A09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KorotUpdate", "KorotUpdate\KorotUpdate.csproj", "{6F5571C0-E808-4528-94AB-2E059B6AA558}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Korot Installer", "KorotUpdate\Korot Installer.csproj", "{6F5571C0-E808-4528-94AB-2E059B6AA558}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

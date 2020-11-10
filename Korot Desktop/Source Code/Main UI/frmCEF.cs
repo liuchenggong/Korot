@@ -244,7 +244,6 @@ namespace Korot
             settings.RegisterScheme(scheme);
             // Initialize cef with the provided settings
             settings.DisableGpuAcceleration();
-            if (Settings.Flash) { settings.CefCommandLineArgs.Add("enable-system-flash"); }
             if (Cef.IsInitialized == false) { Cef.Initialize(settings); }
             chromiumWebBrowser1 = new ChromiumWebBrowser("");
             pCEF.Controls.Add(chromiumWebBrowser1);
@@ -588,6 +587,11 @@ namespace Korot
             if (anaform.LoadedLang != fileLocation)
             {
                 anaform.LoadedLang = fileLocation;
+                anaform.KorotCommand = Settings.LanguageSystem.GetItemText("KorotCommand");
+                anaform.NoInt1 = Settings.LanguageSystem.GetItemText("NoInt1");
+                anaform.NoInt2 = Settings.LanguageSystem.GetItemText("NoInt2");
+                anaform.NoInt3 = Settings.LanguageSystem.GetItemText("NoInt3");
+                anaform.ImBored = Settings.LanguageSystem.GetItemText("ImBored");
                 anaform.ReadTTS = Settings.LanguageSystem.GetItemText("ReadTTS");
                 anaform.addToDict = Settings.LanguageSystem.GetItemText("AddToDict");
                 anaform.openLinkInBack = Settings.LanguageSystem.GetItemText("OpenLinkInBack");
@@ -1238,6 +1242,7 @@ namespace Korot
         private void loadPage(string url, string title = "")
         {
             redirectTo(url, title);
+            chromiumWebBrowser1.Stop();
             chromiumWebBrowser1.Load(SessionSystem.SelectedSession.Url);
         }
 

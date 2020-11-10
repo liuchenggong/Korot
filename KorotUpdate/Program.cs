@@ -3,12 +3,20 @@ using System.IO.Compression;
 using System.IO;
 using System.Diagnostics;
 using System.Reflection;
+using System.Windows.Forms;
 
-namespace KorotUpdate
+namespace KorotInstaller
 {
     class Program
     {
         static void Main(string[] args)
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(true);
+            Application.Run(new frmMain());
+        }
+
+        static void oldMain(string[] args)
         {
             string title = Console.Title;
             Console.Title = "Korot Updater";
@@ -34,7 +42,7 @@ namespace KorotUpdate
                         Console.WriteLine("Error while deleting: " + ex.ToString());
                         Console.WriteLine("Press S to skip job. Press Enter to close.");
                         ConsoleKeyInfo keyInfo = Console.ReadKey();
-                        if (keyInfo.Key == ConsoleKey.S) { Console.WriteLine("Skipped job."); }else if (keyInfo.Key == ConsoleKey.Enter) { Console.Title = title; return; }
+                        if (keyInfo.Key == ConsoleKey.S) { Console.WriteLine("Skipped job."); } else if (keyInfo.Key == ConsoleKey.Enter) { Console.Title = title; return; }
                     }
                     Console.Title = "Korot Updater - 25%";
 
@@ -63,7 +71,8 @@ namespace KorotUpdate
                         try
                         {
                             Directory.Delete(newVer, true);
-                        }catch (Exception ex)
+                        }
+                        catch (Exception ex)
                         {
                             Console.WriteLine("Error while deleting: " + ex.ToString());
                             Console.WriteLine("Press S to skip job. Press Enter to close.");
@@ -75,7 +84,8 @@ namespace KorotUpdate
                     try
                     {
                         ZipFile.ExtractToDirectory(upgradeFile, newVer);
-                    }catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         Console.WriteLine("Error while unzipping: " + ex.ToString());
                         Console.WriteLine("Press S to skip job. Press Enter to close.");
@@ -87,7 +97,8 @@ namespace KorotUpdate
                     try
                     {
                         Copy(newVer, appPath);
-                    }catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         Console.WriteLine("Error while copying: " + ex.ToString());
                         Console.WriteLine("Press S to skip job. Press Enter to close.");
@@ -104,7 +115,8 @@ namespace KorotUpdate
                     ConsoleKeyInfo keyInfo = Console.ReadKey();
                     if (keyInfo.Key == ConsoleKey.S) { Console.WriteLine("Skipped job."); } else if (keyInfo.Key == ConsoleKey.Enter) { Console.Title = title; return; }
                 }
-            }else
+            }
+            else
             {
                 Console.Title = "Korot Updater - 100%";
                 Console.WriteLine("No extra arguments found. Closing...");
