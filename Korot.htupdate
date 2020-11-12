@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-16"?>
+<HaltroyUpdate>
+  <!-- Name of latest PreOut version -->
+  <PreOutVer>y20m11u1</PreOutVer>
+  <!-- Version number of latest PreOut version. -->
+  <PreOutNo>54</PreOutNo>
+  <!-- Required minimum version of Korot to install PreOut version. -->
+  <PreOutLow>53</PreOutLow>
+  <!--Korot version -->
+  <AppVersion>0.8.4.0</AppVersion>
+  <!--Version number of latest version. -->
+  <AppVersionNo>51</AppVersionNo>
+  <!--Minimum version that's required for Upgrade (~5MB) -->
+  <MinimumNo>48</MinimumNo>
+  <!--Minimum version for FullUpgrade (~80MB) -->
+  <InstallNo>47</InstallNo>
+  <!-- Latest Installer version-->
+  <InstallerVer>1.0.0.0</InstallerVer>
+  <UpdateLangs>
+    <Lang ShortName="EN" FullName="English" EngName="English" Location="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallLang/English.kil" />
+    <Lang ShortName="TR" FullName="Türkçe" EngName="Turkish" Location="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallLang/Turkish.kil" />
+  </UpdateLangs>
+  <Versions>
+    <Version Text="y20m11u01" VersionNo="54" Flags="reqvc2015;reqnet48;onlyx64;preout" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH]-[U].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-PergoPreOut.hti" />
+    <Version Text="0.8.4.0" VersionNo="53" Flags="reqnet48;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH]-[U].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Interstellar.hti" />
+    <Version Text="0.8.3.0" VersionNo="52" Flags="reqvc2015;reqnet48" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH]-[U].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Qarabqg.hti" />
+    <Version Text="0.8.2.0" VersionNo="51" Flags="reqvc2015;reqnet48" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH]-[U].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Qarabag.hti" />
+    <Version Text="0.8.1.1" VersionNo="50" Flags="reqvc2015;reqnet48" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH]-[U].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Qarabag.hti" />
+    <Version Text="0.8.1.0" VersionNo="49" Flags="reqvc2015;reqnet48" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Qarabag.hti" />
+    <Version Text="0.8.0.0" VersionNo="48" Flags="reqvc2015;reqnet48" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Qarabag.hti" />
+    <Version Text="0.7.0.0" VersionNo="47" Flags="reqvc2015;reqnet48" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Qarabag.hti" />
+    <Version Text="0.6.1.0" VersionNo="46" Flags="reqvc2015;reqnet48" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Qarabag.hti" />
+    <Version Text="0.6.0.0" VersionNo="45" Flags="reqvc2015;reqnet48" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Qarabag.hti" />
+    <Version Text="0.5.4.0" VersionNo="44" Flags="reqvc2015;reqnet48" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Qarabag.hti" />
+    <Version Text="0.5.3.0" VersionNo="43" Flags="reqvc2015;reqnet48" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Qarabag.hti" />
+    <Version Text="0.5.2.0" VersionNo="42" Flags="reqvc2015;reqnet452" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.5.1.0" VersionNo="41" Flags="reqvc2015;reqnet452" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.5.0.4" VersionNo="40" Flags="reqvc2015;reqnet452" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.5.0.3" VersionNo="39" Flags="reqvc2015;reqnet452" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.5.0.2" VersionNo="38" Flags="reqvc2015;reqnet452" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.5.0.1" VersionNo="37" Flags="reqvc2015;reqnet452" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.5.0.0" VersionNo="36" Flags="reqvc2015;reqnet452" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.9.10" VersionNo="35" Flags="reqvc2015;reqnet452" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.9.9" VersionNo="34" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.9.8" VersionNo="33" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.9.7" VersionNo="32" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.9.6" VersionNo="31" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.9.5" VersionNo="30" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.9.4" VersionNo="29" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.9.3" VersionNo="28" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.9.2" VersionNo="27" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.9.1" VersionNo="26" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.9.0" VersionNo="25" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.8.1" VersionNo="24" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.8.0" VersionNo="23" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.7.0" VersionNo="22" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.6.3" VersionNo="21" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.6.2" VersionNo="20" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.6.1" VersionNo="19" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.6.0" VersionNo="18" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.5.2" VersionNo="17" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.5.1" VersionNo="16" Flags="missing"  />
+    <Version Text="0.4.5.0" VersionNo="15" Flags="missing"  />
+    <Version Text="0.4.4.1" VersionNo="14" Flags="reqvc2015;reqnet452;onlyx64" ZipPath="https://github.com/Haltroy/Korot/releases/download/[VERSION]/[ARCH].zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.4.4.0" VersionNo="13" Flags="missing"  />
+    <Version Text="0.4.3.0" VersionNo="12" Flags="missing"  />
+    <Version Text="0.4.2.0" VersionNo="11" Flags="missing"  />
+    <Version Text="0.4.1.0" VersionNo="10" Flags="missing"  />
+    <Version Text="0.4.0.0" VersionNo="9" Flags="missing"  />
+    <Version Text="0.3.0.0" VersionNo="8" Flags="missing"  />
+    <Version Text="0.2.0.0" VersionNo="7" Flags="missing"  />
+    <Version Text="0.1.0.0" VersionNo="6" Flags="missing"  />
+    <Version Text="0.0.1.0" VersionNo="5" Flags="missing"  />
+    <Version Text="0.0.0.4" VersionNo="4" Flags="reqvc2015;reqnet452;onlyx86" ZipPath="https://github.com/Haltroy/Korot/releases/download/0.0.0.4/x86.zip" Script="https://raw.githubusercontent.com/Haltroy/Korot/master/InstallSchemes/KorotDesktop-Old.hti" />
+    <Version Text="0.0.0.3" VersionNo="3" Flags="missing"  />
+    <Version Text="0.0.0.2" VersionNo="2" Flags="missing"  />
+    <Version Text="0.0.0.1" VersionNo="1" Flags="missing"  />
+  </Versions>
+</HaltroyUpdate>
