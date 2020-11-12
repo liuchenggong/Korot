@@ -1,12 +1,12 @@
-﻿/* 
+﻿/*
 
 Copyright © 2020 Eren "Haltroy" Kanat
 
-Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
+Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
 
 */
+
 using CefSharp;
-using CefSharp.WinForms;
 using HTAlt;
 using System;
 using System.Drawing;
@@ -198,7 +198,7 @@ namespace Korot
                     }
                     else if (request.Url.ToLower().StartsWith("korot://licenses"))
                     {
-                        return ResourceHandler.FromString(Properties.Resources.licenses.Replace("§OCOLOR§", Tools.IsBright(CefForm.Settings.Theme.OverlayColor) ? "black" : "white").Replace("§OVERLAYCOLOR§",Tools.ColorToHex(CefForm.Settings.Theme.OverlayColor)).Replace("§OVERLAYCOLOR2§", Tools.ColorToHex(Tools.ShiftBrightness(CefForm.Settings.Theme.OverlayColor,20,false))).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.anaform.licenseTitle));
+                        return ResourceHandler.FromString(Properties.Resources.licenses.Replace("§OCOLOR§", Tools.IsBright(CefForm.Settings.Theme.OverlayColor) ? "black" : "white").Replace("§OVERLAYCOLOR§", Tools.ColorToHex(CefForm.Settings.Theme.OverlayColor)).Replace("§OVERLAYCOLOR2§", Tools.ColorToHex(Tools.ShiftBrightness(CefForm.Settings.Theme.OverlayColor, 20, false))).Replace("§BACKSTYLE2§", GetBackStyle2()).Replace("§BACKSTYLE§", GetBackStyle()).Replace("§TITLE§", CefForm.anaform.licenseTitle));
                     }
                     else if (request.Url.StartsWith("korot://error"))
                     {
@@ -210,7 +210,7 @@ namespace Korot
                             x = x.Replace("?u" + errorPage, "");
                             errorPage = SearchPrettify(errorPage);
                         }
-                        if (!string.IsNullOrWhiteSpace(errorPage)) 
+                        if (!string.IsNullOrWhiteSpace(errorPage))
                         {
                             CheckInternetConnection(errorPage, frame);
                         }
@@ -295,9 +295,11 @@ namespace Korot
                 return ResourceHandler.FromString("<meta http-equiv=\"Refresh\" content=\"0; url =  http://korot://error/?e=BLOCKED \" />");
             }
         }
-        private async void CheckInternetConnection(string url,IFrame frame)
+
+        private async void CheckInternetConnection(string url, IFrame frame)
         {
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                 {
                     frame.LoadUrl("korot://noint/?u=" + url);
