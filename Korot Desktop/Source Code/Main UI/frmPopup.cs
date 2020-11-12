@@ -9,6 +9,7 @@ Use of this source code is governed by an MIT License that can be found in githu
 using CefSharp;
 using CefSharp.WinForms;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Korot
@@ -32,6 +33,8 @@ namespace Korot
 
         private void FrmExt_Load(object sender, EventArgs e)
         {
+            Rectangle bounds = Screen.PrimaryScreen.WorkingArea;
+            Location = new System.Drawing.Point((bounds.Width / 2) - (Width/2), (bounds.Height / 2) - (Height /2));
         }
 
         public void InitializeChromium()

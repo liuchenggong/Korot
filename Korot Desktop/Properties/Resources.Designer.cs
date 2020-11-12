@@ -242,13 +242,13 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
-        ///    &lt;!--
+        ///&lt;!-- 
         ///
-        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
+        ///Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
         ///
-        ///    --&gt;
+        ///--&gt;
         ///    &lt;title&gt;Korot&lt;/title&gt;
         ///    &lt;style&gt;
         ///        body {
@@ -263,7 +263,8 @@ namespace Korot.Properties {
         ///            background: #400000;
         ///            color: white;
         ///        }
-        /// [rest of string was truncated]&quot;;.
+        ///    &lt;/style&gt;
+        ///&lt;/h [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string certerror {
             get {
@@ -443,19 +444,19 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
-        ///    &lt;!--
+        ///&lt;!-- 
         ///
-        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
+        ///Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
         ///
-        ///    --&gt;
+        ///--&gt;
         ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
         ///    &lt;title&gt;§TITLE§&lt;/title&gt;
         ///    &lt;!--
         ///        Hello am 48 year man from somalia. Sorry for my bed england. I selled my wife for internet connection
         ///        for play &quot;conter strik&quot; and i want to become the goodest player like you I play with 400 ping on
-        ///        brazil and i am gl [rest of string was truncated]&quot;;.
+        ///        brazil and i am global elite 2.plea [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string errorpage {
             get {
@@ -675,13 +676,13 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
-        ///    &lt;!--
+        ///&lt;!-- 
         ///
-        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
+        ///Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
         ///
-        ///    --&gt;
+        ///--&gt;
         ///    &lt;style&gt;
         ///        .content {
         ///            max-width: 500px;
@@ -696,7 +697,8 @@ namespace Korot.Properties {
         ///    &lt;/style&gt;
         ///    &lt;title&gt;§TITLE§&lt;/title&gt;
         ///&lt;/head&gt;
-        ///&lt;body class=&quot;content&quot;&gt; [rest of string was truncated]&quot;;.
+        ///&lt;body class=&quot;content&quot;&gt;
+        ///    &lt;h1 style=&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string incognito {
             get {
@@ -747,11 +749,11 @@ namespace Korot.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
-        ///&lt;!--
+        ///&lt;!-- 
         ///
         ///Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
         ///
         ///--&gt;
         ///&lt;head&gt;
@@ -766,7 +768,7 @@ namespace Korot.Properties {
         ///        }
         ///    &lt;/style&gt;
         ///&lt;/head&gt;
-        ///&lt;body [rest of string was truncated]&quot;;.
+        ///&lt;body&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string korotlinks {
             get {
@@ -826,13 +828,13 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
-        ///    &lt;!--
+        ///&lt;!-- 
         ///
-        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
+        ///Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
         ///
-        ///    --&gt;
+        ///--&gt;
         ///    &lt;title&gt;§TITLE§&lt;/title&gt;
         ///    &lt;style&gt;
         ///        body {
@@ -844,7 +846,7 @@ namespace Korot.Properties {
         ///        }
         ///
         ///        .btn-group button {
-        ///           [rest of string was truncated]&quot;;.
+        ///            background-colo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string licenses {
             get {
@@ -924,27 +926,31 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;html&gt;
-        ///&lt;!--
+        ///&lt;!-- 
         ///
         ///Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
         ///
         ///--&gt;
         ///&lt;head&gt;
-        ///    &lt;title&gt;§TITLE§&lt;/title&gt;
-        ///    &lt;script&gt;
+        ///	&lt;title&gt;§TITLE§&lt;/title&gt;
+        ///	&lt;script&gt;
         ///			function EditItem()
         ///		{
         ///		CefSharp.PostMessage(&quot;[Korot.EditNewTabItem]&quot;);
         ///		}
-        ///    &lt;/script&gt;
-        ///    &lt;style&gt;
-        ///        body {
-        ///            §BACKSTYLE§ background-size: cover;
-        ///            position: relative;
-        ///            background-repeat: no-repeat;
-        ///            background- [rest of string was truncated]&quot;;.
+        ///	&lt;/script&gt;
+        ///	&lt;style&gt;
+        ///		body {
+        ///			§BACKSTYLE§ background-size: cover;
+        ///			position: relative;
+        ///			background-repeat: no-repeat;
+        ///			background-size: 100% 100vh;
+        ///		}
+        ///
+        ///		.bw {
+        ///			font-family: Ubun [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string newtab {
             get {
@@ -974,13 +980,13 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
-        ///    &lt;!--
+        ///&lt;!-- 
         ///
-        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
+        ///Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
         ///
-        ///    --&gt;
+        ///--&gt;
         ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
         ///    &lt;title&gt;§TITLE§&lt;/title&gt;
         ///    &lt;!--
@@ -990,7 +996,7 @@ namespace Korot.Properties {
         ///    &lt;style&gt;
         ///        .center {
         ///            margin: auto;
-        /// [rest of string was truncated]&quot;;.
+        ///            widt [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string nointernet {
             get {
@@ -1070,6 +1076,24 @@ namespace Korot.Properties {
             get {
                 object obj = ResourceManager.GetObject("PurpleColors", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-16&quot;?&gt;
+        ///&lt;RandomSites&gt;
+        ///&lt;RandomSite Url=&quot;https://www.boredbutton.com/random&quot; /&gt;
+        ///&lt;RandomSite Url=&quot;https://www.discuvver.com/jump2.php&quot; /&gt;
+        ///&lt;RandomSite Url=&quot;https://en.wikipedia.org/wiki/Special:RandomInCategory/Computer_programming&quot; /&gt;
+        ///&lt;RandomSite Url=&quot;http://heeeeeeeey.com/&quot; /&gt;
+        ///&lt;RandomSite Url=&quot;http://corndog.io/&quot; /&gt;
+        ///&lt;RandomSite Url=&quot;https://alwaysjudgeabookbyitscover.com&quot; /&gt;
+        ///&lt;RandomSite Url=&quot;http://thatsthefinger.com/&quot; /&gt;
+        ///&lt;RandomSite Url=&quot;http://cant-not-tweet-this.com [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string randomSites {
+            get {
+                return ResourceManager.GetString("randomSites", resourceCulture);
             }
         }
         
@@ -1305,13 +1329,13 @@ namespace Korot.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;head&gt;
-        ///    &lt;!--
+        ///&lt;!-- 
         ///
-        ///    Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
+        ///Copyright © 2020 Eren &quot;Haltroy&quot; Kanat
         ///
-        ///    Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE
+        ///Use of this source code is governed by MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
         ///
-        ///    --&gt;
+        ///--&gt;
         ///    &lt;title&gt;Korot&lt;/title&gt;
         ///    &lt;style&gt;
         ///        body {
@@ -1323,7 +1347,7 @@ namespace Korot.Properties {
         ///        }
         ///
         ///        textarea {
-        ///            §BACKSTYL [rest of string was truncated]&quot;;.
+        ///            §BACKSTYLE2§ font-family:  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string technical {
             get {

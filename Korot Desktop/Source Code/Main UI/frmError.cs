@@ -40,7 +40,7 @@ namespace Korot
             if (ErrorMenu.Length > 2)
             {
                 label1.Text = ErrorMenu[0];
-                label2.Text = ErrorMenu[1].Replace("[NEWLINE]", Environment.NewLine);
+                label2.Text = ErrorMenu[1];
                 label3.Text = ErrorMenu[2];
                 btRestart.Text = ErrorMenu[3];
             }

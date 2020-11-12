@@ -101,20 +101,21 @@ Use of this source code is governed by an MIT License that can be found in githu
     </script>
 </head>
 <body onload="startTime()">
-    <panel class="merkez">
-        <h1 style="text-align: center;"> <span class="bw" id="saat" /></h1>
-        <h2 style="text-align: center;"> <span class="bw" id="date" /></h2>
-        <form action="korot://search/?">
-            <input id="searchbar" type=text name="q" placeholder="§SEARCHHELP§" />
-            <input type=submit value="§SEARCH§" />
-        </form>
-        <div class="grid-container">
-            §ITEMS§
-            <div class="editItem">
-                <a onclick="EditItem()" style="§BACKSTYLE3§">§EDIT§</a>
-            </div>
-        </div>
-        <a class="bw">§BDAY§</a>
-    </panel>
+	<panel class="merkez">
+		<h1 style="text-align: center;"> <span class="bw" id="saat" /></h1>
+		<h2 style="text-align: center;"> <span class="bw" id="date" /></h2>
+		<form action="korot://search/?">
+			<input id="searchbar" type=text name="q" placeholder="§SEARCHHELP§" />
+			<input type=submit value="§SEARCH§" />
+		</form>
+		<div class="grid-container">
+			§ITEMS§
+			<div class="editItem">
+				<a onclick="EditItem()" style="§BACKSTYLE3§">§EDIT§</a>
+			</div>
+		</div>
+		<button class="bw" onclick="window.location.href = 'korot://random'">§BORED§</button>
+		<h3 class="bw">§BDAY§</h3>
+	</panel>
 </body>
 </html>

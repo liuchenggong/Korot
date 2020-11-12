@@ -191,8 +191,13 @@ namespace Korot
 
         #endregion Notification Listener
 
+
         #region "Translate"
 
+        public string KorotCommand = "Korot Command";
+        public string ImBored = "I'm bored.";
+        public string DefaultBrowserSearch = "how to change default web browser";
+        public string KorotNotDefault = "Looks like Korot isn't your default browser." + Environment.NewLine + "Do you want to change it?";
         public string ReadTTS = "Read it";
         public string KorotUpdateError = "Unable to get updates.";
         public string addToDict = "Add to dictionary";
@@ -499,6 +504,20 @@ namespace Korot
                 tmrNL.Start();
             }
             list = new MyJumplist(Handle, settings);
+            KorotNotDefault = Settings.LanguageSystem.GetItemText("NotDefault");
+            DefaultBrowserSearch = Settings.LanguageSystem.GetItemText("DefaultBrowserSearch");
+            if(settings.CheckIfDefault)
+            {
+                if (!KorotTools.isKorotDefaultBrowser())
+                {
+                    HTMsgBox mesaj = new HTMsgBox("Korot", KorotNotDefault, new HTDialogBoxContext(MessageBoxButtons.YesNo)) { Yes = Yes, No = No, AutoForeColor = false, Icon = Icon, BackColor = Settings.Theme.BackColor, ForeColor = Settings.Theme.ForeColor };
+                    DialogResult result = mesaj.ShowDialog();
+                    if (result == DialogResult.Yes)
+                    {
+                        CreateTab(Settings.SearchEngine + DefaultBrowserSearch);
+                    }
+                }
+            }
             Updater.CheckForUpdates();
         }
 
