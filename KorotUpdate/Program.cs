@@ -420,7 +420,40 @@ namespace KorotInstaller
         public string LatesVersion { get; set; }
         public int LatestVersionNumber { get; set; }
         public int LatestUpdateMinVer { get; set; }
-        public int InstallVer { get; set; }
+        public string LatesPreOut { get; set; }
+        public int PreOutVerNumber { get; set; }
+        public int PreOutMinVer { get; set; }
+        public static int InstallerVer => 1;
+        public int LatestInstallerVer { get; set; }
+
+        public KorotVersion GetVersionFromVersionName(string name)
+        {
+            List<KorotVersion> foundItems = new List<KorotVersion>();
+            for(int i = 0;i <Versions.Count;i++)
+            {
+                var ver = Versions[i];
+                if (ver.VersionText == name)
+                {
+                    foundItems.Add(ver);
+                }
+            }
+            if (foundItems.Count > 0) { return foundItems[0]; }else { return null; }
+        }
+
+        public KorotVersion GetVersionFromVersionNo(int verno)
+        {
+            List<KorotVersion> foundItems = new List<KorotVersion>();
+            for (int i = 0; i < Versions.Count; i++)
+            {
+                var ver = Versions[i];
+                if (ver.VersionNo == verno)
+                {
+                    foundItems.Add(ver);
+                }
+            }
+            if (foundItems.Count > 0) { return foundItems[0]; } else { return null; }
+        }
+
         public List<KorotVersion> Versions { get; set; } = new List<KorotVersion>();
 
         public List<KorotVersion> PreOutVersions { get => Versions.FindAll(i => i.isPreOut); }

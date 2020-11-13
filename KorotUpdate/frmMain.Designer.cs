@@ -136,8 +136,8 @@ namespace KorotInstaller
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpStart = new System.Windows.Forms.TabPage();
             this.tpFirst = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
+            this.btInstall = new System.Windows.Forms.Button();
+            this.lbReady = new System.Windows.Forms.Label();
             this.tpProgress = new System.Windows.Forms.TabPage();
             this.pInstall = new System.Windows.Forms.Panel();
             this.pbInstall = new System.Windows.Forms.PictureBox();
@@ -147,28 +147,28 @@ namespace KorotInstaller
             this.lbDownloadProg = new System.Windows.Forms.Label();
             this.lbInstallInfo = new System.Windows.Forms.Label();
             this.lbDownloadInfo = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lbInstalling = new System.Windows.Forms.Label();
+            this.lbDownloading = new System.Windows.Forms.Label();
             this.tpModify = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.button5 = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
+            this.rbOld = new System.Windows.Forms.RadioButton();
+            this.rbStable = new System.Windows.Forms.RadioButton();
+            this.rbPerOut = new System.Windows.Forms.RadioButton();
+            this.btInstall1 = new System.Windows.Forms.Button();
+            this.lbVersionToInstall = new System.Windows.Forms.Label();
+            this.cbOld = new System.Windows.Forms.ComboBox();
+            this.lbPerOutReq = new System.Windows.Forms.Label();
+            this.lbChangeVerDesc = new System.Windows.Forms.Label();
+            this.btChangeVer = new System.Windows.Forms.Button();
+            this.btUninstall = new System.Windows.Forms.Button();
+            this.btRepair = new System.Windows.Forms.Button();
+            this.lbModifyDesc = new System.Windows.Forms.Label();
             this.tpDone = new System.Windows.Forms.TabPage();
+            this.tbDoneError = new System.Windows.Forms.TextBox();
+            this.lbDoneDesc = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btClose = new System.Windows.Forms.Button();
+            this.btSendFeedback = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -310,8 +310,8 @@ namespace KorotInstaller
             // 
             // tpFirst
             // 
-            this.tpFirst.Controls.Add(this.button1);
-            this.tpFirst.Controls.Add(this.label5);
+            this.tpFirst.Controls.Add(this.btInstall);
+            this.tpFirst.Controls.Add(this.lbReady);
             this.tpFirst.Location = new System.Drawing.Point(4, 22);
             this.tpFirst.Name = "tpFirst";
             this.tpFirst.Padding = new System.Windows.Forms.Padding(3);
@@ -320,28 +320,28 @@ namespace KorotInstaller
             this.tpFirst.Text = "FIRST INSTALL";
             this.tpFirst.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btInstall
             // 
-            this.button1.AutoSize = true;
-            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(17, 40);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(44, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Install";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btInstall.AutoSize = true;
+            this.btInstall.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btInstall.FlatAppearance.BorderSize = 0;
+            this.btInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btInstall.Location = new System.Drawing.Point(17, 40);
+            this.btInstall.Name = "btInstall";
+            this.btInstall.Size = new System.Drawing.Size(44, 23);
+            this.btInstall.TabIndex = 1;
+            this.btInstall.Text = "Install";
+            this.btInstall.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // lbReady
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label5.Location = new System.Drawing.Point(13, 17);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(147, 20);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Your Korot is ready.";
+            this.lbReady.AutoSize = true;
+            this.lbReady.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbReady.Location = new System.Drawing.Point(13, 17);
+            this.lbReady.Name = "lbReady";
+            this.lbReady.Size = new System.Drawing.Size(147, 20);
+            this.lbReady.TabIndex = 0;
+            this.lbReady.Text = "Your Korot is ready.";
             // 
             // tpProgress
             // 
@@ -351,8 +351,8 @@ namespace KorotInstaller
             this.tpProgress.Controls.Add(this.lbDownloadProg);
             this.tpProgress.Controls.Add(this.lbInstallInfo);
             this.tpProgress.Controls.Add(this.lbDownloadInfo);
-            this.tpProgress.Controls.Add(this.label9);
-            this.tpProgress.Controls.Add(this.label6);
+            this.tpProgress.Controls.Add(this.lbInstalling);
+            this.tpProgress.Controls.Add(this.lbDownloading);
             this.tpProgress.Location = new System.Drawing.Point(4, 22);
             this.tpProgress.Name = "tpProgress";
             this.tpProgress.Size = new System.Drawing.Size(513, 359);
@@ -438,33 +438,33 @@ namespace KorotInstaller
             this.lbDownloadInfo.TabIndex = 0;
             this.lbDownloadInfo.Text = "[Download]";
             // 
-            // label9
+            // lbInstalling
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label9.Location = new System.Drawing.Point(14, 128);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(76, 20);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Installing:";
+            this.lbInstalling.AutoSize = true;
+            this.lbInstalling.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbInstalling.Location = new System.Drawing.Point(14, 128);
+            this.lbInstalling.Name = "lbInstalling";
+            this.lbInstalling.Size = new System.Drawing.Size(76, 20);
+            this.lbInstalling.TabIndex = 0;
+            this.lbInstalling.Text = "Installing:";
             // 
-            // label6
+            // lbDownloading
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label6.Location = new System.Drawing.Point(14, 21);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(105, 20);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Downloading:";
+            this.lbDownloading.AutoSize = true;
+            this.lbDownloading.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbDownloading.Location = new System.Drawing.Point(14, 21);
+            this.lbDownloading.Name = "lbDownloading";
+            this.lbDownloading.Size = new System.Drawing.Size(105, 20);
+            this.lbDownloading.TabIndex = 0;
+            this.lbDownloading.Text = "Downloading:";
             // 
             // tpModify
             // 
             this.tpModify.Controls.Add(this.panel4);
-            this.tpModify.Controls.Add(this.button4);
-            this.tpModify.Controls.Add(this.button3);
-            this.tpModify.Controls.Add(this.button2);
-            this.tpModify.Controls.Add(this.label12);
+            this.tpModify.Controls.Add(this.btChangeVer);
+            this.tpModify.Controls.Add(this.btUninstall);
+            this.tpModify.Controls.Add(this.btRepair);
+            this.tpModify.Controls.Add(this.lbModifyDesc);
             this.tpModify.Location = new System.Drawing.Point(4, 22);
             this.tpModify.Name = "tpModify";
             this.tpModify.Size = new System.Drawing.Size(513, 359);
@@ -477,14 +477,14 @@ namespace KorotInstaller
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.Controls.Add(this.radioButton3);
-            this.panel4.Controls.Add(this.radioButton2);
-            this.panel4.Controls.Add(this.radioButton1);
-            this.panel4.Controls.Add(this.button5);
-            this.panel4.Controls.Add(this.label15);
-            this.panel4.Controls.Add(this.comboBox2);
-            this.panel4.Controls.Add(this.label14);
-            this.panel4.Controls.Add(this.label13);
+            this.panel4.Controls.Add(this.rbOld);
+            this.panel4.Controls.Add(this.rbStable);
+            this.panel4.Controls.Add(this.rbPerOut);
+            this.panel4.Controls.Add(this.btInstall1);
+            this.panel4.Controls.Add(this.lbVersionToInstall);
+            this.panel4.Controls.Add(this.cbOld);
+            this.panel4.Controls.Add(this.lbPerOutReq);
+            this.panel4.Controls.Add(this.lbChangeVerDesc);
             this.panel4.Enabled = false;
             this.panel4.Location = new System.Drawing.Point(17, 128);
             this.panel4.Name = "panel4";
@@ -492,149 +492,149 @@ namespace KorotInstaller
             this.panel4.TabIndex = 3;
             this.panel4.Visible = false;
             // 
-            // radioButton3
+            // rbOld
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.radioButton3.Location = new System.Drawing.Point(3, 112);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(104, 21);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Old Version:";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.rbOld.AutoSize = true;
+            this.rbOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbOld.Location = new System.Drawing.Point(3, 112);
+            this.rbOld.Name = "rbOld";
+            this.rbOld.Size = new System.Drawing.Size(104, 21);
+            this.rbOld.TabIndex = 2;
+            this.rbOld.TabStop = true;
+            this.rbOld.Text = "Old Version:";
+            this.rbOld.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // rbStable
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.radioButton2.Location = new System.Drawing.Point(3, 82);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(236, 21);
-            this.radioButton2.TabIndex = 2;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Latest Stable Version ([LATEST])";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rbStable.AutoSize = true;
+            this.rbStable.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbStable.Location = new System.Drawing.Point(3, 82);
+            this.rbStable.Name = "rbStable";
+            this.rbStable.Size = new System.Drawing.Size(236, 21);
+            this.rbStable.TabIndex = 2;
+            this.rbStable.TabStop = true;
+            this.rbStable.Text = "Latest Stable Version ([LATEST])";
+            this.rbStable.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // rbPerOut
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.radioButton1.Location = new System.Drawing.Point(3, 32);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(246, 21);
-            this.radioButton1.TabIndex = 2;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Latest PreOut Version ([PREOUT])";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rbPerOut.AutoSize = true;
+            this.rbPerOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbPerOut.Location = new System.Drawing.Point(3, 32);
+            this.rbPerOut.Name = "rbPerOut";
+            this.rbPerOut.Size = new System.Drawing.Size(246, 21);
+            this.rbPerOut.TabIndex = 2;
+            this.rbPerOut.TabStop = true;
+            this.rbPerOut.Text = "Latest PreOut Version ([PREOUT])";
+            this.rbPerOut.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btInstall1
             // 
-            this.button5.AutoSize = true;
-            this.button5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(5, 173);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 2;
-            this.button5.Text = "Install [VER]";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btInstall1.AutoSize = true;
+            this.btInstall1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btInstall1.FlatAppearance.BorderSize = 0;
+            this.btInstall1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btInstall1.Location = new System.Drawing.Point(5, 173);
+            this.btInstall1.Name = "btInstall1";
+            this.btInstall1.Size = new System.Drawing.Size(44, 23);
+            this.btInstall1.TabIndex = 2;
+            this.btInstall1.Text = "Install";
+            this.btInstall1.UseVisualStyleBackColor = true;
             // 
-            // label15
+            // lbVersionToInstall
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label15.Location = new System.Drawing.Point(20, 145);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(116, 17);
-            this.label15.TabIndex = 1;
-            this.label15.Text = "Version to install:";
+            this.lbVersionToInstall.AutoSize = true;
+            this.lbVersionToInstall.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbVersionToInstall.Location = new System.Drawing.Point(20, 145);
+            this.lbVersionToInstall.Name = "lbVersionToInstall";
+            this.lbVersionToInstall.Size = new System.Drawing.Size(116, 17);
+            this.lbVersionToInstall.TabIndex = 1;
+            this.lbVersionToInstall.Text = "Version to install:";
             // 
-            // comboBox2
+            // cbOld
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(142, 142);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(120, 24);
-            this.comboBox2.TabIndex = 2;
-            this.comboBox2.Text = "00.00.00.00 (00)";
+            this.cbOld.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.cbOld.FormattingEnabled = true;
+            this.cbOld.Location = new System.Drawing.Point(142, 142);
+            this.cbOld.Name = "cbOld";
+            this.cbOld.Size = new System.Drawing.Size(120, 24);
+            this.cbOld.TabIndex = 2;
+            this.cbOld.Text = "00.00.00.00 (00)";
             // 
-            // label14
+            // lbPerOutReq
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label14.Location = new System.Drawing.Point(20, 59);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(183, 17);
-            this.label14.TabIndex = 1;
-            this.label14.Text = "You meet the requirements.";
+            this.lbPerOutReq.AutoSize = true;
+            this.lbPerOutReq.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbPerOutReq.Location = new System.Drawing.Point(20, 59);
+            this.lbPerOutReq.Name = "lbPerOutReq";
+            this.lbPerOutReq.Size = new System.Drawing.Size(183, 17);
+            this.lbPerOutReq.TabIndex = 1;
+            this.lbPerOutReq.Text = "You meet the requirements.";
             // 
-            // label13
+            // lbChangeVerDesc
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label13.Location = new System.Drawing.Point(3, 9);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(174, 20);
-            this.label13.TabIndex = 1;
-            this.label13.Text = "Please select a version:";
+            this.lbChangeVerDesc.AutoSize = true;
+            this.lbChangeVerDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbChangeVerDesc.Location = new System.Drawing.Point(3, 9);
+            this.lbChangeVerDesc.Name = "lbChangeVerDesc";
+            this.lbChangeVerDesc.Size = new System.Drawing.Size(174, 20);
+            this.lbChangeVerDesc.TabIndex = 1;
+            this.lbChangeVerDesc.Text = "Please select a version:";
             // 
-            // button4
+            // btChangeVer
             // 
-            this.button4.AutoSize = true;
-            this.button4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(17, 94);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(92, 23);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Change Version";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btChangeVer.AutoSize = true;
+            this.btChangeVer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btChangeVer.FlatAppearance.BorderSize = 0;
+            this.btChangeVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btChangeVer.Location = new System.Drawing.Point(17, 94);
+            this.btChangeVer.Name = "btChangeVer";
+            this.btChangeVer.Size = new System.Drawing.Size(92, 23);
+            this.btChangeVer.TabIndex = 2;
+            this.btChangeVer.Text = "Change Version";
+            this.btChangeVer.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btUninstall
             // 
-            this.button3.AutoSize = true;
-            this.button3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(17, 65);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(57, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Uninstall";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btUninstall.AutoSize = true;
+            this.btUninstall.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btUninstall.FlatAppearance.BorderSize = 0;
+            this.btUninstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btUninstall.Location = new System.Drawing.Point(17, 65);
+            this.btUninstall.Name = "btUninstall";
+            this.btUninstall.Size = new System.Drawing.Size(57, 23);
+            this.btUninstall.TabIndex = 2;
+            this.btUninstall.Text = "Uninstall";
+            this.btUninstall.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btRepair
             // 
-            this.button2.AutoSize = true;
-            this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(17, 36);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(48, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Repair";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btRepair.AutoSize = true;
+            this.btRepair.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btRepair.FlatAppearance.BorderSize = 0;
+            this.btRepair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btRepair.Location = new System.Drawing.Point(17, 36);
+            this.btRepair.Name = "btRepair";
+            this.btRepair.Size = new System.Drawing.Size(48, 23);
+            this.btRepair.TabIndex = 2;
+            this.btRepair.Text = "Repair";
+            this.btRepair.UseVisualStyleBackColor = true;
             // 
-            // label12
+            // lbModifyDesc
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label12.Location = new System.Drawing.Point(13, 13);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(284, 20);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "Please select one of the options below.";
+            this.lbModifyDesc.AutoSize = true;
+            this.lbModifyDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbModifyDesc.Location = new System.Drawing.Point(13, 13);
+            this.lbModifyDesc.Name = "lbModifyDesc";
+            this.lbModifyDesc.Size = new System.Drawing.Size(284, 20);
+            this.lbModifyDesc.TabIndex = 1;
+            this.lbModifyDesc.Text = "Please select one of the options below.";
             // 
             // tpDone
             // 
-            this.tpDone.Controls.Add(this.textBox1);
-            this.tpDone.Controls.Add(this.label7);
+            this.tpDone.Controls.Add(this.tbDoneError);
+            this.tpDone.Controls.Add(this.lbDoneDesc);
             this.tpDone.Controls.Add(this.flowLayoutPanel1);
             this.tpDone.Location = new System.Drawing.Point(4, 22);
             this.tpDone.Name = "tpDone";
@@ -643,63 +643,63 @@ namespace KorotInstaller
             this.tpDone.Text = "DONE";
             this.tpDone.UseVisualStyleBackColor = true;
             // 
+            // tbDoneError
+            // 
+            this.tbDoneError.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbDoneError.Location = new System.Drawing.Point(17, 27);
+            this.tbDoneError.Multiline = true;
+            this.tbDoneError.Name = "tbDoneError";
+            this.tbDoneError.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbDoneError.Size = new System.Drawing.Size(476, 285);
+            this.tbDoneError.TabIndex = 2;
+            // 
+            // lbDoneDesc
+            // 
+            this.lbDoneDesc.AutoSize = true;
+            this.lbDoneDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbDoneDesc.Location = new System.Drawing.Point(13, 4);
+            this.lbDoneDesc.Name = "lbDoneDesc";
+            this.lbDoneDesc.Size = new System.Drawing.Size(147, 20);
+            this.lbDoneDesc.TabIndex = 1;
+            this.lbDoneDesc.Text = "Your Korot is ready.";
+            // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.button6);
-            this.flowLayoutPanel1.Controls.Add(this.button7);
+            this.flowLayoutPanel1.Controls.Add(this.btClose);
+            this.flowLayoutPanel1.Controls.Add(this.btSendFeedback);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 318);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(513, 41);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // button6
+            // btClose
             // 
-            this.button6.AutoSize = true;
-            this.button6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(3, 3);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(43, 23);
-            this.button6.TabIndex = 3;
-            this.button6.Text = "Close";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btClose.AutoSize = true;
+            this.btClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btClose.FlatAppearance.BorderSize = 0;
+            this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btClose.Location = new System.Drawing.Point(3, 3);
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(43, 23);
+            this.btClose.TabIndex = 3;
+            this.btClose.Text = "Close";
+            this.btClose.UseVisualStyleBackColor = true;
             // 
-            // button7
+            // btSendFeedback
             // 
-            this.button7.AutoSize = true;
-            this.button7.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Location = new System.Drawing.Point(52, 3);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(93, 23);
-            this.button7.TabIndex = 4;
-            this.button7.Text = "Send Feedback";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label7.Location = new System.Drawing.Point(13, 4);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(147, 20);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Your Korot is ready.";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(17, 27);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(476, 285);
-            this.textBox1.TabIndex = 2;
+            this.btSendFeedback.AutoSize = true;
+            this.btSendFeedback.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btSendFeedback.FlatAppearance.BorderSize = 0;
+            this.btSendFeedback.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btSendFeedback.Location = new System.Drawing.Point(52, 3);
+            this.btSendFeedback.Name = "btSendFeedback";
+            this.btSendFeedback.Size = new System.Drawing.Size(93, 23);
+            this.btSendFeedback.TabIndex = 4;
+            this.btSendFeedback.Text = "Send Feedback";
+            this.btSendFeedback.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -750,11 +750,11 @@ namespace KorotInstaller
         private TabControl tabControl1;
         private TabPage tpStart;
         private TabPage tpFirst;
-        private Button button1;
-        private Label label5;
+        private Button btInstall;
+        private Label lbReady;
         private TabPage tpProgress;
         private Label lbDownloadInfo;
-        private Label label6;
+        private Label lbDownloading;
         private Panel pInstall;
         private PictureBox pbInstall;
         private Panel pDownload;
@@ -762,27 +762,27 @@ namespace KorotInstaller
         private Label lbInstallProg;
         private Label lbDownloadProg;
         private Label lbInstallInfo;
-        private Label label9;
+        private Label lbInstalling;
         private TabPage tpModify;
         private TabPage tpDone;
         private Panel panel4;
-        private RadioButton radioButton3;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
-        private Label label15;
-        private ComboBox comboBox2;
-        private Label label14;
-        private Label label13;
-        private Button button4;
-        private Button button3;
-        private Button button2;
-        private Label label12;
-        private Button button5;
+        private RadioButton rbOld;
+        private RadioButton rbStable;
+        private RadioButton rbPerOut;
+        private Label lbVersionToInstall;
+        private ComboBox cbOld;
+        private Label lbPerOutReq;
+        private Label lbChangeVerDesc;
+        private Button btChangeVer;
+        private Button btUninstall;
+        private Button btRepair;
+        private Label lbModifyDesc;
+        private Button btInstall1;
         private ComboBox cbLang;
-        private TextBox textBox1;
-        private Label label7;
+        private TextBox tbDoneError;
+        private Label lbDoneDesc;
         private FlowLayoutPanel flowLayoutPanel1;
-        private Button button6;
-        private Button button7;
+        private Button btClose;
+        private Button btSendFeedback;
     }
 }
