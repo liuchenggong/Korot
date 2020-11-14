@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Globalization;
+using System.Text.RegularExpressions;
+using Microsoft.Win32;
 
 namespace KorotInstaller
 {
@@ -17,6 +19,7 @@ namespace KorotInstaller
     {
         static void Main(string[] args)
         {
+            HTAltTools.CreateLangs();
             if (!args.Contains("--skip-folder-check"))
             {
                 if (Application.StartupPath != (Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\"))
@@ -205,6 +208,27 @@ namespace KorotInstaller
         }
 
         /// <summary>
+        /// Creates and writes a file without locking it.
+        /// </summary>
+        /// <param name="fileLocation">Location of the file.</param>
+        /// <param name="input">Text to write on.</param>
+        /// <param name="encode">Rules to follow while writing.</param>
+        /// <returns><c>true</c> if successfully writes to file, otherwise throws an exception.</returns>
+        public static bool WriteFile(string fileLocation, byte[] input)
+        {
+            if (!Directory.Exists(new FileInfo(fileLocation).DirectoryName)) { Directory.CreateDirectory(new FileInfo(fileLocation).DirectoryName); }
+            if (File.Exists(fileLocation))
+            {
+                File.Delete(fileLocation);
+            }
+            File.Create(fileLocation).Dispose();
+            FileStream writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+            writer.Write(input, 0, input.Length);
+            writer.Close();
+            return true;
+        }
+
+        /// <summary>
         /// Reads a file without locking it.
         /// </summary>
         /// <param name="fileLocation">Location of the file.</param>
@@ -217,6 +241,17 @@ namespace KorotInstaller
             string result = sr.ReadToEnd();
             sr.Close();
             return result;
+        }
+        public static void CreateLangs()
+        {
+            if(!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language"))
+            {
+                WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language", Properties.Resources.English);
+            }
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\Turkish.language"))
+            {
+                WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\Turkish.language", Properties.Resources.Turkish);
+            }
         }
     }
 
@@ -276,6 +311,7 @@ namespace KorotInstaller
                 LanguageFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language";
                 LoadedDefaults = true;
             }
+            LoadLang(LanguageFile);
         }
 
         public string XmlOut()
@@ -485,7 +521,7 @@ namespace KorotInstaller
     }
     public class KorotVersion
     {
-        public KorotVersion(string _text, int _no, string _zipPath, string _flags)
+        public KorotVersion(string _text, int _no, string _zipPath, string _flags, string scheme)
         {
             if (!string.IsNullOrWhiteSpace(_flags))
             {
@@ -494,6 +530,7 @@ namespace KorotInstaller
             VersionText = _text;
             VersionNo = _no;
             ZipPath = _zipPath;
+            SchemeUrl = scheme;
         }
         public KorotVersion(string _text, int _no)
         {
@@ -518,6 +555,10 @@ namespace KorotInstaller
         /// </summary>
         public bool RequiresNet48 => Flags.Contains("reqnet48");
         /// <summary>
+        /// .Net Framework 4.6.1
+        /// </summary>
+        public bool RequiresNet461 => Flags.Contains("reqnet461");
+        /// <summary>
         /// .Net Framework 4.5.2
         /// </summary>
         public bool RequiresNet452 => Flags.Contains("reqnet452");
@@ -525,9 +566,92 @@ namespace KorotInstaller
         /// Visual C++ 2015
         /// </summary>
         public bool RequiresVisualC2015 => Flags.Contains("reqvc2015");
+        public string SchemeUrl { get; set; }
         public string[] Flags { get; set; } = new string[] { };
         public string VersionText { get; set; } = "";
         public int VersionNo { get; set; } = 0;
         public string ZipPath { get; set; } = "";
+    }
+    public static class PreResqs
+    {
+        public static string GetNTVersion
+        {
+            get
+            {
+                int major = Environment.OSVersion.Version.Major; // 10 - 6 - 6 - 6
+                int minor = Environment.OSVersion.Version.Minor; // 0  - 3 - 2 - 1
+                int win10  = 0; // 2009 - 2004 - 1909 - 1903
+                int sp = 0; // 1 - 2
+                if (major == 10) {
+                    var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue("ReleaseId").ToString();
+                    if (!string.IsNullOrWhiteSpace(key))
+                    {
+                        win10 = Convert.ToInt32(key);
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(Environment.OSVersion.ServicePack))
+                {
+                    sp = Convert.ToInt32(new Regex(@"\-?\d+").Match(Environment.OSVersion.ServicePack).Value);
+                }
+                return major + "." + minor + (win10 != 0 ? "." + win10 : "") + (sp != 0 ? "sp" + sp : "");
+            }
+        }
+        public static bool SystemSupportsNet452
+        {
+            get
+            {
+                return (GetNTVersion == "6.0sp2") // Vista SP2
+                    || (GetNTVersion == "6.1sp1") // 7 SP1
+                    || (GetNTVersion == "6.2") // 8
+                    || (GetNTVersion == "6.3") // 8.1
+                    || (GetNTVersion.StartsWith("10.0")); // All Windows 10 versions 
+            }
+        }
+
+        public static bool SystemSupportsNet461
+        {
+            get
+            {
+                return (GetNTVersion == "6.1sp1") // 7 SP1
+                    || (GetNTVersion == "6.2") // 8
+                    || (GetNTVersion == "6.3") // 8.1
+                    || (GetNTVersion.StartsWith("10.0")); // All Windows 10 versions 
+            }
+        }
+        public static bool SystemSupportsVisualC2015x86
+        {
+            get
+            {
+                // Visual C++ 2015 & .Net Framework 4.5 supports same operating system reqs 
+                // and since this application can run, we don't have to check for versions like in the other ones.
+                return true; 
+            }
+        }
+        public static bool SystemSupportsNet48
+        {
+            get
+            {
+                return (GetNTVersion == "6.1sp1") // 7 SP1
+                     || (GetNTVersion == "6.2") // 8
+                     || (GetNTVersion == "6.3") // 8.1
+                     || (GetNTVersion == "10.0.1607") // 10 anniversary
+                     || (GetNTVersion == "10.0.1703") // 10 creators
+                     || (GetNTVersion == "10.0.1709") // 10 fall creators
+                     || (GetNTVersion == "10.0.1803") // 10 april 2018
+                     || (GetNTVersion == "10.0.1809") // 10 october 2018
+                     || (GetNTVersion == "10.0.1903") // 10 may 2019
+                     || (GetNTVersion == "10.0.1909") // 10 october 2019
+                     || (GetNTVersion == "10.0.2004") // 10 may 2020
+                     || (GetNTVersion == "10.0.2009"); // 10 october 2020
+            }
+        }
+        public static bool SystemSupportsVisualC2015x64
+        {
+            get
+            {
+                // if visualc++2015 x86 is supported, then only thing we need to check is if it runs on x64.
+                return SystemSupportsVisualC2015x86 && Environment.Is64BitProcess;
+            }
+        }
     }
 }

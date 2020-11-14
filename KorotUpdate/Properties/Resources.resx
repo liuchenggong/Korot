@@ -130,4 +130,10 @@
   <data name="light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="English" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\lang\english.language;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Turkish" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\lang\turkish.language;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

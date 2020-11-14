@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Management;
+using System.Diagnostics;
 
 namespace KorotInstaller
 {
@@ -19,10 +21,19 @@ namespace KorotInstaller
         public frmMain(Settings settings)
         {
             Settings = settings;
+            VersionManager = new VersionManager();
             InitializeComponent();
             GPWC.DownloadStringCompleted += GPWC_DownloadStringComplete;
             GPWC.DownloadProgressChanged += GPWC_ProgressChanged;
             GPWC.DownloadFileCompleted += GPWC_DownloadFileComplete;
+            string[] langFiles = Directory.GetFiles(Settings.WorkFolder, "*.language");
+            cbLang.Items.Clear();
+            for (int i = 0; i < langFiles.Length; i++)
+            {
+                cbLang.Items.Add(Path.GetFileNameWithoutExtension(langFiles[i]));
+            }
+            cbLang.Text = Path.GetFileNameWithoutExtension(Settings.LanguageFile);
+            LoadLang();
             updateTheme();
         }
         StringEventhHybrid workOn;
@@ -45,7 +56,7 @@ namespace KorotInstaller
                     GPWC.DownloadStringAsync(new Uri(workOn.String));
                 }else
                 {
-                    if (downloadStrings.Count == 0 && !stillWork) { GPWC_AllJobsDone(); }
+                    GPWC_AllJobsDone(); 
                 }
             }
         }
@@ -77,7 +88,7 @@ namespace KorotInstaller
                 }
                 else
                 {
-                    if(downloadStrings.Count == 0 && !stillWork) { GPWC_AllJobsDone(); }
+                    GPWC_AllJobsDone(); 
                     if (!isPreparing)
                     {
                         lbDownloadInfo.Text = DownloadsComplete;
@@ -85,10 +96,57 @@ namespace KorotInstaller
                 }
             }
         }
-        bool stillWork = true;
         private void GPWC_AllJobsDone()
         {
-            Console.WriteLine(" [General Purpose WebClient] All Jobs Done!");
+            if (downloadStrings.Count > 0 && !GPWC.IsBusy && workOn == null)
+            {
+                if(downloadStrings[0].Type == StringEventhHybrid.StringType.File)
+                {
+                    DoFileWork(downloadStrings[0]);
+                }else
+                {
+                    DoStringWork(downloadStrings[0]);
+                }
+                return;
+            }
+            if (isPreparing)
+            {
+                isPreparing = false;
+                allowSwitch = true;
+                if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe") && !File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe"))
+                {
+                    allowSwitch = true;
+                    tabControl1.SelectedTab = tpFirst;
+                    if(supportsThisVer(VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber)))
+                    {
+                        lbReady.Text = UIReadyDesc;
+                        btInstall.Enabled = true;
+                        btInstall.Visible = true;
+                    }else
+                    {
+                        lbReady.Text = UINotReadyDesc;
+                        btInstall.Enabled = false;
+                        btInstall.Visible = false;
+                    }
+                }
+                else
+                {
+                    allowSwitch = true;
+                    tabControl1.SelectedTab = tpModify;
+                    if (VersionManager.Versions.Count > 0)
+                    {
+                        string korotPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
+                        string korotBetaPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
+                        bool korotExists = File.Exists(korotPath);
+                        var current = VersionManager.GetVersionFromVersionName(FileVersionInfo.GetVersionInfo(korotExists ? korotPath : korotBetaPath).ProductVersion);
+                        btRepair.Text = current != null
+                            ? VersionManager.LatestVersionNumber != current.VersionNo || VersionManager.PreOutVerNumber != current.VersionNo
+                                ? UIUpdateButton
+                                : UIRepairButton
+                            : UIRepairButton;
+                    }
+                }
+            }
         }
 
         #region "Translations"
@@ -104,9 +162,13 @@ namespace KorotInstaller
         string UINo = "No";
         string UIOK = "OK";
         string UICancel = "Cancel";
+        string UIRepairButton = "Repair";
+        string UIUpdateButton = "Update";
         string UIInstallVer = "Install [VER]";
         string UIGatherInfo = "Gathering Information...";
         string UICheckUpdate = "Checking for updates...";
+        string UIReadyDesc = "Your Korot is ready to be installed.";
+        string UINotReadyDesc ="You don't meet the requirements for installing Korot.";
         string UIChangeVerO1 = "Latest PreOut Version ([PREOUT])";
         string UIChangeVerO2 = "Latest Stable Version ([LATEST])";
         string UICreateRecovery = "Creating a restore point...";
@@ -123,6 +185,7 @@ namespace KorotInstaller
         public void LoadLang()
         {
             UIInstallVer = Settings.GetItemText("UIInstallVer");
+            lbChangeVerDesc.Text = Settings.GetItemText("UIChangeVerDesc");
             UIChangeVerMissing = Settings.GetItemText("UIChangeVerMissing");
             UIChangeVerArchNotSupported = Settings.GetItemText("UIChangeVerArchNotSupported");
             DownloadProgress = Settings.GetItemText("DownloadProgress");
@@ -138,10 +201,12 @@ namespace KorotInstaller
             btClose.Text = Settings.GetItemText("UIClose");
             UIGatherInfo = Settings.GetItemText("UIGatherInfo");
             UICheckUpdate = Settings.GetItemText("UICheckUpdate");
-            lbReady.Text = Settings.GetItemText("UIReadyDesc");
+            UIReadyDesc = Settings.GetItemText("UIReadyDesc");
+            UINotReadyDesc = Settings.GetItemText("UINotReadyDesc");
             lbModifyDesc.Text = Settings.GetItemText("UIModifyDesc");
             btInstall.Text = Settings.GetItemText("UIReadyButton");
-            btRepair.Text = Settings.GetItemText("UIRepairButton");
+            UIRepairButton = Settings.GetItemText("UIRepairButton");
+            UIUpdateButton = Settings.GetItemText("UIUpdateButton");
             btUninstall.Text = Settings.GetItemText("UIUninstallButton");
             btChangeVer.Text = Settings.GetItemText("UIChangeVerButton");
             UIChangeVerO1 = Settings.GetItemText("UIChangeVerO1");
@@ -161,10 +226,38 @@ namespace KorotInstaller
             lbVersionToInstall.Text = Settings.GetItemText("UIVersionToInstall");
             CreateShortcut = Settings.GetItemText("CreateShortcut");
             UIUpdating = Settings.GetItemText("UIUpdating");
+            if (VersionManager.PreOutVerNumber != 0 && VersionManager.LatestVersionNumber != 0)
+            {
+                rbPreOut.Text = UIChangeVerO1.Replace("[PREOUT]", VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber).VersionText);
+                rbStable.Text = UIChangeVerO2.Replace("[LATEST]", VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber).VersionText);
+                if (supportsLatestPreOut())
+                {
+                    lbPerOutReq.Text = UIPreOutAvailable;
+                    rbPreOut.Enabled = true;
+                }
+                else
+                {
+                    lbPerOutReq.Text = UIPreOutDisable;
+                    rbPreOut.Enabled = false;
+                }
+            }
+            if (VersionManager.Versions.Count > 0)
+            {
+                string korotPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
+                string korotBetaPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
+                bool korotExists = File.Exists(korotPath);
+                var current = VersionManager.GetVersionFromVersionName(FileVersionInfo.GetVersionInfo(korotExists ? korotPath : korotBetaPath).ProductVersion);
+                btRepair.Text = current != null
+                    ? VersionManager.LatestVersionNumber != current.VersionNo || VersionManager.PreOutVerNumber != current.VersionNo
+                        ? UIUpdateButton
+                        : UIRepairButton
+                    : UIRepairButton;
+            }
+            cbOld.Location = new Point(lbVersionToInstall.Location.X + lbVersionToInstall.Width, cbOld.Location.Y);
+
         }
 
         #endregion "Translations"
-
         private void frmMain_Load(object sender, EventArgs e)
         {
             StringEventhHybrid htupdate = new StringEventhHybrid() { String = "https://raw.githubusercontent.com/Haltroy/Korot/master/Korot.htupdate", Type = StringEventhHybrid.StringType.String, };
@@ -180,79 +273,61 @@ namespace KorotInstaller
 
         private void DoFileWork(StringEventhHybrid seh)
         {
-            Console.WriteLine(" [DoFileWork] string: " + seh.String + " string2: " + seh.String2 + " string3: " + seh.String3);
             downloadStrings.Add(seh);
             if (!GPWC.IsBusy) { workOn = seh; GPWC.DownloadFileAsync(new Uri(seh.String),seh.String2); }
         }
 
         #region "HTUPDATE"
-        private VersionManager VersionManager = new VersionManager();
+        private VersionManager VersionManager;
         #endregion "HTUPDATE"
 
         private void htupdateDownloaded(object sender, EventArgs E)
         {
-            Console.WriteLine(" [HTUPDATE] received.");
             if(E is DownloadStringCompletedEventArgs)
             {
                 var e = E as DownloadStringCompletedEventArgs;
-                if (e.Error != null && !e.Cancelled)
+                if (e.Error == null && !e.Cancelled)
                 {
                     XmlDocument doc = new XmlDocument();
                     doc.LoadXml(e.Result);
                     XmlNode firstnode = doc.FirstChild.Name != "HaltroyUpdate" ? doc.FirstChild.NextSibling : doc.FirstChild;
+                    int workCount = 0;
                     foreach (XmlNode node in firstnode.ChildNodes)
                     {
                         if (node.Name == "PreOutVer")
                         {
                             VersionManager.LatesPreOut = node.InnerXml;
+                            workCount++;
                         }
                         else if (node.Name == "PreOutNo")
                         {
                             VersionManager.PreOutVerNumber = Convert.ToInt32(node.InnerXml);
+                            workCount++;
                         }
                         else if (node.Name == "PreOutLow")
                         {
                             VersionManager.PreOutMinVer = Convert.ToInt32(node.InnerXml);
+                            workCount++;
                         }
                         else if (node.Name == "AppVersionNo")
                         {
                             VersionManager.LatestVersionNumber = Convert.ToInt32(node.InnerXml);
+                            workCount++;
                         }
                         else if (node.Name == "MinimumNo")
                         {
                             VersionManager.LatestUpdateMinVer = Convert.ToInt32(node.InnerXml);
+                            workCount++;
                         }
                         else if (node.Name == "InstallerVer")
                         {
                             VersionManager.LatestInstallerVer = Convert.ToInt32(node.InnerXml);
+                            workCount++;
                         }
                         else if (node.Name == "AppVersion")
                         {
                             VersionManager.LatesVersion = node.InnerXml;
-                        }
-                        else if(node.Name == "UpdateLang")
-                        {
-                            foreach(XmlNode subnode in node.ChildNodes)
-                            {
-                                if (node.Name == "Lang")
-                                {
-                                    if (subnode.Attributes["Name"] != null && subnode.Attributes["Location"] != null)
-                                    {
-                                        if (File.Exists(Settings.WorkFolder + subnode.Attributes["Name"].Value + ".language"))
-                                        {
-                                            File.Delete(Settings.WorkFolder + subnode.Attributes["Name"].Value + ".language");
-                                        }
-                                        StringEventhHybrid seh = new StringEventhHybrid()
-                                        {
-                                            String = subnode.Attributes["Location"].Value,
-                                            String2 = Settings.WorkFolder + subnode.Attributes["Name"].Value + ".language",
-                                            String3 = subnode.Attributes["Name"].Value,
-                                            Type = StringEventhHybrid.StringType.File
-                                        };
-                                        DoFileWork(seh);
-                                    }
-                                }
-                            }
+                            workCount++;
                         }
                         else if (node.Name == "Versions")
                         {
@@ -268,22 +343,24 @@ namespace KorotInstaller
                                             VersionManager.Versions.Add(ver);
                                         }else
                                         {
-                                            KorotVersion ver = new KorotVersion(subnode.Attributes["Text"].Value, Convert.ToInt32(subnode.Attributes["VersionNo"].Value), subnode.Attributes["ZipPath"].Value, subnode.Attributes["Flags"].Value);
+                                            KorotVersion ver = new KorotVersion(subnode.Attributes["Text"].Value, Convert.ToInt32(subnode.Attributes["VersionNo"].Value), subnode.Attributes["ZipPath"].Value, subnode.Attributes["Flags"].Value,subnode.Attributes["Script"].Value);
                                             VersionManager.Versions.Add(ver);
                                         }
-
                                     }
                                 }
                             }
+                            workCount++;
                         }
                     }
-                    stillWork = false;
                 }
                 else
                 {
                     StringEventhHybrid htupdate = new StringEventhHybrid() { String = "https://raw.githubusercontent.com/Haltroy/Korot/master/Korot.htupdate", Type = StringEventhHybrid.StringType.String, };
                     htupdate.Event += htupdateDownloaded;
                 }
+            }else
+            {
+                Console.WriteLine(" [HTUPDATE] Error: EventArgs is not suitable.");
             }
         }
 
@@ -358,9 +435,9 @@ namespace KorotInstaller
 
         private void cbLang_DropDown(object sender, EventArgs e)
         {
+            string[] langFiles = Directory.GetFiles(Settings.WorkFolder, "*.language");
             cbLang.Items.Clear();
-            String[] langFiles = Directory.GetFiles(Settings.WorkFolder, "*.language");
-            for (int i = 0; i< langFiles.Length;i++)
+            for (int i = 0; i < langFiles.Length; i++)
             {
                 cbLang.Items.Add(Path.GetFileNameWithoutExtension(langFiles[i]));
             }
@@ -370,6 +447,140 @@ namespace KorotInstaller
         {
             Settings.LoadLang(Settings.WorkFolder + cbLang.SelectedItem.ToString() + ".language");
             LoadLang();
+        }
+        private bool supportsLatestPreOut()
+        {
+            string korotPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
+            string korotBetaPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
+            bool korotExists = File.Exists(korotPath);
+            bool betaExists = File.Exists(korotBetaPath);
+            if (!korotExists && !betaExists)
+            {
+                return false;
+            }
+            var vPreOut = VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber);
+            if (vPreOut.isOnlyx64 & !Environment.Is64BitProcess) { return false; }
+            var currentVer = VersionManager.GetVersionFromVersionName(FileVersionInfo.GetVersionInfo(korotExists ? korotPath : korotBetaPath).ProductVersion);
+            if (currentVer.VersionNo < VersionManager.LatestVersionNumber || currentVer.VersionNo < VersionManager.PreOutMinVer) { return false; }
+            return true;
+        }
+
+        private bool supportsThisVer(KorotVersion ver)
+        {
+            string korotPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
+            string korotBetaPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
+            bool korotExists = File.Exists(korotPath);
+            bool betaExists = File.Exists(korotBetaPath);
+            if (!korotExists && !betaExists)
+            {
+                return false;
+            }
+            if (ver.isOnlyx64 && !(Environment.Is64BitProcess || Environment.Is64BitOperatingSystem)) { return false; }
+            if (ver.RequiresNet452 && !PreResqs.SystemSupportsNet452) { return false; }
+            if (ver.RequiresNet461 && !PreResqs.SystemSupportsNet461) { return false; }
+            if (ver.RequiresNet48 && !PreResqs.SystemSupportsNet48) { return false; }
+            if (ver.RequiresVisualC2015 && !PreResqs.SystemSupportsVisualC2015x86) { return false; }
+            return true;
+        }
+
+        private void btChangeVer_Click(object sender, EventArgs e)
+        {
+            lbModifyDesc.Enabled = false;
+            btRepair.Enabled = false;
+            btUninstall.Enabled = false;
+            btChangeVer.Enabled = false;
+            pChangeVer.Visible = true;
+            pChangeVer.Enabled = true;
+            rbPreOut.Text = UIChangeVerO1.Replace("[PREOUT]", VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber).VersionText);
+            rbStable.Text = UIChangeVerO2.Replace("[LATEST]", VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber).VersionText);
+            Console.WriteLine(" [PreOut] N: " + VersionManager.PreOutVerNumber + " T: " + VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber).VersionText);
+            Console.WriteLine(" [Latest] N: " + VersionManager.LatestVersionNumber + " T: " + VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber).VersionText);
+            if(supportsLatestPreOut())
+            {
+                lbPerOutReq.Text = UIPreOutAvailable;
+                rbPreOut.Enabled = true;
+            }else
+            {
+                lbPerOutReq.Text = UIPreOutDisable;
+                rbPreOut.Enabled = false;
+            }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            lbModifyDesc.Enabled = true;
+            btRepair.Enabled = true;
+            btUninstall.Enabled = true;
+            btChangeVer.Enabled = true;
+            pChangeVer.Visible = false;
+            pChangeVer.Enabled = false;
+        }
+
+        private void rbPerOut_CheckedChanged(object sender, EventArgs e)
+        {
+            if(rbPreOut.Checked)
+            {
+                rbStable.Checked = false;
+                rbOld.Checked = false;
+                cbOld.Enabled = false;
+                lbVersionToInstall.Enabled = false;
+            }
+        }
+
+        private void rbStable_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbStable.Checked)
+            {
+                rbPreOut.Checked = false;
+                rbOld.Checked = false;
+                cbOld.Enabled = false;
+                lbVersionToInstall.Enabled = false;
+            }
+        }
+
+        private void rbOld_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbOld.Checked)
+            {
+                rbPreOut.Checked = false;
+                rbPreOut.Checked = false;
+                cbOld.Enabled = true;
+                lbVersionToInstall.Enabled = true;
+                cbOld.Items.Clear();
+                for(int i = VersionManager.PreOutVersions.Count + 1;i < VersionManager.Versions.Count; i++)
+                {
+                    if (i != VersionManager.LatestVersionNumber && i != VersionManager.PreOutVerNumber)
+                    {
+                        var ver = VersionManager.Versions[i];
+                        cbOld.Items.Add(ver.VersionText + " (" + ver.VersionNo + ")");
+                    }
+                }
+                cbOld.SelectedIndex = 0;
+            }
+        }
+
+        private void cbOld_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int indexOfO = cbOld.Text.IndexOf("(") + 1;
+            int indexOfC = cbOld.Text.IndexOf(")");
+            int getVerNoLenght = indexOfC - indexOfO;
+            int verNo = Convert.ToInt32(cbOld.Text.Substring(indexOfO, getVerNoLenght));
+            var ver = VersionManager.GetVersionFromVersionNo(verNo);
+            btInstall1.Text = UIInstallVer.Replace("[VER]", ver.VersionText);
+            if (ver.isMissing)
+            {
+                lbInstallError.Text = UIChangeVerMissing;
+                btInstall1.Enabled = false;
+                return;
+            }
+            if (!supportsThisVer(ver))
+            {
+                lbInstallError.Text = UIChangeVerArchNotSupported;
+                btInstall1.Enabled = false;
+                return;
+            }
+            lbInstallError.Text = "";
+            btInstall1.Enabled = true;
         }
     }
     public class StringEventhHybrid
@@ -392,6 +603,106 @@ namespace KorotInstaller
         {
             String,
             File
+        }
+    }
+    /// <summary>
+    /// Stole-*couch* copied from StackOverflow Community
+    /// https://stackoverflow.com/a/42733327
+    /// TODO: Test this out
+    /// </summary>
+    public static class RestorePoint
+    {
+        /// <summary>
+        ///     The type of event. For more information, see <see cref="CreateRestorePoint"/>.
+        /// </summary>
+        public enum EventType
+        {
+            /// <summary>
+            ///     A system change has begun. A subsequent nested call does not create a new restore
+            ///     point.
+            ///     <para>
+            ///         Subsequent calls must use <see cref="EventType.EndNestedSystemChange"/>, not
+            ///         <see cref="EventType.EndSystemChange"/>.
+            ///     </para>
+            /// </summary>
+            BeginNestedSystemChange = 0x66,
+
+            /// <summary>
+            ///     A system change has begun.
+            /// </summary>
+            BeginSystemChange = 0x64,
+
+            /// <summary>
+            ///     A system change has ended.
+            /// </summary>
+            EndNestedSystemChange = 0x67,
+
+            /// <summary>
+            ///     A system change has ended.
+            /// </summary>
+            EndSystemChange = 0x65
+        }
+
+        /// <summary>
+        ///     The type of restore point. For more information, see <see cref="CreateRestorePoint"/>.
+        /// </summary>
+        public enum RestorePointType
+        {
+            /// <summary>
+            ///     An application has been installed.
+            /// </summary>
+            ApplicationInstall = 0x0,
+
+            /// <summary>
+            ///     An application has been uninstalled.
+            /// </summary>
+            ApplicationUninstall = 0x1,
+
+            /// <summary>
+            ///     An application needs to delete the restore point it created. For example, an
+            ///     application would use this flag when a user cancels an installation. 
+            /// </summary>
+            CancelledOperation = 0xd,
+
+            /// <summary>
+            ///     A device driver has been installed.
+            /// </summary>
+            DeviceDriverInstall = 0xa,
+
+            /// <summary>
+            ///     An application has had features added or removed.
+            /// </summary>
+            ModifySettings = 0xc
+        }
+
+        /// <summary>
+        ///     Creates a restore point on the local system.
+        /// </summary>
+        /// <param name="description">
+        ///     The description to be displayed so the user can easily identify a restore point.
+        /// </param>
+        /// <param name="eventType">
+        ///     The type of event.
+        /// </param>
+        /// <param name="restorePointType">
+        ///     The type of restore point. 
+        /// </param>
+        /// <exception cref="ManagementException">
+        ///     Access denied.
+        /// </exception>
+        public static void CreateRestorePoint(string description, EventType eventType, RestorePointType restorePointType)
+        {
+            var mScope = new ManagementScope("\\\\localhost\\root\\default");
+            var mPath = new ManagementPath("SystemRestore");
+            var options = new ObjectGetOptions();
+            using (var mClass = new ManagementClass(mScope, mPath, options))
+            using (var parameters = mClass.GetMethodParameters("CreateRestorePoint"))
+            {
+                parameters["Description"] = description;
+                parameters["EventType"] = (int)eventType;
+                parameters["RestorePointType"] = (int)restorePointType;
+                mClass.InvokeMethod("CreateRestorePoint", parameters, null);
+            }
         }
     }
 }

@@ -71,6 +71,16 @@ namespace KorotInstaller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] English {
+            get {
+                object obj = ResourceManager.GetObject("English", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Korot {
@@ -111,6 +121,16 @@ namespace KorotInstaller.Properties {
         internal static string protocol {
             get {
                 return ResourceManager.GetString("protocol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Turkish {
+            get {
+                object obj = ResourceManager.GetObject("Turkish", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }
