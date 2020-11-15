@@ -61,6 +61,30 @@ namespace KorotInstaller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Windows Registry Editor Version 5.00
+        ///
+        ///[HKEY_CLASSES_ROOT\Korot]
+        ///@=&quot;URL:korot protocol&quot;
+        ///&quot;URL Protocol&quot;=&quot;korot&quot;
+        ///
+        ///[HKEY_CLASSES_ROOT\Korot\DefaultIcon]
+        ///@=&quot;§INST§&quot;
+        ///
+        ///[HKEY_CLASSES_ROOT\Korot\shell]
+        ///
+        ///[HKEY_CLASSES_ROOT\Korot\shell\open]
+        ///
+        ///[HKEY_CLASSES_ROOT\Korot\shell\open\Command]
+        ///@=&quot;§INST§ korot://command/?c=%1&quot;
+        ///.
+        /// </summary>
+        internal static string commandprotocol {
+            get {
+                return ResourceManager.GetString("commandprotocol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap dark {
@@ -91,26 +115,6 @@ namespace KorotInstaller.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] KorotDesktop_Old {
-            get {
-                object obj = ResourceManager.GetObject("KorotDesktop_Old", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] KorotDesktop_v1 {
-            get {
-                object obj = ResourceManager.GetObject("KorotDesktop_v1", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap light {
@@ -135,12 +139,12 @@ namespace KorotInstaller.Properties {
         ///[HKEY_CLASSES_ROOT\Korot\shell\open]
         ///
         ///[HKEY_CLASSES_ROOT\Korot\shell\open\Command]
-        ///@=&quot;§INST§ korot://command/?c=%1&quot;
+        ///@=&quot;§INST§ %1&quot;
         ///.
         /// </summary>
-        internal static string protocol {
+        internal static string prot {
             get {
-                return ResourceManager.GetString("protocol", resourceCulture);
+                return ResourceManager.GetString("prot", resourceCulture);
             }
         }
         

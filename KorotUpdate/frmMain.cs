@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Management;
 using System.Diagnostics;
+using System.IO.Compression;
 
 namespace KorotInstaller
 {
@@ -29,6 +30,7 @@ namespace KorotInstaller
         bool allowSwitch = false;
         KorotVersion versionToInstall;
         static string korotPath => Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
+        static string korotFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\";
         static string korotBetaPath => Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
         bool korotExists = File.Exists(korotPath);
         bool betaExists = File.Exists(korotBetaPath);
@@ -197,6 +199,7 @@ namespace KorotInstaller
                 }));
             }
         }
+
 
 
 
@@ -473,7 +476,38 @@ namespace KorotInstaller
             Settings.isDarkMode = !Settings.isDarkMode;
             updateTheme();
         }
-
+        bool isBusy = false;
+        List<PreResqs.PreResq> reqs;
+        PreResqs.PreResq workingReq;
+        private async Task<bool> InstallPreResq(PreResqs.PreResq req)
+        {
+            if(isBusy)
+            {
+                reqs.Add(req);
+                return false;
+            }
+            isBusy = true;
+            workingReq = req;
+            ProcessStartInfo info = new ProcessStartInfo(Settings.WorkFolder + req.FileName,req.SilentArgs) { UseShellExecute = true, Verb= "runas" };
+            Process process = new Process();
+            process.StartInfo = info;
+            process.Start();
+            process.WaitForExit();
+            if (process.ExitCode == 0)
+            {
+                isBusy = false;
+                if(reqs.Contains(req)) { reqs.Remove(req); }
+                if (reqs.Count > 0)
+                {
+                    workingReq = reqs[0];
+                    await Task.Run(() => InstallPreResq(workingReq));
+                }
+            }else
+            {
+                Error(new Exception("Required component \"" + req.Name +  "\" is not installed. Exit Code: " + process.ExitCode));
+            }
+            return false;
+        }
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
@@ -528,6 +562,10 @@ namespace KorotInstaller
         {
             allowClose = true;
             allowSwitch = true;
+            reqs.Clear();
+            downloadStrings.Clear();
+            if (GPWC.IsBusy) { GPWC.CancelAsync(); }
+            workOn = null;
             tabControl1.SelectedTab = tpDone;
             lbDoneDesc.Text = UIDoneError;
             tbDoneError.Text = ex.ToString();
@@ -535,7 +573,16 @@ namespace KorotInstaller
             tbDoneError.Height = Height - (panel1.Height + flowLayoutPanel1.Height + lbDoneDesc.Height + 35);
         }
 
-
+        private void appShortcut()
+        {
+            HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.Programs) + "\\" + "Korot.url");
+            HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms) + "\\" + "Korot.url");
+            if (versionToInstall.VersionNo >= 36)
+            {
+                HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.Programs) + "\\" + "Korot.url", "--make-ext");
+                HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms) + "\\" + "Korot.url", "--make-ext");
+            }
+        }
 
         private void StartInstallation()
         {
@@ -549,7 +596,7 @@ namespace KorotInstaller
             if (versionToInstall.RequiresVisualC2015 && !PreResqs.SystemSupportsVisualC2015x86) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires Visual C++ 2015 but your computer does not supports it.")); }
             if (versionToInstall.isOnlyx64 && !PreResqs.is64BitMachine) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires 64-bit machine but this machine is not a 64 bit machine.")); }
             isPreparing = false;
-            if (versionToInstall.RequiresNet452)
+            if (versionToInstall.RequiresNet452 && !PreResqs.isInstalled(PreResqs.NetFramework452))
             {
                 StringEventhHybrid seh = new StringEventhHybrid()
                 {
@@ -558,10 +605,11 @@ namespace KorotInstaller
                     String3 = PreResqs.NetFramework452.Name,
                     Type = StringEventhHybrid.StringType.File,
                 };
+                seh.Event += new StringEventhHybrid.EventDelegate((sender,e) => { Task.Run(() => InstallPreResq(PreResqs.NetFramework452)); });
                 installJobCount++;
                 downloadStrings.Add(seh);
             }
-            if (versionToInstall.RequiresNet461)
+            if (versionToInstall.RequiresNet461 && !PreResqs.isInstalled(PreResqs.NetFramework461))
             {
                 StringEventhHybrid seh = new StringEventhHybrid()
                 {
@@ -570,10 +618,11 @@ namespace KorotInstaller
                     String3 = PreResqs.NetFramework461.Name,
                     Type = StringEventhHybrid.StringType.File,
                 };
+                seh.Event += new StringEventhHybrid.EventDelegate((sender, e) => { Task.Run(() => InstallPreResq(PreResqs.NetFramework461)); });
                 installJobCount++;
                 downloadStrings.Add(seh);
             }
-            if (versionToInstall.RequiresNet48)
+            if (versionToInstall.RequiresNet48 && !PreResqs.isInstalled(PreResqs.NetFramework48))
             {
                 StringEventhHybrid seh = new StringEventhHybrid()
                 {
@@ -582,10 +631,11 @@ namespace KorotInstaller
                     String3 = PreResqs.NetFramework48.Name,
                     Type = StringEventhHybrid.StringType.File,
                 };
+                seh.Event += new StringEventhHybrid.EventDelegate((sender, e) => { Task.Run(() => InstallPreResq(PreResqs.NetFramework48)); });
                 installJobCount++;
                 downloadStrings.Add(seh);
             }
-            if (versionToInstall.RequiresVisualC2015)
+            if (versionToInstall.RequiresVisualC2015 && !PreResqs.isInstalled(PreResqs.VisualC2015x86))
             {
                 
                 StringEventhHybrid seh = new StringEventhHybrid()
@@ -595,10 +645,11 @@ namespace KorotInstaller
                     String3 = PreResqs.VisualC2015x86.Name,
                     Type = StringEventhHybrid.StringType.File,
                 };
+                seh.Event += new StringEventhHybrid.EventDelegate((sender, e) => { Task.Run(() => InstallPreResq(PreResqs.VisualC2015x86)); });
                 installJobCount++;
                 downloadStrings.Add(seh);
 
-                if (PreResqs.is64BitMachine)
+                if (PreResqs.is64BitMachine && !PreResqs.isInstalled(PreResqs.VisualC2015x64))
                 {
                     StringEventhHybrid seh2 = new StringEventhHybrid()
                     {
@@ -607,6 +658,7 @@ namespace KorotInstaller
                         String3 = PreResqs.VisualC2015x64.Name,
                         Type = StringEventhHybrid.StringType.File,
                     };
+                    seh.Event += new StringEventhHybrid.EventDelegate((sender, e) => { Task.Run(() => InstallPreResq(PreResqs.VisualC2015x64)); });
                     installJobCount++;
                     downloadStrings.Add(seh2);
                 }
@@ -614,10 +666,11 @@ namespace KorotInstaller
             StringEventhHybrid sehK = new StringEventhHybrid()
             {
                 String = versionToInstall.ZipPath.Replace("[VERSION]",versionToInstall.VersionText).Replace("[ARCH]", PreResqs.is64BitMachine ? "x64" : "x86").Replace("[U]","F"),
-                String2 = Settings.WorkFolder + versionToInstall.VersionText + ".htup",
+                String2 = Settings.WorkFolder + versionToInstall.VersionText + ".htpackage",
                 String3 = DownloadKorotDesktop,
                 Type = StringEventhHybrid.StringType.File,
             };
+            sehK.Event += installKorot;
             installJobCount++;
             downloadStrings.Add(sehK);
             if (workOn == null)
@@ -629,6 +682,44 @@ namespace KorotInstaller
             lbInstallInfo.Text = UICreateRecovery;
         }
 
+        private void installKorot(object sender, EventArgs E)
+        {
+            if (E is AsyncCompletedEventArgs)
+            {
+                var e = E as AsyncCompletedEventArgs;
+                if (e.Error != null)
+                {
+                    Error(new Exception("Error while downloading Korot Desktop files. Error: " + e.Error.ToString()));
+                }else if (e.Cancelled)
+                {
+                    Error(new Exception("Error while downloading Korot Desktop files. Error: Cancelled."));
+                }else
+                {
+                    Task.Run(() => InstallKorotFoReal());
+                }
+            }else
+            {
+                Error(new Exception("\"E\" is not an AsyncCompletedEventArgs (in void \"installKorot\")."));
+            }
+        } 
+
+        /// <summary>
+        /// use this dog this one wont lag - ryder
+        /// </summary>
+        /// <returns></returns>
+        private async Task<bool> InstallKorotFoReal()
+        {
+            await Task.Run(() =>
+            {
+                if (Directory.Exists(korotFolderPath))
+                {
+                    Directory.Delete(korotFolderPath, true);
+                }
+
+                ZipFile.ExtractToDirectory(Settings.WorkFolder + versionToInstall.VersionText + ".htpackage", korotFolderPath);
+            });
+            return false;
+        }
 
         private void btChangeVer_Click(object sender, EventArgs e)
         {
@@ -831,111 +922,17 @@ namespace KorotInstaller
             File
         }
     }
-    /// <summary>
-    /// Stole-*couch* copied from StackOverflow Community
-    /// https://stackoverflow.com/a/42733327
-    /// TODO: Test this out
-    /// </summary>
-    public static class RestorePoint
-    {
-        /// <summary>
-        ///     The type of event. For more information, see <see cref="CreateRestorePoint"/>.
-        /// </summary>
-        public enum EventType
-        {
-            /// <summary>
-            ///     A system change has begun. A subsequent nested call does not create a new restore
-            ///     point.
-            ///     <para>
-            ///         Subsequent calls must use <see cref="EventType.EndNestedSystemChange"/>, not
-            ///         <see cref="EventType.EndSystemChange"/>.
-            ///     </para>
-            /// </summary>
-            BeginNestedSystemChange = 0x66,
-
-            /// <summary>
-            ///     A system change has begun.
-            /// </summary>
-            BeginSystemChange = 0x64,
-
-            /// <summary>
-            ///     A system change has ended.
-            /// </summary>
-            EndNestedSystemChange = 0x67,
-
-            /// <summary>
-            ///     A system change has ended.
-            /// </summary>
-            EndSystemChange = 0x65
-        }
-
-        /// <summary>
-        ///     The type of restore point. For more information, see <see cref="CreateRestorePoint"/>.
-        /// </summary>
-        public enum RestorePointType
-        {
-            /// <summary>
-            ///     An application has been installed.
-            /// </summary>
-            ApplicationInstall = 0x0,
-
-            /// <summary>
-            ///     An application has been uninstalled.
-            /// </summary>
-            ApplicationUninstall = 0x1,
-
-            /// <summary>
-            ///     An application needs to delete the restore point it created. For example, an
-            ///     application would use this flag when a user cancels an installation. 
-            /// </summary>
-            CancelledOperation = 0xd,
-
-            /// <summary>
-            ///     A device driver has been installed.
-            /// </summary>
-            DeviceDriverInstall = 0xa,
-
-            /// <summary>
-            ///     An application has had features added or removed.
-            /// </summary>
-            ModifySettings = 0xc
-        }
-
-        /// <summary>
-        ///     Creates a restore point on the local system.
-        /// </summary>
-        /// <param name="description">
-        ///     The description to be displayed so the user can easily identify a restore point.
-        /// </param>
-        /// <param name="eventType">
-        ///     The type of event.
-        /// </param>
-        /// <param name="restorePointType">
-        ///     The type of restore point. 
-        /// </param>
-        /// <exception cref="ManagementException">
-        ///     Access denied.
-        /// </exception>
-        public static void CreateRestorePoint(string description, EventType eventType, RestorePointType restorePointType)
-        {
-            var mScope = new ManagementScope("\\\\localhost\\root\\default");
-            var mPath = new ManagementPath("SystemRestore");
-            var options = new ObjectGetOptions();
-            using (var mClass = new ManagementClass(mScope, mPath, options))
-            using (var parameters = mClass.GetMethodParameters("CreateRestorePoint"))
-            {
-                parameters["Description"] = description;
-                parameters["EventType"] = (int)eventType;
-                parameters["RestorePointType"] = (int)restorePointType;
-                mClass.InvokeMethod("CreateRestorePoint", parameters, null);
-            }
-        }
-    }
     internal enum DoneType
     {
         Install,
         Repair,
         Update,
         Uninstall
+    }
+    public enum RegType
+    {
+        Standart,
+        StandartWithProtocol,
+        StandartWithCommandProtocol,
     }
 }

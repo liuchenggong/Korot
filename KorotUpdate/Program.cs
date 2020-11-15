@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
+using IWshRuntimeLibrary;
 
 namespace KorotInstaller
 {
@@ -20,29 +21,33 @@ namespace KorotInstaller
         static void Main(string[] args)
         {
             HTAltTools.CreateLangs();
+            string prgFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\";
+            string appPath = prgFiles + "KorotInstaller.exe";
             if (!args.Contains("--skip-folder-check"))
             {
-                if (Application.StartupPath != (Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\"))
+                if (Application.ExecutablePath != appPath)
                 {
-                    Console.WriteLine(" [Startup] Moving to Program Files folder...");
-                    if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\"))
+                    if (!Directory.Exists(prgFiles))
                     {
-                        Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\");
+                        Directory.CreateDirectory(prgFiles);
                     }
-                    if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\KorotInstaller.exe"))
+                    if (System.IO.File.Exists(appPath) && Application.ExecutablePath != appPath)
                     {
-                        File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\KorotInstaller.exe");
+                        System.IO.File.Delete(appPath);
                     }
-                    File.Move(Application.ExecutablePath, Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\KorotInstaller.exe");
+                    System.IO.File.Copy(Application.ExecutablePath, appPath);
+                    Process.Start(new ProcessStartInfo(appPath) { UseShellExecute = true, Verb = "runas", Arguments = string.Join(" ",args) });
+                    return;
                 }
             }
+            HTAltTools.appShortcut(appPath,Environment.GetFolderPath(Environment.SpecialFolder.Programs) + "\\Korot Installer");
+            HTAltTools.appShortcut(appPath,Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms) + "\\Korot Installer");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(true);
             Settings settings = new Settings();
             Application.Run(new frmMain(settings));
             settings.Save();
         }
-
         static void oldMain(string[] args)
         {
             string title = Console.Title;
@@ -57,11 +62,11 @@ namespace KorotInstaller
             Console.WriteLine("Creating backup from: " + appPath);
             try
             {
-                if (File.Exists(backupFile))
+                if (System.IO.File.Exists(backupFile))
                 {
                     try
                     {
-                        File.Delete(backupFile);
+                        System.IO.File.Delete(backupFile);
 
                     }
                     catch (Exception ex)
@@ -167,7 +172,7 @@ namespace KorotInstaller
             foreach (FileInfo fi in source.GetFiles())
             {
                 string fName = Path.Combine(target.FullName, fi.Name);
-                if (File.Exists(fName)) { File.Delete(fName); Console.WriteLine("File exists. Deleted: "+ fName); }
+                if (System.IO.File.Exists(fName)) { System.IO.File.Delete(fName); Console.WriteLine("File exists. Deleted: "+ fName); }
                 fi.CopyTo(fName, true);
                 Console.WriteLine("File copied: " + fi.Name);
             }
@@ -182,10 +187,22 @@ namespace KorotInstaller
         }
     }
     /// <summary>
-    /// HTAlt.Standart.Tools Jr.
+    /// HTAlt.Standart.Tools Jr. Plus
     /// </summary>
     public static class HTAltTools
     {
+        public static void appShortcut(string app, string shortcutPath, string args = "")
+        {
+            if(!shortcutPath.ToLower().EndsWith(".lnk")) { shortcutPath += ".lnk"; }
+            if (!System.IO.File.Exists(shortcutPath))
+            {
+                WshShell shell = new WshShell();
+                IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
+                shortcut.TargetPath = app;
+                shortcut.Arguments = args;
+                shortcut.Save();
+            }
+        }
         /// <summary>
         /// Creates and writes a file without locking it.
         /// </summary>
@@ -196,11 +213,11 @@ namespace KorotInstaller
         public static bool WriteFile(string fileLocation, string input, Encoding encode)
         {
             if (!Directory.Exists(new FileInfo(fileLocation).DirectoryName)) { Directory.CreateDirectory(new FileInfo(fileLocation).DirectoryName); }
-            if (File.Exists(fileLocation))
+            if (System.IO.File.Exists(fileLocation))
             {
-                File.Delete(fileLocation);
+                System.IO.File.Delete(fileLocation);
             }
-            File.Create(fileLocation).Dispose();
+            System.IO.File.Create(fileLocation).Dispose();
             FileStream writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
             writer.Write(encode.GetBytes(input), 0, encode.GetBytes(input).Length);
             writer.Close();
@@ -217,11 +234,11 @@ namespace KorotInstaller
         public static bool WriteFile(string fileLocation, byte[] input)
         {
             if (!Directory.Exists(new FileInfo(fileLocation).DirectoryName)) { Directory.CreateDirectory(new FileInfo(fileLocation).DirectoryName); }
-            if (File.Exists(fileLocation))
+            if (System.IO.File.Exists(fileLocation))
             {
-                File.Delete(fileLocation);
+                System.IO.File.Delete(fileLocation);
             }
-            File.Create(fileLocation).Dispose();
+            System.IO.File.Create(fileLocation).Dispose();
             FileStream writer = new FileStream(fileLocation, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
             writer.Write(input, 0, input.Length);
             writer.Close();
@@ -244,11 +261,11 @@ namespace KorotInstaller
         }
         public static void CreateLangs()
         {
-            if(!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language"))
+            if(!System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language"))
             {
                 WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language", Properties.Resources.English);
             }
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\Turkish.language"))
+            if (!System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\Turkish.language"))
             {
                 WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\Turkish.language", Properties.Resources.Turkish);
             }
@@ -262,7 +279,7 @@ namespace KorotInstaller
 
         public Settings()
         {
-            if (File.Exists(FileLocation))
+            if (System.IO.File.Exists(FileLocation))
             {
                 try
                 {
@@ -328,7 +345,7 @@ namespace KorotInstaller
         public void LoadLang(string LangFile)
         {
             if (string.IsNullOrWhiteSpace(LangFile)) { LangFile = LanguageFile; }
-            if (!File.Exists(LangFile)) { LangFile = LanguageFile; }
+            if (!System.IO.File.Exists(LangFile)) { LangFile = LanguageFile; }
             Translations.Clear();
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(HTAltTools.ReadFile(LangFile, Encoding.Unicode));
@@ -407,7 +424,7 @@ namespace KorotInstaller
             {
                 if (!string.IsNullOrWhiteSpace(KorotExePath))
                 {
-                    if (File.Exists(KorotExePath))
+                    if (System.IO.File.Exists(KorotExePath))
                     {
                         return FileVersionInfo.GetVersionInfo(KorotExePath).ProductVersion;
                     }
@@ -545,7 +562,19 @@ namespace KorotInstaller
             VersionText = _text;
             VersionNo = _no;
             ZipPath = _zipPath;
-            SchemeUrl = scheme;
+            switch (scheme)
+            {
+                default:
+                case "Standart":
+                    Reg = RegType.Standart;
+                    break;
+                case "StandartWithProtocol":
+                    Reg = RegType.StandartWithProtocol;
+                    break;
+                case "StandartWithCommandProtocol":
+                    Reg = RegType.StandartWithCommandProtocol;
+                    break;
+            }
         }
         public KorotVersion(string _text, int _no)
         {
@@ -581,11 +610,11 @@ namespace KorotInstaller
         /// Visual C++ 2015
         /// </summary>
         public bool RequiresVisualC2015 => Flags.Contains("reqvc2015");
-        public string SchemeUrl { get; set; }
         public string[] Flags { get; set; } = new string[] { };
         public string VersionText { get; set; } = "";
         public int VersionNo { get; set; } = 0;
         public string ZipPath { get; set; } = "";
+        public RegType Reg { get; set; } = RegType.Standart;
 
         public override string ToString()
         {
@@ -601,6 +630,32 @@ namespace KorotInstaller
                 return Environment.Is64BitOperatingSystem || Environment.Is64BitProcess;
             }
         }
+        public static bool isInstalled(PreResq resq)
+        {
+            string key = Registry.LocalMachine.OpenSubKey(resq.RegistryKey).GetValue(resq.RegistryValue).ToString();
+            switch(resq.CheckType)
+            {
+                case RegistryCheckType.Equals:
+                    return key == resq.ValueDeğeri;
+                case RegistryCheckType.Different:
+                    return key != resq.ValueDeğeri;
+                case RegistryCheckType.DoesNotContain:
+                    return !key.Contains(resq.ValueDeğeri);
+                case RegistryCheckType.Contains:
+                    return key.Contains(resq.ValueDeğeri);
+                case RegistryCheckType.GreaterThan:
+                    return Convert.ToInt32(key) > Convert.ToInt32(resq.ValueDeğeri);
+                case RegistryCheckType.GreaterOrEqual:
+                    return Convert.ToInt32(key) >= Convert.ToInt32(resq.ValueDeğeri);
+                case RegistryCheckType.LessThan:
+                    return Convert.ToInt32(key) < Convert.ToInt32(resq.ValueDeğeri);
+                case RegistryCheckType.LessOrEqual:
+                    return Convert.ToInt32(key) <= Convert.ToInt32(resq.ValueDeğeri);
+                default:
+                    return key == resq.ValueDeğeri;
+            }
+        }
+
         public static string GetNTVersion
         {
             get
@@ -633,7 +688,11 @@ namespace KorotInstaller
                     FileName = "net48.exe",
                     Url = "https://download.visualstudio.microsoft.com/download/pr/7afca223-55d2-470a-8edc-6a1739ae3252/abd170b4b0ec15ad0222a809b761a036/ndp48-x86-x64-allos-enu.exe",
                     Name = ".Net Framework 4.8",
-                    SlentArgs = "/q /norestart"
+                    SilentArgs = "/q /norestart",
+                    RegistryKey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full",
+                    RegistryValue = "Release",
+                    ValueDeğeri = "528048",
+                    CheckType = RegistryCheckType.GreaterOrEqual
                 };
             }
         }
@@ -647,7 +706,11 @@ namespace KorotInstaller
                     FileName = "net452.exe",
                     Url = "http://download.microsoft.com/download/E/2/1/E21644B5-2DF2-47C2-91BD-63C560427900/NDP452-KB2901907-x86-x64-AllOS-ENU.exe",
                     Name = ".Net Framework 4.5.2",
-                    SlentArgs = "/q /norestart"
+                    SilentArgs = "/q /norestart",
+                    RegistryKey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full",
+                    RegistryValue = "Release",
+                    ValueDeğeri = "379892",
+                    CheckType = RegistryCheckType.GreaterOrEqual
                 };
             }
         }
@@ -661,7 +724,11 @@ namespace KorotInstaller
                     FileName = "net461.exe",
                     Url = "http://download.microsoft.com/download/E/4/1/E4173890-A24A-4936-9FC9-AF930FE3FA40/NDP461-KB3102436-x86-x64-AllOS-ENU.exe",
                     Name = ".Net Framework 4.6.1",
-                    SlentArgs = "/q /norestart"
+                    SilentArgs = "/q /norestart",
+                    RegistryKey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full",
+                    RegistryValue = "Release",
+                    ValueDeğeri = "394270",
+                    CheckType = RegistryCheckType.GreaterOrEqual
                 };
             }
         }
@@ -675,7 +742,11 @@ namespace KorotInstaller
                     FileName = "vc2015-x86.exe",
                     Url = "https://download.visualstudio.microsoft.com/download/pr/d60aa805-26e9-47df-b4e3-cd6fcc392333/A06AAC66734A618AB33C1522920654DDFC44FC13CAFAA0F0AB85B199C3D51DC0/VC_redist.x86.exe",
                     Name = "Visual C++ 2015 (32-bit)",
-                    SlentArgs = ""
+                    SilentArgs = "",
+                    RegistryKey = @"SOFTWARE\Microsoft\DevDiv\VC\Servicing\14.0\RuntimeMinimum",
+                    RegistryValue = "Version",
+                    ValueDeğeri = "14.26.28720",
+                    CheckType = RegistryCheckType.Equals
                 };
             }
         }
@@ -689,7 +760,11 @@ namespace KorotInstaller
                     FileName = "vc2015-x64.exe",
                     Url = "https://download.visualstudio.microsoft.com/download/pr/d60aa805-26e9-47df-b4e3-cd6fcc392333/7D7105C52FCD6766BEEE1AE162AA81E278686122C1E44890712326634D0B055E/VC_redist.x64.exe",
                     Name = "Visual C++ 2015 (64-bit)",
-                    SlentArgs = ""
+                    SilentArgs = "",
+                    RegistryKey = @"SOFTWARE\Microsoft\DevDiv\VC\Servicing\14.0\RuntimeMinimum",
+                    RegistryValue = "Version",
+                    ValueDeğeri = "14.26.28720",
+                    CheckType = RegistryCheckType.Equals
                 };
             }
         }
@@ -756,7 +831,52 @@ namespace KorotInstaller
             public string Name { get; set; }
             public string Url { get; set; }
             public string FileName { get; set; }
-            public string SlentArgs { get; set; }
+            public string SilentArgs { get; set; }
+            public string RegistryKey { get; set; }
+            public string RegistryValue { get; set; }
+
+            /// <summary>
+            /// value's value
+            /// yeah
+            /// weededit
+            /// </summary>
+            public string ValueDeğeri { get; set; }
+            public RegistryCheckType CheckType { get; set; }
+        }
+        public enum RegistryCheckType
+        {
+            /// <summary>
+            /// ==
+            /// </summary>
+            Equals,
+            /// <summary>
+            /// >
+            /// </summary>
+            GreaterThan,
+            /// <summary>
+            /// <
+            /// </summary>
+            LessThan,
+            /// <summary>
+            /// !=
+            /// </summary>
+            Different,
+            /// <summary>
+            /// Contains()
+            /// </summary>
+            Contains,
+            /// <summary>
+            /// !Contains()
+            /// </summary>
+            DoesNotContain,
+            /// <summary>
+            /// >=
+            /// </summary>
+            GreaterOrEqual,
+            /// <summary>
+            /// <=
+            /// </summary>
+            LessOrEqual
         }
     }
 }
