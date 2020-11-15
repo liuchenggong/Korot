@@ -1,6 +1,8 @@
 version: appveyor-{build}
 configuration: Release
-platform: x64
+platform:
+ - x86
+ - x64
 clone_folder: C:\Haltroy\Korot-appveyor\
 only_commits:
  message: /AppVeyorBuild/
@@ -8,10 +10,6 @@ before_build:
  - cmd: nuget restore
 build:
   project: Korot Desktop/Korot Desktop.csproj
-  verbosity: minimal
 artifacts:
 - path: /Korot Desktop\bin/
   name: AppveyorLatestBuild-Desktop-x64
-# TODO: Add Crosswalk artifact
-# - path: /crosswalk\Korot Crosswalk.Android\bin/
-#   name: Crosswalk

@@ -366,6 +366,21 @@ namespace KorotInstaller
             get => isDarkMode ? Color.FromArgb(255, 60, 60, 60) : Color.FromArgb(255, 195, 195, 195);
         }
 
+        public Color BackColor4
+        {
+            get => isDarkMode ? Color.FromArgb(255, 80, 80, 80) : Color.FromArgb(255, 175, 175, 175);
+        }
+
+        public Color BackColor5
+        {
+            get => isDarkMode ? Color.FromArgb(255, 100, 100, 100) : Color.FromArgb(255, 155, 155, 155);
+        }
+
+        public Color BackColor6
+        {
+            get => isDarkMode ? Color.FromArgb(255, 120, 120, 120) : Color.FromArgb(255, 135, 135, 135);
+        }
+
         public Color MidColor
         {
             get => Color.FromArgb(255, 128, 128, 128);
@@ -571,9 +586,21 @@ namespace KorotInstaller
         public string VersionText { get; set; } = "";
         public int VersionNo { get; set; } = 0;
         public string ZipPath { get; set; } = "";
+
+        public override string ToString()
+        {
+            return VersionText + " (" + VersionNo + ")";
+        }
     }
     public static class PreResqs
     {
+        public static bool is64BitMachine
+        {
+            get
+            {
+                return Environment.Is64BitOperatingSystem || Environment.Is64BitProcess;
+            }
+        }
         public static string GetNTVersion
         {
             get
@@ -596,6 +623,77 @@ namespace KorotInstaller
                 return major + "." + minor + (win10 != 0 ? "." + win10 : "") + (sp != 0 ? "sp" + sp : "");
             }
         }
+
+        public static PreResq NetFramework48
+        {
+            get
+            {
+                return new PreResq()
+                {
+                    FileName = "net48.exe",
+                    Url = "https://download.visualstudio.microsoft.com/download/pr/7afca223-55d2-470a-8edc-6a1739ae3252/abd170b4b0ec15ad0222a809b761a036/ndp48-x86-x64-allos-enu.exe",
+                    Name = ".Net Framework 4.8",
+                    SlentArgs = "/q /norestart"
+                };
+            }
+        }
+
+        public static PreResq NetFramework452
+        {
+            get
+            {
+                return new PreResq()
+                {
+                    FileName = "net452.exe",
+                    Url = "http://download.microsoft.com/download/E/2/1/E21644B5-2DF2-47C2-91BD-63C560427900/NDP452-KB2901907-x86-x64-AllOS-ENU.exe",
+                    Name = ".Net Framework 4.5.2",
+                    SlentArgs = "/q /norestart"
+                };
+            }
+        }
+
+        public static PreResq NetFramework461
+        {
+            get
+            {
+                return new PreResq()
+                {
+                    FileName = "net461.exe",
+                    Url = "http://download.microsoft.com/download/E/4/1/E4173890-A24A-4936-9FC9-AF930FE3FA40/NDP461-KB3102436-x86-x64-AllOS-ENU.exe",
+                    Name = ".Net Framework 4.6.1",
+                    SlentArgs = "/q /norestart"
+                };
+            }
+        }
+
+        public static PreResq VisualC2015x86
+        {
+            get
+            {
+                return new PreResq()
+                {
+                    FileName = "vc2015-x86.exe",
+                    Url = "https://download.visualstudio.microsoft.com/download/pr/d60aa805-26e9-47df-b4e3-cd6fcc392333/A06AAC66734A618AB33C1522920654DDFC44FC13CAFAA0F0AB85B199C3D51DC0/VC_redist.x86.exe",
+                    Name = "Visual C++ 2015 (32-bit)",
+                    SlentArgs = ""
+                };
+            }
+        }
+
+        public static PreResq VisualC2015x64
+        {
+            get
+            {
+                return new PreResq()
+                {
+                    FileName = "vc2015-x64.exe",
+                    Url = "https://download.visualstudio.microsoft.com/download/pr/d60aa805-26e9-47df-b4e3-cd6fcc392333/7D7105C52FCD6766BEEE1AE162AA81E278686122C1E44890712326634D0B055E/VC_redist.x64.exe",
+                    Name = "Visual C++ 2015 (64-bit)",
+                    SlentArgs = ""
+                };
+            }
+        }
+
         public static bool SystemSupportsNet452
         {
             get
@@ -650,8 +748,15 @@ namespace KorotInstaller
             get
             {
                 // if visualc++2015 x86 is supported, then only thing we need to check is if it runs on x64.
-                return SystemSupportsVisualC2015x86 && Environment.Is64BitProcess;
+                return SystemSupportsVisualC2015x86 && is64BitMachine;
             }
+        }
+        public class PreResq
+        {
+            public string Name { get; set; }
+            public string Url { get; set; }
+            public string FileName { get; set; }
+            public string SlentArgs { get; set; }
         }
     }
 }

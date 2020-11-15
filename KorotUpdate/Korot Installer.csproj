@@ -65,6 +65,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProcessWork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -76,6 +77,8 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="app.manifest" />
+    <None Include="InstallSchemes\KorotDesktop-Old.scheme" />
+    <None Include="InstallSchemes\KorotDesktop-v1.scheme" />
     <None Include="Lang\English.language" />
     <None Include="Lang\Turkish.language" />
     <None Include="protocol.reg" />

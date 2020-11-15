@@ -30,12 +30,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyTabs", "EasyTabs\EasyTa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Korot Installer", "KorotUpdate\Korot Installer.csproj", "{6F5571C0-E808-4528-94AB-2E059B6AA558}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InstallSchemes", "InstallSchemes", "{F4872110-8B52-498F-ADBC-53790B6D2ECB}"
-	ProjectSection(SolutionItems) = preProject
-		InstallSchemes\KorotDesktop-Old.scheme = InstallSchemes\KorotDesktop-Old.scheme
-		InstallSchemes\KorotDesktop-v1.scheme = InstallSchemes\KorotDesktop-v1.scheme
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,7 +123,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C9D4ED81-16F1-499E-8117-DBFE7AE2F009} = {CA044C17-6907-463B-9193-DE500F16CEFD}
 		{02C4F649-0587-4D07-A48C-EFC7C4D594EE} = {C9D4ED81-16F1-499E-8117-DBFE7AE2F009}
-		{F4872110-8B52-498F-ADBC-53790B6D2ECB} = {CA044C17-6907-463B-9193-DE500F16CEFD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {02B1BCF6-A6B8-49E2-B338-70028C854DC5}

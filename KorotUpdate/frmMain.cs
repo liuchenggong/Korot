@@ -17,7 +17,129 @@ namespace KorotInstaller
 {
     public partial class frmMain : Form
     {
+        /// <summary>
+        /// General purpose WebClient
+        /// </summary>
+        WebClient GPWC = new WebClient();
         Settings Settings;
+        private VersionManager VersionManager;
+        StringEventhHybrid workOn;
+        List<StringEventhHybrid> downloadStrings = new List<StringEventhHybrid>();
+        bool allowClose = true;
+        bool allowSwitch = false;
+        KorotVersion versionToInstall;
+        static string korotPath => Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
+        static string korotBetaPath => Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
+        bool korotExists = File.Exists(korotPath);
+        bool betaExists = File.Exists(korotBetaPath);
+        #region "Translations"
+        string UIChangeVerMissing = "We couldn't find this version at our archives.";
+        string UIChangeVerArchNotSupported = "Your platform is not supported in this version.";
+        string DownloadProgress = "Downloading [NAME]... [CURRENT]/[TOTAL]";
+        string DownloadKorotDesktop = "Korot Desktop";
+        string DownloadsComplete = "All downloads are finished.";
+        string InstallComplete = "All installations are finished.";
+        string RegistryComplete = "All registries are registered.";
+        string RegistryStart = "Registering...";
+        string UIYes = "Yes";
+        string UINo = "No";
+        string UIOK = "OK";
+        string UICancel = "Cancel";
+        string UIRepairButton = "Repair";
+        string UIUpdateButton = "Update";
+        string UIInstallVer = "Install [VER]";
+        string UIGatherInfo = "Gathering Information...";
+        string UICheckUpdate = "Checking for updates...";
+        string UIReadyDesc = "Your Korot is ready to be installed.";
+        string UINotReadyDesc = "You don't meet the requirements for installing Korot.";
+        string UIChangeVerO1 = "Latest PreOut Version ([PREOUT])";
+        string UIChangeVerO2 = "Latest Stable Version ([LATEST])";
+        string UICreateRecovery = "Creating a restore point...";
+        string UIDoneUninstall = "Korot successfully uninstalled." + Environment.NewLine + "" + Environment.NewLine + "It's improtant for us to listen to your reason why you decided to uninstall Korot so please open an issue in GitHub by clickng &quot;Send Feedback&quot; button below." + Environment.NewLine + "" + Environment.NewLine + "Farewell, old firend." + Environment.NewLine + "" + Environment.NewLine + "";
+        string UIDoneInstall = "Korot installed successfully." + Environment.NewLine + "" + Environment.NewLine + "Closing this program will start the application.";
+        string UIDoneUpdate = "Korot updated successfully.";
+        string UIDoneRepair = "Korot repaired successfully.";
+        string UIDoneError = "An error occured while doing your request. Don't worry, we restored your Korot installation. Please create an issue on GitHub by clicking &quot;Send Feedback&quot; and copy-paste this information below:";
+        string UIPreOutAvailable = "You meet the requirements.";
+        string UIPreOutDisable = "You don't meet the requirements. Update or Repair your Korot first.";
+        string UICreateShortcut = "Creating shortcuts...";
+        string UIUpdating = "Updating Installer... Please wait..." + Environment.NewLine + "[PERC]% | [CURRENT] KiB downloaded out of [TOTAL] KiB.";
+
+        public void LoadLang()
+        {
+            UIInstallVer = Settings.GetItemText("UIInstallVer");
+            lbChangeVerDesc.Text = Settings.GetItemText("UIChangeVerDesc");
+            UIChangeVerMissing = Settings.GetItemText("UIChangeVerMissing");
+            UIChangeVerArchNotSupported = Settings.GetItemText("UIChangeVerArchNotSupported");
+            DownloadProgress = Settings.GetItemText("DownloadProgress");
+            DownloadKorotDesktop = Settings.GetItemText("DownloadKorotDesktop");
+            DownloadsComplete = Settings.GetItemText("DownloadsComplete");
+            InstallComplete = Settings.GetItemText("InstallComplete");
+            RegistryComplete = Settings.GetItemText("RegistryComplete");
+            RegistryStart = Settings.GetItemText("RegistryStart");
+            UIYes = Settings.GetItemText("UIYes");
+            UINo = Settings.GetItemText("UINo");
+            UIOK = Settings.GetItemText("UIOK");
+            UICancel = Settings.GetItemText("UICancel");
+            btClose.Text = Settings.GetItemText("UIClose");
+            UIGatherInfo = Settings.GetItemText("UIGatherInfo");
+            UICheckUpdate = Settings.GetItemText("UICheckUpdate");
+            UIReadyDesc = Settings.GetItemText("UIReadyDesc");
+            UINotReadyDesc = Settings.GetItemText("UINotReadyDesc");
+            lbModifyDesc.Text = Settings.GetItemText("UIModifyDesc");
+            btInstall.Text = Settings.GetItemText("UIReadyButton");
+            UIRepairButton = Settings.GetItemText("UIRepairButton");
+            UIUpdateButton = Settings.GetItemText("UIUpdateButton");
+            btUninstall.Text = Settings.GetItemText("UIUninstallButton");
+            btChangeVer.Text = Settings.GetItemText("UIChangeVerButton");
+            UIChangeVerO1 = Settings.GetItemText("UIChangeVerO1");
+            UIChangeVerO2 = Settings.GetItemText("UIChangeVerO2");
+            rbOld.Text = Settings.GetItemText("UIChangeVerO3");
+            lbDownloading.Text = Settings.GetItemText("UIDownloading");
+            lbInstalling.Text = Settings.GetItemText("UIInstalling");
+            UICreateRecovery = Settings.GetItemText("UICreateRecovery");
+            UIDoneUninstall = Settings.GetItemText("UIDoneUninstall");
+            UIDoneInstall = Settings.GetItemText("UIDoneInstall");
+            UIDoneUpdate = Settings.GetItemText("UIDoneUpdate");
+            UIDoneRepair = Settings.GetItemText("UIDoneRepair");
+            UIDoneError = Settings.GetItemText("UIDoneError");
+            btSendFeedback.Text = Settings.GetItemText("UISendFeedback");
+            UIPreOutAvailable = Settings.GetItemText("UIPreOutAvailable");
+            UIPreOutDisable = Settings.GetItemText("UIPreOutDisable");
+            lbVersionToInstall.Text = Settings.GetItemText("UIVersionToInstall");
+            UICreateShortcut = Settings.GetItemText("CreateShortcut");
+            UIUpdating = Settings.GetItemText("UIUpdating");
+            if (VersionManager.PreOutVerNumber != 0 && VersionManager.LatestVersionNumber != 0)
+            {
+                rbPreOut.Text = UIChangeVerO1.Replace("[PREOUT]", VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber).VersionText);
+                rbStable.Text = UIChangeVerO2.Replace("[LATEST]", VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber).VersionText);
+                if (supportsLatestPreOut())
+                {
+                    lbPerOutReq.Text = UIPreOutAvailable;
+                    rbPreOut.Enabled = true;
+                }
+                else
+                {
+                    lbPerOutReq.Text = UIPreOutDisable;
+                    rbPreOut.Enabled = false;
+                }
+            }
+            if (VersionManager.Versions.Count > 0)
+            {
+                string korotPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
+                string korotBetaPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
+                bool korotExists = File.Exists(korotPath);
+                var current = VersionManager.GetVersionFromVersionName(FileVersionInfo.GetVersionInfo(korotExists ? korotPath : korotBetaPath).ProductVersion);
+                btRepair.Text = current != null
+                    ? VersionManager.LatestVersionNumber != current.VersionNo || VersionManager.PreOutVerNumber != current.VersionNo
+                        ? UIUpdateButton
+                        : UIRepairButton
+                    : UIRepairButton;
+            }
+            cbOld.Location = new Point(lbVersionToInstall.Location.X + lbVersionToInstall.Width, cbOld.Location.Y);
+        }
+
+        #endregion "Translations"
         public frmMain(Settings settings)
         {
             Settings = settings;
@@ -27,22 +149,20 @@ namespace KorotInstaller
             GPWC.DownloadProgressChanged += GPWC_ProgressChanged;
             GPWC.DownloadFileCompleted += GPWC_DownloadFileComplete;
             string[] langFiles = Directory.GetFiles(Settings.WorkFolder, "*.language");
+            DoneType = DoneType.Install;
             cbLang.Items.Clear();
             for (int i = 0; i < langFiles.Length; i++)
             {
                 cbLang.Items.Add(Path.GetFileNameWithoutExtension(langFiles[i]));
             }
+            lbDoneDesc.MaximumSize = new Size(tbDoneError.Width, 0);
             cbLang.Text = Path.GetFileNameWithoutExtension(Settings.LanguageFile);
             LoadLang();
             updateTheme();
         }
-        StringEventhHybrid workOn;
-        List<StringEventhHybrid> downloadStrings = new List<StringEventhHybrid>();
 
-        /// <summary>
-        /// General purpose WebClient
-        /// </summary>
-        WebClient GPWC = new WebClient();
+
+
         private void GPWC_DownloadStringComplete(object sender, DownloadStringCompletedEventArgs e)
         {
             if (GPWC.IsBusy) { GPWC.CancelAsync(); }
@@ -61,18 +181,24 @@ namespace KorotInstaller
             }
         }
 
+        int installJobCount = 0;
+        int installDoneCount = 0;
         bool isPreparing = true;
+        int doneCount = 0;
         private void GPWC_ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            if (workOn.Type == StringEventhHybrid.StringType.File)
+            if (workOn.Type == StringEventhHybrid.StringType.File && !isPreparing)
             {
-                if (!isPreparing)
+                Invoke(new Action(() =>
                 {
-                    lbDownloadInfo.Text = DownloadProgress.Replace("[NAME]", workOn.String3).Replace("[CURRENT]", (e.BytesReceived / 1024) + "KiB").Replace("[TOTAL]", (e.TotalBytesToReceive / 1024) + "KiB");
+                    lbDownloadInfo.Text = DownloadProgress.Replace("[NAME]", workOn.String3).Replace("[CURRENT]", (e.BytesReceived / 1024) + " KiB").Replace("[TOTAL]", (e.TotalBytesToReceive / 1024) + " KiB");
+                    lbDownloadCount.Text = (doneCount + 1) + "/" + downloadStrings.FindAll(i => i.Type == StringEventhHybrid.StringType.File).Count;
                     pbDownload.Width = e.ProgressPercentage * (pDownload.Width / 100);
-                }
+                }));
             }
         }
+
+
 
         private void GPWC_DownloadFileComplete(object sender, AsyncCompletedEventArgs e)
         {
@@ -82,6 +208,7 @@ namespace KorotInstaller
                 workOn.RunEvent(this, e);
                 downloadStrings.Remove(workOn);
                 workOn = downloadStrings.Find(i => i.Type == StringEventhHybrid.StringType.File);
+                doneCount++;
                 if (workOn != null)
                 {
                     GPWC.DownloadStringAsync(new Uri(workOn.String));
@@ -135,9 +262,6 @@ namespace KorotInstaller
                     tabControl1.SelectedTab = tpModify;
                     if (VersionManager.Versions.Count > 0)
                     {
-                        string korotPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
-                        string korotBetaPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
-                        bool korotExists = File.Exists(korotPath);
                         var current = VersionManager.GetVersionFromVersionName(FileVersionInfo.GetVersionInfo(korotExists ? korotPath : korotBetaPath).ProductVersion);
                         btRepair.Text = current != null
                             ? VersionManager.LatestVersionNumber != current.VersionNo || VersionManager.PreOutVerNumber != current.VersionNo
@@ -146,118 +270,14 @@ namespace KorotInstaller
                             : UIRepairButton;
                     }
                 }
+            }else
+            {
+                lbDownloadInfo.Text = DownloadsComplete;
+                pbDownload.Width = pDownload.Width;
             }
         }
 
-        #region "Translations"
-        string UIChangeVerMissing = "We couldn't find this version at our archives.";
-        string UIChangeVerArchNotSupported = "Your platform is not supported in this version.";
-        string DownloadProgress = "Downloading [NAME]... [CURRENT]/[TOTAL]";
-        string DownloadKorotDesktop = "Korot Desktop";
-        string DownloadsComplete = "All downloads are finished.";
-        string InstallComplete = "All installations are finished.";
-        string RegistryComplete = "All registries are registered.";
-        string RegistryStart = "Registering...";
-        string UIYes = "Yes";
-        string UINo = "No";
-        string UIOK = "OK";
-        string UICancel = "Cancel";
-        string UIRepairButton = "Repair";
-        string UIUpdateButton = "Update";
-        string UIInstallVer = "Install [VER]";
-        string UIGatherInfo = "Gathering Information...";
-        string UICheckUpdate = "Checking for updates...";
-        string UIReadyDesc = "Your Korot is ready to be installed.";
-        string UINotReadyDesc ="You don't meet the requirements for installing Korot.";
-        string UIChangeVerO1 = "Latest PreOut Version ([PREOUT])";
-        string UIChangeVerO2 = "Latest Stable Version ([LATEST])";
-        string UICreateRecovery = "Creating a restore point...";
-        string UIDoneUninstall = "Korot successfully uninstalled." + Environment.NewLine + "" + Environment.NewLine + "It's improtant for us to listen to your reason why you decided to uninstall Korot so please open an issue in GitHub by clickng &quot;Send Feedback&quot; button below." + Environment.NewLine + "" + Environment.NewLine + "Farewell, old firend." + Environment.NewLine + "" + Environment.NewLine + "";
-        string UIDoneInstall = "Korot installed successfully." + Environment.NewLine + "" + Environment.NewLine + "Closing this program will start the application.";
-        string UIDoneUpdate = "Korot updated successfully.";
-        string UIDoneRepair = "Korot repaired successfully.";
-        string UIDoneError = "An error occured while doing your request. Don't worry, we restored your Korot installation. Please create an issue on GitHub by clicking &quot;Send Feedback&quot; and copy-paste this information below:";
-        string UIPreOutAvailable = "You meet the requirements.";
-        string UIPreOutDisable = "You don't meet the requirements. Update or Repair your Korot first.";
-        string CreateShortcut = "Creating shortcuts...";
-        string UIUpdating = "Updating Installer... Please wait..." + Environment.NewLine + "[PERC]% | [CURRENT] KiB downloaded out of [TOTAL] KiB.";
-
-        public void LoadLang()
-        {
-            UIInstallVer = Settings.GetItemText("UIInstallVer");
-            lbChangeVerDesc.Text = Settings.GetItemText("UIChangeVerDesc");
-            UIChangeVerMissing = Settings.GetItemText("UIChangeVerMissing");
-            UIChangeVerArchNotSupported = Settings.GetItemText("UIChangeVerArchNotSupported");
-            DownloadProgress = Settings.GetItemText("DownloadProgress");
-            DownloadKorotDesktop = Settings.GetItemText("DownloadKorotDesktop");
-            DownloadsComplete = Settings.GetItemText("DownloadsComplete");
-            InstallComplete = Settings.GetItemText("InstallComplete");
-            RegistryComplete = Settings.GetItemText("RegistryComplete");
-            RegistryStart = Settings.GetItemText("RegistryStart");
-            UIYes = Settings.GetItemText("UIYes");
-            UINo = Settings.GetItemText("UINo");
-            UIOK = Settings.GetItemText("UIOK");
-            UICancel = Settings.GetItemText("UICancel");
-            btClose.Text = Settings.GetItemText("UIClose");
-            UIGatherInfo = Settings.GetItemText("UIGatherInfo");
-            UICheckUpdate = Settings.GetItemText("UICheckUpdate");
-            UIReadyDesc = Settings.GetItemText("UIReadyDesc");
-            UINotReadyDesc = Settings.GetItemText("UINotReadyDesc");
-            lbModifyDesc.Text = Settings.GetItemText("UIModifyDesc");
-            btInstall.Text = Settings.GetItemText("UIReadyButton");
-            UIRepairButton = Settings.GetItemText("UIRepairButton");
-            UIUpdateButton = Settings.GetItemText("UIUpdateButton");
-            btUninstall.Text = Settings.GetItemText("UIUninstallButton");
-            btChangeVer.Text = Settings.GetItemText("UIChangeVerButton");
-            UIChangeVerO1 = Settings.GetItemText("UIChangeVerO1");
-            UIChangeVerO2 = Settings.GetItemText("UIChangeVerO2");
-            rbOld.Text = Settings.GetItemText("UIChangeVerO3");
-            lbDownloading.Text = Settings.GetItemText("UIDownloading");
-            lbInstalling.Text = Settings.GetItemText("UIInstalling");
-            UICreateRecovery = Settings.GetItemText("UICreateRecovery");
-            UIDoneUninstall = Settings.GetItemText("UIDoneUninstall");
-            UIDoneInstall = Settings.GetItemText("UIDoneInstall");
-            UIDoneUpdate = Settings.GetItemText("UIDoneUpdate");
-            UIDoneRepair = Settings.GetItemText("UIDoneRepair");
-            UIDoneError = Settings.GetItemText("UIDoneError");
-            btSendFeedback.Text = Settings.GetItemText("UISendFeedback");
-            UIPreOutAvailable = Settings.GetItemText("UIPreOutAvailable");
-            UIPreOutDisable = Settings.GetItemText("UIPreOutDisable");
-            lbVersionToInstall.Text = Settings.GetItemText("UIVersionToInstall");
-            CreateShortcut = Settings.GetItemText("CreateShortcut");
-            UIUpdating = Settings.GetItemText("UIUpdating");
-            if (VersionManager.PreOutVerNumber != 0 && VersionManager.LatestVersionNumber != 0)
-            {
-                rbPreOut.Text = UIChangeVerO1.Replace("[PREOUT]", VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber).VersionText);
-                rbStable.Text = UIChangeVerO2.Replace("[LATEST]", VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber).VersionText);
-                if (supportsLatestPreOut())
-                {
-                    lbPerOutReq.Text = UIPreOutAvailable;
-                    rbPreOut.Enabled = true;
-                }
-                else
-                {
-                    lbPerOutReq.Text = UIPreOutDisable;
-                    rbPreOut.Enabled = false;
-                }
-            }
-            if (VersionManager.Versions.Count > 0)
-            {
-                string korotPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
-                string korotBetaPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
-                bool korotExists = File.Exists(korotPath);
-                var current = VersionManager.GetVersionFromVersionName(FileVersionInfo.GetVersionInfo(korotExists ? korotPath : korotBetaPath).ProductVersion);
-                btRepair.Text = current != null
-                    ? VersionManager.LatestVersionNumber != current.VersionNo || VersionManager.PreOutVerNumber != current.VersionNo
-                        ? UIUpdateButton
-                        : UIRepairButton
-                    : UIRepairButton;
-            }
-            cbOld.Location = new Point(lbVersionToInstall.Location.X + lbVersionToInstall.Width, cbOld.Location.Y);
-
-        }
-
-        #endregion "Translations"
+        
         private void frmMain_Load(object sender, EventArgs e)
         {
             StringEventhHybrid htupdate = new StringEventhHybrid() { String = "https://raw.githubusercontent.com/Haltroy/Korot/master/Korot.htupdate", Type = StringEventhHybrid.StringType.String, };
@@ -267,19 +287,47 @@ namespace KorotInstaller
 
         private void DoStringWork(StringEventhHybrid seh)
         {
-            downloadStrings.Add(seh);
+            if (!downloadStrings.Contains(seh))
+            {
+                downloadStrings.Add(seh);
+            }
             if (!GPWC.IsBusy) { workOn = seh; GPWC.DownloadStringAsync(new Uri(seh.String)); }
         }
 
         private void DoFileWork(StringEventhHybrid seh)
         {
-            downloadStrings.Add(seh);
+            if (!downloadStrings.Contains(seh))
+            {
+                downloadStrings.Add(seh);
+            }
             if (!GPWC.IsBusy) { workOn = seh; GPWC.DownloadFileAsync(new Uri(seh.String),seh.String2); }
         }
 
-        #region "HTUPDATE"
-        private VersionManager VersionManager;
-        #endregion "HTUPDATE"
+        private DoneType DoneType;
+
+        private void Successful()
+        {
+            allowClose = true;
+            allowSwitch = true;
+            tabControl1.SelectedTab = tpDone;
+            switch(DoneType)
+            {
+                case DoneType.Install:
+                    lbDoneDesc.Text = UIDoneInstall;
+                    break;
+                case DoneType.Repair:
+                    lbDoneDesc.Text = UIDoneRepair;
+                    break;
+                case DoneType.Update:
+                    lbDoneDesc.Text = UIDoneUpdate;
+                    break;
+                case DoneType.Uninstall:
+                    lbDoneDesc.Text = UIDoneUninstall;
+                    break;
+            }
+            tbDoneError.Visible = false;
+            tbDoneError.Enabled = false;
+        }
 
         private void htupdateDownloaded(object sender, EventArgs E)
         {
@@ -384,6 +432,19 @@ namespace KorotInstaller
         {
             BackColor = Settings.BackColor;
             ForeColor = Settings.ForeColor;
+            cbLang.ForeColor = Settings.MidColor;
+            btInstall.ForeColor = Settings.ForeColor;
+            btInstall1.ForeColor = Settings.ForeColor;
+            cbOld.ForeColor = Settings.ForeColor;
+            pChangeVer.ForeColor = Settings.ForeColor;
+            btRepair.ForeColor = Settings.ForeColor;
+            btUninstall.ForeColor = Settings.ForeColor;
+            btChangeVer.ForeColor = Settings.ForeColor;
+            btClose.ForeColor = Settings.ForeColor;
+            btSendFeedback.ForeColor = Settings.ForeColor;
+            tbDoneError.ForeColor = Settings.ForeColor;
+            panel1.ForeColor = Settings.ForeColor;
+
             pictureBox2.Image = Settings.isDarkMode ? Properties.Resources.dark : Properties.Resources.light;
             for (int i = 0; i < tabControl1.TabPages.Count; i++)
             {
@@ -391,34 +452,21 @@ namespace KorotInstaller
                 page.BackColor = Settings.BackColor1;
                 page.ForeColor = Settings.ForeColor;
             }
-            foreach (Control cntrl in Controls)
-            {
-                RecursiveControlPaint(cntrl);
-            }
+
+            BackColor = Settings.BackColor;
+            pDownload.BackColor = Settings.BackColor2;
+            panel1.BackColor = Settings.BackColor;
+            pInstall.BackColor = Settings.BackColor2;
+            pChangeVer.BackColor = Settings.BackColor2;
+            flowLayoutPanel1.BackColor = Settings.BackColor1;
+            tbDoneError.BackColor = Settings.BackColor2;
+            cbOld.BackColor = Settings.BackColor3;
+            btInstall.BackColor = Settings.BackColor2;
+            btRepair.BackColor = Settings.BackColor2;
+            btUninstall.BackColor = Settings.BackColor2;
+            btChangeVer.BackColor = Settings.BackColor2;
+            btInstall1.BackColor = Settings.BackColor3;
             cbLang.BackColor = Settings.BackColor1;
-            cbLang.ForeColor = Settings.MidColor;
-        }
-        private void RecursiveControlPaint(Control cntrl)
-        {
-            if (cntrl is null) { return; }
-            if (cntrl is Button)
-            {
-                var button = cntrl as Button;
-                button.BackColor = Settings.BackColor2;
-                button.ForeColor = Settings.ForeColor;
-            }
-            else if (cntrl is ComboBox)
-            {
-                var button = cntrl as ComboBox;
-                button.BackColor = Settings.BackColor2;
-                button.ForeColor = Settings.ForeColor;
-            }else
-            {
-                foreach (Control cntrl1 in cntrl.Controls)
-                {
-                    RecursiveControlPaint(cntrl1);
-                }
-            }
         }
         private void pictureBox2_Click(object sender, EventArgs e)
         {
@@ -426,8 +474,7 @@ namespace KorotInstaller
             updateTheme();
         }
 
-        bool allowClose = true;
-        bool allowSwitch = false;
+
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
             if (allowSwitch) { allowSwitch = false; } else { e.Cancel = true; }
@@ -450,38 +497,138 @@ namespace KorotInstaller
         }
         private bool supportsLatestPreOut()
         {
-            string korotPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
-            string korotBetaPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
-            bool korotExists = File.Exists(korotPath);
-            bool betaExists = File.Exists(korotBetaPath);
+
             if (!korotExists && !betaExists)
             {
                 return false;
             }
             var vPreOut = VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber);
-            if (vPreOut.isOnlyx64 & !Environment.Is64BitProcess) { return false; }
+            if (vPreOut.isOnlyx64 & !PreResqs.is64BitMachine) { return false; }
             var currentVer = VersionManager.GetVersionFromVersionName(FileVersionInfo.GetVersionInfo(korotExists ? korotPath : korotBetaPath).ProductVersion);
+            if (currentVer == null) { rbPreOut.Checked = true; return true; }
             if (currentVer.VersionNo < VersionManager.LatestVersionNumber || currentVer.VersionNo < VersionManager.PreOutMinVer) { return false; }
             return true;
         }
 
         private bool supportsThisVer(KorotVersion ver)
         {
-            string korotPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
-            string korotBetaPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
-            bool korotExists = File.Exists(korotPath);
-            bool betaExists = File.Exists(korotBetaPath);
             if (!korotExists && !betaExists)
             {
                 return false;
             }
-            if (ver.isOnlyx64 && !(Environment.Is64BitProcess || Environment.Is64BitOperatingSystem)) { return false; }
+            if (ver.isOnlyx64 && !PreResqs.is64BitMachine) { return false; }
             if (ver.RequiresNet452 && !PreResqs.SystemSupportsNet452) { return false; }
             if (ver.RequiresNet461 && !PreResqs.SystemSupportsNet461) { return false; }
             if (ver.RequiresNet48 && !PreResqs.SystemSupportsNet48) { return false; }
             if (ver.RequiresVisualC2015 && !PreResqs.SystemSupportsVisualC2015x86) { return false; }
             return true;
         }
+
+        private void Error(Exception ex)
+        {
+            allowClose = true;
+            allowSwitch = true;
+            tabControl1.SelectedTab = tpDone;
+            lbDoneDesc.Text = UIDoneError;
+            tbDoneError.Text = ex.ToString();
+            tbDoneError.Location = new Point(tbDoneError.Location.X, lbDoneDesc.Location.Y + lbDoneDesc.Height);
+            tbDoneError.Height = Height - (panel1.Height + flowLayoutPanel1.Height + lbDoneDesc.Height + 35);
+        }
+
+
+
+        private void StartInstallation()
+        {
+            allowSwitch = true;
+            allowClose = false;
+            tabControl1.SelectedTab = tpProgress;
+            if(versionToInstall.isMissing) { Error(new Exception("This version \"" + versionToInstall.ToString() + ") is missing.")); }
+            if (versionToInstall.RequiresNet452 && !PreResqs.SystemSupportsNet452) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires .NEt Framework 4.5.2 but your computer does not supports it.")); }
+            if (versionToInstall.RequiresNet461 && !PreResqs.SystemSupportsNet461) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires .NEt Framework 4.6.1 but your computer does not supports it.")); }
+            if (versionToInstall.RequiresNet48 && !PreResqs.SystemSupportsNet48) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires .NEt Framework 4.8 but your computer does not supports it.")); }
+            if (versionToInstall.RequiresVisualC2015 && !PreResqs.SystemSupportsVisualC2015x86) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires Visual C++ 2015 but your computer does not supports it.")); }
+            if (versionToInstall.isOnlyx64 && !PreResqs.is64BitMachine) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires 64-bit machine but this machine is not a 64 bit machine.")); }
+            isPreparing = false;
+            if (versionToInstall.RequiresNet452)
+            {
+                StringEventhHybrid seh = new StringEventhHybrid()
+                {
+                    String = PreResqs.NetFramework452.Url,
+                    String2 = Settings.WorkFolder + PreResqs.NetFramework452.FileName,
+                    String3 = PreResqs.NetFramework452.Name,
+                    Type = StringEventhHybrid.StringType.File,
+                };
+                installJobCount++;
+                downloadStrings.Add(seh);
+            }
+            if (versionToInstall.RequiresNet461)
+            {
+                StringEventhHybrid seh = new StringEventhHybrid()
+                {
+                    String = PreResqs.NetFramework461.Url,
+                    String2 = Settings.WorkFolder + PreResqs.NetFramework461.FileName,
+                    String3 = PreResqs.NetFramework461.Name,
+                    Type = StringEventhHybrid.StringType.File,
+                };
+                installJobCount++;
+                downloadStrings.Add(seh);
+            }
+            if (versionToInstall.RequiresNet48)
+            {
+                StringEventhHybrid seh = new StringEventhHybrid()
+                {
+                    String = PreResqs.NetFramework48.Url,
+                    String2 = Settings.WorkFolder + PreResqs.NetFramework48.FileName,
+                    String3 = PreResqs.NetFramework48.Name,
+                    Type = StringEventhHybrid.StringType.File,
+                };
+                installJobCount++;
+                downloadStrings.Add(seh);
+            }
+            if (versionToInstall.RequiresVisualC2015)
+            {
+                
+                StringEventhHybrid seh = new StringEventhHybrid()
+                {
+                    String = PreResqs.VisualC2015x86.Url,
+                    String2 = Settings.WorkFolder + PreResqs.VisualC2015x86.FileName,
+                    String3 = PreResqs.VisualC2015x86.Name,
+                    Type = StringEventhHybrid.StringType.File,
+                };
+                installJobCount++;
+                downloadStrings.Add(seh);
+
+                if (PreResqs.is64BitMachine)
+                {
+                    StringEventhHybrid seh2 = new StringEventhHybrid()
+                    {
+                        String = PreResqs.VisualC2015x64.Url,
+                        String2 = Settings.WorkFolder + PreResqs.VisualC2015x64.FileName,
+                        String3 = PreResqs.VisualC2015x64.Name,
+                        Type = StringEventhHybrid.StringType.File,
+                    };
+                    installJobCount++;
+                    downloadStrings.Add(seh2);
+                }
+            }
+            StringEventhHybrid sehK = new StringEventhHybrid()
+            {
+                String = versionToInstall.ZipPath.Replace("[VERSION]",versionToInstall.VersionText).Replace("[ARCH]", PreResqs.is64BitMachine ? "x64" : "x86").Replace("[U]","F"),
+                String2 = Settings.WorkFolder + versionToInstall.VersionText + ".htup",
+                String3 = DownloadKorotDesktop,
+                Type = StringEventhHybrid.StringType.File,
+            };
+            installJobCount++;
+            downloadStrings.Add(sehK);
+            if (workOn == null)
+            {
+                workOn = downloadStrings[0];
+            }
+            DoFileWork(workOn);
+            installJobCount += 3;
+            lbInstallInfo.Text = UICreateRecovery;
+        }
+
 
         private void btChangeVer_Click(object sender, EventArgs e)
         {
@@ -493,8 +640,6 @@ namespace KorotInstaller
             pChangeVer.Enabled = true;
             rbPreOut.Text = UIChangeVerO1.Replace("[PREOUT]", VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber).VersionText);
             rbStable.Text = UIChangeVerO2.Replace("[LATEST]", VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber).VersionText);
-            Console.WriteLine(" [PreOut] N: " + VersionManager.PreOutVerNumber + " T: " + VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber).VersionText);
-            Console.WriteLine(" [Latest] N: " + VersionManager.LatestVersionNumber + " T: " + VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber).VersionText);
             if(supportsLatestPreOut())
             {
                 lbPerOutReq.Text = UIPreOutAvailable;
@@ -582,6 +727,82 @@ namespace KorotInstaller
             lbInstallError.Text = "";
             btInstall1.Enabled = true;
         }
+
+        private void btRepair_Click(object sender, EventArgs e)
+        {
+            string korotPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
+            string korotBetaPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
+            bool korotExists = File.Exists(korotPath);
+            var current = VersionManager.GetVersionFromVersionName(FileVersionInfo.GetVersionInfo(korotExists ? korotPath : korotBetaPath).ProductVersion);
+            if (current is null) //PreOut
+            {
+                versionToInstall = VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber);
+            }else
+            {
+                versionToInstall = VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber);
+            }
+        }
+
+        private void btInstall1_Click(object sender, EventArgs e)
+        {
+            if (rbPreOut.Checked)
+            {
+                versionToInstall = VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber);
+            }
+            else if (rbStable.Checked)
+            {
+                versionToInstall = VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber);
+            }
+            else if (rbOld.Checked)
+            {
+                int indexOfO = cbOld.Text.IndexOf("(") + 1;
+                int indexOfC = cbOld.Text.IndexOf(")");
+                int getVerNoLenght = indexOfC - indexOfO;
+                int verNo = Convert.ToInt32(cbOld.Text.Substring(indexOfO, getVerNoLenght));
+                var ver = VersionManager.GetVersionFromVersionNo(verNo);
+                versionToInstall = ver;
+            }
+            StartInstallation();
+        }
+
+        private void btInstall_Click(object sender, EventArgs e)
+        {
+            versionToInstall = VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber);
+            StartInstallation();
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!allowClose) { e.Cancel = true; }
+        }
+
+        private void frmMain_SizeChanged(object sender, EventArgs e)
+        {
+            lbDoneDesc.MaximumSize = new Size(tbDoneError.Width, 0);
+        }
+
+        private void btSendFeedback_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/Haltroy/Korot/issues/new/choose");
+        }
+
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            if (DoneType == DoneType.Install)
+            {
+                Process.Start(korotExists ? korotPath : korotBetaPath);
+            }
+            Settings.Save();
+            Application.Exit();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            lbInstallCount.Text = (installDoneCount + 1) + "/" + installJobCount;
+            if (installDoneCount == 0) { lbInstallInfo.Text = UICreateRecovery; }
+            else if (installDoneCount == installJobCount - 2) { lbInstallInfo.Text = UICreateShortcut; }
+            else if (installDoneCount == installJobCount - 1) { lbInstallInfo.Text = RegistryStart; }
+        }
     }
     public class StringEventhHybrid
     {
@@ -597,6 +818,11 @@ namespace KorotInstaller
             {
                 Event(sender, e);
             }
+        }
+
+        public override string ToString()
+        {
+            return Type == StringType.String ? " [STRING]" + String : " [FILE]" +  String + "-" + String2 + "-" + String3;
         }
 
         public enum StringType
@@ -704,5 +930,12 @@ namespace KorotInstaller
                 mClass.InvokeMethod("CreateRestorePoint", parameters, null);
             }
         }
+    }
+    internal enum DoneType
+    {
+        Install,
+        Repair,
+        Update,
+        Uninstall
     }
 }

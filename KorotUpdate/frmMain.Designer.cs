@@ -124,6 +124,7 @@ namespace KorotInstaller
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -143,9 +144,9 @@ namespace KorotInstaller
             this.pbInstall = new System.Windows.Forms.PictureBox();
             this.pDownload = new System.Windows.Forms.Panel();
             this.pbDownload = new System.Windows.Forms.PictureBox();
-            this.lbInstallProg = new System.Windows.Forms.Label();
-            this.lbDownloadProg = new System.Windows.Forms.Label();
             this.lbInstallInfo = new System.Windows.Forms.Label();
+            this.lbInstallCount = new System.Windows.Forms.Label();
+            this.lbDownloadCount = new System.Windows.Forms.Label();
             this.lbDownloadInfo = new System.Windows.Forms.Label();
             this.lbInstalling = new System.Windows.Forms.Label();
             this.lbDownloading = new System.Windows.Forms.Label();
@@ -171,6 +172,7 @@ namespace KorotInstaller
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btClose = new System.Windows.Forms.Button();
             this.btSendFeedback = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -251,7 +253,7 @@ namespace KorotInstaller
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label4.Location = new System.Drawing.Point(3, 3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(507, 359);
+            this.label4.Size = new System.Drawing.Size(587, 399);
             this.label4.TabIndex = 4;
             this.label4.Text = "Gathering information...";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -305,7 +307,7 @@ namespace KorotInstaller
             this.tpStart.Location = new System.Drawing.Point(4, 22);
             this.tpStart.Name = "tpStart";
             this.tpStart.Padding = new System.Windows.Forms.Padding(3);
-            this.tpStart.Size = new System.Drawing.Size(513, 365);
+            this.tpStart.Size = new System.Drawing.Size(593, 405);
             this.tpStart.TabIndex = 0;
             this.tpStart.Text = "GATHER INFO";
             this.tpStart.UseVisualStyleBackColor = true;
@@ -334,6 +336,7 @@ namespace KorotInstaller
             this.btInstall.TabIndex = 1;
             this.btInstall.Text = "Install";
             this.btInstall.UseVisualStyleBackColor = true;
+            this.btInstall.Click += new System.EventHandler(this.btInstall_Click);
             // 
             // lbReady
             // 
@@ -349,15 +352,15 @@ namespace KorotInstaller
             // 
             this.tpProgress.Controls.Add(this.pInstall);
             this.tpProgress.Controls.Add(this.pDownload);
-            this.tpProgress.Controls.Add(this.lbInstallProg);
-            this.tpProgress.Controls.Add(this.lbDownloadProg);
             this.tpProgress.Controls.Add(this.lbInstallInfo);
+            this.tpProgress.Controls.Add(this.lbInstallCount);
+            this.tpProgress.Controls.Add(this.lbDownloadCount);
             this.tpProgress.Controls.Add(this.lbDownloadInfo);
             this.tpProgress.Controls.Add(this.lbInstalling);
             this.tpProgress.Controls.Add(this.lbDownloading);
             this.tpProgress.Location = new System.Drawing.Point(4, 22);
             this.tpProgress.Name = "tpProgress";
-            this.tpProgress.Size = new System.Drawing.Size(513, 365);
+            this.tpProgress.Size = new System.Drawing.Size(593, 405);
             this.tpProgress.TabIndex = 2;
             this.tpProgress.Text = "PROGRESS";
             this.tpProgress.UseVisualStyleBackColor = true;
@@ -367,7 +370,7 @@ namespace KorotInstaller
             this.pInstall.Controls.Add(this.pbInstall);
             this.pInstall.Location = new System.Drawing.Point(18, 187);
             this.pInstall.Name = "pInstall";
-            this.pInstall.Size = new System.Drawing.Size(300, 10);
+            this.pInstall.Size = new System.Drawing.Size(500, 10);
             this.pInstall.TabIndex = 1;
             // 
             // pbInstall
@@ -385,7 +388,7 @@ namespace KorotInstaller
             this.pDownload.Controls.Add(this.pbDownload);
             this.pDownload.Location = new System.Drawing.Point(18, 80);
             this.pDownload.Name = "pDownload";
-            this.pDownload.Size = new System.Drawing.Size(300, 10);
+            this.pDownload.Size = new System.Drawing.Size(500, 10);
             this.pDownload.TabIndex = 1;
             // 
             // pbDownload
@@ -398,45 +401,43 @@ namespace KorotInstaller
             this.pbDownload.TabIndex = 0;
             this.pbDownload.TabStop = false;
             // 
-            // lbInstallProg
-            // 
-            this.lbInstallProg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbInstallProg.AutoSize = true;
-            this.lbInstallProg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lbInstallProg.Location = new System.Drawing.Point(447, 131);
-            this.lbInstallProg.Name = "lbInstallProg";
-            this.lbInstallProg.Size = new System.Drawing.Size(46, 17);
-            this.lbInstallProg.TabIndex = 0;
-            this.lbInstallProg.Text = "[C]/[T]";
-            // 
-            // lbDownloadProg
-            // 
-            this.lbDownloadProg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbDownloadProg.AutoSize = true;
-            this.lbDownloadProg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lbDownloadProg.Location = new System.Drawing.Point(447, 24);
-            this.lbDownloadProg.Name = "lbDownloadProg";
-            this.lbDownloadProg.Size = new System.Drawing.Size(46, 17);
-            this.lbDownloadProg.TabIndex = 0;
-            this.lbDownloadProg.Text = "[C]/[T]";
-            // 
             // lbInstallInfo
             // 
             this.lbInstallInfo.AutoSize = true;
-            this.lbInstallInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbInstallInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.lbInstallInfo.Location = new System.Drawing.Point(15, 157);
             this.lbInstallInfo.Name = "lbInstallInfo";
-            this.lbInstallInfo.Size = new System.Drawing.Size(52, 17);
+            this.lbInstallInfo.Size = new System.Drawing.Size(45, 15);
             this.lbInstallInfo.TabIndex = 0;
             this.lbInstallInfo.Text = "[Install]";
+            // 
+            // lbInstallCount
+            // 
+            this.lbInstallCount.AutoSize = true;
+            this.lbInstallCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbInstallCount.Location = new System.Drawing.Point(527, 182);
+            this.lbInstallCount.Name = "lbInstallCount";
+            this.lbInstallCount.Size = new System.Drawing.Size(46, 17);
+            this.lbInstallCount.TabIndex = 0;
+            this.lbInstallCount.Text = "[C]/[T]";
+            // 
+            // lbDownloadCount
+            // 
+            this.lbDownloadCount.AutoSize = true;
+            this.lbDownloadCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbDownloadCount.Location = new System.Drawing.Point(527, 73);
+            this.lbDownloadCount.Name = "lbDownloadCount";
+            this.lbDownloadCount.Size = new System.Drawing.Size(46, 17);
+            this.lbDownloadCount.TabIndex = 0;
+            this.lbDownloadCount.Text = "[C]/[T]";
             // 
             // lbDownloadInfo
             // 
             this.lbDownloadInfo.AutoSize = true;
-            this.lbDownloadInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbDownloadInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.lbDownloadInfo.Location = new System.Drawing.Point(15, 50);
             this.lbDownloadInfo.Name = "lbDownloadInfo";
-            this.lbDownloadInfo.Size = new System.Drawing.Size(78, 17);
+            this.lbDownloadInfo.Size = new System.Drawing.Size(69, 15);
             this.lbDownloadInfo.TabIndex = 0;
             this.lbDownloadInfo.Text = "[Download]";
             // 
@@ -547,6 +548,7 @@ namespace KorotInstaller
             this.btInstall1.TabIndex = 2;
             this.btInstall1.Text = "Install";
             this.btInstall1.UseVisualStyleBackColor = true;
+            this.btInstall1.Click += new System.EventHandler(this.btInstall1_Click);
             // 
             // lbInstallError
             // 
@@ -650,6 +652,7 @@ namespace KorotInstaller
             this.btRepair.TabIndex = 2;
             this.btRepair.Text = "Repair";
             this.btRepair.UseVisualStyleBackColor = true;
+            this.btRepair.Click += new System.EventHandler(this.btRepair_Click);
             // 
             // lbModifyDesc
             // 
@@ -668,7 +671,7 @@ namespace KorotInstaller
             this.tpDone.Controls.Add(this.flowLayoutPanel1);
             this.tpDone.Location = new System.Drawing.Point(4, 22);
             this.tpDone.Name = "tpDone";
-            this.tpDone.Size = new System.Drawing.Size(513, 365);
+            this.tpDone.Size = new System.Drawing.Size(593, 405);
             this.tpDone.TabIndex = 4;
             this.tpDone.Text = "DONE";
             this.tpDone.UseVisualStyleBackColor = true;
@@ -682,11 +685,13 @@ namespace KorotInstaller
             this.tbDoneError.Multiline = true;
             this.tbDoneError.Name = "tbDoneError";
             this.tbDoneError.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbDoneError.Size = new System.Drawing.Size(476, 285);
+            this.tbDoneError.Size = new System.Drawing.Size(556, 331);
             this.tbDoneError.TabIndex = 2;
             // 
             // lbDoneDesc
             // 
+            this.lbDoneDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDoneDesc.AutoSize = true;
             this.lbDoneDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.lbDoneDesc.Location = new System.Drawing.Point(13, 4);
@@ -694,15 +699,16 @@ namespace KorotInstaller
             this.lbDoneDesc.Size = new System.Drawing.Size(147, 20);
             this.lbDoneDesc.TabIndex = 1;
             this.lbDoneDesc.Text = "Your Korot is ready.";
+            this.lbDoneDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.btClose);
             this.flowLayoutPanel1.Controls.Add(this.btSendFeedback);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 324);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 364);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(513, 41);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(593, 41);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // btClose
@@ -717,6 +723,7 @@ namespace KorotInstaller
             this.btClose.TabIndex = 3;
             this.btClose.Text = "Close";
             this.btClose.UseVisualStyleBackColor = true;
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // btSendFeedback
             // 
@@ -730,6 +737,12 @@ namespace KorotInstaller
             this.btSendFeedback.TabIndex = 4;
             this.btSendFeedback.Text = "Send Feedback";
             this.btSendFeedback.UseVisualStyleBackColor = true;
+            this.btSendFeedback.Click += new System.EventHandler(this.btSendFeedback_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // frmMain
             // 
@@ -741,7 +754,9 @@ namespace KorotInstaller
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.Text = "Korot Installer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.SizeChanged += new System.EventHandler(this.frmMain_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -789,8 +804,6 @@ namespace KorotInstaller
         private PictureBox pbInstall;
         private Panel pDownload;
         private PictureBox pbDownload;
-        private Label lbInstallProg;
-        private Label lbDownloadProg;
         private Label lbInstallInfo;
         private Label lbInstalling;
         private TabPage tpModify;
@@ -816,5 +829,8 @@ namespace KorotInstaller
         private Button btSendFeedback;
         private Label lbCloseChangeVer;
         private Label lbInstallError;
+        private Label lbInstallCount;
+        private Label lbDownloadCount;
+        private Timer timer1;
     }
 }

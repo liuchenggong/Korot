@@ -136,4 +136,10 @@
   <data name="Turkish" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\lang\turkish.language;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="KorotDesktop_Old" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\installschemes\korotdesktop-old.scheme;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="KorotDesktop_v1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\installschemes\korotdesktop-v1.scheme;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
