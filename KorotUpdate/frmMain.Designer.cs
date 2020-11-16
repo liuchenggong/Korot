@@ -367,6 +367,8 @@ namespace KorotInstaller
             // 
             // pInstall
             // 
+            this.pInstall.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pInstall.Controls.Add(this.pbInstall);
             this.pInstall.Location = new System.Drawing.Point(18, 187);
             this.pInstall.Name = "pInstall";
@@ -385,6 +387,8 @@ namespace KorotInstaller
             // 
             // pDownload
             // 
+            this.pDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pDownload.Controls.Add(this.pbDownload);
             this.pDownload.Location = new System.Drawing.Point(18, 80);
             this.pDownload.Name = "pDownload";
@@ -413,6 +417,7 @@ namespace KorotInstaller
             // 
             // lbInstallCount
             // 
+            this.lbInstallCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbInstallCount.AutoSize = true;
             this.lbInstallCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.lbInstallCount.Location = new System.Drawing.Point(527, 182);
@@ -423,6 +428,7 @@ namespace KorotInstaller
             // 
             // lbDownloadCount
             // 
+            this.lbDownloadCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDownloadCount.AutoSize = true;
             this.lbDownloadCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.lbDownloadCount.Location = new System.Drawing.Point(527, 73);
@@ -742,7 +748,6 @@ namespace KorotInstaller
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // frmMain
@@ -753,11 +758,14 @@ namespace KorotInstaller
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "frmMain";
             this.Text = "Korot Installer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.SizeChanged += new System.EventHandler(this.frmMain_SizeChanged);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);

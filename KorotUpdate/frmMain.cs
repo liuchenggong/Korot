@@ -127,11 +127,8 @@ namespace KorotInstaller
                     rbPreOut.Enabled = false;
                 }
             }
-            if (VersionManager.Versions.Count > 0)
+            if (VersionManager.Versions.Count > 0 && korotExists)
             {
-                string korotPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe";
-                string korotBetaPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe";
-                bool korotExists = File.Exists(korotPath);
                 var current = VersionManager.GetVersionFromVersionName(FileVersionInfo.GetVersionInfo(korotExists ? korotPath : korotBetaPath).ProductVersion);
                 btRepair.Text = current != null
                     ? VersionManager.LatestVersionNumber != current.VersionNo || VersionManager.PreOutVerNumber != current.VersionNo
@@ -139,6 +136,24 @@ namespace KorotInstaller
                         : UIRepairButton
                     : UIRepairButton;
             }
+            switch (DoneType)
+            {
+                case DoneType.Install:
+                    lbDoneDesc.Text = UIDoneInstall;
+                    break;
+                case DoneType.Repair:
+                    lbDoneDesc.Text = UIDoneRepair;
+                    break;
+                case DoneType.Update:
+                    lbDoneDesc.Text = UIDoneUpdate;
+                    break;
+                case DoneType.Uninstall:
+                    lbDoneDesc.Text = UIDoneUninstall;
+                    break;
+            }
+            label4.Text = isUpdatingInstaller ? UIUpdating.Replace("[NAME]", workOn.String3).Replace("[PERC]", "" + updatePerc).Replace("[CURRENT]", updateCurrent).Replace("[TOTAL]", updateTotal) : UIGatherInfo;
+            btInstall1.Text = UIInstallVer.Replace("[VER]", versionToInstall != null ? versionToInstall.VersionText : "");
+            lbReady.Text = canInstall ? UIReadyDesc : UINotReadyDesc;
             cbOld.Location = new Point(lbVersionToInstall.Location.X + lbVersionToInstall.Width, cbOld.Location.Y);
         }
 
@@ -147,8 +162,12 @@ namespace KorotInstaller
         {
             Settings = settings;
             VersionManager = new VersionManager();
+            isShiftPressed = false;
+            isUpdatingInstaller = false;
             reqs = new List<PreResqs.PreResq>();
             InitializeComponent();
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             GPWC.DownloadStringCompleted += GPWC_DownloadStringComplete;
             GPWC.DownloadProgressChanged += GPWC_ProgressChanged;
             GPWC.DownloadFileCompleted += GPWC_DownloadFileComplete;
@@ -165,7 +184,10 @@ namespace KorotInstaller
             updateTheme();
         }
 
-
+        bool isUpdatingInstaller;
+        int updatePerc;
+        string updateCurrent;
+        string updateTotal;
 
         private void GPWC_DownloadStringComplete(object sender, DownloadStringCompletedEventArgs e)
         {
@@ -195,9 +217,20 @@ namespace KorotInstaller
             {
                 Invoke(new Action(() =>
                 {
-                    lbDownloadInfo.Text = DownloadProgress.Replace("[NAME]", workOn.String3).Replace("[CURRENT]", (e.BytesReceived / 1024) + " KiB").Replace("[TOTAL]", (e.TotalBytesToReceive / 1024) + " KiB");
-                    lbDownloadCount.Text = (doneCount + 1) + "/" + downloadStrings.FindAll(i => i.Type == StringEventhHybrid.StringType.File).Count;
+                    lbDownloadInfo.Text = DownloadProgress.Replace("[NAME]", workOn.String3).Replace("[PERC]","" + e.ProgressPercentage).Replace("[CURRENT]", (e.BytesReceived / 1024) + " KiB").Replace("[TOTAL]", (e.TotalBytesToReceive / 1024) + " KiB");
+                    int downloadTotoalJobs = downloadStrings.FindAll(i => i.Type == StringEventhHybrid.StringType.File).Count;
+                    lbDownloadCount.Text = (doneCount == downloadTotoalJobs ? doneCount : doneCount + 1) + "/" + downloadTotoalJobs;
                     pbDownload.Width = e.ProgressPercentage * (pDownload.Width / 100);
+                }));
+            }
+            if (isUpdatingInstaller)
+            {
+                Invoke(new Action(() =>
+                {
+                    updatePerc = e.ProgressPercentage;
+                    updateCurrent = (e.BytesReceived / 1024) + " KiB";
+                    updateTotal = (e.TotalBytesToReceive / 1024) + " KiB";
+                    label4.Text = UIUpdating.Replace("[NAME]", workOn.String3).Replace("[PERC]", "" + e.ProgressPercentage).Replace("[CURRENT]", (e.BytesReceived / 1024) + " KiB").Replace("[TOTAL]", (e.TotalBytesToReceive / 1024) + " KiB");
                 }));
             }
         }
@@ -216,7 +249,7 @@ namespace KorotInstaller
                 doneCount++;
                 if (workOn != null)
                 {
-                    GPWC.DownloadStringAsync(new Uri(workOn.String));
+                    GPWC.DownloadFileAsync(new Uri(workOn.String),workOn.String2);
                 }
                 else
                 {
@@ -228,6 +261,8 @@ namespace KorotInstaller
                 }
             }
         }
+        bool canInstall;
+
         private void GPWC_AllJobsDone()
         {
             if (downloadStrings.Count > 0 && !GPWC.IsBusy && workOn == null)
@@ -241,7 +276,7 @@ namespace KorotInstaller
                 }
                 return;
             }
-            if (isPreparing)
+            if (isPreparing) // TODO: Add Update checking & update Installer if available, then release it
             {
                 isPreparing = false;
                 allowSwitch = true;
@@ -251,11 +286,13 @@ namespace KorotInstaller
                     tabControl1.SelectedTab = tpFirst;
                     if(supportsThisVer(VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber)))
                     {
+                        canInstall = true;
                         lbReady.Text = UIReadyDesc;
                         btInstall.Enabled = true;
                         btInstall.Visible = true;
                     }else
                     {
+                        canInstall = false;
                         lbReady.Text = UINotReadyDesc;
                         btInstall.Enabled = false;
                         btInstall.Visible = false;
@@ -312,6 +349,7 @@ namespace KorotInstaller
 
         private void Successful()
         {
+            timer1.Stop();
             allowClose = true;
             allowSwitch = true;
             tabControl1.SelectedTab = tpDone;
@@ -505,6 +543,9 @@ namespace KorotInstaller
                     {
                         workingReq = reqs[0];
                         Task.Run(() => InstallPreResq(workingReq));
+                    }else
+                    {
+                        workingReq = null;
                     }
                 }
                 else
@@ -532,6 +573,7 @@ namespace KorotInstaller
 
         private void cbLang_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Settings.LanguageFile = Settings.WorkFolder + cbLang.SelectedItem.ToString() + ".language";
             Settings.LoadLang(Settings.WorkFolder + cbLang.SelectedItem.ToString() + ".language");
             LoadLang();
         }
@@ -552,10 +594,6 @@ namespace KorotInstaller
 
         private bool supportsThisVer(KorotVersion ver)
         {
-            if (!korotExists && !betaExists)
-            {
-                return false;
-            }
             if (ver.isOnlyx64 && !PreResqs.is64BitMachine) { return false; }
             if (ver.RequiresNet452 && !PreResqs.SystemSupportsNet452) { return false; }
             if (ver.RequiresNet461 && !PreResqs.SystemSupportsNet461) { return false; }
@@ -590,7 +628,7 @@ namespace KorotInstaller
             }
         }
 
-        private void StartInstallation()
+        private void StartInstallation(bool forceReqs = false)
         {
             allowSwitch = true;
             allowClose = false;
@@ -602,7 +640,7 @@ namespace KorotInstaller
             if (versionToInstall.RequiresVisualC2015 && !PreResqs.SystemSupportsVisualC2015x86) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires Visual C++ 2015 but your computer does not supports it.")); }
             if (versionToInstall.isOnlyx64 && !PreResqs.is64BitMachine) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires 64-bit machine but this machine is not a 64 bit machine.")); }
             isPreparing = false;
-            if (versionToInstall.RequiresNet452 && !PreResqs.isInstalled(PreResqs.NetFramework452))
+            if (versionToInstall.RequiresNet452 && (!PreResqs.isInstalled(PreResqs.NetFramework452) || forceReqs))
             {
                 StringEventhHybrid seh = new StringEventhHybrid()
                 {
@@ -615,7 +653,7 @@ namespace KorotInstaller
                 installJobCount++;
                 downloadStrings.Add(seh);
             }
-            if (versionToInstall.RequiresNet461 && !PreResqs.isInstalled(PreResqs.NetFramework461))
+            if (versionToInstall.RequiresNet461 && (!PreResqs.isInstalled(PreResqs.NetFramework461) || forceReqs))
             {
                 StringEventhHybrid seh = new StringEventhHybrid()
                 {
@@ -628,7 +666,7 @@ namespace KorotInstaller
                 installJobCount++;
                 downloadStrings.Add(seh);
             }
-            if (versionToInstall.RequiresNet48 && !PreResqs.isInstalled(PreResqs.NetFramework48))
+            if (versionToInstall.RequiresNet48 && (!PreResqs.isInstalled(PreResqs.NetFramework48) || forceReqs))
             {
                 StringEventhHybrid seh = new StringEventhHybrid()
                 {
@@ -641,7 +679,7 @@ namespace KorotInstaller
                 installJobCount++;
                 downloadStrings.Add(seh);
             }
-            if (versionToInstall.RequiresVisualC2015 && !PreResqs.isInstalled(PreResqs.VisualC2015x86))
+            if (versionToInstall.RequiresVisualC2015 && (!PreResqs.isInstalled(PreResqs.VisualC2015x86) || forceReqs))
             {
                 
                 StringEventhHybrid seh = new StringEventhHybrid()
@@ -655,7 +693,7 @@ namespace KorotInstaller
                 installJobCount++;
                 downloadStrings.Add(seh);
 
-                if (PreResqs.is64BitMachine && !PreResqs.isInstalled(PreResqs.VisualC2015x64))
+                if (PreResqs.is64BitMachine && (!PreResqs.isInstalled(PreResqs.VisualC2015x64) || forceReqs))
                 {
                     StringEventhHybrid seh2 = new StringEventhHybrid()
                     {
@@ -683,6 +721,7 @@ namespace KorotInstaller
             {
                 workOn = downloadStrings[0];
             }
+            timer1.Start();
             installJobCount += 3;
             DoFileWork(workOn);
             Task.Run(() => GetBackup());
@@ -694,18 +733,25 @@ namespace KorotInstaller
             await Task.Run(() =>
             {
                 string backupLocation = Settings.WorkFolder + "backup.htpackage";
+                
                 if (!retrieve)
                 {
-                    if (File.Exists(backupLocation)) { File.Delete(backupLocation); }
-                    ZipFile.CreateFromDirectory(korotFolderPath, backupLocation, CompressionLevel.NoCompression, false, Encoding.UTF8);
+                    if (korotExists)
+                    {
+                        if (File.Exists(backupLocation)) { File.Delete(backupLocation); }
+                        ZipFile.CreateFromDirectory(korotFolderPath, backupLocation, CompressionLevel.NoCompression, false, Encoding.UTF8);
+                    }
                     installDoneCount++;
                 }else
                 {
                     if (File.Exists(backupLocation))
                     {
-                        if (File.Exists(korotPath) || File.Exists(korotBetaPath)) { Directory.Delete(korotFolderPath, true); }
-                        Directory.CreateDirectory(korotFolderPath);
-                        ZipFile.ExtractToDirectory(backupLocation, korotFolderPath, Encoding.UTF8);
+                        if (new FileInfo(backupLocation).Length > 0)
+                        {
+                            if (File.Exists(korotPath) || File.Exists(korotBetaPath)) { Directory.Delete(korotFolderPath, true); }
+                            Directory.CreateDirectory(korotFolderPath);
+                            ZipFile.ExtractToDirectory(backupLocation, korotFolderPath, Encoding.UTF8);
+                        }
                     }
                 }
             });
@@ -719,10 +765,10 @@ namespace KorotInstaller
                 var e = E as AsyncCompletedEventArgs;
                 if (e.Error != null)
                 {
-                    Error(new Exception("Error while downloading Korot Desktop files. Error: " + e.Error.ToString()));
+                    Error(new Exception("Error while downloading Korot Desktop files [\"" + versionToInstall.ZipPath.Replace("[VERSION]", versionToInstall.VersionText).Replace("[ARCH]", PreResqs.is64BitMachine ? "x64" : "x86").Replace("[U]", "F") + "\"]. Error: " + e.Error.ToString()));
                 }else if (e.Cancelled)
                 {
-                    Error(new Exception("Error while downloading Korot Desktop files. Error: Cancelled."));
+                    Error(new Exception("Error while downloading Korot Desktop files [\"" + versionToInstall.ZipPath.Replace("[VERSION]", versionToInstall.VersionText).Replace("[ARCH]", PreResqs.is64BitMachine ? "x64" : "x86").Replace("[U]", "F") + "\"]. Error: Cancelled."));
                 }else
                 {
                     Task.Run(() => InstallKorotFoReal());
@@ -747,14 +793,20 @@ namespace KorotInstaller
                     {
                         Directory.Delete(korotFolderPath, true);
                     }
+                    Directory.CreateDirectory(korotFolderPath);
                     ZipFile.ExtractToDirectory(Settings.WorkFolder + versionToInstall.VersionText + ".htpackage", korotFolderPath,Encoding.UTF8);
                     installDoneCount++;
                     appShortcut();
                     installDoneCount++;
                     Register();
                     installDoneCount++;
+                    Successful();
                 }
-                catch (Exception ex) { await Task.Run(() => GetBackup(true)); Error(ex); }
+                catch (Exception ex) 
+                {
+                    Error(ex);
+                    await Task.Run(() => GetBackup(true)); 
+                }
             });
             return false;
         }
@@ -976,6 +1028,8 @@ namespace KorotInstaller
             pChangeVer.Visible = true;
             pChangeVer.Enabled = true;
             rbPreOut.Text = UIChangeVerO1.Replace("[PREOUT]", VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber).VersionText);
+            rbPerOut_CheckedChanged(this, new EventArgs());
+            rbStable_CheckedChanged(this, new EventArgs());
             rbStable.Text = UIChangeVerO2.Replace("[LATEST]", VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber).VersionText);
             if(supportsLatestPreOut())
             {
@@ -1006,6 +1060,9 @@ namespace KorotInstaller
                 rbOld.Checked = false;
                 cbOld.Enabled = false;
                 lbVersionToInstall.Enabled = false;
+                var ver = VersionManager.GetVersionFromVersionNo(VersionManager.PreOutVerNumber);
+                versionToInstall = ver;
+                btInstall1.Text = UIInstallVer.Replace("[VER]", ver.VersionText);
             }
         }
 
@@ -1017,6 +1074,9 @@ namespace KorotInstaller
                 rbOld.Checked = false;
                 cbOld.Enabled = false;
                 lbVersionToInstall.Enabled = false;
+                var ver = VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber);
+                versionToInstall = ver;
+                btInstall1.Text = UIInstallVer.Replace("[VER]", ver.VersionText);
             }
         }
 
@@ -1061,6 +1121,7 @@ namespace KorotInstaller
                 btInstall1.Enabled = false;
                 return;
             }
+            versionToInstall = ver;
             lbInstallError.Text = "";
             btInstall1.Enabled = true;
         }
@@ -1078,6 +1139,8 @@ namespace KorotInstaller
             {
                 versionToInstall = VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber);
             }
+            if(btRepair.Text == UIUpdateButton) { DoneType = DoneType.Update; }else { DoneType = DoneType.Repair; }
+            StartInstallation(isShiftPressed);
         }
 
         private void btInstall1_Click(object sender, EventArgs e)
@@ -1099,13 +1162,15 @@ namespace KorotInstaller
                 var ver = VersionManager.GetVersionFromVersionNo(verNo);
                 versionToInstall = ver;
             }
+            DoneType = DoneType.Install;
             StartInstallation();
         }
 
         private void btInstall_Click(object sender, EventArgs e)
         {
             versionToInstall = VersionManager.GetVersionFromVersionNo(VersionManager.LatestVersionNumber);
-            StartInstallation();
+            DoneType = DoneType.Install;
+            StartInstallation(isShiftPressed);
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -1135,10 +1200,16 @@ namespace KorotInstaller
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            lbInstallCount.Text = (installDoneCount + 1) + "/" + installJobCount;
+            lbInstallCount.Text = (installDoneCount == installJobCount ? installDoneCount :   installDoneCount + 1) + "/" + installJobCount;
             if (installDoneCount == 0) { lbInstallInfo.Text = UICreateRecovery; }
             else if (installDoneCount == installJobCount - 2) { lbInstallInfo.Text = UICreateShortcut; }
-            else if (installDoneCount == installJobCount - 1) { lbInstallInfo.Text = RegistryStart; }
+            else if (installDoneCount == installJobCount - 1) { lbInstallInfo.Text = RegistryStart; }else
+            {
+                lbInstallInfo.Text = workingReq != null ? workingReq.Name : DownloadKorotDesktop;
+            }
+            double perc = (Convert.ToDouble(installDoneCount) / Convert.ToDouble(installJobCount)) * 100;
+            pbInstall.Width = Convert.ToInt32(perc) * (pInstall.Width / 100);
+            if (installDoneCount == installJobCount) { Successful(); }
         }
 
         private void btUninstall_Click(object sender, EventArgs e)
@@ -1147,6 +1218,16 @@ namespace KorotInstaller
             Unregister();
             DoneType = DoneType.Uninstall;
             Successful();
+        }
+        bool isShiftPressed;
+        private void frmMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            isShiftPressed = e.Shift;
+        }
+
+        private void frmMain_KeyUp(object sender, KeyEventArgs e)
+        {
+            isShiftPressed = !e.Shift;
         }
     }
     public class StringEventhHybrid

@@ -48,143 +48,7 @@ namespace KorotInstaller
             Application.Run(new frmMain(settings));
             settings.Save();
         }
-        static void oldMain(string[] args)
-        {
-            string title = Console.Title;
-            Console.Title = "Korot Updater";
-            string backupFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Haltroy\\Korot\\UpdateBackup.hup";
-            string newVer = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Haltroy\\Korot\\UpdateTemp\\";
-            Console.WriteLine("Korot Update Utility");
-            Console.WriteLine("--------------------");
-            string appPath = Directory.GetCurrentDirectory();
-            Console.Title = "Korot Updater - 0%";
-
-            Console.WriteLine("Creating backup from: " + appPath);
-            try
-            {
-                if (System.IO.File.Exists(backupFile))
-                {
-                    try
-                    {
-                        System.IO.File.Delete(backupFile);
-
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error while deleting: " + ex.ToString());
-                        Console.WriteLine("Press S to skip job. Press Enter to close.");
-                        ConsoleKeyInfo keyInfo = Console.ReadKey();
-                        if (keyInfo.Key == ConsoleKey.S) { Console.WriteLine("Skipped job."); } else if (keyInfo.Key == ConsoleKey.Enter) { Console.Title = title; return; }
-                    }
-                    Console.Title = "Korot Updater - 25%";
-
-                    Console.WriteLine("File already exists. Deleted.");
-                }
-                ZipFile.CreateFromDirectory(appPath, backupFile);
-                Console.WriteLine("Successfully created backup in " + backupFile + " .");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error while creating backup: " + ex.ToString());
-                Console.WriteLine("Press S to skip job. Press Enter to close.");
-                ConsoleKeyInfo keyInfo = Console.ReadKey();
-                if (keyInfo.Key == ConsoleKey.S) { Console.WriteLine("Skipped job."); } else if (keyInfo.Key == ConsoleKey.Enter) { Console.Title = title; return; }
-            }
-            if (args.Length > 0)
-            {
-                string upgradeFile = args[0];
-                Console.Title = "Korot Updater - 50%";
-                Console.WriteLine("Upgrading from " + upgradeFile + " ...");
-                Console.WriteLine("Unzipping to " + newVer + " ...");
-                try
-                {
-                    if (Directory.Exists(newVer))
-                    {
-                        try
-                        {
-                            Directory.Delete(newVer, true);
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine("Error while deleting: " + ex.ToString());
-                            Console.WriteLine("Press S to skip job. Press Enter to close.");
-                            ConsoleKeyInfo keyInfo = Console.ReadKey();
-                            if (keyInfo.Key == ConsoleKey.S) { Console.WriteLine("Skipped job."); } else if (keyInfo.Key == ConsoleKey.Enter) { Console.Title = title; return; }
-                        }
-                        Console.WriteLine("Directory already exists. Deleted.");
-                    }
-                    try
-                    {
-                        ZipFile.ExtractToDirectory(upgradeFile, newVer);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error while unzipping: " + ex.ToString());
-                        Console.WriteLine("Press S to skip job. Press Enter to close.");
-                        ConsoleKeyInfo keyInfo = Console.ReadKey();
-                        if (keyInfo.Key == ConsoleKey.S) { Console.WriteLine("Skipped job."); } else if (keyInfo.Key == ConsoleKey.Enter) { Console.Title = title; return; }
-                    }
-                    Console.Title = "Korot Updater - 75%";
-                    Console.WriteLine("Successfully unzipped. Copying files...");
-                    try
-                    {
-                        Copy(newVer, appPath);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error while copying: " + ex.ToString());
-                        Console.WriteLine("Press S to skip job. Press Enter to close.");
-                        ConsoleKeyInfo keyInfo = Console.ReadKey();
-                        if (keyInfo.Key == ConsoleKey.S) { Console.WriteLine("Skipped job."); } else if (keyInfo.Key == ConsoleKey.Enter) { Console.Title = title; return; }
-                    }
-                    Console.Title = "Korot Updater - 100%";
-                    Console.WriteLine("Successfully copied. Closing...");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error while unzipping: " + ex.ToString());
-                    Console.WriteLine("Press S to skip job. Press Enter to close.");
-                    ConsoleKeyInfo keyInfo = Console.ReadKey();
-                    if (keyInfo.Key == ConsoleKey.S) { Console.WriteLine("Skipped job."); } else if (keyInfo.Key == ConsoleKey.Enter) { Console.Title = title; return; }
-                }
-            }
-            else
-            {
-                Console.Title = "Korot Updater - 100%";
-                Console.WriteLine("No extra arguments found. Closing...");
-            }
-            Console.Title = title;
-            return;
-        }
-        internal static void Copy(string sourceDirectory, string targetDirectory)
-        {
-            DirectoryInfo diSource = new DirectoryInfo(sourceDirectory);
-            DirectoryInfo diTarget = new DirectoryInfo(targetDirectory);
-
-            CopyAll(diSource, diTarget);
-        }
-
-        internal static void CopyAll(DirectoryInfo source, DirectoryInfo target)
-        {
-            Directory.CreateDirectory(target.FullName);
-
-            // Copy each file into the new directory.
-            foreach (FileInfo fi in source.GetFiles())
-            {
-                string fName = Path.Combine(target.FullName, fi.Name);
-                if (System.IO.File.Exists(fName)) { System.IO.File.Delete(fName); Console.WriteLine("File exists. Deleted: "+ fName); }
-                fi.CopyTo(fName, true);
-                Console.WriteLine("File copied: " + fi.Name);
-            }
-
-            // Copy each subdirectory using recursion.
-            foreach (DirectoryInfo diSourceSubDir in source.GetDirectories())
-            {
-                DirectoryInfo nextTargetSubDir =
-                    target.CreateSubdirectory(diSourceSubDir.Name);
-                CopyAll(diSourceSubDir, nextTargetSubDir);
-            }
-        }
+        
     }
     /// <summary>
     /// HTAlt.Standart.Tools Jr. Plus
@@ -261,14 +125,8 @@ namespace KorotInstaller
         }
         public static void CreateLangs()
         {
-            if(!System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language"))
-            {
-                WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language", Properties.Resources.English);
-            }
-            if (!System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\Turkish.language"))
-            {
-                WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\Turkish.language", Properties.Resources.Turkish);
-            }
+            WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language", Properties.Resources.English);
+            WriteFile(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\Turkish.language", Properties.Resources.Turkish);
         }
     }
 
@@ -294,16 +152,6 @@ namespace KorotInstaller
                             loadedSettings++;
                             LanguageFile = string.IsNullOrWhiteSpace(node.InnerXml) ? Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language" : node.InnerXml.Replace("[APPDATA]", WorkFolder);
                         }
-                        else if (node.Name == "InstalledVersion")
-                        {
-                            loadedSettings++;
-                            InstalledVersion = string.IsNullOrWhiteSpace(node.InnerXml) ? "" : node.InnerXml;
-                        }
-                        else if (node.Name == "ExePath")
-                        {
-                            loadedSettings++;
-                            KorotExePath = string.IsNullOrWhiteSpace(node.InnerXml) ? InstallPath + "Korot.exe" : node.InnerXml.Replace("[INSTALL]", InstallPath);
-                        }
                         else if (node.Name == "DarkMode")
                         {
                             loadedSettings++;
@@ -316,7 +164,6 @@ namespace KorotInstaller
                 {
                     Console.WriteLine(" [Settings] Loaded Defaults: Error: " + ex.ToString());
                     isDarkMode = false;
-                    KorotExePath = InstallPath + "Korot.exe";
                     LanguageFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language";
                     LoadedDefaults = true;
                 }
@@ -324,7 +171,6 @@ namespace KorotInstaller
             {
                 Console.WriteLine(" [Settings] Loaded Defaults: File not found (\"" + FileLocation + "\").");
                 isDarkMode = false;
-                KorotExePath = InstallPath + "Korot.exe";
                 LanguageFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Korot\\Installer\\English.language";
                 LoadedDefaults = true;
             }
@@ -336,8 +182,6 @@ namespace KorotInstaller
             return "<?xml version=\"1.0\" encoding=\"utf-16\"?>" + Environment.NewLine
                 + "<InstallerSettings>" + Environment.NewLine
                 + "  <LangFile>" + (string.IsNullOrWhiteSpace(LanguageFile) ? "" : LanguageFile.Replace(WorkFolder, "[APPDATA]")) + "</LangFile>" + Environment.NewLine
-                + "  <InstalledVersion>" + (string.IsNullOrWhiteSpace(InstalledVersion) ? "" : InstalledVersion) + "</InstalledVersion>" + Environment.NewLine
-                + "  <ExePath>" + (string.IsNullOrWhiteSpace(KorotExePath) ? "" : KorotExePath.Replace(InstallPath,"[INSTALL]")) + "</ExePath>" + Environment.NewLine
                 + "  <DarkMode>" + (isDarkMode ? "1" : "0") + "</DarkMode>" + Environment.NewLine
                 + "</InstallerSettings>";
         }
@@ -412,28 +256,8 @@ namespace KorotInstaller
         {
             HTAltTools.WriteFile(FileLocation, XmlOut(), Encoding.Unicode);
         }
-
-        public string InstalledVersion { get; set; } 
-
         public string LanguageFile { get; set; } 
         public static string InstallPath => Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\";
-        public string KorotExePath { get; set; }
-        public string GetKorotVersion()
-        {
-            if (InstalledVersion is null) 
-            {
-                if (!string.IsNullOrWhiteSpace(KorotExePath))
-                {
-                    if (System.IO.File.Exists(KorotExePath))
-                    {
-                        return FileVersionInfo.GetVersionInfo(KorotExePath).ProductVersion;
-                    }
-                    return null;
-                }
-                return null;
-            }
-            return InstalledVersion;
-        }
         public bool isDarkMode { get; set; }
         public bool LoadedDefaults = true;
         public List<Translation> Translations { get; set; } = new List<Translation>();
@@ -444,7 +268,7 @@ namespace KorotInstaller
             {
                 if (Translations[i].ID == ID) { foundItems.Add(Translations[i].CarbonCopy()); }
             }
-            if (foundItems.Count > 0) { return foundItems[new Random().Next(0, foundItems.Count - 1)].Text; }else { return "[MI]" + ID; }
+            if (foundItems.Count > 0) { return foundItems[new Random().Next(0, foundItems.Count - 1)].Text.Replace("[NEWLINE]",Environment.NewLine); }else { return "[MI]" + ID; }
         }
     }
 
