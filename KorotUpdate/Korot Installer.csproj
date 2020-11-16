@@ -79,8 +79,6 @@
     <None Include="app.manifest" />
     <None Include="Lang\English.language" />
     <None Include="Lang\Turkish.language" />
-    <None Include="prot.reg" />
-    <None Include="protocol.reg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmMain.resx">

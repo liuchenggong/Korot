@@ -639,6 +639,7 @@ namespace KorotInstaller
             this.btUninstall.TabIndex = 2;
             this.btUninstall.Text = "Uninstall";
             this.btUninstall.UseVisualStyleBackColor = true;
+            this.btUninstall.Click += new System.EventHandler(this.btUninstall_Click);
             // 
             // btRepair
             // 

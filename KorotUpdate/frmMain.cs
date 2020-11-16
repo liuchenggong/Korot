@@ -13,6 +13,7 @@ using System.Xml;
 using System.Management;
 using System.Diagnostics;
 using System.IO.Compression;
+using Microsoft.Win32;
 
 namespace KorotInstaller
 {
@@ -146,6 +147,7 @@ namespace KorotInstaller
         {
             Settings = settings;
             VersionManager = new VersionManager();
+            reqs = new List<PreResqs.PreResq>();
             InitializeComponent();
             GPWC.DownloadStringCompleted += GPWC_DownloadStringComplete;
             GPWC.DownloadProgressChanged += GPWC_ProgressChanged;
@@ -394,7 +396,7 @@ namespace KorotInstaller
                                             VersionManager.Versions.Add(ver);
                                         }else
                                         {
-                                            KorotVersion ver = new KorotVersion(subnode.Attributes["Text"].Value, Convert.ToInt32(subnode.Attributes["VersionNo"].Value), subnode.Attributes["ZipPath"].Value, subnode.Attributes["Flags"].Value,subnode.Attributes["Script"].Value);
+                                            KorotVersion ver = new KorotVersion(subnode.Attributes["Text"].Value, Convert.ToInt32(subnode.Attributes["VersionNo"].Value), subnode.Attributes["ZipPath"].Value, subnode.Attributes["Flags"].Value,subnode.Attributes["Reg"].Value);
                                             VersionManager.Versions.Add(ver);
                                         }
                                     }
@@ -481,31 +483,35 @@ namespace KorotInstaller
         PreResqs.PreResq workingReq;
         private async Task<bool> InstallPreResq(PreResqs.PreResq req)
         {
-            if(isBusy)
+            await Task.Run(() =>
             {
-                reqs.Add(req);
-                return false;
-            }
-            isBusy = true;
-            workingReq = req;
-            ProcessStartInfo info = new ProcessStartInfo(Settings.WorkFolder + req.FileName,req.SilentArgs) { UseShellExecute = true, Verb= "runas" };
-            Process process = new Process();
-            process.StartInfo = info;
-            process.Start();
-            process.WaitForExit();
-            if (process.ExitCode == 0)
-            {
-                isBusy = false;
-                if(reqs.Contains(req)) { reqs.Remove(req); }
-                if (reqs.Count > 0)
+                if (isBusy)
                 {
-                    workingReq = reqs[0];
-                    await Task.Run(() => InstallPreResq(workingReq));
+                    reqs.Add(req);
+                    return;
                 }
-            }else
-            {
-                Error(new Exception("Required component \"" + req.Name +  "\" is not installed. Exit Code: " + process.ExitCode));
-            }
+                isBusy = true;
+                workingReq = req;
+                ProcessStartInfo info = new ProcessStartInfo(Settings.WorkFolder + req.FileName, req.SilentArgs) { UseShellExecute = true, Verb = "runas" };
+                Process process = new Process();
+                process.StartInfo = info;
+                process.Start();
+                process.WaitForExit();
+                if (process.ExitCode == 0)
+                {
+                    isBusy = false;
+                    if (reqs.Contains(req)) { reqs.Remove(req); }
+                    if (reqs.Count > 0)
+                    {
+                        workingReq = reqs[0];
+                        Task.Run(() => InstallPreResq(workingReq));
+                    }
+                }
+                else
+                {
+                    Error(new Exception("Required component \"" + req.Name + "\" is not installed. Exit Code: " + process.ExitCode));
+                }
+            });
             return false;
         }
 
@@ -589,7 +595,7 @@ namespace KorotInstaller
             allowSwitch = true;
             allowClose = false;
             tabControl1.SelectedTab = tpProgress;
-            if(versionToInstall.isMissing) { Error(new Exception("This version \"" + versionToInstall.ToString() + ") is missing.")); }
+            if(versionToInstall.isMissing) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" is missing.")); }
             if (versionToInstall.RequiresNet452 && !PreResqs.SystemSupportsNet452) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires .NEt Framework 4.5.2 but your computer does not supports it.")); }
             if (versionToInstall.RequiresNet461 && !PreResqs.SystemSupportsNet461) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires .NEt Framework 4.6.1 but your computer does not supports it.")); }
             if (versionToInstall.RequiresNet48 && !PreResqs.SystemSupportsNet48) { Error(new Exception("This version \"" + versionToInstall.ToString() + "\" requires .NEt Framework 4.8 but your computer does not supports it.")); }
@@ -677,9 +683,33 @@ namespace KorotInstaller
             {
                 workOn = downloadStrings[0];
             }
-            DoFileWork(workOn);
             installJobCount += 3;
+            DoFileWork(workOn);
+            Task.Run(() => GetBackup());
             lbInstallInfo.Text = UICreateRecovery;
+        }
+
+        private async Task<bool> GetBackup(bool retrieve = false)
+        {
+            await Task.Run(() =>
+            {
+                string backupLocation = Settings.WorkFolder + "backup.htpackage";
+                if (!retrieve)
+                {
+                    if (File.Exists(backupLocation)) { File.Delete(backupLocation); }
+                    ZipFile.CreateFromDirectory(korotFolderPath, backupLocation, CompressionLevel.NoCompression, false, Encoding.UTF8);
+                    installDoneCount++;
+                }else
+                {
+                    if (File.Exists(backupLocation))
+                    {
+                        if (File.Exists(korotPath) || File.Exists(korotBetaPath)) { Directory.Delete(korotFolderPath, true); }
+                        Directory.CreateDirectory(korotFolderPath);
+                        ZipFile.ExtractToDirectory(backupLocation, korotFolderPath, Encoding.UTF8);
+                    }
+                }
+            });
+            return true;
         }
 
         private void installKorot(object sender, EventArgs E)
@@ -709,16 +739,232 @@ namespace KorotInstaller
         /// <returns></returns>
         private async Task<bool> InstallKorotFoReal()
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
-                if (Directory.Exists(korotFolderPath))
+                try
                 {
-                    Directory.Delete(korotFolderPath, true);
+                    if (Directory.Exists(korotFolderPath))
+                    {
+                        Directory.Delete(korotFolderPath, true);
+                    }
+                    ZipFile.ExtractToDirectory(Settings.WorkFolder + versionToInstall.VersionText + ".htpackage", korotFolderPath,Encoding.UTF8);
+                    installDoneCount++;
+                    appShortcut();
+                    installDoneCount++;
+                    Register();
+                    installDoneCount++;
                 }
-
-                ZipFile.ExtractToDirectory(Settings.WorkFolder + versionToInstall.VersionText + ".htpackage", korotFolderPath);
+                catch (Exception ex) { await Task.Run(() => GetBackup(true)); Error(ex); }
             });
             return false;
+        }
+
+        private async void Register()
+        {
+            await Task.Run(() =>
+            {
+                // Register to Uninstall Programs list.
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall", true))
+                {
+                    RegistryKey key1 = key.CreateSubKey("Korot");
+
+                    key1.SetValue("DisplayName", "Korot", RegistryValueKind.String);
+                    key1.SetValue("DisplayVersion", versionToInstall.VersionText, RegistryValueKind.String);
+                    key1.SetValue("DisplayIcon", korotExists ? korotPath : korotBetaPath, RegistryValueKind.String);
+                    key1.SetValue("Publisher", "haltroy", RegistryValueKind.String);
+                    key1.SetValue("UninstallString", Application.ExecutablePath, RegistryValueKind.String);
+                    key1.SetValue("ModifyString", Application.ExecutablePath, RegistryValueKind.String);
+                    key1.SetValue("InstallLocation", korotFolderPath, RegistryValueKind.String);
+                    key1.SetValue("NoRemove", "1", RegistryValueKind.DWord);
+                    key1.SetValue("NoRepair", "1", RegistryValueKind.DWord);
+                }
+
+                // FILE ASSOCIATIONS
+
+                // extensions
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@".html\OpenWithProgids")) 
+                {
+                    if (key == null) { Registry.ClassesRoot.CreateSubKey(@".html\OpenWithProgids"); }
+                    key.SetValue("KorotHTML", "", RegistryValueKind.String);
+                }
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@".htm\OpenWithProgids"))
+                {
+                    if (key == null) { Registry.ClassesRoot.CreateSubKey(@".htm\OpenWithProgids"); }
+                    key.SetValue("KorotHTML", "", RegistryValueKind.String);
+                }
+
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@".pdf\OpenWithProgids"))
+                {
+                    if (key == null) { Registry.ClassesRoot.CreateSubKey(@".pdf\OpenWithProgids"); }
+                    key.SetValue("KorotPDF", "", RegistryValueKind.String);
+                }
+
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@".http\OpenWithProgids"))
+                {
+                    if (key == null) { Registry.ClassesRoot.CreateSubKey(@".http\OpenWithProgids"); }
+                    key.SetValue("KorotHTTP", "", RegistryValueKind.String);
+                }
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@".https\OpenWithProgids"))
+                {
+                    if (key == null) { Registry.ClassesRoot.CreateSubKey(@".https\OpenWithProgids"); }
+                    key.SetValue("KorotHTTP", "", RegistryValueKind.String);
+                }
+
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@".kef\OpenWithProgids"))
+                {
+                    if (key == null) { Registry.ClassesRoot.CreateSubKey(@".kef\OpenWithProgids"); }
+                    key.SetValue("KorotEXT", "", RegistryValueKind.String);
+                }
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@".ktf\OpenWithProgids"))
+                {
+                    if (key == null) { Registry.ClassesRoot.CreateSubKey(@".ktf\OpenWithProgids"); }
+                    key.SetValue("KorotEXT", "", RegistryValueKind.String);
+                }
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@".klf\OpenWithProgids"))
+                {
+                    if (key == null) { Registry.ClassesRoot.CreateSubKey(@".klf\OpenWithProgids"); }
+                    key.SetValue("KorotEXT", "", RegistryValueKind.String);
+                }
+
+                // progids
+
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@"KorotEXT"))
+                {
+                    key.SetValue("", "Korot Addon", RegistryValueKind.String);
+                    key.SetValue("AppUserModelID", "Korot", RegistryValueKind.String);
+                    RegistryKey appKey = key.CreateSubKey("Application");
+                    appKey.SetValue("AppUserModelID","Korot");
+                    appKey.SetValue("ApplicationIcon",korotExists ? korotPath : korotBetaPath);
+                    appKey.SetValue("ApplicationName","Korot");
+                    appKey.SetValue("ApplicationDecription","Surf the universe.");
+                    appKey.SetValue("ApplicationCompany","haltroy");
+                    key.CreateSubKey("DefaultIcon").SetValue("", korotExists ? korotPath : korotBetaPath, RegistryValueKind.String);
+                    RegistryKey shellKey = key.CreateSubKey("shell");
+                    RegistryKey openKey = shellKey.CreateSubKey("open");
+                    openKey.CreateSubKey("command").SetValue("", "\"" + (korotExists ? korotPath : korotBetaPath) + "\" %1");
+                }
+
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@"KorotPDF"))
+                {
+                    key.SetValue("", "Korot PDF Document", RegistryValueKind.String);
+                    key.SetValue("AppUserModelID", "Korot", RegistryValueKind.String);
+                    RegistryKey appKey = key.CreateSubKey("Application");
+                    appKey.SetValue("AppUserModelID", "Korot");
+                    appKey.SetValue("ApplicationIcon", korotExists ? korotPath : korotBetaPath);
+                    appKey.SetValue("ApplicationName", "Korot");
+                    appKey.SetValue("ApplicationDecription", "Surf the universe.");
+                    appKey.SetValue("ApplicationCompany", "haltroy");
+                    key.CreateSubKey("DefaultIcon").SetValue("", korotExists ? korotPath : korotBetaPath, RegistryValueKind.String);
+                    RegistryKey shellKey = key.CreateSubKey("shell");
+                    RegistryKey openKey = shellKey.CreateSubKey("open");
+                    openKey.CreateSubKey("command").SetValue("", "\"" + (korotExists ? korotPath : korotBetaPath) + "\" %1");
+                }
+
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@"KorotHTML"))
+                {
+                    key.SetValue("", "Korot HTML Document", RegistryValueKind.String);
+                    key.SetValue("AppUserModelID", "Korot", RegistryValueKind.String);
+                    RegistryKey appKey = key.CreateSubKey("Application");
+                    appKey.SetValue("AppUserModelID", "Korot");
+                    appKey.SetValue("ApplicationIcon", korotExists ? korotPath : korotBetaPath);
+                    appKey.SetValue("ApplicationName", "Korot");
+                    appKey.SetValue("ApplicationDecription", "Surf the universe.");
+                    appKey.SetValue("ApplicationCompany", "haltroy");
+                    key.CreateSubKey("DefaultIcon").SetValue("", korotExists ? korotPath : korotBetaPath, RegistryValueKind.String);
+                    RegistryKey shellKey = key.CreateSubKey("shell");
+                    RegistryKey openKey = shellKey.CreateSubKey("open");
+                    openKey.CreateSubKey("command").SetValue("", "\"" + (korotExists ? korotPath : korotBetaPath) + "\" %1");
+                }
+
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@"KorotHTTP"))
+                {
+                    key.SetValue("", "Korot Site", RegistryValueKind.String);
+                    key.SetValue("AppUserModelID", "Korot", RegistryValueKind.String);
+                    RegistryKey appKey = key.CreateSubKey("Application");
+                    appKey.SetValue("AppUserModelID", "Korot");
+                    appKey.SetValue("ApplicationIcon", korotExists ? korotPath : korotBetaPath);
+                    appKey.SetValue("ApplicationName", "Korot");
+                    appKey.SetValue("ApplicationDecription", "Surf the universe.");
+                    appKey.SetValue("ApplicationCompany", "haltroy");
+                    key.CreateSubKey("DefaultIcon").SetValue("", korotExists ? korotPath : korotBetaPath, RegistryValueKind.String);
+                    RegistryKey shellKey = key.CreateSubKey("shell");
+                    RegistryKey openKey = shellKey.CreateSubKey("open");
+                    openKey.CreateSubKey("command").SetValue("", "\"" + (korotExists ? korotPath : korotBetaPath) + "\" %1");
+                }
+
+                // PROTOCOL
+
+                if(versionToInstall.Reg == RegType.StandartWithProtocol || versionToInstall.Reg == RegType.StandartWithCommandProtocol)
+                {
+                    using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(@"Korot"))
+                    {
+                        key.CreateSubKey("DefaultIcon").SetValue("", korotExists ? korotPath : korotBetaPath);
+                        RegistryKey shellKey = key.CreateSubKey("shell");
+                        RegistryKey openKey = shellKey.CreateSubKey("open");
+                        openKey.CreateSubKey("command").SetValue("","\"" + (korotExists ? korotPath : korotBetaPath) + "\" " + (versionToInstall.Reg == RegType.StandartWithCommandProtocol ? "korot://command/?c=" : "") + "%1",RegistryValueKind.String);
+                        key.SetValue("", "URL:korot protocol",RegistryValueKind.String);
+                    }
+                }
+
+            });
+        }
+
+        private async void Unregister()
+        {
+            await Task.Run(() =>
+            {
+                // Unregister to Uninstall Programs list.
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall", true))
+                {
+                    key.DeleteSubKeyTree("Korot", false);
+                }
+
+                // Unregister the rest
+                using (RegistryKey key = Registry.ClassesRoot)
+                {
+                    using (RegistryKey subkey = key.CreateSubKey(@".html\OpenWithProgids"))
+                    {
+                        subkey.DeleteValue("KorotHTML", false);
+                    }
+                    using (RegistryKey subkey = key.CreateSubKey(@".htm\OpenWithProgids"))
+                    {
+                        subkey.DeleteValue("KorotHTML", false);
+                    }
+
+                    using (RegistryKey subkey = key.CreateSubKey(@".pdf\OpenWithProgids"))
+                    {
+                        subkey.DeleteValue("KorotPDF", false);
+                    }
+
+                    using (RegistryKey subkey = key.CreateSubKey(@".http\OpenWithProgids"))
+                    {
+                        subkey.DeleteValue("KorotHTTP", false);
+                    }
+                    using (RegistryKey subkey = key.CreateSubKey(@".https\OpenWithProgids"))
+                    {
+                        subkey.DeleteValue("KorotHTTP", false);
+                    }
+
+                    using (RegistryKey subkey = key.CreateSubKey(@".kef\OpenWithProgids"))
+                    {
+                        subkey.DeleteValue("KorotEXT", false);
+                    }
+                    using (RegistryKey subkey = key.CreateSubKey(@".ktf\OpenWithProgids"))
+                    {
+                        subkey.DeleteValue("KorotEXT", false);
+                    }
+                    using (RegistryKey subkey = key.CreateSubKey(@".klf\OpenWithProgids"))
+                    {
+                        subkey.DeleteValue("KorotEXT", false);
+                    }
+
+                    key.DeleteSubKeyTree("Korot", false);
+                    key.DeleteSubKeyTree("KorotEXT", false);
+                    key.DeleteSubKeyTree("KorotPDF", false);
+                    key.DeleteSubKeyTree("KorotHTTP", false);
+                    key.DeleteSubKeyTree("KorotHTML", false);
+                }
+            });
         }
 
         private void btChangeVer_Click(object sender, EventArgs e)
@@ -893,6 +1139,14 @@ namespace KorotInstaller
             if (installDoneCount == 0) { lbInstallInfo.Text = UICreateRecovery; }
             else if (installDoneCount == installJobCount - 2) { lbInstallInfo.Text = UICreateShortcut; }
             else if (installDoneCount == installJobCount - 1) { lbInstallInfo.Text = RegistryStart; }
+        }
+
+        private void btUninstall_Click(object sender, EventArgs e)
+        {
+            Directory.Delete(korotFolderPath, true);
+            Unregister();
+            DoneType = DoneType.Uninstall;
+            Successful();
         }
     }
     public class StringEventhHybrid
