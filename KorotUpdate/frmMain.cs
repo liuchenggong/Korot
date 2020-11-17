@@ -261,6 +261,32 @@ namespace KorotInstaller
                 }
             }
         }
+        private void updateInstaller(object sender,EventArgs E)
+        {
+            if (E is AsyncCompletedEventArgs)
+            {
+                var e = E as AsyncCompletedEventArgs;
+                if (e.Error != null)
+                {
+                    Error(new Exception("Error while updating Installer. Error: " + e.ToString()));
+                }
+                else if (e.Cancelled)
+                {
+                    Error(new Exception("Error while updating Installer. Error: Cancelled."));
+                }
+                else
+                {
+                    Settings.Save();
+                    Process.Start(new ProcessStartInfo(Settings.WorkFolder + "KorotInstaller.exe") { UseShellExecute = true, Verb = "runas" });
+                    Application.Exit();
+                }
+            }else
+            {
+                Error(new Exception("\"E\" is not an AsyncCompletedEventArgs [in void \"updateInstaller\"]."));
+            }
+        }
+
+
         bool canInstall;
 
         private void GPWC_AllJobsDone()
@@ -278,6 +304,20 @@ namespace KorotInstaller
             }
             if (isPreparing) // TODO: Add Update checking & update Installer if available, then release it
             {
+                if (VersionManager.InstallerVer < VersionManager.LatestInstallerVer)
+                {
+                    isUpdatingInstaller = true;
+                    StringEventhHybrid seh = new StringEventhHybrid()
+                    {
+                        String = "https://haltroy.com/KorotInstaller.html",
+                        String2 = "KorotInstaller.exe",
+                        String3 = "Installer",
+                        Type = StringEventhHybrid.StringType.File,
+                    };
+                    seh.Event += updateInstaller;
+                    DoFileWork(seh);
+                    return;
+                }
                 isPreparing = false;
                 allowSwitch = true;
                 if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot.exe") && !File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\Korot\\Korot Beta.exe"))
@@ -619,13 +659,14 @@ namespace KorotInstaller
 
         private void appShortcut()
         {
-            HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.Programs) + "\\" + "Korot.url");
-            HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms) + "\\" + "Korot.url");
+            HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.Programs) + "\\" + "Korot");
+            HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms) + "\\" + "Korot");
             if (versionToInstall.VersionNo >= 36)
             {
-                HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.Programs) + "\\" + "Korot.url", "--make-ext");
-                HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms) + "\\" + "Korot.url", "--make-ext");
+                HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.Programs) + "\\" + "Korot", "--make-ext");
+                HTAltTools.appShortcut(korotExists ? korotPath : korotBetaPath, Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms) + "\\" + "Korot", "--make-ext");
             }
+            installDoneCount++;
         }
 
         private void StartInstallation(bool forceReqs = false)
@@ -796,16 +837,22 @@ namespace KorotInstaller
                     Directory.CreateDirectory(korotFolderPath);
                     ZipFile.ExtractToDirectory(Settings.WorkFolder + versionToInstall.VersionText + ".htpackage", korotFolderPath,Encoding.UTF8);
                     installDoneCount++;
-                    appShortcut();
-                    installDoneCount++;
-                    Register();
-                    installDoneCount++;
-                    Successful();
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     Error(ex);
-                    await Task.Run(() => GetBackup(true)); 
+                    await Task.Run(() => GetBackup(true));
+                }
+                try
+                {
+                    appShortcut();
+                    Register();
+                    Successful();
+                }
+                catch (Exception ex)
+                {
+                    Error(ex);
+                    await Task.Run(() => GetBackup(true));
                 }
             });
             return false;
@@ -957,7 +1004,7 @@ namespace KorotInstaller
                         key.SetValue("", "URL:korot protocol",RegistryValueKind.String);
                     }
                 }
-
+                installDoneCount++;
             });
         }
 
@@ -1192,7 +1239,7 @@ namespace KorotInstaller
         {
             if (DoneType == DoneType.Install)
             {
-                Process.Start(korotExists ? korotPath : korotBetaPath);
+                Process.Start(korotExists ? korotPath : korotBetaPath, "-oobe");
             }
             Settings.Save();
             Application.Exit();
