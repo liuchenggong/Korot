@@ -31,7 +31,7 @@ namespace Korot
         public static int VersionNumber = 54;
         public static string Version => isPreOut ? PreOutName : Application.ProductVersion.ToString();
         public static string PreOutName => "y20m11u1";
-        public static bool isPreOut => false;
+        public static bool isPreOut => true;
     }
 
     internal static class Program

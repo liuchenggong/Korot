@@ -1,5 +1,5 @@
 <p align="center" style="text-align: center;">
-  <img width="128" height="128" src="https://en.haltroy.com/assets/images/Korot-1.png" />
+  <img width="128" height="128" src="https://haltroy.com/assets/images/korot-1000x1000.png" />
 </p>
 
 # [Korot](https://haltroy.com/Korot.html "Korot's Page")
@@ -11,7 +11,7 @@ Developing Version: [`0.8.5.0`](https://github.com/Haltroy/Korot/tree/0.8.5.0).
 
 
 <p align="center" style="text-align: center;">
-  <img width="641" height="523" src="http://en.haltroy.com/assets/images/korot0820.png" />
+  <img width="641" height="523" src="https://haltroy.com/assets/images/korot0820-1076x685.png" />
 </p>
 
 ## Features:
