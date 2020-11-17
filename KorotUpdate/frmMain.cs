@@ -276,6 +276,7 @@ namespace KorotInstaller
                 }
                 else
                 {
+                    allowClose = true;
                     Settings.Save();
                     Process.Start(new ProcessStartInfo(Settings.WorkFolder + "KorotInstaller.exe") { UseShellExecute = true, Verb = "runas" });
                     Application.Exit();
@@ -307,10 +308,11 @@ namespace KorotInstaller
                 if (VersionManager.InstallerVer < VersionManager.LatestInstallerVer)
                 {
                     isUpdatingInstaller = true;
+                    allowClose = false;
                     StringEventhHybrid seh = new StringEventhHybrid()
                     {
                         String = "https://haltroy.com/KorotInstaller.html",
-                        String2 = "KorotInstaller.exe",
+                        String2 = Settings.WorkFolder + "KorotInstaller.exe",
                         String3 = "Installer",
                         Type = StringEventhHybrid.StringType.File,
                     };
