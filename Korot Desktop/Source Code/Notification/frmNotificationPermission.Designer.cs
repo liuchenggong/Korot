@@ -63,29 +63,29 @@ namespace Korot
             // 
             // button1
             // 
-            this.button1.Text = "Block";
             this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button1.DrawImage = true;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(1, 83);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(387, 26);
             this.button1.TabIndex = 1;
-            this.button1.DrawImage = true;
+            this.button1.Text = "Block";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Text = "Allow";
             this.button2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button2.DrawImage = true;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Location = new System.Drawing.Point(1, 109);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(388, 26);
             this.button2.TabIndex = 1;
-            this.button2.DrawImage = true;
+            this.button2.Text = "Allow";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 

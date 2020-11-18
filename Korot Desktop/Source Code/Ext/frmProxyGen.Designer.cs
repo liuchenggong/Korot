@@ -45,11 +45,11 @@ namespace Korot
             this.chID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chIP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.htButton1 = new HTAlt.WinForms.HTButton();
-            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.htButton1 = new HTAlt.WinForms.HTButton();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -124,34 +124,6 @@ namespace Korot
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // loadToolStripMenuItem
-            // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.loadToolStripMenuItem.Text = "Load";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
-            // 
-            // htButton1
-            // 
-            this.htButton1.Text = "OK";
-            this.htButton1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.htButton1.FlatAppearance.BorderSize = 0;
-            this.htButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.htButton1.Location = new System.Drawing.Point(0, 427);
-            this.htButton1.Name = "htButton1";
-            this.htButton1.Size = new System.Drawing.Size(584, 23);
-            this.htButton1.TabIndex = 5;
-            this.htButton1.DrawImage = true;
-            this.htButton1.UseVisualStyleBackColor = true;
-            this.htButton1.Click += new System.EventHandler(this.htButton1_Click);
-            // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
@@ -159,12 +131,40 @@ namespace Korot
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            // 
+            // htButton1
+            // 
+            this.htButton1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.htButton1.DrawImage = true;
+            this.htButton1.FlatAppearance.BorderSize = 0;
+            this.htButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.htButton1.Location = new System.Drawing.Point(0, 427);
+            this.htButton1.Name = "htButton1";
+            this.htButton1.Size = new System.Drawing.Size(584, 23);
+            this.htButton1.TabIndex = 5;
+            this.htButton1.Text = "OK";
+            this.htButton1.UseVisualStyleBackColor = true;
+            this.htButton1.Click += new System.EventHandler(this.htButton1_Click);
             // 
             // frmProxyGen
             // 

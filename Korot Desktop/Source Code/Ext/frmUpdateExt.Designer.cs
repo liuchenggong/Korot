@@ -70,6 +70,7 @@ namespace Korot
             // 
             // htProgressBar1
             // 
+            this.htProgressBar1.BorderThickness = 0;
             this.htProgressBar1.DrawBorder = true;
             this.htProgressBar1.Location = new System.Drawing.Point(13, 53);
             this.htProgressBar1.Name = "htProgressBar1";
@@ -79,7 +80,7 @@ namespace Korot
             // 
             // frmUpdateExt
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(322, 88);
             this.Controls.Add(this.htProgressBar1);

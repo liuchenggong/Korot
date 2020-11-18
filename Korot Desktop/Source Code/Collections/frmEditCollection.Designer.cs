@@ -246,13 +246,13 @@ namespace Korot
             // bt3DOT
             // 
             this.bt3DOT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bt3DOT.DrawImage = true;
             this.bt3DOT.FlatAppearance.BorderSize = 0;
             this.bt3DOT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bt3DOT.Location = new System.Drawing.Point(440, 45);
             this.bt3DOT.Name = "bt3DOT";
             this.bt3DOT.Size = new System.Drawing.Size(27, 26);
             this.bt3DOT.TabIndex = 4;
-            this.bt3DOT.DrawImage = true;
             this.bt3DOT.UseVisualStyleBackColor = true;
             this.bt3DOT.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -442,8 +442,8 @@ namespace Korot
             // 
             // btDone
             // 
-            this.btDone.Text = "Done";
             this.btDone.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btDone.DrawImage = true;
             this.btDone.FlatAppearance.BorderSize = 0;
             this.btDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDone.Location = new System.Drawing.Point(0, 474);
@@ -451,7 +451,7 @@ namespace Korot
             this.btDone.Name = "btDone";
             this.btDone.Size = new System.Drawing.Size(492, 28);
             this.btDone.TabIndex = 5;
-            this.btDone.DrawImage = true;
+            this.btDone.Text = "Done";
             this.btDone.UseVisualStyleBackColor = true;
             this.btDone.Click += new System.EventHandler(this.button1_Click);
             // 

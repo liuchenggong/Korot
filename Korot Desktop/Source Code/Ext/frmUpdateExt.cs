@@ -34,6 +34,7 @@ namespace Korot
             Settings = settings;
             isTheme = false;
             Extension = ext;
+            currentVersion = ext.Version;
             InitializeComponent();
             Lang();
             webC.DownloadStringCompleted += webC_DownloadStringComplete;
@@ -48,6 +49,7 @@ namespace Korot
             Settings = settings;
             isTheme = true;
             Theme = theme;
+            currentVersion = theme.Version;
             InitializeComponent();
             Lang();
             webC.DownloadStringCompleted += webC_DownloadStringComplete;

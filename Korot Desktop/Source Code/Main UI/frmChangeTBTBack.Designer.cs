@@ -61,8 +61,8 @@ namespace Korot
             // 
             // btDefault
             // 
-            this.btDefault.Text = "Set to Default";
             this.btDefault.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btDefault.DrawImage = true;
             this.btDefault.FlatAppearance.BorderSize = 0;
             this.btDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDefault.Location = new System.Drawing.Point(0, 205);
@@ -70,14 +70,14 @@ namespace Korot
             this.btDefault.Name = "btDefault";
             this.btDefault.Size = new System.Drawing.Size(446, 26);
             this.btDefault.TabIndex = 1;
-            this.btDefault.DrawImage = true;
+            this.btDefault.Text = "Set to Default";
             this.btDefault.UseVisualStyleBackColor = true;
             this.btDefault.Click += new System.EventHandler(this.button1_Click);
             // 
             // btOK
             // 
-            this.btOK.Text = "OK";
             this.btOK.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btOK.DrawImage = true;
             this.btOK.FlatAppearance.BorderSize = 0;
             this.btOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btOK.Location = new System.Drawing.Point(0, 231);
@@ -85,14 +85,14 @@ namespace Korot
             this.btOK.Name = "btOK";
             this.btOK.Size = new System.Drawing.Size(446, 26);
             this.btOK.TabIndex = 1;
-            this.btOK.DrawImage = true;
+            this.btOK.Text = "OK";
             this.btOK.UseVisualStyleBackColor = true;
             this.btOK.Click += new System.EventHandler(this.button2_Click);
             // 
             // btCancel
             // 
-            this.btCancel.Text = "Cancel";
             this.btCancel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btCancel.DrawImage = true;
             this.btCancel.FlatAppearance.BorderSize = 0;
             this.btCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btCancel.Location = new System.Drawing.Point(0, 179);
@@ -100,7 +100,7 @@ namespace Korot
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(446, 26);
             this.btCancel.TabIndex = 1;
-            this.btCancel.DrawImage = true;
+            this.btCancel.Text = "Cancel";
             this.btCancel.UseVisualStyleBackColor = true;
             this.btCancel.Click += new System.EventHandler(this.button3_Click);
             // 

@@ -359,12 +359,6 @@
     <Compile Include="Source Code\System Stuff\UACControl.cs" />
     <Compile Include="Source Code\Collections\CollectionManagement.cs" />
     <Compile Include="Source Code\System Stuff\ConsoleOutputLog.cs" />
-    <Compile Include="Source Code\Main UI\frmUpdate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source Code\Main UI\frmUpdate.Designer.cs">
-      <DependentUpon>frmUpdate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Source Code\Ext\frmExt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -434,10 +428,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmThemeWizard.resx">
       <DependentUpon>frmThemeWizard.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Source Code\Main UI\frmUpdate.resx">
-      <DependentUpon>frmUpdate.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Source Code\Main UI\frmChangeTBTBack.resx">
@@ -783,10 +773,6 @@
     <ProjectReference Include="..\EasyTabs\EasyTabs.csproj">
       <Project>{690ba0f7-d8fe-4ebe-ba39-8058086c7a09}</Project>
       <Name>EasyTabs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KorotUpdate\Korot Installer.csproj">
-      <Project>{6f5571c0-e808-4528-94ab-2e059b6aa558}</Project>
-      <Name>Korot Installer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

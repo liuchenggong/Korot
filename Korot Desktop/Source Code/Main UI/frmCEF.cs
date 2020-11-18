@@ -524,7 +524,7 @@ namespace Korot
             updateAddons();
         }
 
-        private readonly string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\IconStorage\\";
+        private string iconStorage => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + Settings.ProfileName + "\\IconStorage\\";
 
         private void updateFavoritesImages()
         {

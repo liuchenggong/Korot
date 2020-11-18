@@ -18,7 +18,7 @@ namespace Korot
     {
         private readonly string favName;
         private readonly string favUrl;
-        private readonly frmCEF Cefform;
+        private frmCEF Cefform;
 
         public frmMain anaform()
         {
@@ -118,6 +118,7 @@ namespace Korot
         private void frmNewFav_Load(object sender, EventArgs e)
         {
             LoadDynamicMenu();
+            treeView1.SelectedNode = treeView1.Nodes[0];
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -146,7 +147,7 @@ namespace Korot
             }
         }
 
-        private readonly string iconStorage = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\IconStorage\\";
+        private string iconStorage => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + Cefform.Settings.ProfileName + "\\IconStorage\\";
 
         private void button2_Click(object sender, EventArgs e)
         {

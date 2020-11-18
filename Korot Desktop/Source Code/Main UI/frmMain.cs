@@ -12,9 +12,11 @@ using HTAlt.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -31,10 +33,12 @@ namespace Korot
         public List<frmNotification> notifications { get; set; }
 
         public bool newDownload = false;
+        public bool isUpdateAvailable = false;
+        public bool isUpdateError = false;
         public bool isIncognito = false;
         public TitleBarTab licenseTab = null;
         public TitleBarTab settingTab = null;
-        public frmUpdate Updater;
+        public WebClient WebC;
 
         #region Notification Listener
 
@@ -466,16 +470,51 @@ namespace Korot
 
         #endregion "Translate"
 
+        #region Updater
+        private void WebC_DownloadString(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                isUpdateError = true;
+                Output.WriteLine(" [Updater] Update checking cancelled.");
+                return;
+            }
+            if (e.Error != null)
+            {
+                isUpdateError = true;
+                Output.WriteLine(" [Updater] Update checking error: " + e.Error.ToString());
+                return;
+            }
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(e.Result);
+            int latestVersion = 0;
+            XmlNode firstNode = doc.FirstChild.Name != "HaltroyUpdate" ? doc.FirstChild.NextSibling : doc.FirstChild;
+            foreach(XmlNode node in firstNode.ChildNodes)
+            {
+                if (node.Name == (VersionInfo.isPreOut ? "PreOutNo" : "AppVersionNo"))
+                {
+                    latestVersion = Convert.ToInt32(node.InnerXml);
+                }
+            }
+            isUpdateAvailable = (VersionInfo.VersionNumber < latestVersion);
+        }
+
+        public void CheckForUpdates()
+        {
+            if (WebC.IsBusy) { WebC.CancelAsync(); }
+            WebC.DownloadStringAsync(new Uri("https://raw.githubusercontent.com/Haltroy/Korot/master/Korot.htupdate"));
+        }
+        #endregion Updater
+
         public frmMain(Settings settings)
         {
             Settings = settings;
             AeroPeekEnabled = true;
             TabRenderer = new KorotTabRenderer(this);
             Icon = Properties.Resources.KorotIcon;
-            Updater = new frmUpdate(Settings)
-            {
-                Visible = false,
-            };
+            WebC = new WebClient();
+            WebC.DownloadStringCompleted += WebC_DownloadString;
+            CheckForUpdates();
             InitializeComponent();
             foreach (Control x in Controls)
             {
@@ -518,7 +557,6 @@ namespace Korot
                     }
                 }
             }
-            Updater.CheckForUpdates();
         }
 
         private void CloseTabs()
@@ -790,9 +828,16 @@ namespace Korot
                 }
                 CloseTabs();
                 Cef.Shutdown();
-                if (Updater.isReady)
+                if (isUpdateAvailable)
                 {
-                    Updater.ApplyUpdate();
+                    string installerPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Haltroy\\KorotInstaller.exe";
+                    if (!File.Exists(installerPath))
+                    {
+                        WebC.DownloadFile("https://haltroy.com/KorotInstaller.html", installerPath);
+                    }else
+                    {
+                        Process.Start(installerPath);
+                    }
                 }
                 CleanNow(true);
 

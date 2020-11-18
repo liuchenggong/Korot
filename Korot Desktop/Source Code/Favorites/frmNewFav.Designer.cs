@@ -49,8 +49,8 @@ namespace Korot
             // 
             // button2
             // 
-            this.button2.Text = "Add";
             this.button2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button2.DrawImage = true;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -59,7 +59,7 @@ namespace Korot
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(370, 27);
             this.button2.TabIndex = 0;
-            this.button2.DrawImage = true;
+            this.button2.Text = "Add";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -84,7 +84,7 @@ namespace Korot
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label1.Location = new System.Drawing.Point(11, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 17);
+            this.label1.Size = new System.Drawing.Size(50, 17);
             this.label1.TabIndex = 2;
             this.label1.Text = "Name :";
             // 
@@ -124,8 +124,8 @@ namespace Korot
             // 
             // button1
             // 
-            this.button1.Text = "New Folder...";
             this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button1.DrawImage = true;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -134,7 +134,7 @@ namespace Korot
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(370, 27);
             this.button1.TabIndex = 0;
-            this.button1.DrawImage = true;
+            this.button1.Text = "New Folder...";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -145,7 +145,7 @@ namespace Korot
             // 
             // frmNewFav
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(370, 340);

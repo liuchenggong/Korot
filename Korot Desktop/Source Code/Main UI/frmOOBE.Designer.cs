@@ -54,6 +54,7 @@ namespace Korot
             this.lbProfile = new System.Windows.Forms.Label();
             this.lbWelcome = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -83,7 +84,6 @@ namespace Korot
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.lbTipF = new System.Windows.Forms.Label();
             this.tmrLang = new System.Windows.Forms.Timer(this.components);
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -334,6 +334,19 @@ namespace Korot
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.checkBox1.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.checkBox1.Location = new System.Drawing.Point(0, 430);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Padding = new System.Windows.Forms.Padding(10);
+            this.checkBox1.Size = new System.Drawing.Size(620, 43);
+            this.checkBox1.TabIndex = 27;
+            this.checkBox1.Text = "Run Theme Wizard after closing";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -668,19 +681,6 @@ namespace Korot
             this.tmrLang.Enabled = true;
             this.tmrLang.Interval = 10000;
             this.tmrLang.Tick += new System.EventHandler(this.tmrLang_Tick);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.checkBox1.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.checkBox1.Location = new System.Drawing.Point(0, 430);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Padding = new System.Windows.Forms.Padding(10);
-            this.checkBox1.Size = new System.Drawing.Size(620, 43);
-            this.checkBox1.TabIndex = 27;
-            this.checkBox1.Text = "Run Theme Wizard after closing";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // frmOOBE
             // 
