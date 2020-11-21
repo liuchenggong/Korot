@@ -36,10 +36,10 @@ To see roadmap, refer to [ROADMAP](https://github.com/Haltroy/Korot/blob/master/
 
  | Branch                                                              | CEFSharp Version | VC++ Version | .Net | HTAlt  | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-----|-------------------|
-| [`master`](https://github.com/haltroy/korot)                      | 85 | 2015 | Framework 4.8 | b1.6 | Master | `1.0.0.0`: Unknown |
-| [`1.0.0.0`](https://github.com/Haltroy/Korot/tree/1.0.0.0) | >=85 | 2015 | Framework 4.8 | >=b1.6 | `Planned` | ?? March 2021 |
-| [`0.9.0.0`](https://github.com/Haltroy/Korot/tree/0.9.0.0) | >=85 | 2015 | Framework 4.8 | >=b1.6 | `Planned` | ?? February 2021 |
-| [`0.8.6.0`](https://github.com/Haltroy/Korot/tree/0.8.6.0) | >=85 | 2015 | Framework 4.8 | >=b1.6 | `Planned` | ?? January 2021 |
+| [`master`](https://github.com/haltroy/korot)                      | 85 | 2015 | Framework 4.8 | b1.6.1 | Master | 17 July 2017 |
+| [`1.0.0.0`](https://github.com/Haltroy/Korot/tree/1.0.0.0) | >=85 | 2015 | Framework 4.8 | >=b1.6.1 | `Planned` | ?? March 2021 |
+| [`0.9.0.0`](https://github.com/Haltroy/Korot/tree/0.9.0.0) | >=85 | 2015 | Framework 4.8 | >=b1.6.1 | `Planned` | ?? February 2021 |
+| [`0.8.6.0`](https://github.com/Haltroy/Korot/tree/0.8.6.0) | >=85 | 2015 | Framework 4.8 | >=b1.6.1 | `Planned` | ?? January 2021 |
 | [`0.8.5.0`](https://github.com/Haltroy/Korot/tree/0.8.5.0) | >=85 | 2015 | Framework 4.8 | b1.6.1 | `Development` | ?? December 2020 |
 | [`0.8.4.0`](https://github.com/Haltroy/Korot/tree/0.8.4.0) | 85 | 2015 | Framework 4.8 | b1.6 | **Latest Release** | 29 October 2020 |
 | [`0.8.3.0`](https://github.com/Haltroy/Korot/tree/0.8.3.0) | 84 | 2015 | Framework 4.8 | b1.6 | Unsupported | 13 October 2020 |
