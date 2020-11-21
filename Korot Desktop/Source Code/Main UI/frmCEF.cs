@@ -591,6 +591,11 @@ namespace Korot
             if (anaform.LoadedLang != fileLocation)
             {
                 anaform.LoadedLang = fileLocation;
+                anaform.CreateShortcutToDesktop = Settings.LanguageSystem.GetItemText("CreateShortcutToDesktop");
+                anaform.CreateShortcut = Settings.LanguageSystem.GetItemText("CreateShortcut");
+                anaform.KorotShortcut = Settings.LanguageSystem.GetItemText("KorotShortcut");
+                anaform.ShortcutNormal = Settings.LanguageSystem.GetItemText("ShortcutNormal");
+                anaform.ShortcutKorot = Settings.LanguageSystem.GetItemText("ShortcutKorot");
                 anaform.KorotCommand = Settings.LanguageSystem.GetItemText("KorotCommand");
                 anaform.NoInt1 = Settings.LanguageSystem.GetItemText("NoInt1");
                 anaform.NoInt2 = Settings.LanguageSystem.GetItemText("NoInt2");

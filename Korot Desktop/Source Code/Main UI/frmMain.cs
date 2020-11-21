@@ -197,7 +197,11 @@ namespace Korot
 
 
         #region "Translate"
-
+        public string CreateShortcutToDesktop = "Create Shortcut to Desktop";
+        public string CreateShortcut = "Create Shortcut...";
+        public string KorotShortcut = "Korot Shortcut";
+        public string ShortcutNormal = "Shortcut (Normal)";
+        public string ShortcutKorot = "Shortcut (Korot)";
         public string KorotCommand = "Korot Command";
         public string ImBored = "I'm bored.";
         public string DefaultBrowserSearch = "how to change default web browser";
