@@ -172,14 +172,12 @@ namespace Korot
             // 
             this.btDone.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btDone.DrawImage = true;
-            this.btDone.FlatAppearance.BorderSize = 0;
-            this.btDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btDone.AutoSize = true;
             this.btDone.Location = new System.Drawing.Point(0, 138);
             this.btDone.Name = "btDone";
             this.btDone.Size = new System.Drawing.Size(529, 23);
             this.btDone.TabIndex = 6;
             this.btDone.Text = "Done";
-            this.btDone.UseVisualStyleBackColor = true;
             this.btDone.Click += new System.EventHandler(this.btDone_Click);
             // 
             // timer1

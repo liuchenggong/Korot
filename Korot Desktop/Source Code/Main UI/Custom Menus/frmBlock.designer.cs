@@ -62,14 +62,11 @@ namespace Korot
             // 
             this.htButton1.Text = "Clear";
             this.htButton1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.htButton1.FlatAppearance.BorderSize = 0;
-            this.htButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.htButton1.Location = new System.Drawing.Point(0, 427);
             this.htButton1.Name = "htButton1";
             this.htButton1.Size = new System.Drawing.Size(475, 23);
             this.htButton1.TabIndex = 2;
             this.htButton1.DrawImage = true;
-            this.htButton1.UseVisualStyleBackColor = true;
             this.htButton1.Click += new System.EventHandler(this.htButton1_Click);
             // 
             // frmBlock

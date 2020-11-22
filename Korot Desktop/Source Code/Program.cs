@@ -7,7 +7,6 @@ Use of this source code is governed by an MIT License that can be found in githu
 */
 
 using CefSharp;
-using CefSharp.DevTools.DOMSnapshot;
 using CefSharp.WinForms;
 using EasyTabs;
 using HTAlt;
@@ -15,6 +14,7 @@ using HTAlt.WinForms;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -58,20 +58,22 @@ namespace Korot
                 frmAskBirthday askBDay = new frmAskBirthday(settings);
                 askBDay.ShowDialog();
             }
-            bool appStarted = false;
             List<frmNotification> notifications = new List<frmNotification>();
             try
             {
                 if (args.Contains("--make-ext"))
                 {
                     Application.Run(new frmMakeExt());
-                    appStarted = true;
+                    return;
+                }
+                else if (args.Contains("--error"))
+                {
+                    Application.Run(new frmError(settings));
                     return;
                 }
                 else if (args.Contains("-oobe") || settings.LoadedDefaults || !Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\"))
                 {
                     Application.Run(new frmOOBE(settings));
-                    appStarted = true;
                     return;
                 }
                 else
@@ -97,7 +99,6 @@ namespace Korot
                         else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
                         {
                             Application.Run(new frmInstallExt(settings, x));
-                            appStarted = true;
                         }
                         else
                         {
@@ -118,14 +119,13 @@ new TitleBarTab(testApp)
                     TitleBarTabsApplicationContext applicationContext = new TitleBarTabsApplicationContext();
                     applicationContext.Start(testApp);
                     Application.Run(applicationContext);
-                    appStarted = true;
                 }
             }
             catch (Exception ex)
             {
                 Output.WriteLine(" [Korot] FATAL_ERROR: " + ex.ToString());
-                frmError form = new frmError(ex, settings);
-                if (!appStarted) { Application.Run(form); } else { form.Show(); }
+                Process.Start(Application.ExecutablePath, "--error");
+                return;
             }
         }
 
@@ -135,13 +135,6 @@ new TitleBarTab(testApp)
             foreach (string x in Directory.GetFiles(directory)) { try { File.Delete(x); } catch (Exception ex) { errors.Add(new FileFolderError(x, ex, false)); } }
             foreach (string x in Directory.GetDirectories(directory)) { try { Directory.Delete(x, true); } catch (Exception ex) { errors.Add(new FileFolderError(x, ex, true)); } }
             if (displayresult) { if (errors.Count == 0) { Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with no errors."); } else { Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with " + errors.Count + " error(s)."); foreach (FileFolderError x in errors) { Output.WriteLine(" [RemoveDirectory] " + (x.isDirectory ? "Directory" : "File") + " Error: " + x.Location + " [" + x.Error.ToString() + "]"); } } }
-        }
-
-        public static T Clone<T>(this T obj)
-        {
-            var inst = obj.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-
-            return (T)inst?.Invoke(obj, null);
         }
     }
 

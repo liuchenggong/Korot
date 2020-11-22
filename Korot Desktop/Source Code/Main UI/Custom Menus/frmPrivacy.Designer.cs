@@ -92,28 +92,24 @@ namespace Korot
             // 
             this.btCert.Text = "Show certificate error...";
             this.btCert.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btCert.FlatAppearance.BorderSize = 0;
-            this.btCert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btCert.AutoSize = true;
             this.btCert.Location = new System.Drawing.Point(0, 112);
             this.btCert.Name = "btCert";
             this.btCert.Size = new System.Drawing.Size(325, 23);
             this.btCert.TabIndex = 4;
             this.btCert.DrawImage = true;
-            this.btCert.UseVisualStyleBackColor = true;
             this.btCert.Click += new System.EventHandler(this.htButton1_Click);
             // 
             // btSite
             // 
             this.btSite.Text = "Manage settings...";
             this.btSite.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btSite.FlatAppearance.BorderSize = 0;
-            this.btSite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btSite.AutoSize = true;
             this.btSite.Location = new System.Drawing.Point(0, 89);
             this.btSite.Name = "btSite";
             this.btSite.Size = new System.Drawing.Size(325, 23);
             this.btSite.TabIndex = 5;
             this.btSite.DrawImage = true;
-            this.btSite.UseVisualStyleBackColor = true;
             this.btSite.Click += new System.EventHandler(this.htButton2_Click);
             // 
             // timer1

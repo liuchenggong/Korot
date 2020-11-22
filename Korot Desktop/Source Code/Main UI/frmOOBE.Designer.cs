@@ -154,15 +154,12 @@ namespace Korot
             this.btContinue2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btContinue2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btContinue2.DrawImage = true;
-            this.btContinue2.FlatAppearance.BorderSize = 0;
-            this.btContinue2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btContinue2.Location = new System.Drawing.Point(3, 492);
             this.btContinue2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btContinue2.Name = "btContinue2";
             this.btContinue2.Size = new System.Drawing.Size(614, 23);
             this.btContinue2.TabIndex = 5;
             this.btContinue2.Text = "Continue";
-            this.btContinue2.UseVisualStyleBackColor = false;
             this.btContinue2.Visible = false;
             this.btContinue2.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -230,15 +227,12 @@ namespace Korot
             this.btBack.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btBack.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btBack.DrawImage = true;
-            this.btBack.FlatAppearance.BorderSize = 0;
-            this.btBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btBack.Location = new System.Drawing.Point(3, 469);
             this.btBack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btBack.Name = "btBack";
             this.btBack.Size = new System.Drawing.Size(614, 23);
             this.btBack.TabIndex = 18;
             this.btBack.Text = "Go Back";
-            this.btBack.UseVisualStyleBackColor = false;
             this.btBack.Click += new System.EventHandler(this.button5_Click);
             // 
             // btContinue
@@ -246,15 +240,12 @@ namespace Korot
             this.btContinue.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btContinue.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btContinue.DrawImage = true;
-            this.btContinue.FlatAppearance.BorderSize = 0;
-            this.btContinue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btContinue.Location = new System.Drawing.Point(3, 492);
             this.btContinue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btContinue.Name = "btContinue";
             this.btContinue.Size = new System.Drawing.Size(614, 23);
             this.btContinue.TabIndex = 17;
             this.btContinue.Text = "Continue";
-            this.btContinue.UseVisualStyleBackColor = false;
             this.btContinue.Visible = false;
             this.btContinue.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -441,15 +432,12 @@ namespace Korot
             this.btBack1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btBack1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btBack1.DrawImage = true;
-            this.btBack1.FlatAppearance.BorderSize = 0;
-            this.btBack1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btBack1.Location = new System.Drawing.Point(0, 473);
             this.btBack1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btBack1.Name = "btBack1";
             this.btBack1.Size = new System.Drawing.Size(620, 23);
             this.btBack1.TabIndex = 20;
             this.btBack1.Text = "Go Back";
-            this.btBack1.UseVisualStyleBackColor = false;
             this.btBack1.Click += new System.EventHandler(this.button3_Click);
             // 
             // btFinish
@@ -457,15 +445,12 @@ namespace Korot
             this.btFinish.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btFinish.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btFinish.DrawImage = true;
-            this.btFinish.FlatAppearance.BorderSize = 0;
-            this.btFinish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btFinish.Location = new System.Drawing.Point(0, 496);
             this.btFinish.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btFinish.Name = "btFinish";
             this.btFinish.Size = new System.Drawing.Size(620, 23);
             this.btFinish.TabIndex = 18;
             this.btFinish.Text = "Finish Installation";
-            this.btFinish.UseVisualStyleBackColor = false;
             this.btFinish.Visible = false;
             this.btFinish.Click += new System.EventHandler(this.button2_Click);
             // 

@@ -50,14 +50,13 @@ namespace Korot
             set => HTAlt.Tools.WriteFile(GetUserFolder + "LASTSESSION.SFSOC", value, Encoding.Unicode);
         }
 
-        public static string[] ErrorMenu
+        public static string ErrorMenu
         {
             get
             {
                 if (File.Exists(GetUserFolder + "ERRORMENU.SFSOC"))
                 {
-                    char[] token = new char[] { Environment.NewLine.ToCharArray()[0] };
-                    return HTAlt.Tools.ReadFile(GetUserFolder + "ERRORMENU.SFSOC", Encoding.Unicode).Split(token);
+                    return HTAlt.Tools.ReadFile(GetUserFolder + "ERRORMENU.SFSOC", Encoding.Unicode);
                 }
                 else
                 {
@@ -67,12 +66,7 @@ namespace Korot
             }
             set
             {
-                string newval = "";
-                foreach (string x in value)
-                {
-                    newval += x + Environment.NewLine;
-                }
-                HTAlt.Tools.WriteFile(GetUserFolder + "ERRORMENU.SFSOC", newval, Encoding.Unicode);
+                HTAlt.Tools.WriteFile(GetUserFolder + "ERRORMENU.SFSOC", value, Encoding.Unicode);
             }
         }
     }

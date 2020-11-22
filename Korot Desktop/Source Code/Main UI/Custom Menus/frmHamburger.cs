@@ -350,7 +350,7 @@ namespace Korot
                 HTButton itemButton = new HTButton()
                 {
                     ImageSizeMode = HTButton.ButtonImageSizeMode.Zoom,
-                    Image = File.Exists(x.Icon) ? HTAlt.Tools.ReadFile(x.Icon, "ignore") : (HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Properties.Resources.ext : Properties.Resources.ext_w),
+                    ButtonImage = File.Exists(x.Icon) ? HTAlt.Tools.ReadFile(x.Icon, "ignore") : (HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Properties.Resources.ext : Properties.Resources.ext_w),
                     Size = new System.Drawing.Size(32, 32),
                     Tag = x,
                 };
@@ -364,7 +364,7 @@ namespace Korot
                     HTButton itemButton = new HTButton()
                     {
                         ImageSizeMode = HTButton.ButtonImageSizeMode.Zoom,
-                        Image = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Properties.Resources.script : Properties.Resources.script_2,
+                        ButtonImage = HTAlt.Tools.IsBright(cefform.Settings.Theme.BackColor) ? Properties.Resources.script : Properties.Resources.script_2,
                         Size = new System.Drawing.Size(32, 32),
                         Tag = x,
                     };

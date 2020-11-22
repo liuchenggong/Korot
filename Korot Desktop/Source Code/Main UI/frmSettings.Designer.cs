@@ -449,17 +449,13 @@ namespace Korot
             // 
             this.btDownloadFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btDownloadFolder.AutoSize = true;
-            this.btDownloadFolder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btDownloadFolder.DrawImage = true;
-            this.btDownloadFolder.FlatAppearance.BorderSize = 0;
-            this.btDownloadFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDownloadFolder.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.btDownloadFolder.Location = new System.Drawing.Point(622, 407);
             this.btDownloadFolder.Name = "btDownloadFolder";
             this.btDownloadFolder.Size = new System.Drawing.Size(27, 26);
             this.btDownloadFolder.TabIndex = 77;
             this.btDownloadFolder.Text = "...";
-            this.btDownloadFolder.UseVisualStyleBackColor = true;
             this.btDownloadFolder.Click += new System.EventHandler(this.btDownloadFolder_Click);
             // 
             // lbDownloadFolder
@@ -1079,18 +1075,13 @@ namespace Korot
             // btACClean
             // 
             this.btACClean.AutoSize = true;
-            this.btACClean.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btACClean.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btACClean.DrawImage = true;
-            this.btACClean.FlatAppearance.BorderSize = 0;
-            this.btACClean.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btACClean.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.btACClean.Location = new System.Drawing.Point(8, 8);
             this.btACClean.Name = "btACClean";
             this.btACClean.Size = new System.Drawing.Size(85, 27);
             this.btACClean.TabIndex = 137;
             this.btACClean.Text = "Clean Now";
-            this.btACClean.UseVisualStyleBackColor = false;
             // 
             // pCleanHistory
             // 
@@ -1863,14 +1854,11 @@ namespace Korot
             this.btNTClear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btNTClear.DrawImage = true;
-            this.btNTClear.FlatAppearance.BorderSize = 0;
-            this.btNTClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btNTClear.Location = new System.Drawing.Point(16, 69);
             this.btNTClear.Name = "btNTClear";
             this.btNTClear.Size = new System.Drawing.Size(633, 23);
             this.btNTClear.TabIndex = 70;
             this.btNTClear.Text = "Clear";
-            this.btNTClear.UseVisualStyleBackColor = true;
             this.btNTClear.Click += new System.EventHandler(this.btClear_Click);
             // 
             // lbNTUrl
@@ -2203,16 +2191,12 @@ namespace Korot
             // 
             this.btOpenSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btOpenSound.AutoSize = true;
-            this.btOpenSound.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btOpenSound.FlatAppearance.BorderSize = 0;
-            this.btOpenSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btOpenSound.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.btOpenSound.Location = new System.Drawing.Point(622, 63);
             this.btOpenSound.Name = "btOpenSound";
             this.btOpenSound.Size = new System.Drawing.Size(27, 26);
             this.btOpenSound.TabIndex = 130;
             this.btOpenSound.Text = "...";
-            this.btOpenSound.UseVisualStyleBackColor = true;
             this.btOpenSound.Click += new System.EventHandler(this.btOpenSound_Click);
             // 
             // tbSoundLoc
@@ -2345,18 +2329,13 @@ namespace Korot
             // btReset
             // 
             this.btReset.AutoSize = true;
-            this.btReset.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btReset.DrawImage = true;
-            this.btReset.FlatAppearance.BorderSize = 0;
-            this.btReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.btReset.Location = new System.Drawing.Point(18, 183);
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(105, 27);
             this.btReset.TabIndex = 15;
             this.btReset.Text = "Reset Korot...";
-            this.btReset.UseVisualStyleBackColor = false;
             this.btReset.Click += new System.EventHandler(this.btReset_Click);
             // 
             // lbUpdateStatus
@@ -2374,23 +2353,17 @@ namespace Korot
             // btUpdater
             // 
             this.btUpdater.AutoSize = true;
-            this.btUpdater.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btUpdater.BackColor = System.Drawing.Color.Transparent;
             this.btUpdater.DrawImage = true;
-            this.btUpdater.FlatAppearance.BorderSize = 0;
-            this.btUpdater.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btUpdater.Location = new System.Drawing.Point(18, 247);
             this.btUpdater.Name = "btUpdater";
             this.btUpdater.Size = new System.Drawing.Size(117, 25);
             this.btUpdater.TabIndex = 11;
             this.btUpdater.Text = "Check for Updates";
-            this.btUpdater.UseVisualStyleBackColor = false;
             this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
             // 
             // llLicenses
             // 
             this.llLicenses.AutoSize = true;
-            this.llLicenses.BackColor = System.Drawing.Color.Transparent;
             this.llLicenses.Location = new System.Drawing.Point(15, 152);
             this.llLicenses.Name = "llLicenses";
             this.llLicenses.Size = new System.Drawing.Size(163, 15);
@@ -2470,17 +2443,13 @@ namespace Korot
             // btClose
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose.BackColor = System.Drawing.Color.Transparent;
             this.btClose.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btClose.DrawImage = true;
-            this.btClose.FlatAppearance.BorderSize = 0;
-            this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClose.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose.Location = new System.Drawing.Point(623, 9);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(30, 30);
             this.btClose.TabIndex = 1;
-            this.btClose.UseVisualStyleBackColor = false;
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // pSidebar
@@ -2518,17 +2487,13 @@ namespace Korot
             // btSidebar
             // 
             this.btSidebar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSidebar.BackColor = System.Drawing.Color.Transparent;
             this.btSidebar.ButtonImage = global::Korot.Properties.Resources.cancel;
             this.btSidebar.DrawImage = true;
-            this.btSidebar.FlatAppearance.BorderSize = 0;
-            this.btSidebar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btSidebar.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btSidebar.Location = new System.Drawing.Point(96, 7);
             this.btSidebar.Name = "btSidebar";
             this.btSidebar.Size = new System.Drawing.Size(30, 30);
             this.btSidebar.TabIndex = 1;
-            this.btSidebar.UseVisualStyleBackColor = false;
             this.btSidebar.Click += new System.EventHandler(this.btSidebar_Click);
             // 
             // lbCollections

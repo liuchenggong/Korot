@@ -45,22 +45,26 @@ namespace Korot
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new HTAlt.WinForms.HTButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.htButton1 = new HTAlt.WinForms.HTButton();
             this.SuspendLayout();
             // 
             // button2
             // 
+            this.button2.ButtonImage = null;
+            this.button2.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.button2.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
             this.button2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button2.DrawImage = true;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button2.Location = new System.Drawing.Point(0, 313);
+            this.button2.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.button2.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.button2.Location = new System.Drawing.Point(0, 340);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button2.Name = "button2";
+            this.button2.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.button2.Size = new System.Drawing.Size(370, 27);
             this.button2.TabIndex = 0;
             this.button2.Text = "Add";
-            this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // treeView1
@@ -72,7 +76,7 @@ namespace Korot
             this.treeView1.Location = new System.Drawing.Point(14, 80);
             this.treeView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(341, 191);
+            this.treeView1.Size = new System.Drawing.Size(341, 196);
             this.treeView1.TabIndex = 1;
             this.treeView1.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeSelect);
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
@@ -124,18 +128,21 @@ namespace Korot
             // 
             // button1
             // 
+            this.button1.ButtonImage = null;
+            this.button1.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.button1.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
             this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button1.DrawImage = true;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button1.Location = new System.Drawing.Point(0, 286);
+            this.button1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.button1.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.button1.Location = new System.Drawing.Point(0, 313);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
+            this.button1.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.button1.Size = new System.Drawing.Size(370, 27);
             this.button1.TabIndex = 0;
             this.button1.Text = "New Folder...";
-            this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // timer1
@@ -143,12 +150,32 @@ namespace Korot
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // htButton1
+            // 
+            this.htButton1.ButtonImage = null;
+            this.htButton1.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.htButton1.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
+            this.htButton1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.htButton1.DrawImage = true;
+            this.htButton1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.htButton1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.htButton1.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.htButton1.Location = new System.Drawing.Point(0, 286);
+            this.htButton1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.htButton1.Name = "htButton1";
+            this.htButton1.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.htButton1.Size = new System.Drawing.Size(370, 27);
+            this.htButton1.TabIndex = 4;
+            this.htButton1.Text = "Reset";
+            this.htButton1.Click += new System.EventHandler(this.htButton1_Click);
+            // 
             // frmNewFav
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(370, 340);
+            this.ClientSize = new System.Drawing.Size(370, 367);
+            this.Controls.Add(this.htButton1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox2);
@@ -178,5 +205,6 @@ namespace Korot
         private System.Windows.Forms.TextBox textBox2;
         private HTAlt.WinForms.HTButton button1;
         private System.Windows.Forms.Timer timer1;
+        private HTAlt.WinForms.HTButton htButton1;
     }
 }

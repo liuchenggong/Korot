@@ -77,6 +77,11 @@ namespace Korot
             }
         }
 
+        public void ShowHamburgerNotification()
+        {
+
+        }
+
         public frmCEF(frmMain _aform, Settings settings, bool isIncognito = false, string loadurl = "korot://newtab", string profileName = "user0", bool notifListenMode = false, string Session = "")
         {
             _anaform = _aform;
@@ -591,6 +596,9 @@ namespace Korot
             if (anaform.LoadedLang != fileLocation)
             {
                 anaform.LoadedLang = fileLocation;
+                tsForwardHistory.Text = Settings.LanguageSystem.GetItemText("History");
+                tsBackHistory.Text = Settings.LanguageSystem.GetItemText("History");
+                anaform.Reset = Settings.LanguageSystem.GetItemText("Reset");
                 anaform.CreateShortcutToDesktop = Settings.LanguageSystem.GetItemText("CreateShortcutToDesktop");
                 anaform.CreateShortcut = Settings.LanguageSystem.GetItemText("CreateShortcut");
                 anaform.KorotShortcut = Settings.LanguageSystem.GetItemText("KorotShortcut");
@@ -856,8 +864,12 @@ namespace Korot
                 anaform.deleteProfile = Settings.LanguageSystem.GetItemText("DeleteThisProfile");
                 anaform.aboutInfo = Settings.LanguageSystem.GetItemText("KorotAbout");
             }
-            string[] errormenu = new string[] { Settings.LanguageSystem.GetItemText("ErrorRestart"), Settings.LanguageSystem.GetItemText("ErrorDesc1"), Settings.LanguageSystem.GetItemText("ErrorDesc2"), Settings.LanguageSystem.GetItemText("ErrorTI") };
-            SafeFileSettingOrganizedClass.ErrorMenu = errormenu;
+            SafeFileSettingOrganizedClass.ErrorMenu = "<Translations>" + Environment.NewLine +
+                "<Restart>" + Settings.LanguageSystem.GetItemText("ErrorRestart") + "</Restart>" + Environment.NewLine +
+                "<Message1>" + Settings.LanguageSystem.GetItemText("ErrorDesc1") + "</Message1>" + Environment.NewLine +
+                "<Message2>" + Settings.LanguageSystem.GetItemText("ErrorDesc2") + "</Message2>" + Environment.NewLine +
+                "<Technical>" + Settings.LanguageSystem.GetItemText("ErrorTI") + "</Technical>" + Environment.NewLine +
+                "</Translations>" + Environment.NewLine;
             newFavoriteToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("NewFavorite");
             newFolderToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("NewFolderButton");
             removeSelectedTSMI.Text = Settings.LanguageSystem.GetItemText("RemoveSelected");
@@ -1068,50 +1080,42 @@ namespace Korot
 
         public void loadingstatechanged(object sender, LoadingStateChangedEventArgs e)
         {
-            if (!IsDisposed)
+            if (IsDisposed) { return; }
+            if (Disposing) { return; }
+            if (this == null) { return; }
+            if (e.IsLoading)
             {
-                if (e.IsLoading)
+                certError = false;
+                cookieUsage = false;
+                Invoke(new Action(() => pbPrivacy.Image = Properties.Resources.lockg));
+                Invoke(new Action(() => certificatedetails = ""));
+                Invoke(new Action(() => certError = false));
+                Invoke(new Action(() => btRefresh.ButtonImage = HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Korot.Properties.Resources.cancel : Korot.Properties.Resources.cancel_w));
+            }
+            else
+            {
+                if (_Incognito) { }
+                else
                 {
-                    certError = false;
-                    cookieUsage = false;
-                    Invoke(new Action(() => pbPrivacy.Image = Properties.Resources.lockg));
-                    Invoke(new Action(() => certificatedetails = ""));
-                    Invoke(new Action(() => certError = false));
-                    if (HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130)
-                    {
-                        btRefresh.Image = Korot.Properties.Resources.cancel;
-                    }
-                    else { btRefresh.Image = Korot.Properties.Resources.cancel_w; }
+                    Invoke(new Action(() => Settings.History.Add(new Korot.Site() { Date = DateTime.Now.ToString(DateFormat), Name = Text, Url = tbAddress.Text })));
+                }
+                Invoke(new Action(() => btRefresh.ButtonImage = HTAlt.Tools.IsBright(Settings.Theme.BackColor) ? Korot.Properties.Resources.cancel : Korot.Properties.Resources.cancel_w));
+            }
+            if (onCEFTab)
+            {
+                if (!e.Browser.IsDisposed)
+                {
+                    btBack.Invoke(new Action(() => btBack.Enabled = SessionSystem.CanGoBack()));
+                    btNext.Invoke(new Action(() => btNext.Enabled = SessionSystem.CanGoForward()));
                 }
                 else
                 {
-                    if (_Incognito) { }
-                    else
-                    {
-                        Invoke(new Action(() => Settings.History.Add(new Korot.Site() { Date = DateTime.Now.ToString(DateFormat), Name = Text, Url = tbAddress.Text })));
-                    }
-                    if (HTAlt.Tools.Brightness(Settings.Theme.BackColor) > 130)
-                    {
-                        btRefresh.Image = Korot.Properties.Resources.refresh;
-                    }
-                    else
-                    { btRefresh.Image = Korot.Properties.Resources.refresh_w; }
+                    btBack.Invoke(new Action(() => btBack.Enabled = false));
+                    btNext.Invoke(new Action(() => btNext.Enabled = false));
                 }
-                if (onCEFTab)
-                {
-                    if (!e.Browser.IsDisposed)
-                    {
-                        btBack.Invoke(new Action(() => btBack.Enabled = SessionSystem.CanGoBack()));
-                        btNext.Invoke(new Action(() => btNext.Enabled = SessionSystem.CanGoForward()));
-                    }
-                    else
-                    {
-                        btBack.Invoke(new Action(() => btBack.Enabled = false));
-                        btNext.Invoke(new Action(() => btNext.Enabled = false));
-                    }
-                }
-                isLoading = e.IsLoading;
             }
+            isLoading = e.IsLoading;
+            
         }
 
         public bool OnJSAlert(string url, string message)
@@ -1681,7 +1685,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
 
         private Color oldBackColor;
         private Color oldOverlayColor;
-        private string oldStyle;
 
         private void ChangeTheme(bool force = false)
         {
@@ -1750,11 +1753,24 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 if (isPageFavorited(chromiumWebBrowser1.Address)) { btFav.ButtonImage = Settings.NinjaMode ? null : (!isbright ? Properties.Resources.star_on_w : Properties.Resources.star_on); } else { btFav.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.star : Properties.Resources.star_w); }
                 mFavorites.ForeColor = ForeColor;
                 if (!noProfilePic) { btProfile.ButtonImage = Settings.NinjaMode ? null : profilePic; } else { btProfile.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.profiles : Properties.Resources.profiles_w); }
+                
                 btBack.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
+                btBack.NormalColor = BackColor; btBack.HoverColor = backcolor2; btBack.ClickColor = backcolor3;
+                
                 btRefresh.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.refresh : Properties.Resources.refresh_w);
+                btRefresh.NormalColor = BackColor; btRefresh.HoverColor = backcolor2; btRefresh.ClickColor = backcolor3;
+                
                 btNext.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w);
+                btNext.NormalColor = BackColor; btNext.HoverColor = backcolor2; btNext.ClickColor = backcolor3;
+                
                 btHome.ButtonImage = Settings.NinjaMode ? null : (isbright ? Properties.Resources.home : Properties.Resources.home_w);
+                btHome.NormalColor = BackColor; btHome.HoverColor = backcolor2; btHome.ClickColor = backcolor3;
+                
                 btHamburger.ButtonImage = Settings.NinjaMode ? null : (isbright ? (anaform is null ? Properties.Resources.hamburger : (anaform.newDownload ? Properties.Resources.hamburger_i : Properties.Resources.hamburger)) : (anaform is null ? Properties.Resources.hamburger_w : (anaform.newDownload ? Properties.Resources.hamburger_i_w : Properties.Resources.hamburger_w)));
+                btHamburger.NormalColor = BackColor; btHamburger.HoverColor = backcolor2; btHamburger.ClickColor = backcolor3;
+                btProfile.NormalColor = BackColor; btProfile.HoverColor = backcolor2; btProfile.ClickColor = backcolor3;
+                btFav.NormalColor = BackColor; btFav.HoverColor = backcolor2; btFav.ClickColor = backcolor3;
+
                 tbAddress.BackColor = backcolor2;
                 mFavorites.BackColor = Settings.Theme.BackColor;
                 cmsBack.BackColor = Settings.Theme.BackColor;
@@ -1768,64 +1784,6 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 {
                     c.Refresh();
                 }
-            }
-            if (Settings.Theme.BackgroundStyle != "BACKCOLOR")
-            {
-                if (Settings.Theme.BackgroundStyle != oldStyle)
-                {
-                    oldStyle = Settings.Theme.BackgroundStyle;
-                    Image backStyle = GetImageFromURL(Settings.Theme.BackgroundStyle);
-                    pNavigate.BackgroundImage = backStyle;
-                    mFavorites.BackgroundImage = backStyle;
-                    foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImage = backStyle; }
-                    tpSettings.BackgroundImage = backStyle;
-                }
-            }
-            else
-            {
-                if (Settings.Theme.BackgroundStyle != oldStyle)
-                {
-                    oldStyle = Settings.Theme.BackgroundStyle;
-                    pNavigate.BackgroundImage = null;
-                    mFavorites.BackgroundImage = null;
-                    foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImage = null; }
-                    tpSettings.BackgroundImage = null;
-                }
-            }
-            if (Settings.Theme.BackgroundStyleLayout == 0) //NONE
-            {
-                pNavigate.BackgroundImageLayout = ImageLayout.None;
-                mFavorites.BackgroundImageLayout = ImageLayout.None;
-                tpSettings.BackgroundImageLayout = ImageLayout.None;
-                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.None; }
-            }
-            else if (Settings.Theme.BackgroundStyleLayout == 1) //TILE
-            {
-                pNavigate.BackgroundImageLayout = ImageLayout.Tile;
-                mFavorites.BackgroundImageLayout = ImageLayout.Tile;
-                tpSettings.BackgroundImageLayout = ImageLayout.Tile;
-                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Tile; }
-            }
-            else if (Settings.Theme.BackgroundStyleLayout == 2) //CENTER
-            {
-                pNavigate.BackgroundImageLayout = ImageLayout.Center;
-                mFavorites.BackgroundImageLayout = ImageLayout.Center;
-                tpSettings.BackgroundImageLayout = ImageLayout.Center;
-                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Center; }
-            }
-            else if (Settings.Theme.BackgroundStyleLayout == 3) //STRETCH
-            {
-                pNavigate.BackgroundImageLayout = ImageLayout.Stretch;
-                mFavorites.BackgroundImageLayout = ImageLayout.Stretch;
-                tpSettings.BackgroundImageLayout = ImageLayout.Stretch;
-                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Stretch; }
-            }
-            else if (Settings.Theme.BackgroundStyleLayout == 4) //ZOOM
-            {
-                pNavigate.BackgroundImageLayout = ImageLayout.Zoom;
-                mFavorites.BackgroundImageLayout = ImageLayout.Zoom;
-                tpSettings.BackgroundImageLayout = ImageLayout.Zoom;
-                foreach (TabPage x in tabControl1.TabPages) { x.BackgroundImageLayout = ImageLayout.Zoom; }
             }
         }
 

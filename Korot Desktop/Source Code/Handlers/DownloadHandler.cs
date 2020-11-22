@@ -47,7 +47,7 @@ namespace Korot
                     }
                     downloadItem.FullPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName;
                     callback.Continue(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Korot\\DownloadTemp\\" + downloadItem.SuggestedFileName, false);
-                    ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
+                    ActiveForm.Invoke(new Action(() => ActiveForm.ShowHamburgerNotification()));
                 }
                 else
                 {
@@ -55,7 +55,7 @@ namespace Korot
                     {
                         downloadItem.FullPath = ActiveForm.Settings.Downloads.DownloadDirectory + "\\" + downloadItem.SuggestedFileName;
                         callback.Continue(ActiveForm.Settings.Downloads.DownloadDirectory + "\\" + downloadItem.SuggestedFileName, false);
-                        ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
+                        ActiveForm.Invoke(new Action(() => ActiveForm.ShowHamburgerNotification()));
                     }
                     else
                     {
@@ -64,7 +64,7 @@ namespace Korot
                         {
                             downloadItem.FullPath = saveFileDialog1.FileName;
                             callback.Continue(saveFileDialog1.FileName, false);
-                            ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
+                            ActiveForm.Invoke(new Action(() => ActiveForm.ShowHamburgerNotification()));
                         }
                     }
                 }
@@ -75,7 +75,7 @@ namespace Korot
                 {
                     downloadItem.FullPath = ActiveForm.Settings.Downloads.DownloadDirectory + "\\" + downloadItem.SuggestedFileName;
                     callback.Continue(ActiveForm.Settings.Downloads.DownloadDirectory + "\\" + downloadItem.SuggestedFileName, false);
-                    ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
+                    ActiveForm.Invoke(new Action(() => ActiveForm.ShowHamburgerNotification()));
                 }
                 else
                 {
@@ -84,7 +84,7 @@ namespace Korot
                     {
                         downloadItem.FullPath = saveFileDialog1.FileName;
                         callback.Continue(saveFileDialog1.FileName, false);
-                        ActiveForm.Invoke(new Action(() => ActiveForm.btHamburger.FlatAppearance.BorderSize = 1));
+                        ActiveForm.Invoke(new Action(() => ActiveForm.ShowHamburgerNotification()));
                     }
                 }
             }

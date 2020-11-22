@@ -197,6 +197,7 @@ namespace Korot
 
 
         #region "Translate"
+        public string Reset = "Reset...";
         public string CreateShortcutToDesktop = "Create Shortcut to Desktop";
         public string CreateShortcut = "Create Shortcut...";
         public string KorotShortcut = "Korot Shortcut";

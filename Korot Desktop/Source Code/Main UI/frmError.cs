@@ -9,18 +9,17 @@ Use of this source code is governed by an MIT License that can be found in githu
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Korot
 {
     public partial class frmError : Form
     {
-        private readonly Exception Error;
         public Settings Settings;
 
-        public frmError(Exception error, Settings settings)
+        public frmError(Settings settings)
         {
             Settings = settings;
-            Error = error;
             InitializeComponent();
             foreach (Control x in Controls)
             {
@@ -30,19 +29,46 @@ namespace Korot
 
         private void frmError_Load(object sender, EventArgs e)
         {
-            lbErrorCode.Text = Error.Message;
-            textBox1.Text = Error.ToString();
         }
+
+        bool loadedError = false;
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            string[] ErrorMenu = SafeFileSettingOrganizedClass.ErrorMenu;
-            if (ErrorMenu.Length > 2)
+            if (!loadedError)
             {
-                label1.Text = ErrorMenu[0];
-                label2.Text = ErrorMenu[1];
-                label3.Text = ErrorMenu[2];
-                btRestart.Text = ErrorMenu[3];
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(SafeFileSettingOrganizedClass.ErrorMenu);
+                foreach(XmlNode node in doc.FirstChild.ChildNodes)
+                {
+                    if (node.Name == "Translations")
+                    {
+                        foreach (XmlNode subnode in node.ChildNodes)
+                        {
+                            if (subnode.Name == "Restart")
+                            {
+                                btRestart.Text = subnode.InnerXml;
+                            }
+                            else if (subnode.Name == "Message1")
+                            {
+                                label1.Text = subnode.InnerXml;
+
+                            }
+                            else if (subnode.Name == "Message2")
+                            {
+                                label2.Text = subnode.InnerXml.Replace("[NEWLINE]", Environment.NewLine);
+                            }else if (subnode.Name == "Technical")
+                            {
+                                label3.Text = subnode.InnerXml;
+                            }
+                        }
+                    }
+                    else if (node.Name == "Error")
+                    {
+                        lbErrorCode.Text = node.Attributes["Message"].Value;
+                        textBox1.Text = node.InnerXml;
+                    }
+                }
             }
             BackColor = Settings.Theme.BackColor;
             ForeColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.ForeColor;

@@ -155,14 +155,12 @@ namespace Korot
             // 
             this.btRandom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btRandom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btRandom.FlatAppearance.BorderSize = 0;
-            this.btRandom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btRandom.AutoSize = true;
             this.btRandom.Location = new System.Drawing.Point(3, 601);
             this.btRandom.Name = "btRandom";
             this.btRandom.Size = new System.Drawing.Size(643, 26);
             this.btRandom.TabIndex = 9;
             this.btRandom.Text = "Pick Random";
-            this.btRandom.UseVisualStyleBackColor = false;
             this.btRandom.Click += new System.EventHandler(this.htButton7_Click);
             // 
             // pC
@@ -393,28 +391,24 @@ namespace Korot
             // 
             this.btBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btBack.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btBack.FlatAppearance.BorderSize = 0;
-            this.btBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btBack.AutoSize = true;
             this.btBack.Location = new System.Drawing.Point(3, 575);
             this.btBack.Name = "btBack";
             this.btBack.Size = new System.Drawing.Size(643, 26);
             this.btBack.TabIndex = 8;
             this.btBack.Text = "Go Back";
-            this.btBack.UseVisualStyleBackColor = false;
             this.btBack.Click += new System.EventHandler(this.htButton4_Click);
             // 
             // btRandom1
             // 
             this.btRandom1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btRandom1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btRandom1.FlatAppearance.BorderSize = 0;
-            this.btRandom1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btRandom1.AutoSize = true;
             this.btRandom1.Location = new System.Drawing.Point(3, 601);
             this.btRandom1.Name = "btRandom1";
             this.btRandom1.Size = new System.Drawing.Size(643, 26);
             this.btRandom1.TabIndex = 9;
             this.btRandom1.Text = "Pick Random";
-            this.btRandom1.UseVisualStyleBackColor = false;
             this.btRandom1.Click += new System.EventHandler(this.htButton5_Click);
             // 
             // pBlue
@@ -605,42 +599,36 @@ namespace Korot
             // 
             this.btBack2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btBack2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btBack2.FlatAppearance.BorderSize = 0;
-            this.btBack2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btBack2.AutoSize = true;
             this.btBack2.Location = new System.Drawing.Point(3, 552);
             this.btBack2.Name = "btBack2";
             this.btBack2.Size = new System.Drawing.Size(643, 26);
             this.btBack2.TabIndex = 9;
             this.btBack2.Text = "Go Back";
-            this.btBack2.UseVisualStyleBackColor = false;
             this.btBack2.Click += new System.EventHandler(this.htButton6_Click);
             // 
             // btRandom2
             // 
             this.btRandom2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btRandom2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btRandom2.FlatAppearance.BorderSize = 0;
-            this.btRandom2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btRandom2.AutoSize = true;
             this.btRandom2.Location = new System.Drawing.Point(3, 578);
             this.btRandom2.Name = "btRandom2";
             this.btRandom2.Size = new System.Drawing.Size(643, 26);
             this.btRandom2.TabIndex = 10;
             this.btRandom2.Text = "Pick Random";
-            this.btRandom2.UseVisualStyleBackColor = false;
             this.btRandom2.Click += new System.EventHandler(this.htButton8_Click);
             // 
             // btSelect
             // 
             this.btSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btSelect.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btSelect.FlatAppearance.BorderSize = 0;
-            this.btSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btSelect.AutoSize = true;
             this.btSelect.Location = new System.Drawing.Point(3, 604);
             this.btSelect.Name = "btSelect";
             this.btSelect.Size = new System.Drawing.Size(643, 23);
             this.btSelect.TabIndex = 8;
             this.btSelect.Text = "Select this";
-            this.btSelect.UseVisualStyleBackColor = false;
             this.btSelect.Click += new System.EventHandler(this.htButton9_Click);
             // 
             // trackBar1
@@ -726,14 +714,12 @@ namespace Korot
             // 
             this.btBack3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btBack3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btBack3.FlatAppearance.BorderSize = 0;
-            this.btBack3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btBack3.AutoSize = true;
             this.btBack3.Location = new System.Drawing.Point(3, 552);
             this.btBack3.Name = "btBack3";
             this.btBack3.Size = new System.Drawing.Size(643, 26);
             this.btBack3.TabIndex = 6;
             this.btBack3.Text = "Go Back";
-            this.btBack3.UseVisualStyleBackColor = false;
             this.btBack3.Click += new System.EventHandler(this.htButton2_Click);
             // 
             // lbYourTheme
@@ -750,14 +736,12 @@ namespace Korot
             // 
             this.btTryAgain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btTryAgain.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btTryAgain.FlatAppearance.BorderSize = 0;
-            this.btTryAgain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btTryAgain.AutoSize = true;
             this.btTryAgain.Location = new System.Drawing.Point(3, 578);
             this.btTryAgain.Name = "btTryAgain";
             this.btTryAgain.Size = new System.Drawing.Size(643, 26);
             this.btTryAgain.TabIndex = 7;
             this.btTryAgain.Text = "Try Again";
-            this.btTryAgain.UseVisualStyleBackColor = false;
             this.btTryAgain.Click += new System.EventHandler(this.htButton3_Click);
             // 
             // panel5
@@ -805,14 +789,12 @@ namespace Korot
             // 
             this.btApply.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.btApply.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btApply.FlatAppearance.BorderSize = 0;
-            this.btApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btApply.AutoSize = true;
             this.btApply.Location = new System.Drawing.Point(3, 604);
             this.btApply.Name = "btApply";
             this.btApply.Size = new System.Drawing.Size(643, 23);
             this.btApply.TabIndex = 5;
             this.btApply.Text = "Apply this && close";
-            this.btApply.UseVisualStyleBackColor = false;
             this.btApply.Click += new System.EventHandler(this.htButton1_Click);
             // 
             // lbResult

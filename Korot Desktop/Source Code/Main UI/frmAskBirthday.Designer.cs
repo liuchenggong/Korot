@@ -141,14 +141,12 @@ namespace Korot
             // 
             this.btOK.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btOK.FlatAppearance.BorderSize = 0;
-            this.btOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btOK.AutoSize = true;
             this.btOK.Location = new System.Drawing.Point(18, 165);
             this.btOK.Name = "btOK";
             this.btOK.Size = new System.Drawing.Size(404, 23);
             this.btOK.TabIndex = 5;
             this.btOK.Text = "OK";
-            this.btOK.UseVisualStyleBackColor = true;
             this.btOK.Click += new System.EventHandler(this.btOK_Click);
             // 
             // nudMonth
@@ -178,7 +176,6 @@ namespace Korot
             // 
             // frmAskBirthday
             // 
-            this.AcceptButton = this.btOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 191);

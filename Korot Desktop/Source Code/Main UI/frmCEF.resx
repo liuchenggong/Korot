@@ -124,13 +124,13 @@
     <value>153, 9</value>
   </metadata>
   <metadata name="cmsBack.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>858, 5</value>
+    <value>256, 8</value>
   </metadata>
   <metadata name="cmsFavorite.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>350, 9</value>
   </metadata>
   <metadata name="cms4.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>785, 0</value>
+    <value>92, 11</value>
   </metadata>
   <metadata name="tmrFaster.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>8, 6</value>
