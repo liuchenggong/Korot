@@ -1,0 +1,6 @@
+<Store Ver="1">
+<!-- EXAMPLE
+<List Name="List Name here" Publsher="Your name here" PublisherUrl="your address or social media username here">list xml file url here</List>
+-->
+<List Name="Haltroy" Publsher="Haltroy" PublisherUrl="https://haltroy.com">https://raw.githubusercontent.com/Haltroy/Korot/master/Store/haltroy/haltroy.xml</List>
+</Store>

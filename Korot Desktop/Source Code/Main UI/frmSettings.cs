@@ -33,6 +33,7 @@ namespace Korot
             cefform = _cefform;
             Settings = _Settings;
             InitializeComponent();
+            CheckThemeSettings();
             EasterEggs();
             if (!cefform.anaform.isUpdateAvailable)
             {
@@ -74,7 +75,7 @@ namespace Korot
         }
 
         private int tmr50event = 50;
-
+        private int loadedThemeInt;
         private void timer1_Tick(object sender, EventArgs e)
         {
             Text = tabControl1.SelectedTab.Text + " - Korot";
@@ -128,6 +129,33 @@ namespace Korot
                 btUpdater.Enabled = true;
                 btUpdater.Visible = true;
                 lbUpdateStatus.Text = cefform.anaform.KorotUpdateError;
+            }
+            //THEME
+            if (loadedThemeInt != theme)
+            {
+                loadedThemeInt = theme;
+                lbThemeName.Text = theme != -1 ? selectedTheme.Name : cefform.anaform.ThemeCustom;
+                lbThemeAuthor.Text = theme != -1 ? selectedTheme.Author : cefform.anaform.ThemeYou;
+                if (theme != -1)
+                {
+                    pbThemePreview.ImageLocation = selectedTheme.PreviewLocation;
+                }
+                else
+                {
+                    pbThemePreview.Image = null;
+                }
+                btThemeApplySave.Text = theme != -1 ? cefform.anaform.ThemeApply : cefform.anaform.ThemeSave;
+                pbNextTheme.Enabled = theme != Settings.Themes.ThemeList.Count - 1;
+                pbNextTheme.Visible = theme != Settings.Themes.ThemeList.Count - 1;
+                if (showCustom)
+                {
+                    pbPrev.Enabled = theme != -1;
+                    pbPrev.Visible = theme != -1;
+                }else
+                {
+                    pbPrev.Enabled = theme != 0;
+                    pbPrev.Visible = theme != 0;
+                }
             }
         }
 
@@ -228,7 +256,7 @@ namespace Korot
                 pCleanHistory.BackColor = backcolor2; pCleanHistory.ForeColor = ForeColor;
 
 
-                for (int i = 0; i < tabControl1.TabPages.Count;i++)
+                for (int i = 0; i < tabControl1.TabPages.Count; i++)
                 {
                     var tp = tabControl1.TabPages[i];
                     tp.BackColor = BackColor;
@@ -324,12 +352,6 @@ namespace Korot
                 pTitle.ForeColor = ForeColor;
                 tbHomepage.BackColor = backcolor2;
                 tbSearchEngine.BackColor = backcolor2;
-                flpLayout.BackColor = Settings.Theme.BackColor;
-                flpLayout.ForeColor = ForeColor;
-                flpNewTab.BackColor = Settings.Theme.BackColor;
-                flpNewTab.ForeColor = ForeColor;
-                flpClose.BackColor = Settings.Theme.BackColor;
-                flpClose.ForeColor = ForeColor;
                 tbTitle.BackColor = backcolor2;
                 tbTitle.ForeColor = ForeColor;
                 tbUrl.BackColor = backcolor2;
@@ -363,8 +385,6 @@ namespace Korot
                 nudSynthVol.BackColor = backcolor3; nudSynthVol.ForeColor = ForeColor;
                 btNTClear.BackColor = backcolor2;
                 btNTClear.ForeColor = ForeColor;
-                cmsBStyle.BackColor = Settings.Theme.BackColor;
-                cmsBStyle.ForeColor = ForeColor;
             }
         }
         private string loadedLang;
@@ -411,11 +431,6 @@ namespace Korot
                 lbShowFavorites.Text = Settings.LanguageSystem.GetItemText("ShowFavoritesMenu");
                 lbNewTabColor.Text = Settings.LanguageSystem.GetItemText("NewTabButtonColor");
                 lbCloseColor.Text = Settings.LanguageSystem.GetItemText("CloseButtonColor");
-                rbNone.Text = Settings.LanguageSystem.GetItemText("None");
-                rbTile.Text = Settings.LanguageSystem.GetItemText("Tile");
-                rbCenter.Text = Settings.LanguageSystem.GetItemText("Center");
-                rbStretch.Text = Settings.LanguageSystem.GetItemText("Stretch");
-                rbZoom.Text = Settings.LanguageSystem.GetItemText("Zoom");
                 rbBackColor.Text = Settings.LanguageSystem.GetItemText("BackColor");
                 rbForeColor.Text = Settings.LanguageSystem.GetItemText("ForeColor");
                 rbOverlayColor.Text = Settings.LanguageSystem.GetItemText("OverlayColor2");
@@ -430,13 +445,9 @@ namespace Korot
                 lbAtStartup.Text = Settings.LanguageSystem.GetItemText("AtStartup");
                 btReset.Text = Settings.LanguageSystem.GetItemText("ResetKorotButton");
                 lbLastProxy.Text = Settings.LanguageSystem.GetItemText("RememberLastProxy");
-                ımageFromURLToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImageFromBase64");
-                ımageFromLocalFileToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("ImageFromFile");
                 lbDNT.Text = Settings.LanguageSystem.GetItemText("EnableDoNotTrack");
                 llLicenses.Text = Settings.LanguageSystem.GetItemText("LicensesSpecialThanks");
                 lbSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
-                colorToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("UseBackgroundColor");
-                lbBackImageStyle.Text = Settings.LanguageSystem.GetItemText("BackgroundImageLayout");
                 btUpdater.Text = Settings.LanguageSystem.GetItemText("CheckForUpdates");
                 rbNewTab.Text = Settings.LanguageSystem.GetItemText("NewTab");
                 lbDownload.Text = Settings.LanguageSystem.GetItemText("Downloads");
@@ -447,7 +458,6 @@ namespace Korot
                 lbBackColor.Text = Settings.LanguageSystem.GetItemText("BackgroundColor");
                 lbOveralColor.Text = Settings.LanguageSystem.GetItemText("OverlayColor");
                 lbOpen.Text = Settings.LanguageSystem.GetItemText("OpenFilesAfterDownload");
-                lbThemeName.Text = Settings.LanguageSystem.GetItemText("ThemeName");
                 lbSearchEngine.Text = Settings.LanguageSystem.GetItemText("SearchEngine");
                 btACClean.Text = Settings.LanguageSystem.GetItemText("AutoCleanButton");
                 lbCleanCache.Text = Settings.LanguageSystem.GetItemText("AutoCleanCache");
@@ -470,6 +480,7 @@ namespace Korot
                 lbCH5.Text = CH3.Substring(0, CH3.IndexOf(AutoCleanSplitter));
                 lbCH6.Text = CH3.Substring(CH3.IndexOf(AutoCleanSplitter) + AutoCleanSplitter.Length);
                 label21.Text = cefform.anaform.aboutInfo + Environment.NewLine + ((!(string.IsNullOrWhiteSpace(Settings.Theme.Author) && string.IsNullOrWhiteSpace(Settings.Theme.Name))) ? Settings.LanguageSystem.GetItemText("AboutInfoTheme").Replace("[THEMEAUTHOR]", string.IsNullOrWhiteSpace(Settings.Theme.Author) ? cefform.anaform.anon : Settings.Theme.Author).Replace("[THEMENAME]", string.IsNullOrWhiteSpace(Settings.Theme.Name) ? cefform.anaform.noname : Settings.Theme.Name) : "");
+                loadedThemeInt = -2;
             }
         }
 
@@ -578,10 +589,13 @@ namespace Korot
                     break;
 
                 default:
-                    lbKorot.Text = new Random().Next(int.MinValue,int.MaxValue) % 2 == 0  ? "Korot" : "korot";
+                    lbKorot.Text = new Random().Next(int.MinValue, int.MaxValue) % 2 == 0 ? "Korot" : "korot";
                     break;
             }
         }
+
+        int loadedCBC;
+        int loadedNTB;
 
         private void ReloadSettings()
         {
@@ -600,55 +614,41 @@ namespace Korot
             nudSynthVol.Value = Settings.SynthVolume;
             hsFav.Checked = Settings.Favorites.ShowFavorites;
             hsDefaultBrowser.Checked = Settings.CheckIfDefault;
-            switch ((int)Settings.Theme.CloseButtonColor)
+            if (loadedCBC != (int)Settings.Theme.CloseButtonColor)
             {
-                case 0:
-                    rbBackColor1.Checked = true;
-                    break;
+                loadedCBC = (int)Settings.Theme.CloseButtonColor;
+                switch (loadedCBC)
+                {
+                    case 0:
+                        rbBackColor1.Checked = true;
+                        break;
 
-                case 1:
-                    rbForeColor1.Checked = true;
-                    break;
+                    case 1:
+                        rbForeColor1.Checked = true;
+                        break;
 
-                case 2:
-                    rbOverlayColor1.Checked = true;
-                    break;
+                    case 2:
+                        rbOverlayColor1.Checked = true;
+                        break;
+                }
             }
-            switch ((int)Settings.Theme.NewTabColor)
+            if (loadedNTB != (int)Settings.Theme.NewTabColor)
             {
-                case 0:
-                    rbBackColor.Checked = true;
-                    break;
+                loadedNTB = (int)Settings.Theme.NewTabColor;
+                switch (loadedNTB)
+                {
+                    case 0:
+                        rbBackColor.Checked = true;
+                        break;
 
-                case 1:
-                    rbForeColor.Checked = true;
-                    break;
+                    case 1:
+                        rbForeColor.Checked = true;
+                        break;
 
-                case 2:
-                    rbOverlayColor.Checked = true;
-                    break;
-            }
-            switch (Settings.Theme.BackgroundStyleLayout)
-            {
-                case 0:
-                    rbNone.Checked = true;
-                    break;
-
-                case 1:
-                    rbTile.Checked = true;
-                    break;
-
-                case 2:
-                    rbCenter.Checked = true;
-                    break;
-
-                case 3:
-                    rbStretch.Checked = true;
-                    break;
-
-                case 4:
-                    rbZoom.Checked = true;
-                    break;
+                    case 2:
+                        rbOverlayColor.Checked = true;
+                        break;
+                }
             }
             pCleanCache.Enabled = Settings.AutoCleaner.CleanCache;
             hsCleanCache.Checked = Settings.AutoCleaner.CleanCache;
@@ -670,7 +670,6 @@ namespace Korot
             tbSoundLoc.Enabled = !hsDefaultSound.Checked;
             tbSoundLoc.Text = Settings.SoundLocation;
             btOpenSound.Enabled = !hsDefaultSound.Checked;
-            colorToolStripMenuItem.Checked = Settings.Theme.BackgroundStyle == "BACKCOLOR" ? true : false;
             if (Settings.Startup.ToLower() == "korot://newtab")
             {
                 tbStartup.Text = showNewTabPageToolStripMenuItem.Text;
@@ -697,7 +696,7 @@ namespace Korot
             if (!isSideBarClosed)
             {
                 // Sidebar
-                int[] biggestpp = new int[] { 
+                int[] biggestpp = new int[] {
                     lbSettings.Location.X + lbSettings.Width + 5,
                     lbHistory.Location.X + lbHistory.Width + 5,
                     lbDownload.Location.X + lbDownload.Width + 5,
@@ -709,7 +708,7 @@ namespace Korot
                     lbNewTab.Location.X + lbNewTab.Width + 5,
                     lbLanguage.Location.X + lbLanguage.Width + 5,
                     lbNotifications.Location.X + lbNotifications.Width + 5,
-                    lbAbout.Location.X + lbAbout.Width + 5 
+                    lbAbout.Location.X + lbAbout.Width + 5
                 };
                 int? maxVal = null;
                 int index = -1;
@@ -749,7 +748,7 @@ namespace Korot
             hsCleanCache.Location = new Point(lbCleanCache.Location.X + lbCleanCache.Width, hsCleanCache.Location.Y);
             hsCleanHistory.Location = new Point(lbCleanHistory.Location.X + lbCleanHistory.Width, hsCleanHistory.Location.Y);
             hsCleanDownload.Location = new Point(lbCleanDownload.Location.X + lbCleanDownload.Width, hsCleanDownload.Location.Y);
-            btACClean.Location = new Point(( tpSettings.Width - 16 ) - btACClean.Width, btACClean.Location.Y);
+            btACClean.Location = new Point((tpSettings.Width - 16) - btACClean.Width, btACClean.Location.Y);
             nudCC1.Location = new Point(lbCC1.Location.X + lbCC1.Width, nudCC1.Location.Y);
             lbCC2.Location = new Point(nudCC1.Location.X + nudCC1.Width, lbCC2.Location.Y);
             hsCC1.Location = new Point(lbCC2.Location.X + lbCC2.Width, hsCC1.Location.Y);
@@ -773,10 +772,7 @@ namespace Korot
             flpTo.Location = new Point(scheduleTo.Location.X + scheduleTo.Width, flpTo.Location.Y);
             flpEvery.Location = new Point(scheduleEvery.Location.X + scheduleEvery.Width, flpEvery.Location.Y);
             lbVersion.Location = new Point(lbKorot.Location.X + lbKorot.Width, lbVersion.Location.Y);
-            flpClose.Location = new Point(lbCloseColor.Location.X + lbCloseColor.Width, flpClose.Location.Y);
-            flpClose.Width = ( tpSettings.Width - 16 ) - (lbCloseColor.Width + lbCloseColor.Location.X);
-            flpNewTab.Location = new Point(lbNewTabColor.Location.X + lbNewTabColor.Width, flpNewTab.Location.Y);
-            flpNewTab.Width = ( tpSettings.Width - 16 ) - (lbNewTabColor.Width + lbNewTabColor.Location.X);
+
             hsAutoRestore.Location = new Point(lbautoRestore.Location.X + lbautoRestore.Width, hsAutoRestore.Location.Y);
             hsFav.Location = new Point(lbShowFavorites.Location.X + lbShowFavorites.Width, hsFav.Location.Y);
             hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width, hsDoNotTrack.Location.Y);
@@ -786,15 +782,13 @@ namespace Korot
             llLicenses.LinkArea = new LinkArea(0, llLicenses.Text.Length);
             llLicenses.Location = new Point(label21.Location.X, label21.Location.Y + label21.Size.Height);
             tbStartup.Location = new Point(lbAtStartup.Location.X + lbAtStartup.Width, tbStartup.Location.Y);
-            tbStartup.Width = ( tpSettings.Width - 16 ) - (lbAtStartup.Width + lbAtStartup.Location.X);
+            tbStartup.Width = (tpSettings.Width - 16) - (lbAtStartup.Width + lbAtStartup.Location.X);
             tbTitle.Location = new Point(lbNTTitle.Location.X + lbNTTitle.Width, tbTitle.Location.Y);
-            tbTitle.Width = ( tpSettings.Width - 16 ) - (lbNTTitle.Width + lbNTTitle.Location.X);
-            tbSoundLoc.Width = ( tpSettings.Width - 16 ) - btOpenSound.Width;
+            tbTitle.Width = (tpSettings.Width - 16) - (lbNTTitle.Width + lbNTTitle.Location.X);
+            tbSoundLoc.Width = (tpSettings.Width - 16) - btOpenSound.Width;
             btOpenSound.Location = new Point(tbSoundLoc.Location.X + tbSoundLoc.Width, btOpenSound.Location.Y);
             tbUrl.Location = new Point(lbNTUrl.Location.X + lbNTUrl.Width, tbUrl.Location.Y);
-            tbUrl.Width = ( tpSettings.Width - 16 ) - (lbNTUrl.Width + lbNTUrl.Location.X);
-            flpLayout.Location = new Point(lbBackImageStyle.Location.X + lbBackImageStyle.Width, flpLayout.Location.Y);
-            flpLayout.Width = ( tpSettings.Width - 16 ) - (lbBackImageStyle.Width + lbBackImageStyle.Location.X);
+            tbUrl.Width = (tpSettings.Width - 16) - (lbNTUrl.Width + lbNTUrl.Location.X);
             pbBack.Location = new Point(lbBackColor.Location.X + lbBackColor.Width, pbBack.Location.Y);
             pbForeColor.Location = new Point(lbForeColor.Location.X + lbForeColor.Width, pbForeColor.Location.Y);
             lbAutoSelect.Location = new Point(pbForeColor.Location.X + pbForeColor.Width, lbAutoSelect.Location.Y);
@@ -803,16 +797,23 @@ namespace Korot
             hsNinja.Location = new Point(lbNinja.Location.X + lbNinja.Width, hsNinja.Location.Y);
             pbOverlay.Location = new Point(lbOveralColor.Location.X + lbOveralColor.Width, pbOverlay.Location.Y);
             tbFolder.Location = new Point(lbDownloadFolder.Location.X + lbDownloadFolder.Width, tbFolder.Location.Y);
-            tbFolder.Width = ( tpSettings.Width - 16 ) - (lbDownloadFolder.Location.X + lbDownloadFolder.Width + btDownloadFolder.Width);
+            tbFolder.Width = (tpSettings.Width - 16) - (lbDownloadFolder.Location.X + lbDownloadFolder.Width + btDownloadFolder.Width);
             btDownloadFolder.Location = new Point(tbFolder.Location.X + tbFolder.Width, btDownloadFolder.Location.Y);
             tbHomepage.Location = new Point(lbHomepage.Location.X + lbHomepage.Width, tbHomepage.Location.Y);
-            tbHomepage.Width = ( tpSettings.Width - 16 ) - (lbHomepage.Location.X + lbHomepage.Width + rbNewTab.Width);
+            tbHomepage.Width = (tpSettings.Width - 16) - (lbHomepage.Location.X + lbHomepage.Width + rbNewTab.Width);
             rbNewTab.Location = new Point(tbHomepage.Location.X + tbHomepage.Width, rbNewTab.Location.Y);
             tbSearchEngine.Location = new Point(lbSearchEngine.Location.X + lbSearchEngine.Width, tbSearchEngine.Location.Y);
-            tbSearchEngine.Width = ( tpSettings.Width - 16 ) - (lbSearchEngine.Location.X + lbSearchEngine.Width);
+            tbSearchEngine.Width = (tpSettings.Width - 16) - (lbSearchEngine.Location.X + lbSearchEngine.Width);
             btReset.Location = new Point(llLicenses.Location.X, llLicenses.Location.Y + llLicenses.Height);
             lbUpdateStatus.Location = new Point(btReset.Location.X, btReset.Location.Y + btReset.Height);
             btUpdater.Location = new Point(lbUpdateStatus.Location.X, lbUpdateStatus.Location.Y + lbUpdateStatus.Height);
+            rbBackColor.Location = new Point(lbNewTabColor.Location.X + lbNewTabColor.Width, lbNewTabColor.Location.Y);
+            rbForeColor.Location = new Point(rbBackColor.Location.X + rbBackColor.Width, rbBackColor.Location.Y);
+            rbOverlayColor.Location = new Point(rbForeColor.Location.X + rbForeColor.Width, rbForeColor.Location.Y);
+            rbBackColor1.Location = new Point(lbCloseColor.Location.X + lbCloseColor.Width, lbCloseColor.Location.Y);
+            rbForeColor1.Location = new Point(rbBackColor1.Location.X + rbBackColor1.Width, rbBackColor1.Location.Y);
+            rbOverlayColor1.Location = new Point(rbForeColor1.Location.X + rbForeColor1.Width, rbForeColor1.Location.Y);
+
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -821,8 +822,8 @@ namespace Korot
             ResetSidebarText();
             lbHistory.Font = new Font(lbHistory.Font, FontStyle.Bold);
             tabControl1.SelectedTab = tpHistory;
-            
-            
+
+
             if (hisman is null)
             {
                 hisman = new frmHistory(cefform)
@@ -844,8 +845,8 @@ namespace Korot
             ResetSidebarText();
             lbDownload.Font = new Font(lbDownload.Font, FontStyle.Bold);
             tabControl1.SelectedTab = tpDownloads;
-            
-            
+
+
             if (dowman is null)
             {
                 dowman = new frmDownload(cefform)
@@ -867,8 +868,8 @@ namespace Korot
             ResetSidebarText();
             lbCollections.Font = new Font(lbCollections.Font, FontStyle.Bold);
             tabControl1.SelectedTab = tpCollections;
-            
-            
+
+
             if (colman is null)
             {
                 colman = new frmCollection(cefform)
@@ -890,8 +891,8 @@ namespace Korot
             ResetSidebarText();
             lbAbout.Font = new Font(lbAbout.Font, FontStyle.Bold);
             tabControl1.SelectedTab = tpAbout;
-            
-            
+
+
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -900,8 +901,8 @@ namespace Korot
             ResetSidebarText();
             lbSettings.Font = new Font(lbSettings.Font, FontStyle.Bold);
             tabControl1.SelectedTab = tpSettings;
-            
-            
+
+
         }
 
         private void lbThemes_Click(object sender, EventArgs e)
@@ -910,8 +911,8 @@ namespace Korot
             ResetSidebarText();
             lbThemes.Font = new Font(lbSettings.Font, FontStyle.Bold);
             tabControl1.SelectedTab = tpTheme;
-            
-            
+
+
         }
 
         private void lbAutoClean_Click(object sender, EventArgs e)
@@ -920,8 +921,8 @@ namespace Korot
             ResetSidebarText();
             lbAutoClean.Font = new Font(lbSettings.Font, FontStyle.Bold);
             tabControl1.SelectedTab = tpAutoClear;
-            
-            
+
+
         }
 
         private void lbNewTab_Click(object sender, EventArgs e)
@@ -930,8 +931,8 @@ namespace Korot
             ResetSidebarText();
             lbNewTab.Font = new Font(lbSettings.Font, FontStyle.Bold);
             tabControl1.SelectedTab = tpNewTab;
-            
-            
+
+
         }
 
         private void lbLanguage_Click(object sender, EventArgs e)
@@ -940,8 +941,8 @@ namespace Korot
             ResetSidebarText();
             lbLanguage.Font = new Font(lbSettings.Font, FontStyle.Bold);
             tabControl1.SelectedTab = tpLang;
-            
-            
+
+
         }
 
         private void lbNotifications_Click(object sender, EventArgs e)
@@ -950,8 +951,8 @@ namespace Korot
             ResetSidebarText();
             lbNotifications.Font = new Font(lbSettings.Font, FontStyle.Bold);
             tabControl1.SelectedTab = tpNotifications;
-            
-            
+
+
         }
 
         private void ResetSidebarText()
@@ -1078,6 +1079,56 @@ namespace Korot
         #endregion AutoCleaner
 
         #region Theme
+        int theme = 0;
+        bool showCustom = false;
+        Theme selectedTheme;
+        private void btThemeApplySave_Click(object sender, EventArgs e)
+        {
+            Settings.Theme = selectedTheme;
+            showCustom = false;
+            Settings.JustChangedTheme(); ReloadTheme(true);
+        }
+
+        private void pbNextTheme_Click(object sender, EventArgs e)
+        {
+            if (theme != Settings.Themes.ThemeList.Count - 1)
+            {
+                theme++;
+            }
+            selectedTheme = Settings.Themes.ThemeList[theme];
+        }
+
+        private void pbPrev_Click(object sender, EventArgs e)
+        {
+            if (showCustom)
+            {
+                if (theme != -1)
+                {
+                    theme--;
+                }
+            }
+            else
+            {
+                if (theme != 0)
+                {
+                    theme--;
+                }
+            }
+            selectedTheme = theme != -1 ? Settings.Themes.ThemeList[theme] : Settings.Theme;
+        }
+        public void CheckThemeSettings()
+        {
+            theme = Settings.Themes.GetThemeIndex(Settings.Theme);
+            if (theme != -1)
+            {
+                selectedTheme = Settings.Themes.ThemeList[theme];
+            }
+            else
+            {
+                selectedTheme = Settings.Theme;
+            }
+            showCustom = theme == -1;
+        }
 
         private void pbBack_Click(object sender, EventArgs e)
         {
@@ -1094,6 +1145,7 @@ namespace Korot
                 Settings.Theme.BackColor = colorpicker.Color;
                 Settings.JustChangedTheme(); ReloadTheme(true);
             }
+            CheckThemeSettings();
         }
 
         private void pbForeColor_Click(object sender, EventArgs e)
@@ -1112,12 +1164,14 @@ namespace Korot
                 Settings.Theme.ForeColor = colorpicker.Color;
                 Settings.JustChangedTheme(); ReloadTheme(true);
             }
+            CheckThemeSettings();
         }
 
         private void hsAutoForeColor_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Theme.AutoForeColor = hsAutoForeColor.Checked;
             Settings.Theme.ForeColor = hsAutoForeColor.Checked ? (HTAlt.Tools.AutoWhiteBlack(Settings.Theme.BackColor)) : Settings.Theme.ForeColor;
+            CheckThemeSettings();
             Settings.JustChangedTheme(); ReloadTheme(true);
         }
 
@@ -1136,71 +1190,7 @@ namespace Korot
                 Settings.Theme.OverlayColor = colorpicker.Color;
                 Settings.JustChangedTheme(); ReloadTheme(true);
             }
-        }
-
-        private void rbNone_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbNone.Checked)
-            {
-                rbTile.Checked = false;
-                rbCenter.Checked = false;
-                rbStretch.Checked = false;
-                rbZoom.Checked = false;
-                Settings.Theme.BackgroundStyleLayout = 0;
-                Settings.JustChangedTheme(); ReloadTheme(true);
-            }
-        }
-
-        private void rbTile_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbTile.Checked)
-            {
-                rbNone.Checked = false;
-                rbCenter.Checked = false;
-                rbStretch.Checked = false;
-                rbZoom.Checked = false;
-                Settings.Theme.BackgroundStyleLayout = 1;
-                Settings.JustChangedTheme(); ReloadTheme(true);
-            }
-        }
-
-        private void rbCenter_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbCenter.Checked)
-            {
-                rbTile.Checked = false;
-                rbNone.Checked = false;
-                rbStretch.Checked = false;
-                rbZoom.Checked = false;
-                Settings.Theme.BackgroundStyleLayout = 2;
-                Settings.JustChangedTheme(); ReloadTheme(true);
-            }
-        }
-
-        private void rbStretch_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbStretch.Checked)
-            {
-                rbTile.Checked = false;
-                rbCenter.Checked = false;
-                rbZoom.Checked = false;
-                rbNone.Checked = false;
-                Settings.Theme.BackgroundStyleLayout = 3;
-                Settings.JustChangedTheme(); ReloadTheme(true);
-            }
-        }
-
-        private void rbZoom_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbZoom.Checked)
-            {
-                rbTile.Checked = false;
-                rbCenter.Checked = false;
-                rbStretch.Checked = false;
-                rbNone.Checked = false;
-                Settings.Theme.BackgroundStyleLayout = 4;
-                Settings.JustChangedTheme(); ReloadTheme(true);
-            }
+            CheckThemeSettings();
         }
 
         private void rbBackColor_CheckedChanged(object sender, EventArgs e)
@@ -1211,6 +1201,7 @@ namespace Korot
                 rbOverlayColor.Checked = false;
                 Settings.Theme.NewTabColor = TabColors.BackColor;
                 Settings.JustChangedTheme(); ReloadTheme(true);
+                CheckThemeSettings();
             }
         }
 
@@ -1222,6 +1213,7 @@ namespace Korot
                 rbOverlayColor.Checked = false;
                 Settings.Theme.NewTabColor = TabColors.ForeColor;
                 Settings.JustChangedTheme(); ReloadTheme(true);
+                CheckThemeSettings();
             }
         }
 
@@ -1233,6 +1225,7 @@ namespace Korot
                 rbBackColor.Checked = false;
                 Settings.Theme.NewTabColor = TabColors.OverlayColor;
                 Settings.JustChangedTheme(); ReloadTheme(true);
+                CheckThemeSettings();
             }
         }
 
@@ -1244,6 +1237,7 @@ namespace Korot
                 rbOverlayColor1.Checked = false;
                 Settings.Theme.CloseButtonColor = TabColors.BackColor;
                 Settings.JustChangedTheme(); ReloadTheme(true);
+                CheckThemeSettings();
             }
         }
 
@@ -1255,6 +1249,7 @@ namespace Korot
                 rbOverlayColor1.Checked = false;
                 Settings.Theme.CloseButtonColor = TabColors.ForeColor;
                 Settings.JustChangedTheme(); ReloadTheme(true);
+                CheckThemeSettings();
             }
         }
 
@@ -1266,6 +1261,7 @@ namespace Korot
                 rbBackColor1.Checked = false;
                 Settings.Theme.CloseButtonColor = TabColors.OverlayColor;
                 Settings.JustChangedTheme(); ReloadTheme(true);
+                CheckThemeSettings();
             }
         }
 
@@ -1273,6 +1269,7 @@ namespace Korot
         {
             Settings.NinjaMode = hsNinja.Checked;
             Settings.JustChangedTheme(); ReloadTheme(true);
+            CheckThemeSettings();
         }
 
         private void btThemeWizard_Click(object sender, EventArgs e)
@@ -1298,83 +1295,6 @@ namespace Korot
             Process.Start("explorer.exe", "\"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\\"");
         }
 
-        private void newTSMI_Click(object sender, EventArgs e)
-        {
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\")) { Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\"); }
-            HTInputBox input = new HTInputBox("Korot", cefform.anaform.ThemeSaveInfo, new HTDialogBoxContext(MessageBoxButtons.OKCancel, false, true), Path.GetFileNameWithoutExtension(Settings.Theme.ThemeFile)) { Icon = cefform.anaform.Icon, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, SetToDefault = cefform.anaform.SetToDefault, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor };
-            DialogResult result = input.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                string themeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + input.TextValue + ".ktf";
-                Theme saveTheme = new Theme("", Settings)
-                {
-                    ThemeFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + input.TextValue + ".ktf",
-                    BackColor = Settings.Theme.BackColor,
-                    OverlayColor = Settings.Theme.OverlayColor,
-                    MininmumKorotVersion = new Version(Application.ProductVersion),
-                    Version = new Version(Application.ProductVersion),
-                    Name = input.TextValue,
-                    Author = cefform.userName,
-                    BackgroundStyle = Settings.Theme.BackgroundStyle,
-                    BackgroundStyleLayout = Settings.Theme.BackgroundStyleLayout,
-                    CloseButtonColor = Settings.Theme.CloseButtonColor,
-                    NewTabColor = Settings.Theme.NewTabColor
-                };
-                saveTheme.SaveTheme();
-                Settings.Theme.ThemeFile = themeFile;
-            }
-        }
-
-        private void themeTSMI_Click(object sender, EventArgs e)
-        {
-            Settings.Theme.LoadFromFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + ((ToolStripMenuItem)sender).Text + ".ktf");
-            Settings.JustChangedTheme(); ReloadTheme(true);
-        }
-
-        private void colorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Settings.Theme.BackgroundStyle = "BACKCOLOR";
-            colorToolStripMenuItem.Checked = true;
-            Settings.JustChangedTheme(); ReloadTheme(true);
-        }
-
-        private void ımageFromLocalFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog filedlg = new OpenFileDialog
-            {
-                Filter = cefform.anaform.imageFiles + "|*.jpg;*.png;*.bmp;*.jpeg;*.jfif;*.gif;*.apng;*.ico;*.svg;*.webp|" + cefform.anaform.allFiles + "|*.*",
-                Title = cefform.anaform.selectBackImage,
-                Multiselect = false
-            };
-            if (filedlg.ShowDialog() == DialogResult.OK)
-            {
-                if (HTAlt.Tools.ImageToBase64(Image.FromFile(filedlg.FileName)).Length <= 131072)
-                {
-                    string imageType = Path.GetExtension(filedlg.FileName).Replace(".", "");
-                    Settings.Theme.BackgroundStyle = "background-image: url('data:image/" + imageType + ";base64," + HTAlt.Tools.ImageToBase64(Image.FromFile(filedlg.FileName)) + "');";
-                    colorToolStripMenuItem.Checked = false;
-                    Settings.JustChangedTheme(); ReloadTheme(true);
-                }
-                else
-                {
-                    ımageFromLocalFileToolStripMenuItem_Click(sender, e);
-                }
-            }
-        }
-
-        private void ımageFromURLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HTAlt.WinForms.HTInputBox inputbox = new HTAlt.WinForms.HTInputBox("Korot",
-                                                                                            cefform.anaform.enterAValidCode,
-                                                                                            "")
-            { Icon = Icon, SetToDefault = cefform.anaform.SetToDefault, StartPosition = FormStartPosition.CenterParent, OK = cefform.anaform.OK, Cancel = cefform.anaform.Cancel, BackColor = Settings.Theme.BackColor, AutoForeColor = false, ForeColor = Settings.Theme.ForeColor };
-            if (inputbox.ShowDialog() == DialogResult.OK)
-            {
-                Settings.Theme.BackgroundStyle = inputbox.TextValue + ";";
-                colorToolStripMenuItem.Checked = false;
-                Settings.JustChangedTheme(); ReloadTheme(true);
-            }
-        }
 
         #endregion Theme
 
@@ -2104,5 +2024,6 @@ namespace Korot
         }
 
         #endregion About
+        
     }
 }

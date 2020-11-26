@@ -36,14 +36,7 @@ namespace Korot
 
         public string GetBackStyle()
         {
-            if (CefForm.Settings.Theme.BackgroundStyle == "BACKCOLOR")
-            {
-                return "background-color: rgb(" + CefForm.Settings.Theme.BackColor.R + " ," + CefForm.Settings.Theme.BackColor.G + " , " + CefForm.Settings.Theme.BackColor.B + ");";
-            }
-            else
-            {
-                return CefForm.Settings.Theme.BackgroundStyle;
-            }
+            return "background-color: rgb(" + CefForm.Settings.Theme.BackColor.R + " ," + CefForm.Settings.Theme.BackColor.G + " , " + CefForm.Settings.Theme.BackColor.B + ");";
         }
 
         public string GetOverlay()

@@ -72,27 +72,24 @@ namespace Korot
             this.tpBlock = new System.Windows.Forms.TabPage();
             this.tpSite = new System.Windows.Forms.TabPage();
             this.tpTheme = new System.Windows.Forms.TabPage();
+            this.rbOverlayColor1 = new System.Windows.Forms.RadioButton();
+            this.rbForeColor1 = new System.Windows.Forms.RadioButton();
+            this.rbBackColor1 = new System.Windows.Forms.RadioButton();
+            this.rbBackColor = new System.Windows.Forms.RadioButton();
+            this.rbForeColor = new System.Windows.Forms.RadioButton();
+            this.btThemeApplySave = new System.Windows.Forms.Button();
+            this.rbOverlayColor = new System.Windows.Forms.RadioButton();
+            this.lbThemeAuthor = new System.Windows.Forms.Label();
+            this.lbThemeName = new System.Windows.Forms.Label();
+            this.pbThemePreview = new System.Windows.Forms.PictureBox();
+            this.pbNextTheme = new System.Windows.Forms.PictureBox();
+            this.pbPrev = new System.Windows.Forms.PictureBox();
             this.hsAutoForeColor = new HTAlt.WinForms.HTSwitch();
             this.lbAutoSelect = new System.Windows.Forms.Label();
             this.hsNinja = new HTAlt.WinForms.HTSwitch();
             this.lbNinja = new System.Windows.Forms.Label();
             this.pbForeColor = new System.Windows.Forms.PictureBox();
             this.lbForeColor = new System.Windows.Forms.Label();
-            this.flpClose = new System.Windows.Forms.FlowLayoutPanel();
-            this.rbBackColor1 = new System.Windows.Forms.RadioButton();
-            this.rbForeColor1 = new System.Windows.Forms.RadioButton();
-            this.rbOverlayColor1 = new System.Windows.Forms.RadioButton();
-            this.flpNewTab = new System.Windows.Forms.FlowLayoutPanel();
-            this.rbBackColor = new System.Windows.Forms.RadioButton();
-            this.rbForeColor = new System.Windows.Forms.RadioButton();
-            this.rbOverlayColor = new System.Windows.Forms.RadioButton();
-            this.flpLayout = new System.Windows.Forms.FlowLayoutPanel();
-            this.rbNone = new System.Windows.Forms.RadioButton();
-            this.rbTile = new System.Windows.Forms.RadioButton();
-            this.rbCenter = new System.Windows.Forms.RadioButton();
-            this.rbStretch = new System.Windows.Forms.RadioButton();
-            this.rbZoom = new System.Windows.Forms.RadioButton();
-            this.lbBackImageStyle = new System.Windows.Forms.Label();
             this.lbCloseColor = new System.Windows.Forms.Label();
             this.lbNewTabColor = new System.Windows.Forms.Label();
             this.pbBack = new System.Windows.Forms.PictureBox();
@@ -247,26 +244,16 @@ namespace Korot
             this.askToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ınternetArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsBStyle = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ımageFromLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ımageFromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pbNextTheme = new System.Windows.Forms.PictureBox();
-            this.pbPrev = new System.Windows.Forms.PictureBox();
-            this.pbThemePreview = new System.Windows.Forms.PictureBox();
-            this.lbThemeName = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btThemeApplySave = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tpSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudSynthRate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSynthVol)).BeginInit();
             this.tpTheme.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbThemePreview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNextTheme)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPrev)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbForeColor)).BeginInit();
-            this.flpClose.SuspendLayout();
-            this.flpNewTab.SuspendLayout();
-            this.flpLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbOverlay)).BeginInit();
             this.tpAutoClear.SuspendLayout();
@@ -304,10 +291,6 @@ namespace Korot
             this.pSidebar.SuspendLayout();
             this.cmsStartup.SuspendLayout();
             this.cmsSearchEngine.SuspendLayout();
-            this.cmsBStyle.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNextTheme)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPrev)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbThemePreview)).BeginInit();
             this.SuspendLayout();
             // 
             // lbTitle
@@ -448,12 +431,18 @@ namespace Korot
             // btDownloadFolder
             // 
             this.btDownloadFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btDownloadFolder.AutoSize = true;
+            this.btDownloadFolder.AutoColor = true;
+            this.btDownloadFolder.ButtonImage = null;
+            this.btDownloadFolder.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btDownloadFolder.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.btDownloadFolder.DrawImage = true;
             this.btDownloadFolder.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.btDownloadFolder.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btDownloadFolder.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
             this.btDownloadFolder.Location = new System.Drawing.Point(622, 407);
             this.btDownloadFolder.Name = "btDownloadFolder";
-            this.btDownloadFolder.Size = new System.Drawing.Size(27, 26);
+            this.btDownloadFolder.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.btDownloadFolder.Size = new System.Drawing.Size(20, 21);
             this.btDownloadFolder.TabIndex = 77;
             this.btDownloadFolder.Text = "...";
             this.btDownloadFolder.Click += new System.EventHandler(this.btDownloadFolder_Click);
@@ -693,7 +682,7 @@ namespace Korot
             // 
             this.tpBlock.Location = new System.Drawing.Point(4, 24);
             this.tpBlock.Name = "tpBlock";
-            this.tpBlock.Size = new System.Drawing.Size(579, 725);
+            this.tpBlock.Size = new System.Drawing.Size(666, 725);
             this.tpBlock.TabIndex = 7;
             this.tpBlock.Text = "Blocked Sites";
             this.tpBlock.UseVisualStyleBackColor = true;
@@ -710,8 +699,14 @@ namespace Korot
             // 
             // tpTheme
             // 
+            this.tpTheme.Controls.Add(this.rbOverlayColor1);
+            this.tpTheme.Controls.Add(this.rbForeColor1);
+            this.tpTheme.Controls.Add(this.rbBackColor1);
+            this.tpTheme.Controls.Add(this.rbBackColor);
+            this.tpTheme.Controls.Add(this.rbForeColor);
             this.tpTheme.Controls.Add(this.btThemeApplySave);
-            this.tpTheme.Controls.Add(this.label1);
+            this.tpTheme.Controls.Add(this.rbOverlayColor);
+            this.tpTheme.Controls.Add(this.lbThemeAuthor);
             this.tpTheme.Controls.Add(this.lbThemeName);
             this.tpTheme.Controls.Add(this.pbThemePreview);
             this.tpTheme.Controls.Add(this.pbNextTheme);
@@ -722,10 +717,6 @@ namespace Korot
             this.tpTheme.Controls.Add(this.lbNinja);
             this.tpTheme.Controls.Add(this.pbForeColor);
             this.tpTheme.Controls.Add(this.lbForeColor);
-            this.tpTheme.Controls.Add(this.flpClose);
-            this.tpTheme.Controls.Add(this.flpNewTab);
-            this.tpTheme.Controls.Add(this.flpLayout);
-            this.tpTheme.Controls.Add(this.lbBackImageStyle);
             this.tpTheme.Controls.Add(this.lbCloseColor);
             this.tpTheme.Controls.Add(this.lbNewTabColor);
             this.tpTheme.Controls.Add(this.pbBack);
@@ -738,6 +729,143 @@ namespace Korot
             this.tpTheme.TabIndex = 8;
             this.tpTheme.Text = "Themes";
             this.tpTheme.UseVisualStyleBackColor = true;
+            // 
+            // rbOverlayColor1
+            // 
+            this.rbOverlayColor1.AutoSize = true;
+            this.rbOverlayColor1.Location = new System.Drawing.Point(317, 440);
+            this.rbOverlayColor1.Name = "rbOverlayColor1";
+            this.rbOverlayColor1.Size = new System.Drawing.Size(97, 19);
+            this.rbOverlayColor1.TabIndex = 6;
+            this.rbOverlayColor1.Text = "Overlay Color";
+            this.rbOverlayColor1.UseVisualStyleBackColor = true;
+            this.rbOverlayColor1.CheckedChanged += new System.EventHandler(this.rbOverlayColor1_CheckedChanged);
+            // 
+            // rbForeColor1
+            // 
+            this.rbForeColor1.AutoSize = true;
+            this.rbForeColor1.Location = new System.Drawing.Point(228, 440);
+            this.rbForeColor1.Name = "rbForeColor1";
+            this.rbForeColor1.Size = new System.Drawing.Size(82, 19);
+            this.rbForeColor1.TabIndex = 6;
+            this.rbForeColor1.Text = "Fore Color";
+            this.rbForeColor1.UseVisualStyleBackColor = true;
+            this.rbForeColor1.CheckedChanged += new System.EventHandler(this.rbForeColor1_CheckedChanged);
+            // 
+            // rbBackColor1
+            // 
+            this.rbBackColor1.AutoSize = true;
+            this.rbBackColor1.Location = new System.Drawing.Point(138, 440);
+            this.rbBackColor1.Name = "rbBackColor1";
+            this.rbBackColor1.Size = new System.Drawing.Size(84, 19);
+            this.rbBackColor1.TabIndex = 6;
+            this.rbBackColor1.Text = "Back Color";
+            this.rbBackColor1.UseVisualStyleBackColor = true;
+            this.rbBackColor1.CheckedChanged += new System.EventHandler(this.rbBackColor1_CheckedChanged);
+            // 
+            // rbBackColor
+            // 
+            this.rbBackColor.AutoSize = true;
+            this.rbBackColor.Checked = true;
+            this.rbBackColor.Location = new System.Drawing.Point(152, 408);
+            this.rbBackColor.Name = "rbBackColor";
+            this.rbBackColor.Size = new System.Drawing.Size(84, 19);
+            this.rbBackColor.TabIndex = 5;
+            this.rbBackColor.TabStop = true;
+            this.rbBackColor.Text = "Back Color";
+            this.rbBackColor.UseVisualStyleBackColor = true;
+            this.rbBackColor.CheckedChanged += new System.EventHandler(this.rbBackColor_CheckedChanged);
+            // 
+            // rbForeColor
+            // 
+            this.rbForeColor.AutoSize = true;
+            this.rbForeColor.Location = new System.Drawing.Point(242, 410);
+            this.rbForeColor.Name = "rbForeColor";
+            this.rbForeColor.Size = new System.Drawing.Size(82, 19);
+            this.rbForeColor.TabIndex = 5;
+            this.rbForeColor.Text = "Fore Color";
+            this.rbForeColor.UseVisualStyleBackColor = true;
+            this.rbForeColor.CheckedChanged += new System.EventHandler(this.rbForeColor_CheckedChanged);
+            // 
+            // btThemeApplySave
+            // 
+            this.btThemeApplySave.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btThemeApplySave.FlatAppearance.BorderSize = 0;
+            this.btThemeApplySave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btThemeApplySave.Location = new System.Drawing.Point(172, 224);
+            this.btThemeApplySave.Name = "btThemeApplySave";
+            this.btThemeApplySave.Size = new System.Drawing.Size(300, 23);
+            this.btThemeApplySave.TabIndex = 146;
+            this.btThemeApplySave.Text = "Apply";
+            this.btThemeApplySave.UseVisualStyleBackColor = true;
+            this.btThemeApplySave.Click += new System.EventHandler(this.btThemeApplySave_Click);
+            // 
+            // rbOverlayColor
+            // 
+            this.rbOverlayColor.AutoSize = true;
+            this.rbOverlayColor.Location = new System.Drawing.Point(330, 410);
+            this.rbOverlayColor.Name = "rbOverlayColor";
+            this.rbOverlayColor.Size = new System.Drawing.Size(97, 19);
+            this.rbOverlayColor.TabIndex = 5;
+            this.rbOverlayColor.Text = "Overlay Color";
+            this.rbOverlayColor.UseVisualStyleBackColor = true;
+            this.rbOverlayColor.CheckedChanged += new System.EventHandler(this.rbOverlayColor_CheckedChanged);
+            // 
+            // lbThemeAuthor
+            // 
+            this.lbThemeAuthor.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbThemeAuthor.Location = new System.Drawing.Point(172, 200);
+            this.lbThemeAuthor.Name = "lbThemeAuthor";
+            this.lbThemeAuthor.Size = new System.Drawing.Size(300, 21);
+            this.lbThemeAuthor.TabIndex = 145;
+            this.lbThemeAuthor.Text = "THEMEAUTHOR";
+            this.lbThemeAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbThemeName
+            // 
+            this.lbThemeName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbThemeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.lbThemeName.Location = new System.Drawing.Point(172, 173);
+            this.lbThemeName.Name = "lbThemeName";
+            this.lbThemeName.Size = new System.Drawing.Size(300, 27);
+            this.lbThemeName.TabIndex = 145;
+            this.lbThemeName.Text = "THEMENAME";
+            this.lbThemeName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pbThemePreview
+            // 
+            this.pbThemePreview.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbThemePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbThemePreview.Location = new System.Drawing.Point(172, 20);
+            this.pbThemePreview.Name = "pbThemePreview";
+            this.pbThemePreview.Size = new System.Drawing.Size(300, 150);
+            this.pbThemePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbThemePreview.TabIndex = 144;
+            this.pbThemePreview.TabStop = false;
+            // 
+            // pbNextTheme
+            // 
+            this.pbNextTheme.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbNextTheme.Image = global::Korot.Properties.Resources.rightarrow;
+            this.pbNextTheme.Location = new System.Drawing.Point(478, 66);
+            this.pbNextTheme.Name = "pbNextTheme";
+            this.pbNextTheme.Size = new System.Drawing.Size(50, 50);
+            this.pbNextTheme.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbNextTheme.TabIndex = 142;
+            this.pbNextTheme.TabStop = false;
+            this.pbNextTheme.Click += new System.EventHandler(this.pbNextTheme_Click);
+            // 
+            // pbPrev
+            // 
+            this.pbPrev.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbPrev.Image = global::Korot.Properties.Resources.leftarrow;
+            this.pbPrev.Location = new System.Drawing.Point(116, 66);
+            this.pbPrev.Name = "pbPrev";
+            this.pbPrev.Size = new System.Drawing.Size(50, 50);
+            this.pbPrev.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPrev.TabIndex = 143;
+            this.pbPrev.TabStop = false;
+            this.pbPrev.Click += new System.EventHandler(this.pbPrev_Click);
             // 
             // hsAutoForeColor
             // 
@@ -801,197 +929,12 @@ namespace Korot
             this.lbForeColor.Tag = "";
             this.lbForeColor.Text = "Foreground Color : ";
             // 
-            // flpClose
-            // 
-            this.flpClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flpClose.AutoScroll = true;
-            this.flpClose.Controls.Add(this.rbBackColor1);
-            this.flpClose.Controls.Add(this.rbForeColor1);
-            this.flpClose.Controls.Add(this.rbOverlayColor1);
-            this.flpClose.Location = new System.Drawing.Point(141, 468);
-            this.flpClose.Name = "flpClose";
-            this.flpClose.Size = new System.Drawing.Size(509, 27);
-            this.flpClose.TabIndex = 133;
-            // 
-            // rbBackColor1
-            // 
-            this.rbBackColor1.AutoSize = true;
-            this.rbBackColor1.Location = new System.Drawing.Point(3, 3);
-            this.rbBackColor1.Name = "rbBackColor1";
-            this.rbBackColor1.Size = new System.Drawing.Size(84, 19);
-            this.rbBackColor1.TabIndex = 6;
-            this.rbBackColor1.TabStop = true;
-            this.rbBackColor1.Text = "Back Color";
-            this.rbBackColor1.UseVisualStyleBackColor = true;
-            this.rbBackColor1.CheckedChanged += new System.EventHandler(this.rbBackColor1_CheckedChanged);
-            // 
-            // rbForeColor1
-            // 
-            this.rbForeColor1.AutoSize = true;
-            this.rbForeColor1.Location = new System.Drawing.Point(93, 3);
-            this.rbForeColor1.Name = "rbForeColor1";
-            this.rbForeColor1.Size = new System.Drawing.Size(82, 19);
-            this.rbForeColor1.TabIndex = 6;
-            this.rbForeColor1.TabStop = true;
-            this.rbForeColor1.Text = "Fore Color";
-            this.rbForeColor1.UseVisualStyleBackColor = true;
-            this.rbForeColor1.CheckedChanged += new System.EventHandler(this.rbForeColor1_CheckedChanged);
-            // 
-            // rbOverlayColor1
-            // 
-            this.rbOverlayColor1.AutoSize = true;
-            this.rbOverlayColor1.Location = new System.Drawing.Point(181, 3);
-            this.rbOverlayColor1.Name = "rbOverlayColor1";
-            this.rbOverlayColor1.Size = new System.Drawing.Size(97, 19);
-            this.rbOverlayColor1.TabIndex = 6;
-            this.rbOverlayColor1.TabStop = true;
-            this.rbOverlayColor1.Text = "Overlay Color";
-            this.rbOverlayColor1.UseVisualStyleBackColor = true;
-            this.rbOverlayColor1.CheckedChanged += new System.EventHandler(this.rbOverlayColor1_CheckedChanged);
-            // 
-            // flpNewTab
-            // 
-            this.flpNewTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flpNewTab.AutoScroll = true;
-            this.flpNewTab.Controls.Add(this.rbBackColor);
-            this.flpNewTab.Controls.Add(this.rbForeColor);
-            this.flpNewTab.Controls.Add(this.rbOverlayColor);
-            this.flpNewTab.Location = new System.Drawing.Point(156, 437);
-            this.flpNewTab.Name = "flpNewTab";
-            this.flpNewTab.Size = new System.Drawing.Size(494, 27);
-            this.flpNewTab.TabIndex = 132;
-            // 
-            // rbBackColor
-            // 
-            this.rbBackColor.AutoSize = true;
-            this.rbBackColor.Location = new System.Drawing.Point(3, 3);
-            this.rbBackColor.Name = "rbBackColor";
-            this.rbBackColor.Size = new System.Drawing.Size(84, 19);
-            this.rbBackColor.TabIndex = 5;
-            this.rbBackColor.TabStop = true;
-            this.rbBackColor.Text = "Back Color";
-            this.rbBackColor.UseVisualStyleBackColor = true;
-            this.rbBackColor.CheckedChanged += new System.EventHandler(this.rbBackColor_CheckedChanged);
-            // 
-            // rbForeColor
-            // 
-            this.rbForeColor.AutoSize = true;
-            this.rbForeColor.Location = new System.Drawing.Point(93, 3);
-            this.rbForeColor.Name = "rbForeColor";
-            this.rbForeColor.Size = new System.Drawing.Size(82, 19);
-            this.rbForeColor.TabIndex = 5;
-            this.rbForeColor.TabStop = true;
-            this.rbForeColor.Text = "Fore Color";
-            this.rbForeColor.UseVisualStyleBackColor = true;
-            this.rbForeColor.CheckedChanged += new System.EventHandler(this.rbForeColor_CheckedChanged);
-            // 
-            // rbOverlayColor
-            // 
-            this.rbOverlayColor.AutoSize = true;
-            this.rbOverlayColor.Location = new System.Drawing.Point(181, 3);
-            this.rbOverlayColor.Name = "rbOverlayColor";
-            this.rbOverlayColor.Size = new System.Drawing.Size(97, 19);
-            this.rbOverlayColor.TabIndex = 5;
-            this.rbOverlayColor.TabStop = true;
-            this.rbOverlayColor.Text = "Overlay Color";
-            this.rbOverlayColor.UseVisualStyleBackColor = true;
-            this.rbOverlayColor.CheckedChanged += new System.EventHandler(this.rbOverlayColor_CheckedChanged);
-            // 
-            // flpLayout
-            // 
-            this.flpLayout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flpLayout.AutoScroll = true;
-            this.flpLayout.Controls.Add(this.rbNone);
-            this.flpLayout.Controls.Add(this.rbTile);
-            this.flpLayout.Controls.Add(this.rbCenter);
-            this.flpLayout.Controls.Add(this.rbStretch);
-            this.flpLayout.Controls.Add(this.rbZoom);
-            this.flpLayout.Location = new System.Drawing.Point(170, 404);
-            this.flpLayout.Name = "flpLayout";
-            this.flpLayout.Size = new System.Drawing.Size(479, 27);
-            this.flpLayout.TabIndex = 134;
-            // 
-            // rbNone
-            // 
-            this.rbNone.AutoSize = true;
-            this.rbNone.Location = new System.Drawing.Point(3, 3);
-            this.rbNone.Name = "rbNone";
-            this.rbNone.Size = new System.Drawing.Size(55, 19);
-            this.rbNone.TabIndex = 3;
-            this.rbNone.TabStop = true;
-            this.rbNone.Text = "None";
-            this.rbNone.UseVisualStyleBackColor = true;
-            this.rbNone.CheckedChanged += new System.EventHandler(this.rbNone_CheckedChanged);
-            // 
-            // rbTile
-            // 
-            this.rbTile.AutoSize = true;
-            this.rbTile.Location = new System.Drawing.Point(64, 3);
-            this.rbTile.Name = "rbTile";
-            this.rbTile.Size = new System.Drawing.Size(45, 19);
-            this.rbTile.TabIndex = 3;
-            this.rbTile.TabStop = true;
-            this.rbTile.Text = "Tile";
-            this.rbTile.UseVisualStyleBackColor = true;
-            this.rbTile.CheckedChanged += new System.EventHandler(this.rbTile_CheckedChanged);
-            // 
-            // rbCenter
-            // 
-            this.rbCenter.AutoSize = true;
-            this.rbCenter.Location = new System.Drawing.Point(115, 3);
-            this.rbCenter.Name = "rbCenter";
-            this.rbCenter.Size = new System.Drawing.Size(61, 19);
-            this.rbCenter.TabIndex = 3;
-            this.rbCenter.TabStop = true;
-            this.rbCenter.Text = "Center";
-            this.rbCenter.UseVisualStyleBackColor = true;
-            this.rbCenter.CheckedChanged += new System.EventHandler(this.rbCenter_CheckedChanged);
-            // 
-            // rbStretch
-            // 
-            this.rbStretch.AutoSize = true;
-            this.rbStretch.Location = new System.Drawing.Point(182, 3);
-            this.rbStretch.Name = "rbStretch";
-            this.rbStretch.Size = new System.Drawing.Size(63, 19);
-            this.rbStretch.TabIndex = 3;
-            this.rbStretch.TabStop = true;
-            this.rbStretch.Text = "Stretch";
-            this.rbStretch.UseVisualStyleBackColor = true;
-            this.rbStretch.CheckedChanged += new System.EventHandler(this.rbStretch_CheckedChanged);
-            // 
-            // rbZoom
-            // 
-            this.rbZoom.AutoSize = true;
-            this.rbZoom.Location = new System.Drawing.Point(251, 3);
-            this.rbZoom.Name = "rbZoom";
-            this.rbZoom.Size = new System.Drawing.Size(57, 19);
-            this.rbZoom.TabIndex = 3;
-            this.rbZoom.TabStop = true;
-            this.rbZoom.Text = "Zoom";
-            this.rbZoom.UseVisualStyleBackColor = true;
-            this.rbZoom.CheckedChanged += new System.EventHandler(this.rbZoom_CheckedChanged);
-            // 
-            // lbBackImageStyle
-            // 
-            this.lbBackImageStyle.AutoSize = true;
-            this.lbBackImageStyle.BackColor = System.Drawing.Color.Transparent;
-            this.lbBackImageStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbBackImageStyle.Location = new System.Drawing.Point(6, 408);
-            this.lbBackImageStyle.Name = "lbBackImageStyle";
-            this.lbBackImageStyle.Size = new System.Drawing.Size(158, 16);
-            this.lbBackImageStyle.TabIndex = 126;
-            this.lbBackImageStyle.Tag = "";
-            this.lbBackImageStyle.Text = "Background Image Style:";
-            // 
             // lbCloseColor
             // 
             this.lbCloseColor.AutoSize = true;
             this.lbCloseColor.BackColor = System.Drawing.Color.Transparent;
             this.lbCloseColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbCloseColor.Location = new System.Drawing.Point(7, 472);
+            this.lbCloseColor.Location = new System.Drawing.Point(6, 442);
             this.lbCloseColor.Name = "lbCloseColor";
             this.lbCloseColor.Size = new System.Drawing.Size(121, 16);
             this.lbCloseColor.TabIndex = 127;
@@ -1003,7 +946,7 @@ namespace Korot
             this.lbNewTabColor.AutoSize = true;
             this.lbNewTabColor.BackColor = System.Drawing.Color.Transparent;
             this.lbNewTabColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbNewTabColor.Location = new System.Drawing.Point(6, 441);
+            this.lbNewTabColor.Location = new System.Drawing.Point(5, 410);
             this.lbNewTabColor.Name = "lbNewTabColor";
             this.lbNewTabColor.Size = new System.Drawing.Size(141, 16);
             this.lbNewTabColor.TabIndex = 123;
@@ -1067,19 +1010,25 @@ namespace Korot
             this.tpAutoClear.Controls.Add(this.hsCleanCache);
             this.tpAutoClear.Location = new System.Drawing.Point(4, 24);
             this.tpAutoClear.Name = "tpAutoClear";
-            this.tpAutoClear.Size = new System.Drawing.Size(579, 725);
+            this.tpAutoClear.Size = new System.Drawing.Size(666, 725);
             this.tpAutoClear.TabIndex = 9;
             this.tpAutoClear.Text = "Auto-Clean";
             this.tpAutoClear.UseVisualStyleBackColor = true;
             // 
             // btACClean
             // 
-            this.btACClean.AutoSize = true;
+            this.btACClean.AutoColor = true;
+            this.btACClean.ButtonImage = null;
+            this.btACClean.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btACClean.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.btACClean.DrawImage = true;
             this.btACClean.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btACClean.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btACClean.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
             this.btACClean.Location = new System.Drawing.Point(8, 8);
             this.btACClean.Name = "btACClean";
-            this.btACClean.Size = new System.Drawing.Size(85, 27);
+            this.btACClean.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.btACClean.Size = new System.Drawing.Size(107, 24);
             this.btACClean.TabIndex = 137;
             this.btACClean.Text = "Clean Now";
             // 
@@ -1853,9 +1802,16 @@ namespace Korot
             // 
             this.btNTClear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.btNTClear.AutoColor = true;
+            this.btNTClear.ButtonImage = null;
+            this.btNTClear.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btNTClear.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.btNTClear.DrawImage = true;
+            this.btNTClear.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btNTClear.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
             this.btNTClear.Location = new System.Drawing.Point(16, 69);
             this.btNTClear.Name = "btNTClear";
+            this.btNTClear.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.btNTClear.Size = new System.Drawing.Size(633, 23);
             this.btNTClear.TabIndex = 70;
             this.btNTClear.Text = "Clear";
@@ -2190,11 +2146,18 @@ namespace Korot
             // btOpenSound
             // 
             this.btOpenSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btOpenSound.AutoSize = true;
+            this.btOpenSound.AutoColor = true;
+            this.btOpenSound.ButtonImage = null;
+            this.btOpenSound.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btOpenSound.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.btOpenSound.DrawImage = false;
             this.btOpenSound.Font = new System.Drawing.Font("Ubuntu", 9F);
+            this.btOpenSound.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btOpenSound.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
             this.btOpenSound.Location = new System.Drawing.Point(622, 63);
             this.btOpenSound.Name = "btOpenSound";
-            this.btOpenSound.Size = new System.Drawing.Size(27, 26);
+            this.btOpenSound.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.btOpenSound.Size = new System.Drawing.Size(20, 21);
             this.btOpenSound.TabIndex = 130;
             this.btOpenSound.Text = "...";
             this.btOpenSound.Click += new System.EventHandler(this.btOpenSound_Click);
@@ -2285,7 +2248,7 @@ namespace Korot
             // 
             this.tpHistory.Location = new System.Drawing.Point(4, 24);
             this.tpHistory.Name = "tpHistory";
-            this.tpHistory.Size = new System.Drawing.Size(579, 725);
+            this.tpHistory.Size = new System.Drawing.Size(666, 725);
             this.tpHistory.TabIndex = 3;
             this.tpHistory.Text = "History";
             this.tpHistory.UseVisualStyleBackColor = true;
@@ -2294,7 +2257,7 @@ namespace Korot
             // 
             this.tpDownloads.Location = new System.Drawing.Point(4, 24);
             this.tpDownloads.Name = "tpDownloads";
-            this.tpDownloads.Size = new System.Drawing.Size(579, 725);
+            this.tpDownloads.Size = new System.Drawing.Size(666, 725);
             this.tpDownloads.TabIndex = 4;
             this.tpDownloads.Text = "Downloads";
             this.tpDownloads.UseVisualStyleBackColor = true;
@@ -2303,7 +2266,7 @@ namespace Korot
             // 
             this.tpCollections.Location = new System.Drawing.Point(4, 24);
             this.tpCollections.Name = "tpCollections";
-            this.tpCollections.Size = new System.Drawing.Size(579, 725);
+            this.tpCollections.Size = new System.Drawing.Size(666, 725);
             this.tpCollections.TabIndex = 5;
             this.tpCollections.Text = "Collections";
             this.tpCollections.UseVisualStyleBackColor = true;
@@ -2321,19 +2284,25 @@ namespace Korot
             this.tpAbout.Controls.Add(this.pictureBox5);
             this.tpAbout.Location = new System.Drawing.Point(4, 24);
             this.tpAbout.Name = "tpAbout";
-            this.tpAbout.Size = new System.Drawing.Size(597, 473);
+            this.tpAbout.Size = new System.Drawing.Size(666, 725);
             this.tpAbout.TabIndex = 6;
             this.tpAbout.Text = "About";
             this.tpAbout.UseVisualStyleBackColor = true;
             // 
             // btReset
             // 
-            this.btReset.AutoSize = true;
+            this.btReset.AutoColor = true;
+            this.btReset.ButtonImage = null;
+            this.btReset.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btReset.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.btReset.DrawImage = true;
             this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btReset.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btReset.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
             this.btReset.Location = new System.Drawing.Point(18, 183);
             this.btReset.Name = "btReset";
-            this.btReset.Size = new System.Drawing.Size(105, 27);
+            this.btReset.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.btReset.Size = new System.Drawing.Size(132, 24);
             this.btReset.TabIndex = 15;
             this.btReset.Text = "Reset Korot...";
             this.btReset.Click += new System.EventHandler(this.btReset_Click);
@@ -2352,11 +2321,17 @@ namespace Korot
             // 
             // btUpdater
             // 
-            this.btUpdater.AutoSize = true;
+            this.btUpdater.AutoColor = true;
+            this.btUpdater.ButtonImage = null;
+            this.btUpdater.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btUpdater.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.btUpdater.DrawImage = true;
+            this.btUpdater.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btUpdater.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
             this.btUpdater.Location = new System.Drawing.Point(18, 247);
             this.btUpdater.Name = "btUpdater";
-            this.btUpdater.Size = new System.Drawing.Size(117, 25);
+            this.btUpdater.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.btUpdater.Size = new System.Drawing.Size(159, 23);
             this.btUpdater.TabIndex = 11;
             this.btUpdater.Text = "Check for Updates";
             this.btUpdater.Click += new System.EventHandler(this.btUpdater_Click);
@@ -2443,11 +2418,16 @@ namespace Korot
             // btClose
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btClose.AutoColor = true;
             this.btClose.ButtonImage = global::Korot.Properties.Resources.cancel;
+            this.btClose.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btClose.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.btClose.DrawImage = true;
+            this.btClose.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btClose.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btClose.Location = new System.Drawing.Point(623, 9);
             this.btClose.Name = "btClose";
+            this.btClose.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.btClose.Size = new System.Drawing.Size(30, 30);
             this.btClose.TabIndex = 1;
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
@@ -2487,11 +2467,16 @@ namespace Korot
             // btSidebar
             // 
             this.btSidebar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btSidebar.AutoColor = true;
             this.btSidebar.ButtonImage = global::Korot.Properties.Resources.cancel;
+            this.btSidebar.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btSidebar.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.btSidebar.DrawImage = true;
+            this.btSidebar.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btSidebar.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.Zoom;
             this.btSidebar.Location = new System.Drawing.Point(96, 7);
             this.btSidebar.Name = "btSidebar";
+            this.btSidebar.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.btSidebar.Size = new System.Drawing.Size(30, 30);
             this.btSidebar.TabIndex = 1;
             this.btSidebar.Click += new System.EventHandler(this.btSidebar_Click);
@@ -2764,109 +2749,10 @@ namespace Korot
             this.customToolStripMenuItem.Text = "Custom";
             this.customToolStripMenuItem.Click += new System.EventHandler(this.customToolStripMenuItem_Click);
             // 
-            // cmsBStyle
-            // 
-            this.cmsBStyle.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.colorToolStripMenuItem,
-            this.ımageFromLocalFileToolStripMenuItem,
-            this.ımageFromURLToolStripMenuItem});
-            this.cmsBStyle.Name = "contextMenuStrip1";
-            this.cmsBStyle.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsBStyle.ShowCheckMargin = true;
-            this.cmsBStyle.ShowImageMargin = false;
-            this.cmsBStyle.Size = new System.Drawing.Size(189, 70);
-            // 
-            // colorToolStripMenuItem
-            // 
-            this.colorToolStripMenuItem.CheckOnClick = true;
-            this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.colorToolStripMenuItem.Text = "Color";
-            this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
-            // 
-            // ımageFromLocalFileToolStripMenuItem
-            // 
-            this.ımageFromLocalFileToolStripMenuItem.Name = "ımageFromLocalFileToolStripMenuItem";
-            this.ımageFromLocalFileToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.ımageFromLocalFileToolStripMenuItem.Text = "Image from Local File";
-            this.ımageFromLocalFileToolStripMenuItem.Click += new System.EventHandler(this.ımageFromLocalFileToolStripMenuItem_Click);
-            // 
-            // ımageFromURLToolStripMenuItem
-            // 
-            this.ımageFromURLToolStripMenuItem.Name = "ımageFromURLToolStripMenuItem";
-            this.ımageFromURLToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.ımageFromURLToolStripMenuItem.Text = "Image from Code";
-            this.ımageFromURLToolStripMenuItem.Click += new System.EventHandler(this.ımageFromURLToolStripMenuItem_Click);
-            // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // pbNextTheme
-            // 
-            this.pbNextTheme.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbNextTheme.Image = global::Korot.Properties.Resources.rightarrow;
-            this.pbNextTheme.Location = new System.Drawing.Point(478, 66);
-            this.pbNextTheme.Name = "pbNextTheme";
-            this.pbNextTheme.Size = new System.Drawing.Size(50, 50);
-            this.pbNextTheme.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbNextTheme.TabIndex = 142;
-            this.pbNextTheme.TabStop = false;
-            // 
-            // pbPrev
-            // 
-            this.pbPrev.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbPrev.Image = global::Korot.Properties.Resources.leftarrow;
-            this.pbPrev.Location = new System.Drawing.Point(116, 66);
-            this.pbPrev.Name = "pbPrev";
-            this.pbPrev.Size = new System.Drawing.Size(50, 50);
-            this.pbPrev.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbPrev.TabIndex = 143;
-            this.pbPrev.TabStop = false;
-            // 
-            // pbThemePreview
-            // 
-            this.pbThemePreview.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbThemePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbThemePreview.Location = new System.Drawing.Point(172, 20);
-            this.pbThemePreview.Name = "pbThemePreview";
-            this.pbThemePreview.Size = new System.Drawing.Size(300, 150);
-            this.pbThemePreview.TabIndex = 144;
-            this.pbThemePreview.TabStop = false;
-            // 
-            // lbThemeName
-            // 
-            this.lbThemeName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbThemeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.lbThemeName.Location = new System.Drawing.Point(172, 173);
-            this.lbThemeName.Name = "lbThemeName";
-            this.lbThemeName.Size = new System.Drawing.Size(300, 27);
-            this.lbThemeName.TabIndex = 145;
-            this.lbThemeName.Text = "THEMENAME";
-            this.lbThemeName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label1.Location = new System.Drawing.Point(172, 200);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(300, 21);
-            this.label1.TabIndex = 145;
-            this.label1.Text = "THEMEAUTHOR";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btThemeApplySave
-            // 
-            this.btThemeApplySave.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btThemeApplySave.FlatAppearance.BorderSize = 0;
-            this.btThemeApplySave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btThemeApplySave.Location = new System.Drawing.Point(172, 224);
-            this.btThemeApplySave.Name = "btThemeApplySave";
-            this.btThemeApplySave.Size = new System.Drawing.Size(300, 23);
-            this.btThemeApplySave.TabIndex = 146;
-            this.btThemeApplySave.Text = "Apply";
-            this.btThemeApplySave.UseVisualStyleBackColor = true;
             // 
             // frmSettings
             // 
@@ -2888,13 +2774,10 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.nudSynthVol)).EndInit();
             this.tpTheme.ResumeLayout(false);
             this.tpTheme.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbThemePreview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNextTheme)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPrev)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbForeColor)).EndInit();
-            this.flpClose.ResumeLayout(false);
-            this.flpClose.PerformLayout();
-            this.flpNewTab.ResumeLayout(false);
-            this.flpNewTab.PerformLayout();
-            this.flpLayout.ResumeLayout(false);
-            this.flpLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbOverlay)).EndInit();
             this.tpAutoClear.ResumeLayout(false);
@@ -2944,10 +2827,6 @@ namespace Korot
             this.pSidebar.PerformLayout();
             this.cmsStartup.ResumeLayout(false);
             this.cmsSearchEngine.ResumeLayout(false);
-            this.cmsBStyle.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbNextTheme)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPrev)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbThemePreview)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3053,10 +2932,6 @@ namespace Korot
         private System.Windows.Forms.ToolStripMenuItem askToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ınternetArchiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip cmsBStyle;
-        private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ımageFromLocalFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ımageFromURLToolStripMenuItem;
         private HTAlt.WinForms.HTButton btReset;
         private System.Windows.Forms.TabPage tpBlock;
         private System.Windows.Forms.Timer timer1;
@@ -3085,21 +2960,12 @@ namespace Korot
         private System.Windows.Forms.Label lbNinja;
         private System.Windows.Forms.PictureBox pbForeColor;
         private System.Windows.Forms.Label lbForeColor;
-        private System.Windows.Forms.FlowLayoutPanel flpClose;
         private System.Windows.Forms.RadioButton rbBackColor1;
         private System.Windows.Forms.RadioButton rbForeColor1;
         private System.Windows.Forms.RadioButton rbOverlayColor1;
-        private System.Windows.Forms.FlowLayoutPanel flpNewTab;
         private System.Windows.Forms.RadioButton rbBackColor;
         private System.Windows.Forms.RadioButton rbForeColor;
         private System.Windows.Forms.RadioButton rbOverlayColor;
-        private System.Windows.Forms.FlowLayoutPanel flpLayout;
-        private System.Windows.Forms.RadioButton rbNone;
-        private System.Windows.Forms.RadioButton rbTile;
-        private System.Windows.Forms.RadioButton rbCenter;
-        private System.Windows.Forms.RadioButton rbStretch;
-        private System.Windows.Forms.RadioButton rbZoom;
-        private System.Windows.Forms.Label lbBackImageStyle;
         private System.Windows.Forms.Label lbCloseColor;
         private System.Windows.Forms.Label lbNewTabColor;
         private System.Windows.Forms.PictureBox pbBack;
@@ -3169,7 +3035,7 @@ namespace Korot
         private System.Windows.Forms.Label label3;
         private HTAlt.WinForms.HTSwitch htSwitch1;
         private System.Windows.Forms.Button btThemeApplySave;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbThemeAuthor;
         private System.Windows.Forms.Label lbThemeName;
         private System.Windows.Forms.PictureBox pbThemePreview;
         private System.Windows.Forms.PictureBox pbNextTheme;

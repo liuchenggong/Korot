@@ -64,7 +64,6 @@ namespace Korot
                 {
                     switchedTimes++;
                     Settings.LanguageSystem.ReadFromFile(Application.StartupPath + "\\Lang\\" + lbLang.SelectedItem.ToString() + ".klf", true);
-                    checkBox1.Text = Settings.LanguageSystem.GetItemText("OOBEThemeWizard");
                     Text = Settings.LanguageSystem.GetItemText("OOBETitle");
                     btContinue.Text = Settings.LanguageSystem.GetItemText("OOBEContinue");
                     btContinue2.Text = Settings.LanguageSystem.GetItemText("OOBEContinue");
@@ -159,15 +158,8 @@ namespace Korot
             profilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Profiles\\";
             Directory.CreateDirectory(profilePath);
             KorotTools.createFolders();
-            KorotTools.createThemes();
             Settings.ProfileName = textBox1.Text;
             Settings.Save();
-            if (checkBox1.Checked)
-            {
-                Hide();
-                frmThemeWizard wizard = new frmThemeWizard(Settings);
-                wizard.ShowDialog();
-            }
             allowClose = true;
             Process.Start(Application.ExecutablePath);
             Application.Exit();

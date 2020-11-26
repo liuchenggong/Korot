@@ -23,6 +23,7 @@ namespace Korot
             cefform = _cefform;
             InitializeComponent();
             GenerateUI();
+            timer1_Tick(this, new EventArgs());
         }
 
         private int PanelCount = 0;

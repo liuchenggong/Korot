@@ -13,6 +13,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Korot
 {
@@ -23,9 +24,9 @@ namespace Korot
         private Theme Theme;
         public bool isTheme = false;
         private readonly WebClient webC = new WebClient();
-        private Version currentVersion;
+        private int currentVersion;
         private string fileLocation;
-        private string fileURL;
+        private HTUpdateShim HTUPDATE;
         public string info = "Updating [NAME]..." + Environment.NewLine + "Please wait...";
         public string infoTemp = "[PERC]% | [CURRENT] KiB downloaded out of [TOTAL] KiB.";
 
@@ -73,16 +74,14 @@ namespace Korot
             if (Extension != null)
             {
                 label1.Text = info.Replace("[NAME]", Extension.CodeName);
-                fileURL = "https://haltroy.com/store/item/" + Extension.CodeName + "/" + Extension.CodeName + ".kef";
                 fileLocation = tempPath + HTAlt.Tools.GenerateRandomText(12) + "\\" + Extension.CodeName + ".kef";
-                verLocation = "https://haltroy.com/store/item/" + Extension.CodeName + "/.htupdate";
+                verLocation = Extension.HTUpdate;
             }
             if (Theme != null)
             {
                 label1.Text = info.Replace("[NAME]", Theme.CodeName);
-                fileURL = "https://haltroy.com/store/item/" + Theme.CodeName + "/" + Theme.CodeName + ".ktf";
                 fileLocation = tempPath + HTAlt.Tools.GenerateRandomText(12) + "\\" + Theme.CodeName + ".ktf";
-                verLocation = "https://haltroy.com/store/item/" + Theme.CodeName + "/.htupdate";
+                verLocation = Theme.HTUpdate;
             }
             downloadString();
         }
@@ -108,7 +107,7 @@ namespace Korot
             await Task.Run(() =>
             {
                 if (File.Exists(fileLocation)) { File.Delete(fileLocation); }
-                webC.DownloadFileAsync(new Uri(fileURL), fileLocation);
+                webC.DownloadFileAsync(new Uri(HTUPDATE.File), fileLocation);
             });
         }
 
@@ -120,10 +119,13 @@ namespace Korot
             }
             else
             {
-                Version latest = new Version(e.Result);
-                if (latest > currentVersion)
+                HTUPDATE = new HTUpdateShim(e.Result);
+                if (HTUPDATE.LatestVersion > currentVersion && HTUPDATE.CanInstall)
                 {
                     startDownload();
+                }else
+                {
+                    Close();
                 }
             }
         }

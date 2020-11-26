@@ -120,6 +120,7 @@ namespace Korot
 
     public class Extension
     {
+        public string HTUpdate { get; set; }
         public Settings LocalSettings { get; set; }
 
         public Extension(string ManifestFileLocation)
@@ -141,179 +142,205 @@ namespace Korot
             // This is the part where my brain stopped and tried shutting down (aka sleep).
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                if (node.Name.ToLower() == "name")
+                switch (node.Name.ToLower())
                 {
-                    Name = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
-                }
-                else if (node.Name.ToLower() == "version")
-                {
-                    Version = new Version(node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"));
-                }
-                else if (node.Name.ToLower() == "author")
-                {
-                    Author = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
-                }
-                else if (node.Name.ToLower() == "icon")
-                {
-                    Icon = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
-                }
-                else if (node.Name.ToLower() == "startupfile")
-                {
-                    Startup = node.InnerText.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
-                }
-                else if (node.Name.ToLower() == "popupfile")
-                {
-                    Popup = node.InnerText.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
-                }
-                else if (node.Name.ToLower() == "backfile")
-                {
-                    Background = node.InnerText.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
-                }
-                else if (node.Name.ToLower() == "proxyfile")
-                {
-                    Proxy = node.InnerText.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
-                }
-                else if (node.Name.ToLower() == "menusize")
-                {
-                    string w = node.InnerText.Substring(0, node.InnerText.IndexOf(";"));
-                    string h = node.InnerText.Substring(node.InnerText.IndexOf(";"), node.InnerText.Length - node.InnerText.IndexOf(";"));
-                    Size = new Size(Convert.ToInt32(w), Convert.ToInt32(h));
-                }
-                else if (node.Name.ToLower() == "files")
-                {
-                    Files = new List<string>();
-                    foreach (XmlNode subnode in node.ChildNodes)
-                    {
-                        if (subnode.Name.ToLower() == "file")
+                    case "name":
+                        Name = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                        break;
+                    case "version":
+                        Version = Convert.ToInt32(node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"));
+                        break;
+                    case "author":
+                        Author = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                        break;
+                    case "icon":
+                        Icon = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                        break;
+                    case "htupdate":
+                        HTUpdate = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                        break;
+                    case "startupfile":
+                        Startup = node.InnerText.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                        break;
+                    case "popupfile":
+                        Popup = node.InnerText.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                        break;
+                    case "backfile":
+                        Background = node.InnerText.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                        break;
+                    case "proxyfile":
+                        Proxy = node.InnerText.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                        break;
+                    case "menusize":
                         {
-                            if (subnode.Attributes["Location"] != null)
-                            {
-                                string loc = subnode.Attributes["Location"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
-                                Files.Add(loc);
-                            }
+                            string w = node.InnerText.Substring(0, node.InnerText.IndexOf(";"));
+                            string h = node.InnerText.Substring(node.InnerText.IndexOf(";"), node.InnerText.Length - node.InnerText.IndexOf(";"));
+                            Size = new Size(Convert.ToInt32(w), Convert.ToInt32(h));
+                            break;
                         }
-                    }
-                }
-                else if (node.Name.ToLower() == "rightclick")
-                {
-                    foreach (XmlNode subnode in node.ChildNodes)
-                    {
-                        if (subnode.Name.ToLower() == "none")
+
+                    case "files":
                         {
-                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                            Files = new List<string>();
+                            foreach (XmlNode subnode in node.ChildNodes)
                             {
-                                RightClickOption option = new RightClickOption()
+                                if (subnode.Name.ToLower() == "file")
                                 {
-                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Option = RightClickOptionStyle.None,
-                                };
-                                RightClickOptions.Add(option);
+                                    if (subnode.Attributes["Location"] != null)
+                                    {
+                                        string loc = subnode.Attributes["Location"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                                        Files.Add(loc);
+                                    }
+                                }
                             }
+
+                            break;
                         }
-                        else if (subnode.Name.ToLower() == "link")
+
+                    case "rightclick":
                         {
-                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                            foreach (XmlNode subnode in node.ChildNodes)
                             {
-                                RightClickOption option = new RightClickOption()
+                                switch (subnode.Name.ToLower())
                                 {
-                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Option = RightClickOptionStyle.Link,
-                                };
-                                RightClickOptions.Add(option);
+                                    case "none":
+                                        {
+                                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                                            {
+                                                RightClickOption option = new RightClickOption()
+                                                {
+                                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Option = RightClickOptionStyle.None,
+                                                };
+                                                RightClickOptions.Add(option);
+                                            }
+
+                                            break;
+                                        }
+
+                                    case "link":
+                                        {
+                                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                                            {
+                                                RightClickOption option = new RightClickOption()
+                                                {
+                                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Option = RightClickOptionStyle.Link,
+                                                };
+                                                RightClickOptions.Add(option);
+                                            }
+
+                                            break;
+                                        }
+
+                                    case "always":
+                                        {
+                                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                                            {
+                                                RightClickOption option = new RightClickOption()
+                                                {
+                                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Option = RightClickOptionStyle.Always,
+                                                };
+                                                RightClickOptions.Add(option);
+                                            }
+
+                                            break;
+                                        }
+
+                                    case "edit":
+                                        {
+                                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                                            {
+                                                RightClickOption option = new RightClickOption()
+                                                {
+                                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Option = RightClickOptionStyle.Edit,
+                                                };
+                                                RightClickOptions.Add(option);
+                                            }
+
+                                            break;
+                                        }
+
+                                    case "image":
+                                    case "ımage":
+                                        {
+                                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                                            {
+                                                RightClickOption option = new RightClickOption()
+                                                {
+                                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Option = RightClickOptionStyle.Image,
+                                                };
+                                                RightClickOptions.Add(option);
+                                            }
+
+                                            break;
+                                        }
+
+                                    case "text":
+                                        {
+                                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                                            {
+                                                RightClickOption option = new RightClickOption()
+                                                {
+                                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
+                                                    Option = RightClickOptionStyle.Text,
+                                                };
+                                                RightClickOptions.Add(option);
+                                            }
+
+                                            break;
+                                        }
+                                }
                             }
+
+                            break;
                         }
-                        else if (subnode.Name.ToLower() == "always")
+
+                    case "settings":
                         {
-                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
+                            Settings = new ExtensionSettings();
+                            foreach (XmlNode subnode in node.ChildNodes)
                             {
-                                RightClickOption option = new RightClickOption()
+                                switch (subnode.Name)
                                 {
-                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Option = RightClickOptionStyle.Always,
-                                };
-                                RightClickOptions.Add(option);
+                                    case "autoLoad":
+                                        Settings.autoLoad = subnode.InnerText == "true";
+                                        break;
+                                    case "onlineFiles":
+                                        Settings.onlineFiles = subnode.InnerText == "true";
+                                        break;
+                                    case "showPopupMenu":
+                                        Settings.showPopupMenu = subnode.InnerText == "true";
+                                        break;
+                                    case "activateScript":
+                                        Settings.activateScript = subnode.InnerText == "true";
+                                        break;
+                                    case "hasProxy":
+                                        Settings.hasProxy = subnode.InnerText == "true";
+                                        break;
+                                    case "useHaltroyUpdater":
+                                        Settings.useHaltroyUpdater = subnode.InnerText == "true";
+                                        break;
+                                }
                             }
+
+                            break;
                         }
-                        else if (subnode.Name.ToLower() == "edit")
-                        {
-                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
-                            {
-                                RightClickOption option = new RightClickOption()
-                                {
-                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Option = RightClickOptionStyle.Edit,
-                                };
-                                RightClickOptions.Add(option);
-                            }
-                        }
-                        else if (subnode.Name.ToLower() == "image" || subnode.Name.ToLower() == "ımage")
-                        {
-                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
-                            {
-                                RightClickOption option = new RightClickOption()
-                                {
-                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Option = RightClickOptionStyle.Image,
-                                };
-                                RightClickOptions.Add(option);
-                            }
-                        }
-                        else if (subnode.Name.ToLower() == "text")
-                        {
-                            if (subnode.Attributes["Icon"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Script"] != null)
-                            {
-                                RightClickOption option = new RightClickOption()
-                                {
-                                    Icon = subnode.Attributes["Icon"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Text = subnode.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Script = subnode.Attributes["Script"].Value.Replace("[EXTFOLDER]", ExtFolder).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"),
-                                    Option = RightClickOptionStyle.Text,
-                                };
-                                RightClickOptions.Add(option);
-                            }
-                        }
-                    }
-                }
-                else if (node.Name.ToLower() == "settings")
-                {
-                    Settings = new ExtensionSettings();
-                    foreach (XmlNode subnode in node.ChildNodes)
-                    {
-                        if (subnode.Name == "autoLoad")
-                        {
-                            Settings.autoLoad = subnode.InnerText == "true";
-                        }
-                        else if (subnode.Name == "onlineFiles")
-                        {
-                            Settings.onlineFiles = subnode.InnerText == "true";
-                        }
-                        else if (subnode.Name == "showPopupMenu")
-                        {
-                            Settings.showPopupMenu = subnode.InnerText == "true";
-                        }
-                        else if (subnode.Name == "activateScript")
-                        {
-                            Settings.activateScript = subnode.InnerText == "true";
-                        }
-                        else if (subnode.Name == "hasProxy")
-                        {
-                            Settings.hasProxy = subnode.InnerText == "true";
-                        }
-                        else if (subnode.Name == "useHaltroyUpdater")
-                        {
-                            Settings.useHaltroyUpdater = subnode.InnerText == "true";
-                        }
-                    }
                 }
             }
         }
@@ -337,7 +364,7 @@ namespace Korot
         public string CodeName => Author + "." + Name;
         public string Name { get; set; }
         public string Author { get; set; }
-        public Version Version { get; set; }
+        public int Version { get; set; }
         public string Icon { get; set; }
         public Size Size { get; set; }
         public string Popup { get; set; }
@@ -419,5 +446,59 @@ namespace Korot
             get => _useHaltroyUpdater;
             set => _useHaltroyUpdater = value;
         }
+    }
+    public class HTUpdateShim
+    {
+        public HTUpdateShim(string XMLText)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(XMLText);
+            for (int i = 0; i < doc.FirstChild.ChildNodes.Count; i++)
+            {
+                XmlNode node = doc.FirstChild.ChildNodes[i];
+                switch (node.Name.ToLower())
+                {
+                    case "name":
+                        Name = node.InnerXml.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;");
+                        break;
+                    case "latestversion":
+                        LatestVersion = Convert.ToInt32(node.InnerXml);
+                        break;
+                    case "minkorotver":
+                        MinKorotVer = Convert.ToInt32(node.InnerXml);
+                        break;
+                    case "file":
+                        File = node.InnerXml.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;");
+                        break;
+                }
+            }
+        }
+        public HTUpdateShim(XmlNode MainNode)
+        {
+            for(int i = 0;i < MainNode.ChildNodes.Count;i++)
+            {
+                XmlNode node = MainNode.ChildNodes[i];
+                switch(node.Name.ToLower())
+                {
+                    case "name":
+                        Name = node.InnerXml.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;");
+                        break;
+                    case "latestversion":
+                        LatestVersion = Convert.ToInt32(node.InnerXml);
+                        break;
+                    case "minkorotver":
+                        MinKorotVer = Convert.ToInt32(node.InnerXml);
+                        break;
+                    case "file":
+                        File = node.InnerXml.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;");
+                        break;
+                }
+            }
+        }
+        public string Name { get; set; }
+        public int LatestVersion { get; set; }
+        public int MinKorotVer { get; set; }
+        public string File { get; set; }
+        public bool CanInstall => MinKorotVer <= VersionInfo.VersionNumber;
     }
 }

@@ -26,6 +26,7 @@ namespace Korot
             backButtons = new List<PictureBox>();
             defaultBackColor = new List<Control>();
             DefaultforeColor = new List<Control>();
+            timer1_Tick(this, new EventArgs());
             if (skipTo == -1)
             {
                 allowSwitch = true;

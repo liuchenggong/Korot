@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-<!-- 
-
-Copyright © 2020 Eren "Haltroy" Kanat
-
-Use of this source code is governed by an MIT License that can be found in github.com/Haltroy/Korot/blob/master/LICENSE 
-
--->
   <!-- 
     Microsoft ResX Schema 
     
@@ -134,9 +127,6 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="tip-profil" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tip-profil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeAvocado" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeAvocado.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="tip-anaekran" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tip-anaekran.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -149,14 +139,8 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="inctab_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inctab-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeShadow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeShadow.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="English" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\lang\english.klf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ThemeMidnight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\THemeMidnight.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="hamburger-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hamburger-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -170,23 +154,14 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="script" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\script.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeGray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeGray.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="collections" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\collections.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeCrimson" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeCrimson.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tab" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tab.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeYellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeYellow.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Korot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Korot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -218,9 +193,6 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeStrawberry" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeStrawberry.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="newwindow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\newwindow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -230,14 +202,8 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="1-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeBrown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeBrown.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeOrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeOrange.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cancel_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancel-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -245,14 +211,8 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="cancelled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancelled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeEmerald" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeEmerald.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="script_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\script-2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BlueColors" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlueColors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="unmute" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unmute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -263,14 +223,8 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="home_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\home-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeDodgerBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeDodgerBlue.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="locko" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\locko.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeBlue.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="home" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\home.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -299,26 +253,17 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="Colorful" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Colorful.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GreenColors" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GreenColors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="collections-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\collections-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lockr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lockr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeDark.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ext-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ext-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="profiles" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\profiles.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeCreme" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeCreme.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lang-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lang-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -347,23 +292,11 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="theme" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\theme.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeSea" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeSea.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="star-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\star-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeFuchsia" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeFuchsia.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeDarkLeaf" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeDarkLeaf.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="star_on_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\star-on-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemePurple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemePurple.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lockg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lockg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -383,20 +316,11 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeLavender" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeLavender.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeLeather" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeLeather.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="rightarrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow2-right-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemePink" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemePink.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mute" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -410,9 +334,6 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="store_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\store-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeDarkBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeDarkBlue.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="3-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -425,32 +346,20 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="about" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\about.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeRaspberry" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeRaspberry.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="hamburger-i" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hamburger-i1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="history" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\history.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeSunrise" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeSunrise.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="download_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\download-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeBrick" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeBrick.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tip-tema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tip-tema.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Black-White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Black-White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeLight.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="leftarrow_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\leftarrow-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -467,35 +376,17 @@ Use of this source code is governed by an MIT License that can be found in githu
   <data name="downloaded" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\downloaded.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeRed.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ext" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ext.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="downloading" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\downloading.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ThemeCement" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeCement.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="screenshot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\screenshot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="about-w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\about-w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RedColors" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RedColors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeGreen.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeGold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeGold.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThemeTeal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ThemeTeal.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="download" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\download.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -505,12 +396,6 @@ Use of this source code is governed by an MIT License that can be found in githu
   </data>
   <data name="star" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\star.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PurpleColors" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PurpleColors.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="YellowColors" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\YellowColors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Türkçe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\lang\türkçe.klf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -598,5 +483,14 @@ Use of this source code is governed by an MIT License that can be found in githu
   </data>
   <data name="randomSites" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\specialpages\randomsites.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="kdark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\themes\kdark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="klight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\themes\klight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="kmidnight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\themes\kmidnight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -196,6 +196,7 @@
     <Compile Include="Source Code\Ext\frmProxyGen.Designer.cs">
       <DependentUpon>frmProxyGen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source Code\Ext\Themes.cs" />
     <Compile Include="Source Code\Handlers\AudioHandler.cs" />
     <Compile Include="Source Code\Main UI\Custom Menus\frmBlock.cs">
       <SubType>Form</SubType>
@@ -306,10 +307,10 @@
     <Compile Include="Source Code\Main UI\frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source Code\Main UI\frmThemeWizard.cs">
+    <Compile Include="Source Code\Ext\frmThemeWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source Code\Main UI\frmThemeWizard.Designer.cs">
+    <Compile Include="Source Code\Ext\frmThemeWizard.Designer.cs">
       <DependentUpon>frmThemeWizard.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Main UI\KorotTabRenderer.cs" />
@@ -426,7 +427,7 @@
     <EmbeddedResource Include="Source Code\Main UI\frmSettings.resx">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source Code\Main UI\frmThemeWizard.resx">
+    <EmbeddedResource Include="Source Code\Ext\frmThemeWizard.resx">
       <DependentUpon>frmThemeWizard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -701,6 +702,9 @@
     <None Include="Resources\right.png" />
     <Content Include="SpecialPages\nointernet.html" />
     <Content Include="SpecialPages\randomSites.xml" />
+    <Content Include="Themes\kdark.png" />
+    <Content Include="Themes\klight.png" />
+    <Content Include="Themes\kmidnight.png" />
     <Content Include="ubuntu\CONTRIBUTING.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

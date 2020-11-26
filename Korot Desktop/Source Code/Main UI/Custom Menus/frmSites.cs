@@ -23,6 +23,7 @@ namespace Korot
             cefform = _cefform;
             InitializeComponent();
             GenerateUI();
+            timer1_Tick(this, new EventArgs());
         }
 
         private readonly List<Label> cookieLabels = new List<Label>();

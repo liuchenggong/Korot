@@ -596,6 +596,16 @@ namespace Korot
             if (anaform.LoadedLang != fileLocation)
             {
                 anaform.LoadedLang = fileLocation;
+                anaform.ThemeCustom = Settings.LanguageSystem.GetItemText("ThemeCustom");
+                anaform.ThemeYou = Settings.LanguageSystem.GetItemText("ThemeYou");
+                anaform.ThemeApply = Settings.LanguageSystem.GetItemText("ThemeApply");
+                anaform.ThemeSave = Settings.LanguageSystem.GetItemText("ThemeSave");
+                anaform.ThemeSaveName = Settings.LanguageSystem.GetItemText("ThemeSaveName");
+                anaform.ThemeSaveAuthor = Settings.LanguageSystem.GetItemText("ThemeSaveAuthor");
+                anaform.ThemeSaveCategory = Settings.LanguageSystem.GetItemText("ThemeSaveCategory");
+                anaform.ThemeSaveTo = Settings.LanguageSystem.GetItemText("ThemeSaveTo");
+                anaform.ThemeSaveWallpaper = Settings.LanguageSystem.GetItemText("ThemeSaveWallpaper");
+                anaform.ThemeSaveFilter = Settings.LanguageSystem.GetItemText("ThemeSaveFilter");
                 tsForwardHistory.Text = Settings.LanguageSystem.GetItemText("History");
                 tsBackHistory.Text = Settings.LanguageSystem.GetItemText("History");
                 anaform.Reset = Settings.LanguageSystem.GetItemText("Reset");
@@ -840,8 +850,6 @@ namespace Korot
                 anaform.No = Settings.LanguageSystem.GetItemText("No");
                 anaform.OK = Settings.LanguageSystem.GetItemText("OK");
                 anaform.Cancel = Settings.LanguageSystem.GetItemText("Cancel");
-                anaform.SearchOnWeb = Settings.LanguageSystem.GetItemText("AddressBar2");
-                anaform.goTotxt = Settings.LanguageSystem.GetItemText("AddressBar1");
                 anaform.newProfileInfo = Settings.LanguageSystem.GetItemText("EnterAProfileName");
                 anaform.MonthNames = Settings.LanguageSystem.GetItemText("NewTabMonths");
                 anaform.DayNames = Settings.LanguageSystem.GetItemText("NewTabDays");
@@ -864,12 +872,6 @@ namespace Korot
                 anaform.deleteProfile = Settings.LanguageSystem.GetItemText("DeleteThisProfile");
                 anaform.aboutInfo = Settings.LanguageSystem.GetItemText("KorotAbout");
             }
-            SafeFileSettingOrganizedClass.ErrorMenu = "<Translations>" + Environment.NewLine +
-                "<Restart>" + Settings.LanguageSystem.GetItemText("ErrorRestart") + "</Restart>" + Environment.NewLine +
-                "<Message1>" + Settings.LanguageSystem.GetItemText("ErrorDesc1") + "</Message1>" + Environment.NewLine +
-                "<Message2>" + Settings.LanguageSystem.GetItemText("ErrorDesc2") + "</Message2>" + Environment.NewLine +
-                "<Technical>" + Settings.LanguageSystem.GetItemText("ErrorTI") + "</Technical>" + Environment.NewLine +
-                "</Translations>" + Environment.NewLine;
             newFavoriteToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("NewFavorite");
             newFolderToolStripMenuItem.Text = Settings.LanguageSystem.GetItemText("NewFolderButton");
             removeSelectedTSMI.Text = Settings.LanguageSystem.GetItemText("RemoveSelected");
@@ -1499,6 +1501,10 @@ chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
                 button3_Click(null, null);
                 e.Handled = true;
                 e.SuppressKeyPress = true;
+            }
+            else if(e.KeyData == Keys.F12 & Settings.DebugMode)
+            {
+                throw new Exception("THIS IS A TEST EXCEPTION.");
             }
             else if (e.KeyData == Keys.BrowserRefresh)
             {

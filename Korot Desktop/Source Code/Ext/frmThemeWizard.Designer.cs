@@ -40,6 +40,10 @@ namespace Korot
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpGrayColor = new System.Windows.Forms.TabPage();
             this.btRandom = new HTAlt.WinForms.HTButton();
+            this.pMultiColor = new System.Windows.Forms.Panel();
+            this.lbRainbowDesc = new System.Windows.Forms.Label();
+            this.lbRainbow = new System.Windows.Forms.Label();
+            this.pbRainbow = new System.Windows.Forms.PictureBox();
             this.pC = new System.Windows.Forms.Panel();
             this.lbCInfo = new System.Windows.Forms.Label();
             this.lbC = new System.Windows.Forms.Label();
@@ -54,6 +58,10 @@ namespace Korot
             this.lbPurpleInfo = new System.Windows.Forms.Label();
             this.lbPurple = new System.Windows.Forms.Label();
             this.pbPurple = new System.Windows.Forms.PictureBox();
+            this.pOrange = new System.Windows.Forms.Panel();
+            this.lbOrangeInfo = new System.Windows.Forms.Label();
+            this.lbOrange = new System.Windows.Forms.Label();
+            this.pbOrange = new System.Windows.Forms.PictureBox();
             this.pYellow = new System.Windows.Forms.Panel();
             this.lbYellowInfo = new System.Windows.Forms.Label();
             this.lbYellow = new System.Windows.Forms.Label();
@@ -74,15 +82,10 @@ namespace Korot
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbColor = new System.Windows.Forms.Label();
             this.tpTone = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btBack2 = new HTAlt.WinForms.HTButton();
             this.btRandom2 = new HTAlt.WinForms.HTButton();
-            this.btSelect = new HTAlt.WinForms.HTButton();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.lbTone = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.lbDesc = new System.Windows.Forms.Label();
-            this.lbTitle = new System.Windows.Forms.Label();
-            this.pbPreview = new System.Windows.Forms.PictureBox();
             this.tpResult = new System.Windows.Forms.TabPage();
             this.btBack3 = new HTAlt.WinForms.HTButton();
             this.lbYourTheme = new System.Windows.Forms.Label();
@@ -95,6 +98,8 @@ namespace Korot
             this.lbResult = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tpGrayColor.SuspendLayout();
+            this.pMultiColor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRainbow)).BeginInit();
             this.pC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbC)).BeginInit();
             this.pBW.SuspendLayout();
@@ -102,6 +107,8 @@ namespace Korot
             this.tpColor.SuspendLayout();
             this.pPurple.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPurple)).BeginInit();
+            this.pOrange.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOrange)).BeginInit();
             this.pYellow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbYellow)).BeginInit();
             this.pBlue.SuspendLayout();
@@ -111,9 +118,6 @@ namespace Korot
             this.pRed.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tpTone.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).BeginInit();
             this.tpResult.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbTheme)).BeginInit();
@@ -140,6 +144,7 @@ namespace Korot
             // 
             this.tpGrayColor.BackColor = System.Drawing.Color.White;
             this.tpGrayColor.Controls.Add(this.btRandom);
+            this.tpGrayColor.Controls.Add(this.pMultiColor);
             this.tpGrayColor.Controls.Add(this.pC);
             this.tpGrayColor.Controls.Add(this.pBW);
             this.tpGrayColor.Controls.Add(this.lbSelectBWC);
@@ -153,15 +158,67 @@ namespace Korot
             // 
             // btRandom
             // 
+            this.btRandom.AutoColor = true;
             this.btRandom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btRandom.ButtonImage = null;
+            this.btRandom.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btRandom.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.btRandom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btRandom.AutoSize = true;
-            this.btRandom.Location = new System.Drawing.Point(3, 601);
+            this.btRandom.DrawImage = false;
+            this.btRandom.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
+            this.btRandom.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.btRandom.Location = new System.Drawing.Point(3, 606);
             this.btRandom.Name = "btRandom";
-            this.btRandom.Size = new System.Drawing.Size(643, 26);
+            this.btRandom.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btRandom.Size = new System.Drawing.Size(643, 21);
             this.btRandom.TabIndex = 9;
             this.btRandom.Text = "Pick Random";
             this.btRandom.Click += new System.EventHandler(this.htButton7_Click);
+            // 
+            // pMultiColor
+            // 
+            this.pMultiColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pMultiColor.Controls.Add(this.lbRainbowDesc);
+            this.pMultiColor.Controls.Add(this.lbRainbow);
+            this.pMultiColor.Controls.Add(this.pbRainbow);
+            this.pMultiColor.Location = new System.Drawing.Point(433, 180);
+            this.pMultiColor.Name = "pMultiColor";
+            this.pMultiColor.Size = new System.Drawing.Size(200, 250);
+            this.pMultiColor.TabIndex = 2;
+            this.pMultiColor.Click += new System.EventHandler(this.pMultiColor_Click);
+            // 
+            // lbRainbowDesc
+            // 
+            this.lbRainbowDesc.Font = new System.Drawing.Font("Ubuntu", 12F);
+            this.lbRainbowDesc.Location = new System.Drawing.Point(0, 148);
+            this.lbRainbowDesc.Name = "lbRainbowDesc";
+            this.lbRainbowDesc.Size = new System.Drawing.Size(200, 102);
+            this.lbRainbowDesc.TabIndex = 2;
+            this.lbRainbowDesc.Text = "Want more colors?";
+            this.lbRainbowDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbRainbowDesc.Click += new System.EventHandler(this.pMultiColor_Click);
+            // 
+            // lbRainbow
+            // 
+            this.lbRainbow.Font = new System.Drawing.Font("Ubuntu", 12F, System.Drawing.FontStyle.Bold);
+            this.lbRainbow.Location = new System.Drawing.Point(0, 125);
+            this.lbRainbow.Name = "lbRainbow";
+            this.lbRainbow.Size = new System.Drawing.Size(200, 23);
+            this.lbRainbow.TabIndex = 1;
+            this.lbRainbow.Text = "Multicolor";
+            this.lbRainbow.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbRainbow.Click += new System.EventHandler(this.pMultiColor_Click);
+            // 
+            // pbRainbow
+            // 
+            this.pbRainbow.Image = global::Korot.Properties.Resources.Colorful;
+            this.pbRainbow.Location = new System.Drawing.Point(26, 22);
+            this.pbRainbow.Name = "pbRainbow";
+            this.pbRainbow.Size = new System.Drawing.Size(150, 100);
+            this.pbRainbow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbRainbow.TabIndex = 0;
+            this.pbRainbow.TabStop = false;
+            this.pbRainbow.Click += new System.EventHandler(this.pMultiColor_Click);
             // 
             // pC
             // 
@@ -169,7 +226,7 @@ namespace Korot
             this.pC.Controls.Add(this.lbCInfo);
             this.pC.Controls.Add(this.lbC);
             this.pC.Controls.Add(this.pbC);
-            this.pC.Location = new System.Drawing.Point(383, 179);
+            this.pC.Location = new System.Drawing.Point(227, 179);
             this.pC.Name = "pC";
             this.pC.Size = new System.Drawing.Size(200, 250);
             this.pC.TabIndex = 2;
@@ -182,7 +239,7 @@ namespace Korot
             this.lbCInfo.Name = "lbCInfo";
             this.lbCInfo.Size = new System.Drawing.Size(200, 102);
             this.lbCInfo.TabIndex = 2;
-            this.lbCInfo.Text = "We aren\'t stuck in 50s so why don\'t we have some colors (or colours).";
+            this.lbCInfo.Text = "Not less not much.";
             this.lbCInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbCInfo.Click += new System.EventHandler(this.pC_Click);
             // 
@@ -214,7 +271,7 @@ namespace Korot
             this.pBW.Controls.Add(this.lbBWInfo);
             this.pBW.Controls.Add(this.lbBW);
             this.pBW.Controls.Add(this.pbBW);
-            this.pBW.Location = new System.Drawing.Point(56, 179);
+            this.pBW.Location = new System.Drawing.Point(20, 179);
             this.pBW.Name = "pBW";
             this.pBW.Size = new System.Drawing.Size(200, 250);
             this.pBW.TabIndex = 1;
@@ -227,7 +284,7 @@ namespace Korot
             this.lbBWInfo.Name = "lbBWInfo";
             this.lbBWInfo.Size = new System.Drawing.Size(200, 102);
             this.lbBWInfo.TabIndex = 2;
-            this.lbBWInfo.Text = "It\'s just some shades of gray of course it\'s balanced.";
+            this.lbBWInfo.Text = "Simple.";
             this.lbBWInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbBWInfo.Click += new System.EventHandler(this.pBW_Click);
             // 
@@ -268,6 +325,7 @@ namespace Korot
             // 
             this.tpColor.BackColor = System.Drawing.Color.White;
             this.tpColor.Controls.Add(this.pPurple);
+            this.tpColor.Controls.Add(this.pOrange);
             this.tpColor.Controls.Add(this.pYellow);
             this.tpColor.Controls.Add(this.btBack);
             this.tpColor.Controls.Add(this.btRandom1);
@@ -289,7 +347,7 @@ namespace Korot
             this.pPurple.Controls.Add(this.lbPurpleInfo);
             this.pPurple.Controls.Add(this.lbPurple);
             this.pPurple.Controls.Add(this.pbPurple);
-            this.pPurple.Location = new System.Drawing.Point(119, 319);
+            this.pPurple.Location = new System.Drawing.Point(433, 323);
             this.pPurple.Name = "pPurple";
             this.pPurple.Size = new System.Drawing.Size(200, 250);
             this.pPurple.TabIndex = 11;
@@ -304,6 +362,7 @@ namespace Korot
             this.lbPurpleInfo.Name = "lbPurpleInfo";
             this.lbPurpleInfo.Size = new System.Drawing.Size(200, 102);
             this.lbPurpleInfo.TabIndex = 2;
+            this.lbPurpleInfo.Tag = "and also send Haltroy to insanity.";
             this.lbPurpleInfo.Text = "Themes to push creativity.";
             this.lbPurpleInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbPurpleInfo.Click += new System.EventHandler(this.pPurple_Click);
@@ -326,7 +385,7 @@ namespace Korot
             this.pbPurple.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbPurple.Image = global::Korot.Properties.Resources.PurpleColors;
+            this.pbPurple.BackColor = System.Drawing.Color.Purple;
             this.pbPurple.Location = new System.Drawing.Point(26, 22);
             this.pbPurple.Name = "pbPurple";
             this.pbPurple.Size = new System.Drawing.Size(150, 100);
@@ -335,13 +394,65 @@ namespace Korot
             this.pbPurple.TabStop = false;
             this.pbPurple.Click += new System.EventHandler(this.pPurple_Click);
             // 
+            // pOrange
+            // 
+            this.pOrange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pOrange.Controls.Add(this.lbOrangeInfo);
+            this.pOrange.Controls.Add(this.lbOrange);
+            this.pOrange.Controls.Add(this.pbOrange);
+            this.pOrange.Location = new System.Drawing.Point(226, 63);
+            this.pOrange.Name = "pOrange";
+            this.pOrange.Size = new System.Drawing.Size(200, 250);
+            this.pOrange.TabIndex = 10;
+            this.pOrange.Click += new System.EventHandler(this.pOrange_Click);
+            // 
+            // lbOrangeInfo
+            // 
+            this.lbOrangeInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbOrangeInfo.Font = new System.Drawing.Font("Ubuntu", 12F);
+            this.lbOrangeInfo.Location = new System.Drawing.Point(0, 148);
+            this.lbOrangeInfo.Name = "lbOrangeInfo";
+            this.lbOrangeInfo.Size = new System.Drawing.Size(200, 102);
+            this.lbOrangeInfo.TabIndex = 2;
+            this.lbOrangeInfo.Text = "Hello human, we are friendly.";
+            this.lbOrangeInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbOrangeInfo.Click += new System.EventHandler(this.pOrange_Click);
+            // 
+            // lbOrange
+            // 
+            this.lbOrange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbOrange.Font = new System.Drawing.Font("Ubuntu", 12F, System.Drawing.FontStyle.Bold);
+            this.lbOrange.Location = new System.Drawing.Point(0, 125);
+            this.lbOrange.Name = "lbOrange";
+            this.lbOrange.Size = new System.Drawing.Size(200, 23);
+            this.lbOrange.TabIndex = 1;
+            this.lbOrange.Text = "Orange";
+            this.lbOrange.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbOrange.Click += new System.EventHandler(this.pOrange_Click);
+            // 
+            // pbOrange
+            // 
+            this.pbOrange.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbOrange.BackColor = System.Drawing.Color.Orange;
+            this.pbOrange.Location = new System.Drawing.Point(26, 22);
+            this.pbOrange.Name = "pbOrange";
+            this.pbOrange.Size = new System.Drawing.Size(150, 100);
+            this.pbOrange.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbOrange.TabIndex = 0;
+            this.pbOrange.TabStop = false;
+            this.pbOrange.Click += new System.EventHandler(this.pOrange_Click);
+            // 
             // pYellow
             // 
             this.pYellow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pYellow.Controls.Add(this.lbYellowInfo);
             this.pYellow.Controls.Add(this.lbYellow);
             this.pYellow.Controls.Add(this.pbYellow);
-            this.pYellow.Location = new System.Drawing.Point(325, 317);
+            this.pYellow.Location = new System.Drawing.Point(433, 64);
             this.pYellow.Name = "pYellow";
             this.pYellow.Size = new System.Drawing.Size(200, 250);
             this.pYellow.TabIndex = 10;
@@ -356,7 +467,7 @@ namespace Korot
             this.lbYellowInfo.Name = "lbYellowInfo";
             this.lbYellowInfo.Size = new System.Drawing.Size(200, 102);
             this.lbYellowInfo.TabIndex = 2;
-            this.lbYellowInfo.Text = "Positive and friendly themes.";
+            this.lbYellowInfo.Text = "Themes for a happy person.";
             this.lbYellowInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbYellowInfo.Click += new System.EventHandler(this.pYellow_Click);
             // 
@@ -378,7 +489,7 @@ namespace Korot
             this.pbYellow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbYellow.Image = global::Korot.Properties.Resources.YellowColors;
+            this.pbYellow.BackColor = System.Drawing.Color.Yellow;
             this.pbYellow.Location = new System.Drawing.Point(26, 22);
             this.pbYellow.Name = "pbYellow";
             this.pbYellow.Size = new System.Drawing.Size(150, 100);
@@ -389,24 +500,38 @@ namespace Korot
             // 
             // btBack
             // 
+            this.btBack.AutoColor = true;
             this.btBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btBack.ButtonImage = null;
+            this.btBack.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btBack.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.btBack.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btBack.AutoSize = true;
-            this.btBack.Location = new System.Drawing.Point(3, 575);
+            this.btBack.DrawImage = false;
+            this.btBack.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
+            this.btBack.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.btBack.Location = new System.Drawing.Point(3, 585);
             this.btBack.Name = "btBack";
-            this.btBack.Size = new System.Drawing.Size(643, 26);
+            this.btBack.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btBack.Size = new System.Drawing.Size(643, 21);
             this.btBack.TabIndex = 8;
             this.btBack.Text = "Go Back";
             this.btBack.Click += new System.EventHandler(this.htButton4_Click);
             // 
             // btRandom1
             // 
+            this.btRandom1.AutoColor = true;
             this.btRandom1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btRandom1.ButtonImage = null;
+            this.btRandom1.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btRandom1.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.btRandom1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btRandom1.AutoSize = true;
-            this.btRandom1.Location = new System.Drawing.Point(3, 601);
+            this.btRandom1.DrawImage = false;
+            this.btRandom1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
+            this.btRandom1.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.btRandom1.Location = new System.Drawing.Point(3, 606);
             this.btRandom1.Name = "btRandom1";
-            this.btRandom1.Size = new System.Drawing.Size(643, 26);
+            this.btRandom1.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btRandom1.Size = new System.Drawing.Size(643, 21);
             this.btRandom1.TabIndex = 9;
             this.btRandom1.Text = "Pick Random";
             this.btRandom1.Click += new System.EventHandler(this.htButton5_Click);
@@ -417,7 +542,7 @@ namespace Korot
             this.pBlue.Controls.Add(this.lbBlueDesc);
             this.pBlue.Controls.Add(this.lbBlue);
             this.pBlue.Controls.Add(this.pictureBox3);
-            this.pBlue.Location = new System.Drawing.Point(432, 64);
+            this.pBlue.Location = new System.Drawing.Point(227, 322);
             this.pBlue.Name = "pBlue";
             this.pBlue.Size = new System.Drawing.Size(200, 250);
             this.pBlue.TabIndex = 3;
@@ -454,7 +579,7 @@ namespace Korot
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.Image = global::Korot.Properties.Resources.BlueColors;
+            this.pictureBox3.BackColor = System.Drawing.Color.Blue;
             this.pictureBox3.Location = new System.Drawing.Point(26, 22);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(150, 100);
@@ -469,7 +594,7 @@ namespace Korot
             this.pGreen.Controls.Add(this.lbGreenDesc);
             this.pGreen.Controls.Add(this.lbGreen);
             this.pGreen.Controls.Add(this.pictureBox2);
-            this.pGreen.Location = new System.Drawing.Point(226, 63);
+            this.pGreen.Location = new System.Drawing.Point(20, 321);
             this.pGreen.Name = "pGreen";
             this.pGreen.Size = new System.Drawing.Size(200, 250);
             this.pGreen.TabIndex = 3;
@@ -506,7 +631,7 @@ namespace Korot
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Image = global::Korot.Properties.Resources.GreenColors;
+            this.pictureBox2.BackColor = System.Drawing.Color.Green;
             this.pictureBox2.Location = new System.Drawing.Point(26, 22);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(150, 100);
@@ -558,7 +683,7 @@ namespace Korot
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::Korot.Properties.Resources.RedColors;
+            this.pictureBox1.BackColor = System.Drawing.Color.Red;
             this.pictureBox1.Location = new System.Drawing.Point(26, 22);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(150, 100);
@@ -581,12 +706,10 @@ namespace Korot
             // tpTone
             // 
             this.tpTone.BackColor = System.Drawing.Color.White;
+            this.tpTone.Controls.Add(this.flowLayoutPanel1);
             this.tpTone.Controls.Add(this.btBack2);
             this.tpTone.Controls.Add(this.btRandom2);
-            this.tpTone.Controls.Add(this.btSelect);
-            this.tpTone.Controls.Add(this.trackBar1);
             this.tpTone.Controls.Add(this.lbTone);
-            this.tpTone.Controls.Add(this.panel4);
             this.tpTone.Location = new System.Drawing.Point(4, 25);
             this.tpTone.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tpTone.Name = "tpTone";
@@ -595,51 +718,51 @@ namespace Korot
             this.tpTone.TabIndex = 2;
             this.tpTone.Text = "Tone Selection";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(8, 52);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(635, 527);
+            this.flowLayoutPanel1.TabIndex = 11;
+            // 
             // btBack2
             // 
+            this.btBack2.AutoColor = true;
             this.btBack2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btBack2.ButtonImage = null;
+            this.btBack2.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btBack2.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.btBack2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btBack2.AutoSize = true;
-            this.btBack2.Location = new System.Drawing.Point(3, 552);
+            this.btBack2.DrawImage = false;
+            this.btBack2.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
+            this.btBack2.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.btBack2.Location = new System.Drawing.Point(3, 585);
             this.btBack2.Name = "btBack2";
-            this.btBack2.Size = new System.Drawing.Size(643, 26);
+            this.btBack2.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btBack2.Size = new System.Drawing.Size(643, 21);
             this.btBack2.TabIndex = 9;
             this.btBack2.Text = "Go Back";
             this.btBack2.Click += new System.EventHandler(this.htButton6_Click);
             // 
             // btRandom2
             // 
+            this.btRandom2.AutoColor = true;
             this.btRandom2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btRandom2.ButtonImage = null;
+            this.btRandom2.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btRandom2.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.btRandom2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btRandom2.AutoSize = true;
-            this.btRandom2.Location = new System.Drawing.Point(3, 578);
+            this.btRandom2.DrawImage = false;
+            this.btRandom2.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
+            this.btRandom2.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.btRandom2.Location = new System.Drawing.Point(3, 606);
             this.btRandom2.Name = "btRandom2";
-            this.btRandom2.Size = new System.Drawing.Size(643, 26);
+            this.btRandom2.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btRandom2.Size = new System.Drawing.Size(643, 21);
             this.btRandom2.TabIndex = 10;
             this.btRandom2.Text = "Pick Random";
             this.btRandom2.Click += new System.EventHandler(this.htButton8_Click);
-            // 
-            // btSelect
-            // 
-            this.btSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.btSelect.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btSelect.AutoSize = true;
-            this.btSelect.Location = new System.Drawing.Point(3, 604);
-            this.btSelect.Name = "btSelect";
-            this.btSelect.Size = new System.Drawing.Size(643, 23);
-            this.btSelect.TabIndex = 8;
-            this.btSelect.Text = "Select this";
-            this.btSelect.Click += new System.EventHandler(this.htButton9_Click);
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.LargeChange = 1;
-            this.trackBar1.Location = new System.Drawing.Point(20, 179);
-            this.trackBar1.Maximum = 4;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(610, 45);
-            this.trackBar1.TabIndex = 5;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // lbTone
             // 
@@ -649,49 +772,8 @@ namespace Korot
             this.lbTone.Name = "lbTone";
             this.lbTone.Size = new System.Drawing.Size(643, 45);
             this.lbTone.TabIndex = 4;
-            this.lbTone.Text = "Select a tone";
+            this.lbTone.Text = "Select a theme";
             this.lbTone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.lbDesc);
-            this.panel4.Controls.Add(this.lbTitle);
-            this.panel4.Controls.Add(this.pbPreview);
-            this.panel4.Location = new System.Drawing.Point(20, 230);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(610, 152);
-            this.panel4.TabIndex = 3;
-            // 
-            // lbDesc
-            // 
-            this.lbDesc.Font = new System.Drawing.Font("Ubuntu", 12F);
-            this.lbDesc.Location = new System.Drawing.Point(182, 45);
-            this.lbDesc.Name = "lbDesc";
-            this.lbDesc.Size = new System.Drawing.Size(423, 77);
-            this.lbDesc.TabIndex = 2;
-            this.lbDesc.Text = "Desc";
-            this.lbDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbTitle
-            // 
-            this.lbTitle.Font = new System.Drawing.Font("Ubuntu", 12F, System.Drawing.FontStyle.Bold);
-            this.lbTitle.Location = new System.Drawing.Point(182, 22);
-            this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(423, 23);
-            this.lbTitle.TabIndex = 1;
-            this.lbTitle.Text = "Title";
-            this.lbTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pbPreview
-            // 
-            this.pbPreview.Image = global::Korot.Properties.Resources.ThemeLight;
-            this.pbPreview.Location = new System.Drawing.Point(26, 22);
-            this.pbPreview.Name = "pbPreview";
-            this.pbPreview.Size = new System.Drawing.Size(150, 100);
-            this.pbPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbPreview.TabIndex = 0;
-            this.pbPreview.TabStop = false;
             // 
             // tpResult
             // 
@@ -712,12 +794,19 @@ namespace Korot
             // 
             // btBack3
             // 
+            this.btBack3.AutoColor = true;
             this.btBack3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btBack3.ButtonImage = null;
+            this.btBack3.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btBack3.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.btBack3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btBack3.AutoSize = true;
-            this.btBack3.Location = new System.Drawing.Point(3, 552);
+            this.btBack3.DrawImage = false;
+            this.btBack3.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
+            this.btBack3.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.btBack3.Location = new System.Drawing.Point(3, 564);
             this.btBack3.Name = "btBack3";
-            this.btBack3.Size = new System.Drawing.Size(643, 26);
+            this.btBack3.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btBack3.Size = new System.Drawing.Size(643, 21);
             this.btBack3.TabIndex = 6;
             this.btBack3.Text = "Go Back";
             this.btBack3.Click += new System.EventHandler(this.htButton2_Click);
@@ -734,12 +823,19 @@ namespace Korot
             // 
             // btTryAgain
             // 
+            this.btTryAgain.AutoColor = true;
             this.btTryAgain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btTryAgain.ButtonImage = null;
+            this.btTryAgain.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btTryAgain.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.btTryAgain.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btTryAgain.AutoSize = true;
-            this.btTryAgain.Location = new System.Drawing.Point(3, 578);
+            this.btTryAgain.DrawImage = false;
+            this.btTryAgain.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
+            this.btTryAgain.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.btTryAgain.Location = new System.Drawing.Point(3, 585);
             this.btTryAgain.Name = "btTryAgain";
-            this.btTryAgain.Size = new System.Drawing.Size(643, 26);
+            this.btTryAgain.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btTryAgain.Size = new System.Drawing.Size(643, 21);
             this.btTryAgain.TabIndex = 7;
             this.btTryAgain.Text = "Try Again";
             this.btTryAgain.Click += new System.EventHandler(this.htButton3_Click);
@@ -777,7 +873,6 @@ namespace Korot
             // 
             // pbTheme
             // 
-            this.pbTheme.Image = global::Korot.Properties.Resources.ThemeLight;
             this.pbTheme.Location = new System.Drawing.Point(26, 22);
             this.pbTheme.Name = "pbTheme";
             this.pbTheme.Size = new System.Drawing.Size(150, 100);
@@ -787,12 +882,19 @@ namespace Korot
             // 
             // btApply
             // 
+            this.btApply.AutoColor = true;
             this.btApply.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btApply.ButtonImage = null;
+            this.btApply.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btApply.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.btApply.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btApply.AutoSize = true;
-            this.btApply.Location = new System.Drawing.Point(3, 604);
+            this.btApply.DrawImage = false;
+            this.btApply.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
+            this.btApply.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.btApply.Location = new System.Drawing.Point(3, 606);
             this.btApply.Name = "btApply";
-            this.btApply.Size = new System.Drawing.Size(643, 23);
+            this.btApply.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btApply.Size = new System.Drawing.Size(643, 21);
             this.btApply.TabIndex = 5;
             this.btApply.Text = "Apply this && close";
             this.btApply.Click += new System.EventHandler(this.htButton1_Click);
@@ -825,6 +927,8 @@ namespace Korot
             this.Load += new System.EventHandler(this.frmThemeWizard_Load);
             this.tabControl1.ResumeLayout(false);
             this.tpGrayColor.ResumeLayout(false);
+            this.pMultiColor.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbRainbow)).EndInit();
             this.pC.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbC)).EndInit();
             this.pBW.ResumeLayout(false);
@@ -832,6 +936,8 @@ namespace Korot
             this.tpColor.ResumeLayout(false);
             this.pPurple.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbPurple)).EndInit();
+            this.pOrange.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbOrange)).EndInit();
             this.pYellow.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbYellow)).EndInit();
             this.pBlue.ResumeLayout(false);
@@ -841,10 +947,6 @@ namespace Korot
             this.pRed.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tpTone.ResumeLayout(false);
-            this.tpTone.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            this.panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).EndInit();
             this.tpResult.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbTheme)).EndInit();
@@ -881,12 +983,7 @@ namespace Korot
         private System.Windows.Forms.Label lbRed;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lbColor;
-        private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label lbTone;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label lbDesc;
-        private System.Windows.Forms.Label lbTitle;
-        private System.Windows.Forms.PictureBox pbPreview;
         private System.Windows.Forms.Label lbResult;
         private HTAlt.WinForms.HTButton btBack3;
         private System.Windows.Forms.Label lbYourTheme;
@@ -901,7 +998,6 @@ namespace Korot
         private HTAlt.WinForms.HTButton btRandom1;
         private HTAlt.WinForms.HTButton btBack2;
         private HTAlt.WinForms.HTButton btRandom2;
-        private HTAlt.WinForms.HTButton btSelect;
         private System.Windows.Forms.Panel pPurple;
         private System.Windows.Forms.Label lbPurpleInfo;
         private System.Windows.Forms.Label lbPurple;
@@ -910,5 +1006,14 @@ namespace Korot
         private System.Windows.Forms.Label lbYellowInfo;
         private System.Windows.Forms.Label lbYellow;
         private System.Windows.Forms.PictureBox pbYellow;
+        private System.Windows.Forms.Panel pOrange;
+        private System.Windows.Forms.Label lbOrangeInfo;
+        private System.Windows.Forms.Label lbOrange;
+        private System.Windows.Forms.PictureBox pbOrange;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Panel pMultiColor;
+        private System.Windows.Forms.Label lbRainbowDesc;
+        private System.Windows.Forms.Label lbRainbow;
+        private System.Windows.Forms.PictureBox pbRainbow;
     }
 }

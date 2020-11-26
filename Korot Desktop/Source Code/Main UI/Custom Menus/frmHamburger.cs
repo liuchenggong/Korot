@@ -251,11 +251,13 @@ namespace Korot
                 case DialogResult.OK:
                     cefform.TabColor = dialog.Color;
                     cefform.AutoTabColor = false;
+                    cefform.anaform.Invalidate();
                     break;
 
                 case DialogResult.Abort:
                     cefform.TabColor = BackColor;
                     cefform.AutoTabColor = true;
+                    cefform.anaform.Invalidate();
                     break;
             }
         }

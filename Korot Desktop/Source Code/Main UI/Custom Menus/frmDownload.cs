@@ -33,6 +33,7 @@ namespace Korot
         {
             cefecik = cefcik;
             InitializeComponent();
+            timer1_Tick(this, new EventArgs());
         }
 
         public Image GetStatusImage(DownloadStatus? status)

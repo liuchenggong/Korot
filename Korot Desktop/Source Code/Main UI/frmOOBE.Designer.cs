@@ -54,7 +54,6 @@ namespace Korot
             this.lbProfile = new System.Windows.Forms.Label();
             this.lbWelcome = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -151,12 +150,19 @@ namespace Korot
             // 
             // btContinue2
             // 
+            this.btContinue2.AutoColor = true;
             this.btContinue2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btContinue2.ButtonImage = null;
+            this.btContinue2.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btContinue2.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(185)))), ((int)(((byte)(185)))));
             this.btContinue2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btContinue2.DrawImage = true;
+            this.btContinue2.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
+            this.btContinue2.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
             this.btContinue2.Location = new System.Drawing.Point(3, 492);
             this.btContinue2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btContinue2.Name = "btContinue2";
+            this.btContinue2.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
             this.btContinue2.Size = new System.Drawing.Size(614, 23);
             this.btContinue2.TabIndex = 5;
             this.btContinue2.Text = "Continue";
@@ -224,12 +230,19 @@ namespace Korot
             // 
             // btBack
             // 
+            this.btBack.AutoColor = true;
             this.btBack.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btBack.ButtonImage = null;
+            this.btBack.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btBack.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(185)))), ((int)(((byte)(185)))));
             this.btBack.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btBack.DrawImage = true;
+            this.btBack.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
+            this.btBack.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
             this.btBack.Location = new System.Drawing.Point(3, 469);
             this.btBack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btBack.Name = "btBack";
+            this.btBack.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
             this.btBack.Size = new System.Drawing.Size(614, 23);
             this.btBack.TabIndex = 18;
             this.btBack.Text = "Go Back";
@@ -237,12 +250,19 @@ namespace Korot
             // 
             // btContinue
             // 
+            this.btContinue.AutoColor = true;
             this.btContinue.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btContinue.ButtonImage = null;
+            this.btContinue.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btContinue.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(185)))), ((int)(((byte)(185)))));
             this.btContinue.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btContinue.DrawImage = true;
+            this.btContinue.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
+            this.btContinue.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
             this.btContinue.Location = new System.Drawing.Point(3, 492);
             this.btContinue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btContinue.Name = "btContinue";
+            this.btContinue.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
             this.btContinue.Size = new System.Drawing.Size(614, 23);
             this.btContinue.TabIndex = 17;
             this.btContinue.Text = "Continue";
@@ -307,7 +327,6 @@ namespace Korot
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.checkBox1);
             this.tabPage3.Controls.Add(this.panel4);
             this.tabPage3.Controls.Add(this.panel3);
             this.tabPage3.Controls.Add(this.panel2);
@@ -325,19 +344,6 @@ namespace Korot
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.checkBox1.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.checkBox1.Location = new System.Drawing.Point(0, 430);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Padding = new System.Windows.Forms.Padding(10);
-            this.checkBox1.Size = new System.Drawing.Size(620, 43);
-            this.checkBox1.TabIndex = 27;
-            this.checkBox1.Text = "Run Theme Wizard after closing";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -429,12 +435,19 @@ namespace Korot
             // 
             // btBack1
             // 
+            this.btBack1.AutoColor = true;
             this.btBack1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btBack1.ButtonImage = null;
+            this.btBack1.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btBack1.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(185)))), ((int)(((byte)(185)))));
             this.btBack1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btBack1.DrawImage = true;
+            this.btBack1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
+            this.btBack1.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
             this.btBack1.Location = new System.Drawing.Point(0, 473);
             this.btBack1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btBack1.Name = "btBack1";
+            this.btBack1.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
             this.btBack1.Size = new System.Drawing.Size(620, 23);
             this.btBack1.TabIndex = 20;
             this.btBack1.Text = "Go Back";
@@ -442,12 +455,19 @@ namespace Korot
             // 
             // btFinish
             // 
+            this.btFinish.AutoColor = true;
             this.btFinish.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btFinish.ButtonImage = null;
+            this.btFinish.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btFinish.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(185)))), ((int)(((byte)(185)))));
             this.btFinish.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btFinish.DrawImage = true;
+            this.btFinish.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
+            this.btFinish.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
             this.btFinish.Location = new System.Drawing.Point(0, 496);
             this.btFinish.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btFinish.Name = "btFinish";
+            this.btFinish.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
             this.btFinish.Size = new System.Drawing.Size(620, 23);
             this.btFinish.TabIndex = 18;
             this.btFinish.Text = "Finish Installation";
@@ -690,7 +710,6 @@ namespace Korot
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbNext)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrev)).EndInit();
@@ -759,6 +778,5 @@ namespace Korot
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Timer tmrLang;
-        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

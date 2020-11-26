@@ -197,6 +197,16 @@ namespace Korot
 
 
         #region "Translate"
+        public string ThemeCustom = "Custom";
+        public string ThemeYou = "You";
+        public string ThemeApply = "Apply";
+        public string ThemeSave = "Save";
+        public string ThemeSaveName = "Enter a name for this new theme:";
+        public string ThemeSaveAuthor = "Enter your name:";
+        public string ThemeSaveCategory = "Please select a category for this theme:";
+        public string ThemeSaveTo = "Save theme to...";
+        public string ThemeSaveWallpaper = "Also add my selected wallpapers.";
+        public string ThemeSaveFilter = "Korot Theme";
         public string Reset = "Reset...";
         public string CreateShortcutToDesktop = "Create Shortcut to Desktop";
         public string CreateShortcut = "Create Shortcut...";
@@ -330,8 +340,6 @@ namespace Korot
         public string StatusType = "[PERC]% | [CURRENT] KiB downloaded out of [TOTAL] KiB.";
         public string enterAValidCode = "Please enter a Valid Base64 Code.";
         public string enterAValidUrl = "Enter a Valid URL";
-        public string goTotxt = "Go to \"[TEXT]\"";
-        public string SearchOnWeb = "Search \"[TEXT]\"";
         public string defaultproxytext = "Default Proxy";
         public string SearchOnPage = "Search on this page";
 
