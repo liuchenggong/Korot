@@ -24,7 +24,7 @@ namespace Korot
         {
             ExtensionList = new List<Extension>();
             ExtensionCodeNames = new List<string>();
-            if (string.IsNullOrWhiteSpace(ExtList) || ExtList.ToLower().Replace(Environment.NewLine, "") == "<extensions></extensions>")
+            if (string.IsNullOrWhiteSpace(ExtList) || ExtList.ToLowerInvariant().Replace(Environment.NewLine, "") == "<extensions></extensions>")
             {
                 return;
             }
@@ -32,7 +32,7 @@ namespace Korot
             document.Load(ExtList);
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                if (node.Name.ToLower() == "extension")
+                if (node.Name.ToLowerInvariant() == "extension")
                 {
                     string codeName = node.InnerText.Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     ExtensionCodeNames.Add(codeName);
@@ -142,7 +142,7 @@ namespace Korot
             // This is the part where my brain stopped and tried shutting down (aka sleep).
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                switch (node.Name.ToLower())
+                switch (node.Name.ToLowerInvariant())
                 {
                     case "name":
                         Name = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
@@ -184,7 +184,7 @@ namespace Korot
                             Files = new List<string>();
                             foreach (XmlNode subnode in node.ChildNodes)
                             {
-                                if (subnode.Name.ToLower() == "file")
+                                if (subnode.Name.ToLowerInvariant() == "file")
                                 {
                                     if (subnode.Attributes["Location"] != null)
                                     {
@@ -201,7 +201,7 @@ namespace Korot
                         {
                             foreach (XmlNode subnode in node.ChildNodes)
                             {
-                                switch (subnode.Name.ToLower())
+                                switch (subnode.Name.ToLowerInvariant())
                                 {
                                     case "none":
                                         {
@@ -456,7 +456,7 @@ namespace Korot
             for (int i = 0; i < doc.FirstChild.ChildNodes.Count; i++)
             {
                 XmlNode node = doc.FirstChild.ChildNodes[i];
-                switch (node.Name.ToLower())
+                switch (node.Name.ToLowerInvariant())
                 {
                     case "name":
                         Name = node.InnerXml.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;");
@@ -478,7 +478,7 @@ namespace Korot
             for(int i = 0;i < MainNode.ChildNodes.Count;i++)
             {
                 XmlNode node = MainNode.ChildNodes[i];
-                switch(node.Name.ToLower())
+                switch(node.Name.ToLowerInvariant())
                 {
                     case "name":
                         Name = node.InnerXml.Replace("&", "&amp;").Replace(">", "&gt;").Replace("<", "&lt;").Replace("'", "&apos;");

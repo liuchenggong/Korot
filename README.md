@@ -1,27 +1,26 @@
 <p align="center" style="text-align: center;">
-  <img width="128" height="128" src="https://en.haltroy.com/assets/images/Korot-1.png" />
+  <img width="128" height="128" src="https://haltroy.com/assets/images/korot-1000x1000.png" />
 </p>
 
 # [Korot](https://haltroy.com/Korot.html "Korot's Page")
 A Chromium web browser made by [Haltroy](https://haltroy.com "Haltroy's Website").
 
-Latest Stable Version: [`0.8.4.0`](https://github.com/Haltroy/Korot/tree/0.8.4.0).
+Latest Available Version: [`0.8.4.0`](https://github.com/Haltroy/Korot/tree/0.8.4.0).
 
-Developing Version: [`0.8.5.0`](https://github.com/Haltroy/Korot/tree/0.8.5.0).
+Developing Version: `Project Reset`
 
 
+### Screenshot(s)
 <p align="center" style="text-align: center;">
-  <img width="641" height="523" src="http://en.haltroy.com/assets/images/korot0820.png" />
+  <img width="641" height="523" src="https://haltroy.com/assets/images/korot0820-1076x685.png" />
 </p>
 
 ## Features:
  - HTML5, CSS3, JS, HTML5 Video, WebGL 3D, etc. supported. (Except `H.264` and many non-free codecs. See [#12](https://github.com/Haltroy/Korot/issues/12))
  - Tabbed, built-in search bar that auto-detects URLs.
  - Celebrates your birthday.
- - Developer tools ,View Source ,Page screnshot, Print, Keyboard Shortcuts, Save page & Zoom in page
- - UI language system (Comes with [`English`](https://haltroy.com/store/item/Haltroy.KorotEnglish/) and [`Türkçe`](https://haltroy.com/store/item/Haltroy.KorotTürkçe/) languages)
- - Theme system (Comes with 32 themes with different colors) & [Theme Store](https://haltroy.com/store/Korot/Themes/)
- - Built-in Extension system (with support for proxies) & [Extension Store](https://haltroy.com/store/Korot/Extensions/)
+ - Developer tools, View Source, Page screnshot, Print, Keyboard Shortcuts, Save page & Zoom in page
+ - UI language, theme and extension system (supports proxies).
  - Profiles
  - Notifications
  - Download manager
@@ -37,10 +36,7 @@ To see roadmap, refer to [ROADMAP](https://github.com/Haltroy/Korot/blob/master/
  | Branch                                                              | CEFSharp Version | VC++ Version | .Net | HTAlt  | Status | Release Time |
 |----------------------------------------------------------------------|------|------|-------|-----------------|-----|-------------------|
 | [`master`](https://github.com/haltroy/korot)                      | 85 | 2015 | Framework 4.8 | b1.6.1 | Master | 17 July 2017 |
-| [`1.0.0.0`](https://github.com/Haltroy/Korot/tree/1.0.0.0) | >=85 | 2015 | Framework 4.8 | >=b1.6.1 | `Planned` | ?? March 2021 |
-| [`0.9.0.0`](https://github.com/Haltroy/Korot/tree/0.9.0.0) | >=85 | 2015 | Framework 4.8 | >=b1.6.1 | `Planned` | ?? February 2021 |
-| [`0.8.6.0`](https://github.com/Haltroy/Korot/tree/0.8.6.0) | >=85 | 2015 | Framework 4.8 | >=b1.6.1 | `Planned` | ?? January 2021 |
-| [`0.8.5.0`](https://github.com/Haltroy/Korot/tree/0.8.5.0) | >=85 | 2015 | Framework 4.8 | b1.6.1 | `Development` | ?? December 2020 |
+| [`1.0.0.0`](https://github.com/Haltroy/Korot/tree/1.0.0.0) | >=86 | 2015 | Framework 4.8 | >=b1.6.1 | `Planned` | ?? March 2021 |
 | [`0.8.4.0`](https://github.com/Haltroy/Korot/tree/0.8.4.0) | 85 | 2015 | Framework 4.8 | b1.6 | **Latest Release** | 29 October 2020 |
 | [`0.8.3.0`](https://github.com/Haltroy/Korot/tree/0.8.3.0) | 84 | 2015 | Framework 4.8 | b1.6 | Unsupported | 13 October 2020 |
 | [`0.8.2.0`](https://github.com/Haltroy/Korot/tree/0.8.2.0) | 84 | 2015 | Framework 4.8 | b1.5.1 | Unsupported | 18 September 2020 |

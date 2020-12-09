@@ -295,7 +295,7 @@ namespace Korot
         {
             if (e.Frame.IsMain && chromiumWebBrowser1.CanExecuteJavascriptInMainFrame)
             {
-                if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot:"))
+                if (chromiumWebBrowser1.Address.ToLowerInvariant().StartsWith("korot:"))
                 {
                     chromiumWebBrowser1.ExecuteScriptAsync("setContext(\"" + (string.IsNullOrEmpty(searchText) ? "" : searchText) + "\");");
                 }
@@ -319,7 +319,7 @@ namespace Korot
                     }
                 }
             }
-            if (e.Frame.IsMain && e.Url.ToLower().StartsWith("korot://"))
+            if (e.Frame.IsMain && e.Url.ToLowerInvariant().StartsWith("korot://"))
             {
                 Invoke(new Action(() => { Icon = anaform.Icon; pbPrivacy.Image = Properties.Resources.Korot; }));
             }
@@ -407,22 +407,26 @@ namespace Korot
             }
             else
             {
-                anaform.settingTab = ParentTab;
-                if (setmenu is null)
+                Invoke(new Action(() =>
                 {
-                    setmenu = new frmSettings(Settings, this)
+                    anaform.settingTab = ParentTab;
+                    if (setmenu is null)
                     {
-                        TopLevel = false,
-                        FormBorderStyle = FormBorderStyle.None,
-                        Dock = DockStyle.Fill,
-                        Visible = true,
-                        ShowInTaskbar = false,
-                    };
-                    tpSettings.Controls.Add(setmenu);
-                    setmenu.Show(); Settings.AllForms.Add(setmenu);
-                }
-                allowSwitching = true;
-                tabControl1.SelectedTab = tpSettings;
+                        setmenu = new frmSettings(Settings, this)
+                        {
+                            TopLevel = false,
+                            FormBorderStyle = FormBorderStyle.None,
+                            Dock = DockStyle.Fill,
+                            Visible = true,
+                            ShowInTaskbar = false,
+                        };
+                        tpSettings.Controls.Add(setmenu);
+                        setmenu.Show(); Settings.AllForms.Add(setmenu);
+                    }
+                    allowSwitching = true;
+                    tabControl1.SelectedTab = tpSettings;
+                    setmenu.SwitchNewTab();
+                }));
             }
         }
 
@@ -430,7 +434,7 @@ namespace Korot
 
         public void refreshPage()
         {
-            if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot:") && chromiumWebBrowser1.CanExecuteJavascriptInMainFrame)
+            if (chromiumWebBrowser1.Address.ToLowerInvariant().StartsWith("korot:") && chromiumWebBrowser1.CanExecuteJavascriptInMainFrame)
             {
                 chromiumWebBrowser1.ExecuteScriptAsync(@"getContext()");
             }
@@ -443,12 +447,12 @@ namespace Korot
             ChromiumWebBrowser browser = (sender as ChromiumWebBrowser);
             if (string.Equals(message, "[Korot.EditNewTabItem]"))
             {
-                if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot"))
+                if (chromiumWebBrowser1.Address.ToLowerInvariant().StartsWith("korot"))
                 {
                     EditNewTabItem();
                 }
             }
-            else if (message.StartsWith("[Korot.SearchText]") && chromiumWebBrowser1.Address.ToLower().StartsWith("korot:"))
+            else if (message.StartsWith("[Korot.SearchText]") && chromiumWebBrowser1.Address.ToLowerInvariant().StartsWith("korot:"))
             {
                 searchText = message.Substring(18);
             }
@@ -458,7 +462,7 @@ namespace Korot
             }
             else
             {
-                if (message.ToLower().StartsWith("[korot.notification "))
+                if (message.ToLowerInvariant().StartsWith("[korot.notification "))
                 {
                     if (Settings.GetSiteFromUrl(HTAlt.Tools.GetBaseURL(browser.Address)).AllowNotifications)
                     {
@@ -957,7 +961,7 @@ namespace Korot
             document.LoadXml(HTAlt.Tools.ReadFile(ProxyFile, Encoding.Unicode));
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                if (node.Name.ToLower() == "proxy")
+                if (node.Name.ToLowerInvariant() == "proxy")
                 {
                     if (node.Attributes["IP"] == null) { return; }
                     Proxy prx = new Proxy
@@ -1236,7 +1240,7 @@ namespace Korot
         {
             allowSwitching = true;
             tabControl1.SelectedTab = tpCef;
-            string urlLower = tbAddress.Text.ToLower();
+            string urlLower = tbAddress.Text.ToLowerInvariant();
             if (KorotTools.ValidHttpURL(urlLower))
             {
                 loadPage(urlLower, Text);
@@ -1314,7 +1318,7 @@ namespace Korot
         {
             Invoke(new Action(() =>
             {
-                if (e.Address.ToLower().StartsWith("korot://"))
+                if (e.Address.ToLowerInvariant().StartsWith("korot://"))
                 {
                     if (KorotTools.isNonRedirectKorotPage(e.Address))
                     {
@@ -1358,7 +1362,7 @@ namespace Korot
             }
             else
             {
-                if (e.FailedUrl.ToLower().StartsWith("korot") || e.FailedUrl.ToLower().StartsWith("chrome") || e.FailedUrl.ToLower().StartsWith("about"))
+                if (e.FailedUrl.ToLowerInvariant().StartsWith("korot") || e.FailedUrl.ToLowerInvariant().StartsWith("chrome") || e.FailedUrl.ToLowerInvariant().StartsWith("about"))
                 {
                     if (e.Frame.IsMain)
                     {
@@ -1393,12 +1397,12 @@ namespace Korot
                 {
                     if (SessionSystem.Sessions[si].Url != chromiumWebBrowser1.Address)
                     {
-                        if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot"))
+                        if (chromiumWebBrowser1.Address.ToLowerInvariant().StartsWith("korot"))
                         {
-                            if (chromiumWebBrowser1.Address.ToLower().StartsWith("korot://newtab") ||
-chromiumWebBrowser1.Address.ToLower().StartsWith("korot://links") ||
-chromiumWebBrowser1.Address.ToLower().StartsWith("korot://license") ||
-chromiumWebBrowser1.Address.ToLower().StartsWith("korot://incognito"))
+                            if (chromiumWebBrowser1.Address.ToLowerInvariant().StartsWith("korot://newtab") ||
+chromiumWebBrowser1.Address.ToLowerInvariant().StartsWith("korot://links") ||
+chromiumWebBrowser1.Address.ToLowerInvariant().StartsWith("korot://license") ||
+chromiumWebBrowser1.Address.ToLowerInvariant().StartsWith("korot://incognito"))
                             {
                                 SessionSystem.Sessions[si].Title = e.Title;
                             }

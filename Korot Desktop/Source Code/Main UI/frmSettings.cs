@@ -8,11 +8,15 @@ Use of this source code is governed by an MIT License that can be found in githu
 
 using HTAlt.WinForms;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Korot
 {
@@ -32,8 +36,11 @@ namespace Korot
         {
             cefform = _cefform;
             Settings = _Settings;
+            LangLabels = new List<Label>();
             InitializeComponent();
+            btSidebar_Click(this, new EventArgs());
             CheckThemeSettings();
+            RefreshLang();
             EasterEggs();
             if (!cefform.anaform.isUpdateAvailable)
             {
@@ -184,6 +191,11 @@ namespace Korot
             label6_Click(this, new EventArgs());
         }
 
+        internal void SwitchNewTab()
+        {
+            lbNewTab_Click(this, new EventArgs());
+        }
+
         internal void SwitchAbout()
         {
             label8_Click(this, new EventArgs());
@@ -221,6 +233,8 @@ namespace Korot
                 hsFav.OverlayColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
                 hsOpen.OverlayColor = Settings.NinjaMode ? Settings.Theme.BackColor : Settings.Theme.OverlayColor;
 
+                RecolorLangLabels(backcolor3, HTAlt.Tools.ShiftBrightness(Settings.Theme.OverlayColor,60,false), Settings.Theme.ForeColor);
+                flpLang.BackColor = backcolor2;
 
                 pbPrev.Image = Settings.NinjaMode ? null : (isbright ? Properties.Resources.leftarrow : Properties.Resources.leftarrow_w);
                 pbNextTheme.Image = Settings.NinjaMode ? null : (isbright ? Properties.Resources.rightarrow : Properties.Resources.rightarrow_w);
@@ -394,6 +408,7 @@ namespace Korot
             if (loadedLang != Settings.LanguageSystem.LangFile || force)
             {
                 loadedLang = Settings.LanguageSystem.LangFile;
+                lbDisplayLang.Text = Settings.LanguageSystem.GetItemText("DisplayLang");
                 lbDefaultBrowser.Text = Settings.LanguageSystem.GetItemText("DefaultBrowserSetting");
                 lbSynthRate.Text = Settings.LanguageSystem.GetItemText("SynthRate");
                 lbSynthVol.Text = Settings.LanguageSystem.GetItemText("SynthVol");
@@ -402,10 +417,27 @@ namespace Korot
                 lbAutoSelect.Text = Settings.LanguageSystem.GetItemText("AutoForeColor");
                 lbNinja.Text = Settings.LanguageSystem.GetItemText("NinjaMode");
                 tpBlock.Text = Settings.LanguageSystem.GetItemText("BlockMenuTitle");
+                lbBlocks.Text = Settings.LanguageSystem.GetItemText("BlockMenuTitle");
                 lbNTTitle.Text = Settings.LanguageSystem.GetItemText("NewTabEditTitle");
                 lbNTUrl.Text = Settings.LanguageSystem.GetItemText("NewTabEditUrl");
                 btNTClear.Text = Settings.LanguageSystem.GetItemText("NewTabEditClear");
                 lbCollections.Text = Settings.LanguageSystem.GetItemText("Collections");
+
+                tpTheme.Text = Settings.LanguageSystem.GetItemText("Themes");
+                lbThemes.Text = Settings.LanguageSystem.GetItemText("Themes");
+
+                tpNotifications.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
+                lbNotifications.Text = Settings.LanguageSystem.GetItemText("NotificationSettings");
+
+                tpAutoClear.Text = Settings.LanguageSystem.GetItemText("AutoClean");
+                lbAutoClean.Text = Settings.LanguageSystem.GetItemText("AutoClean");
+
+                tpNewTab.Text = Settings.LanguageSystem.GetItemText("NewTabEditorTitle");
+                lbNewTab.Text = Settings.LanguageSystem.GetItemText("NewTabEditorTitle");
+
+                tpLang.Text = Settings.LanguageSystem.GetItemText("Language");
+                lbLanguage.Text = Settings.LanguageSystem.GetItemText("Language");
+
                 tpSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
                 lbSettings.Text = Settings.LanguageSystem.GetItemText("Settings");
                 lbPlayNotifSound.Text = Settings.LanguageSystem.GetItemText("PlayNotificationSound");
@@ -424,6 +456,7 @@ namespace Korot
                 lbSaturday.Text = Settings.LanguageSystem.GetItemText("S");
                 tpAbout.Text = Settings.LanguageSystem.GetItemText("About");
                 tpSite.Text = Settings.LanguageSystem.GetItemText("SiteSettings");
+                lbSiteSettings.Text = Settings.LanguageSystem.GetItemText("SiteSettings");
                 tpCollections.Text = Settings.LanguageSystem.GetItemText("Collections");
                 tpDownloads.Text = Settings.LanguageSystem.GetItemText("Downloads");
                 tpHistory.Text = Settings.LanguageSystem.GetItemText("History");
@@ -614,6 +647,7 @@ namespace Korot
             nudSynthVol.Value = Settings.SynthVolume;
             hsFav.Checked = Settings.Favorites.ShowFavorites;
             hsDefaultBrowser.Checked = Settings.CheckIfDefault;
+            lbDisplayLangName.Text = Settings.LanguageSystem.Name;
             if (loadedCBC != (int)Settings.Theme.CloseButtonColor)
             {
                 loadedCBC = (int)Settings.Theme.CloseButtonColor;
@@ -670,11 +704,11 @@ namespace Korot
             tbSoundLoc.Enabled = !hsDefaultSound.Checked;
             tbSoundLoc.Text = Settings.SoundLocation;
             btOpenSound.Enabled = !hsDefaultSound.Checked;
-            if (Settings.Startup.ToLower() == "korot://newtab")
+            if (Settings.Startup.ToLowerInvariant() == "korot://newtab")
             {
                 tbStartup.Text = showNewTabPageToolStripMenuItem.Text;
             }
-            else if (Settings.Startup.ToLower() == "korot://homepage" || Settings.Startup.ToLower() == Settings.Homepage.ToLower())
+            else if (Settings.Startup.ToLowerInvariant() == "korot://homepage" || Settings.Startup.ToLowerInvariant() == Settings.Homepage.ToLowerInvariant())
             {
                 tbStartup.Text = showHomepageToolStripMenuItem.Text;
             }
@@ -772,7 +806,7 @@ namespace Korot
             flpTo.Location = new Point(scheduleTo.Location.X + scheduleTo.Width, flpTo.Location.Y);
             flpEvery.Location = new Point(scheduleEvery.Location.X + scheduleEvery.Width, flpEvery.Location.Y);
             lbVersion.Location = new Point(lbKorot.Location.X + lbKorot.Width, lbVersion.Location.Y);
-
+            lbDisplayLangName.Location = new Point(lbDisplayLang.Location.X + lbDisplayLang.Width, lbDisplayLang.Location.Y);
             hsAutoRestore.Location = new Point(lbautoRestore.Location.X + lbautoRestore.Width, hsAutoRestore.Location.Y);
             hsFav.Location = new Point(lbShowFavorites.Location.X + lbShowFavorites.Width, hsFav.Location.Y);
             hsDoNotTrack.Location = new Point(lbDNT.Location.X + lbDNT.Width, hsDoNotTrack.Location.Y);
@@ -1078,15 +1112,98 @@ namespace Korot
 
         #endregion AutoCleaner
 
+        #region Lang
+        private List<Label> LangLabels;
+
+        private void RefreshLang()
+        {
+            string[] langFiles = Directory.GetFiles(Application.StartupPath + "\\Lang\\", "*.klf", SearchOption.TopDirectoryOnly);
+            string[] currentFiles = new string[] { };
+            for (int i = 0; i < LangLabels.Count; i++)
+            {
+                Label x = LangLabels[i];
+                if (!langFiles.Contains(x.Tag.ToString()))
+                {
+                    LangLabels.Remove(x);
+                    flpLang.Controls.Remove(x);
+                    x.Dispose();
+                }
+                else
+                {
+                    currentFiles.Append(x.Tag.ToString());
+                }
+            }
+            for (int i = 0; i < langFiles.Length; i++)
+            {
+                var x = langFiles[i];
+                if (!currentFiles.Contains(x))
+                {
+                    Label lbLang = new Label()
+                    {
+                        Name = HTAlt.Tools.GenerateRandomText(13), // fuck you
+                        Text = GetLangName(x),
+                        Tag = x,
+                        Visible = true,
+                        AutoSize = true,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Margin = new Padding(5),
+                    };
+                    lbLang.Click += lbLangEx_Click;
+                    flpLang.Controls.Add(lbLang);
+                    LangLabels.Add(lbLang);
+                }
+            }
+        }
+
+        private string GetLangName(string fileName)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(HTAlt.Tools.ReadFile(fileName, Encoding.Unicode));
+            XmlNode firstNode = doc.FirstChild;
+            if (firstNode.Attributes["Name"] == null) { return Path.GetFileNameWithoutExtension(fileName); } else { return firstNode.Attributes["Name"].Value; }
+        }
+        private void RecolorLangLabels(Color color1, Color color2, Color fcolor)
+        {
+            for (int i = 0; i < LangLabels.Count; i++)
+            {
+                Label x = LangLabels[i];
+                x.BackColor = x.Tag.ToString() == Settings.LanguageSystem.LangFile ? color2 : color1;
+                x.ForeColor = Settings.NinjaMode ? x.BackColor : fcolor;
+            }
+        }
+
+        private void lbLangEx_Click(object sender, EventArgs e)
+        {
+            var cntrl = sender as Control;
+            Settings.LanguageSystem.ForceReadFromFile(cntrl.Tag.ToString(), true);
+            RecolorLangLabels(HTAlt.Tools.ShiftBrightness(Settings.Theme.BackColor, 40, false), HTAlt.Tools.ShiftBrightness(Settings.Theme.OverlayColor,60,false), Settings.Theme.ForeColor);
+        }
+
+        #endregion Lang
+
         #region Theme
         int theme = 0;
         bool showCustom = false;
         Theme selectedTheme;
         private void btThemeApplySave_Click(object sender, EventArgs e)
         {
-            Settings.Theme = selectedTheme;
-            showCustom = false;
-            Settings.JustChangedTheme(); ReloadTheme(true);
+            if (theme == -1) 
+            {
+                if (cefform == null || cefform.Disposing || cefform.IsDisposed) { return; }
+                if (cefform.anaform == null || cefform.anaform.Disposing || cefform.anaform.IsDisposed) { return; }
+                if (cefform.anaform.InvokeRequired) {
+                    cefform.anaform.Invoke(new Action(() => cefform.anaform.ShowSaveThame()));
+                }else
+                {
+                    cefform.anaform.ShowSaveThame();
+                }
+            }
+            else
+            {
+                Settings.Theme = selectedTheme;
+                showCustom = false;
+                Settings.JustChangedTheme(); ReloadTheme(true);
+            }
         }
 
         private void pbNextTheme_Click(object sender, EventArgs e)
@@ -1318,7 +1435,7 @@ namespace Korot
             DialogResult diagres = inputb.ShowDialog();
             if (diagres == DialogResult.OK)
             {
-                if (string.IsNullOrWhiteSpace(inputb.TextValue) || (inputb.TextValue.ToLower() == "korot://newtab") || inputb.TextValue.ToLower() == Settings.Homepage.ToLower() || inputb.TextValue.ToLower() == "korot://homepage")
+                if (string.IsNullOrWhiteSpace(inputb.TextValue) || (inputb.TextValue.ToLowerInvariant() == "korot://newtab") || inputb.TextValue.ToLowerInvariant() == Settings.Homepage.ToLowerInvariant() || inputb.TextValue.ToLowerInvariant() == "korot://homepage")
                 {
                     showAWebsiteToolStripMenuItem_Click(sender, e);
                 }
@@ -2023,7 +2140,20 @@ namespace Korot
             cefform.Invoke(new Action(() => cefform.NewTab("https://github.com/Haltroy/Korot/issues/142")));
         }
 
+
+
         #endregion About
-        
+
+        private void listView1_ItemChecked(object sender, ItemCheckedEventArgs e) => listView1_ItemCheck(sender, new ItemCheckEventArgs(e.Item.Index, (e.Item.Checked ? CheckState.Checked : CheckState.Unchecked), (!e.Item.Checked ? CheckState.Checked : CheckState.Unchecked)));
+
+        private void listView1_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+
+        }
+
+        private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

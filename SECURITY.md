@@ -7,12 +7,19 @@ To report a vulnerability, please use [`Vulnerability template`](https://github.
 
 This section currently tells which versions of Korot is supported.
 
+### Reset
 | Version | Supported          | Available on GitHub | Status         |
 | ------- | ------------------ |---------------------|----------------|
 | 1.0.0.0 | :white_check_mark: | :x:                 | *Planned*      |
-| 0.9.0.0 | :white_check_mark: | :x:                 | *Planned*      |
-| 0.8.5.0 | :white_check_mark: | :x:                 | *Developing*   |
-| 0.8.4.0 | :white_check_mark: | :white_check_mark:  | **Latest**     |
+| Reset4  | :white_check_mark: | :x:                 | Upcoming       |
+| Reset3  | :white_check_mark: | :x:                 | Upcoming       |
+| Reset2  | :white_check_mark: | :x:                 | Upcoming       |
+| Reset1  | :white_check_mark: | :x:                 | Upcoming       |
+
+### Before Reset
+| Version | Supported          | Available on GitHub | Status         |
+| ------- | ------------------ |---------------------|----------------|
+| 0.8.4.0 | :x:                | :white_check_mark:  | End of support |
 | 0.8.3.0 | :x:                | :white_check_mark:  | End of support |
 | 0.8.2.0 | :x:                | :white_check_mark:  | End of support |
 | 0.8.1.1 | :x:                | :white_check_mark:  | End of support | 

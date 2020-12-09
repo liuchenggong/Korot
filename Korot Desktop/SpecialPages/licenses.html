@@ -9,7 +9,9 @@
     <title>§TITLE§</title>
     <style>
         body {
-            §BACKSTYLE2§ font-family: Ubuntu;
+            background-color: §BACKCOLOR§;
+            color: §FORECOLOR§;
+            font-family: Ubuntu;
             background-size: cover;
             position: relative;
             background-repeat: no-repeat;
@@ -19,13 +21,12 @@
         .btn-group button {
             background-color: §OVERLAYCOLOR§;
             border: 1px solid §OVERLAYCOLOR§;
-            color: §OCOLOR§; /* White text */
-            padding: 10px 24px; /* Some padding */
-            cursor: pointer; /* Pointer/hand icon */
-            float: left; /* Float the buttons side by side */
+            color: §OCOLOR§; 
+            padding: 10px 24px; 
+            cursor: pointer; 
+            float: left; 
         }
 
-        /* Clear floats (clearfix hack) */
         .btn-group:after {
             content: "";
             clear: both;
@@ -33,10 +34,9 @@
         }
 
         .btn-group button:not(:last-child) {
-            border-right: none; /* Prevent double borders */
+            border-right: none; 
         }
 
-        /* Add a background color on hover */
         .btn-group button:hover {
             background-color: §OVERLAYCOLOR2§;
         }

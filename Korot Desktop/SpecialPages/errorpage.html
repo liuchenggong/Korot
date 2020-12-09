@@ -26,7 +26,9 @@
         }
 
         body {
-            §BACKSTYLE2§ font-family: Ubuntu;
+            background-color: §BACKCOLOR§;
+            color: §FORECOLOR§;
+            font-family: Ubuntu;
             background-size: cover;
             position: relative;
             background-repeat: no-repeat;
@@ -45,13 +47,15 @@
         }
 
             li::before {
-                §OVERLAY§ content: "• ";
+                color: §OVERLAYCOLOR§;
+                content: "• ";
             }
 
         button {
             font-family: Ubuntu;
             font-size: large;
-            §BACKSTYLE2§
+            background-color: §BACKCOLOR2§;
+            color: §FORECOLOR§;
         }
     </style>
 </head>

@@ -129,6 +129,10 @@ namespace Korot
             this.hsCleanHistory = new HTAlt.WinForms.HTSwitch();
             this.hsCleanCache = new HTAlt.WinForms.HTSwitch();
             this.tpNewTab = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btRemoveWP = new System.Windows.Forms.Button();
+            this.btAddWP = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.tbUrl = new System.Windows.Forms.TextBox();
             this.tbTitle = new System.Windows.Forms.TextBox();
             this.tlpNewTab = new System.Windows.Forms.TableLayoutPanel();
@@ -166,6 +170,9 @@ namespace Korot
             this.lbNTUrl = new System.Windows.Forms.Label();
             this.lbNTTitle = new System.Windows.Forms.Label();
             this.tpLang = new System.Windows.Forms.TabPage();
+            this.flpLang = new System.Windows.Forms.FlowLayoutPanel();
+            this.lbDisplayLangName = new System.Windows.Forms.Label();
+            this.lbDisplayLang = new System.Windows.Forms.Label();
             this.tpNotifications = new System.Windows.Forms.TabPage();
             this.pSchedule = new System.Windows.Forms.Panel();
             this.flpFrom = new System.Windows.Forms.FlowLayoutPanel();
@@ -265,6 +272,7 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.nudCC2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCC1)).BeginInit();
             this.tpNewTab.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.tlpNewTab.SuspendLayout();
             this.L9.SuspendLayout();
             this.L8.SuspendLayout();
@@ -276,6 +284,7 @@ namespace Korot
             this.L2.SuspendLayout();
             this.L1.SuspendLayout();
             this.L0.SuspendLayout();
+            this.tpLang.SuspendLayout();
             this.tpNotifications.SuspendLayout();
             this.pSchedule.SuspendLayout();
             this.flpFrom.SuspendLayout();
@@ -439,7 +448,7 @@ namespace Korot
             this.btDownloadFolder.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.btDownloadFolder.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btDownloadFolder.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
-            this.btDownloadFolder.Location = new System.Drawing.Point(622, 407);
+            this.btDownloadFolder.Location = new System.Drawing.Point(622, 410);
             this.btDownloadFolder.Name = "btDownloadFolder";
             this.btDownloadFolder.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.btDownloadFolder.Size = new System.Drawing.Size(20, 21);
@@ -1354,6 +1363,8 @@ namespace Korot
             // 
             // tpNewTab
             // 
+            this.tpNewTab.Controls.Add(this.tableLayoutPanel1);
+            this.tpNewTab.Controls.Add(this.listView1);
             this.tpNewTab.Controls.Add(this.tbUrl);
             this.tpNewTab.Controls.Add(this.tbTitle);
             this.tpNewTab.Controls.Add(this.tlpNewTab);
@@ -1366,6 +1377,67 @@ namespace Korot
             this.tpNewTab.TabIndex = 10;
             this.tpNewTab.Text = "New Tab";
             this.tpNewTab.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.btRemoveWP, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btAddWP, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(16, 680);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(633, 40);
+            this.tableLayoutPanel1.TabIndex = 76;
+            // 
+            // btRemoveWP
+            // 
+            this.btRemoveWP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btRemoveWP.FlatAppearance.BorderSize = 0;
+            this.btRemoveWP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btRemoveWP.Font = new System.Drawing.Font("Ubuntu", 17F, System.Drawing.FontStyle.Bold);
+            this.btRemoveWP.Location = new System.Drawing.Point(319, 3);
+            this.btRemoveWP.Name = "btRemoveWP";
+            this.btRemoveWP.Size = new System.Drawing.Size(311, 34);
+            this.btRemoveWP.TabIndex = 75;
+            this.btRemoveWP.Text = "-";
+            this.btRemoveWP.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btRemoveWP.UseVisualStyleBackColor = true;
+            // 
+            // btAddWP
+            // 
+            this.btAddWP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btAddWP.FlatAppearance.BorderSize = 0;
+            this.btAddWP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btAddWP.Font = new System.Drawing.Font("Ubuntu", 17F, System.Drawing.FontStyle.Bold);
+            this.btAddWP.Location = new System.Drawing.Point(3, 3);
+            this.btAddWP.Name = "btAddWP";
+            this.btAddWP.Size = new System.Drawing.Size(310, 34);
+            this.btAddWP.TabIndex = 75;
+            this.btAddWP.Text = "+";
+            this.btAddWP.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btAddWP.UseVisualStyleBackColor = true;
+            // 
+            // listView1
+            // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.CheckBoxes = true;
+            this.listView1.FullRowSelect = true;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(16, 247);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(633, 429);
+            this.listView1.TabIndex = 74;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.listView1_ItemCheck);
+            this.listView1.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listView1_ItemChecked);
+            this.listView1.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listView1_ItemSelectionChanged);
             // 
             // tbUrl
             // 
@@ -1839,12 +1911,45 @@ namespace Korot
             // 
             // tpLang
             // 
+            this.tpLang.Controls.Add(this.flpLang);
+            this.tpLang.Controls.Add(this.lbDisplayLangName);
+            this.tpLang.Controls.Add(this.lbDisplayLang);
             this.tpLang.Location = new System.Drawing.Point(4, 24);
             this.tpLang.Name = "tpLang";
             this.tpLang.Size = new System.Drawing.Size(666, 725);
             this.tpLang.TabIndex = 11;
             this.tpLang.Text = "Language";
             this.tpLang.UseVisualStyleBackColor = true;
+            // 
+            // flpLang
+            // 
+            this.flpLang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flpLang.AutoScroll = true;
+            this.flpLang.Location = new System.Drawing.Point(8, 50);
+            this.flpLang.Name = "flpLang";
+            this.flpLang.Size = new System.Drawing.Size(641, 100);
+            this.flpLang.TabIndex = 1;
+            // 
+            // lbDisplayLangName
+            // 
+            this.lbDisplayLangName.AutoSize = true;
+            this.lbDisplayLangName.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.lbDisplayLangName.Location = new System.Drawing.Point(131, 9);
+            this.lbDisplayLangName.Name = "lbDisplayLangName";
+            this.lbDisplayLangName.Size = new System.Drawing.Size(60, 18);
+            this.lbDisplayLangName.TabIndex = 0;
+            this.lbDisplayLangName.Text = "<LANG>";
+            // 
+            // lbDisplayLang
+            // 
+            this.lbDisplayLang.AutoSize = true;
+            this.lbDisplayLang.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.lbDisplayLang.Location = new System.Drawing.Point(5, 9);
+            this.lbDisplayLang.Name = "lbDisplayLang";
+            this.lbDisplayLang.Size = new System.Drawing.Size(120, 18);
+            this.lbDisplayLang.TabIndex = 0;
+            this.lbDisplayLang.Text = "Display Language:";
             // 
             // tpNotifications
             // 
@@ -2154,7 +2259,7 @@ namespace Korot
             this.btOpenSound.Font = new System.Drawing.Font("Ubuntu", 9F);
             this.btOpenSound.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btOpenSound.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
-            this.btOpenSound.Location = new System.Drawing.Point(622, 63);
+            this.btOpenSound.Location = new System.Drawing.Point(622, 68);
             this.btOpenSound.Name = "btOpenSound";
             this.btOpenSound.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.btOpenSound.Size = new System.Drawing.Size(20, 21);
@@ -2597,9 +2702,9 @@ namespace Korot
             this.lbSettings.Font = new System.Drawing.Font("Ubuntu", 15F, System.Drawing.FontStyle.Bold);
             this.lbSettings.Location = new System.Drawing.Point(3, 47);
             this.lbSettings.Name = "lbSettings";
-            this.lbSettings.Size = new System.Drawing.Size(87, 26);
+            this.lbSettings.Size = new System.Drawing.Size(93, 26);
             this.lbSettings.TabIndex = 0;
-            this.lbSettings.Text = "General";
+            this.lbSettings.Text = "Settings";
             this.lbSettings.Click += new System.EventHandler(this.label4_Click);
             // 
             // cmsStartup
@@ -2793,6 +2898,7 @@ namespace Korot
             ((System.ComponentModel.ISupportInitialize)(this.nudCC1)).EndInit();
             this.tpNewTab.ResumeLayout(false);
             this.tpNewTab.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.tlpNewTab.ResumeLayout(false);
             this.L9.ResumeLayout(false);
             this.L8.ResumeLayout(false);
@@ -2804,6 +2910,8 @@ namespace Korot
             this.L2.ResumeLayout(false);
             this.L1.ResumeLayout(false);
             this.L0.ResumeLayout(false);
+            this.tpLang.ResumeLayout(false);
+            this.tpLang.PerformLayout();
             this.tpNotifications.ResumeLayout(false);
             this.tpNotifications.PerformLayout();
             this.pSchedule.ResumeLayout(false);
@@ -3040,5 +3148,12 @@ namespace Korot
         private System.Windows.Forms.PictureBox pbThemePreview;
         private System.Windows.Forms.PictureBox pbNextTheme;
         private System.Windows.Forms.PictureBox pbPrev;
+        private System.Windows.Forms.Label lbDisplayLangName;
+        private System.Windows.Forms.Label lbDisplayLang;
+        private System.Windows.Forms.FlowLayoutPanel flpLang;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button btRemoveWP;
+        private System.Windows.Forms.Button btAddWP;
+        private System.Windows.Forms.ListView listView1;
     }
 }

@@ -51,17 +51,17 @@ namespace Korot
                     || request.TransitionType == TransitionType.ClientRedirect
                     || request.TransitionType == TransitionType.ServerRedirect))
                 {
-                    if (request.Url.ToLower().StartsWith("korot") && (
-                        request.Url.ToLower().StartsWith("korot://newtab")
-                              || request.Url.ToLower().StartsWith("korot://links")
-                              || request.Url.ToLower().StartsWith("korot://license")
-                              || request.Url.ToLower().StartsWith("korot://incognito")))
+                    if (request.Url.ToLowerInvariant().StartsWith("korot") && (
+                        request.Url.ToLowerInvariant().StartsWith("korot://newtab")
+                              || request.Url.ToLowerInvariant().StartsWith("korot://links")
+                              || request.Url.ToLowerInvariant().StartsWith("korot://license")
+                              || request.Url.ToLowerInvariant().StartsWith("korot://incognito")))
                     {
                         cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
                     }
                     else
                     {
-                        if (request.Url.ToLower().StartsWith("devtools")) { return false; }
+                        if (request.Url.ToLowerInvariant().StartsWith("devtools")) { return false; }
                         cefform.Invoke(new Action(() => cefform.redirectTo(request.Url, request.Url)));
                     }
                 }

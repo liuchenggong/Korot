@@ -1359,6 +1359,32 @@ namespace Korot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;Korot Test&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;h1&gt;Korot Test&lt;/h1&gt;
+        ///    &lt;a&gt;This page is for testing purposes only.&lt;/a&gt;
+        ///    &lt;h2&gt;IMAGE TEST&lt;/h2&gt;
+        ///    &lt;a&gt;IMG SRC&lt;/a&gt;
+        ///    &lt;img src=&quot;korot://korotlogo&quot; /&gt;
+        ///    &lt;br /&gt;
+        ///    &lt;a&gt;IFRAME&lt;/a&gt;
+        ///    &lt;iframe src=&quot;korot://korotlogo&quot;&gt;&lt;/iframe&gt;
+        ///&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        internal static string test {
+            get {
+                return ResourceManager.GetString("test", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap theme {

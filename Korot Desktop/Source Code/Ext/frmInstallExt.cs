@@ -21,7 +21,6 @@ namespace Korot
         public Settings Settings;
         private bool allowSwitch = false;
         private string ExtFile;
-        private string noPermission = "This extension does not require any permissions but:";
         private string Initializing = "Initializing...";
         private string installed = "Installed.";
         private string installing = "Installing...";
@@ -54,55 +53,54 @@ namespace Korot
             allowSwitch = true;
             tabControl1.Invoke(new Action(() => tabControl1.SelectedTab = tabPage4));
             if (silentInstall) { Hide(); }
-            if (ExtFile.ToLower().EndsWith(".kef")) { StartupEXT(); } else if (ExtFile.ToLower().EndsWith(".ktf")) { StartupTF(); }
+            if (ExtFile.ToLowerInvariant().EndsWith(".kef")) { Startup(false); } else if (ExtFile.ToLowerInvariant().EndsWith(".ktf")) { Startup(true); }
         }
 
-        private async void StartupEXT()
+        private async void Startup(bool isTheme)
         {
             await Task.Run(() =>
             {
                 if (!silentInstall)
                 {
-                    lbThemeExtension.Invoke(new Action(() => lbThemeExtension.Text = ext));
-                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText(12) + "\\";
+                    lbThemeExtension.Invoke(new Action(() => lbThemeExtension.Text = isTheme ? theme : ext));
+                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText(17) + "\\";
                     if (Directory.Exists(tempFolder))
                     {
                         Directory.Delete(tempFolder, true);
                     }
                     Directory.CreateDirectory(tempFolder);
-                    ZipFile.ExtractToDirectory(ExtFile, tempFolder, Encoding.Unicode);
-                    ExtFile = tempFolder + "ext.kem";
-                    Invoke(new Action(() => ReadKEM(ExtFile)));
-                }
-                else
-                {
-                    lbThemeExtension.Invoke(new Action(() => lbThemeExtension.Text = ext));
-                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText(12) + "\\";
-                    if (Directory.Exists(tempFolder))
+                    ZipFile.ExtractToDirectory(ExtFile, tempFolder, Encoding.UTF8);
+                    ExtFile = tempFolder + (!isTheme ? "ext.kem" : "theme.ktm");
+                    if(isTheme)
                     {
-                        Directory.Delete(tempFolder, true);
-                    }
-                    Directory.CreateDirectory(tempFolder);
-                    ZipFile.ExtractToDirectory(ExtFile, tempFolder, Encoding.Unicode);
-                    ExtFile = tempFolder + "ext.kem";
-                    if (new FileInfo(ExtFile).Length < 1048576)
-                    {
-                        Invoke(new Action(() => ReadKEM(ExtFile)));
+                        Invoke(new Action(() => ReadKTF(ExtFile)));
                     }
                     else
                     {
-                        Invoke(new Action(() => Close()));
+                        Invoke(new Action(() => ReadKEM(ExtFile)));
+                    }
+
+                }
+                else
+                {
+                    lbThemeExtension.Invoke(new Action(() => lbThemeExtension.Text = isTheme ? theme : ext));
+                    string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\" + HTAlt.Tools.GenerateRandomText(17) + "\\";
+                    if (Directory.Exists(tempFolder))
+                    {
+                        Directory.Delete(tempFolder, true);
+                    }
+                    Directory.CreateDirectory(tempFolder);
+                    ZipFile.ExtractToDirectory(ExtFile, tempFolder, Encoding.UTF8);
+                    ExtFile = tempFolder + (!isTheme ? "ext.kem" : "theme.ktm");
+                    if (isTheme)
+                    {
+                        Invoke(new Action(() => ReadKTF(ExtFile)));
+                    }
+                    else
+                    {
+                        Invoke(new Action(() => ReadKEM(ExtFile)));
                     }
                 }
-            });
-        }
-
-        private async void StartupTF()
-        {
-            await Task.Run(() =>
-            {
-                lbThemeExtension.Invoke(new Action(() => lbThemeExtension.Text = theme));
-                Invoke(new Action(() => ReadKTF(ExtFile)));
             });
         }
 
@@ -115,7 +113,7 @@ namespace Korot
                 Invoke(new Action(() =>
                 {
                     lbName.Text = extension.Name;
-                    lbVersion.Text = extension.Version.ToString();
+                    lbVersion.Text = "v. " + extension.Version;
                     lbAuthor.Text = extension.Author;
                     if (File.Exists(extension.Icon.Replace("[EXTFOLDER]", new FileInfo(fileLocation).DirectoryName + " \\")))
                     {
@@ -167,7 +165,7 @@ namespace Korot
                 Invoke(new Action(() =>
                 {
                     lbName.Text = extension.Name;
-                    lbVersion.Text = extension.Version.ToString();
+                    lbVersion.Text = "v. " + extension.Version;
                     lbAuthor.Text = extension.Author;
                     panel4.Visible = true;
                     lbVersion.Location = new Point(lbName.Location.X + lbName.Width + 5, lbName.Location.Y);
@@ -239,14 +237,7 @@ namespace Korot
             lbStatus.Text = Initializing;
             if (i == 5)
             {
-                if (lbThemeExtension.Text == ext)
-                {
-                    installKEM();
-                }
-                else if (lbThemeExtension.Text == theme)
-                {
-                    installKTF();
-                }
+                install(lbThemeExtension.Text == theme);
                 timer1.Stop();
             }
         }
@@ -257,65 +248,72 @@ namespace Korot
             btClose.Enabled = ev;
         }
 
-        private readonly string korotExtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Extensions";
-        private readonly string korotThemeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\Themes";
+        private readonly string korotExtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Extensions";
+        private readonly string korotThemeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "Themes";
         private string extCodeName;
 
-        private async void installKEM()
+        private async void install(bool isTheme)
         {
             await Task.Run(() =>
             {
-                extCodeName = (lbAuthor.Text + "." + lbName.Text).Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
-                Invoke(new Action(() => button3Mode(false)));
-                lbStatus.Invoke(new Action(() => lbStatus.Text = installing));
-                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 10));
-                if (Directory.Exists(korotExtDirectory + "\\" + extCodeName))
+                if (!isTheme)
                 {
-                    Directory.Delete(korotExtDirectory + "\\" + extCodeName, true);
-                }
-                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 30));
-                Directory.CreateDirectory(korotExtDirectory + "\\" + extCodeName);
-                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 60));
-                foreach (string x in Directory.GetFiles(new FileInfo(ExtFile).DirectoryName + " \\"))
+                    extCodeName = (lbAuthor.Text + "." + lbName.Text).Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
+                    Invoke(new Action(() => button3Mode(false)));
+                    lbStatus.Invoke(new Action(() => lbStatus.Text = installing));
+                    htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 10));
+                    if (Directory.Exists(korotExtDirectory + "\\" + extCodeName))
+                    {
+                        Directory.Delete(korotExtDirectory + "\\" + extCodeName, true);
+                    }
+                    htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 30));
+                    Directory.CreateDirectory(korotExtDirectory + "\\" + extCodeName);
+                    htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 60));
+                    foreach (string x in Directory.GetFiles(new FileInfo(ExtFile).DirectoryName + " \\"))
+                    {
+                        File.Copy(x, korotExtDirectory + "\\" + extCodeName + "\\" + new FileInfo(x).Name);
+                    }
+                    foreach (string x in Directory.GetDirectories(new FileInfo(ExtFile).DirectoryName + " \\"))
+                    {
+                        Directory.Move(x, korotExtDirectory + "\\" + extCodeName + "\\" + new DirectoryInfo(x).Name);
+                    }
+                    lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
+                    lbInstallInfo.Invoke(new Action(() => lbInstallInfo.Text = installed));
+                    Invoke(new Action(() => button3Mode(true)));
+                    htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 100));
+                    Directory.Delete(new FileInfo(ExtFile).DirectoryName, true);
+                    Settings.Extensions.ExtensionCodeNames.Add(extCodeName);
+                    Extension ext = new Extension(korotExtDirectory + "\\" + extCodeName + "\\ext.kem");
+                    Settings.Extensions.ExtensionList.Add(ext);
+                    if (silentInstall)
+                    {
+                        Invoke(new Action(() => Close()));
+                    }
+                }else
                 {
-                    File.Copy(x, korotExtDirectory + "\\" + extCodeName + "\\" + new FileInfo(x).Name);
-                }
-                foreach (string x in Directory.GetDirectories(new FileInfo(ExtFile).DirectoryName + " \\"))
-                {
-                    Directory.Move(x, korotExtDirectory + "\\" + extCodeName + "\\" + new DirectoryInfo(x).Name);
-                }
-                lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
-                lbInstallInfo.Invoke(new Action(() => lbInstallInfo.Text = installed));
-                Invoke(new Action(() => button3Mode(true)));
-                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 100));
-                Directory.Delete(new FileInfo(ExtFile).DirectoryName, true);
-                Settings.Extensions.ExtensionCodeNames.Add(extCodeName);
-                Extension ext = new Extension(korotExtDirectory + "\\" + extCodeName + "\\ext.kem");
-                Settings.Extensions.ExtensionList.Add(ext);
-                ext.Update();
-                if (silentInstall)
-                {
-                    Invoke(new Action(() => Close()));
-                }
-            });
-        }
-
-        private async void installKTF()
-        {
-            await Task.Run(() =>
-            {
-                Invoke(new Action(() => button3Mode(false)));
-                lbStatus.Invoke(new Action(() => lbStatus.Text = installing));
-                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 90));
-                string fileName = new FileInfo(ExtFile).Name;
-                File.Copy(ExtFile, korotThemeDirectory + fileName);
-                lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
-                lbInstallInfo.Invoke(new Action(() => lbInstallInfo.Text = installed));
-                Invoke(new Action(() => button3Mode(true)));
-                htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 300));
-                if (silentInstall)
-                {
-                    Invoke(new Action(() => Close()));
+                    extCodeName = (lbAuthor.Text + "." + lbName.Text).Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
+                    Invoke(new Action(() => button3Mode(false)));
+                    lbStatus.Invoke(new Action(() => lbStatus.Text = installing));
+                    htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 10));
+                    if (Directory.Exists(korotThemeDirectory + "\\" + extCodeName))
+                    {
+                        Directory.Delete(korotThemeDirectory + "\\" + extCodeName, true);
+                    }
+                    htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 30));
+                    Directory.CreateDirectory(korotThemeDirectory + "\\" + extCodeName);
+                    htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 60));
+                    File.Copy(ExtFile, korotThemeDirectory + "\\" + extCodeName + ".ktm");
+                    File.Copy(new FileInfo(ExtFile).DirectoryName + "\\preview.png", korotThemeDirectory + "\\" + extCodeName + ".png");
+                    Directory.Move(new FileInfo(ExtFile).DirectoryName + "\\Wallpaper\\", korotThemeDirectory + "\\" + extCodeName + "\\");
+                    lbStatus.Invoke(new Action(() => lbStatus.Visible = false));
+                    lbInstallInfo.Invoke(new Action(() => lbInstallInfo.Text = installed));
+                    Invoke(new Action(() => button3Mode(true)));
+                    htProgressBar1.Invoke(new Action(() => htProgressBar1.Value = 100));
+                    Directory.Delete(new FileInfo(ExtFile).DirectoryName, true);
+                    if (silentInstall)
+                    {
+                        Invoke(new Action(() => Close()));
+                    }
                 }
             });
         }
@@ -338,7 +336,6 @@ namespace Korot
             pictureBox7.Image = Settings.NinjaMode ? null : (Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._1_w : Properties.Resources._1);
             pictureBox2.Image = Settings.NinjaMode ? null : (Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._2_w : Properties.Resources._2);
             pictureBox5.Image = Settings.NinjaMode ? null : (Brightness(Settings.Theme.BackColor) < 130 ? Properties.Resources._3_w : Properties.Resources._3);
-            noPermission = Settings.LanguageSystem.GetItemText("ExtensionNoPermission");
             Initializing = Settings.LanguageSystem.GetItemText("Initializing");
             installed = Settings.LanguageSystem.GetItemText("Installed");
             installing = Settings.LanguageSystem.GetItemText("Installing");

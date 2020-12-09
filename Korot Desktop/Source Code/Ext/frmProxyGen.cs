@@ -109,12 +109,12 @@ namespace Korot
             XmlDocument document = new XmlDocument();
             document.Load(stream); //Loads our XML Stream
             // Make sure that this is an extension manifest.
-            if (document.FirstChild.Name.ToLower() != "korotextension.proxylist") { return; }
+            if (document.FirstChild.Name.ToLowerInvariant() != "korotextension.proxylist") { return; }
             // This is the part where hell starts. Looking at this code for a small amount
             // of time might cause turning skin to red, puking blood and hair loss.
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                if (node.Name.ToLower() == "proxy")
+                if (node.Name.ToLowerInvariant() == "proxy")
                 {
                     string id = node.Attributes["ID"] != null ? node.Attributes["ID"].Value : "";
                     string ip = node.Attributes["IP"] != null ? node.Attributes["IP"].Value : "";

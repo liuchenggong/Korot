@@ -219,13 +219,13 @@ namespace Korot
             };
             DialogResult result = dialog.ShowDialog();
             if (result != DialogResult.OK) { return; }
-            if (dialog.FileName.ToLower().EndsWith(".kef")) //Extension File
+            if (dialog.FileName.ToLowerInvariant().EndsWith(".kef")) //Extension File
             {
                 string workspace = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\MakeExt\\load\\" + HTAlt.Tools.GenerateRandomText(12) + "\\";
                 TemporaryFiles.Add(workspace);
                 if (Directory.Exists(workspace)) { Directory.Delete(workspace, true); }
                 Directory.CreateDirectory(workspace);
-                ZipFile.ExtractToDirectory(dialog.FileName, workspace, Encoding.Unicode);
+                ZipFile.ExtractToDirectory(dialog.FileName, workspace, Encoding.UTF8);
                 foreach (string x in Directory.GetFiles(workspace))
                 {
                     if (x != workspace + "ext.kem")
@@ -235,7 +235,7 @@ namespace Korot
                 }
                 LoadKEM(workspace + "ext.kem");
             }
-            else if (dialog.FileName.ToLower().EndsWith(".kem")) //Extension Manifest
+            else if (dialog.FileName.ToLowerInvariant().EndsWith(".kem")) //Extension Manifest
             {
                 LoadKEM(dialog.FileName);
                 FileInfo info = new FileInfo(dialog.FileName);
@@ -261,16 +261,16 @@ namespace Korot
             XmlDocument document = new XmlDocument();
             document.Load(stream); //Loads our XML Stream
             // Make sure that this is an extension manifest.
-            if (document.FirstChild.Name.ToLower() != "korotextension") { return; }
+            if (document.FirstChild.Name.ToLowerInvariant() != "korotextension") { return; }
             // This is the part where hell starts. Looking at this code for a small amount
             // of time might cause turning skin to red, puking blood and hair loss.
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                if (node.Name.ToLower() == "name")
+                if (node.Name.ToLowerInvariant() == "name")
                 {
                     if (!string.IsNullOrWhiteSpace(tbName.Text))
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLowerInvariant() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             BackColor = BackColor,
                             AutoForeColor = false,
@@ -286,11 +286,11 @@ namespace Korot
                         tbName.Text = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     }
                 }
-                else if (node.Name.ToLower() == "version")
+                else if (node.Name.ToLowerInvariant() == "version")
                 {
                     if (!string.IsNullOrWhiteSpace(tbVersion.Text))
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLowerInvariant() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             BackColor = BackColor,
                             AutoForeColor = false,
@@ -306,11 +306,11 @@ namespace Korot
                         tbVersion.Text = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     }
                 }
-                else if (node.Name.ToLower() == "author")
+                else if (node.Name.ToLowerInvariant() == "author")
                 {
                     if (!string.IsNullOrWhiteSpace(tbAuthor.Text))
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLowerInvariant() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             BackColor = BackColor,
                             AutoForeColor = false,
@@ -326,11 +326,11 @@ namespace Korot
                         tbAuthor.Text = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     }
                 }
-                else if (node.Name.ToLower() == "icon")
+                else if (node.Name.ToLowerInvariant() == "icon")
                 {
                     if (!string.IsNullOrWhiteSpace(cbIcon.Text))
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLowerInvariant() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             BackColor = BackColor,
                             AutoForeColor = false,
@@ -346,11 +346,11 @@ namespace Korot
                         cbIcon.Text = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     }
                 }
-                else if (node.Name.ToLower() == "icon")
+                else if (node.Name.ToLowerInvariant() == "icon")
                 {
                     if (!string.IsNullOrWhiteSpace(cbIcon.Text))
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLowerInvariant() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             BackColor = BackColor,
                             AutoForeColor = false,
@@ -366,11 +366,11 @@ namespace Korot
                         cbIcon.Text = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     }
                 }
-                else if (node.Name.ToLower() == "startupfile")
+                else if (node.Name.ToLowerInvariant() == "startupfile")
                 {
                     if (!string.IsNullOrWhiteSpace(cbStartup.Text))
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLowerInvariant() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             BackColor = BackColor,
                             AutoForeColor = false,
@@ -386,11 +386,11 @@ namespace Korot
                         cbStartup.Text = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     }
                 }
-                else if (node.Name.ToLower() == "popupfile")
+                else if (node.Name.ToLowerInvariant() == "popupfile")
                 {
                     if (!string.IsNullOrWhiteSpace(cbMenu.Text))
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLowerInvariant() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             BackColor = BackColor,
                             AutoForeColor = false,
@@ -406,11 +406,11 @@ namespace Korot
                         cbMenu.Text = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     }
                 }
-                else if (node.Name.ToLower() == "backfile")
+                else if (node.Name.ToLowerInvariant() == "backfile")
                 {
                     if (!string.IsNullOrWhiteSpace(cbBackground.Text))
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLowerInvariant() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             BackColor = BackColor,
                             AutoForeColor = false,
@@ -426,11 +426,11 @@ namespace Korot
                         cbBackground.Text = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     }
                 }
-                else if (node.Name.ToLower() == "proxyfile")
+                else if (node.Name.ToLowerInvariant() == "proxyfile")
                 {
                     if (!string.IsNullOrWhiteSpace(cbProxy.Text))
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLower() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "There are more than 1 \"" + node.Name.ToLowerInvariant() + "\" nodes.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             BackColor = BackColor,
                             AutoForeColor = false,
@@ -446,11 +446,11 @@ namespace Korot
                         cbProxy.Text = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     }
                 }
-                else if (node.Name.ToLower() == "menusize")
+                else if (node.Name.ToLowerInvariant() == "menusize")
                 {
                     if (!node.InnerText.Contains(";"))
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Invalid inner text for \"" + node.Name.ToLower() + "\" node.", new HTDialogBoxContext(MessageBoxButtons.OK))
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Invalid inner text for \"" + node.Name.ToLowerInvariant() + "\" node.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             BackColor = BackColor,
                             AutoForeColor = false,
@@ -470,7 +470,7 @@ namespace Korot
                     }
                     catch
                     {
-                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Invalid inner text for \"" + node.Name.ToLower() + "\" node.", new HTDialogBoxContext(MessageBoxButtons.OK))
+                        HTMsgBox mesaj = new HTMsgBox(Text, "Error while reading manifest file." + Environment.NewLine + "Invalid inner text for \"" + node.Name.ToLowerInvariant() + "\" node.", new HTDialogBoxContext(MessageBoxButtons.OK))
                         {
                             BackColor = BackColor,
                             AutoForeColor = false,
@@ -482,11 +482,11 @@ namespace Korot
                         return;
                     }
                 }
-                else if (node.Name.ToLower() == "files")
+                else if (node.Name.ToLowerInvariant() == "files")
                 {
                     foreach (XmlNode subnode in node.ChildNodes)
                     {
-                        if (subnode.Name.ToLower() == "file")
+                        if (subnode.Name.ToLowerInvariant() == "file")
                         {
                             if (subnode.Attributes["Location"] != null)
                             {
@@ -496,7 +496,7 @@ namespace Korot
                         }
                     }
                 }
-                else if (node.Name.ToLower() == "settings")
+                else if (node.Name.ToLowerInvariant() == "settings")
                 {
                     foreach (XmlNode subnode in node.ChildNodes)
                     {
@@ -634,7 +634,7 @@ namespace Korot
             {
                 try
                 {
-                    if (dialog.FileName.ToLower().EndsWith(".kef"))
+                    if (dialog.FileName.ToLowerInvariant().EndsWith(".kef"))
                     {
                         // Create new work folder
                         string workspace = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\MakeExt\\generate\\" + HTAlt.Tools.GenerateRandomText(12) + "\\";
@@ -652,7 +652,7 @@ namespace Korot
                         ZipFile.CreateFromDirectory(workspace, dialog.FileName, CompressionLevel.Optimal, false, Encoding.Unicode);
                         Directory.Delete(workspace, true);
                     }
-                    else if (dialog.FileName.ToLower().EndsWith(".kem"))
+                    else if (dialog.FileName.ToLowerInvariant().EndsWith(".kem"))
                     {
                         HTAlt.Tools.WriteFile(dialog.FileName, BuildExtManifest(), Encoding.Unicode);
                     }
@@ -734,35 +734,35 @@ namespace Korot
             foreach (object item in lbSafeName.Items)
             {
                 // javascript
-                if (item.ToString().ToLower().EndsWith(".js"))
+                if (item.ToString().ToLowerInvariant().EndsWith(".js"))
                 {
                     cbBackground.Items.Add("[EXTFOLDER]" + item);
                     cbStartup.Items.Add("[EXTFOLDER]" + item);
                 }
                 // html
-                if (item.ToString().ToLower().EndsWith(".html"))
+                if (item.ToString().ToLowerInvariant().EndsWith(".html"))
                 {
                     cbMenu.Items.Add("[EXTFOLDER]" + item);
                 }
                 // icon
-                if (item.ToString().ToLower().EndsWith(".png")
-                    || item.ToString().ToLower().EndsWith(".bmp")
-                    || item.ToString().ToLower().EndsWith(".ico")
-                    || item.ToString().ToLower().EndsWith(".gif")
-                    || item.ToString().ToLower().EndsWith(".jpeg")
-                    || item.ToString().ToLower().EndsWith(".jpg")
-                    || item.ToString().ToLower().EndsWith(".exif")
-                    || item.ToString().ToLower().EndsWith(".tiff")
-                    || item.ToString().ToLower().EndsWith(".tif")
-                    || item.ToString().ToLower().EndsWith(".wmf")
-                    || item.ToString().ToLower().EndsWith(".emf")
-                    || item.ToString().ToLower().EndsWith(".gif")
-                    || item.ToString().ToLower().EndsWith(".jfif"))
+                if (item.ToString().ToLowerInvariant().EndsWith(".png")
+                    || item.ToString().ToLowerInvariant().EndsWith(".bmp")
+                    || item.ToString().ToLowerInvariant().EndsWith(".ico")
+                    || item.ToString().ToLowerInvariant().EndsWith(".gif")
+                    || item.ToString().ToLowerInvariant().EndsWith(".jpeg")
+                    || item.ToString().ToLowerInvariant().EndsWith(".jpg")
+                    || item.ToString().ToLowerInvariant().EndsWith(".exif")
+                    || item.ToString().ToLowerInvariant().EndsWith(".tiff")
+                    || item.ToString().ToLowerInvariant().EndsWith(".tif")
+                    || item.ToString().ToLowerInvariant().EndsWith(".wmf")
+                    || item.ToString().ToLowerInvariant().EndsWith(".emf")
+                    || item.ToString().ToLowerInvariant().EndsWith(".gif")
+                    || item.ToString().ToLowerInvariant().EndsWith(".jfif"))
                 {
                     cbIcon.Items.Add("[EXTFOLDER]" + item);
                 }
                 // proxy
-                if (item.ToString().ToLower().EndsWith(".kpf"))
+                if (item.ToString().ToLowerInvariant().EndsWith(".kpf"))
                 {
                     cbProxy.Items.Add("[EXTFOLDER]" + item);
                 }
@@ -897,16 +897,16 @@ namespace Korot
             };
             DialogResult result = dialog.ShowDialog();
             if (result != DialogResult.OK) { return; }
-            if (dialog.FileName.ToLower().EndsWith(".kef")) //Extension File
+            if (dialog.FileName.ToLowerInvariant().EndsWith(".kef")) //Extension File
             {
                 string workspace = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\Korot\\MakeExt\\load\\" + HTAlt.Tools.GenerateRandomText(12) + "\\";
                 TemporaryFiles.Add(workspace);
                 if (Directory.Exists(workspace)) { Directory.Delete(workspace, true); }
                 Directory.CreateDirectory(workspace);
-                ZipFile.ExtractToDirectory(dialog.FileName, workspace, Encoding.Unicode);
+                ZipFile.ExtractToDirectory(dialog.FileName, workspace, Encoding.UTF8);
                 ReadOldKEM(workspace + "ext.kem");
             }
-            else if (dialog.FileName.ToLower().EndsWith(".kem")) //Extension Manifest
+            else if (dialog.FileName.ToLowerInvariant().EndsWith(".kem")) //Extension Manifest
             {
                 ReadOldKEM(dialog.FileName);
             }

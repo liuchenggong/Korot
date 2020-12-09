@@ -114,16 +114,42 @@ namespace Korot
     {
         public ThemeImage(string location, string themeName)
         {
+            IsUserWallpaper = false;
             Location = location;
             ThemeName = themeName;
         }
 
+        public ThemeImage(string location)
+        {
+            IsUserWallpaper = true;
+            Location = location;
+        }
+        public bool IsUserWallpaper { get; set; }
         public string Location { get; set; }
         public string ThemeName { get; set; }
-        public string ActualLocation => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + ThemeName + "\\" + Location;
+        public string ActualLocation => (!IsUserWallpaper ? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\" + ThemeName + "\\"  : "") + Location;
     }
     public class Theme
     {
+        public static string[] SupportedWallpaperTypes { get => new string[] { "bmp" ,
+"emf" ,
+"wmf" ,
+"gif" ,
+"jpeg" ,
+"jpg" ,
+"png" ,
+"tiff" ,
+"ico"};
+        }
+        private string GetWallpaperList()
+        {
+            string x = "";
+            for (int i = 0; i < Wallpapers.Count;i++)
+            {
+                x += "<Wallpaper>" + Wallpapers[i].Location + "</Wallpaper>" + Environment.NewLine;
+            }
+            return x;
+        }
         public string HTUpdate { get; set; }
         public void SaveTheme() => SaveThemeTo(ThemeFile);
         public void SaveThemeTo(string fileLoc)
@@ -141,6 +167,7 @@ namespace Korot
             "<OverlayColor>" + HTAlt.Tools.ColorToHex(OverlayColor) + "</OverlayColor>" + Environment.NewLine +
             "<NewTabColor>" + (int)NewTabColor + "</NewTabColor>" + Environment.NewLine +
             "<CloseButtonColor>" + (int)CloseButtonColor + "</CloseButtonColor>" + Environment.NewLine +
+            (Wallpapers.Count > 0 ? ("<Wallpapers>" + Environment.NewLine + GetWallpaperList() + "</Wallpapers>") : "") +
             "</Theme>";
             HTAlt.Tools.WriteFile(fileLoc, x, Encoding.Unicode);
         }
@@ -159,10 +186,10 @@ namespace Korot
             XmlDocument document = new XmlDocument();
             document.LoadXml(ManifestXML);
             XmlNode workNode = document.FirstChild;
-            if (document.FirstChild.Name.ToLower() == "xml") { workNode = document.FirstChild.NextSibling; }
+            if (document.FirstChild.Name.ToLowerInvariant() == "xml") { workNode = document.FirstChild.NextSibling; }
             foreach (XmlNode node in workNode.ChildNodes)
             {
-                switch (node.Name.ToLower())
+                switch (node.Name.ToLowerInvariant())
                 {
                     case "name":
                         Name = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
@@ -185,14 +212,24 @@ namespace Korot
                     case "wallpapers":
                         foreach(XmlNode subnode in node.ChildNodes)
                         {
-                            if (subnode.Name.ToLower() == "wallpaper")
+                            if (subnode.Name.ToLowerInvariant() == "wallpaper")
                             {
-                                Wallpapers.Add(new ThemeImage(subnode.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'"), CodeName));
+                                var themesFoler = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Themes\\";
+                                var themeFolder = themesFoler + CodeName + "\\";
+                                var file = subnode.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
+                                var type = new FileInfo(themeFolder + file).Extension.ToLowerInvariant().Substring(1); // ToLowerInvariant() => "I" - "ı" ToLowerInvariany() => "I" - "i"
+                                if (SupportedWallpaperTypes.Contains(type))
+                                {
+                                    Wallpapers.Add(new ThemeImage(file, CodeName));
+                                }else
+                                {
+                                    Output.WriteLine(" [Theme] Error while importing wallpaper: \"" + type + "\" is not supported. (\"" + file + "\")");
+                                }
                             }
                         }
                         break;
                     case "category":
-                        switch(node.InnerText.ToLower()) // Mo KuTSaYaMaM LGBTTi++++++++++-+ FeminizminYararlarıVeyaHaltroyunBeyni 
+                        switch(node.InnerText.ToLowerInvariant()) 
                         {
                             case "monotone":
                                 Category = Categories.Monotone;

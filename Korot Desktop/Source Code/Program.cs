@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,8 +31,8 @@ namespace Korot
         public static string CodeName => "Pergo";
         public static int VersionNumber = 54;
         public static string Version => isPreOut ? PreOutName : Application.ProductVersion.ToString();
-        public static string PreOutName => "y20m11u1";
-        public static bool isPreOut => false;
+        public static string PreOutName => "y20m12u01";
+        public static bool isPreOut => true;
     }
 
     internal static class Program
@@ -105,7 +106,7 @@ namespace Korot
                         {
                             settings.DebugMode = true;
                         }
-                        else if (x.ToLower().EndsWith(".kef") || x.ToLower().EndsWith(".ktf"))
+                        else if (x.ToLowerInvariant().EndsWith(".kef") || x.ToLowerInvariant().EndsWith(".ktf"))
                         {
                             Application.Run(new frmInstallExt(settings, x));
                         }
@@ -156,12 +157,28 @@ new TitleBarTab(testApp)
             foreach (string x in Directory.GetDirectories(directory)) { try { Directory.Delete(x, true); } catch (Exception ex) { errors.Add(new FileFolderError(x, ex, true)); } }
             if (displayresult) { if (errors.Count == 0) { Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with no errors."); } else { Output.WriteLine(" [RemoveDirectory] Removed \"" + directory + "\" with " + errors.Count + " error(s)."); foreach (FileFolderError x in errors) { Output.WriteLine(" [RemoveDirectory] " + (x.isDirectory ? "Directory" : "File") + " Error: " + x.Location + " [" + x.Error.ToString() + "]"); } } }
         }
+
+        public static Stream ToStream(this Image image, ImageFormat format)
+        {
+            var stream = new System.IO.MemoryStream();
+            image.Save(stream, format);
+            stream.Position = 0;
+            return stream;
+        }
+
+        public static Stream ToStream(this Bitmap bitmap, ImageFormat format)
+        {
+            var img = (Image)bitmap;
+            return img.ToStream(format);
+        }
     }
 
     public class Settings
     {
         public Themes Themes { get; set; }
         public bool DebugMode { get; set; } = false;
+        public List<ThemeImage> Wallpapers { get; set; } = new List<ThemeImage>();
+        public List<ThemeImage> UserWallpapers { get; set; } = new List<ThemeImage>();
         public Settings(string Profile,bool debug = false)
         {
             ProfileName = Profile;
@@ -194,53 +211,75 @@ new TitleBarTab(testApp)
             List<string> loadedSettings = new List<string>();
             foreach (XmlNode node in document.FirstChild.NextSibling.ChildNodes)
             {
-                if (loadedSettings.Contains(node.Name.ToLower())) { return; } else { loadedSettings.Add(node.Name.ToLower()); }
-                if (node.Name.ToLower() == "homepage")
+                if (loadedSettings.Contains(node.Name.ToLowerInvariant())) { return; } else { loadedSettings.Add(node.Name.ToLowerInvariant()); }
+                if (node.Name.ToLowerInvariant() == "homepage")
                 {
                     Homepage = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                 }
-                else if (node.Name.ToLower().ToLowerInvariant() == "languagefile")
+                else if (node.Name.ToLowerInvariant().ToLowerInvariant() == "languagefile")
                 {
                     string lf = node.InnerText.Replace("[KOROTPATH]", Application.StartupPath).Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                     LanguageSystem.ReadFromFile(string.IsNullOrWhiteSpace(lf) ? Application.StartupPath + "\\Lang\\English.klf" : lf, true);
                 }
-                else if (node.Name.ToLower() == "menusize")
+                else if (node.Name.ToLowerInvariant() == "menusize")
                 {
                     string w = node.InnerText.Substring(0, node.InnerText.IndexOf(";"));
                     string h = node.InnerText.Substring(node.InnerText.IndexOf(";"), node.InnerText.Length - node.InnerText.IndexOf(";"));
                     MenuSize = new Size(Convert.ToInt32(w.Replace(";", "")), Convert.ToInt32(h.Replace(";", "")));
                 }
-                else if (node.Name.ToLower() == "menupoint")
+                else if (node.Name.ToLowerInvariant() == "menupoint")
                 {
                     string x = node.InnerText.Substring(0, node.InnerText.IndexOf(";"));
                     string y = node.InnerText.Substring(node.InnerText.IndexOf(";"), node.InnerText.Length - node.InnerText.IndexOf(";"));
                     MenuPoint = new Point(Convert.ToInt32(x.Replace(";", "")), Convert.ToInt32(y.Replace(";", "")));
                 }
-                else if (node.Name.ToLower() == "searchengine")
+                else if (node.Name.ToLowerInvariant() == "userwallpapers")
+                {
+                    for(int i = 0; i < node.ChildNodes.Count;i++)
+                    {
+                        XmlNode subnode = node.ChildNodes[i];
+                        if (subnode.Name.ToLowerInvariant() == "wallpaper")
+                        {
+                            UserWallpapers.Add(new ThemeImage(subnode.InnerXml.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'")));
+                        }
+                    }
+                }
+                else if (node.Name.ToLowerInvariant() == "wallpapers")
+                {
+                    for (int i = 0; i < node.ChildNodes.Count; i++)
+                    {
+                        XmlNode subnode = node.ChildNodes[i];
+                        if (subnode.Name.ToLowerInvariant() == "wallpaper")
+                        {
+                            Wallpapers.Add(new ThemeImage(subnode.InnerXml.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'")));
+                        }
+                    }
+                }
+                else if (node.Name.ToLowerInvariant() == "searchengine")
                 {
                     SearchEngine = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                 }
-                else if (node.Name.ToLower() == "startup")
+                else if (node.Name.ToLowerInvariant() == "startup")
                 {
                     Startup = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                 }
-                else if (node.Name.ToLower() == "lastproxy")
+                else if (node.Name.ToLowerInvariant() == "lastproxy")
                 {
                     LastProxy = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                 }
-                else if (node.Name.ToLower() == "menuwasmaximized")
+                else if (node.Name.ToLowerInvariant() == "menuwasmaximized")
                 {
                     MenuWasMaximized = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "ninjamode")
+                else if (node.Name.ToLowerInvariant() == "ninjamode")
                 {
                     NinjaMode = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "usedefaultsound")
+                else if (node.Name.ToLowerInvariant() == "usedefaultsound")
                 {
                     UseDefaultSound = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "synth")
+                else if (node.Name.ToLowerInvariant() == "synth")
                 {
                     if (node.Attributes["Volume"] != null && node.Attributes["Rate"] != null)
                     {
@@ -250,7 +289,7 @@ new TitleBarTab(testApp)
                         SynthVolume = volume < 0 ? 0 : (volume > 100 ? 100 : volume);
                     }
                 }
-                else if (node.Name.ToLower() == "soundlocation")
+                else if (node.Name.ToLowerInvariant() == "soundlocation")
                 {
                     if (!File.Exists(node.InnerText))
                     {
@@ -261,11 +300,11 @@ new TitleBarTab(testApp)
                         SoundLocation = node.InnerText;
                     }
                 }
-                else if (node.Name.ToLower() == "donottrack")
+                else if (node.Name.ToLowerInvariant() == "donottrack")
                 {
                     DoNotTrack = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "birthday")
+                else if (node.Name.ToLowerInvariant() == "birthday")
                 {
                     if (node.Attributes["Celebrate"] != null && node.Attributes["Date"] != null && node.Attributes["Count"] != null)
                     {
@@ -274,55 +313,55 @@ new TitleBarTab(testApp)
                         BirthdayCount = Convert.ToInt32(node.Attributes["Count"].Value);
                     }
                 }
-                else if (node.Name.ToLower() == "autorestore")
+                else if (node.Name.ToLowerInvariant() == "autorestore")
                 {
                     AutoRestore = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "checkdefault")
+                else if (node.Name.ToLowerInvariant() == "checkdefault")
                 {
                     CheckIfDefault = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "rememberlastproxy")
+                else if (node.Name.ToLowerInvariant() == "rememberlastproxy")
                 {
                     RememberLastProxy = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "screenshotfolder")
+                else if (node.Name.ToLowerInvariant() == "screenshotfolder")
                 {
                     ScreenShotFolder = node.InnerText;
                 }
-                else if (node.Name.ToLower() == "savefolder")
+                else if (node.Name.ToLowerInvariant() == "savefolder")
                 {
                     SaveFolder = node.InnerText;
                 }
-                else if (node.Name.ToLower() == "theme")
+                else if (node.Name.ToLowerInvariant() == "theme")
                 {
                     string themeFile = node.Attributes["File"] != null ? node.Attributes["File"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
                     if (!File.Exists(themeFile)) { themeFile = ""; }
                     Theme = new Theme(themeFile, this);
                     foreach (XmlNode subnode in node.ChildNodes)
                     {
-                        if (subnode.Name.ToLower() == "name")
+                        if (subnode.Name.ToLowerInvariant() == "name")
                         {
                             Theme.Name = subnode.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                         }
-                        else if (subnode.Name.ToLower() == "author")
+                        else if (subnode.Name.ToLowerInvariant() == "author")
                         {
                             Theme.Author = subnode.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                         }
-                        else if (subnode.Name.ToLower() == "backcolor")
+                        else if (subnode.Name.ToLowerInvariant() == "backcolor")
                         {
                             Theme.BackColor = HTAlt.Tools.HexToColor(subnode.InnerText);
                         }
-                        else if (subnode.Name.ToLower() == "forecolor")
+                        else if (subnode.Name.ToLowerInvariant() == "forecolor")
                         {
                             Theme.AutoForeColor = false;
                             Theme.ForeColor = HTAlt.Tools.HexToColor(subnode.InnerText);
                         }
-                        else if (subnode.Name.ToLower() == "overlaycolor")
+                        else if (subnode.Name.ToLowerInvariant() == "overlaycolor")
                         {
                             Theme.OverlayColor = HTAlt.Tools.HexToColor(subnode.InnerText);
                         }
-                        else if (subnode.Name.ToLower() == "newtabcolor")
+                        else if (subnode.Name.ToLowerInvariant() == "newtabcolor")
                         {
                             if (subnode.InnerText == "0")
                             {
@@ -341,7 +380,7 @@ new TitleBarTab(testApp)
                                 Theme.NewTabColor = TabColors.OverlayBackColor;
                             }
                         }
-                        else if (subnode.Name.ToLower() == "closebuttoncolor")
+                        else if (subnode.Name.ToLowerInvariant() == "closebuttoncolor")
                         {
                             if (subnode.InnerText == "0")
                             {
@@ -362,31 +401,31 @@ new TitleBarTab(testApp)
                         }
                     }
                 }
-                else if (node.Name.ToLower() == "newtabmenu")
+                else if (node.Name.ToLowerInvariant() == "newtabmenu")
                 {
                     NewTabSites = new NewTabSites(node.OuterXml);
                 }
-                else if (node.Name.ToLower() == "autosilent")
+                else if (node.Name.ToLowerInvariant() == "autosilent")
                 {
                     AutoSilent = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "silent")
+                else if (node.Name.ToLowerInvariant() == "silent")
                 {
                     Silent = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "donotplaysound")
+                else if (node.Name.ToLowerInvariant() == "donotplaysound")
                 {
                     DoNotPlaySound = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "quietmode")
+                else if (node.Name.ToLowerInvariant() == "quietmode")
                 {
                     QuietMode = node.InnerText == "true";
                 }
-                else if (node.Name.ToLower() == "autosilentmode")
+                else if (node.Name.ToLowerInvariant() == "autosilentmode")
                 {
                     AutoSilentMode = node.InnerText.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'");
                 }
-                else if (node.Name.ToLower() == "sites")
+                else if (node.Name.ToLowerInvariant() == "sites")
                 {
                     Sites = new List<Site>();
                     foreach (XmlNode sitenode in node.ChildNodes)
@@ -401,23 +440,23 @@ new TitleBarTab(testApp)
                         Sites.Add(site);
                     }
                 }
-                else if (node.Name.ToLower() == "extensions")
+                else if (node.Name.ToLowerInvariant() == "extensions")
                 {
                     Extensions = new Extensions(node.ChildNodes.Count > 0 ? node.OuterXml : "") { Settings = this };
                 }
-                else if (node.Name.ToLower() == "collections")
+                else if (node.Name.ToLowerInvariant() == "collections")
                 {
                     CollectionManager.readCollections(node.OuterXml, true);
                 }
-                else if (node.Name.ToLower() == "autocleaner")
+                else if (node.Name.ToLowerInvariant() == "autocleaner")
                 {
                     AutoCleaner.LoadFromXML(node.OuterXml);
                 }
-                else if (node.Name.ToLower() == "history")
+                else if (node.Name.ToLowerInvariant() == "history")
                 {
                     foreach (XmlNode subnode in node.ChildNodes)
                     {
-                        if (subnode.Name.ToLower() == "site")
+                        if (subnode.Name.ToLowerInvariant() == "site")
                         {
                             Site newSite = new Site
                             {
@@ -429,11 +468,11 @@ new TitleBarTab(testApp)
                         }
                     }
                 }
-                else if (node.Name.ToLower() == "siteblocks")
+                else if (node.Name.ToLowerInvariant() == "siteblocks")
                 {
                     foreach (XmlNode subnode in node.ChildNodes)
                     {
-                        if (subnode.Name.ToLower() == "block")
+                        if (subnode.Name.ToLowerInvariant() == "block")
                         {
                             if (subnode.Attributes["Level"] == null || subnode.Attributes["Filter"] == null || subnode.Attributes["Url"] == null) { }
                             else
@@ -444,14 +483,14 @@ new TitleBarTab(testApp)
                         }
                     }
                 }
-                else if (node.Name.ToLower() == "downloads")
+                else if (node.Name.ToLowerInvariant() == "downloads")
                 {
                     Downloads.DownloadDirectory = node.Attributes["directory"] != null ? node.Attributes["directory"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'") : "";
                     Downloads.OpenDownload = node.Attributes["open"] != null ? (node.Attributes["open"].Value == "true") : false;
                     Downloads.UseDownloadFolder = node.Attributes["usedownloadfolder"] != null ? (node.Attributes["usedownloadfolder"].Value == "true") : false;
                     foreach (XmlNode subnode in node.ChildNodes)
                     {
-                        if (subnode.Name.ToLower() == "site")
+                        if (subnode.Name.ToLowerInvariant() == "site")
                         {
                             Site newSite = new Site
                             {
@@ -481,7 +520,7 @@ new TitleBarTab(testApp)
                         }
                     }
                 }
-                else if (node.Name.ToLower() == "favorites")
+                else if (node.Name.ToLowerInvariant() == "favorites")
                 {
                     Favorites = new FavoritesSettings(node.ChildNodes.Count > 0 ? node.OuterXml : "")
                     {
@@ -495,6 +534,19 @@ new TitleBarTab(testApp)
             }
             AutoCleaner.Settings = this;
             LoadRandomSites();
+        }
+
+        public ThemeImage GetRandomImageFromTheme()
+        {
+            if (Wallpapers.Count > 0)
+            {
+                var rnd = new Random();
+                return Wallpapers[rnd.Next(0, Wallpapers.Count)];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private void LoadRandomSites()
@@ -1205,6 +1257,7 @@ new TitleBarTab(testApp)
         public int ItemCount => LanguageItems.Count;
         public string LangFile { get; private set; } = Application.StartupPath + "\\Lang\\English.klf";
         public Settings Settings { get; set; } = null;
+        public string Name { get; set; }
 
         public LanguageSystem(string fileLoc, Settings settings)
         {
@@ -1247,6 +1300,7 @@ new TitleBarTab(testApp)
             XmlNode rootNode = document.FirstChild;
             if (rootNode.Name == "Language")
             {
+                Name = rootNode.Attributes["Name"] != null ? rootNode.Attributes["Name"].Value : Path.GetFileNameWithoutExtension(LangFile);
                 if (rootNode.Attributes["CompatibleVersion"] != null)
                 {
                     int compVersion = Convert.ToInt32(rootNode.Attributes["CompatibleVersion"].Value);
@@ -1280,11 +1334,11 @@ new TitleBarTab(testApp)
                     }
                     foreach (XmlNode node in rootNode.ChildNodes)
                     {
-                        if (node.Name.ToLower() == "globalvariables")
+                        if (node.Name.ToLowerInvariant() == "globalvariables")
                         {
                             foreach(XmlNode subnode in node.ChildNodes)
                             {
-                                if (subnode.Name.ToLower() == "globalvar")
+                                if (subnode.Name.ToLowerInvariant() == "globalvar")
                                 {
                                     if (subnode.Attributes["ID"] != null && subnode.Attributes["Text"] != null && subnode.Attributes["Condition"] == null && subnode.Attributes["Default"] == null)
                                     {
@@ -1301,7 +1355,7 @@ new TitleBarTab(testApp)
                                 }
                             }
                         }
-                        else if (node.Name.ToLower() == "translate")
+                        else if (node.Name.ToLowerInvariant() == "translate")
                         {
                             string id = node.Attributes["ID"] != null ? node.Attributes["ID"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"") : HTAlt.Tools.GenerateRandomText(12);
                             string text = node.Attributes["Text"] != null ? node.Attributes["Text"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"") : id;
@@ -1349,7 +1403,7 @@ new TitleBarTab(testApp)
                 document.LoadXml(xmlCode);
                 foreach (XmlNode node in document.FirstChild.ChildNodes)
                 {
-                    if (node.Name.ToLower() == "attached0")
+                    if (node.Name.ToLowerInvariant() == "attached0")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
                         FavoritedSite0 = new Site
@@ -1358,7 +1412,7 @@ new TitleBarTab(testApp)
                             Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
                         };
                     }
-                    else if (node.Name.ToLower() == "attached1")
+                    else if (node.Name.ToLowerInvariant() == "attached1")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
                         FavoritedSite1 = new Site
@@ -1367,7 +1421,7 @@ new TitleBarTab(testApp)
                             Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
                         };
                     }
-                    else if (node.Name.ToLower() == "attached2")
+                    else if (node.Name.ToLowerInvariant() == "attached2")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
                         FavoritedSite2 = new Site
@@ -1376,7 +1430,7 @@ new TitleBarTab(testApp)
                             Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
                         };
                     }
-                    else if (node.Name.ToLower() == "attached3")
+                    else if (node.Name.ToLowerInvariant() == "attached3")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
                         FavoritedSite3 = new Site
@@ -1385,7 +1439,7 @@ new TitleBarTab(testApp)
                             Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
                         };
                     }
-                    else if (node.Name.ToLower() == "attached4")
+                    else if (node.Name.ToLowerInvariant() == "attached4")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
                         FavoritedSite4 = new Site
@@ -1394,7 +1448,7 @@ new TitleBarTab(testApp)
                             Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
                         };
                     }
-                    else if (node.Name.ToLower() == "attached5")
+                    else if (node.Name.ToLowerInvariant() == "attached5")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
                         FavoritedSite5 = new Site
@@ -1403,7 +1457,7 @@ new TitleBarTab(testApp)
                             Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
                         };
                     }
-                    else if (node.Name.ToLower() == "attached6")
+                    else if (node.Name.ToLowerInvariant() == "attached6")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
                         FavoritedSite6 = new Site
@@ -1412,7 +1466,7 @@ new TitleBarTab(testApp)
                             Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
                         };
                     }
-                    else if (node.Name.ToLower() == "attached7")
+                    else if (node.Name.ToLowerInvariant() == "attached7")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
                         FavoritedSite7 = new Site
@@ -1421,7 +1475,7 @@ new TitleBarTab(testApp)
                             Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
                         };
                     }
-                    else if (node.Name.ToLower() == "attached8")
+                    else if (node.Name.ToLowerInvariant() == "attached8")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
                         FavoritedSite8 = new Site
@@ -1430,7 +1484,7 @@ new TitleBarTab(testApp)
                             Url = node.Attributes["Url"].Value.Replace("&amp;", "&").Replace("&gt;", ">").Replace("&lt;", "<").Replace("&apos;", "'").Replace("&quot;", "\"")
                         };
                     }
-                    else if (node.Name.ToLower() == "attached9")
+                    else if (node.Name.ToLowerInvariant() == "attached9")
                     {
                         if (node.Attributes["Name"] == null || node.Attributes["Url"] == null) { return; }
                         FavoritedSite9 = new Site
@@ -1445,9 +1499,9 @@ new TitleBarTab(testApp)
 
         public string SiteToHTMLData(Site site)
         {
-            string x = "<a href=\"" + site.Url + "\" style=\"§BACKSTYLE3§\">" + site.Name + "</a>" +
+            string x = "<a href=\"" + site.Url + "\" style=\"background-color: §BACKCOLOR2§; color: §FORECOLOR§;\">" + site.Name + "</a>" +
     "</br>" +
-   "<a href=\"" + site.Url + "\" style=\"§BACKSTYLE3§font-size: small;\">" + site.Url.Substring(0, 10) + "</a>";
+   "<a href=\"" + site.Url + "\" style=\"background-color: §BACKCOLOR2§; color: §FORECOLOR§;font-size: 0.5em;\">" + (site.Url.Length > 30 ? site.Url.Substring(0, 30) : site.Url) + "</a>";
             return x;
         }
 
@@ -1515,7 +1569,7 @@ new TitleBarTab(testApp)
                     return false;
                 }
                 progId = progIdValue.ToString();
-                return progId.ToLower() == "korot";
+                return progId.ToLowerInvariant() == "korot";
             }
         }
         public static string getOSInfo()
@@ -1599,12 +1653,13 @@ new TitleBarTab(testApp)
 
         public static bool isNonRedirectKorotPage(string Url)
         {
-            return (Url.ToLower().StartsWith("korot://newtab")
-                || Url.ToLower().StartsWith("korot://links")
-                || Url.ToLower().StartsWith("korot://license")
-                || Url.ToLower().StartsWith("korot://incognito")
-                || Url.ToLower().StartsWith("korot://command")
-                || Url.ToLower().StartsWith("korot://technical"));
+            return (Url.ToLowerInvariant().StartsWith("korot://newtab")
+                || Url.ToLowerInvariant().StartsWith("korot://links")
+                || Url.ToLowerInvariant().StartsWith("korot://license")
+                || Url.ToLowerInvariant().StartsWith("korot://incognito")
+                || Url.ToLowerInvariant().StartsWith("korot://command")
+                || Url.ToLowerInvariant().StartsWith("korot://test")
+                || Url.ToLowerInvariant().StartsWith("korot://technical"));
         }
 
         public static bool createFolders()
@@ -1621,10 +1676,13 @@ new TitleBarTab(testApp)
 
         public static bool ValidHttpURL(string s)
         {
-            string Pattern = @"^((http(s)?|korot|file|pop|smtp|ftp|chrome|about):(\/\/)?)|(^([\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$))|(.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4})";
-            Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            return Rgx.IsMatch(s);
+            //string Pattern = @"^((http(s)?|korot|file|pop|smtp|ftp|chrome|about):(\/\/)?)|(^([\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$))|(.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4}\:.{1,4})";
+            //Regex Rgx = new Regex(Pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            //return Rgx.IsMatch(s);
+            return HTAlt.Tools.ValidUrl(s, new string[] { "korot" }, false);
         }
+
+
 
         public static string GetUserAgent()
         {
@@ -1660,13 +1718,13 @@ new TitleBarTab(testApp)
                 XmlDocument document = new XmlDocument();
                 document.LoadXml(XMLCode);
                 XmlNode workNode = document.FirstChild;
-                if (document.FirstChild.Name.ToLower() == "xml") { workNode = document.FirstChild.NextSibling; }
+                if (document.FirstChild.Name.ToLowerInvariant() == "xml") { workNode = document.FirstChild.NextSibling; }
                 if (workNode.Attributes["Index"] != null)
                 {
                     int si = Convert.ToInt32(workNode.Attributes["Index"].Value);
                     foreach (XmlNode node in workNode.ChildNodes)
                     {
-                        if (node.Name.ToLower() == "sessionsite")
+                        if (node.Name.ToLowerInvariant() == "sessionsite")
                         {
                             if (node.Attributes["Url"] != null && node.Attributes["Title"] != null)
                             {
@@ -1684,8 +1742,6 @@ new TitleBarTab(testApp)
         {
         }
 
-        private List<Session> _Sessions = new List<Session>();
-
         public string XmlOut()
         {
             string x = "<Session Index=\"" + SelectedIndex + "\" >" + Environment.NewLine;
@@ -1696,11 +1752,7 @@ new TitleBarTab(testApp)
             return x + "</Session>";
         }
 
-        public List<Session> Sessions
-        {
-            get => _Sessions;
-            set => _Sessions = value;
-        }
+        public List<Session> Sessions { get; set; } = new List<Session>();
 
         public bool SkipAdd = false;
 
@@ -1764,7 +1816,7 @@ new TitleBarTab(testApp)
             {
                 throw new ArgumentNullException("\"Session\" was null.");
             }
-            if (Session.Url.ToLower().StartsWith("korot") && (!KorotTools.isNonRedirectKorotPage(Session.Url)))
+            if (Session.Url.ToLowerInvariant().StartsWith("korot") && (!KorotTools.isNonRedirectKorotPage(Session.Url)))
             {
                 return;
             }

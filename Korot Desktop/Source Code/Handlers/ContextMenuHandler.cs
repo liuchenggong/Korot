@@ -455,7 +455,7 @@ namespace Korot
             dialog.Filter = ActiveForm.anaform.ShortcutKorot + "|*.korot|" +ActiveForm.anaform.ShortcutNormal + "|*.url";
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                bool isKorotShortcut = dialog.FileName.ToLower().EndsWith("korot");
+                bool isKorotShortcut = dialog.FileName.ToLowerInvariant().EndsWith("korot");
                 if (isKorotShortcut)
                 {
                     WshShell shell = new WshShell();

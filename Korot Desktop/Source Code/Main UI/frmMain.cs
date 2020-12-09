@@ -203,6 +203,7 @@ namespace Korot
         public string ThemeSave = "Save";
         public string ThemeSaveName = "Enter a name for this new theme:";
         public string ThemeSaveAuthor = "Enter your name:";
+        public string ThemeSaveDesc = "Enter a desciption:";
         public string ThemeSaveCategory = "Please select a category for this theme:";
         public string ThemeSaveTo = "Save theme to...";
         public string ThemeSaveWallpaper = "Also add my selected wallpapers.";
@@ -482,6 +483,11 @@ namespace Korot
         public string blocklevel = "Block Level:";
 
         #endregion "Translate"
+
+        public void ShowSaveThame()
+        {
+            throw new NotImplementedException("TODO: Show Theme Save dialog.");
+        }
 
         #region Updater
         private void WebC_DownloadString(object sender, DownloadStringCompletedEventArgs e)

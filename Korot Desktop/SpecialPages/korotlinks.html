@@ -11,12 +11,36 @@ Use of this source code is governed by an MIT License that can be found in githu
     <title>Korot Links</title>
     <style>
         body {
-            §BACKSTYLE2§ font-family: Ubuntu;
+            background-color: §BACKCOLOR§;
+            color: §FORECOLOR§;
+            font-family: Ubuntu;
             background-size: cover;
             position: relative;
             background-repeat: no-repeat;
             background-size: 100% 100vh;
         }
+        a {
+            color: §FORECOLOR§;
+        }
+            a:link {
+                color: §FORECOLOR§;
+                text-decoration: underline;
+            }
+
+            a:visited {
+                color: §FORECOLOR§;
+                text-decoration: underline;
+            }
+
+            a:hover {
+                color: §FORECOLOR§;
+                text-decoration: underline;
+            }
+
+            a:active {
+                color: §FORECOLOR§;
+                text-decoration: underline;
+            }
     </style>
 </head>
 <body>
@@ -28,13 +52,14 @@ Use of this source code is governed by an MIT License that can be found in githu
     <p> • <a href="korot://empty">korot://empty</a> - Empty Page</p>
     <p> • <a href="korot://newtab">korot://newtab</a> - the New Tab Page</p>
     <p> • <a href="korot://dad">korot://dad</a> - Haltroy's Website</p>
+    <p> • <a href="korot://test">korot://test</a> - Testing page</p>
     <p> • <a href="korot://me">korot://me</a> - Korot's Website</p>
     <p> • <a href="korot://random">korot://random</a> - Redirect to a random site</p>
     <p> • <a href="korot://completerandom">korot://completerandom</a> - Redirect to a completely random site.</p>
     <h2>Not Directly linked</h2>
     <p>Use these for debugging purposes only and write them on address bar to use it since these aren't directly linked.</p>
     <p> • <a href="korot://command/?c=NUL">korot://command/?c=[Address]</a> - Test for new Protocol System (see <a href="https://github.com/Haltroy/Korot/issues/154">issue #154</a>).</p>
-    <p> • <a href="korot://search/?q=Korot">korot://search/?q=[Text]</a> - Searches on the internet with applied Search Engine.</p>
+    <p> • <a href="korot://search/?q=Haltroy%20Korot">korot://search/?q=[Text]</a> - Searches on the internet with applied Search Engine.</p>
     <p> • <a href="korot://error/?e=TEST?u=korot://links">korot://error/?e=[Error Code]?u=[Address]</a> - Handles Error Pages.</p>
     <p> • <a href="korot://noint/?u=korot://links">korot://noint/?u=[Address]</a> - Handles the No Internet Page.</p>
 </body>

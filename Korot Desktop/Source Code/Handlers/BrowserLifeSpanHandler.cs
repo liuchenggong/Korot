@@ -31,9 +31,9 @@ namespace Korot
                 frmPopup popup = new frmPopup(tabform, tabform.userName, targetUrl)
                 {
                     StartPosition = FormStartPosition.Manual,
-                    Location = new System.Drawing.Point(popupFeatures.X, popupFeatures.Y),
-                    Width = popupFeatures.Width,
-                    Height = popupFeatures.Height,
+                    Location = new System.Drawing.Point((popupFeatures.X == null ? 25 : (int)popupFeatures.X), (popupFeatures.Y == null ? 25 : (int)popupFeatures.Y)),
+                    Width = (popupFeatures.Width == null ? 500 : (int)popupFeatures.Width),
+                    Height = (popupFeatures.Height == null ? 500 : (int)popupFeatures.Height),
                 };
                 popup.Show();
             }
@@ -54,7 +54,7 @@ namespace Korot
             IntPtr windowHandle = browser.GetHost().GetWindowHandle();
             ChromiumWebBrowser webBrowser = (ChromiumWebBrowser)browserControl;
 
-            if (browser.MainFrame.Url.ToLower().StartsWith("devtools://"))
+            if (browser.MainFrame.Url.ToLowerInvariant().StartsWith("devtools://"))
             {
                 Control parentControl = Control.FromChildHandle(windowHandle);
 

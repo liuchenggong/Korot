@@ -37,7 +37,7 @@ namespace Korot
 
         public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IBeforeDownloadCallback callback)
         {
-            if (downloadItem.SuggestedFileName.ToLower().EndsWith(".kef"))
+            if (downloadItem.SuggestedFileName.ToLowerInvariant().EndsWith(".kef"))
             {
                 if (ValidHaltroyWebsite(downloadItem.OriginalUrl))
                 {
@@ -117,7 +117,7 @@ namespace Korot
             }
             if (downloadItem.IsComplete)
             {
-                if (downloadItem.FullPath.ToLower().EndsWith(".kef") || downloadItem.FullPath.ToLower().EndsWith(".ktf"))
+                if (downloadItem.FullPath.ToLowerInvariant().EndsWith(".kef") || downloadItem.FullPath.ToLowerInvariant().EndsWith(".ktf"))
                 {
                     frmInstallExt ınstallExt = new frmInstallExt(ActiveForm.Settings, downloadItem.FullPath, Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Korot\\" + SafeFileSettingOrganizedClass.LastUser + "\\Extensions" + Path.GetFileNameWithoutExtension(downloadItem.FullPath)));
                     ınstallExt.Show();
