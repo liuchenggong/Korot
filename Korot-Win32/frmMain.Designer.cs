@@ -96,6 +96,11 @@ namespace Korot_Win32
                 }
                 else
                 {
+                    if (WindowState == FormWindowState.Maximized)
+                    {
+                        WindowState = FormWindowState.Normal;
+                        Location = new System.Drawing.Point(e.X - (Width / 2), e.Y);
+                    }
                     ReleaseCapture();
                     SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
                     ReleaseCapture();
@@ -130,6 +135,11 @@ namespace Korot_Win32
         {
             this.components = new System.ComponentModel.Container();
             this.pTitleBar = new System.Windows.Forms.Panel();
+            this.flpTitles = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btMinimize = new HTAlt.WinForms.HTButton();
+            this.btMaximize = new HTAlt.WinForms.HTButton();
+            this.btClose = new HTAlt.WinForms.HTButton();
             this.pAppDrawer = new System.Windows.Forms.Panel();
             this.pAppGrid = new System.Windows.Forms.Panel();
             this.flpFavApps = new System.Windows.Forms.FlowLayoutPanel();
@@ -141,6 +151,12 @@ namespace Korot_Win32
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tcTabs = new System.Windows.Forms.TabControl();
+            this.tabLabel1 = new Korot_Win32.TabLabel();
+            this.tabLabel3 = new Korot_Win32.TabLabel();
+            this.tabLabel2 = new Korot_Win32.TabLabel();
+            this.pTitleBar.SuspendLayout();
+            this.flpTitles.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.pAppDrawer.SuspendLayout();
             this.pAppGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
@@ -151,11 +167,90 @@ namespace Korot_Win32
             // pTitleBar
             // 
             this.pTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.pTitleBar.Controls.Add(this.flpTitles);
+            this.pTitleBar.Controls.Add(this.panel1);
             this.pTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pTitleBar.Location = new System.Drawing.Point(0, 0);
             this.pTitleBar.Name = "pTitleBar";
             this.pTitleBar.Size = new System.Drawing.Size(809, 30);
             this.pTitleBar.TabIndex = 0;
+            // 
+            // flpTitles
+            // 
+            this.flpTitles.Controls.Add(this.tabLabel1);
+            this.flpTitles.Controls.Add(this.tabLabel3);
+            this.flpTitles.Controls.Add(this.tabLabel2);
+            this.flpTitles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpTitles.Location = new System.Drawing.Point(0, 0);
+            this.flpTitles.Name = "flpTitles";
+            this.flpTitles.Size = new System.Drawing.Size(719, 30);
+            this.flpTitles.TabIndex = 4;
+            this.flpTitles.DragDrop += new System.Windows.Forms.DragEventHandler(this.flowLayoutPanel1_DragDrop);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btMinimize);
+            this.panel1.Controls.Add(this.btMaximize);
+            this.panel1.Controls.Add(this.btClose);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel1.Location = new System.Drawing.Point(719, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(90, 30);
+            this.panel1.TabIndex = 3;
+            // 
+            // btMinimize
+            // 
+            this.btMinimize.AutoColor = false;
+            this.btMinimize.ButtonImage = null;
+            this.btMinimize.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btMinimize.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btMinimize.DrawImage = false;
+            this.btMinimize.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btMinimize.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.btMinimize.Location = new System.Drawing.Point(0, 0);
+            this.btMinimize.Margin = new System.Windows.Forms.Padding(0);
+            this.btMinimize.Name = "btMinimize";
+            this.btMinimize.NormalColor = System.Drawing.Color.White;
+            this.btMinimize.Size = new System.Drawing.Size(30, 30);
+            this.btMinimize.TabIndex = 0;
+            this.btMinimize.Text = "_";
+            this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
+            // 
+            // btMaximize
+            // 
+            this.btMaximize.AutoColor = false;
+            this.btMaximize.ButtonImage = null;
+            this.btMaximize.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btMaximize.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btMaximize.DrawImage = false;
+            this.btMaximize.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btMaximize.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.btMaximize.Location = new System.Drawing.Point(30, 0);
+            this.btMaximize.Margin = new System.Windows.Forms.Padding(0);
+            this.btMaximize.Name = "btMaximize";
+            this.btMaximize.NormalColor = System.Drawing.Color.White;
+            this.btMaximize.Size = new System.Drawing.Size(30, 30);
+            this.btMaximize.TabIndex = 0;
+            this.btMaximize.Text = "□";
+            this.btMaximize.Click += new System.EventHandler(this.btMaximize_Click);
+            // 
+            // btClose
+            // 
+            this.btClose.AutoColor = false;
+            this.btClose.ButtonImage = null;
+            this.btClose.ButtonShape = HTAlt.WinForms.HTButton.ButtonShapes.Rectangle;
+            this.btClose.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btClose.DrawImage = false;
+            this.btClose.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.btClose.ImageSizeMode = HTAlt.WinForms.HTButton.ButtonImageSizeMode.None;
+            this.btClose.Location = new System.Drawing.Point(60, 0);
+            this.btClose.Margin = new System.Windows.Forms.Padding(0);
+            this.btClose.Name = "btClose";
+            this.btClose.NormalColor = System.Drawing.Color.White;
+            this.btClose.Size = new System.Drawing.Size(30, 30);
+            this.btClose.TabIndex = 0;
+            this.btClose.Text = "X";
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // pAppDrawer
             // 
@@ -273,18 +368,61 @@ namespace Korot_Win32
             this.tcTabs.Size = new System.Drawing.Size(769, 595);
             this.tcTabs.TabIndex = 2;
             // 
+            // tabLabel1
+            // 
+            this.tabLabel1.AssocForm = null;
+            this.tabLabel1.AssocTabPage = null;
+            this.tabLabel1.BackColor = System.Drawing.Color.Red;
+            this.tabLabel1.Icon = null;
+            this.tabLabel1.Location = new System.Drawing.Point(3, 3);
+            this.tabLabel1.Name = "tabLabel1";
+            this.tabLabel1.Size = new System.Drawing.Size(75, 23);
+            this.tabLabel1.TabIndex = 0;
+            this.tabLabel1.Text = "DENEME";
+            this.tabLabel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnCstMouseMove);
+            // 
+            // tabLabel3
+            // 
+            this.tabLabel3.AssocForm = null;
+            this.tabLabel3.AssocTabPage = null;
+            this.tabLabel3.BackColor = System.Drawing.Color.Green;
+            this.tabLabel3.Icon = null;
+            this.tabLabel3.Location = new System.Drawing.Point(84, 3);
+            this.tabLabel3.Name = "tabLabel3";
+            this.tabLabel3.Size = new System.Drawing.Size(75, 23);
+            this.tabLabel3.TabIndex = 2;
+            this.tabLabel3.Text = "DENEME";
+            this.tabLabel3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnCstMouseMove);
+            // 
+            // tabLabel2
+            // 
+            this.tabLabel2.AssocForm = null;
+            this.tabLabel2.AssocTabPage = null;
+            this.tabLabel2.BackColor = System.Drawing.Color.Blue;
+            this.tabLabel2.Icon = null;
+            this.tabLabel2.Location = new System.Drawing.Point(165, 3);
+            this.tabLabel2.Name = "tabLabel2";
+            this.tabLabel2.Size = new System.Drawing.Size(75, 23);
+            this.tabLabel2.TabIndex = 1;
+            this.tabLabel2.Text = "DENEME";
+            this.tabLabel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnCstMouseMove);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(809, 586);
             this.Controls.Add(this.pAppDrawer);
             this.Controls.Add(this.pTitleBar);
             this.Controls.Add(this.tcTabs);
             this.Name = "frmMain";
-            this.Text = "Korot";
+            this.Text = "Korot Hamantha";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.MouseLeave += new System.EventHandler(this.Form1_MouseLeave);
+            this.pTitleBar.ResumeLayout(false);
+            this.flpTitles.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.pAppDrawer.ResumeLayout(false);
             this.pAppGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).EndInit();
@@ -308,6 +446,14 @@ namespace Korot_Win32
         private System.Windows.Forms.FlowLayoutPanel flpFavApps;
         private System.Windows.Forms.PictureBox pbSettings;
         private System.Windows.Forms.PictureBox pbKorot;
+        private Panel panel1;
+        private HTAlt.WinForms.HTButton btMinimize;
+        private HTAlt.WinForms.HTButton btMaximize;
+        private HTAlt.WinForms.HTButton btClose;
+        private FlowLayoutPanel flpTitles;
+        private TabLabel tabLabel1;
+        private TabLabel tabLabel3;
+        private TabLabel tabLabel2;
     }
 }
 

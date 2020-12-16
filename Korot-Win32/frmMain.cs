@@ -15,8 +15,11 @@ namespace Korot_Win32
         public frmMain()
         {
             InitializeComponent();
+            MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             pTitleBar.MouseDoubleClick += new MouseEventHandler((sender, e) => OnMouseDoubleClick(e));
             pTitleBar.MouseDown += new MouseEventHandler((sender, e) => OnMouseDown(e));
+            flpTitles.MouseDoubleClick += new MouseEventHandler((sender, e) => OnMouseDoubleClick(e));
+            flpTitles.MouseDown += new MouseEventHandler((sender, e) => OnMouseDown(e));
         }
         private bool RightMostClosing = false;
 
@@ -90,6 +93,10 @@ namespace Korot_Win32
                                     pAppDrawer.Width = pAppDrawer.Width < panelMinSize ? pAppDrawer.Width + AnimationSpeed : panelMinSize;
                                     AnimationContinue = pAppDrawer.Width < panelMinSize;
                                     break;
+                                case AnimateDirection.Left:
+                                    pAppDrawer.Width = panelMinSize;
+                                    AnimationContinue = false;
+                                    break;
                             }
                             break;
                         case AnimateDirection.LeftFullScreen:
@@ -108,6 +115,10 @@ namespace Korot_Win32
                                     pAppDrawer.Width = pAppDrawer.Width > panelMaxSize ? pAppDrawer.Width - AnimationSpeed : panelMaxSize;
                                     AnimationContinue = pAppDrawer.Width > panelMaxSize;
                                     break;
+                                case AnimateDirection.Right:
+                                    pAppDrawer.Width = panelMaxSize;
+                                    AnimationContinue = false;
+                                    break;
                             }
                             break;
                         case AnimateDirection.RightMost:
@@ -117,7 +128,7 @@ namespace Korot_Win32
                     }
                     break;
                 case false:
-                    switch(Direction)
+                    switch (Direction)
                     {
                         case AnimateDirection.Nothing:
                         default:
@@ -199,7 +210,8 @@ namespace Korot_Win32
 
         private void label1_MouseMove(object sender, MouseEventArgs e)
         {
-            pAppDrawer.Width = allowResize ? label1.Left + e.X : pAppDrawer.Width;
+            int w = label1.Left + e.X;
+            pAppDrawer.Width = allowResize ? (w > 0 ? (w <= (Width - 15) ? w : (Width - 15)) : panelMinSize) : pAppDrawer.Width;
         }
 
         private void Form1_MouseLeave(object sender, EventArgs e)
@@ -216,5 +228,69 @@ namespace Korot_Win32
         {
 
         }
+
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btMinimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void btMaximize_Click(object sender, EventArgs e)
+        {
+            WindowState = WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+        }
+
+        #region TabDragDrop
+
+        private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
+        {
+            Control target = new Control();
+
+            target.Parent = sender as Control;
+
+            if (target != null)
+            {
+                int targetIndex = FindCSTIndex(target.Parent);
+                if (targetIndex != -1)
+                {
+                    string cst_ctrl = typeof(TabLabel).FullName;
+                    if (e.Data.GetDataPresent(cst_ctrl))
+
+                    {
+                        Button source = new Button();
+                        source.Parent = e.Data.GetData(cst_ctrl) as TabLabel;
+
+                        if (targetIndex != -1)
+                            this.flpTitles.Controls.SetChildIndex(source.Parent, targetIndex);
+                    }
+                }
+            }
+        }
+
+        private int FindCSTIndex(Control cst_ctr)
+        {
+            for (int i = 0; i < this.flpTitles.Controls.Count; i++)
+            {
+                TabLabel target = this.flpTitles.Controls[i] as TabLabel;
+
+                if (cst_ctr.Parent == target)
+                    return i;
+            }
+            return -1;
+        }
+
+        private void OnCstMouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Control cst = sender as Control;
+                cst.DoDragDrop(cst.Parent, DragDropEffects.Move);
+            }
+        }
+        #endregion TabDragDrop
     }
 }
