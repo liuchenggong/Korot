@@ -16,5 +16,8 @@ namespace Korot_Win32
         {
             InitializeComponent();
         }
+
+        public bool AutoTabColor { get; internal set; }
+        public Color TabColor { get; internal set; }
     }
 }

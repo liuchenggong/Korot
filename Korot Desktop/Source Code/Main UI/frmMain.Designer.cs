@@ -41,6 +41,8 @@ namespace Korot
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SessionLogger = new System.Windows.Forms.Timer(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -51,9 +53,16 @@ namespace Korot
             // SessionLogger
             // 
             this.SessionLogger.Tick += new System.EventHandler(this.SessionLogger_Tick);
+            //
+            // panel1
+            //
+            this.panel1.BackColor = System.Drawing.Color.Red;
+            this.panel1.Location = new System.Drawing.Point(100, 100);
+            this.panel1.Size = new System.Drawing.Size(200, 300);
             // 
             // frmMain
             // 
+            this.Controls.Add(this.panel1);
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
@@ -68,11 +77,12 @@ namespace Korot
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.SizeChanged += new System.EventHandler(this.frmMain_Resize);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer SessionLogger;
     }

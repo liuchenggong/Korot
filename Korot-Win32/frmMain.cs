@@ -3,30 +3,58 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HTAlt;
 
 namespace Korot_Win32
 {
     public partial class frmMain : Form
     {
+
+        #region Constructor
+
         public frmMain()
         {
+            if (KorotGlobal.Settings == null)
+            {
+                KorotGlobal.Settings = new Settings();
+            }
             InitializeComponent();
-            MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
-            pTitleBar.MouseDoubleClick += new MouseEventHandler((sender, e) => OnMouseDoubleClick(e));
-            pTitleBar.MouseDown += new MouseEventHandler((sender, e) => OnMouseDown(e));
-            flpTitles.MouseDoubleClick += new MouseEventHandler((sender, e) => OnMouseDoubleClick(e));
-            flpTitles.MouseDown += new MouseEventHandler((sender, e) => OnMouseDown(e));
+            RefreshAppList(true);
         }
-        private bool RightMostClosing = false;
 
+        private void frmMain_Load(object sender, EventArgs e)
+        {
 
+        }
+
+        private void RefreshAppList(bool clearCurrent = false)
+        {
+            if (clearCurrent) { lvApps.Items.Clear(); }
+            foreach (KorotApp kapp in KorotGlobal.Settings.AppMan.Apps)
+            {
+                ilAppMan.Images.Add(KorotGlobal.GenerateAppIcon(kapp.GetAppIcon(), "#808080".HexToColor()));
+                ListViewItem item = new ListViewItem()
+                {
+                    Text = kapp.AppName,
+                    ToolTipText = kapp.AppCodeName,
+                    ImageIndex = ilAppMan.Images.Count - 1,
+                    Tag = kapp,
+                };
+                lvApps.Items.Add(item);
+            }
+
+        }
+
+        #endregion Constructor
 
         #region Animator
 
+        private bool RightMostClosing = false;
 
         /// <summary>
         /// Animation directions.
@@ -155,17 +183,15 @@ namespace Korot_Win32
                     break;
             }
         }
-        #endregion Animator
 
-        private bool allowResize = false;
         private void label1_MouseDown(object sender, MouseEventArgs e)
         {
             if (pAppDrawer.Dock != DockStyle.Left)
             {
                 pAppDrawer.Dock = DockStyle.Left;
             }
-            
-            if (e.Clicks > 2) 
+
+            if (e.Clicks > 2)
             {
                 switch (PrevDirection)
                 {
@@ -214,83 +240,32 @@ namespace Korot_Win32
             pAppDrawer.Width = allowResize ? (w > 0 ? (w <= (Width - 15) ? w : (Width - 15)) : panelMinSize) : pAppDrawer.Width;
         }
 
+        private bool allowResize = false;
+
         private void Form1_MouseLeave(object sender, EventArgs e)
         {
             allowResize = false;
         }
 
-        private void pTitleBar_DoubleClick(object sender, EventArgs e)
+        #endregion Animator
+
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
         {
-            WindowState = WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
-        }
-
-        private void frmMain_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btMinimize_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
-
-        private void btMaximize_Click(object sender, EventArgs e)
-        {
-            WindowState = WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
-        }
-
-        #region TabDragDrop
-
-        private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
-        {
-            Control target = new Control();
-
-            target.Parent = sender as Control;
-
-            if (target != null)
+            if (lvApps.SelectedItems.Count > 0)
             {
-                int targetIndex = FindCSTIndex(target.Parent);
-                if (targetIndex != -1)
+                var appItem = lvApps.SelectedItems[0];
+                var app = appItem.Tag as KorotApp;
+                var appcn = appItem.ToolTipText;
+                bool isSystemApp = DefaultApps.isSystemApp(appcn);
+                if (isSystemApp)
                 {
-                    string cst_ctrl = typeof(TabLabel).FullName;
-                    if (e.Data.GetDataPresent(cst_ctrl))
 
-                    {
-                        Button source = new Button();
-                        source.Parent = e.Data.GetData(cst_ctrl) as TabLabel;
-
-                        if (targetIndex != -1)
-                            this.flpTitles.Controls.SetChildIndex(source.Parent, targetIndex);
-                    }
                 }
             }
         }
-
-        private int FindCSTIndex(Control cst_ctr)
+        private void showApp(Form app)
         {
-            for (int i = 0; i < this.flpTitles.Controls.Count; i++)
-            {
-                TabLabel target = this.flpTitles.Controls[i] as TabLabel;
-
-                if (cst_ctr.Parent == target)
-                    return i;
-            }
-            return -1;
         }
-
-        private void OnCstMouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                Control cst = sender as Control;
-                cst.DoDragDrop(cst.Parent, DragDropEffects.Move);
-            }
-        }
-        #endregion TabDragDrop
     }
 }

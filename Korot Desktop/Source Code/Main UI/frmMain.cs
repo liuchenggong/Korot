@@ -525,6 +525,8 @@ namespace Korot
         }
         #endregion Updater
 
+        public frmMain() : this(new Settings(SafeFileSettingOrganizedClass.LastUser, false)) { }
+
         public frmMain(Settings settings)
         {
             Settings = settings;

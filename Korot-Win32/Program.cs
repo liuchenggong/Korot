@@ -13,7 +13,7 @@ namespace Korot_Win32
         static void Main(string[] args)
         {
             var exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
-            Wolfhook hook = new Wolfhook();
+            KorotGlobal.Wolfhook = new Wolfhook();
             if (exists)
             {
                 Output.WriteLine("<Korot.Program> App already running. Passing arguments..." , LogLevel.Warning);

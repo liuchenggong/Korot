@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using HTAlt;
 
 namespace Korot_Win32
 {
@@ -39,7 +40,7 @@ namespace Korot_Win32
                 id = HTAlt.Tools.GenerateRandomText(17);
             }
             Output.WriteLine("<WOLFHOOK> Created message=\"" + message + "\" from ID=\"" + id + "\" without error(s).", LogLevel.Info);
-            HTAlt.Tools.WriteFile(WhFolder + id + ".wh", message, DefaultEncoding);
+            message.WriteToFile(WhFolder + id + ".wh", DefaultEncoding);
         }
         private bool StopTask { get; set; } = false;
         /// <summary>

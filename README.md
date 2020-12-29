@@ -26,6 +26,10 @@ Developing Version: `Project Reset`
  - Download manager
  - Custom pages (New Tab, Incognito, Error Page etc.)
  - View local & online webpages
+
+### EasyTabs Folder
+The `EasyTabs` folder in this repository contains the same source code in [`lstratman/EasyTabs`](https://github.com/lstratman/EasyTabs) but with minor changes including 
+[`Make WindowSizingBoxes Customizable`](https://github.com/lstratman/EasyTabs/pull/47) & [`TitleBarTab.cs - Make some properties public`](https://github.com/lstratman/EasyTabs/pull/44) pull requests.
  
  ## Releases & Branches
 
@@ -37,10 +41,7 @@ To see roadmap, refer to [ROADMAP](https://github.com/Haltroy/Korot/blob/master/
 |----------------------------------------------------------------------|------|------|-------|-----------------|-----|-------------------|
 | [`master`](https://github.com/haltroy/korot)                      | 85 | 2015 | Framework 4.8 | b1.6.3 | Master | 17 July 2017 |
 | [`1.0.0.0`](https://github.com/Haltroy/Korot/tree/1.0.0.0) | >=86 | 2015 | Framework 4.8 | >=b1.6.3 | `Planned` | ?? March 2021 |
-| `Reset4`                                                   | 86 | 2015 | Framework 4.6.1| b1.6.3 | Reset | ?? January 2021  |
-| `Reset3`                                                   | 86 | 2015 | Framework 4.6.1| b1.6.3 | Reset | ?? December 2020 |
-| `Reset2`                                                   | 86 | 2015 | Framework 4.6.1| b1.6.3 | Reset | ?? December 2020 |
-| `Reset1`                                                   | n/a| n/a  | Framework 4.6.1| b1.6.3 | Reset | ?? December 2020 |
+| `Reset1`                                                   | n/a| n/a  | Framework 4.6.1| b1.6.3 | Reset | 2021 Q2 |
 | [`0.8.4.0`](https://github.com/Haltroy/Korot/tree/0.8.4.0) | 85 | 2015 | Framework 4.8 | b1.6 | **Latest Release** | 29 October 2020 |
 | [`0.8.3.0`](https://github.com/Haltroy/Korot/tree/0.8.3.0) | 84 | 2015 | Framework 4.8 | b1.6 | Unsupported | 13 October 2020 |
 | [`0.8.2.0`](https://github.com/Haltroy/Korot/tree/0.8.2.0) | 84 | 2015 | Framework 4.8 | b1.5.1 | Unsupported | 18 September 2020 |

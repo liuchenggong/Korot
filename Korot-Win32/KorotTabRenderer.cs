@@ -16,7 +16,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Win32Interop.Enums;
 
-namespace Korot
+namespace Korot_Win32
 {
     public class KorotTabRenderer : BaseTabRenderer
     {
@@ -29,6 +29,7 @@ namespace Korot
         public KorotTabRenderer(TitleBarTabs parentWindow) : base(parentWindow)
         {
             // Initialize the various images to use during rendering
+            /*
             _activeLeftSideImage = Properties.Resources.Left;
             _activeRightSideImage = Properties.Resources.Right;
             _activeCenterImage = Properties.Resources.Center;
@@ -40,6 +41,7 @@ namespace Korot
             _background = null;
             _addButtonImage = new Bitmap(Properties.Resources.Add);
             _addButtonHoverImage = new Bitmap(Properties.Resources.AddHover);
+            */
 
             // Set the various positioning properties
             CloseButtonMarginTop = 9;
@@ -319,7 +321,7 @@ namespace Korot
         {
             if (!IsWindows10 && !tab.Active && index == _parentWindow.Tabs.Count - 1)
             {
-                tabRightImage = Properties.Resources.InactiveRightNoDivider;
+              //  tabRightImage = Properties.Resources.InactiveRightNoDivider;
             }
 
             if (_suspendRendering)
@@ -330,7 +332,7 @@ namespace Korot
             // If we need to redraw the tab image
             if (tab.TabImage == null)
             {
-                frmCEF cefform = tab.Content as frmCEF;
+                frmTab cefform = tab.Content as frmTab;
                 Color tabColor = cefform.AutoTabColor ? (tab.Active ? Tools.ShiftBrightness(BackColor, 40, false) : Tools.ShiftBrightness(BackColor, 20, false)) : cefform.TabColor;
                 // We render the tab to an internal property so that we don't necessarily have to redraw it in every rendering pass, only if its width or
                 // status have changed
